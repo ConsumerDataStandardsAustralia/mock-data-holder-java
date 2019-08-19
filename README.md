@@ -1,1 +1,1 @@
-# cds-java-artifacts
+# java-artifacts
