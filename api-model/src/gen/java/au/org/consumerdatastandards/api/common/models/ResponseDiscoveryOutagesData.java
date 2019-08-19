@@ -1,0 +1,16 @@
+package au.org.consumerdatastandards.api.common.models;
+
+import java.util.List;
+import au.org.consumerdatastandards.support.data.*;
+
+@DataDefinition(
+    referenced = false
+)
+public class ResponseDiscoveryOutagesData {
+
+    @Property(
+        description = "List of scheduled outages. Property is mandatory but may contain and empty list if no outages are scheduled",
+        required = true
+    )
+    List<DiscoveryOutage> outages;
+}
