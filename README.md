@@ -1,1 +1,1 @@
-# java-artifacts
+# java-artefacts
