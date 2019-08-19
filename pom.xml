@@ -15,10 +15,29 @@
         <developerConnection>scm:git:https://github.com/ConsumerDataStandardsAustralia/java-artefacts.git</developerConnection>
     </scm>
 
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Consumer Data Standards Australia</name>
+            <email>cdr-data61@csiro.au</email>
+            <organization>Data61</organization>
+            <organizationUrl>https://data61.csiro.au/</organizationUrl>
+        </developer>
+    </developers>
+
     <properties>
         <revision>0.9.3</revision>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <build-helper.plugin.version>3.0.0</build-helper.plugin.version>
         <surefire.plugin.version>3.0.0-M3</surefire.plugin.version>
@@ -37,6 +56,7 @@
 
     <modules>
         <module>api-model</module>
+        <module>reflection</module>
     </modules>
 
     <distributionManagement>
@@ -44,11 +64,24 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -184,4 +217,33 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <profiles>
+        <profile>
+            <id>snapshot</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>central</id>
+                    <name>Maven Repository Switchboard</name>
+                    <url>http://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>sonatype-snapshots</id>
+                    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 </project>
