@@ -50,6 +50,7 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <junit.version>5.5.0</junit.version>
         <jacoco.version>0.8.4</jacoco.version>
+        <reflections.version>0.9.11</reflections.version>
         <sonar.organization>consumerdatastandardsaustralia</sonar.organization>
         <sonar.projectKey>ConsumerDataStandardsAustralia_cds-java-artefacts</sonar.projectKey>
     </properties>
@@ -57,6 +58,7 @@
     <modules>
         <module>api-model</module>
         <module>reflection</module>
+        <module>codegen</module>
     </modules>
 
     <distributionManagement>
@@ -198,6 +200,11 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit.version}</version>
@@ -244,6 +251,38 @@
                     </snapshots>
                 </repository>
             </repositories>
+        </profile>
+        <profile>
+            <id>release</id>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>bintray-cy6ergn0m-maven</id>
+                    <name>bintray-plugins</name>
+                    <url>http://dl.bintray.com/cy6ergn0m/maven</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>cy.github</groupId>
+                        <artifactId>github-release-plugin</artifactId>
+                        <version>0.5.1</version>
+                        <configuration>
+                            <tagName>${project.version}</tagName>
+                            <releaseTitle>${project.artifactId}-${project.version}</releaseTitle>
+                            <serverId>github</serverId>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>gh-upload</goal>
+                                </goals>
+                                <phase>deploy</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

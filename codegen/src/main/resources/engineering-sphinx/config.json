@@ -1,0 +1,59 @@
+{
+  "globalVariables": {
+    "dockerJavaCliVersion": "consumerdatastandardsaustralia/cds-client-java-cli:0.0.2-SNAPSHOT",
+    "dockerCodegenVersion": "consumerdatastandardsaustralia/cds-codegen-core:0.0.3-SNAPSHOT",
+    "dockerHolderVersion": "consumerdatastandardsaustralia/cds-holder-java:0.0.2-SNAPSHOT",
+    "mavenJavaClientVersion": "0.0.2-SNAPSHOT",
+    "mavenJavaClientCliVersion": "0.0.2-SNAPSHOT",
+    "mavenJavaHolderVersion": "0.0.2-SNAPSHOT",
+    "mavenJavaStubsVersion": "0.0.1-SNAPSHOT",
+    "mavenCodegenVersion": "0.0.3-SNAPSHOT",
+    "baseUri": "https://api.holder.com/cds-au/v1"
+  },
+  "handlers": [
+    {
+      "type": "GenericHandler",
+      "baseDirectory": "source/artefacts",
+      "fileMapping": {
+        "engineering-sphinx/java-client/index.rst": "client/client-java/index.rst",
+        "engineering-sphinx/java-client/quickstart.rst": "client/client-java/quickstart.rst",
+        "engineering-sphinx/java-client-cli/index.rst": "client/client-java-cli/index.rst",
+        "engineering-sphinx/java-client-cli/quickstart.rst": "client/client-java-cli/quickstart.rst",
+        "engineering-sphinx/java-holder-spring/index.rst": "server/holder-java-spring/index.rst",
+        "engineering-sphinx/java-holder-spring/quickstart.rst": "server/holder-java-spring/quickstart.rst",
+        "engineering-sphinx/stubs-java/index.rst": "server/stubs-java-spring/index.rst",
+        "engineering-sphinx/stubs-java/quickstart.rst": "server/stubs-java-spring/quickstart.rst",
+        "engineering-sphinx/codegen/index.rst": "support/codegen/index.rst",
+        "engineering-sphinx/codegen/quickstart.rst": "support/codegen/quickstart.rst"
+      },
+      "additionalAttributes": {
+      }
+    },
+    {
+      "type": "DataDefinitionHandler",
+      "baseDirectory": "source/artefacts",
+      "modelTemplate": "engineering-sphinx/java-client/model/model.vm",
+      "enumTemplate": "engineering-sphinx/java-client/model/enum.vm",
+      "fileName": "${cds.getDefinitionName()}.rst",
+      "filePath": "client/client-java/model",
+      "additionalAttributes": {
+      }
+    },
+    {
+      "type": "SectionHandler",
+      "baseDirectory": "source/artefacts",
+      "templateFile": "engineering-sphinx/java-client/section/doc.vm",
+      "fileName": "${cds.getInterfaceName()}.rst",
+      "filePath": "client/client-java/sections",
+      "additionalAttributes": {
+      }
+    }
+  ],
+  "typeMappings": {
+    "String": "String",
+    "List": "List<%s>",
+    "DateTime": "OffsetDateTime",
+    "Date": "Date",
+    "URI": "URI"
+  }
+}

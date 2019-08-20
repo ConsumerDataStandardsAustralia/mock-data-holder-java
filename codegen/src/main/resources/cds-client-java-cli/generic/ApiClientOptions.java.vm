@@ -1,0 +1,26 @@
+#include("java-common/header.vm")
+package $packageName;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.UUID;
+
+import au.org.consumerdatastandards.client.ApiClient;
+import au.org.consumerdatastandards.client.ApiException;
+
+public class ApiClientOptions {
+    
+    private String serverUrl;
+
+    public String getServerUrl() {
+        return serverUrl;
+    }
+
+    public void setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
+    }
+    
+    
+
+    
+}

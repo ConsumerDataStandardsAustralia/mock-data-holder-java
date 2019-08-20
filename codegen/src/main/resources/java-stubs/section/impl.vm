@@ -1,0 +1,63 @@
+#include("java-common/header.vm")
+package $packageName;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.NativeWebRequest;
+import ${modelPackage}.*;
+import ${utilPackage}.*;
+
+
+import javax.validation.Valid;
+import java.time.OffsetDateTime;
+import java.util.Optional;
+
+@Controller
+@RequestMapping("$basePath")
+public class ${interfaceName}Controller implements $interfaceName {
+
+    private final NativeWebRequest request;
+
+    @Autowired
+    public ${interfaceName}Controller(NativeWebRequest request) {
+        this.request = request;
+    }
+
+    @Override
+    public Optional<NativeWebRequest> getRequest() {
+        return Optional.ofNullable(request);
+    }
+    
+#foreach($endpoint in $cds.getEndpointModels())
+    #parse("common/endpointdefinition.vm")
+    @Override
+    public ResponseEntity<$endpointDefaultResponse> ${endpointOperationId}(
+    #foreach($oneParam in $endpoint.getPathParams())
+                @Valid $oneParam.getParamDataType().getSimpleName() $oneParam.getCamelCaseName()#if( $foreach.hasNext ),#end
+    #end
+    #if($endpoint.getPathParams() and $endpoint.getPathParams().size() > 0 and $endpoint.getQueryParams() and $endpoint.getQueryParams().size() > 0),#end
+    #foreach($oneParam in $endpoint.getQueryParams())
+        @Valid $oneParam.getParamDataType().getSimpleName() $oneParam.getCamelCaseName()#if( $foreach.hasNext ),#end
+    #end
+    ) {
+
+        if (!WebUtil.hasSupportedVersion(request)) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
+        HttpHeaders headers = WebUtil.processHeaders(request);
+
+        // TODO: Fill in your magic here!
+
+        return new ResponseEntity<>(new $endpointDefaultResponse(),headers,HttpStatus.OK);
+    
+    }
+#end
+
+}

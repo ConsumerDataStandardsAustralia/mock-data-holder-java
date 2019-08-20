@@ -1,0 +1,84 @@
+{
+  "globalVariables": {
+    "basePackageName": "au.org.consumerdatastandards.stubs",
+    "basePackagePath": "au/org/consumerdatastandards/stubs",
+    "basePath": "/cds-au/v1"
+  },
+  "handlers": [
+    {
+      "type": "SectionHandler",
+      "baseDirectory": "src/gen/java",
+      "templateFile": "java-stubs/section/interface.vm",
+      "fileName": "${cds.getInterfaceName()}.java",
+      "filePath": "${basePackagePath}/api",
+      "additionalAttributes": {
+        "packageName": "${basePackageName}.api",
+        "sectionName": "${cds.getName()}",
+        "interfaceName": "${cds.getInterfaceName()}",
+        "modelPackage": "${basePackageName}.model"
+      }
+    },
+    {
+      "type": "SectionHandler",
+      "baseDirectory": "src/gen/java",
+      "templateFile": "java-stubs/section/impl.vm",
+      "fileName": "${cds.getInterfaceName()}Controller.java",
+      "filePath": "${basePackagePath}/api",
+      "additionalAttributes": {
+        "packageName": "${basePackageName}.api",
+        "modelPackage": "${basePackageName}.model",
+        "servicePackage": "${basePackageName}.service",
+        "utilPackage": "${basePackageName}.util"
+      }
+    },
+    {
+      "type": "DataDefinitionHandler",
+      "baseDirectory": "src/gen/java",
+      "modelTemplate": "java-stubs/model/model.vm",
+      "enumTemplate": "java-stubs/model/enumcontainer.vm",
+      "inlineEnumTemplate": "java-stubs/model/enum.vm",      
+      "fileName": "${cds.getDefinitionName()}.java",
+      "filePath": "${basePackagePath}/model",
+      "additionalAttributes": {
+        "packageName": "${basePackageName}.model"
+      }
+    },
+    {
+      "type": "GenericHandler",
+      "baseDirectory": "src/gen/java",
+      "fileMapping": {
+        "java-stubs/generic/HolderApplication.java.vm": "${basePackagePath}/HolderApplication.java",
+        "java-stubs/generic/HomeController.java.vm": "${basePackagePath}/configuration/HomeController.java",
+        "java-stubs/generic/OpenAPIDocumentationConfig.java.vm": "${basePackagePath}/configuration/OpenAPIDocumentationConfig.java",
+        "java-stubs/generic/WebUtil.java.vm": "${basePackagePath}/util/WebUtil.java",
+        "java-stubs/generic/pom.xml.vm": "../../../pom.xml",
+        "java-stubs/generic/banner.txt.vm": "../../main/resources/banner.txt",
+        "java-stubs/generic/travis-ci.yml.vm": "../../../.travis.yml"
+      },
+      "additionalAttributes": {
+        "packageName": "${basePackageName}",
+        "titleName": "Consumer Data Standards",
+        "titleDescription": "API sets created by the Australian Consumer Data Standards to meet the needs of the Consumer Data Right",
+        "licenseName": "MIT License",
+        "licenseUrl": "https://opensource.org/licenses/MIT",
+        "contactName": "Data61",
+        "contactUrl": "https://consumerdatastandards.org.au",
+        "contactEmail": "cdr-data61@csiro.au",
+        "tosUrl": "https://www.csiro.au/en/About/Footer/Legal-notice"
+      }
+    }
+  ],
+  "typeMappings": {
+    "String": "String",
+    "List": "List<%s>",
+    "DateTime": "OffsetDateTime",
+    "Date": "Date",
+    "URI": "URI",
+    "ExternalRef": "String",
+    "ASCII": "String",
+    "NaturalNumber": "Integer",    
+    "Amount": "BigDecimal",
+    "Currency": "String",
+    "Rate": "BigDecimal"
+  }
+}

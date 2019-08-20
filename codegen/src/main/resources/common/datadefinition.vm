@@ -1,0 +1,6 @@
+#set( $fieldName = $field.getName() )
+#set( $fieldType = $field.getType() )
+#set( $fieldNameCapital = $field.getCapitalisedName() )
+#set( $fieldRequired = $field.isRequired() )
+#set( $fieldDescription = $field.getDescription() )
+#set( $fieldIsId = $field.isId() )

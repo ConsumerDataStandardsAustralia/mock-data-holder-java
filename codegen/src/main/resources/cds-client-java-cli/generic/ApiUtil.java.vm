@@ -1,0 +1,44 @@
+#include("java-common/header.vm")
+package $packageName;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.UUID;
+
+import au.org.consumerdatastandards.client.ApiClient;
+import au.org.consumerdatastandards.client.ApiException;
+
+public class ApiUtil {
+    public static ApiClient getApiClient(String serverUrl) throws ApiException {
+        if(serverUrl == null) {
+            throw new ApiException("Server URL not set, please use `server` command to set Server URL first");
+        }
+        if (isValid(serverUrl)) {
+            ApiClient client = new ApiClient();
+            client.setBasePath(serverUrl);
+            client.addDefaultHeader("x-v", "1");
+            client.addDefaultHeader("x-min-v", "1");
+            client.addDefaultHeader("x-fapi-financial-id", "cds");
+            client.addDefaultHeader("x-fapi-customer-last-logged-time", "");
+            client.addDefaultHeader("x-fapi-customer-ip-address", "192.168.1.2");
+            client.addDefaultHeader("x-fapi-interaction-id", UUID.randomUUID().toString());
+            System.out.println("Server URL is set to " + serverUrl);
+            return client;
+        } else {
+            throw new ApiException("Invalid Server URL, please double check it");
+        }
+    }
+    
+    private static boolean isValid(String url) {
+        String lowerCaseUrl = url.toLowerCase();
+        if (!lowerCaseUrl.startsWith("https://") && !lowerCaseUrl.startsWith("http://")) {
+            return false;
+        }
+        try {
+            new URL(url);
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        }
+    }
+}

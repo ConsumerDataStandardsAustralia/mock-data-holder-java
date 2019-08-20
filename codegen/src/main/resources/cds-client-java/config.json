@@ -1,0 +1,76 @@
+{
+  "globalVariables": {
+    "basePackageName": "au.org.consumerdatastandards.client",
+    "basePackagePath": "au/org/consumerdatastandards/client",
+    "basePath": "/cds-au/v1"
+  },
+  "handlers": [
+    {
+      "type": "GenericHandler",
+      "baseDirectory": "src/main/java",
+      "fileMapping": {
+        "cds-client-java/generic/ApiCallback.java.vm": "${basePackagePath}/ApiCallback.java",
+        "cds-client-java/generic/ApiClient.java.vm": "${basePackagePath}/ApiClient.java",
+        "cds-client-java/generic/ApiException.java.vm": "${basePackagePath}/ApiException.java",
+        "cds-client-java/generic/ApiResponse.java.vm": "${basePackagePath}/ApiResponse.java",
+        "cds-client-java/generic/Configuration.java.vm": "${basePackagePath}/Configuration.java",
+        "cds-client-java/generic/GzipRequestInterceptor.java.vm": "${basePackagePath}/GzipRequestInterceptor.java",
+        "cds-client-java/generic/JSON.java.vm": "${basePackagePath}/JSON.java",
+        "cds-client-java/generic/Pair.java.vm": "${basePackagePath}/Pair.java",
+        "cds-client-java/generic/ProgressRequestBody.java.vm": "${basePackagePath}/ProgressRequestBody.java",
+        "cds-client-java/generic/ProgressResponseBody.java.vm": "${basePackagePath}/ProgressResponseBody.java",
+        "cds-client-java/generic/StringUtil.java.vm": "${basePackagePath}/StringUtil.java",
+        "cds-client-java/generic/pom.xml.vm": "../../../pom.xml"
+      },
+      "additionalAttributes": {
+        "packageName": "${basePackageName}",
+        "modelPackage": "${basePackageName}.model",
+        "apiPackage": "${basePackageName}.api",
+        "title": "Consumer Data Standards",
+        "description": "API sets created by the Australian Consumer Data Standards to meet the needs of the Consumer Data Right",
+        "licenseName": "MIT License",
+        "licenseUrl": "https://opensource.org/licenses/MIT",
+        "contactName": "Data61",
+        "contactUrl": "https://consumerdatastandards.org.au",
+        "contactEmail": "cdr-data61@csiro.au",
+        "tosUrl": "https://www.csiro.au/en/About/Footer/Legal-notice"
+      }
+    },
+    {
+      "type": "DataDefinitionHandler",
+      "baseDirectory": "src/main/java",
+      "modelTemplate": "cds-client-java/model/model.vm",
+      "inlineEnumTemplate": "cds-client-java/model/enum.vm",
+      "enumTemplate": "cds-client-java/model/enumcontainer.vm",
+      "fileName": "${cds.getDefinitionName()}.java",
+      "filePath": "${basePackagePath}/model",
+      "additionalAttributes": {
+        "packageName": "${basePackageName}.model"
+      }
+    },
+    {
+      "type": "SectionHandler",
+      "baseDirectory": "src/main/java",
+      "templateFile": "cds-client-java/section/impl.vm",
+      "fileName": "${cds.getInterfaceName()}.java",
+      "filePath": "${basePackagePath}/api",
+      "additionalAttributes": {
+        "packageName": "${basePackageName}.api",
+        "modelPackage": "${basePackageName}.model"
+      }
+    }
+  ],
+  "typeMappings": {
+    "String": "String",
+    "List": "List<%s>",
+    "DateTime": "OffsetDateTime",
+    "Date": "Date",
+    "URI": "URI",
+    "ExternalRef": "String",
+    "ASCII": "String",
+    "NaturalNumber": "Integer",
+    "Amount": "BigDecimal",
+    "Currency": "String",
+    "Rate": "BigDecimal"
+  }
+}

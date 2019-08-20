@@ -1,0 +1,17 @@
+$definitionName
+$StringUtils.repeat('=', $definitionName.length()+2)
+
+Enum Options
+----------------
+
+.. list-table::
+    :widths: 25 80
+    :header-rows: 1
+
+    * - Name
+      - Description
+#foreach($field in $fieldList)
+    #parse("common/datadefinition.vm")
+    * - $fieldName
+      - $fieldDescription
+#end

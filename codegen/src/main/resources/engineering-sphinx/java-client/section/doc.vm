@@ -1,0 +1,113 @@
+$interfaceName
+$StringUtils.repeat('=', $interfaceName.length()+2)
+
+All URIs are relative to `$baseUri <$baseUri>`__
+
+.. list-table::
+    :widths: 10 40 50
+    :header-rows: 1
+
+    * - Method
+      - HTTP Request
+      - Description
+#foreach($endpoint in $cds.getEndpointModels())
+    #parse("common/endpointdefinition.vm")
+    * - `$endpointOperationId <#$StringUtils.lowerCase($endpointOperationId)>`__
+      - **$endpointMethod** $endpointPath
+      - $endpointSummary
+#end
+
+#foreach($endpoint in $cds.getEndpointModels())
+    #parse("common/endpointdefinition.vm")
+
+$endpointOperationId
+----------------------------
+
+*$endpointSummary*
+
+$StringUtils.replace($endpointDescription, "\n", "
+")
+
+Example
+^^^^^^^^^^^
+
+
+.. code-block:: java
+
+    import java.util.UUID;    
+    import au.org.consumerdatastandards.client.ApiClient;
+    import au.org.consumerdatastandards.client.ApiException;
+    import au.org.consumerdatastandards.client.api.$interfaceName;
+    import au.org.consumerdatastandards.client.model.*;
+    
+    public class ClientApiProductTest {
+        public static void main(String[] args) {
+            $interfaceName api = new $interfaceName(); 
+            
+            ApiClient client = new ApiClient();
+            client.setBasePath("http://localhost:8080/cds-au/v1");
+            client.addDefaultHeader("x-v", "1");
+            client.addDefaultHeader("x-min-v", "1");
+            client.addDefaultHeader("x-fapi-financial-id", "cds");
+            client.addDefaultHeader("x-fapi-customer-last-logged-time", "");
+            client.addDefaultHeader("x-fapi-customer-ip-address", "192.168.1.2");
+            client.addDefaultHeader("x-fapi-interaction-id", UUID.randomUUID().toString());
+            
+            api.setApiClient(client);
+            
+            try {
+                $endpointDefaultResponse result = api.$endpointOperationId($StringUtils.repeat("null", ",", $endpoint.getParamModels().size()));
+            } catch (ApiException e) {
+                System.err.println("Exception when calling $interfaceName#$endpointOperationId");
+                e.printStackTrace();
+            }
+       }
+    }
+
+
+Parameters
+^^^^^^^^^^^^^^^
+
+.. list-table::
+    :widths: 10 40 40 10
+    :header-rows: 1
+
+    * - Name
+      - Type
+      - Description
+      - Default
+#foreach($oneParam in $endpoint.getParamModels())
+    * - $oneParam.getName()
+    #if($oneParam.getParamDataType().getSimpleName() == $oneParam.getParam().reference())
+      - `$oneParam.getParam().reference() <../model/${oneParam.getParam().reference()}.html>`__ 
+    #elseif($oneParam.getParamDataType().isEnum())
+      - `$oneParam.getParamDataType().getSimpleName() <../model/${oneParam.getParamDataType().getSimpleName()}.html>`__ 
+    #else
+      - $oneParam.getParamDataType().getSimpleName()
+    #end
+      - $oneParam.getParam().description()
+      - $oneParam.getParam().defaultValue()
+#end
+
+Return Type
+^^^^^^^^^^^^^^^^
+
+`$endpointDefaultResponse <../model/${endpointDefaultResponse}.html>`__
+
+Authorisation
+^^^^^^^^^^^^^^^^
+
+No authorization required
+
+HTTP Request Headers
+^^^^^^^^^^^^^^^^^^^^^^^^
+    - **Content-Type**: application/json
+    - **Accept**: application/json
+    - **x-v**: Maximum supported version
+    - **x-min-v**: Minimum Supported Version
+    - **x-fapi-financial-id**: Financial ID of Provider ID
+    - **x-fapi-customer-last-logged-time**: Last logged in time of end customer
+    - **x-fapi-customer-ip-address**: If known, the end user IP address
+    - **x-fapi-interaction-id**: A unique identifier for this interaction, verified and returned by server
+
+#end

@@ -1,0 +1,23 @@
+#include("java-common/header.vm")
+package $packageName;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.shell.standard.ShellCommandGroup;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
+
+@ShellComponent
+@ShellCommandGroup("Common Functions")
+public class CommonCli {
+    
+    @Autowired
+    ApiClientOptions apiClientOptions;
+    
+    @ShellMethod("Set CDS server URL, e.g. http://data.holder/cds-au/v1")
+    public void server(@ShellOption String url) {
+        apiClientOptions.setServerUrl(url);
+        System.out.println("Server URL is set to " + apiClientOptions.getServerUrl());
+    }
+
+}

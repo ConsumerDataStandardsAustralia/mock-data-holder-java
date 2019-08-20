@@ -1,0 +1,63 @@
+#include("java-common/header.vm")
+package $packageName;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.shell.standard.ShellCommandGroup;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
+import org.threeten.bp.OffsetDateTime;
+
+import au.org.consumerdatastandards.client.ApiException;
+import ${apiPackage}.*;
+import ${modelPackage}.*;
+
+@ShellComponent
+@ShellCommandGroup("${sectionName}")
+public class ${interfaceName}Cli {
+
+    @Autowired
+    ApiClientOptions apiClientOptions;
+    
+    private final ${interfaceName} api = new ${interfaceName}(); 
+
+#foreach($endpoint in $cds.getEndpointModels())
+    #parse("common/endpointdefinition.vm")
+    
+    @ShellMethod("${endpointSummary}")
+    public void ${endpointOperationId}(
+    #foreach($oneParam in $endpoint.getPathParams())
+        @ShellOption(defaultValue = ShellOption.NULL) $oneParam.getParamDataType().getSimpleName() $oneParam.getCamelCaseName()#if( $foreach.hasNext ),#end
+    #end
+    #if($endpoint.getPathParams() and $endpoint.getPathParams().size() > 0 and $endpoint.getQueryParams() and $endpoint.getQueryParams().size() > 0),#end
+    #foreach($oneParam in $endpoint.getQueryParams())
+        @ShellOption(defaultValue = ShellOption.NULL) $oneParam.getParamDataType().getSimpleName() $oneParam.getCamelCaseName()#if( $foreach.hasNext ),#end
+    #end    
+    ) throws ApiException {
+
+        api.setApiClient(ApiUtil.getApiClient(apiClientOptions.getServerUrl()));
+        
+        try {
+            $endpointDefaultResponse response = api.${endpointOperationId}(
+        #foreach($oneParam in $endpoint.getPathParams())
+            $oneParam.getCamelCaseName()#if( $foreach.hasNext ),#end
+        #end
+        #if($endpoint.getPathParams() and $endpoint.getPathParams().size() > 0 and $endpoint.getQueryParams() and $endpoint.getQueryParams().size() > 0),#end
+        #foreach($oneParam in $endpoint.getQueryParams())
+            $oneParam.getCamelCaseName()#if( $foreach.hasNext ),#end
+        #end
+            );
+            System.out.println(response);
+        } catch (Exception e) {
+            System.out.println("Oops, something went wrong!");
+            throw e;
+        }
+    }    
+
+#end
+
+}

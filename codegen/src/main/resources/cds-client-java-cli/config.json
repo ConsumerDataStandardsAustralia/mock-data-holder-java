@@ -1,0 +1,57 @@
+{
+  "globalVariables": {
+    "basePackageName": "au.org.consumerdatastandards.client",
+    "basePackagePath": "au/org/consumerdatastandards/client",
+    "basePath": "/cds-au/v1"
+  },
+  "handlers": [
+    {
+      "type": "GenericHandler",
+      "baseDirectory": "src/main/java",
+      "fileMapping": {
+        "cds-client-java-cli/generic/CdsClientShell.java.vm": "${basePackagePath}/cli/CdsClientShell.java",
+        "cds-client-java-cli/generic/ApiClientOptions.java.vm": "${basePackagePath}/cli/ApiClientOptions.java",
+        "cds-client-java-cli/generic/ApiUtil.java.vm": "${basePackagePath}/cli/ApiUtil.java",
+        "cds-client-java-cli/generic/CommonCli.java.vm": "${basePackagePath}/cli/CommonCli.java",
+        "cds-client-java-cli/generic/OffsetDateTimeConverter.java.vm": "${basePackagePath}/cli/OffsetDateTimeConverter.java",
+        "cds-client-java-cli/generic/banner.txt.vm": "../resources/banner.txt",
+        "cds-client-java-cli/generic/pom.xml.vm": "../../../pom.xml",
+        "cds-client-java-cli/generic/Dockerfile.vm": "../../../Dockerfile"
+      },
+      "additionalAttributes": {
+        "packageName": "${basePackageName}.cli",
+        "modelPackage": "${basePackageName}.model",
+        "apiPackage": "${basePackageName}.api",
+        "titleName": "Consumer Data Standards",
+        "titleDescription": "API sets created by the Australian Consumer Data Standards to meet the needs of the Consumer Data Right",
+        "licenseName": "MIT License",
+        "licenseUrl": "https://opensource.org/licenses/MIT",
+        "contactName": "Data61",
+        "contactUrl": "https://consumerdatastandards.org.au",
+        "contactEmail": "cdr-data61@csiro.au",
+        "tosUrl": "https://www.csiro.au/en/About/Footer/Legal-notice"
+      }
+    },
+    {
+      "type": "SectionHandler",
+      "baseDirectory": "src/main/java",
+      "templateFile": "cds-client-java-cli/section/impl.vm",
+      "fileName": "${cds.getInterfaceName()}Cli.java",
+      "filePath": "${basePackagePath}/cli",
+      "additionalAttributes": {
+        "packageName": "${basePackageName}.cli",
+        "apiPackage": "${basePackageName}.api",
+        "sectionName": "${cds.getName()}",
+        "interfaceName": "${cds.getInterfaceName()}",
+        "modelPackage": "${basePackageName}.model"
+      }
+    }
+  ],
+  "typeMappings": {
+    "String": "String",
+    "List": "List<%s>",
+    "DateTime": "OffsetDateTime",
+    "Date": "Date",
+    "URI": "URI"
+  }
+}

@@ -1,0 +1,32 @@
+$definitionName
+$StringUtils.repeat('=', $definitionName.length()+2)
+
+#if($extendsOn)$definitionName extends `$extendsOn <${extendsOn}.html>`__ #end
+
+
+Properties
+------------
+
+.. list-table::
+    :widths: 10 5 50 10
+    :header-rows: 1
+
+    * - Name
+      - Type
+      - Description
+      - Required
+#if($fieldList.size() > 0)      
+    #foreach($field in $fieldList)
+    #parse("common/datadefinition.vm")
+    * - $fieldName
+      - $fieldType
+      - $fieldDescription
+      - $fieldRequired
+    #end
+#else
+    * - No Data
+      -
+      -
+      -
+#end
+
