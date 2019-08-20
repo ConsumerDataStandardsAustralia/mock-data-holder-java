@@ -59,6 +59,7 @@
         <module>api-model</module>
         <module>reflection</module>
         <module>codegen</module>
+        <module>codegen-maven-plugin</module>
     </modules>
 
     <distributionManagement>
