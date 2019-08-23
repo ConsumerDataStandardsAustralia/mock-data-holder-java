@@ -1,0 +1,6 @@
+{
+  "depositRateType": "VARIABLE",
+  "rate": "1.35",
+  "applicationFrequency": "P1M",
+  "additionalInfoUri": "https://acmebank.com/products/eda/"
+}

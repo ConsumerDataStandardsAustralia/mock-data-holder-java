@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Acme Bank Home Loan Bundle",
+    "description": "string",
+    "additionalInfo": "string",
+    "additionalInfoUri": "https://acmebank.com/products/bundles/personal",
+    "productIds": [
+      "51745",
+      "51845"
+    ]
+  }
+]

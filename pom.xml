@@ -48,11 +48,13 @@
         <maven-scm-provider-gitext.version>1.11.2</maven-scm-provider-gitext.version>
         <nexus-staging.plugin.version>1.6.8</nexus-staging.plugin.version>
         <maven-shade.plugin.version>3.2.1</maven-shade.plugin.version>
+        <dockerfile-maven.version>1.4.12</dockerfile-maven.version>
         <source.plugin.version>2.2.1</source.plugin.version>
         <release.plugin.version>2.5.3</release.plugin.version>
         <gpg.plugin.version>1.5</gpg.plugin.version>
         <javadoc.plugin.version>2.9.1</javadoc.plugin.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
+        <jackson.version>2.9.9</jackson.version>
         <junit.version>5.5.0</junit.version>
         <jacoco.version>0.8.4</jacoco.version>
         <reflections.version>0.9.11</reflections.version>
@@ -69,6 +71,7 @@
         <module>codegen</module>
         <module>codegen-maven-plugin</module>
         <module>client</module>
+        <module>reference-test</module>
     </modules>
 
     <distributionManagement>
@@ -221,7 +224,6 @@
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${maven-shade.plugin.version}</version>
                     <executions>
-                        <!-- Run shade goal on package phase -->
                         <execution>
                             <phase>package</phase>
                             <goals>
@@ -229,6 +231,11 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>${dockerfile-maven.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
