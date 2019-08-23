@@ -2,7 +2,6 @@
 package $packageName;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 import java.net.URI;
@@ -36,7 +35,6 @@ public class $definitionName #if($extendsOn)extends $extendsOn#end {
 #foreach($field in $fieldList)
     #parse("common/datadefinition.vm")
     
-    @ApiModelProperty(value = "$fieldDescription", required = $fieldRequired)
     public $fieldType get$fieldNameCapital() {
         return $fieldName;
     }

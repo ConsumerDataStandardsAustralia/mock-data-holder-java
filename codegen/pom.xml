@@ -14,10 +14,8 @@
     <properties>
         <maven.deploy.skip>false</maven.deploy.skip>
         <sonar.skip>true</sonar.skip>
-        <maven-shade.plugin.version>3.2.1</maven-shade.plugin.version>
         <dockerfile-maven.version>1.4.12</dockerfile-maven.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
-        <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <guava.version>27.1-jre</guava.version>
         <velocity.version>2.1</velocity.version>
         <velocity.tools.version>3.0</velocity.tools.version>
@@ -38,7 +36,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>${maven-shade.plugin.version}</version>
                 <executions>
                     <!-- Run shade goal on package phase -->
                     <execution>
@@ -124,7 +121,6 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-core</artifactId>
-            <version>${swagger-core.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.validation</groupId>
@@ -168,7 +164,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>${spring-boot.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>

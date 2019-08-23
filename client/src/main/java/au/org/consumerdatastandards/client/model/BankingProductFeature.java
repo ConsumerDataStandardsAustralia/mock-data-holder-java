@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 import com.google.gson.TypeAdapter;
@@ -36,7 +35,6 @@ public class BankingProductFeature {
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 
-  @ApiModelProperty(value = "The type of feature described", required = true)
   public FeatureType getFeatureType() {
     return featureType;
   }
@@ -50,10 +48,6 @@ public class BankingProductFeature {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Generic field containing additional information relevant to the featureType specified. Whether mandatory or not is dependent on the value of featureType",
-      required = false)
   public String getAdditionalValue() {
     return additionalValue;
   }
@@ -67,10 +61,6 @@ public class BankingProductFeature {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Display text providing more information on the feature. Mandatory if the feature type is set to OTHER",
-      required = false)
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -84,9 +74,6 @@ public class BankingProductFeature {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Link to a web page with more information on this feature",
-      required = false)
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }

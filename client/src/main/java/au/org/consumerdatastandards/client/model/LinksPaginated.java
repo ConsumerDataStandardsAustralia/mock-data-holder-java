@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 
 /** LinksPaginated */
@@ -35,7 +33,6 @@ public class LinksPaginated {
   @SerializedName("last")
   private String last;
 
-  @ApiModelProperty(value = "Fully qualified link to this API call", required = true)
   public String getSelf() {
     return self;
   }
@@ -49,9 +46,6 @@ public class LinksPaginated {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "String to the first page of this set. Mandatory if this response is not the first page",
-      required = false)
   public String getFirst() {
     return first;
   }
@@ -65,10 +59,6 @@ public class LinksPaginated {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "String to the previous page of this set. Mandatory if this response is not the first page",
-      required = false)
   public String getPrev() {
     return prev;
   }
@@ -82,9 +72,6 @@ public class LinksPaginated {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "String to the next page of this set. Mandatory if this response is not the last page",
-      required = false)
   public String getNext() {
     return next;
   }
@@ -98,9 +85,6 @@ public class LinksPaginated {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "String to the last page of this set. Mandatory if this response is not the last page",
-      required = false)
   public String getLast() {
     return last;
   }

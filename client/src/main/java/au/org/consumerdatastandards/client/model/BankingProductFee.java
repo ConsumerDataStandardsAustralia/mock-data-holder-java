@@ -13,7 +13,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -73,7 +72,6 @@ public class BankingProductFee {
   @SerializedName("discounts")
   private List<BankingProductDiscount> discounts;
 
-  @ApiModelProperty(value = "Name of the fee", required = true)
   public String getName() {
     return name;
   }
@@ -87,7 +85,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(value = "The type of fee", required = true)
   public FeeType getFeeType() {
     return feeType;
   }
@@ -101,10 +98,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The amount charged for the fee. One of amount, balanceRate, transactionRate and accruedRate is mandatory",
-      required = false)
   public BigDecimal getAmount() {
     return amount;
   }
@@ -118,10 +111,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "A fee rate calculated based on a proportion of the balance. One of amount, balanceRate, transactionRate and accruedRate is mandatory",
-      required = false)
   public BigDecimal getBalanceRate() {
     return balanceRate;
   }
@@ -135,10 +124,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "A fee rate calculated based on a proportion of a transaction. One of amount, balanceRate, transactionRate and accruedRate is mandatory",
-      required = false)
   public BigDecimal getTransactionRate() {
     return transactionRate;
   }
@@ -152,10 +137,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "A fee rate calculated based on a proportion of the calculated interest accrued on the account. One of amount, balanceRate, transactionRate and accruedRate is mandatory",
-      required = false)
   public BigDecimal getAccruedRate() {
     return accruedRate;
   }
@@ -169,10 +150,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The indicative frequency with which the fee is calculated on the account. Only applies if balanceRate or accruedRate is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)",
-      required = false)
   public String getAccrualFrequency() {
     return accrualFrequency;
   }
@@ -186,9 +163,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "The currency the fee will be charged in. Assumes AUD if absent",
-      required = false)
   public String getCurrency() {
     return currency;
   }
@@ -202,10 +176,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Generic field containing additional information relevant to the feeType specified. Whether mandatory or not is dependent on the value of feeType",
-      required = false)
   public String getAdditionalValue() {
     return additionalValue;
   }
@@ -219,7 +189,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(value = "Display text providing more information on the fee", required = false)
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -233,9 +202,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Link to a web page with more information on this fee",
-      required = false)
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }
@@ -249,9 +215,6 @@ public class BankingProductFee {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "An optional list of discounts to this fee that may be available",
-      required = false)
   public List<BankingProductDiscount> getDiscounts() {
     return discounts;
   }

@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 
@@ -19,7 +18,6 @@ public class Links {
   @SerializedName("self")
   private String self;
 
-  @ApiModelProperty(value = "Fully qualified link to this API call", required = true)
   public String getSelf() {
     return self;
   }

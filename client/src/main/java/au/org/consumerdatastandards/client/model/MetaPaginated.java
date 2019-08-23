@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 
 /** MetaPaginated */
@@ -22,7 +20,6 @@ public class MetaPaginated {
   @SerializedName("totalPages")
   private Integer totalPages;
 
-  @ApiModelProperty(value = "The total number of records in the full set", required = true)
   public Integer getTotalRecords() {
     return totalRecords;
   }
@@ -36,7 +33,6 @@ public class MetaPaginated {
     return this;
   }
 
-  @ApiModelProperty(value = "The total number of pages in the full set", required = true)
   public Integer getTotalPages() {
     return totalPages;
   }

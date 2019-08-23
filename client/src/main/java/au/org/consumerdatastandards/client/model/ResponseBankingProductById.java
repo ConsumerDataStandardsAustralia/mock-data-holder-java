@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 
@@ -18,7 +17,6 @@ public class ResponseBankingProductById extends BaseResponse {
   @SerializedName("data")
   private BankingProductDetail data;
 
-  @ApiModelProperty(value = "", required = true)
   public BankingProductDetail getData() {
     return data;
   }

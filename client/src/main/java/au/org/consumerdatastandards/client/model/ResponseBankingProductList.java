@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 
 /** ResponseBankingProductList */
@@ -18,7 +16,6 @@ public class ResponseBankingProductList extends PaginatedResponse {
   @SerializedName("data")
   private ResponseBankingProductListData data;
 
-  @ApiModelProperty(value = "", required = true)
   public ResponseBankingProductListData getData() {
     return data;
   }

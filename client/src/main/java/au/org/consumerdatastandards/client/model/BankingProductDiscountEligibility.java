@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -38,9 +36,6 @@ public class BankingProductDiscountEligibility {
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 
-  @ApiModelProperty(
-      value = "The type of the specific eligibility constraint for a discount",
-      required = true)
   public DiscountEligibilityType getDiscountEligibilityType() {
     return discountEligibilityType;
   }
@@ -55,10 +50,6 @@ public class BankingProductDiscountEligibility {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Generic field containing additional information relevant to the discountEligibilityType specified. Whether mandatory or not is dependent on the value of discountEligibilityType",
-      required = false)
   public String getAdditionalValue() {
     return additionalValue;
   }
@@ -72,9 +63,6 @@ public class BankingProductDiscountEligibility {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Display text providing more information on this eligibility constraint",
-      required = false)
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -88,9 +76,6 @@ public class BankingProductDiscountEligibility {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Link to a web page with more information on this eligibility constraint",
-      required = false)
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }

@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 import java.util.List;
@@ -59,10 +58,6 @@ public class BankingProductDepositRate {
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 
-  @ApiModelProperty(
-      value =
-          "The type of rate (base, bonus, etc). See the next section for an overview of valid values and their meaning",
-      required = true)
   public DepositRateType getDepositRateType() {
     return depositRateType;
   }
@@ -76,7 +71,6 @@ public class BankingProductDepositRate {
     return this;
   }
 
-  @ApiModelProperty(value = "The rate to be applied", required = true)
   public BigDecimal getRate() {
     return rate;
   }
@@ -90,10 +84,6 @@ public class BankingProductDepositRate {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The period after which the rate is applied to the balance to calculate the amount due for the period. Calculation of the amount is often daily (as balances may change) but accumulated until the total amount is 'applied' to the account (see applicationFrequency). Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)",
-      required = false)
   public String getCalculationFrequency() {
     return calculationFrequency;
   }
@@ -107,10 +97,6 @@ public class BankingProductDepositRate {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The period after which the calculated amount(s) (see calculationFrequency) are 'applied' (i.e. debited or credited) to the account. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)",
-      required = false)
   public String getApplicationFrequency() {
     return applicationFrequency;
   }
@@ -124,7 +110,6 @@ public class BankingProductDepositRate {
     return this;
   }
 
-  @ApiModelProperty(value = "Rate tiers applicable for this rate", required = false)
   public List<BankingProductRateTier> getTiers() {
     return tiers;
   }
@@ -138,10 +123,6 @@ public class BankingProductDepositRate {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Generic field containing additional information relevant to the depositRateType specified. Whether mandatory or not is dependent on the value of depositRateType",
-      required = false)
   public String getAdditionalValue() {
     return additionalValue;
   }
@@ -155,7 +136,6 @@ public class BankingProductDepositRate {
     return this;
   }
 
-  @ApiModelProperty(value = "Display text providing more information on the rate", required = false)
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -169,9 +149,6 @@ public class BankingProductDepositRate {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Link to a web page with more information on this rate",
-      required = false)
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }

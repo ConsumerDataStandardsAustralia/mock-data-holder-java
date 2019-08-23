@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 
 /** BankingProductAdditionalInformation */
@@ -32,7 +30,6 @@ public class BankingProductAdditionalInformation {
   @SerializedName("bundleUri")
   private String bundleUri;
 
-  @ApiModelProperty(value = "General overview of the product", required = false)
   public String getOverviewUri() {
     return overviewUri;
   }
@@ -46,7 +43,6 @@ public class BankingProductAdditionalInformation {
     return this;
   }
 
-  @ApiModelProperty(value = "Terms and conditions for the product", required = false)
   public String getTermsUri() {
     return termsUri;
   }
@@ -60,7 +56,6 @@ public class BankingProductAdditionalInformation {
     return this;
   }
 
-  @ApiModelProperty(value = "Eligibility rules and criteria for the product", required = false)
   public String getEligibilityUri() {
     return eligibilityUri;
   }
@@ -74,9 +69,6 @@ public class BankingProductAdditionalInformation {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Description of fees, pricing, discounts, exemptions and bonuses for the product",
-      required = false)
   public String getFeesAndPricingUri() {
     return feesAndPricingUri;
   }
@@ -90,9 +82,6 @@ public class BankingProductAdditionalInformation {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Description of a bundle that this product can be part of",
-      required = false)
   public String getBundleUri() {
     return bundleUri;
   }

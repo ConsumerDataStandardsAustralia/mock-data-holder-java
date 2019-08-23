@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 import java.util.List;
@@ -33,7 +32,6 @@ public class BankingProductBundle {
   @SerializedName("productIds")
   private List<String> productIds;
 
-  @ApiModelProperty(value = "Name of the bundle", required = true)
   public String getName() {
     return name;
   }
@@ -47,7 +45,6 @@ public class BankingProductBundle {
     return this;
   }
 
-  @ApiModelProperty(value = "Description of the bundle", required = true)
   public String getDescription() {
     return description;
   }
@@ -61,9 +58,6 @@ public class BankingProductBundle {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Display text providing more information on the bundle",
-      required = false)
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -77,9 +71,6 @@ public class BankingProductBundle {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Link to a web page with more information on the bundle criteria and benefits",
-      required = false)
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }
@@ -93,9 +84,6 @@ public class BankingProductBundle {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Array of product IDs for products included in the bundle",
-      required = true)
   public List<String> getProductIds() {
     return productIds;
   }

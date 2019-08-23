@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 
 /** BankingProductRateCondition */
@@ -22,9 +20,6 @@ public class BankingProductRateCondition {
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 
-  @ApiModelProperty(
-      value = "Display text providing more information on the condition",
-      required = false)
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -38,9 +33,6 @@ public class BankingProductRateCondition {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Link to a web page with more information on this condition",
-      required = false)
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }

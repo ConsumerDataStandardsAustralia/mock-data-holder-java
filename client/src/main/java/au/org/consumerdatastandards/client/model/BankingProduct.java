@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
@@ -70,10 +69,6 @@ public class BankingProduct {
   @SerializedName("additionalInformation")
   private BankingProductAdditionalInformation additionalInformation;
 
-  @ApiModelProperty(
-      value =
-          "A provider specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.",
-      required = true)
   public String getProductId() {
     return productId;
   }
@@ -87,10 +82,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate",
-      required = false)
   public OffsetDateTime getEffectiveFrom() {
     return effectiveFrom;
   }
@@ -104,10 +95,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products",
-      required = false)
   public OffsetDateTime getEffectiveTo() {
     return effectiveTo;
   }
@@ -121,10 +108,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)",
-      required = true)
   public OffsetDateTime getLastUpdated() {
     return lastUpdated;
   }
@@ -138,7 +121,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(value = "", required = true)
   public BankingEnumProductCategory getProductCategory() {
     return productCategory;
   }
@@ -152,7 +134,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(value = "The display name of the product", required = true)
   public String getName() {
     return name;
   }
@@ -166,7 +147,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(value = "A description of the product", required = true)
   public String getDescription() {
     return description;
   }
@@ -180,10 +160,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "A label of the brand for the product. Able to be used for filtering. For data providers with single brands this value is still required",
-      required = true)
   public String getBrand() {
     return brand;
   }
@@ -197,7 +173,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(value = "An optional display name of the brand", required = false)
   public String getBrandName() {
     return brandName;
   }
@@ -211,9 +186,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "A link to an application web page where this product can be applied for.",
-      required = false)
   public String getApplicationUri() {
     return applicationUri;
   }
@@ -227,10 +199,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable",
-      required = true)
   public Boolean getIsTailored() {
     return isTailored;
   }
@@ -244,7 +212,6 @@ public class BankingProduct {
     return this;
   }
 
-  @ApiModelProperty(value = "", required = false)
   public BankingProductAdditionalInformation getAdditionalInformation() {
     return additionalInformation;
   }

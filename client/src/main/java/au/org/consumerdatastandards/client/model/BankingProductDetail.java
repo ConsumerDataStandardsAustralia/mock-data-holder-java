@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 import java.util.List;
@@ -97,10 +96,6 @@ public class BankingProductDetail {
   @SerializedName("lendingRates")
   private List<BankingProductLendingRate> lendingRates;
 
-  @ApiModelProperty(
-      value =
-          "A provider specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.",
-      required = true)
   public String getProductId() {
     return productId;
   }
@@ -114,10 +109,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate",
-      required = false)
   public OffsetDateTime getEffectiveFrom() {
     return effectiveFrom;
   }
@@ -131,10 +122,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products",
-      required = false)
   public OffsetDateTime getEffectiveTo() {
     return effectiveTo;
   }
@@ -148,10 +135,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)",
-      required = true)
   public OffsetDateTime getLastUpdated() {
     return lastUpdated;
   }
@@ -165,7 +148,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "", required = true)
   public BankingEnumProductCategory getProductCategory() {
     return productCategory;
   }
@@ -179,7 +161,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "The display name of the product", required = true)
   public String getName() {
     return name;
   }
@@ -193,7 +174,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "A description of the product", required = true)
   public String getDescription() {
     return description;
   }
@@ -207,10 +187,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "A label of the brand for the product. Able to be used for filtering. For data providers with single brands this value is still required",
-      required = true)
   public String getBrand() {
     return brand;
   }
@@ -224,7 +200,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "An optional display name of the brand", required = false)
   public String getBrandName() {
     return brandName;
   }
@@ -238,9 +213,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "A link to an application web page where this product can be applied for.",
-      required = false)
   public String getApplicationUri() {
     return applicationUri;
   }
@@ -254,10 +226,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable",
-      required = true)
   public Boolean getIsTailored() {
     return isTailored;
   }
@@ -271,7 +239,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "", required = false)
   public BankingProductAdditionalInformation getAdditionalInformation() {
     return additionalInformation;
   }
@@ -286,10 +253,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also",
-      required = false)
   public List<BankingProductBundle> getBundles() {
     return bundles;
   }
@@ -303,7 +266,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "Array of features available for the product", required = false)
   public List<BankingProductFeature> getFeatures() {
     return features;
   }
@@ -317,10 +279,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Constraints on the application for or operation of the product such as minimum balances or limit thresholds",
-      required = false)
   public List<BankingProductConstraint> getConstraints() {
     return constraints;
   }
@@ -334,7 +292,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "Eligibility criteria for the product", required = false)
   public List<BankingProductEligibility> getEligibility() {
     return eligibility;
   }
@@ -348,7 +305,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "Fees applicable for the product", required = false)
   public List<BankingProductFee> getFees() {
     return fees;
   }
@@ -362,7 +318,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "Interest rates available for deposits", required = false)
   public List<BankingProductDepositRate> getDepositRates() {
     return depositRates;
   }
@@ -376,7 +331,6 @@ public class BankingProductDetail {
     return this;
   }
 
-  @ApiModelProperty(value = "Interest rates charged against lending balances", required = false)
   public List<BankingProductLendingRate> getLendingRates() {
     return lendingRates;
   }

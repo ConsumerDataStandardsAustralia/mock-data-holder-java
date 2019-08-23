@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 
 /** PaginatedResponse */
@@ -27,10 +25,6 @@ public class PaginatedResponse {
   @SerializedName("meta")
   private MetaPaginated meta;
 
-  @ApiModelProperty(
-      value =
-          "The links attribute contains a Links object with links to related API end points. This will include links to support pagination.",
-      required = true)
   public LinksPaginated getLinks() {
     return links;
   }
@@ -44,10 +38,6 @@ public class PaginatedResponse {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "The meta object is used to provide additional information such as second factor authorisation data, traffic management, pagination counts or other purposes that are complementary to the workings of the API.",
-      required = true)
   public MetaPaginated getMeta() {
     return meta;
   }

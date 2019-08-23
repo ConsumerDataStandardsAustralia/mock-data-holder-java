@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 import com.google.gson.TypeAdapter;
@@ -36,10 +35,6 @@ public class BankingProductConstraint {
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 
-  @ApiModelProperty(
-      value =
-          "The type of constraint described.  See the next section for an overview of valid values and their meaning",
-      required = true)
   public ConstraintType getConstraintType() {
     return constraintType;
   }
@@ -53,10 +48,6 @@ public class BankingProductConstraint {
     return this;
   }
 
-  @ApiModelProperty(
-      value =
-          "Generic field containing additional information relevant to the constraintType specified.  Whether mandatory or not is dependent on the value of constraintType",
-      required = false)
   public String getAdditionalValue() {
     return additionalValue;
   }
@@ -70,9 +61,6 @@ public class BankingProductConstraint {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Display text providing more information the constraint",
-      required = false)
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -86,9 +74,6 @@ public class BankingProductConstraint {
     return this;
   }
 
-  @ApiModelProperty(
-      value = "Link to a web page with more information on the constraint",
-      required = false)
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }

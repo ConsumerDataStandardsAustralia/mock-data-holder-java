@@ -9,8 +9,6 @@
 package au.org.consumerdatastandards.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 import java.util.List;
 
@@ -21,10 +19,6 @@ public class ResponseBankingProductListData {
   @SerializedName("products")
   private List<BankingProduct> products;
 
-  @ApiModelProperty(
-      value =
-          "The list of products returned.  If the filter results in an empty set then this array may have no records",
-      required = true)
   public List<BankingProduct> getProducts() {
     return products;
   }
