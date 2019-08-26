@@ -14,7 +14,6 @@
     <properties>
         <maven.deploy.skip>false</maven.deploy.skip>
         <sonar.skip>true</sonar.skip>
-        <validation-api.version>2.0.1.Final</validation-api.version>
         <guava.version>27.1-jre</guava.version>
         <velocity.version>2.1</velocity.version>
         <velocity.tools.version>3.0</velocity.tools.version>
@@ -151,7 +150,6 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>${validation-api.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.googlejavaformat</groupId>

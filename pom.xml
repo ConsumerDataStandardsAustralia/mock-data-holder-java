@@ -61,6 +61,7 @@
         <logback.version>1.2.3</logback.version>
         <swagger-core.version>1.5.22</swagger-core.version>
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
         <sonar.organization>consumerdatastandardsaustralia</sonar.organization>
         <sonar.projectKey>ConsumerDataStandardsAustralia_cds-java-artefacts</sonar.projectKey>
     </properties>
@@ -73,6 +74,7 @@
         <module>client</module>
         <module>client-cli</module>
         <module>reference-test</module>
+        <module>data-holder</module>
     </modules>
 
     <distributionManagement>
@@ -238,6 +240,11 @@
                     <artifactId>dockerfile-maven-plugin</artifactId>
                     <version>${dockerfile-maven.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -272,6 +279,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
