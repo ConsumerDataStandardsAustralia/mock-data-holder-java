@@ -36,7 +36,6 @@
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>reflection</artifactId>
-            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
@@ -56,7 +55,6 @@
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>api-model</artifactId>
-            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>

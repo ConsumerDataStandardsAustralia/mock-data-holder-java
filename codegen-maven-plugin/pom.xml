@@ -27,7 +27,6 @@
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>codegen</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>

@@ -24,12 +24,10 @@
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>client</artifactId>
-            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>reference-test</artifactId>
-            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.shell</groupId>

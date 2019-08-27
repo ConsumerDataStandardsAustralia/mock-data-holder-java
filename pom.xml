@@ -46,6 +46,7 @@
         <maven-source.plugin.version>3.1.0</maven-source.plugin.version>
         <maven-deploy.plugin.version>2.8.2</maven-deploy.plugin.version>
         <maven-scm-provider-gitext.version>1.11.2</maven-scm-provider-gitext.version>
+        <flattern-maven-plugin.version>1.1.0</flattern-maven-plugin.version>
         <nexus-staging.plugin.version>1.6.8</nexus-staging.plugin.version>
         <maven-shade.plugin.version>3.2.1</maven-shade.plugin.version>
         <dockerfile-maven.version>1.4.12</dockerfile-maven.version>
@@ -247,6 +248,33 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flattern-maven-plugin.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
     <dependencyManagement>
         <dependencies>
@@ -284,6 +312,31 @@
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>au.org.consumerdatastandards</groupId>
+                <artifactId>api-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>au.org.consumerdatastandards</groupId>
+                <artifactId>client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>au.org.consumerdatastandards</groupId>
+                <artifactId>codegen</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>au.org.consumerdatastandards</groupId>
+                <artifactId>reflection</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>au.org.consumerdatastandards</groupId>
+                <artifactId>reference-test</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>

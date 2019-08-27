@@ -102,12 +102,10 @@
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>reflection</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>api-model</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.beust</groupId>
