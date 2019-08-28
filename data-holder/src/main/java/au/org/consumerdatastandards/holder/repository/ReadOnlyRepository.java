@@ -36,7 +36,7 @@ public interface ReadOnlyRepository<T, ID> extends Repository<T, ID> {
      * Returns all instances of the type with the given IDs.
      *
      * @param ids
-     * @return
+     * @return all entities specified by the ids
      */
     Iterable<T> findAllById(Iterable<ID> ids);
 
