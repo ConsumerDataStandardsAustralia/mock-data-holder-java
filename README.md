@@ -6,7 +6,7 @@ This is collection of CDS software artefacts in Java programming language.
 
 To run the artefacts, you need to install
 
-* Java 1.8
+* Java 8
 * Maven 3
 
 ## Unit tests
