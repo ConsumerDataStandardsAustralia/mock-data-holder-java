@@ -38,6 +38,12 @@
             <groupId>org.springframework.shell</groupId>
             <artifactId>spring-shell-starter</artifactId>
             <version>${spring-shell.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.github.freva</groupId>
