@@ -1,0 +1,20 @@
+<settings>
+    <pluginGroups>
+        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+    </pluginGroups>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+	    <properties>
+		    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		    <sonar.login>${env.SONARCLOUD_LOGIN}</sonar.login>
+		    <sonar.organization>consumerdatastandardsaustralia</sonar.organization>
+		    <sonar.projectKey>ConsumerDataStandardsAustralia_cds-holder-java-spring</sonar.projectKey>
+            </properties>
+        </profile>
+     </profiles>
+</settings>
+
