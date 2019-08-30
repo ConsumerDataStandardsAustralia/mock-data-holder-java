@@ -61,7 +61,7 @@
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <sonar.organization>consumerdatastandardsaustralia</sonar.organization>
-        <sonar.projectKey>ConsumerDataStandardsAustralia_cds-java-artefacts</sonar.projectKey>
+        <sonar.projectKey>ConsumerDataStandardsAustralia_java-artefacts</sonar.projectKey>
     </properties>
 
     <modules>
