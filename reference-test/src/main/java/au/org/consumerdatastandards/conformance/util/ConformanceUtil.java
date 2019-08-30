@@ -94,7 +94,7 @@ public class ConformanceUtil {
                 if (modelFieldType.getComponentType().isAnnotationPresent(DataDefinition.class)
                     && dataFieldValue != null
                     && Array.getLength(dataFieldValue) > 0) {
-                    Object[] values = unpack(dataFieldValue);
+                    Object[] values = ReflectionUtil.unpack(dataFieldValue);
                     for (Object value : values) {
                         checkAgainstModel(value, modelFieldType.getComponentType(), errors);
                     }
@@ -104,7 +104,7 @@ public class ConformanceUtil {
                 if (itemType.isAnnotationPresent(DataDefinition.class)
                     && dataFieldValue != null) {
                     if (dataFieldValue.getClass().isArray()) {
-                        Object[] values = unpack(dataFieldValue);
+                        Object[] values = ReflectionUtil.unpack(dataFieldValue);
                         for (Object value : values) {
                             checkAgainstModel(value, itemType, errors);
                         }
@@ -129,7 +129,6 @@ public class ConformanceUtil {
             .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
             .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
     }
-
 
     private static boolean isValueSpecified(Object relatedPropertyValue, String[] values) {
         if (relatedPropertyValue == null) return false;
@@ -303,7 +302,6 @@ public class ConformanceUtil {
         return false;
     }
 
-
     private static void addProperties(BeanGenerator beanGenerator, Class<?> clazz) {
         Field[] allFields = FieldUtils.getAllFields(clazz);
         for (Field field : allFields) {
@@ -317,14 +315,6 @@ public class ConformanceUtil {
             return Array.newInstance(expandModel(itemType), 0).getClass();
         }
         return expandModel(field.getType());
-    }
-
-
-    private static Object[] unpack(Object array) {
-        Object[] values = new Object[Array.getLength(array)];
-        for (int i = 0; i < values.length; i++)
-            values[i] = Array.get(array, i);
-        return values;
     }
 
     public static String toJson(Object dataObject) {
