@@ -23,7 +23,7 @@ public class ConformanceModel {
         return responseMap.get(operationId).get(responseCode);
     }
 
-    public Payload getPlayload(Class<?> clazz) {
+    public Payload getPayload(Class<?> clazz) {
         return payloadMap.get(clazz);
     }
 

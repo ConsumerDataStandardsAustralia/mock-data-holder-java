@@ -57,7 +57,7 @@ public class PayloadValidator {
         for (Class<?> modelClass : conformanceModel.getPayloadModels()) {
             try {
                 ObjectMapper objectMapper = createObjectMapper();
-                Payload payload = conformanceModel.getPlayload(modelClass);
+                Payload payload = conformanceModel.getPayload(modelClass);
                 Object data = objectMapper.readValue(jsonData, payload.getDataClass());
                 List<ConformanceError> errors = new ArrayList<>();
                 ConformanceUtil.checkAgainstModel(data, modelClass, errors);

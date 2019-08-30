@@ -1,4 +1,4 @@
-# java-artefacts
+# java-artefacts [![Build Status](https://travis-ci.com/ConsumerDataStandardsAustralia/java-artefacts.svg?branch=master)](https://travis-ci.com/ConsumerDataStandardsAustralia/java-artefacts)
 
 This is collection of CDS software artefacts in Java programming language.
 
