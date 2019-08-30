@@ -22,6 +22,4 @@ public class CglibBeanSerializerModifier extends BeanSerializerModifier {
         }
         return super.changeProperties(config, beanDesc, beanProperties);
     }
-
-
 }

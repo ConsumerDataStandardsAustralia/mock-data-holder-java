@@ -57,6 +57,7 @@ public class BankingProductsAPI {
    *     accounts returned.
    * @param page Page of results to request (standard pagination)
    * @param pageSize Page size to request. Default is 25 (standard pagination)
+   * @param _callback The callback to be executed when the API call finishes
    * @return Call to execute
    * @throws ApiException If fail to serialize the request body object
    */
@@ -390,6 +391,7 @@ public class BankingProductsAPI {
    * Build call for getProductDetail
    *
    * @param productId ID of the specific product requested
+   * @param _callback The callback to be executed when the API call finishes
    * @return Call to execute
    * @throws ApiException If fail to serialize the request body object
    */

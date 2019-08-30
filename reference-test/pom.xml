@@ -13,7 +13,7 @@
     <description>Reference test of CDS payloads and API endpoints</description>
     <properties>
         <serenity.version>2.0.70</serenity.version>
-        <cglib.version>3.2.8</cglib.version>
+        <cglib.version>3.3.0</cglib.version>
         <google-http-client.version>1.30.1</google-http-client.version>
         <failsafe.plugin.version>2.22.1</failsafe.plugin.version>
     </properties>
