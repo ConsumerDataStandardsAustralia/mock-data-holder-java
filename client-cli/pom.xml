@@ -75,7 +75,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>consumerdatastandardsaustralia/java-artefacts/client-cli</repository>
+                    <repository>consumerdatastandardsaustralia/client-cli</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>

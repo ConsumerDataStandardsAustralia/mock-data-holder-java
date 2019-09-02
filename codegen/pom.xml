@@ -65,7 +65,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>consumerdatastandardsaustralia/java-artefacts/codegen</repository>
+                    <repository>consumerdatastandardsaustralia/codegen</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>

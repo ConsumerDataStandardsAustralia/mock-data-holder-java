@@ -8,13 +8,12 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-	    <properties>
-		    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		    <sonar.login>${env.SONARCLOUD_LOGIN}</sonar.login>
-		    <sonar.organization>cds</sonar.organization>
-		    <sonar.projectKey>ConsumerDataStandardsAustralia_java-artefacts</sonar.projectKey>
+            <properties>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonar.login>${env.SONARCLOUD_LOGIN}</sonar.login>
+                <sonar.organization>cds</sonar.organization>
             </properties>
         </profile>
-     </profiles>
+    </profiles>
 </settings>
 
