@@ -35,7 +35,7 @@ CDS Code Generator (cds-codegen)
 |                     |                                                                                       |
 +---------------------+---------------------------------------------------------------------------------------+
 
-.. _GitHub: https://github.com/ConsumerDataStandardsAustralia/cds-codegen
+.. _GitHub: https://github.com/ConsumerDataStandardsAustralia/java-artefacts/codegen
 .. _DockerHub: https://hub.docker.com/r/consumerdatastandardsaustralia/cds-codegen-core
 
 Quick Start

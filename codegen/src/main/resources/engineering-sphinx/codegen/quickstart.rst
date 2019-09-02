@@ -43,7 +43,7 @@ To manually build and run the CDS Code Generator using Maven, run:
 
 .. code-block:: bash
 
-   user@cds:~/git$ git clone https://github.com/ConsumerDataStandardsAustralia/cds-codegen
+   user@cds:~/git$ git clone https://github.com/ConsumerDataStandardsAustralia/java-artefacts/codegen
    user@cds:~/git$ cd cds-codegen/modules/cds-codegen-core
    user@cds:~/git/cds-codegen/modules/cds-codegen-core$ mvn clean package
    user@cds:~/git/cds-codegen/modules/cds-codegen-core$ java -jar target/cds-codegen-core-${mavenCodegenVersion}.jar  -h

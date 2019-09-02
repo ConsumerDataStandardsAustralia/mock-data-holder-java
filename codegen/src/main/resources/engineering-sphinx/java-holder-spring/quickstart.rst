@@ -74,7 +74,7 @@ The ``holder-java-spring`` project is currently located within the ``cds-codegen
 
 .. code-block:: bash
 
-   user@cds:~/git$ git clone https://github.com/ConsumerDataStandardsAustralia/cds-codegen
+   user@cds:~/git$ git clone https://github.com/ConsumerDataStandardsAustralia/java-artefacts/codegen
    user@cds:~/git$ cd cds-codegen/support/samples/cds-holder-java-spring
    user@cds:~/git/cds-codegen/support/samples/cds-holder-java-spring$ mvn clean spring-boot
 
