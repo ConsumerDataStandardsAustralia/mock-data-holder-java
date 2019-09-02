@@ -24,24 +24,24 @@ import org.slf4j.LoggerFactory;
 
 public class BankingProductsAPI {
 
-  private ApiClient localVarApiClient;
+  private ApiClient apiClient;
 
   private static final Logger LOG = (Logger) LoggerFactory.getLogger(BankingProductsAPI.class);
 
   public BankingProductsAPI() {
-    this(Configuration.getDefaultApiClient());
+    this(new ApiClient());
   }
 
   public BankingProductsAPI(ApiClient apiClient) {
-    this.localVarApiClient = apiClient;
+    this.apiClient = apiClient;
   }
 
   public ApiClient getApiClient() {
-    return localVarApiClient;
+    return apiClient;
   }
 
   public void setApiClient(ApiClient apiClient) {
-    this.localVarApiClient = apiClient;
+    this.apiClient = apiClient;
   }
 
   /**
@@ -293,7 +293,7 @@ public class BankingProductsAPI {
         listProductsValidateBeforeCall(
             effective, updatedSince, brand, productCategory, page, pageSize, null);
     Type localVarReturnType = new TypeToken<ResponseBankingProductList>() {}.getType();
-    return localVarApiClient.execute(localVarCall, localVarReturnType);
+    return apiClient.execute(localVarCall, localVarReturnType);
   }
 
   /**
@@ -384,7 +384,7 @@ public class BankingProductsAPI {
         listProductsValidateBeforeCall(
             effective, updatedSince, brand, productCategory, page, pageSize, _callback);
     Type localVarReturnType = new TypeToken<ResponseBankingProductList>() {}.getType();
-    localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+    apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
     return localVarCall;
   }
 
@@ -403,7 +403,7 @@ public class BankingProductsAPI {
     Object localVarPostBody = new Object();
     String localVarPath = "/banking/products/{productId}";
     localVarPath =
-        localVarPath.replaceAll("\\{productId}", localVarApiClient.escapeString(productId));
+        localVarPath.replaceAll("\\{productId}", apiClient.escapeString(productId));
     List<Pair> localVarQueryParams = new ArrayList<>();
 
     LOG.trace(
@@ -468,7 +468,7 @@ public class BankingProductsAPI {
 
     okhttp3.Call localVarCall = getProductDetailValidateBeforeCall(productId, null);
     Type localVarReturnType = new TypeToken<ResponseBankingProductById>() {}.getType();
-    return localVarApiClient.execute(localVarCall, localVarReturnType);
+    return apiClient.execute(localVarCall, localVarReturnType);
   }
 
   /**
@@ -488,7 +488,7 @@ public class BankingProductsAPI {
 
     okhttp3.Call localVarCall = getProductDetailValidateBeforeCall(productId, _callback);
     Type localVarReturnType = new TypeToken<ResponseBankingProductById>() {}.getType();
-    localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+    apiClient.executeAsync(localVarCall, localVarReturnType, _callback);
     return localVarCall;
   }
 
@@ -515,7 +515,7 @@ public class BankingProductsAPI {
     localVarHeaderParams.put("Content-Type", "application/json");
     Map<String, Object> localVarFormParams = new HashMap<>();
     String[] localVarAuthNames = new String[] {};
-    return localVarApiClient.buildCall(
+    return apiClient.buildCall(
         localVarPath,
         httpMethod,
         localVarQueryParams,
@@ -530,7 +530,7 @@ public class BankingProductsAPI {
   private void addQueryParam(List<Pair> localVarQueryParams, String paramName, Object paramValue) {
     if (paramValue != null) {
       LOG.trace("Adding query parameter of {} with value of {}", paramName, paramValue);
-      localVarQueryParams.addAll(localVarApiClient.parameterToPair(paramName, paramValue));
+      localVarQueryParams.addAll(apiClient.parameterToPair(paramName, paramValue));
     }
   }
 }

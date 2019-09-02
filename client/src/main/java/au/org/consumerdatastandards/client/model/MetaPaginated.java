@@ -11,12 +11,17 @@ package au.org.consumerdatastandards.client.model;
 import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
-/** MetaPaginated */
 public class MetaPaginated {
-  // The total number of records in the full set
+
+  /**
+   * The total number of records in the full set
+   */
   @SerializedName("totalRecords")
   private Integer totalRecords;
-  // The total number of pages in the full set
+
+  /**
+   * The total number of pages in the full set
+   */
   @SerializedName("totalPages")
   private Integer totalPages;
 
@@ -59,10 +64,7 @@ public class MetaPaginated {
     if (!(totalRecords.equals(inputModel.getTotalRecords()))) {
       return false;
     }
-    if (!(totalPages.equals(inputModel.getTotalPages()))) {
-      return false;
-    }
-    return true;
+    return totalPages.equals(inputModel.getTotalPages());
   }
 
   @Override

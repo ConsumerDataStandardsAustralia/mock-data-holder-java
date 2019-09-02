@@ -12,9 +12,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
-/** Links */
 public class Links {
-  // Fully qualified link to this API call
+
+  /**
+   * Fully qualified link to this API call
+   */
   @SerializedName("self")
   private String self;
 
@@ -41,10 +43,7 @@ public class Links {
     }
 
     Links inputModel = (Links) o;
-    if (!(self.equals(inputModel.getSelf()))) {
-      return false;
-    }
-    return true;
+    return self.equals(inputModel.getSelf());
   }
 
   @Override

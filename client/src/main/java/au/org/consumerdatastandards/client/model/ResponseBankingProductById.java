@@ -12,8 +12,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
-/** ResponseBankingProductById */
 public class ResponseBankingProductById extends BaseResponse {
+
   @SerializedName("data")
   private BankingProductDetail data;
 
@@ -43,10 +43,7 @@ public class ResponseBankingProductById extends BaseResponse {
       return false;
     }
     ResponseBankingProductById inputModel = (ResponseBankingProductById) o;
-    if (!(data.equals(inputModel.getData()))) {
-      return false;
-    }
-    return true;
+    return data.equals(inputModel.getData());
   }
 
   @Override
