@@ -8,7 +8,6 @@ cache:
     - $HOME/.m2
 
 after_success:
-  - test $TRAVIS_BRANCH == "master" && test $TRAVIS_PULL_REQUEST == "false" && mvn sonar:sonar --settings .travis/sonarcloud-analysis.xml
   - test $TRAVIS_BRANCH == "master" && test $TRAVIS_PULL_REQUEST == "false" && mvn deploy -DskipITs --settings .travis/snapshot-dispatch-settings.xml
 
 
