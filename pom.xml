@@ -60,7 +60,7 @@
         <swagger-core.version>1.5.22</swagger-core.version>
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
-        <sonar.organization>consumerdatastandardsaustralia</sonar.organization>
+        <sonar.organization>cds</sonar.organization>
         <sonar.projectKey>ConsumerDataStandardsAustralia_java-artefacts</sonar.projectKey>
     </properties>
 
