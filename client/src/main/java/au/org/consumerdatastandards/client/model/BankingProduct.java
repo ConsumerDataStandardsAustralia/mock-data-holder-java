@@ -13,56 +13,85 @@ import com.google.gson.annotations.SerializedName;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-/** BankingProduct */
 public class BankingProduct {
-  // A provider specific unique identifier for this product. This
-  // identifier must be unique to a product but does not
-  // otherwise need to adhere to ID permanence guidelines.
+
+  /**
+   * A provider specific unique identifier for this product. This
+   * identifier must be unique to a product but does not
+   * otherwise need to adhere to ID permanence guidelines.
+   */
   @SerializedName("productId")
   private String productId;
-  // The date and time from which this product is effective (ie.
-  // is available for origination).  Used to enable the
-  // articulation of products to the regime before they are
-  // available for customers to originate
+
+  /**
+   * The date and time from which this product is effective (ie.
+   * is available for origination).  Used to enable the
+   * articulation of products to the regime before they are
+   * available for customers to originate
+   */
   @SerializedName("effectiveFrom")
   private OffsetDateTime effectiveFrom;
-  // The date and time at which this product will be retired and
-  // will no longer be offered.  Used to enable the managed
-  // deprecation of products
+
+  /**
+   * The date and time at which this product will be retired and
+   * will no longer be offered.  Used to enable the managed
+   * deprecation of products
+   */
   @SerializedName("effectiveTo")
   private OffsetDateTime effectiveTo;
-  // The last date and time that the information for this product
-  // was changed (or the creation date for the product if it has
-  // never been altered)
+
+  /**
+   * The last date and time that the information for this product
+   * was changed (or the creation date for the product if it has
+   * never been altered)
+   */
   @SerializedName("lastUpdated")
   private OffsetDateTime lastUpdated;
 
   @SerializedName("productCategory")
   private BankingEnumProductCategory productCategory;
-  // The display name of the product
+
+  /**
+   * The display name of the product
+   */
   @SerializedName("name")
   private String name;
-  // A description of the product
+
+  /**
+   * A description of the product
+   */
   @SerializedName("description")
   private String description;
-  // A label of the brand for the product. Able to be used for
-  // filtering. For data providers with single brands this value
-  // is still required
+
+  /**
+   * A label of the brand for the product. Able to be used for
+   * filtering. For data providers with single brands this value
+   * is still required
+   */
   @SerializedName("brand")
   private String brand;
-  // An optional display name of the brand
+
+  /**
+   * An optional display name of the brand
+   */
   @SerializedName("brandName")
   private String brandName;
-  // A link to an application web page where this product can be
-  // applied for.
+
+  /**
+   * A link to an application web page where this product can be
+   * applied for.
+   */
   @SerializedName("applicationUri")
   private String applicationUri;
-  // Indicates whether the product is specifically tailored to a
-  // circumstance.  In this case fees and prices are
-  // significantly negotiated depending on context. While all
-  // products are open to a degree of tailoring this flag
-  // indicates that tailoring is expected and thus that the
-  // provision of specific fees and rates is not applicable
+
+  /**
+   * Indicates whether the product is specifically tailored to a
+   * circumstance.  In this case fees and prices are
+   * significantly negotiated depending on context. While all
+   * products are open to a degree of tailoring this flag
+   * indicates that tailoring is expected and thus that the
+   * provision of specific fees and rates is not applicable
+   */
   @SerializedName("isTailored")
   private Boolean isTailored;
 
@@ -269,10 +298,7 @@ public class BankingProduct {
     if (!(isTailored.equals(inputModel.getIsTailored()))) {
       return false;
     }
-    if (!(additionalInformation.equals(inputModel.getAdditionalInformation()))) {
-      return false;
-    }
-    return true;
+    return additionalInformation.equals(inputModel.getAdditionalInformation());
   }
 
   @Override

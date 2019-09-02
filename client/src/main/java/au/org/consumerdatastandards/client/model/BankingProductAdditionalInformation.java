@@ -11,22 +11,36 @@ package au.org.consumerdatastandards.client.model;
 import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
-/** BankingProductAdditionalInformation */
 public class BankingProductAdditionalInformation {
-  // General overview of the product
+
+  /**
+   * General overview of the product
+   */
   @SerializedName("overviewUri")
   private String overviewUri;
-  // Terms and conditions for the product
+
+  /**
+   * Terms and conditions for the product
+   */
   @SerializedName("termsUri")
   private String termsUri;
-  // Eligibility rules and criteria for the product
+
+  /**
+   * Eligibility rules and criteria for the product
+   */
   @SerializedName("eligibilityUri")
   private String eligibilityUri;
-  // Description of fees, pricing, discounts, exemptions and
-  // bonuses for the product
+
+  /**
+   * Description of fees, pricing, discounts, exemptions and
+   * bonuses for the product
+   */
   @SerializedName("feesAndPricingUri")
   private String feesAndPricingUri;
-  // Description of a bundle that this product can be part of
+
+  /**
+   * Description of a bundle that this product can be part of
+   */
   @SerializedName("bundleUri")
   private String bundleUri;
 
@@ -117,10 +131,7 @@ public class BankingProductAdditionalInformation {
     if (!(feesAndPricingUri.equals(inputModel.getFeesAndPricingUri()))) {
       return false;
     }
-    if (!(bundleUri.equals(inputModel.getBundleUri()))) {
-      return false;
-    }
-    return true;
+    return bundleUri.equals(inputModel.getBundleUri());
   }
 
   @Override

@@ -17,21 +17,32 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-/** BankingProductConstraint */
 public class BankingProductConstraint {
-  // The type of constraint described.  See the next section for
-  // an overview of valid values and their meaning
+
+  /**
+   * The type of constraint described.  See the next section for
+   * an overview of valid values and their meaning
+   */
   @SerializedName("constraintType")
   private ConstraintType constraintType;
-  // Generic field containing additional information relevant to
-  // the constraintType specified.  Whether mandatory or not is
-  // dependent on the value of constraintType
+
+  /**
+   * Generic field containing additional information relevant to
+   * the constraintType specified.  Whether mandatory or not is
+   * dependent on the value of constraintType
+   */
   @SerializedName("additionalValue")
   private String additionalValue;
-  // Display text providing more information the constraint
+
+  /**
+   * Display text providing more information the constraint
+   */
   @SerializedName("additionalInfo")
   private String additionalInfo;
-  // Link to a web page with more information on the constraint
+
+  /**
+   * Link to a web page with more information on the constraint
+   */
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 

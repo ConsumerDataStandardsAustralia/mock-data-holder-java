@@ -23,6 +23,7 @@ import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BankingProductsAPI {
+
   private ApiClient localVarApiClient;
 
   private static final Logger LOG = (Logger) LoggerFactory.getLogger(BankingProductsAPI.class);
@@ -73,7 +74,7 @@ public class BankingProductsAPI {
 
     Object localVarPostBody = new Object();
     String localVarPath = "/banking/products";
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarQueryParams = new ArrayList<>();
     addQueryParam(localVarQueryParams, "effective", effective);
     addQueryParam(localVarQueryParams, "updated-since", updatedSince);
     addQueryParam(localVarQueryParams, "brand", brand);
@@ -91,8 +92,8 @@ public class BankingProductsAPI {
         productCategory,
         updatedSince);
 
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+    Map<String, String> localVarHeaderParams = new HashMap<>();
     return buildCall(
         _callback,
         "GET",
@@ -371,7 +372,7 @@ public class BankingProductsAPI {
       throws ApiException {
 
     LOG.trace(
-        "Asynchronouse Get Products call using inputs of  brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
+        "Asynchronously Get Products call using inputs of  brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
         brand,
         effective,
         page,
@@ -402,15 +403,14 @@ public class BankingProductsAPI {
     Object localVarPostBody = new Object();
     String localVarPath = "/banking/products/{productId}";
     localVarPath =
-        localVarPath.replaceAll(
-            "\\{" + "productId" + "\\}", localVarApiClient.escapeString(productId.toString()));
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        localVarPath.replaceAll("\\{productId}", localVarApiClient.escapeString(productId));
+    List<Pair> localVarQueryParams = new ArrayList<>();
 
     LOG.trace(
         "Building Call for getProductDetail with path: {}, productId: {}", localVarPath, productId);
 
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<>();
+    Map<String, String> localVarHeaderParams = new HashMap<>();
     return buildCall(
         _callback,
         "GET",

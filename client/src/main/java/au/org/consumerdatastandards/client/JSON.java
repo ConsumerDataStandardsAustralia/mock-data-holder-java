@@ -273,7 +273,9 @@ public class JSON {
     }
   }
 
-  /** Gson TypeAdapter for java.util.Date type ISO8601Utils will be used. */
+  /**
+   * Gson TypeAdapter for java.util.Date type ISO8601Utils will be used.
+   */
   public static class DateTypeAdapter extends TypeAdapter<Date> {
 
     public DateTypeAdapter() {}

@@ -13,22 +13,36 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 import java.util.List;
 
-/** BankingProductBundle */
 public class BankingProductBundle {
-  // Name of the bundle
+
+  /**
+   * Name of the bundle
+   */
   @SerializedName("name")
   private String name;
-  // Description of the bundle
+
+  /**
+   * Description of the bundle
+   */
   @SerializedName("description")
   private String description;
-  // Display text providing more information on the bundle
+
+  /**
+   * Display text providing more information on the bundle
+   */
   @SerializedName("additionalInfo")
   private String additionalInfo;
-  // Link to a web page with more information on the bundle
-  // criteria and benefits
+
+  /**
+   * Link to a web page with more information on the bundle
+   * criteria and benefits
+   */
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
-  // Array of product IDs for products included in the bundle
+
+  /**
+   * Array of product IDs for products included in the bundle
+   */
   @SerializedName("productIds")
   private List<String> productIds;
 
@@ -119,10 +133,7 @@ public class BankingProductBundle {
     if (!(additionalInfoUri.equals(inputModel.getAdditionalInfoUri()))) {
       return false;
     }
-    if (!(productIds.equals(inputModel.getProductIds()))) {
-      return false;
-    }
-    return true;
+    return productIds.equals(inputModel.getProductIds());
   }
 
   @Override

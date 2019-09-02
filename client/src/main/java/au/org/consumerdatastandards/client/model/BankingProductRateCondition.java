@@ -11,12 +11,17 @@ package au.org.consumerdatastandards.client.model;
 import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
-/** BankingProductRateCondition */
 public class BankingProductRateCondition {
-  // Display text providing more information on the condition
+
+  /**
+   // Display text providing more information on the condition
+   */
   @SerializedName("additionalInfo")
   private String additionalInfo;
-  // Link to a web page with more information on this condition
+
+  /**
+   // Link to a web page with more information on this condition
+   */
   @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 
@@ -59,10 +64,7 @@ public class BankingProductRateCondition {
     if (!(additionalInfo.equals(inputModel.getAdditionalInfo()))) {
       return false;
     }
-    if (!(additionalInfoUri.equals(inputModel.getAdditionalInfoUri()))) {
-      return false;
-    }
-    return true;
+    return additionalInfoUri.equals(inputModel.getAdditionalInfoUri());
   }
 
   @Override
