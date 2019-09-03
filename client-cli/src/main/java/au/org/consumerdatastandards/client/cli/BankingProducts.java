@@ -24,7 +24,6 @@ import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.shell.standard.ShellOption.NoValueProvider;
 
 import java.util.Arrays;
 import java.util.List;
@@ -64,7 +63,7 @@ public class BankingProducts {
             ResponseBankingProductList response = api.listProducts(effective, updatedSince, brand, productCategory,
                     page, pageSize);
 
-            if (apiClientOptions.isVerifyConformance() || (check != null && check)) {
+            if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
                 LOGGER.info("Conformance verification is enabled, initiating conformance check on payload");
                 okhttp3.Call call = api.listProductsCall(effective, updatedSince, brand, productCategory, page,
                         pageSize, null);
@@ -109,7 +108,7 @@ public class BankingProducts {
 
         try {
             ResponseBankingProductById response = api.getProductDetail(productId);
-            if (apiClientOptions.isVerifyConformance() || (check != null && check)) {
+            if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
                 LOGGER.debug("Conformance verification is enabled, initiating conformance check on payload");
                 okhttp3.Call call = api.getProductDetailCall(productId, null);
                 List<ConformanceError> conformanceErrors = payloadValidator.validateResponse(

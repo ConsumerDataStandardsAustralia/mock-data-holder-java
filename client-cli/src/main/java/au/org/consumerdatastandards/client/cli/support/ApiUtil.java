@@ -18,7 +18,7 @@ import au.org.consumerdatastandards.client.ApiException;
 
 public class ApiUtil {
     
-    private static final Logger LOG = (Logger) LoggerFactory.getLogger(ApiUtil.class);
+    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ApiUtil.class);
     
     public static ApiClient getApiClient(String serverUrl, String userAgent, Boolean debugMode) throws ApiException {
         ApiClient client = getApiClient(serverUrl);
@@ -33,16 +33,16 @@ public class ApiUtil {
 
     public static ApiClient getApiClient(String serverUrl) throws ApiException {
         if(serverUrl == null) {
-            LOG.error("Server Base URL is currently unset, cannot proceed until it is specified using `server` command");
+            LOGGER.error("Server Base URL is currently unset, cannot proceed until it is specified using `server` command");
             throw new ApiException("Server URL not set, please use `server` command to set Server URL first");
         }
         if (isValid(serverUrl)) {
             ApiClient client = new ApiClient();
             client.setBasePath(serverUrl);
-            LOG.info("Server Base URL is set to {}", serverUrl);
+            LOGGER.info("Server Base URL is set to {}", serverUrl);
             return client;
         } else {
-            LOG.error("Invalid server url of {} specified, please double check", serverUrl);
+            LOGGER.error("Invalid server url of {} specified, please double check", serverUrl);
             throw new ApiException("Invalid Server URL, please double check it");
         }
     }
@@ -50,15 +50,15 @@ public class ApiUtil {
     private static boolean isValid(String url) {
         String lowerCaseUrl = url.toLowerCase();
         if (!lowerCaseUrl.startsWith("https://") && !lowerCaseUrl.startsWith("http://")) {
-            LOG.error("Invaid scheme specified for server url, only https:// and http:// are supported");
+            LOGGER.error("Invalid scheme specified for server url, only https:// and http:// are supported");
             return false;
         }
         try {
             new URL(url);
-            LOG.trace("Server URL of {} passes validation", url);
+            LOGGER.trace("Server URL of {} passes validation", url);
             return true;
         } catch (MalformedURLException e) {
-            LOG.error("Specified URL of {} is malformed and exception caught: {}", e.getMessage());
+            LOGGER.error("Specified URL of {} is malformed and exception caught: {}", e.getMessage());
             return false;
         }
     }

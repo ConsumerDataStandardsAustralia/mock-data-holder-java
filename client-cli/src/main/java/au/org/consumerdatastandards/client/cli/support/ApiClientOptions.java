@@ -11,8 +11,7 @@ package au.org.consumerdatastandards.client.cli.support;
 public class ApiClientOptions {
 
     private String serverUrl;
-    private String discoveryUrl;
-    private boolean verifyConformance = false;
+    private boolean validationEnabled = false;
     private String userAgent;
     private Boolean debugEnabled = false;
 
@@ -24,20 +23,12 @@ public class ApiClientOptions {
         this.serverUrl = serverUrl;
     }
 
-    public String getDiscoveryUrl() {
-        return discoveryUrl;
+    public boolean isValidationEnabled() {
+        return validationEnabled;
     }
 
-    public void setDiscoveryUrl(String discoveryUrl) {
-        this.discoveryUrl = discoveryUrl;
-    }
-
-    public boolean isVerifyConformance() {
-        return verifyConformance;
-    }
-
-    public void setVerifyConformance(boolean verifyConformance) {
-        this.verifyConformance = verifyConformance;
+    public void setValidationEnabled(boolean validationEnabled) {
+        this.validationEnabled = validationEnabled;
     }
 
     public String getUserAgent() {

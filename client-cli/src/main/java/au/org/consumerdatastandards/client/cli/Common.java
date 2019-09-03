@@ -26,12 +26,12 @@ public class Common {
     @Autowired
     ApiClientOptions apiClientOptions;
     
-    private static final Logger LOG = (Logger) LoggerFactory.getLogger(Common.class);
+    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(Common.class);
 
     @ShellMethod("Set CDS server URL, e.g. http://data.holder/cds-au/v1")
     public void server(@ShellOption String url) {
         apiClientOptions.setServerUrl(url);
-        LOG.info("Server URL is set to {}", apiClientOptions.getServerUrl());
+        LOGGER.info("Server URL is set to {}", apiClientOptions.getServerUrl());
     }
     
     @ShellMethod("Setup minimum log level, default is INFO")
@@ -46,7 +46,7 @@ public class Common {
         Level currentLevel = root.getLevel();
         root.setLevel(Level.INFO);
         // Need to make sure we are at least at info or the message won't print
-        LOG.info("Log level currently set to: {}", currentLevel);
+        LOGGER.info("Log level currently set to: {}", currentLevel);
         root.setLevel(currentLevel);
     }
     
@@ -59,19 +59,19 @@ public class Common {
     public void getUserAgent() {
         Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         root.setLevel(Level.INFO);
-        LOG.info("User Agent currently set to: {}", apiClientOptions.getUserAgent());
+        LOGGER.info("User Agent currently set to: {}", apiClientOptions.getUserAgent());
     }
     
-    @ShellMethod("Enable client debugging")
-    public void clientDebugEnable(@ShellOption String clientEnable) {
-        apiClientOptions.setDebugEnabled(Boolean.parseBoolean(clientEnable));
+    @ShellMethod("Enable client debug")
+    public void enableClientDebug(@ShellOption String debugEnabled) {
+        apiClientOptions.setDebugEnabled(Boolean.parseBoolean(debugEnabled));
     }
     
     @ShellMethod("Client debug enabled")
     public void getClientDebug() {
         Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         root.setLevel(Level.INFO);
-        LOG.info("Client debug is currently set to: {}", apiClientOptions.getDebugEnabled());
+        LOGGER.info("Client debug is currently set to: {}", apiClientOptions.getDebugEnabled());
     }
 }
 

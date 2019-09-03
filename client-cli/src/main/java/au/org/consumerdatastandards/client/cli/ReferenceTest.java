@@ -27,16 +27,16 @@ public class ReferenceTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReferenceTest.class);
     
     @ShellMethod("Retrieve current conformance check status")
-    public void conformanceStatus() {
-        LOGGER.info("Automatic payload validation setting: {}", apiClientOptions.isVerifyConformance());
+    public void payloadValidationStatus() {
+        LOGGER.info("Automatic payload validation setting: {}", apiClientOptions.isValidationEnabled());
     }
     
     
     @ShellMethod("Validate all Payloads Automatically")
     public void autoValidate(@ShellOption(help = "enable or disable") String enableValidation) throws IOException {
         Boolean validateEnable = Boolean.parseBoolean(enableValidation);
-        apiClientOptions.setVerifyConformance(validateEnable);
-        conformanceStatus();
+        apiClientOptions.setValidationEnabled(validateEnable);
+        payloadValidationStatus();
     }
 
     @ShellMethod("Validate json payload(s) against cds-models")
