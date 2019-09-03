@@ -9,42 +9,41 @@
 package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.net.URI;
 import java.lang.reflect.Field;
 
-
-
-
 /**
-* BankingProductAdditionalInformation
-* 
-* * Object that contains links to additional information on
-* specific topics
-* 
-*/
+ * * Object that contains links to additional information on
+ * specific topics
+ */
 @Embeddable
-public class BankingProductAdditionalInformation  {
-    
+public class BankingProductAdditionalInformation {
+
     // General overview of the product
     @JsonProperty("overviewUri")
     private URI overviewUri;
+
     // Terms and conditions for the product
     @JsonProperty("termsUri")
     private URI termsUri;
+
     // Eligibility rules and criteria for the product
     @JsonProperty("eligibilityUri")
     private URI eligibilityUri;
+
     // Description of fees, pricing, discounts, exemptions and
     // bonuses for the product
     @JsonProperty("feesAndPricingUri")
     private URI feesAndPricingUri;
+
     // Description of a bundle that this product can be part of
     @JsonProperty("bundleUri")
     private URI bundleUri;
 
-    
+
     public URI getOverviewUri() {
         return overviewUri;
     }
@@ -52,7 +51,7 @@ public class BankingProductAdditionalInformation  {
     public void setOverviewUri(URI overviewUri) {
         this.overviewUri = overviewUri;
     }
-    
+
     public URI getTermsUri() {
         return termsUri;
     }
@@ -60,7 +59,7 @@ public class BankingProductAdditionalInformation  {
     public void setTermsUri(URI termsUri) {
         this.termsUri = termsUri;
     }
-    
+
     public URI getEligibilityUri() {
         return eligibilityUri;
     }
@@ -68,7 +67,7 @@ public class BankingProductAdditionalInformation  {
     public void setEligibilityUri(URI eligibilityUri) {
         this.eligibilityUri = eligibilityUri;
     }
-    
+
     public URI getFeesAndPricingUri() {
         return feesAndPricingUri;
     }
@@ -76,7 +75,7 @@ public class BankingProductAdditionalInformation  {
     public void setFeesAndPricingUri(URI feesAndPricingUri) {
         this.feesAndPricingUri = feesAndPricingUri;
     }
-    
+
     public URI getBundleUri() {
         return bundleUri;
     }
@@ -93,19 +92,31 @@ public class BankingProductAdditionalInformation  {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        
+
         BankingProductAdditionalInformation inputModel = (BankingProductAdditionalInformation) o;
-        if(! (overviewUri.equals(inputModel.getOverviewUri()))) { return false; }
-        if(! (termsUri.equals(inputModel.getTermsUri()))) { return false; }
-        if(! (eligibilityUri.equals(inputModel.getEligibilityUri()))) { return false; }
-        if(! (feesAndPricingUri.equals(inputModel.getFeesAndPricingUri()))) { return false; }
-        if(! (bundleUri.equals(inputModel.getBundleUri()))) { return false; }
-        return true;
+        if (!(overviewUri.equals(inputModel.getOverviewUri()))) {
+            return false;
+        }
+        if (!(termsUri.equals(inputModel.getTermsUri()))) {
+            return false;
+        }
+        if (!(eligibilityUri.equals(inputModel.getEligibilityUri()))) {
+            return false;
+        }
+        if (!(feesAndPricingUri.equals(inputModel.getFeesAndPricingUri()))) {
+            return false;
+        }
+        return bundleUri.equals(inputModel.getBundleUri());
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(bundleUri,bundleUri,bundleUri,bundleUri,bundleUri);
+        return Objects.hash(
+            overviewUri,
+            termsUri,
+            eligibilityUri,
+            feesAndPricingUri,
+            bundleUri);
     }
 
     @Override
@@ -117,15 +128,12 @@ public class BankingProductAdditionalInformation  {
             oneField.setAccessible(true);
             try {
                 sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
-                        : oneField.get(Object.class).toString().replace("\n", "\n    "))));
+                    : oneField.get(Object.class).toString().replace("\n", "\n    "))));
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
                 sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
             }
         }
         sb.append("}");
         return sb.toString();
     }
-
-
 }

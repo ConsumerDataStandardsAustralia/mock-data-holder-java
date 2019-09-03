@@ -10,26 +10,17 @@ package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.*;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.lang.reflect.Field;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-
-
-
-/**
-* BankingProduct
-* 
-* 
-*/
 @Entity
 @Table(name = "BankingProduct")
 public class BankingProduct  {
@@ -48,6 +39,7 @@ public class BankingProduct  {
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)        
     private OffsetDateTime effectiveFrom;
+
     // The date and time at which this product will be retired and
     // will no longer be offered.  Used to enable the managed
     // deprecation of products
@@ -55,6 +47,7 @@ public class BankingProduct  {
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)    
     private OffsetDateTime effectiveTo;
+
     // The last date and time that the information for this product
     // was changed (or the creation date for the product if it has
     // never been altered)
@@ -62,26 +55,33 @@ public class BankingProduct  {
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)    
     private OffsetDateTime lastUpdated;
+
     @JsonProperty("productCategory")
     private BankingEnumProductCategory productCategory;
+
     // The display name of the product
     @JsonProperty("name")
     private String name;
+
     // A description of the product
     @JsonProperty("description")
     private String description;
+
     // A label of the brand for the product. Able to be used for
     // filtering. For data providers with single brands this value
     // is still required
     @JsonProperty("brand")
     private String brand;
+
     // An optional display name of the brand
     @JsonProperty("brandName")
     private String brandName;
+
     // A link to an application web page where this product can be
     // applied for.
     @JsonProperty("applicationUri")
     private String applicationUri;
+
     // Indicates whether the product is specifically tailored to a
     // circumstance.  In this case fees and prices are
     // significantly negotiated depending on context. While all
@@ -89,7 +89,8 @@ public class BankingProduct  {
     // indicates that tailoring is expected and thus that the
     // provision of specific fees and rates is not applicable
     @JsonProperty("isTailored")
-    private Boolean isTailored;   
+    private Boolean isTailored;
+
     @JsonProperty("additionalInformation")
     @Embedded
     private BankingProductAdditionalInformation additionalInformation;
@@ -212,13 +213,24 @@ public class BankingProduct  {
         if(! (brandName.equals(inputModel.getBrandName()))) { return false; }
         if(! (applicationUri.equals(inputModel.getApplicationUri()))) { return false; }
         if(! (isTailored.equals(inputModel.getIsTailored()))) { return false; }
-        if(! (additionalInformation.equals(inputModel.getAdditionalInformation()))) { return false; }
-        return true;
+        return additionalInformation.equals(inputModel.getAdditionalInformation());
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation,additionalInformation);
+        return Objects.hash(
+            productId,
+            effectiveFrom,
+            effectiveTo,
+            lastUpdated,
+            productCategory,
+            name,
+            description,
+            brand,
+            brandName,
+            applicationUri,
+            isTailored,
+            additionalInformation);
     }
 
     @Override
@@ -232,13 +244,10 @@ public class BankingProduct  {
                 sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
                         : oneField.get(Object.class).toString().replace("\n", "\n    "))));
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
                 sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
             }
         }
         sb.append("}");
         return sb.toString();
     }
-
-
 }

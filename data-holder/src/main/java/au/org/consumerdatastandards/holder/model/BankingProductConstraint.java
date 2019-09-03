@@ -17,13 +17,9 @@ import java.util.Objects;
 import java.net.URI;
 import java.lang.reflect.Field;
 
-/**
- * BankingProductConstraint
- * 
- * 
- */
 @Entity
 public class BankingProductConstraint {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer productConstraintId;
@@ -32,16 +28,19 @@ public class BankingProductConstraint {
     // an overview of valid values and their meaning
     @JsonProperty("constraintType")
     private ConstraintType constraintType;
+
     // Generic field containing additional information relevant to
     // the constraintType specified. Whether mandatory or not is
     // dependent on the value of constraintType
     @JsonProperty("additionalValue")
     @Column(length = 2048)
     private String additionalValue;
+
     // Display text providing more information the constraint
     @JsonProperty("additionalInfo")
     @Column(length = 2048)
     private String additionalInfo;
+
     // Link to a web page with more information on the constraint
     @JsonProperty("additionalInfoUri")
     private URI additionalInfoUri;
@@ -97,15 +96,17 @@ public class BankingProductConstraint {
         if (!(additionalInfo.equals(inputModel.getAdditionalInfo()))) {
             return false;
         }
-        if (!(additionalInfoUri.equals(inputModel.getAdditionalInfoUri()))) {
-            return false;
-        }
-        return true;
+        return additionalInfoUri.equals(inputModel.getAdditionalInfoUri());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(additionalInfoUri, additionalInfoUri, additionalInfoUri, additionalInfoUri);
+        return Objects.hash(
+            productConstraintId,
+            constraintType,
+            additionalValue,
+            additionalInfo,
+            additionalInfoUri);
     }
 
     @Override
@@ -119,7 +120,6 @@ public class BankingProductConstraint {
                 sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
                         : oneField.get(Object.class).toString().replace("\n", "\n    "))));
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
                 sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
             }
         }
@@ -127,36 +127,11 @@ public class BankingProductConstraint {
         return sb.toString();
     }
 
-    /**
-     * ConstraintType
-     * 
-     * 
-     */
     public enum ConstraintType {
-        MIN_BALANCE("MIN_BALANCE"), MAX_BALANCE("MAX_BALANCE"), OPENING_BALANCE("OPENING_BALANCE"),
-        MAX_LIMIT("MAX_LIMIT"), MIN_LIMIT("MIN_LIMIT");
-
-        private String value;
-
-        ConstraintType(String value) {
-            this.value = value;
-        }
-
-        @Override
-        @JsonValue
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ConstraintType fromValue(String value) {
-            for (ConstraintType b : ConstraintType.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        MIN_BALANCE,
+        MAX_BALANCE,
+        OPENING_BALANCE,
+        MAX_LIMIT,
+        MIN_LIMIT
     }
-
 }

@@ -20,11 +20,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.math.BigDecimal;
 
-/**
- * BankingProductDepositRate
- * 
- * 
- */
 @Entity
 public class BankingProductDepositRate {
 
@@ -36,9 +31,11 @@ public class BankingProductDepositRate {
     // for an overview of valid values and their meaning
     @JsonProperty("depositRateType")
     private DepositRateType depositRateType;
+
     // The rate to be applied
     @JsonProperty("rate")
     private BigDecimal rate;
+
     // The period after which the rate is applied to the balance to
     // calculate the amount due for the period. Calculation of the
     // amount is often daily (as balances may change) but
@@ -48,27 +45,32 @@ public class BankingProductDepositRate {
     // Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
     @JsonProperty("calculationFrequency")
     private String calculationFrequency;
+
     // The period after which the calculated amount(s) (see
     // calculationFrequency) are 'applied' (i.e. debited or
     // credited) to the account. Formatted according to [ISO 8601
     // Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
     @JsonProperty("applicationFrequency")
     private String applicationFrequency;
+
     // Rate tiers applicable for this rate
     @OneToMany(mappedBy = "depositRate")
     @JsonProperty("tiers")
     @Valid
     private List<BankingProductRateTier> tiers;
+
     // Generic field containing additional information relevant to
     // the depositRateType specified. Whether mandatory or not is
     // dependent on the value of depositRateType
     @JsonProperty("additionalValue")
     @Column(length = 2048)
     private String additionalValue;
+
     // Display text providing more information on the rate
     @JsonProperty("additionalInfo")
     @Column(length = 2048)
     private String additionalInfo;
+
     // Link to a web page with more information on this rate
     @JsonProperty("additionalInfoUri")
     private URI additionalInfoUri;
@@ -168,16 +170,21 @@ public class BankingProductDepositRate {
         if (!(additionalInfo.equals(inputModel.getAdditionalInfo()))) {
             return false;
         }
-        if (!(additionalInfoUri.equals(inputModel.getAdditionalInfoUri()))) {
-            return false;
-        }
-        return true;
+        return additionalInfoUri.equals(inputModel.getAdditionalInfoUri());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(additionalInfoUri, additionalInfoUri, additionalInfoUri, additionalInfoUri,
-                additionalInfoUri, additionalInfoUri, additionalInfoUri, additionalInfoUri);
+        return Objects.hash(
+            productDepositRateId,
+            depositRateType,
+            rate,
+            calculationFrequency,
+            applicationFrequency,
+            tiers,
+            additionalValue,
+            additionalInfo,
+            additionalInfoUri);
     }
 
     @Override
@@ -191,7 +198,6 @@ public class BankingProductDepositRate {
                 sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
                         : oneField.get(Object.class).toString().replace("\n", "\n    "))));
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
                 sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
             }
         }
@@ -199,36 +205,13 @@ public class BankingProductDepositRate {
         return sb.toString();
     }
 
-    /**
-     * DepositRateType
-     * 
-     * 
-     */
     public enum DepositRateType {
-        FIXED("FIXED"), BONUS("BONUS"), BUNDLE_BONUS("BUNDLE_BONUS"), VARIABLE("VARIABLE"),
-        INTRODUCTORY("INTRODUCTORY"), FLOATING("FLOATING"), MARKET_LINKED("MARKET_LINKED");
-
-        private String value;
-
-        DepositRateType(String value) {
-            this.value = value;
-        }
-
-        @Override
-        @JsonValue
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static DepositRateType fromValue(String value) {
-            for (DepositRateType b : DepositRateType.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        FIXED,
+        BONUS,
+        BUNDLE_BONUS,
+        VARIABLE,
+        INTRODUCTORY,
+        FLOATING,
+        MARKET_LINKED
     }
-
 }

@@ -20,11 +20,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.math.BigDecimal;
 
-/**
- * BankingProductDiscount
- * 
- * 
- */
 @Entity
 public class BankingProductDiscount {
     @Id
@@ -35,13 +30,16 @@ public class BankingProductDiscount {
     @JsonProperty("description")
     @Column(length = 2048)
     private String description;
+
     // The type of discount. See the next section for an overview
     // of valid values and their meaning
     @JsonProperty("discountType")
     private DiscountType discountType;
+
     // Value of the discount
     @JsonProperty("amount")
     private BigDecimal amount;
+
     // A discount rate calculated based on a proportion of the
     // balance. Note that the currency of the fee discount is
     // expected to be the same as the currency of the fee itself.
@@ -51,6 +49,7 @@ public class BankingProductDiscount {
     // same as the corresponding fee
     @JsonProperty("balanceRate")
     private BigDecimal balanceRate;
+
     // A discount rate calculated based on a proportion of a
     // transaction. Note that the currency of the fee discount is
     // expected to be the same as the currency of the fee itself.
@@ -58,6 +57,7 @@ public class BankingProductDiscount {
     // feeRate is mandatory
     @JsonProperty("transactionRate")
     private BigDecimal transactionRate;
+
     // A discount rate calculated based on a proportion of the
     // calculated interest accrued on the account. Note that the
     // currency of the fee discount is expected to be the same as
@@ -67,6 +67,7 @@ public class BankingProductDiscount {
     // calculation frequency are the same as the corresponding fee
     @JsonProperty("accruedRate")
     private BigDecimal accruedRate;
+
     // A discount rate calculated based on a proportion of the fee
     // to which this discount is attached. Note that the currency
     // of the fee discount is expected to be the same as the
@@ -76,19 +77,23 @@ public class BankingProductDiscount {
     // calculation frequency are the same as the corresponding fee
     @JsonProperty("feeRate")
     private BigDecimal feeRate;
+
     // Generic field containing additional information relevant to
     // the discountType specified. Whether mandatory or not is
     // dependent on the value of discountType
     @JsonProperty("additionalValue")
     @Column(length = 2048)
     private String additionalValue;
+
     // Display text providing more information on the discount
     @JsonProperty("additionalInfo")
     @Column(length = 2048)
     private String additionalInfo;
+
     // Link to a web page with more information on this discount
     @JsonProperty("additionalInfoUri")
     private URI additionalInfoUri;
+
     // Eligibility constraints that apply to this discount
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "product_discount_eligibility", joinColumns = @JoinColumn(name = "product_discount_id"), inverseJoinColumns = @JoinColumn(name = "discount_eligibility_id"))
@@ -224,10 +229,7 @@ public class BankingProductDiscount {
         if (!(additionalInfoUri.equals(inputModel.getAdditionalInfoUri()))) {
             return false;
         }
-        if (!(eligibility.equals(inputModel.getEligibility()))) {
-            return false;
-        }
-        return true;
+        return eligibility.equals(inputModel.getEligibility());
     }
 
     @Override

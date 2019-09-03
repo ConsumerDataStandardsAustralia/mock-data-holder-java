@@ -25,7 +25,7 @@ import java.util.Optional;
 public class BankingProductsApiController implements BankingProductsApi {
 
     private final BankingProductsService service;
-    private static final Logger LOG = LogManager.getLogger(BankingProductsApiController.class);
+    private static final Logger LOGGER = LogManager.getLogger(BankingProductsApiController.class);
 
     private final NativeWebRequest request;
 
@@ -42,13 +42,13 @@ public class BankingProductsApiController implements BankingProductsApi {
 
     @Override
     public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId) {
-        LOG.info("Retrieving Detailed Product Information for {}", productId);
+        LOGGER.info("Retrieving Detailed Product Information for {}", productId);
 
         if (!WebUtil.hasSupportedVersion(request)) {
-            LOG.error(
-                    "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                    WebUtil.getMinimumVersion(request), WebUtil.getMaximumVersion(request),
-                    WebUtil.getCurrentVersion());
+            LOGGER.error(
+                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
+                WebUtil.getMinimumVersion(request), WebUtil.getMaximumVersion(request),
+                WebUtil.getCurrentVersion());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
         HttpHeaders headers = WebUtil.processHeaders(request);
@@ -60,32 +60,36 @@ public class BankingProductsApiController implements BankingProductsApi {
         responseProductById.setMeta(new Meta());
 
         if (responseProductById.getData() == null) {
-            LOG.error("Unable to located product id {} in repository", productId);
+            LOGGER.error("Unable to located product id {} in repository", productId);
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
         }
 
-        LOG.info("Found product id of {} and returning formatted response", productId);
-        LOG.info("Retrieved Product id {} with effectiveFrom: {}, effectiveTo: {}, lastUpdated: {}",
-                productId, responseProductById.getData().getEffectiveFrom(), responseProductById.getData().getEffectiveTo(),
-                responseProductById.getData().getLastUpdated());
-        LOG.debug("Detail product response is: {}", responseProductById);
+        LOGGER.info("Found product id of {} and returning formatted response", productId);
+        LOGGER.info("Retrieved Product id {} with effectiveFrom: {}, effectiveTo: {}, lastUpdated: {}",
+            productId, responseProductById.getData().getEffectiveFrom(), responseProductById.getData().getEffectiveTo(),
+            responseProductById.getData().getLastUpdated());
+        LOGGER.debug("Detail product response is: {}", responseProductById);
         return new ResponseEntity<>(responseProductById, headers, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ResponseBankingProductList> listProducts(@Valid ParamEffective effective,
-            @Valid OffsetDateTime updatedSince, @Valid String brand, @Valid ParamProductCategory productCategory,
-            @Valid Integer page, @Valid Integer pageSize) {
+                                                                   @Valid OffsetDateTime updatedSince,
+                                                                   @Valid String brand,
+                                                                   @Valid ParamProductCategory productCategory,
+                                                                   @Valid Integer page,
+                                                                   @Valid Integer pageSize) {
 
-        LOG.info(
-                "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",
-                effective, updatedSince, brand, productCategory, page, pageSize);
+        LOGGER.info(
+            "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",
+            effective, updatedSince, brand, productCategory, page, pageSize);
 
         if (!WebUtil.hasSupportedVersion(request)) {
-            LOG.error(
-                    "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                    WebUtil.getMinimumVersion(request), WebUtil.getMaximumVersion(request),
-                    WebUtil.getCurrentVersion());
+            LOGGER.error(
+                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
+                WebUtil.getMinimumVersion(request),
+                WebUtil.getMaximumVersion(request),
+                WebUtil.getCurrentVersion());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
         HttpHeaders headers = WebUtil.processHeaders(request);
@@ -103,23 +107,23 @@ public class BankingProductsApiController implements BankingProductsApi {
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingProduct> productsPage = service.findProductsLike(effective, bankingProduct,
-                PageRequest.of(actualPage - 1, actualPageSize));
+            PageRequest.of(actualPage - 1, actualPageSize));
 
-        LOG.info(
-                "Returning basic product listing page {} of {} (page size of {}) using filters of effective {}, updated since {}, brand {}, product category of {}",
-                actualPage, productsPage.getTotalPages(), actualPageSize, effective, updatedSince, brand,
-                productCategory);
+        LOGGER.info(
+            "Returning basic product listing page {} of {} (page size of {}) using filters of effective {}, updated since {}, brand {}, product category of {}",
+            actualPage, productsPage.getTotalPages(), actualPageSize, effective, updatedSince, brand,
+            productCategory);
 
         ResponseBankingProductListData listData = new ResponseBankingProductListData();
         listData.setProducts(productsPage.getContent());
 
-        LOG.info("Products Page data set to isFirst: {}, isLast: {}", productsPage.isFirst(), productsPage.isLast());
+        LOGGER.info("Products Page data set to isFirst: {}, isLast: {}", productsPage.isFirst(), productsPage.isLast());
 
         LinksPaginated linkData = new LinksPaginated();
         // Baselines
         linkData.setSelf(WebUtil.getOriginalUrl(request));
 
-        if(productsPage.getTotalPages() == 0) {
+        if (productsPage.getTotalPages() == 0) {
             linkData.setFirst(null);
             linkData.setLast(null);
         } else {
@@ -144,14 +148,12 @@ public class BankingProductsApiController implements BankingProductsApi {
         responseProductList.setLinks(linkData);
         responseProductList.setMeta(metaData);
 
-        LOG.debug("Product listing raw response payload is: {}", responseProductList);
-
+        LOGGER.debug("Product listing raw response payload is: {}", responseProductList);
         return new ResponseEntity<>(responseProductList, headers, HttpStatus.OK);
     }
 
     private Integer getPagingValue(@Valid Integer page, int defaultValue) {
-        LOG.debug("Loading page {} with default value of {}", page, defaultValue);
-
+        LOGGER.debug("Loading page {} with default value of {}", page, defaultValue);
         return page != null && page > 0 ? page : defaultValue;
     }
 

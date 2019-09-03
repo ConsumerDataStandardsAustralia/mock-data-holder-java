@@ -9,23 +9,19 @@
 package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.*;
-import javax.validation.Valid;
-
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Objects;
-import java.util.Set;
-import java.net.URI;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.Valid;
 import java.lang.reflect.Field;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-/**
- * BankingProductBundle
- * 
- * 
- */
 @Entity
 public class BankingProductBundle {
 
@@ -37,16 +33,20 @@ public class BankingProductBundle {
     // Name of the bundle
     @JsonProperty("name")
     private String name;
+
     // Description of the bundle
     @JsonProperty("description")
     private String description;
+
     // Display text providing more information on the bundle
     @JsonProperty("additionalInfo")
     private String additionalInfo;
+
     // Link to a web page with more information on the bundle
     // criteria and benefits
     @JsonProperty("additionalInfoUri")
     private URI additionalInfoUri;
+
     // Array of product IDs for products included in the bundle
     @JsonProperty("productIds")
     @ElementCollection
@@ -116,15 +116,17 @@ public class BankingProductBundle {
         if (!(additionalInfoUri.equals(inputModel.getAdditionalInfoUri()))) {
             return false;
         }
-        if (!(bundleProductMembers.equals(inputModel.getProductIds()))) {
-            return false;
-        }
-        return true;
+        return bundleProductMembers.equals(inputModel.getProductIds());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, additionalInfo, additionalInfoUri, bundleProductMembers);
+        return Objects.hash(
+            name,
+            description,
+            additionalInfo,
+            additionalInfoUri,
+            bundleProductMembers);
     }
 
     @Override
@@ -145,5 +147,4 @@ public class BankingProductBundle {
         sb.append("}");
         return sb.toString();
     }
-
 }
