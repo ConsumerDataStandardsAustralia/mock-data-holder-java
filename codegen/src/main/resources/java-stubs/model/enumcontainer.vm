@@ -1,8 +1,0 @@
-#include("java-common/header.vm")
-package $packageName;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-
-#parse("java-stubs/model/enum.vm")

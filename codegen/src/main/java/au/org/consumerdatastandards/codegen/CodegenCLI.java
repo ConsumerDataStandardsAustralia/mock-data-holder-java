@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CodegenCLI {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CodegenCLI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CodegenCLI.class);
 
     public static void main(String[] args) {
         Options options = new Options();
@@ -35,10 +35,10 @@ public class CodegenCLI {
                 generator.generate();
             }
         } catch (ParameterException | IllegalAccessException | InstantiationException e) {
-            LOG.error("Invalid parameter exception: {}", e.getMessage());
+            LOGGER.error("Invalid parameter exception: {}", e.getMessage());
             printHelp(commander, generator);
         } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
