@@ -69,7 +69,9 @@ public class BankingProductRateCondition {
 
   @Override
   public int hashCode() {
-    return Objects.hash(additionalInfoUri, additionalInfoUri);
+    return Objects.hash(
+        additionalInfo,
+        additionalInfoUri);
   }
 
   @Override

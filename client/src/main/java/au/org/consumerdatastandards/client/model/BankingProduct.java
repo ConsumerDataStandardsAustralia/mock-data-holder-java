@@ -304,17 +304,17 @@ public class BankingProduct {
   @Override
   public int hashCode() {
     return Objects.hash(
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
-        additionalInformation,
+        productId,
+        effectiveFrom,
+        effectiveTo,
+        lastUpdated,
+        productCategory,
+        name,
+        description,
+        brand,
+        brandName,
+        applicationUri,
+        isTailored,
         additionalInformation);
   }
 

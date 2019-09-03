@@ -48,7 +48,9 @@ public class ResponseBankingProductById extends BaseResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(
+        super.hashCode(),
+        data);
   }
 
   @Override

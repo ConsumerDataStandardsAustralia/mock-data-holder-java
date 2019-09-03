@@ -136,7 +136,12 @@ public class BankingProductAdditionalInformation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(bundleUri, bundleUri, bundleUri, bundleUri, bundleUri);
+    return Objects.hash(
+        overviewUri,
+        termsUri,
+        eligibilityUri,
+        feesAndPricingUri,
+        bundleUri);
   }
 
   @Override

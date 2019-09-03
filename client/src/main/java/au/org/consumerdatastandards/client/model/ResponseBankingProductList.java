@@ -47,7 +47,9 @@ public class ResponseBankingProductList extends PaginatedResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(data);
+    return Objects.hash(
+        super.hashCode(),
+        data);
   }
 
   @Override

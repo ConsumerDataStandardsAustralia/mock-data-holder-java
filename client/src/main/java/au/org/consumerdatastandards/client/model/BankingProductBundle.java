@@ -138,7 +138,12 @@ public class BankingProductBundle {
 
   @Override
   public int hashCode() {
-    return Objects.hash(productIds, productIds, productIds, productIds, productIds);
+    return Objects.hash(
+        name,
+        description,
+        additionalInfo,
+        additionalInfoUri,
+        productIds);
   }
 
   @Override

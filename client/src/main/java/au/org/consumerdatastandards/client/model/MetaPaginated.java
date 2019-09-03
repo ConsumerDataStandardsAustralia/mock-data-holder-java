@@ -69,7 +69,9 @@ public class MetaPaginated {
 
   @Override
   public int hashCode() {
-    return Objects.hash(totalPages, totalPages);
+    return Objects.hash(
+        totalRecords,
+        totalPages);
   }
 
   @Override

@@ -41,7 +41,8 @@ import java.util.regex.Pattern;
 
 public class ApiClient {
 
-  private String basePath = "http://localhost:8080/cds-au/v1";
+  public static final String DEFAULT_BASE_PATH = "http://localhost:8080/cds-au/v1";
+  private String basePath = DEFAULT_BASE_PATH;
   private boolean debugging = false;
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   private String tempFolderPath = null;
