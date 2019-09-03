@@ -11,5 +11,4 @@ public class SwaggerJacksonModuleRegistrar implements JacksonModuleRegistrar {
     public void maybeRegisterModule(ObjectMapper objectMapper) {
         ReferenceSerializationConfigurer.serializeAsComputedRef(objectMapper);
     }
-    
 }

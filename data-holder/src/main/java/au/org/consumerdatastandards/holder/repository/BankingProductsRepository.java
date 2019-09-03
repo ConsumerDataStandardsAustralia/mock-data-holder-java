@@ -9,6 +9,4 @@ import au.org.consumerdatastandards.holder.model.BankingProduct;
 
 @Repository
 public interface BankingProductsRepository
-    extends PagingAndSortingRepository<BankingProduct, String>, JpaSpecificationExecutor<BankingProduct> {
-
-}
+    extends PagingAndSortingRepository<BankingProduct, String>, JpaSpecificationExecutor<BankingProduct> { }

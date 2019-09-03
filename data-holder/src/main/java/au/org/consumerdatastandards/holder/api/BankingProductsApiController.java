@@ -101,7 +101,7 @@ public class BankingProductsApiController implements BankingProductsApi {
         bankingProduct.setLastUpdated(updatedSince);
         bankingProduct.setBrand(brand);
         if (productCategory != null) {
-            bankingProduct.setProductCategory(BankingEnumProductCategory.fromValue(productCategory.name()));
+            bankingProduct.setProductCategory(BankingEnumProductCategory.valueOf(productCategory.name()));
         }
 
         Integer actualPage = getPagingValue(page, 1);
