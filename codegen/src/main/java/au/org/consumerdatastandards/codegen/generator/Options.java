@@ -13,11 +13,17 @@ public class Options implements ModelBuilderOptions {
     @Parameter(names= {"--generator", "-g"}, description = "Class name of cds-codegen generator", order = 1)
     private String generatorClassName = "au.org.consumerdatastandards.codegen.generator.openapi.SwaggerGenerator";
 
-    @Parameter(names = {"--included", "-i"}, description = "Include Section (comma separated)", order = 2)
+    @Parameter(names = {"--included", "-i"}, description = "Included Sections (comma separated)", order = 2)
     private List<String> includedSections = new ArrayList<>();
 
-    @Parameter(names = {"--excluded", "-e"}, description = "Exclude Section (comma separated)", order = 3)
+    @Parameter(names = {"--excluded", "-e"}, description = "Excluded Sections (comma separated)", order = 3)
     private List<String> excludedSections = new ArrayList<>();
+
+    @Parameter(names = {"--listSections", "-ls"}, description = "List API Sections", order = 4)
+    private boolean listSections;
+
+    @Parameter(names = {"--listGenerators", "-lg"}, description = "List Available Generators", order = 5)
+    private boolean listGenerators;
 
     @Parameter(names = {"--help", "-?", "-h" }, help = true)
     private boolean help;
@@ -52,5 +58,13 @@ public class Options implements ModelBuilderOptions {
 
     public boolean isHelp() {
         return help;
+    }
+
+    public boolean isListSections() {
+        return listSections;
+    }
+
+    public boolean isListGenerators() {
+        return listGenerators;
     }
 }

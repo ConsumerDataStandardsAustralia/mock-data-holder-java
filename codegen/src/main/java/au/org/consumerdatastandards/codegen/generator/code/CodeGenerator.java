@@ -19,7 +19,7 @@ import java.util.Set;
 public class CodeGenerator extends AbstractGenerator<CodegenOptions> {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(CodeGenerator.class);
-    private final static String BASE_PACKAGE = "au.org.consumerdatastandards";
+    private final static String BASE_PACKAGE = "au.org.consumerdatastandards.codegen.generator.code";
     
     public CodeGenerator(APIModel apiModel) {
         super(apiModel);
