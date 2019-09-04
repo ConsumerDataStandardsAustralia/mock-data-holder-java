@@ -34,10 +34,10 @@ public class SectionHandler extends AbstractHandler<SectionHandlerConfig> {
        for (CodegenSection codegenSection : codegenModel.getCodegenSections()) {
             // We reparse the config with the section data
             SectionHandlerConfig modelConfig = perModelConfig(codegenSection);
-            LOG.debug("Writing file to {}/{}/{} with template {}", options.getOutputPath(), modelConfig.getBaseDirectory(), modelConfig.filePath, modelConfig.templateFile);
-            VelocityFile oneFile = new VelocityFile(modelConfig.fileName,
-                    String.format("%s/%s/%s", options.getOutputPath(), modelConfig.getBaseDirectory(), modelConfig.filePath),
-                    modelConfig.templateFile, modelConfig, codegenSection);
+            LOG.debug("Writing file to {}/{}/{} with template {}", options.getOutputPath(), modelConfig.getBaseDirectory(), modelConfig.getFilePath(), modelConfig.getTemplateFile());
+            VelocityFile oneFile = new VelocityFile(modelConfig.getFileName(),
+                    String.format("%s/%s/%s", options.getOutputPath(), modelConfig.getBaseDirectory(), modelConfig.getFilePath()),
+                    modelConfig.getTemplateFile(), modelConfig, codegenSection);
             velocityHelper.addFile(oneFile);
         }
     }

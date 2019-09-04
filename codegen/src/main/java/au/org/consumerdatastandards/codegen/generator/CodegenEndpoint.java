@@ -1,10 +1,14 @@
 package au.org.consumerdatastandards.codegen.generator;
 
+import au.org.consumerdatastandards.support.model.EndpointModel;
 import com.google.common.base.CaseFormat;
 
 public class CodegenEndpoint {
 
     private String defaultResponseTypeName;
+
+    public CodegenEndpoint(EndpointModel endpointModel) {
+    }
 
     public void setDefaultResponse(String name) {
         defaultResponseTypeName = name;

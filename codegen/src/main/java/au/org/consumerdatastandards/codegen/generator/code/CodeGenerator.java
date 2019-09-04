@@ -6,6 +6,8 @@ import au.org.consumerdatastandards.codegen.generator.code.handler.AbstractHandl
 import au.org.consumerdatastandards.codegen.generator.code.handler.AbstractHandlerConfig;
 import au.org.consumerdatastandards.codegen.util.ModelCodegenConverter;
 import au.org.consumerdatastandards.support.model.APIModel;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
@@ -52,7 +54,9 @@ public class CodeGenerator extends AbstractGenerator<CodegenOptions> {
 
         LOGGER.debug("Starting velocity rendering to output path of {}",  options.getOutputPath());
         VelocityHelper velocityHelper = new VelocityHelper(options.getOutputPath());
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper()
+                .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
+                .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);;
         CodegenConfig targetConfig = objectMapper.readValue(configFileStream, CodegenConfig.class);
         
         for(AbstractHandlerConfig handlerConfig : targetConfig.getHandlerConfigs()) {

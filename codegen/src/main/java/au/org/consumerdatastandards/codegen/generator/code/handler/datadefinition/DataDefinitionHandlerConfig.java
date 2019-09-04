@@ -31,15 +31,7 @@ public class DataDefinitionHandlerConfig extends AbstractHandlerConfig {
         return inlineEnumTemplate;
     }
 
-    public void setInlineEnumTemplate(String inlineEnumTemplate) {
-        this.inlineEnumTemplate = inlineEnumTemplate;
-    }
-
     public String getInlineModelTemplate() {
         return inlineModelTemplate;
-    }
-
-    public void setInlineModelTemplate(String inlineModelTemplate) {
-        this.inlineModelTemplate = inlineModelTemplate;
     }
 }

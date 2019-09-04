@@ -34,4 +34,16 @@ public class CodegenConfig {
     public Map<String, String> getGlobalVariables() {
         return globalVariables;
     }
+
+    public void setHandlerConfigs(List<AbstractHandlerConfig> handlerConfigs) {
+        this.handlerConfigs = handlerConfigs;
+    }
+
+    public void setTypeMappings(Map<String, String> typeMappings) {
+        this.typeMappings = typeMappings;
+    }
+
+    public void setGlobalVariables(Map<String, String> globalVariables) {
+        this.globalVariables = globalVariables;
+    }
 }

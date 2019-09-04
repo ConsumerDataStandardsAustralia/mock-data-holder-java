@@ -1,10 +1,16 @@
 package au.org.consumerdatastandards.codegen.generator;
 
+import au.org.consumerdatastandards.support.data.DataDefinition;
+import au.org.consumerdatastandards.support.model.DataDefinitionModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class CodegenDataDefinition {
+
+    public CodegenDataDefinition(Class<?> dataDefinition) {
+    }
 
     public String definitionName;
     public List<CodegenDataDefinitionField> fieldList = new ArrayList<>();

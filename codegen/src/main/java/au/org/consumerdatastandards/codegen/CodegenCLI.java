@@ -19,6 +19,8 @@ public class CodegenCLI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CodegenCLI.class);
     private static final String BASE_PACKAGE = "au.org.consumerdatastandards.codegen.generator";
+    private static Reflections reflections = new Reflections(BASE_PACKAGE);
+    private static Set<Class<? extends AbstractGenerator>> generators = reflections.getSubTypesOf(AbstractGenerator.class);
 
     public static void main(String[] args) {
         Options options = new Options();
@@ -40,15 +42,12 @@ public class CodegenCLI {
         if (options.isListGenerators()) {
             listing = true;
             JCommander.getConsole().println("Generators:");
-            Reflections reflections = new Reflections(BASE_PACKAGE);
-            Set<Class<? extends AbstractGenerator>> generators = reflections.getSubTypesOf(AbstractGenerator.class);
             for (Class<? extends AbstractGenerator> generator: generators) {
-                JCommander.getConsole().println(" - " + generator.getName());
+                JCommander.getConsole().println(" - " + generator.getSimpleName());
             }
         }
         if (!listing) {
-            AbstractGenerator<?> generator = getGenerator(options.getGeneratorClassName(), apiModel);
-
+            AbstractGenerator<?> generator = getGenerator(options.getGeneratorName(), apiModel);
             try {
                 generator.populateOptions(args);
                 if (options.isHelp()) {
@@ -70,22 +69,29 @@ public class CodegenCLI {
         else commander.usage();
     }
 
-    private static AbstractGenerator<?> getGenerator(String generatorClassName, APIModel apiModel) {
+    private static AbstractGenerator<?> getGenerator(String generatorName, APIModel apiModel) {
 
-        if (StringUtils.isBlank(generatorClassName)) {
+        if (StringUtils.isBlank(generatorName)) {
             throw new ParameterException("You must supply a generator name");
         }
 
         try {
-            Class<?> targetGenerator = Class.forName(generatorClassName);
+            Class<? extends AbstractGenerator> targetGenerator = null;
+            for (Class<? extends AbstractGenerator> generator : generators) {
+                if (generator.getSimpleName().equals(generatorName)) {
+                    targetGenerator = generator;
+                    break;
+                }
+            }
+            if (targetGenerator == null) {
+                String message = String.format("The specified generator of \"%s\" is not found", generatorName);
+                throw new ParameterException(message);
+            }
             return (AbstractGenerator<?>) targetGenerator.getConstructor(APIModel.class).newInstance(apiModel);
-        } catch (ClassNotFoundException e) {
-            String message = String.format("The specified generator of \"%s\" is not found", generatorClassName);
-            throw new ParameterException(message);
         } catch (InvocationTargetException | NoSuchMethodException | ClassCastException | InstantiationException
                 | IllegalAccessException | IllegalArgumentException | SecurityException e) {
             String message = String.format("Unable to instantiate requested class %s due to: %s",
-                generatorClassName, e.getCause());
+                generatorName, e.getCause());
             throw new ParameterException(message);
         }
     }

@@ -4,9 +4,9 @@ import au.org.consumerdatastandards.codegen.generator.code.handler.AbstractHandl
 
 public class SectionHandlerConfig extends AbstractHandlerConfig {
 
-    String templateFile;
-    String fileName;
-    String filePath;
+    private String templateFile;
+    private String fileName;
+    private String filePath;
 
     public String getTemplateFile() {
         return templateFile;

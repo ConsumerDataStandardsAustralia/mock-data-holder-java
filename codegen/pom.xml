@@ -20,6 +20,7 @@
         <commons-text.version>1.6</commons-text.version>
         <commons-cli.version>1.4</commons-cli.version>
         <google-java-format.version>1.7</google-java-format.version>
+        <guava.version>27.1-jre</guava.version>
     </properties>
     <build>
         <resources>
@@ -170,6 +171,11 @@
             <groupId>com.google.googlejavaformat</groupId>
             <artifactId>google-java-format</artifactId>
             <version>${google-java-format.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

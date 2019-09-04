@@ -1,11 +1,20 @@
 package au.org.consumerdatastandards.codegen.generator;
 
+import au.org.consumerdatastandards.support.model.EndpointModel;
 import au.org.consumerdatastandards.support.model.SectionModel;
+
+import java.util.Set;
 
 public class CodegenSection {
 
-    public CodegenSection(SectionModel sectionModel) {
+    private SectionModel sectionModel;
 
+    public CodegenSection(SectionModel sectionModel) {
+        this.sectionModel = sectionModel;
+    }
+
+    public Set<EndpointModel> getEndpointModels() {
+        return sectionModel.getEndpointModels();
     }
 
     private String interfaceName;

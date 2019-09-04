@@ -10,8 +10,8 @@ import java.util.List;
 @Parameters(commandDescription = "Perform Code Generation Tasks")
 public class Options implements ModelBuilderOptions {
 
-    @Parameter(names= {"--generator", "-g"}, description = "Class name of cds-codegen generator", order = 1)
-    private String generatorClassName = "au.org.consumerdatastandards.codegen.generator.openapi.SwaggerGenerator";
+    @Parameter(names= {"--generator", "-g"}, description = "Name of the generator", order = 1)
+    private String generatorName = "SwaggerGenerator";
 
     @Parameter(names = {"--included", "-i"}, description = "Included Sections (comma separated)", order = 2)
     private List<String> includedSections = new ArrayList<>();
@@ -46,8 +46,8 @@ public class Options implements ModelBuilderOptions {
         this.excludedSections = excludedSections;
     }
 
-    public String getGeneratorClassName() {
-        return generatorClassName;
+    public String getGeneratorName() {
+        return generatorName;
     }
 
     public boolean isSectionIncluded(String sectionName) {

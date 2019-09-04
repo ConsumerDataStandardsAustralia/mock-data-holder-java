@@ -83,7 +83,7 @@ public class ModelCodegenConverter {
     }
 
     private static CodegenDataDefinition convert(Class<?> dataDefinition) {
-        CodegenDataDefinition codegenDataDefinition = new CodegenDataDefinition();
+        CodegenDataDefinition codegenDataDefinition = new CodegenDataDefinition(dataDefinition);
         return codegenDataDefinition;
     }
 
