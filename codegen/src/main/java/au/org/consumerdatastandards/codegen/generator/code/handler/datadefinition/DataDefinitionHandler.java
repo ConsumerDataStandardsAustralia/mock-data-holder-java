@@ -36,7 +36,7 @@ public class DataDefinitionHandler extends AbstractHandler<DataDefinitionHandler
     }
 
     private CodegenDataDefinition getDataDefinition(Class<?> definitionClass) {
-        CodegenDataDefinition dataDefinition = new CodegenDataDefinition();
+        CodegenDataDefinition dataDefinition = new CodegenDataDefinition(definitionClass);
         dataDefinition.definitionName = definitionClass.getSimpleName();
         dataDefinition.packageName = definitionClass.getPackage().getName();
         dataDefinition.isEnum = definitionClass.isEnum();
