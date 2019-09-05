@@ -1,3 +1,0 @@
-#set( $responseCode = $endpointResponse.responseCode().getCode() )
-#set( $responseDescription = $endpointResponse.description() )
-#set( $responseType = $endpointResponse.content().getSimpleName() )
