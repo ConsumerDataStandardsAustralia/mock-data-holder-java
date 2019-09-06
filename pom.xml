@@ -30,8 +30,8 @@
     <scm>
         <url>https://github.com/ConsumerDataStandardsAustralia/java-artefacts</url>
         <connection>scm:git:https://github.com/ConsumerDataStandardsAustralia/java-artefacts.git</connection>
-        <developerConnection>scm:git:https://github.com/ConsumerDataStandardsAustralia/java-artefacts.git
-        </developerConnection>
+        <developerConnection>scm:git:https://github.com/ConsumerDataStandardsAustralia/java-artefacts.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
