@@ -4,7 +4,7 @@
     <parent>
         <groupId>au.org.consumerdatastandards</groupId>
         <artifactId>cds-java-artefacts</artifactId>
-        <version>0.9.3</version>
+        <version>0.9.3-SNAPSHOT</version>
     </parent>
     <artifactId>reflection</artifactId>
   <version>0.9.3</version>
