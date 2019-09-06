@@ -2,6 +2,7 @@ package au.org.consumerdatastandards.conformance;
 
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.thucydides.junit.annotations.UseTestDataFrom;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,6 +19,7 @@ public class ListProductsTest extends BankingProductsAPITestBase {
 
     @Test
     public void listProducts() {
+        if (StringUtils.isBlank(steps.getApiBasePath())) return;
         steps.listProducts(effective, updatedSince, brand, productCategory, page, pageSize);
         steps.validateListProductsResponse(effective, updatedSince, brand, productCategory, page, pageSize);
     }

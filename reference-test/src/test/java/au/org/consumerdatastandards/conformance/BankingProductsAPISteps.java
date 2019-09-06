@@ -379,4 +379,8 @@ public class BankingProductsAPISteps {
     public ResponseBankingProductList getResponseBankingProductList() {
         return responseBankingProductList;
     }
+
+    public String getApiBasePath() {
+        return apiBasePath;
+    }
 }
