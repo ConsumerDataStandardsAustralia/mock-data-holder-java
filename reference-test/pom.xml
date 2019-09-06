@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>au.org.consumerdatastandards</groupId>
         <artifactId>cds-java-artefacts</artifactId>
-        <version>0.9.3-SNAPSHOT</version>
+        <version>0.9.3</version>
     </parent>
     <artifactId>reference-test</artifactId>
+  <version>0.9.3</version>
     <name>Reference Test</name>
     <description>Reference test of CDS payloads and API endpoints</description>
     <properties>
@@ -159,4 +158,8 @@
             </resource>
         </resources>
     </build>
+
+  <scm>
+    <tag>api-model-0.9.3</tag>
+  </scm>
 </project>

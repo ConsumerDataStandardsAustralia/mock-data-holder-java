@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>au.org.consumerdatastandards</groupId>
         <artifactId>cds-java-artefacts</artifactId>
-        <version>0.9.3-SNAPSHOT</version>
+        <version>0.9.3</version>
     </parent>
     <artifactId>api-model</artifactId>
+  <version>0.9.3</version>
     <name>API Model</name>
     <description>This artefact describes the Consumer Data Standards using Java classes and annotations in a way suitable for automatic generation of Open API Specification, documentation, Server Stub, Client Libraries and Reference Test.</description>
     <build>
@@ -75,4 +75,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+  <scm>
+    <tag>api-model-0.9.3</tag>
+  </scm>
 </project>
