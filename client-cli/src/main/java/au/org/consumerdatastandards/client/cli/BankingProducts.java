@@ -11,6 +11,7 @@ package au.org.consumerdatastandards.client.cli;
 import au.org.consumerdatastandards.client.api.BankingProductsAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.*;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.PayloadValidator;
@@ -70,7 +71,7 @@ public class BankingProducts {
                 List<ConformanceError> conformanceErrors = payloadValidator
                         .validateResponse(call.request().url().toString(), response, "listProducts", ResponseCode.OK);
                 if (conformanceErrors.isEmpty()) {
-                    LOGGER.info(response.toString());
+                    LOGGER.info(JsonPrinter.toJson(response));
                 } else {
                     logConformanceErrors(conformanceErrors);
                 }
@@ -90,7 +91,7 @@ public class BankingProducts {
                     }
 
                 } else {
-                    LOGGER.info(response.toString());
+                    LOGGER.info(JsonPrinter.toJson(response));
                 }
             }
         } catch (Exception e) {
@@ -114,12 +115,12 @@ public class BankingProducts {
                 List<ConformanceError> conformanceErrors = payloadValidator.validateResponse(
                         call.request().url().toString(), response, "getProductDetail", ResponseCode.OK);
                 if (conformanceErrors.isEmpty()) {
-                    LOGGER.info(response.toString());
+                    LOGGER.info(JsonPrinter.toJson(response));
                 } else {
                     logConformanceErrors(conformanceErrors);
                 }
             } else {
-                LOGGER.info(response.toString());
+                LOGGER.info(JsonPrinter.toJson(response));
             }
         } catch (Exception e) {
             LOGGER.error("Encountered error while performing getProductDetail: {}", e.getMessage());

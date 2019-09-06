@@ -1,0 +1,15 @@
+package au.org.consumerdatastandards.client.cli.support;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JsonPrinter {
+
+    public static String toJson(Object o) {
+        try {
+            return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            return o.toString();
+        }
+    }
+}
