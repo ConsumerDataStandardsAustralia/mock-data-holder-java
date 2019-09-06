@@ -8,61 +8,7 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import java.lang.reflect.Field;
-
-
-
-
-/**
-* Meta
-* 
-* 
-*/
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.NONE)
-public class Meta  {
-
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        
-        Meta inputModel = (Meta) o;
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("class %s {\n", getClass()));
-
-        for (Field oneField : getClass().getFields()) {
-            oneField.setAccessible(true);
-            try {
-                sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
-                        : oneField.get(Object.class).toString().replace("\n", "\n    "))));
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
-                sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
-            }
-        }
-        sb.append("}");
-        return sb.toString();
-    }
-
-
-}
+public class Meta  { }

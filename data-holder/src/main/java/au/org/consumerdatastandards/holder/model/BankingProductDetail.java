@@ -24,9 +24,9 @@ public class BankingProductDetail {
     @JsonProperty("productId")
     private String productId;
 
+    @OneToOne (cascade = CascadeType.ALL)
     @JsonProperty("additionalInformation")
-    @Column(length = 2048)
-    private BankingProductAdditionalInformation additionalInformation = null;
+    private BankingProductAdditionalInformation additionalInformation;
 
     @JsonProperty("applicationUri")
     private String applicationUri;
@@ -179,8 +179,6 @@ public class BankingProductDetail {
      */
     @ApiModelProperty(required = true, value = "A label of the brand for the product. Able to be used for filtering. For data providers with single brands this value is still required")
     @NotNull
-
-
     public String getBrand() {
         return brand;
     }
@@ -200,8 +198,6 @@ public class BankingProductDetail {
      * @return brandName
      */
     @ApiModelProperty(value = "An optional display name of the brand")
-
-
     public String getBrandName() {
         return brandName;
     }
@@ -222,8 +218,6 @@ public class BankingProductDetail {
      */
     @ApiModelProperty(required = true, value = "A description of the product")
     @NotNull
-
-
     public String getDescription() {
         return description;
     }
@@ -243,9 +237,7 @@ public class BankingProductDetail {
      * @return effectiveFrom
      */
     @ApiModelProperty(value = "The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate")
-
     @Valid
-
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
     }
@@ -572,96 +564,43 @@ public class BankingProductDetail {
         this.lendingRates = lendingRates;
     }
 
+
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        BankingProductDetail bankingProductDetail = (BankingProductDetail) o;
-        return Objects.equals(this.additionalInformation, bankingProductDetail.additionalInformation) &&
-            Objects.equals(this.applicationUri, bankingProductDetail.applicationUri) &&
-            Objects.equals(this.brand, bankingProductDetail.brand) &&
-            Objects.equals(this.brandName, bankingProductDetail.brandName) &&
-            Objects.equals(this.description, bankingProductDetail.description) &&
-            Objects.equals(this.effectiveFrom, bankingProductDetail.effectiveFrom) &&
-            Objects.equals(this.effectiveTo, bankingProductDetail.effectiveTo) &&
-            Objects.equals(this.isTailored, bankingProductDetail.isTailored) &&
-            Objects.equals(this.lastUpdated, bankingProductDetail.lastUpdated) &&
-            Objects.equals(this.name, bankingProductDetail.name) &&
-            Objects.equals(this.productCategory, bankingProductDetail.productCategory) &&
-            Objects.equals(this.productId, bankingProductDetail.productId) &&
-            Objects.equals(this.bundles, bankingProductDetail.bundles) &&
-            Objects.equals(this.constraints, bankingProductDetail.constraints) &&
-            Objects.equals(this.depositRates, bankingProductDetail.depositRates) &&
-            Objects.equals(this.eligibility, bankingProductDetail.eligibility) &&
-            Objects.equals(this.features, bankingProductDetail.features) &&
-            Objects.equals(this.fees, bankingProductDetail.fees) &&
-            Objects.equals(this.lendingRates, bankingProductDetail.lendingRates);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankingProductDetail that = (BankingProductDetail) o;
+        return Objects.equals(productId, that.productId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            additionalInformation,
-            applicationUri, brand,
-            brandName,
-            description,
-            effectiveFrom,
-            effectiveTo,
-            isTailored,
-            lastUpdated,
-            name,
-            productCategory,
-            productId,
-            bundles,
-            constraints,
-            depositRates,
-            eligibility,
-            features,
-            fees,
-            lendingRates);
+        return Objects.hash(productId);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class BankingProductDetail {\n");
-
-        sb.append("    additionalInformation: ").append(toIndentedString(additionalInformation)).append("\n");
-        sb.append("    applicationUri: ").append(toIndentedString(applicationUri)).append("\n");
-        sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
-        sb.append("    brandName: ").append(toIndentedString(brandName)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
-        sb.append("    effectiveTo: ").append(toIndentedString(effectiveTo)).append("\n");
-        sb.append("    isTailored: ").append(toIndentedString(isTailored)).append("\n");
-        sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    productCategory: ").append(toIndentedString(productCategory)).append("\n");
-        sb.append("    productId: ").append(toIndentedString(productId)).append("\n");
-        sb.append("    bundles: ").append(toIndentedString(bundles)).append("\n");
-        sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
-        sb.append("    depositRates: ").append(toIndentedString(depositRates)).append("\n");
-        sb.append("    eligibility: ").append(toIndentedString(eligibility)).append("\n");
-        sb.append("    features: ").append(toIndentedString(features)).append("\n");
-        sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
-        sb.append("    lendingRates: ").append(toIndentedString(lendingRates)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(java.lang.Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+        return "BankingProductDetail{" +
+                "productId='" + productId + '\'' +
+                ", additionalInformation=" + additionalInformation +
+                ", applicationUri='" + applicationUri + '\'' +
+                ", brand='" + brand + '\'' +
+                ", brandName='" + brandName + '\'' +
+                ", description='" + description + '\'' +
+                ", effectiveFrom=" + effectiveFrom +
+                ", effectiveTo=" + effectiveTo +
+                ", isTailored=" + isTailored +
+                ", lastUpdated=" + lastUpdated +
+                ", name='" + name + '\'' +
+                ", productCategory=" + productCategory +
+                ", bundles=" + bundles +
+                ", constraints=" + constraints +
+                ", depositRates=" + depositRates +
+                ", eligibility=" + eligibility +
+                ", features=" + features +
+                ", fees=" + fees +
+                ", lendingRates=" + lendingRates +
+                '}';
     }
 }
 

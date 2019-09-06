@@ -305,8 +305,8 @@ public class BankingProductLendingRate {
   }
 
   public enum InterestPaymentDue {
-    ARREARS,
-    ADVANCE
+    IN_ARREARS,
+    IN_ADVANCE
   }
 
   public enum LendingRateType {

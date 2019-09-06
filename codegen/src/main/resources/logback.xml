@@ -4,7 +4,7 @@
     <logger name="org.reflections" level="ERROR" />
 
     <property name="LOG_FILE"
-        value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/codegen.log}" />
+        value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/cds-codegen.log}" />
 
     <appender name="CONSOLE"
         class="ch.qos.logback.core.ConsoleAppender">
@@ -32,7 +32,7 @@
         </rollingPolicy>
     </appender>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>

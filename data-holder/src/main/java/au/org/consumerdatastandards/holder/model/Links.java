@@ -8,22 +8,14 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Objects;
 import java.net.URI;
-import java.lang.reflect.Field;
+import java.util.Objects;
 
-
-
-
-/**
-* Links
-* 
-* 
-*/
 public class Links  {
-    // Fully qualified link to this API call
-    @JsonProperty("self")
+
+    /**
+     * Fully qualified link to this API call
+     */
     private URI self;
 
     
@@ -36,42 +28,22 @@ public class Links  {
     }
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        
-        Links inputModel = (Links) o;
-        if(! (self.equals(inputModel.getSelf()))) { return false; }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Links links = (Links) o;
+        return Objects.equals(self, links.self);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(self);
+        return Objects.hash(self);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("class %s {\n", getClass()));
-
-        for (Field oneField : getClass().getFields()) {
-            oneField.setAccessible(true);
-            try {
-                sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
-                        : oneField.get(Object.class).toString().replace("\n", "\n    "))));
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
-                sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
-            }
-        }
-        sb.append("}");
-        return sb.toString();
+        return "Links{" +
+                "self=" + self +
+                '}';
     }
-
-
 }

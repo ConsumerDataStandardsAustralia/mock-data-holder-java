@@ -8,27 +8,20 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
-import java.lang.reflect.Field;
 
-
-
-
-/**
-* MetaPaginated
-* 
-* 
-*/
 public class MetaPaginated  {
-    // The total number of records in the full set
-    @JsonProperty("totalRecords")
+
+    /**
+     * The total number of records in the full set
+     */
     private Integer totalRecords;
-    // The total number of pages in the full set
-    @JsonProperty("totalPages")
+
+    /**
+     * The total number of pages in the full set
+     */
     private Integer totalPages;
 
-    
     public Integer getTotalRecords() {
         return totalRecords;
     }
@@ -46,43 +39,24 @@ public class MetaPaginated  {
     }
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        
-        MetaPaginated inputModel = (MetaPaginated) o;
-        if(! (totalRecords.equals(inputModel.getTotalRecords()))) { return false; }
-        if(! (totalPages.equals(inputModel.getTotalPages()))) { return false; }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MetaPaginated that = (MetaPaginated) o;
+        return Objects.equals(totalRecords, that.totalRecords) &&
+                Objects.equals(totalPages, that.totalPages);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(totalPages,totalPages);
+        return Objects.hash(totalRecords, totalPages);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("class %s {\n", getClass()));
-
-        for (Field oneField : getClass().getFields()) {
-            oneField.setAccessible(true);
-            try {
-                sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
-                        : oneField.get(Object.class).toString().replace("\n", "\n    "))));
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
-                sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
-            }
-        }
-        sb.append("}");
-        return sb.toString();
+        return "MetaPaginated{" +
+                "totalRecords=" + totalRecords +
+                ", totalPages=" + totalPages +
+                '}';
     }
-
-
 }

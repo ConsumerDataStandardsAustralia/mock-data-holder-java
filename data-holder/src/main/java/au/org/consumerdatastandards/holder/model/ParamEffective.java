@@ -8,39 +8,8 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-
-/**
-* ParamEffective
-* 
-* 
-*/
 public enum ParamEffective {
-    CURRENT("CURRENT"),
-    FUTURE("FUTURE"),
-    ALL("ALL");
-    
-    private String value;
-    
-    ParamEffective(String value) {
-      this.value = value;
-    }
-    
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ParamEffective fromValue(String value) {
-      for (ParamEffective b : ParamEffective.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
+    CURRENT,
+    FUTURE,
+    ALL
 }

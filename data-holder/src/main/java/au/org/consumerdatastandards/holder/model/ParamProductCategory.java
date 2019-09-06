@@ -8,51 +8,22 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-
 /**
-* ParamProductCategory
-* 
-* * Used to filter results on the productCategory field
-* applicable to accounts. Any one of the valid values for this
-* field can be supplied. If absent then all accounts returned.
-* 
-*/
+ * Used to filter results on the productCategory field
+ * applicable to accounts. Any one of the valid values for this
+ * field can be supplied. If absent then all accounts returned.
+ */
 public enum ParamProductCategory {
-    TRANS_AND_SAVINGS_ACCOUNTS("TRANS_AND_SAVINGS_ACCOUNTS"),
-    TERM_DEPOSITS("TERM_DEPOSITS"),
-    TRAVEL_CARDS("TRAVEL_CARDS"),
-    REGULATED_TRUST_ACCOUNTS("REGULATED_TRUST_ACCOUNTS"),
-    RESIDENTIAL_MORTGAGES("RESIDENTIAL_MORTGAGES"),
-    CRED_AND_CHRG_CARDS("CRED_AND_CHRG_CARDS"),
-    PERS_LOANS("PERS_LOANS"),
-    MARGIN_LOANS("MARGIN_LOANS"),
-    LEASES("LEASES"),
-    TRADE_FINANCE("TRADE_FINANCE"),
-    OVERDRAFTS("OVERDRAFTS"),
-    BUSINESS_LOANS("BUSINESS_LOANS");
-    
-    private String value;
-    
-    ParamProductCategory(String value) {
-      this.value = value;
-    }
-    
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ParamProductCategory fromValue(String value) {
-      for (ParamProductCategory b : ParamProductCategory.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
+    TRANS_AND_SAVINGS_ACCOUNTS,
+    TERM_DEPOSITS,
+    TRAVEL_CARDS,
+    REGULATED_TRUST_ACCOUNTS,
+    RESIDENTIAL_MORTGAGES,
+    CRED_AND_CHRG_CARDS,
+    PERS_LOANS,
+    MARGIN_LOANS,
+    LEASES,
+    TRADE_FINANCE,
+    OVERDRAFTS,
+    BUSINESS_LOANS
 }

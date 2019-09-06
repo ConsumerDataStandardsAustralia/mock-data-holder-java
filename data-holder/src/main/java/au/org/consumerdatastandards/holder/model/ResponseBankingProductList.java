@@ -8,23 +8,12 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
-import java.lang.reflect.Field;
 
-
-
-
-/**
-* ResponseBankingProductList
-* 
-* 
-*/
 public class ResponseBankingProductList extends PaginatedResponse {
-    @JsonProperty("data")
+
     private ResponseBankingProductListData data;
 
-    
     public ResponseBankingProductListData getData() {
         return data;
     }
@@ -34,43 +23,23 @@ public class ResponseBankingProductList extends PaginatedResponse {
     }
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        
-        if(!super.equals(o)) { return false; }
-        ResponseBankingProductList inputModel = (ResponseBankingProductList) o;
-        if(! (data.equals(inputModel.getData()))) { return false; }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ResponseBankingProductList)) return false;
+        if (!super.equals(o)) return false;
+        ResponseBankingProductList that = (ResponseBankingProductList) o;
+        return Objects.equals(data, that.data);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(data);
+        return Objects.hash(super.hashCode(), data);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("class %s {\n", getClass()));
-
-        for (Field oneField : getClass().getFields()) {
-            oneField.setAccessible(true);
-            try {
-                sb.append(String.format("    %s: %s\n", oneField.getName(), (oneField.get(Object.class) == null ? "null"
-                        : oneField.get(Object.class).toString().replace("\n", "\n    "))));
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                // I guess we won't print it
-                sb.append(String.format("    %s, [unreadable]\n", oneField.getName()));
-            }
-        }
-        sb.append("}");
-        return sb.toString();
+        return "ResponseBankingProductList{" +
+                "data=" + data +
+                '}';
     }
-
-
 }
