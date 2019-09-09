@@ -55,7 +55,7 @@ public class BankingAccount {
     @Property(
         required = true
     )
-    BankingEnumProductCategory productCategory;
+    BankingProductCategory productCategory;
 
     @Property(
         description = "The unique identifier of the account as defined by the account provider (akin to model number for the account)",

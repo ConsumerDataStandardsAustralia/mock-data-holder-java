@@ -52,7 +52,7 @@ public class BankingProductDepositRate {
     List<BankingProductRateTier> tiers;
 
     @Property(
-        description = "Generic field containing additional information relevant to the depositRateType specified. Whether mandatory or not is dependent on the value of depositRateType",
+        description = "Generic field containing additional information relevant to the [depositRateType](#tocSproductdepositratetypedoc) specified. Whether mandatory or not is dependent on the value of [depositRateType](#tocSproductdepositratetypedoc)",
         requiredIf = {
             @Condition(
                 propertyName = "depositRateType",

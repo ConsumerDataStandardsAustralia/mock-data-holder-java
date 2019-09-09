@@ -30,7 +30,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule {
     @Property(
         description = "Enumerated field giving the treatment where a scheduled payment date is not a business day.  If absent assumed to be ON"
     )
-    NonBusinessDayTreatment nonBusinessDayTreatment;
+    NonBusinessDayTreatment nonBusinessDayTreatment = NonBusinessDayTreatment.ON;
 
     @Property(
         description = "An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry",

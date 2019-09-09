@@ -7,7 +7,6 @@
         <version>0.9.4-SNAPSHOT</version>
     </parent>
     <artifactId>api-model</artifactId>
-  <version>0.9.3</version>
     <name>API Model</name>
     <description>This artefact describes the Consumer Data Standards using Java classes and annotations in a way suitable for automatic generation of Open API Specification, documentation, Server Stub, Client Libraries and Reference Test.</description>
     <build>
@@ -75,8 +74,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-  <scm>
-    <tag>api-model-0.9.3</tag>
-  </scm>
 </project>

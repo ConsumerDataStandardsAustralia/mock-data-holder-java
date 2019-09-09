@@ -31,7 +31,7 @@ public class BankingProductDiscountEligibility {
     DiscountEligibilityType discountEligibilityType;
 
     @Property(
-        description = "Generic field containing additional information relevant to the discountEligibilityType specified. Whether mandatory or not is dependent on the value of discountEligibilityType",
+        description = "Generic field containing additional information relevant to the [discountEligibilityType](#tocSproductdiscounteligibilitydoc) specified. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)",
         requiredIf = {
             @Condition(
                 propertyName = "discountEligibilityType",

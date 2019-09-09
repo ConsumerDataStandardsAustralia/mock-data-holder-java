@@ -147,7 +147,7 @@ public class BankingProductsAPISteps {
     private void checkProductCategory(BankingProduct bankingProduct, String productCategory,
                                       List<ConformanceError> errors) {
         if (!StringUtils.isBlank(productCategory)) {
-            BankingEnumProductCategory bankingProductCategory = getProductCategory(bankingProduct);
+            BankingProductCategory bankingProductCategory = getProductCategory(bankingProduct);
             if (bankingProductCategory == null || !bankingProductCategory.name().equals(productCategory)) {
                 errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorField(FieldUtils.getField(BankingProduct.class, "effectiveFrom", true))
@@ -159,9 +159,9 @@ public class BankingProductsAPISteps {
         }
     }
 
-    private BankingEnumProductCategory getProductCategory(BankingProduct bankingProduct) {
+    private BankingProductCategory getProductCategory(BankingProduct bankingProduct) {
         Field dataField = FieldUtils.getField(bankingProduct.getClass(), "productCategory", true);
-        return (BankingEnumProductCategory) ReflectionUtils.getField(dataField, bankingProduct);
+        return (BankingProductCategory) ReflectionUtils.getField(dataField, bankingProduct);
     }
 
     private void checkBrand(BankingProduct bankingProduct, String brand, List<ConformanceError> errors) {

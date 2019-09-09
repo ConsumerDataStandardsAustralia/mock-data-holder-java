@@ -34,7 +34,7 @@ public class BankingProduct {
     @Property(
         required = true
     )
-    BankingEnumProductCategory productCategory;
+    BankingProductCategory productCategory;
 
     @Property(
         description = "The display name of the product",

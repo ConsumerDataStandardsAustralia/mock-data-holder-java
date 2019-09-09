@@ -5,7 +5,7 @@ import au.org.consumerdatastandards.support.data.*;
 @DataDefinition(
     description = "The category to which a product or account belongs. See [here](#product-categories) for more details"
 )
-public enum BankingEnumProductCategory {
+public enum BankingProductCategory {
     TRANS_AND_SAVINGS_ACCOUNTS,
     TERM_DEPOSITS,
     TRAVEL_CARDS,

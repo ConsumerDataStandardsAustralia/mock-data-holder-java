@@ -67,7 +67,7 @@ public class BankingProductDiscount {
     String feeRate;
 
     @Property(
-        description = "Generic field containing additional information relevant to the discountType specified. Whether mandatory or not is dependent on the value of discountType",
+        description = "Generic field containing additional information relevant to the [discountType](#tocSproductdiscounttypedoc) specified. Whether mandatory or not is dependent on the value of [discountType](#tocSproductdiscounttypedoc)",
         requiredIf = {
             @Condition(
                 propertyName = "discountType",

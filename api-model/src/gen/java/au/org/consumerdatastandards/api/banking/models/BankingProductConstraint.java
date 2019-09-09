@@ -25,7 +25,7 @@ public class BankingProductConstraint {
     ConstraintType constraintType;
 
     @Property(
-        description = "Generic field containing additional information relevant to the constraintType specified.  Whether mandatory or not is dependent on the value of constraintType",
+        description = "Generic field containing additional information relevant to the [constraintType](#tocSproductconstrainttypedoc) specified.  Whether mandatory or not is dependent on the value of [constraintType](#tocSproductconstrainttypedoc)",
         requiredIf = {
             @Condition(
                 propertyName = "constraintType",

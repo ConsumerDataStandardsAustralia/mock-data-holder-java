@@ -7,7 +7,6 @@
         <version>0.9.4-SNAPSHOT</version>
     </parent>
     <artifactId>reference-test</artifactId>
-  <version>0.9.3</version>
     <name>Reference Test</name>
     <description>Reference test of CDS payloads and API endpoints</description>
     <properties>
@@ -158,8 +157,4 @@
             </resource>
         </resources>
     </build>
-
-  <scm>
-    <tag>api-model-0.9.3</tag>
-  </scm>
 </project>

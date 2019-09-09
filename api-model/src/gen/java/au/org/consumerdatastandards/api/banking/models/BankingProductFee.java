@@ -77,7 +77,7 @@ public class BankingProductFee {
     String currency;
 
     @Property(
-        description = "Generic field containing additional information relevant to the feeType specified. Whether mandatory or not is dependent on the value of feeType",
+        description = "Generic field containing additional information relevant to the [feeType](#tocSproductfeetypedoc) specified. Whether mandatory or not is dependent on the value of [feeType](#tocSproductfeetypedoc)",
         requiredIf = {
             @Condition(
                 propertyName = "feeType",

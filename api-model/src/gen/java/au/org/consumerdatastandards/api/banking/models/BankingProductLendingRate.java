@@ -72,7 +72,7 @@ public class BankingProductLendingRate {
     List<BankingProductRateTier> tiers;
 
     @Property(
-        description = "Generic field containing additional information relevant to the lendingRateType specified. Whether mandatory or not is dependent on the value of lendingRateType",
+        description = "Generic field containing additional information relevant to the [lendingRateType](#tocSproductlendingratetypedoc) specified. Whether mandatory or not is dependent on the value of [lendingRateType](#tocSproductlendingratetypedoc)",
         requiredIf = {
             @Condition(
                 propertyName = "lendingRateType",

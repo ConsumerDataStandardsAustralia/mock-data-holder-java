@@ -73,7 +73,7 @@ public class ApiClient {
     json = new JSON();
 
     // Set default User-Agent.
-    setUserAgent("CDS Client/0.9.3/java");
+    setUserAgent("CDS Client/0.9.4/java");
 
     addDefaultHeader("x-v", "1");
     addDefaultHeader("x-min-v", "1");

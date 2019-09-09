@@ -44,7 +44,7 @@ public class BankingProductFeature {
     FeatureType featureType;
 
     @Property(
-        description = "Generic field containing additional information relevant to the featureType specified. Whether mandatory or not is dependent on the value of featureType",
+        description = "Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)",
         requiredIf = {
             @Condition(
                 propertyName = "featureType",
@@ -74,7 +74,7 @@ public class BankingProductFeature {
     String additionalValue;
 
     @Property(
-        description = "Display text providing more information on the feature. Mandatory if the feature type is set to OTHER",
+        description = "Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER",
         requiredIf = { @Condition(propertyName = "featureType", values = {"OTHER"}) }
     )
     String additionalInfo;

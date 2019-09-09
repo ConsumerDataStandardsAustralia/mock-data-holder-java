@@ -33,7 +33,7 @@ public class BankingProductEligibility {
     EligibilityType eligibilityType;
 
     @Property(
-        description = "Generic field containing additional information relevant to the eligibilityType specified.  Whether mandatory or not is dependent on the value of eligibilityType",
+        description = "Generic field containing additional information relevant to the [eligibilityType](#tocSproducteligibilitytypedoc) specified.  Whether mandatory or not is dependent on the value of [eligibilityType](#tocSproducteligibilitytypedoc)",
         requiredIf = {
             @Condition(
                 propertyName = "eligibilityType",
@@ -57,7 +57,7 @@ public class BankingProductEligibility {
     String additionalValue;
 
     @Property(
-        description = "Display text providing more information on the eligibility criteria. Mandatory if the eligibilityType field is set to OTHER",
+        description = "Display text providing more information on the eligibility criteria. Mandatory if the [eligibilityType](#tocSproducteligibilitytypedoc) field is set to OTHER",
         requiredIf = { @Condition(propertyName = "eligibilityType", values = {"OTHER"}) }
     )
     String additionalInfo;
