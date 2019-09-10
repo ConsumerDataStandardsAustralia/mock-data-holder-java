@@ -15,9 +15,9 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingAccountDetail {
 
     public enum SpecificAccountUType {
-        TERMDEPOSIT,
-        CREDITCARD,
-        LOAN
+        termDeposit,
+        creditCard,
+        loan
     }
 
     @Property(

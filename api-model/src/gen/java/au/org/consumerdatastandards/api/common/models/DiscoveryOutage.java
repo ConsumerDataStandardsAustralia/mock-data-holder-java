@@ -3,9 +3,7 @@ package au.org.consumerdatastandards.api.common.models;
 import java.math.BigDecimal;
 import au.org.consumerdatastandards.support.data.*;
 
-@DataDefinition(
-    referenced = false
-)
+@DataDefinition
 public class DiscoveryOutage {
 
     @Property(

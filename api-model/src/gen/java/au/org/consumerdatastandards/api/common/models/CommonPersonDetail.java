@@ -4,8 +4,7 @@ import java.util.List;
 import au.org.consumerdatastandards.support.data.*;
 
 @DataDefinition(
-    allOf = { CommonPerson.class },
-    referenced = false
+    allOf = { CommonPerson.class }
 )
 public class CommonPersonDetail {
 

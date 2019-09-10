@@ -3,8 +3,7 @@ package au.org.consumerdatastandards.api.common.models;
 import au.org.consumerdatastandards.support.data.*;
 
 @DataDefinition(
-    allOf = { CommonPhysicalAddress.class },
-    referenced = false
+    allOf = { CommonPhysicalAddress.class }
 )
 public class CommonPhysicalAddressWithPurpose {
 

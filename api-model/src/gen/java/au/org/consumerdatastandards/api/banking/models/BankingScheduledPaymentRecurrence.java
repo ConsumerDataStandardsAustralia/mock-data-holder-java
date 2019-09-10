@@ -14,10 +14,10 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingScheduledPaymentRecurrence {
 
     public enum RecurrenceUType {
-        ONCEOFF,
-        INTERVALSCHEDULE,
-        LASTWEEKDAY,
-        EVENTBASED
+        onceOff,
+        intervalSchedule,
+        lastWeekDay,
+        eventBased
     }
 
     @Property(

@@ -14,9 +14,9 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingPayeeDetail {
 
     public enum PayeeUType {
-        DOMESTIC,
-        BILLER,
-        INTERNATIONAL
+        domestic,
+        biller,
+        international
     }
 
     @Property(

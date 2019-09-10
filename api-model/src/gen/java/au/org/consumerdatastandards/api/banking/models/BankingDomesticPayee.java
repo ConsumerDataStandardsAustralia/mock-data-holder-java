@@ -11,9 +11,9 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingDomesticPayee {
 
     public enum PayeeAccountUType {
-        ACCOUNT,
-        CARD,
-        PAYID
+        account,
+        card,
+        payId
     }
 
     @Property(

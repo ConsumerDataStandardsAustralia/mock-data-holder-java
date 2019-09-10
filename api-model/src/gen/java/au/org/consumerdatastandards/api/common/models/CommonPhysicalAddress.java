@@ -10,8 +10,8 @@ import au.org.consumerdatastandards.support.data.*;
 public class CommonPhysicalAddress {
 
     public enum AddressUType {
-        SIMPLE,
-        PAF
+        simple,
+        paf
     }
 
     @Property(

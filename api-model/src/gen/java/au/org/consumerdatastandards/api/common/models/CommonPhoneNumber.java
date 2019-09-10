@@ -2,9 +2,7 @@ package au.org.consumerdatastandards.api.common.models;
 
 import au.org.consumerdatastandards.support.data.*;
 
-@DataDefinition(
-    referenced = false
-)
+@DataDefinition
 @CustomAttributes({
     @CustomAttribute(name = "x-conditional", value = "isPreferred", multiple = true),
     @CustomAttribute(name = "x-conditional", value = "areaCode", multiple = true)

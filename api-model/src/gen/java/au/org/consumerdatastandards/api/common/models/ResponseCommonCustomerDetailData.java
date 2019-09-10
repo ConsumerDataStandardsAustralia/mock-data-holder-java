@@ -8,8 +8,8 @@ import au.org.consumerdatastandards.support.data.*;
 public class ResponseCommonCustomerDetailData {
 
     public enum CustomerUType {
-        PERSON,
-        ORGANISATION
+        person,
+        organisation
     }
 
     @Property(

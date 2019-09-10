@@ -15,11 +15,11 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingScheduledPaymentTo {
 
     public enum ToUType {
-        ACCOUNTID,
-        PAYEEID,
-        DOMESTIC,
-        BILLER,
-        INTERNATIONAL
+        accountId,
+        payeeId,
+        domestic,
+        biller,
+        international
     }
 
     @Property(

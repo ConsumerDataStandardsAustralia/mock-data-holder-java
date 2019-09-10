@@ -8,11 +8,22 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingTransactionDetailExtendedData {
 
     public enum ExtensionUType {
-        EXTENDEDDESCRIPTION
+        extendedDescription
     }
 
     public enum Service {
-        X2P1_01
+        X2P1_01("X2P1.01");
+
+        private String value;
+
+        Service(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 
     @Property(
