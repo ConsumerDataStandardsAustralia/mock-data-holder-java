@@ -4,7 +4,6 @@ import java.util.List;
 import au.org.consumerdatastandards.support.data.*;
 
 @DataDefinition(
-    referenced = false,
     anyOf = { "amount", "balanceRate", "transactionRate", "accruedRate" }
 )
 @CustomAttributes({
