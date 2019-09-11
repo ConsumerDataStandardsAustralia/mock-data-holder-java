@@ -11,7 +11,7 @@ This test suite is provided by the CDS engineering team and serves two purposes:
 ```mvn verify -DapiBase=http://localhost/cds-au/v1``` You can replace `http://localhost/cds-au/v1` 
 with any open banking API endpoint.
 
-2. It is a library which does payload verification. [client-cli](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/client-cli)
+2. It is a library which does payload verification. [client-cli](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/client-cli)
 is an example of that.
 
 The tests are provided under the MIT license.
