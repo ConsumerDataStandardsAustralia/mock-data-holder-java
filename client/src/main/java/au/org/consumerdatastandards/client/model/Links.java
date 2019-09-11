@@ -8,18 +8,16 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Objects;
 
 public class Links {
 
-  /**
-   * Fully qualified link to this API call
-   */
-  @SerializedName("self")
   private String self;
 
+  /**
+   * Fully qualified link to this API call
+   * @return self
+   */
   public String getSelf() {
     return self;
   }
@@ -28,22 +26,16 @@ public class Links {
     this.self = self;
   }
 
-  public Links self(String self) {
-    this.self = self;
-    return this;
-  }
-
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    Links inputModel = (Links) o;
-    return self.equals(inputModel.getSelf());
+    Links links = (Links) o;
+    return Objects.equals(this.self, links.self);
   }
 
   @Override
@@ -53,14 +45,16 @@ public class Links {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    self: ").append(toIndentedString(self)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class Links {\n" +
+        "    self: " + toIndentedString(self) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

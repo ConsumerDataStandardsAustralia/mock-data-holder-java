@@ -8,28 +8,20 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 public class PaginatedResponse {
+
+  private LinksPaginated links;
+
+  private MetaPaginated meta;
 
   /**
    * The links attribute contains a Links object with links to
    * related API end points. This will include links to support
    * pagination.
+   * @return links
    */
-  @SerializedName("links")
-  private LinksPaginated links;
-
-  /**
-   * The meta object is used to provide additional information
-   * such as second factor authorisation data, traffic
-   * management, pagination counts or other purposes that are
-   * complementary to the workings of the API.
-   */
-  @SerializedName("meta")
-  private MetaPaginated meta;
-
   public LinksPaginated getLinks() {
     return links;
   }
@@ -38,22 +30,19 @@ public class PaginatedResponse {
     this.links = links;
   }
 
-  public PaginatedResponse links(LinksPaginated links) {
-    this.links = links;
-    return this;
-  }
-
+  /**
+   * The meta object is used to provide additional information
+   * such as second factor authorisation data, traffic
+   * management, pagination counts or other purposes that are
+   * complementary to the workings of the API.
+   * @return meta
+   */
   public MetaPaginated getMeta() {
     return meta;
   }
 
   public void setMeta(MetaPaginated meta) {
     this.meta = meta;
-  }
-
-  public PaginatedResponse meta(MetaPaginated meta) {
-    this.meta = meta;
-    return this;
   }
 
   @Override
@@ -81,12 +70,10 @@ public class PaginatedResponse {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    links: ").append(toIndentedString(links)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class PaginatedResponse {\n" +
+        "    links: " + toIndentedString(links) + "\n" +
+        "    meta: " + toIndentedString(meta) + "\n" +
+        "}";
   }
 
   private String toIndentedString(java.lang.Object o) {

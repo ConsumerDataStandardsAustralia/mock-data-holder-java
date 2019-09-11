@@ -17,30 +17,31 @@ import java.util.Map;
  * @param <T> The type of data that is deserialized from response body
  */
 public class ApiResponse<T> {
-  private final int statusCode;
-  private final Map<String, List<String>> headers;
-  private final T data;
 
-  /**
-   * @param statusCode The status code of HTTP response
-   * @param headers The headers of HTTP response
-   * @param data The object deserialized from response bod
-   */
-  public ApiResponse(int statusCode, Map<String, List<String>> headers, T data) {
-    this.statusCode = statusCode;
-    this.headers = headers;
-    this.data = data;
-  }
+    final private int statusCode;
+    final private Map<String, List<String>> headers;
+    final private T data;
 
-  public int getStatusCode() {
-    return statusCode;
-  }
+    /**
+     * @param statusCode The status code of HTTP response
+     * @param headers The headers of HTTP response
+     * @param data The object deserialized from response bod
+     */
+    public ApiResponse(int statusCode, Map<String, List<String>> headers, T data) {
+        this.statusCode = statusCode;
+        this.headers = headers;
+        this.data = data;
+    }
 
-  public Map<String, List<String>> getHeaders() {
-    return headers;
-  }
+    public int getStatusCode() {
+        return statusCode;
+    }
 
-  public T getData() {
-    return data;
-  }
+    public Map<String, List<String>> getHeaders() {
+        return headers;
+    }
+
+    public T getData() {
+        return data;
+    }
 }

@@ -9,7 +9,10 @@
 package au.org.consumerdatastandards.client.model;
 
 public enum ParamEffective {
+
   CURRENT,
+
   FUTURE,
+
   ALL
 }

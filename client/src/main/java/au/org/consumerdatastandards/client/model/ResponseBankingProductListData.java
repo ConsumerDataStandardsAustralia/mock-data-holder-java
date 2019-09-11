@@ -8,19 +8,17 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 
 public class ResponseBankingProductListData {
 
-  /**
-   * The list of products returned.  If the filter results in an
-   * empty set then this array may have no records
-   */
-  @SerializedName("products")
   private List<BankingProduct> products;
 
+  /**
+   * The list of products returned.  If the filter results in an empty set then this array may have no records
+   * @return products
+   */
   public List<BankingProduct> getProducts() {
     return products;
   }
@@ -29,22 +27,16 @@ public class ResponseBankingProductListData {
     this.products = products;
   }
 
-  public ResponseBankingProductListData products(List<BankingProduct> products) {
-    this.products = products;
-    return this;
-  }
-
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    ResponseBankingProductListData inputModel = (ResponseBankingProductListData) o;
-    return products.equals(inputModel.getProducts());
+    ResponseBankingProductListData responseBankingProductListData = (ResponseBankingProductListData) o;
+    return Objects.equals(this.products, responseBankingProductListData.products);
   }
 
   @Override
@@ -54,14 +46,16 @@ public class ResponseBankingProductListData {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    products: ").append(toIndentedString(products)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class ResponseBankingProductListData {\n" +
+        "    products: " + toIndentedString(products) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

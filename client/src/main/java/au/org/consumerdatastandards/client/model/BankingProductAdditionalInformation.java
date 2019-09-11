@@ -8,68 +8,27 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
+/**
+ * Object that contains links to additional information on specific topics
+ */
 public class BankingProductAdditionalInformation {
 
-  /**
-   * General overview of the product
-   */
-  @SerializedName("overviewUri")
+  private String eligibilityUri;
+
+  private String bundleUri;
+
+  private String feesAndPricingUri;
+
+  private String termsUri;
+
   private String overviewUri;
 
   /**
-   * Terms and conditions for the product
-   */
-  @SerializedName("termsUri")
-  private String termsUri;
-
-  /**
    * Eligibility rules and criteria for the product
+   * @return eligibilityUri
    */
-  @SerializedName("eligibilityUri")
-  private String eligibilityUri;
-
-  /**
-   * Description of fees, pricing, discounts, exemptions and
-   * bonuses for the product
-   */
-  @SerializedName("feesAndPricingUri")
-  private String feesAndPricingUri;
-
-  /**
-   * Description of a bundle that this product can be part of
-   */
-  @SerializedName("bundleUri")
-  private String bundleUri;
-
-  public String getOverviewUri() {
-    return overviewUri;
-  }
-
-  public void setOverviewUri(String overviewUri) {
-    this.overviewUri = overviewUri;
-  }
-
-  public BankingProductAdditionalInformation overviewUri(String overviewUri) {
-    this.overviewUri = overviewUri;
-    return this;
-  }
-
-  public String getTermsUri() {
-    return termsUri;
-  }
-
-  public void setTermsUri(String termsUri) {
-    this.termsUri = termsUri;
-  }
-
-  public BankingProductAdditionalInformation termsUri(String termsUri) {
-    this.termsUri = termsUri;
-    return this;
-  }
-
   public String getEligibilityUri() {
     return eligibilityUri;
   }
@@ -78,24 +37,10 @@ public class BankingProductAdditionalInformation {
     this.eligibilityUri = eligibilityUri;
   }
 
-  public BankingProductAdditionalInformation eligibilityUri(String eligibilityUri) {
-    this.eligibilityUri = eligibilityUri;
-    return this;
-  }
-
-  public String getFeesAndPricingUri() {
-    return feesAndPricingUri;
-  }
-
-  public void setFeesAndPricingUri(String feesAndPricingUri) {
-    this.feesAndPricingUri = feesAndPricingUri;
-  }
-
-  public BankingProductAdditionalInformation feesAndPricingUri(String feesAndPricingUri) {
-    this.feesAndPricingUri = feesAndPricingUri;
-    return this;
-  }
-
+  /**
+   * Description of a bundle that this product can be part of
+   * @return bundleUri
+   */
   public String getBundleUri() {
     return bundleUri;
   }
@@ -104,60 +49,84 @@ public class BankingProductAdditionalInformation {
     this.bundleUri = bundleUri;
   }
 
-  public BankingProductAdditionalInformation bundleUri(String bundleUri) {
-    this.bundleUri = bundleUri;
-    return this;
+  /**
+   * Description of fees, pricing, discounts, exemptions and bonuses for the product
+   * @return feesAndPricingUri
+   */
+  public String getFeesAndPricingUri() {
+    return feesAndPricingUri;
+  }
+
+  public void setFeesAndPricingUri(String feesAndPricingUri) {
+    this.feesAndPricingUri = feesAndPricingUri;
+  }
+
+  /**
+   * Terms and conditions for the product
+   * @return termsUri
+   */
+  public String getTermsUri() {
+    return termsUri;
+  }
+
+  public void setTermsUri(String termsUri) {
+    this.termsUri = termsUri;
+  }
+
+  /**
+   * General overview of the product
+   * @return overviewUri
+   */
+  public String getOverviewUri() {
+    return overviewUri;
+  }
+
+  public void setOverviewUri(String overviewUri) {
+    this.overviewUri = overviewUri;
   }
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    BankingProductAdditionalInformation inputModel = (BankingProductAdditionalInformation) o;
-    if (!(overviewUri.equals(inputModel.getOverviewUri()))) {
-      return false;
-    }
-    if (!(termsUri.equals(inputModel.getTermsUri()))) {
-      return false;
-    }
-    if (!(eligibilityUri.equals(inputModel.getEligibilityUri()))) {
-      return false;
-    }
-    if (!(feesAndPricingUri.equals(inputModel.getFeesAndPricingUri()))) {
-      return false;
-    }
-    return bundleUri.equals(inputModel.getBundleUri());
+    BankingProductAdditionalInformation bankingProductAdditionalInformation = (BankingProductAdditionalInformation) o;
+    return Objects.equals(this.eligibilityUri, bankingProductAdditionalInformation.eligibilityUri) &&
+        Objects.equals(this.bundleUri, bankingProductAdditionalInformation.bundleUri) &&
+        Objects.equals(this.feesAndPricingUri, bankingProductAdditionalInformation.feesAndPricingUri) &&
+        Objects.equals(this.termsUri, bankingProductAdditionalInformation.termsUri) &&
+        Objects.equals(this.overviewUri, bankingProductAdditionalInformation.overviewUri);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        overviewUri,
-        termsUri,
         eligibilityUri,
+        bundleUri,
         feesAndPricingUri,
-        bundleUri);
+        termsUri,
+        overviewUri);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    overviewUri: ").append(toIndentedString(overviewUri)).append("\n");
-    sb.append("    termsUri: ").append(toIndentedString(termsUri)).append("\n");
-    sb.append("    eligibilityUri: ").append(toIndentedString(eligibilityUri)).append("\n");
-    sb.append("    feesAndPricingUri: ").append(toIndentedString(feesAndPricingUri)).append("\n");
-    sb.append("    bundleUri: ").append(toIndentedString(bundleUri)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class BankingProductAdditionalInformation {\n" +
+        "    eligibilityUri: " + toIndentedString(eligibilityUri) + "\n" +
+        "    bundleUri: " + toIndentedString(bundleUri) + "\n" +
+        "    feesAndPricingUri: " + toIndentedString(feesAndPricingUri) + "\n" +
+        "    termsUri: " + toIndentedString(termsUri) + "\n" +
+        "    overviewUri: " + toIndentedString(overviewUri) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

@@ -8,67 +8,49 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 public class BankingProductEligibility {
 
-  /**
-   * The type of eligibility criteria described.  See the next
-   * section for an overview of valid values and their meaning
-   */
-  @SerializedName("eligibilityType")
-  private EligibilityType eligibilityType;
+  public enum EligibilityTypeEnum {
 
-  /**
-   * Generic field containing additional information relevant to
-   * the eligibilityType specified.  Whether mandatory or not is
-   * dependent on the value of eligibilityType
-   */
-  @SerializedName("additionalValue")
-  private String additionalValue;
+    BUSINESS,
 
-  /**
-   * Display text providing more information on the eligibility
-   * criteria. Mandatory if the eligibilityType field is set to
-   * OTHER
-   */
-  @SerializedName("additionalInfo")
+    EMPLOYMENT_STATUS,
+
+    MAX_AGE,
+
+    MIN_AGE,
+
+    MIN_INCOME,
+
+    MIN_TURNOVER,
+
+    NATURAL_PERSON,
+
+    OTHER,
+
+    PENSION_RECIPIENT,
+
+    RESIDENCY_STATUS,
+
+    STAFF,
+
+    STUDENT
+  }
+
   private String additionalInfo;
 
-  /**
-   * Link to a web page with more information on this eligibility
-   * criteria
-   */
-  @SerializedName("additionalInfoUri")
   private String additionalInfoUri;
 
-  public EligibilityType getEligibilityType() {
-    return eligibilityType;
-  }
+  private String additionalValue;
 
-  public void setEligibilityType(EligibilityType eligibilityType) {
-    this.eligibilityType = eligibilityType;
-  }
+  private EligibilityTypeEnum eligibilityType;
 
-  public BankingProductEligibility eligibilityType(EligibilityType eligibilityType) {
-    this.eligibilityType = eligibilityType;
-    return this;
-  }
-
-  public String getAdditionalValue() {
-    return additionalValue;
-  }
-
-  public void setAdditionalValue(String additionalValue) {
-    this.additionalValue = additionalValue;
-  }
-
-  public BankingProductEligibility additionalValue(String additionalValue) {
-    this.additionalValue = additionalValue;
-    return this;
-  }
-
+  /**
+   * Display text providing more information on the eligibility criteria. Mandatory if the [eligibilityType](#tocSproducteligibilitytypedoc) field is set to OTHER
+   * @return additionalInfo
+   */
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -77,11 +59,10 @@ public class BankingProductEligibility {
     this.additionalInfo = additionalInfo;
   }
 
-  public BankingProductEligibility additionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
-    return this;
-  }
-
+  /**
+   * Link to a web page with more information on this eligibility criteria
+   * @return additionalInfoUri
+   */
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }
@@ -90,73 +71,72 @@ public class BankingProductEligibility {
     this.additionalInfoUri = additionalInfoUri;
   }
 
-  public BankingProductEligibility additionalInfoUri(String additionalInfoUri) {
-    this.additionalInfoUri = additionalInfoUri;
-    return this;
+  /**
+   * Generic field containing additional information relevant to the [eligibilityType](#tocSproducteligibilitytypedoc) specified.  Whether mandatory or not is dependent on the value of [eligibilityType](#tocSproducteligibilitytypedoc)
+   * @return additionalValue
+   */
+  public String getAdditionalValue() {
+    return additionalValue;
+  }
+
+  public void setAdditionalValue(String additionalValue) {
+    this.additionalValue = additionalValue;
+  }
+
+  /**
+   * Get eligibilityType
+   * @return eligibilityType
+   */
+  public EligibilityTypeEnum getEligibilityType() {
+    return eligibilityType;
+  }
+
+  public void setEligibilityType(EligibilityTypeEnum eligibilityType) {
+    this.eligibilityType = eligibilityType;
   }
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    BankingProductEligibility inputModel = (BankingProductEligibility) o;
-    if (!(eligibilityType.equals(inputModel.getEligibilityType()))) {
-      return false;
-    }
-    if (!(additionalValue.equals(inputModel.getAdditionalValue()))) {
-      return false;
-    }
-    if (!(additionalInfo.equals(inputModel.getAdditionalInfo()))) {
-      return false;
-    }
-    return additionalInfoUri.equals(inputModel.getAdditionalInfoUri());
+    BankingProductEligibility bankingProductEligibility = (BankingProductEligibility) o;
+    return Objects.equals(this.additionalInfo, bankingProductEligibility.additionalInfo) &&
+        Objects.equals(this.additionalInfoUri, bankingProductEligibility.additionalInfoUri) &&
+        Objects.equals(this.additionalValue, bankingProductEligibility.additionalValue) &&
+        Objects.equals(this.eligibilityType, bankingProductEligibility.eligibilityType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        eligibilityType,
-        additionalValue,
         additionalInfo,
-        additionalInfoUri);
+        additionalInfoUri,
+        additionalValue,
+        eligibilityType);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    eligibilityType: ").append(toIndentedString(eligibilityType)).append("\n");
-    sb.append("    additionalValue: ").append(toIndentedString(additionalValue)).append("\n");
-    sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
-    sb.append("    additionalInfoUri: ").append(toIndentedString(additionalInfoUri)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class BankingProductEligibility {\n" +
+        "    additionalInfo: " + toIndentedString(additionalInfo) + "\n" +
+        "    additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" +
+        "    additionalValue: " + toIndentedString(additionalValue) + "\n" +
+        "    eligibilityType: " + toIndentedString(eligibilityType) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  public enum EligibilityType {
-    BUSINESS,
-    PENSION_RECIPIENT,
-    MIN_AGE,
-    MAX_AGE,
-    MIN_INCOME,
-    MIN_TURNOVER,
-    STAFF,
-    STUDENT,
-    EMPLOYMENT_STATUS,
-    RESIDENCY_STATUS,
-    NATURAL_PERSON,
-    OTHER
   }
 }

@@ -8,58 +8,24 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 public class LinksPaginated {
 
-  /**
-   * Fully qualified link to this API call
-   */
-  @SerializedName("self")
+  private String first;
+
+  private String last;
+
+  private String next;
+
+  private String prev;
+
   private String self;
 
   /**
-   * String to the first page of this set. Mandatory if this
-   * response is not the first page
+   * URI to the first page of this set. Mandatory if this response is not the first page
+   * @return first
    */
-  @SerializedName("first")
-  private String first;
-
-  /**
-   * String to the previous page of this set. Mandatory if this
-   * response is not the first page
-   */
-  @SerializedName("prev")
-  private String prev;
-
-  /**
-   * String to the next page of this set. Mandatory if this response
-   * is not the last page
-   */
-  @SerializedName("next")
-  private String next;
-
-  /**
-   * String to the last page of this set. Mandatory if this response
-   * is not the last page
-   */
-  @SerializedName("last")
-  private String last;
-
-  public String getSelf() {
-    return self;
-  }
-
-  public void setSelf(String self) {
-    this.self = self;
-  }
-
-  public LinksPaginated self(String self) {
-    this.self = self;
-    return this;
-  }
-
   public String getFirst() {
     return first;
   }
@@ -68,37 +34,10 @@ public class LinksPaginated {
     this.first = first;
   }
 
-  public LinksPaginated first(String first) {
-    this.first = first;
-    return this;
-  }
-
-  public String getPrev() {
-    return prev;
-  }
-
-  public void setPrev(String prev) {
-    this.prev = prev;
-  }
-
-  public LinksPaginated prev(String prev) {
-    this.prev = prev;
-    return this;
-  }
-
-  public String getNext() {
-    return next;
-  }
-
-  public void setNext(String next) {
-    this.next = next;
-  }
-
-  public LinksPaginated next(String next) {
-    this.next = next;
-    return this;
-  }
-
+  /**
+   * URI to the last page of this set. Mandatory if this response is not the last page
+   * @return last
+   */
   public String getLast() {
     return last;
   }
@@ -107,60 +46,84 @@ public class LinksPaginated {
     this.last = last;
   }
 
-  public LinksPaginated last(String last) {
-    this.last = last;
-    return this;
+  /**
+   * URI to the next page of this set. Mandatory if this response is not the last page
+   * @return next
+   */
+  public String getNext() {
+    return next;
+  }
+
+  public void setNext(String next) {
+    this.next = next;
+  }
+
+  /**
+   * URI to the previous page of this set. Mandatory if this response is not the first page
+   * @return prev
+   */
+  public String getPrev() {
+    return prev;
+  }
+
+  public void setPrev(String prev) {
+    this.prev = prev;
+  }
+
+  /**
+   * Fully qualified link to this API call
+   * @return self
+   */
+  public String getSelf() {
+    return self;
+  }
+
+  public void setSelf(String self) {
+    this.self = self;
   }
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    LinksPaginated inputModel = (LinksPaginated) o;
-    if (!(self.equals(inputModel.getSelf()))) {
-      return false;
-    }
-    if (!(first.equals(inputModel.getFirst()))) {
-      return false;
-    }
-    if (!(prev.equals(inputModel.getPrev()))) {
-      return false;
-    }
-    if (!(next.equals(inputModel.getNext()))) {
-      return false;
-    }
-    return last.equals(inputModel.getLast());
+    LinksPaginated linksPaginated = (LinksPaginated) o;
+    return Objects.equals(this.first, linksPaginated.first) &&
+        Objects.equals(this.last, linksPaginated.last) &&
+        Objects.equals(this.next, linksPaginated.next) &&
+        Objects.equals(this.prev, linksPaginated.prev) &&
+        Objects.equals(this.self, linksPaginated.self);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        self,
         first,
-        prev,
+        last,
         next,
-        last);
+        prev,
+        self);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    self: ").append(toIndentedString(self)).append("\n");
-    sb.append("    first: ").append(toIndentedString(first)).append("\n");
-    sb.append("    prev: ").append(toIndentedString(prev)).append("\n");
-    sb.append("    next: ").append(toIndentedString(next)).append("\n");
-    sb.append("    last: ").append(toIndentedString(last)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class LinksPaginated {\n" +
+        "    first: " + toIndentedString(first) + "\n" +
+        "    last: " + toIndentedString(last) + "\n" +
+        "    next: " + toIndentedString(next) + "\n" +
+        "    prev: " + toIndentedString(prev) + "\n" +
+        "    self: " + toIndentedString(self) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

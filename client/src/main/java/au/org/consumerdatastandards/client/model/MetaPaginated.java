@@ -8,36 +8,20 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 public class MetaPaginated {
 
-  /**
-   * The total number of records in the full set
-   */
-  @SerializedName("totalRecords")
+  private Integer totalPages;
+
   private Integer totalRecords;
 
   /**
    * The total number of pages in the full set
+   * minimum: 0
+   * maximum: 2147483647
+   * @return totalPages
    */
-  @SerializedName("totalPages")
-  private Integer totalPages;
-
-  public Integer getTotalRecords() {
-    return totalRecords;
-  }
-
-  public void setTotalRecords(Integer totalRecords) {
-    this.totalRecords = totalRecords;
-  }
-
-  public MetaPaginated totalRecords(Integer totalRecords) {
-    this.totalRecords = totalRecords;
-    return this;
-  }
-
   public Integer getTotalPages() {
     return totalPages;
   }
@@ -46,45 +30,53 @@ public class MetaPaginated {
     this.totalPages = totalPages;
   }
 
-  public MetaPaginated totalPages(Integer totalPages) {
-    this.totalPages = totalPages;
-    return this;
+  /**
+   * The total number of records in the full set
+   * minimum: 0
+   * maximum: 2147483647
+   * @return totalRecords
+   */
+  public Integer getTotalRecords() {
+    return totalRecords;
+  }
+
+  public void setTotalRecords(Integer totalRecords) {
+    this.totalRecords = totalRecords;
   }
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    MetaPaginated inputModel = (MetaPaginated) o;
-    if (!(totalRecords.equals(inputModel.getTotalRecords()))) {
-      return false;
-    }
-    return totalPages.equals(inputModel.getTotalPages());
+    MetaPaginated metaPaginated = (MetaPaginated) o;
+    return Objects.equals(this.totalPages, metaPaginated.totalPages) &&
+        Objects.equals(this.totalRecords, metaPaginated.totalRecords);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        totalRecords,
-        totalPages);
+        totalPages,
+        totalRecords);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    totalRecords: ").append(toIndentedString(totalRecords)).append("\n");
-    sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class MetaPaginated {\n" +
+        "    totalPages: " + toIndentedString(totalPages) + "\n" +
+        "    totalRecords: " + toIndentedString(totalRecords) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

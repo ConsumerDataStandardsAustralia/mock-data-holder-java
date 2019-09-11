@@ -8,14 +8,20 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
-public class ResponseBankingProductList extends PaginatedResponse {
+public class ResponseBankingProductList {
 
-  @SerializedName("data")
-  private ResponseBankingProductListData data;
+  private ResponseBankingProductListData data = null;
 
+  private LinksPaginated links = null;
+
+  private MetaPaginated meta = null;
+
+  /**
+   * Get data
+   * @return data
+   */
   public ResponseBankingProductListData getData() {
     return data;
   }
@@ -24,44 +30,66 @@ public class ResponseBankingProductList extends PaginatedResponse {
     this.data = data;
   }
 
-  public ResponseBankingProductList data(ResponseBankingProductListData data) {
-    this.data = data;
-    return this;
+  /**
+   * Get links
+   * @return links
+   */
+  public LinksPaginated getLinks() {
+    return links;
+  }
+
+  public void setLinks(LinksPaginated links) {
+    this.links = links;
+  }
+
+  /**
+   * Get meta
+   * @return meta
+   */
+  public MetaPaginated getMeta() {
+    return meta;
+  }
+
+  public void setMeta(MetaPaginated meta) {
+    this.meta = meta;
   }
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    if (!super.equals(o)) {
-      return false;
-    }
-    ResponseBankingProductList inputModel = (ResponseBankingProductList) o;
-    return data.equals(inputModel.getData());
+    ResponseBankingProductList responseBankingProductList = (ResponseBankingProductList) o;
+    return Objects.equals(this.data, responseBankingProductList.data) &&
+        Objects.equals(this.links, responseBankingProductList.links) &&
+        Objects.equals(this.meta, responseBankingProductList.meta);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        super.hashCode(),
-        data);
+        data,
+        links,
+        meta);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class ResponseBankingProductList {\n" +
+        "    data: " + toIndentedString(data) + "\n" +
+        "    links: " + toIndentedString(links) + "\n" +
+        "    meta: " + toIndentedString(meta) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }

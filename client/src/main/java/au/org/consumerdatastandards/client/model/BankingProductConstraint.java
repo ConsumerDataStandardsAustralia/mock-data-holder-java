@@ -8,65 +8,35 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Objects;
 
 public class BankingProductConstraint {
 
-  /**
-   * The type of constraint described.  See the next section for
-   * an overview of valid values and their meaning
-   */
-  @SerializedName("constraintType")
-  private ConstraintType constraintType;
+  public enum ConstraintTypeEnum {
 
-  /**
-   * Generic field containing additional information relevant to
-   * the constraintType specified.  Whether mandatory or not is
-   * dependent on the value of constraintType
-   */
-  @SerializedName("additionalValue")
+    MAX_BALANCE,
+
+    MAX_LIMIT,
+
+    MIN_BALANCE,
+
+    MIN_LIMIT,
+
+    OPENING_BALANCE
+  }
+
+  private String additionalInfo;
+
+  private String additionalInfoUri;
+
   private String additionalValue;
+
+  private ConstraintTypeEnum constraintType;
 
   /**
    * Display text providing more information the constraint
+   * @return additionalInfo
    */
-  @SerializedName("additionalInfo")
-  private String additionalInfo;
-
-  /**
-   * Link to a web page with more information on the constraint
-   */
-  @SerializedName("additionalInfoUri")
-  private String additionalInfoUri;
-
-  public ConstraintType getConstraintType() {
-    return constraintType;
-  }
-
-  public void setConstraintType(ConstraintType constraintType) {
-    this.constraintType = constraintType;
-  }
-
-  public BankingProductConstraint constraintType(ConstraintType constraintType) {
-    this.constraintType = constraintType;
-    return this;
-  }
-
-  public String getAdditionalValue() {
-    return additionalValue;
-  }
-
-  public void setAdditionalValue(String additionalValue) {
-    this.additionalValue = additionalValue;
-  }
-
-  public BankingProductConstraint additionalValue(String additionalValue) {
-    this.additionalValue = additionalValue;
-    return this;
-  }
-
   public String getAdditionalInfo() {
     return additionalInfo;
   }
@@ -75,11 +45,10 @@ public class BankingProductConstraint {
     this.additionalInfo = additionalInfo;
   }
 
-  public BankingProductConstraint additionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
-    return this;
-  }
-
+  /**
+   * Link to a web page with more information on the constraint
+   * @return additionalInfoUri
+   */
   public String getAdditionalInfoUri() {
     return additionalInfoUri;
   }
@@ -88,66 +57,69 @@ public class BankingProductConstraint {
     this.additionalInfoUri = additionalInfoUri;
   }
 
-  public BankingProductConstraint additionalInfoUri(String additionalInfoUri) {
-    this.additionalInfoUri = additionalInfoUri;
-    return this;
+  /**
+   * Generic field containing additional information relevant to the [constraintType](#tocSproductconstrainttypedoc) specified.  Whether mandatory or not is dependent on the value of [constraintType](#tocSproductconstrainttypedoc)
+   * @return additionalValue
+   */
+  public String getAdditionalValue() {
+    return additionalValue;
+  }
+
+  public void setAdditionalValue(String additionalValue) {
+    this.additionalValue = additionalValue;
+  }
+
+  /**
+   * Get constraintType
+   * @return constraintType
+   */
+  public ConstraintTypeEnum getConstraintType() {
+    return constraintType;
+  }
+
+  public void setConstraintType(ConstraintTypeEnum constraintType) {
+    this.constraintType = constraintType;
   }
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    BankingProductConstraint inputModel = (BankingProductConstraint) o;
-    if (!(constraintType.equals(inputModel.getConstraintType()))) {
-      return false;
-    }
-    if (!(additionalValue.equals(inputModel.getAdditionalValue()))) {
-      return false;
-    }
-    if (!(additionalInfo.equals(inputModel.getAdditionalInfo()))) {
-      return false;
-    }
-    return additionalInfoUri.equals(inputModel.getAdditionalInfoUri());
+    BankingProductConstraint bankingProductConstraint = (BankingProductConstraint) o;
+    return Objects.equals(this.additionalInfo, bankingProductConstraint.additionalInfo) &&
+        Objects.equals(this.additionalInfoUri, bankingProductConstraint.additionalInfoUri) &&
+        Objects.equals(this.additionalValue, bankingProductConstraint.additionalValue) &&
+        Objects.equals(this.constraintType, bankingProductConstraint.constraintType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        constraintType,
-        additionalValue,
-        additionalInfo,
-        additionalInfoUri);
+    return Objects.hash(additionalInfo, additionalInfoUri, additionalValue, constraintType);
   }
+
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    constraintType: ").append(toIndentedString(constraintType)).append("\n");
-    sb.append("    additionalValue: ").append(toIndentedString(additionalValue)).append("\n");
-    sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
-    sb.append("    additionalInfoUri: ").append(toIndentedString(additionalInfoUri)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class BankingProductConstraint {\n" +
+        "    additionalInfo: " + toIndentedString(additionalInfo) + "\n" +
+        "    additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" +
+        "    additionalValue: " + toIndentedString(additionalValue) + "\n" +
+        "    constraintType: " + toIndentedString(constraintType) + "\n" +
+        "}";
   }
 
-  private String toIndentedString(java.lang.Object o) {
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  public enum ConstraintType {
-    MIN_BALANCE,
-    MAX_BALANCE,
-    OPENING_BALANCE,
-    MAX_LIMIT,
-    MIN_LIMIT
   }
 }

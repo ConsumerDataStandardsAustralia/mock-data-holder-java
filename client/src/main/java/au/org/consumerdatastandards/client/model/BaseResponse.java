@@ -8,8 +8,6 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Objects;
 
 public class BaseResponse {
@@ -19,7 +17,6 @@ public class BaseResponse {
    * related API end points. This will include links to support
    * pagination.
    */
-  @SerializedName("links")
   private Links links;
 
   /**
@@ -28,7 +25,6 @@ public class BaseResponse {
    * management, pagination counts or other purposes that are
    * complementary to the workings of the API.
    */
-  @SerializedName("meta")
   private Meta meta;
 
   public Links getLinks() {
@@ -39,22 +35,12 @@ public class BaseResponse {
     this.links = links;
   }
 
-  public BaseResponse links(Links links) {
-    this.links = links;
-    return this;
-  }
-
   public Meta getMeta() {
     return meta;
   }
 
   public void setMeta(Meta meta) {
     this.meta = meta;
-  }
-
-  public BaseResponse meta(Meta meta) {
-    this.meta = meta;
-    return this;
   }
 
   @Override
@@ -82,12 +68,10 @@ public class BaseResponse {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("    links: ").append(toIndentedString(links)).append("\n");
-    sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return "class BaseResponse {\n" +
+        "    links: " + toIndentedString(links) + "\n" +
+        "    meta: " + toIndentedString(meta) + "\n" +
+        "}";
   }
 
   private String toIndentedString(java.lang.Object o) {

@@ -14,24 +14,20 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okio.BufferedSink;
 import okio.Okio;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-
 import javax.net.ssl.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;
@@ -41,10 +37,10 @@ import java.util.regex.Pattern;
 
 public class ApiClient {
 
-  public static final String DEFAULT_BASE_PATH = "http://localhost:8080/cds-au/v1";
+  private static final String DEFAULT_BASE_PATH = "http://localhost:8080/cds-au/v1";
   private String basePath = DEFAULT_BASE_PATH;
   private boolean debugging = false;
-  private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
+  final private Map<String, String> defaultHeaderMap = new HashMap<>();
   private String tempFolderPath = null;
 
   private InputStream sslCaCert;
@@ -75,6 +71,8 @@ public class ApiClient {
     // Set default User-Agent.
     setUserAgent("CDS Client/0.9.4/java");
 
+    addDefaultHeader("Accept", "application/json");
+    addDefaultHeader("Content-Type", "application/json");
     addDefaultHeader("x-v", "1");
     addDefaultHeader("x-min-v", "1");
     addDefaultHeader("x-fapi-financial-id", "cds");
@@ -121,14 +119,11 @@ public class ApiClient {
   public ApiClient setHttpClient(OkHttpClient newHttpClient) {
     if (!httpClient.equals(newHttpClient)) {
       OkHttpClient.Builder builder = newHttpClient.newBuilder();
-      Iterator<Interceptor> networkInterceptorIterator =
-          httpClient.networkInterceptors().iterator();
-      while (networkInterceptorIterator.hasNext()) {
-        builder.addNetworkInterceptor(networkInterceptorIterator.next());
+      for (Interceptor interceptor : httpClient.networkInterceptors()) {
+        builder.addNetworkInterceptor(interceptor);
       }
-      Iterator<Interceptor> interceptorIterator = httpClient.interceptors().iterator();
-      while (interceptorIterator.hasNext()) {
-        builder.addInterceptor(interceptorIterator.next());
+      for (Interceptor interceptor : httpClient.interceptors()) {
+        builder.addInterceptor(interceptor);
       }
       this.httpClient = builder.build();
     }
@@ -419,7 +414,7 @@ public class ApiClient {
    * @return A list containing a single {@code Pair} object.
    */
   public List<Pair> parameterToPair(String name, Object value) {
-    List<Pair> params = new ArrayList<Pair>();
+    List<Pair> params = new ArrayList<>();
 
     // preconditions
     if (name == null || name.isEmpty() || value == null || value instanceof Collection) {
@@ -441,7 +436,7 @@ public class ApiClient {
    * @return A list of {@code Pair} objects.
    */
   public List<Pair> parameterToPairs(String collectionFormat, String name, Collection<?> value) {
-    List<Pair> params = new ArrayList<Pair>();
+    List<Pair> params = new ArrayList<>();
 
     // preconditions
     if (name == null || name.isEmpty() || value == null || value.isEmpty()) {
@@ -677,7 +672,7 @@ public class ApiClient {
       }
     }
 
-    String prefix = null;
+    String prefix;
     String suffix = null;
     if (filename == null) {
       prefix = "download-";
@@ -724,7 +719,7 @@ public class ApiClient {
     try {
       Response response = call.execute();
       T data = handleResponse(response, returnType);
-      return new ApiResponse<T>(response.code(), response.headers().toMultimap(), data);
+      return new ApiResponse<>(response.code(), response.headers().toMultimap(), data);
     } catch (IOException e) {
       throw new ApiException(e);
     }
@@ -750,7 +745,6 @@ public class ApiClient {
    * @param callback ApiCallback
    * @see #execute(Call, Type)
    */
-  @SuppressWarnings("unchecked")
   public <T> void executeAsync(Call call, final Type returnType, final ApiCallback<T> callback) {
     call.enqueue(
         new Callback() {
@@ -760,10 +754,10 @@ public class ApiClient {
           }
 
           @Override
-          public void onResponse(Call call, Response response) throws IOException {
+          public void onResponse(Call call, Response response) {
             T result;
             try {
-              result = (T) handleResponse(response, returnType);
+              result = handleResponse(response, returnType);
             } catch (ApiException e) {
               callback.onFailure(e, response.code(), response.headers().toMultimap());
               return;
@@ -825,7 +819,6 @@ public class ApiClient {
    * @param collectionQueryParams The collection query parameters
    * @param body The request body object
    * @param headerParams The header parameters
-   * @param formParams The form parameters
    * @param authNames The authentications to apply
    * @param callback Callback for upload/download progress
    * @return The HTTP call
@@ -838,7 +831,6 @@ public class ApiClient {
       List<Pair> collectionQueryParams,
       Object body,
       Map<String, String> headerParams,
-      Map<String, Object> formParams,
       String[] authNames,
       ApiCallback<?> callback)
       throws ApiException {
@@ -850,7 +842,6 @@ public class ApiClient {
             collectionQueryParams,
             body,
             headerParams,
-            formParams,
             authNames,
             callback);
 
@@ -867,7 +858,6 @@ public class ApiClient {
    * @param collectionQueryParams The collection query parameters
    * @param body The request body object
    * @param headerParams The header parameters
-   * @param formParams The form parameters
    * @param authNames The authentications to apply
    * @param callback Callback for upload/download progress
    * @return The HTTP request
@@ -880,7 +870,6 @@ public class ApiClient {
       List<Pair> collectionQueryParams,
       Object body,
       Map<String, String> headerParams,
-      Map<String, Object> formParams,
       String[] authNames,
       ApiCallback<?> callback)
       throws ApiException {
@@ -897,10 +886,6 @@ public class ApiClient {
     RequestBody reqBody;
     if (!HttpMethod.permitsRequestBody(method)) {
       reqBody = null;
-    } else if ("application/x-www-form-urlencoded".equals(contentType)) {
-      reqBody = buildRequestBodyFormEncoding(formParams);
-    } else if ("multipart/form-data".equals(contentType)) {
-      reqBody = buildRequestBodyMultipart(formParams);
     } else if (body == null) {
       if ("DELETE".equals(method)) {
         // allow calling DELETE without sending a request body
@@ -917,7 +902,7 @@ public class ApiClient {
     // access it when creating ProgressResponseBody
     reqBuilder.tag(callback);
 
-    Request request = null;
+    Request request;
 
     if (callback != null && reqBody != null) {
       ProgressRequestBody progressRequestBody = new ProgressRequestBody(reqBody, callback);
@@ -981,8 +966,8 @@ public class ApiClient {
   /**
    * Set header parameters to the request builder, including default headers.
    *
-   * @param headerParams Header parameters in the ofrm of Map
-   * @param reqBuilder Reqeust.Builder
+   * @param headerParams Header parameters in the form of Map
+   * @param reqBuilder Request.Builder
    */
   public void processHeaderParams(Map<String, String> headerParams, Request.Builder reqBuilder) {
     for (Entry<String, String> param : headerParams.entrySet()) {
@@ -996,81 +981,21 @@ public class ApiClient {
   }
 
   /**
-   * Build a form-encoding request body with the given form parameters.
-   *
-   * @param formParams Form parameters in the form of Map
-   * @return RequestBody
-   */
-  public RequestBody buildRequestBodyFormEncoding(Map<String, Object> formParams) {
-    okhttp3.FormBody.Builder formBuilder = new okhttp3.FormBody.Builder();
-    for (Entry<String, Object> param : formParams.entrySet()) {
-      formBuilder.add(param.getKey(), parameterToString(param.getValue()));
-    }
-    return formBuilder.build();
-  }
-
-  /**
-   * Build a multipart (file uploading) request body with the given form parameters, which could
-   * contain text fields and file fields.
-   *
-   * @param formParams Form parameters in the form of Map
-   * @return RequestBody
-   */
-  public RequestBody buildRequestBodyMultipart(Map<String, Object> formParams) {
-    MultipartBody.Builder mpBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    for (Entry<String, Object> param : formParams.entrySet()) {
-      if (param.getValue() instanceof File) {
-        File file = (File) param.getValue();
-        Headers partHeaders =
-            Headers.of(
-                "Content-Disposition",
-                "form-data; name=\"" + param.getKey() + "\"; filename=\"" + file.getName() + "\"");
-        MediaType mediaType = MediaType.parse(guessContentTypeFromFile(file));
-        mpBuilder.addPart(partHeaders, RequestBody.create(mediaType, file));
-      } else {
-        Headers partHeaders =
-            Headers.of("Content-Disposition", "form-data; name=\"" + param.getKey() + "\"");
-        mpBuilder.addPart(
-            partHeaders, RequestBody.create(null, parameterToString(param.getValue())));
-      }
-    }
-    return mpBuilder.build();
-  }
-
-  /**
-   * Guess Content-Type header from the given file (defaults to "application/octet-stream").
-   *
-   * @param file The given file
-   * @return The guessed Content-Type
-   */
-  public String guessContentTypeFromFile(File file) {
-    String contentType = URLConnection.guessContentTypeFromName(file.getName());
-    if (contentType == null) {
-      return "application/octet-stream";
-    } else {
-      return contentType;
-    }
-  }
-
-  /**
    * Get network interceptor to add it to the httpClient to track download progress for async
    * requests.
    */
   private Interceptor getProgressInterceptor() {
-    return new Interceptor() {
-      @Override
-      public Response intercept(Interceptor.Chain chain) throws IOException {
-        final Request request = chain.request();
-        final Response originalResponse = chain.proceed(request);
-        if (request.tag() instanceof ApiCallback) {
-          final ApiCallback<?> callback = (ApiCallback<?>) request.tag();
-          return originalResponse
-              .newBuilder()
-              .body(new ProgressResponseBody(originalResponse.body(), callback))
-              .build();
-        }
-        return originalResponse;
+    return chain -> {
+      final Request request = chain.request();
+      final Response originalResponse = chain.proceed(request);
+      if (request.tag() instanceof ApiCallback) {
+        final ApiCallback<?> callback = (ApiCallback<?>) request.tag();
+        return originalResponse
+            .newBuilder()
+            .body(new ProgressResponseBody(originalResponse.body(), callback))
+            .build();
       }
+      return originalResponse;
     };
   }
 
@@ -1088,13 +1013,11 @@ public class ApiClient {
               new X509TrustManager() {
                 @Override
                 public void checkClientTrusted(
-                    java.security.cert.X509Certificate[] chain, String authType)
-                    throws CertificateException {}
+                    java.security.cert.X509Certificate[] chain, String authType) {}
 
                 @Override
                 public void checkServerTrusted(
-                    java.security.cert.X509Certificate[] chain, String authType)
-                    throws CertificateException {}
+                    java.security.cert.X509Certificate[] chain, String authType) {}
 
                 @Override
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -1104,12 +1027,7 @@ public class ApiClient {
             };
         SSLContext.getInstance("TLS");
         hostnameVerifier =
-            new HostnameVerifier() {
-              @Override
-              public boolean verify(String hostname, SSLSession session) {
-                return true;
-              }
-            };
+            (hostname, session) -> true;
       } else if (sslCaCert != null) {
         char[] password = UUID.randomUUID().toString().toCharArray(); // Any password will work.
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");

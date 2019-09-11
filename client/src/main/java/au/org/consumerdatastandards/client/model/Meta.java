@@ -12,9 +12,6 @@ public class Meta {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(String.format("class %s {\n", getClass()));
-    sb.append("}");
-    return sb.toString();
+    return "class Meta {}";
   }
 }
