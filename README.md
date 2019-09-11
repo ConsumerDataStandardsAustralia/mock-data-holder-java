@@ -1,4 +1,8 @@
 # java-artefacts [![Build Status](https://travis-ci.com/ConsumerDataStandardsAustralia/java-artefacts.svg?branch=master)](https://travis-ci.com/ConsumerDataStandardsAustralia/java-artefacts)
+[![license](https://img.shields.io/github/license/ConsumerDataStandardsAustralia/java-artefacts)](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/LICENSE)
+[![version](https://img.shields.io/github/tag/ConsumerDataStandardsAustralia/java-artefacts.svg)](https://github.com/cosmos/ConsumerDataStandardsAustralia/releases/latest)
+[![issues](https://img.shields.io/github/issues/ConsumerDataStandardsAustralia/java-artefacts)](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/issues)
+[![LoC](https://tokei.rs/b1/github/ConsumerDataStandardsAustralia/java-artefacts)](https://github.com/ConsumerDataStandardsAustralia/java-artefacts)
 
 This is collection of CDS software artefacts in Java programming language.
 
