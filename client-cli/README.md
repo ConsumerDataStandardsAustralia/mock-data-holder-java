@@ -1,4 +1,4 @@
-# cds-client-java-cli [![Build Status](https://travis-ci.com/ConsumerDataStandardsAustralia/cds-client-java-cli.svg?branch=master)](https://travis-ci.com/ConsumerDataStandardsAustralia/cds-client-java-cli)
+# client-cli
 
 CDS Client (Data Recipient) CLI
 
