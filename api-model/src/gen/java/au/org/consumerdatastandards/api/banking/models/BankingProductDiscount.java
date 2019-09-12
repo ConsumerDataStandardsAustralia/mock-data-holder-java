@@ -11,7 +11,8 @@ import au.org.consumerdatastandards.support.data.*;
     @CustomAttribute(name = "x-conditional", value = "transactionRate", multiple = true),
     @CustomAttribute(name = "x-conditional", value = "accruedRate", multiple = true),
     @CustomAttribute(name = "x-conditional", value = "feeRate", multiple = true),
-    @CustomAttribute(name = "x-conditional", value = "additionalValue", multiple = true)
+    @CustomAttribute(name = "x-conditional", value = "additionalValue", multiple = true),
+    @CustomAttribute(name = "x-conditional", value = "amount", multiple = true)
 })
 public class BankingProductDiscount {
 
@@ -36,8 +37,7 @@ public class BankingProductDiscount {
     DiscountType discountType;
 
     @Property(
-        description = "Value of the discount",
-        required = true
+        description = "Value of the discount. When following properties include one of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory"
     )
     @CDSDataType(CustomDataType.Amount)
     String amount;

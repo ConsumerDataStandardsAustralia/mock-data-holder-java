@@ -6,7 +6,7 @@ import au.org.consumerdatastandards.support.data.*;
 @DataDefinition(
     referenced = false
 )
-public class ResponseDiscoveryOutagesData {
+public class ResponseDiscoveryOutagesListData {
 
     @Property(
         description = "List of scheduled outages. Property is mandatory but may contain and empty list if no outages are scheduled",

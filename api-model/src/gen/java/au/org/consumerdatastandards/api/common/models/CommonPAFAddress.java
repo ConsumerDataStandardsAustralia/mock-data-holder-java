@@ -35,9 +35,19 @@ public class CommonPAFAddress {
     String thoroughfareNumber2Suffix;
 
     @Property(
+        description = "Type of flat or unit for the address"
+    )
+    String flatUnitType;
+
+    @Property(
         description = "Unit number (including suffix, if applicable)"
     )
     String flatUnitNumber;
+
+    @Property(
+        description = "Type of floor or level for the address"
+    )
+    String floorLevelType;
 
     @Property(
         description = "Floor or level number (including alpha characters)"

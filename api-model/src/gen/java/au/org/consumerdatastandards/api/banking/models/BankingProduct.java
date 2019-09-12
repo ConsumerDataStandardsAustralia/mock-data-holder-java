@@ -6,7 +6,7 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingProduct {
 
     @Property(
-        description = "A provider specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.",
+        description = "A holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.",
         required = true
     )
     @CDSDataType(CustomDataType.ASCII)
@@ -49,7 +49,7 @@ public class BankingProduct {
     String description;
 
     @Property(
-        description = "A label of the brand for the product. Able to be used for filtering. For data providers with single brands this value is still required",
+        description = "A label of the brand for the product. Able to be used for filtering. For data holders with single brands this value is still required",
         required = true
     )
     String brand;

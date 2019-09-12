@@ -4,7 +4,6 @@ import au.org.consumerdatastandards.support.data.*;
 
 @DataDefinition
 @CustomAttributes({
-    @CustomAttribute(name = "x-conditional", value = "isPreferred", multiple = true),
     @CustomAttribute(name = "x-conditional", value = "areaCode", multiple = true)
 })
 public class CommonPhoneNumber {

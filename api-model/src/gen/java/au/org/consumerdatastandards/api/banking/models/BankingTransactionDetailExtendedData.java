@@ -8,7 +8,7 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingTransactionDetailExtendedData {
 
     public enum ExtensionUType {
-        extendedDescription
+        x2p101Payload
     }
 
     public enum Service {
@@ -32,7 +32,7 @@ public class BankingTransactionDetailExtendedData {
     String payer;
 
     @Property(
-        description = "Label of the target PayID.  Mandatory for an outbound payment"
+        description = "Label of the target PayID.  Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID)"
     )
     String payee;
 
@@ -41,10 +41,8 @@ public class BankingTransactionDetailExtendedData {
     )
     ExtensionUType extensionUType;
 
-    @Property(
-        description = "An extended string description. Only present if specified by the extensionUType field"
-    )
-    String extendedDescription;
+    @Property
+    BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload;
 
     @Property(
         description = "Identifier of the applicable overlay service. Valid values are: X2P1.01",

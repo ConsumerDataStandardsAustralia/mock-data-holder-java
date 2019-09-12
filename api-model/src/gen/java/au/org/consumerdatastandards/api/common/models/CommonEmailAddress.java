@@ -13,8 +13,7 @@ public class CommonEmailAddress {
     }
 
     @Property(
-        description = "Required for one and only one email record in the collection. Denotes the default email address",
-        required = true
+        description = "Required for one and only one email record in the collection. Denotes the default email address"
     )
     @CDSDataType(CustomDataType.Boolean)
     Boolean isPreferred;

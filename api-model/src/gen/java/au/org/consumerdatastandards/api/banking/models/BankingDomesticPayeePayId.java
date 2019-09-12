@@ -7,9 +7,9 @@ public class BankingDomesticPayeePayId {
 
     public enum Type {
         EMAIL,
-        MOBILE,
-        ORG_NUMBER,
-        ORG_NAME
+        TELEPHONE,
+        ABN,
+        ORG_IDENTIFIER
     }
 
     @Property(

@@ -95,7 +95,7 @@ public class BankingTransaction {
     String currency;
 
     @Property(
-        description = "The reference for the transaction provided by the originating institution.  Empty string if no data provided",
+        description = "The reference for the transaction provided by the originating institution. Empty string if no data provided",
         required = true
     )
     String reference;
@@ -111,17 +111,17 @@ public class BankingTransaction {
     String merchantCategoryCode;
 
     @Property(
-        description = "BPay Biller Code for the transaction (if available)"
+        description = "BPAY Biller Code for the transaction (if available)"
     )
     String billerCode;
 
     @Property(
-        description = "Name of the BPay biller for the transaction (if available)"
+        description = "Name of the BPAY biller for the transaction (if available)"
     )
     String billerName;
 
     @Property(
-        description = "BPay CRN for the transaction (if available)"
+        description = "BPAY CRN for the transaction (if available)"
     )
     String crn;
 

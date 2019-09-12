@@ -31,7 +31,7 @@ public interface BankingAccountsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_detailed_accounts", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "bank:accounts.detail:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingAccountById getAccountDetail(
@@ -44,14 +44,14 @@ public interface BankingAccountsAPI  {
         String accountId, 
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -73,7 +73,7 @@ public interface BankingAccountsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_transactions", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "bank:transactions:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingTransactionById getTransactionDetail(
@@ -93,14 +93,14 @@ public interface BankingAccountsAPI  {
         String transactionId, 
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -110,7 +110,7 @@ public interface BankingAccountsAPI  {
     @Endpoint(
         path = "/banking/accounts/{accountId}/transactions",
         summary = "Get Transactions For Account",
-        description = "Obtain transactions for a specific account.  Some general notes that apply to all end points that retrieve transactions:  - Where multiple transactions are returned, transactions should be ordered according to effective date in descending order - As the date and time for a transaction can alter depending on status and transaction type two separate date/times are included in the payload. There are still some scenarios where neither of these time stamps is available. For the purpose of filtering and ordering it is expected that the provider will use the “effective” date/time which will be defined as:   - Posted date/time if available, then   - Execution date/time if available, then   - A reasonable date/time nominated by the data provider using internal data structures - For transaction amounts it should be assumed that a negative value indicates a reduction of the available balance on the account while a positive value indicates an increase in the available balance on the account",
+        description = "Obtain transactions for a specific account.  Some general notes that apply to all end points that retrieve transactions:  - Where multiple transactions are returned, transactions should be ordered according to effective date in descending order - As the date and time for a transaction can alter depending on status and transaction type two separate date/times are included in the payload. There are still some scenarios where neither of these time stamps is available. For the purpose of filtering and ordering it is expected that the holder will use the “effective” date/time which will be defined as:   - Posted date/time if available, then   - Execution date/time if available, then   - A reasonable date/time nominated by the data holder using internal data structures - For transaction amounts it should be assumed that a negative value indicates a reduction of the available balance on the account while a positive value indicates an increase in the available balance on the account",
         requestMethod = RequestMethod.GET,
         operationId = "getTransactions",
         responses = {
@@ -122,7 +122,7 @@ public interface BankingAccountsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_transactions", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "bank:transactions:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingTransactionList getTransactions(
@@ -167,7 +167,7 @@ public interface BankingAccountsAPI  {
         String maxAmount, 
         @Param(
             name = "text",
-            description = "Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string",
+            description = "Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string. This parameter is optionally implemented by data holders. If it is not implemented then a response should be provided as normal without text filtering applied",
             in = ParamLocation.QUERY,
             reference = "ParamTransactionText"
         )
@@ -192,14 +192,14 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -221,7 +221,7 @@ public interface BankingAccountsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_basic_accounts", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "bank:accounts.basic:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingAccountList listAccounts(
@@ -268,14 +268,14 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -297,7 +297,7 @@ public interface BankingAccountsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_basic_accounts", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "bank:accounts.basic:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingAccountsBalanceById listBalance(
@@ -310,14 +310,14 @@ public interface BankingAccountsAPI  {
         String accountId, 
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -339,7 +339,7 @@ public interface BankingAccountsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_basic_accounts", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "bank:accounts.basic:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingAccountsBalanceList listBalancesBulk(
@@ -386,14 +386,14 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -420,7 +420,7 @@ public interface BankingAccountsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_basic_accounts", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "bank:accounts.basic:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1"),
         @CustomAttribute(name = "x-contentType", value = "16")
     })
@@ -451,233 +451,14 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
-            in = ParamLocation.HEADER,
-            reference = "RequestHeader_x-min-v"
-        )
-        String xMinV
-    );
-
-    @Endpoint(
-        path = "/banking/accounts/transactions",
-        summary = "Get Transactions For Multiple Accounts",
-        description = "Obtain transactions for multiple, filtered accounts",
-        requestMethod = RequestMethod.GET,
-        operationId = "listTransactionsBulk",
-        responses = {
-            @EndpointResponse(
-                responseCode = ResponseCode.OK,
-                description = "Success",
-                content = ResponseBankingTransactionList.class
-            )
-        }
-    )
-    @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_transactions", multiple = true),
-        @CustomAttribute(name = "x-version", value = "1")
-    })
-    ResponseBankingTransactionList listTransactionsBulk(
-        @Param(
-            name = "product-category",
-            description = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
-            in = ParamLocation.QUERY,
-            reference = "ParamProductCategory"
-        )
-        ParamProductCategory productCategory, 
-        @Param(
-            name = "open-status",
-            description = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
-            in = ParamLocation.QUERY,
-            defaultValue = "ALL",
-            reference = "ParamAccountOpenStatus"
-        )
-        ParamAccountOpenStatus openStatus, 
-        @Param(
-            name = "is-owned",
-            description = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts",
-            in = ParamLocation.QUERY,
-            reference = "ParamAccountIsOwned"
-        )
-        @CDSDataType(CustomDataType.Boolean)
-        Boolean isOwned, 
-        @Param(
-            name = "newest-time",
-            description = "Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionNewestTime"
-        )
-        @CDSDataType(CustomDataType.DateTime)
-        String newestTime, 
-        @Param(
-            name = "oldest-time",
-            description = "Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionOldestTime"
-        )
-        @CDSDataType(CustomDataType.DateTime)
-        String oldestTime, 
-        @Param(
-            name = "min-amount",
-            description = "Filter transactions to only transactions with amounts higher or equal to than this amount",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionMinAmount"
-        )
-        @CDSDataType(CustomDataType.Amount)
-        String minAmount, 
-        @Param(
-            name = "max-amount",
-            description = "Filter transactions to only transactions with amounts less than or equal to than this amount",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionMaxAmount"
-        )
-        @CDSDataType(CustomDataType.Amount)
-        String maxAmount, 
-        @Param(
-            name = "text",
-            description = "Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionText"
-        )
-        String text, 
-        @Param(
-            name = "page",
-            description = "Page of results to request (standard pagination)",
-            in = ParamLocation.QUERY,
-            defaultValue = "1",
-            reference = "ParamPage"
-        )
-        @CDSDataType(CustomDataType.PositiveInteger)
-        Integer page, 
-        @Param(
-            name = "page-size",
-            description = "Page size to request. Default is 25 (standard pagination)",
-            in = ParamLocation.QUERY,
-            defaultValue = "25",
-            reference = "ParamPageSize"
-        )
-        @CDSDataType(CustomDataType.PositiveInteger)
-        Integer pageSize,
-        @Param(
-            name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
-            in = ParamLocation.HEADER,
-            reference = "RequestHeader_x-v"
-        )
-        String xV,
-        @Param(
-            name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
-            in = ParamLocation.HEADER,
-            reference = "RequestHeader_x-min-v"
-        )
-        String xMinV
-    );
-
-    @Endpoint(
-        path = "/banking/accounts/transactions",
-        summary = "Get Transactions For Specific Accounts",
-        description = "Obtain transactions for a specified list of transactions.",
-        requestMethod = RequestMethod.POST,
-        operationId = "listTransactionsSpecificAccounts",
-        responses = {
-            @EndpointResponse(
-                responseCode = ResponseCode.OK,
-                description = "Success",
-                content = ResponseBankingTransactionList.class
-            ),
-            @EndpointResponse(
-                responseCode = ResponseCode.UNPROCESSABLE_ENTITY,
-                description = "The request was well formed but was unable to be processed due to business logic specific to the request",
-                content = ResponseErrorList.class
-            )
-        }
-    )
-    @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "bank_transactions", multiple = true),
-        @CustomAttribute(name = "x-version", value = "1"),
-        @CustomAttribute(name = "x-contentType", value = "16")
-    })
-    ResponseBankingTransactionList listTransactionsSpecificAccounts(
-        @Param(
-            name = "accountIds",
-            description = "The list of account IDs to obtain information for",
-            in = ParamLocation.BODY
-        )
-        RequestAccountIds accountIds, 
-        @Param(
-            name = "newest-time",
-            description = "Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionNewestTime"
-        )
-        @CDSDataType(CustomDataType.DateTime)
-        String newestTime, 
-        @Param(
-            name = "oldest-time",
-            description = "Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionOldestTime"
-        )
-        @CDSDataType(CustomDataType.DateTime)
-        String oldestTime, 
-        @Param(
-            name = "min-amount",
-            description = "Filter transactions to only transactions with amounts higher or equal to than this amount",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionMinAmount"
-        )
-        @CDSDataType(CustomDataType.Amount)
-        String minAmount, 
-        @Param(
-            name = "max-amount",
-            description = "Filter transactions to only transactions with amounts less than or equal to than this amount",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionMaxAmount"
-        )
-        @CDSDataType(CustomDataType.Amount)
-        String maxAmount, 
-        @Param(
-            name = "text",
-            description = "Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string",
-            in = ParamLocation.QUERY,
-            reference = "ParamTransactionText"
-        )
-        String text, 
-        @Param(
-            name = "page",
-            description = "Page of results to request (standard pagination)",
-            in = ParamLocation.QUERY,
-            defaultValue = "1",
-            reference = "ParamPage"
-        )
-        @CDSDataType(CustomDataType.PositiveInteger)
-        Integer page, 
-        @Param(
-            name = "page-size",
-            description = "Page size to request. Default is 25 (standard pagination)",
-            in = ParamLocation.QUERY,
-            defaultValue = "25",
-            reference = "ParamPageSize"
-        )
-        @CDSDataType(CustomDataType.PositiveInteger)
-        Integer pageSize,
-        @Param(
-            name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
-            in = ParamLocation.HEADER,
-            reference = "RequestHeader_x-v"
-        )
-        String xV,
-        @Param(
-            name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )

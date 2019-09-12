@@ -23,20 +23,20 @@ public interface CommonCustomerAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "common_basic_customer", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "common:customer.basic:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseCommonCustomer getCustomer(
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -58,20 +58,20 @@ public interface CommonCustomerAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-scopes", value = "common_detailed_customer", multiple = true),
+        @CustomAttribute(name = "x-scopes", value = "common:customer.detail:read", multiple = true),
         @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseCommonCustomerDetail getCustomerDetail(
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )

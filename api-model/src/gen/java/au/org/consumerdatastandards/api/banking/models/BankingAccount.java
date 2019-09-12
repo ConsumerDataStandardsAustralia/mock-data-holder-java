@@ -58,7 +58,7 @@ public class BankingAccount {
     BankingProductCategory productCategory;
 
     @Property(
-        description = "The unique identifier of the account as defined by the account provider (akin to model number for the account)",
+        description = "The unique identifier of the account as defined by the account holder (akin to model number for the account)",
         required = true
     )
     String productName;

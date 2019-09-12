@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.api.banking.models;
 
+import java.util.List;
 import au.org.consumerdatastandards.support.data.*;
 
 @DataDefinition
@@ -49,7 +50,7 @@ public class BankingScheduledPayment {
     @Property(
         required = true
     )
-    BankingScheduledPaymentSet paymentSet;
+    List<BankingScheduledPaymentSet> paymentSet;
 
     @Property(
         required = true

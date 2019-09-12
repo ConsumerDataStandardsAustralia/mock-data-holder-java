@@ -30,8 +30,7 @@ public class BankingProductBundle {
     String additionalInfoUri;
 
     @Property(
-        description = "Array of product IDs for products included in the bundle",
-        required = true
+        description = "Array of product IDs for products included in the bundle that are available via the product end points.  Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference end points"
     )
     List<String> productIds;
 }

@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.api.common;
 
-import au.org.consumerdatastandards.api.common.models.ResponseDiscoveryOutages;
+import au.org.consumerdatastandards.api.common.models.ResponseDiscoveryOutagesList;
 import au.org.consumerdatastandards.api.common.models.ResponseDiscoveryStatus;
 import au.org.consumerdatastandards.support.data.*;
 import au.org.consumerdatastandards.support.*;
@@ -18,24 +18,24 @@ public interface CommonDiscoveryAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
-                content = ResponseDiscoveryOutages.class
+                content = ResponseDiscoveryOutagesList.class
             )
         }
     )
     @CustomAttributes({
         @CustomAttribute(name = "x-version", value = "1")
     })
-    ResponseDiscoveryOutages getOutages(
+    ResponseDiscoveryOutagesList getOutages(
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
@@ -62,14 +62,14 @@ public interface CommonDiscoveryAPI  {
     ResponseDiscoveryStatus getStatus(
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the provider should respond with a 406 Not Acceptable. See [here](##request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The provider should respond with the highest supported version between [x-min-v](##request-headers) and [x-v](##request-headers). If all versions requested are not supported then the provider should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
