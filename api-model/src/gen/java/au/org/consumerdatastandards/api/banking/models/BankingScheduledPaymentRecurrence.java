@@ -32,15 +32,23 @@ public class BankingScheduledPaymentRecurrence {
     )
     RecurrenceUType recurrenceUType;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"onceOff"}) }
+    )
     BankingScheduledPaymentRecurrenceOnceOff onceOff;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"intervalSchedule"}) }
+    )
     BankingScheduledPaymentRecurrenceIntervalSchedule intervalSchedule;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"lastWeekDay"}) }
+    )
     BankingScheduledPaymentRecurrenceLastWeekday lastWeekDay;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"eventBased"}) }
+    )
     BankingScheduledPaymentRecurrenceEventBased eventBased;
 }

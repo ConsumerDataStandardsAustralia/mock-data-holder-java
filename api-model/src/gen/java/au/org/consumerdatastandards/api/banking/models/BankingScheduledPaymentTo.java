@@ -29,23 +29,31 @@ public class BankingScheduledPaymentTo {
     ToUType toUType;
 
     @Property(
-        description = "Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent"
+        description = "Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent",
+        requiredIf = { @Condition(propertyName = "toUType", values = {"accountId"}) }
     )
     @CDSDataType(CustomDataType.ASCII)
     String accountId;
 
     @Property(
-        description = "Present if toUType is set to payeeId. Indicates that the payment is to registered payee that can be accessed using the payee end point. If the Bank Payees scope has not been consented to then a payeeId should not be provided and the full payee details should be provided instead"
+        description = "Present if toUType is set to payeeId. Indicates that the payment is to registered payee that can be accessed using the payee end point. If the Bank Payees scope has not been consented to then a payeeId should not be provided and the full payee details should be provided instead",
+        requiredIf = { @Condition(propertyName = "toUType", values = {"payeeId"}) }
     )
     @CDSDataType(CustomDataType.ASCII)
     String payeeId;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "toUType", values = {"domestic"}) }
+    )
     BankingDomesticPayee domestic;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "toUType", values = {"biller"}) }
+    )
     BankingBillerPayee biller;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "toUType", values = {"international"}) }
+    )
     BankingInternationalPayee international;
 }

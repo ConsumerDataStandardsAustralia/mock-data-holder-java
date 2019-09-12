@@ -20,9 +20,13 @@ public class CommonPhysicalAddress {
     )
     AddressUType addressUType;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "addressUType", values = {"simple"}) }
+    )
     CommonSimpleAddress simple;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "addressUType", values = {"paf"}) }
+    )
     CommonPAFAddress paf;
 }

@@ -22,12 +22,18 @@ public class BankingDomesticPayee {
     )
     PayeeAccountUType payeeAccountUType;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "payeeAccountUType", values = {"account"}) }
+    )
     BankingDomesticPayeeAccount account;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "payeeAccountUType", values = {"card"}) }
+    )
     BankingDomesticPayeeCard card;
 
-    @Property
+    @Property(
+        requiredIf = { @Condition(propertyName = "payeeAccountUType", values = {"payId"}) }
+    )
     BankingDomesticPayeePayId payId;
 }
