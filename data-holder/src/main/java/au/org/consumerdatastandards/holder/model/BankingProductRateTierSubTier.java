@@ -132,18 +132,6 @@ public class BankingProductRateTierSubTier {
         this.applicabilityConditions = applicabilityConditions;
     }
 
-    public enum RateApplicationMethod {
-        WHOLE_BALANCE,
-        PER_TIER
-    }
-
-    public enum UnitOfMeasure {
-        DOLLAR,
-        PERCENT,
-        MONTH,
-        DAY
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -160,13 +148,26 @@ public class BankingProductRateTierSubTier {
     @Override
     public String toString() {
         return "BankingProductRateTierSubTier{" +
-                "rateSubTierId='" + rateSubTierId + '\'' +
-                ", name='" + name + '\'' +
-                ", unitOfMeasure=" + unitOfMeasure +
-                ", minimumValue=" + minimumValue +
-                ", maximumValue=" + maximumValue +
-                ", rateApplicationMethod=" + rateApplicationMethod +
-                ", applicabilityConditions=" + applicabilityConditions +
-                '}';
+            "rateSubTierId='" + rateSubTierId + '\'' +
+            ", name='" + name + '\'' +
+            ", unitOfMeasure=" + unitOfMeasure +
+            ", minimumValue=" + minimumValue +
+            ", maximumValue=" + maximumValue +
+            ", rateApplicationMethod=" + rateApplicationMethod +
+            ", applicabilityConditions=" + applicabilityConditions +
+            '}';
+    }
+
+
+    public enum RateApplicationMethod {
+        WHOLE_BALANCE,
+        PER_TIER
+    }
+
+    public enum UnitOfMeasure {
+        DOLLAR,
+        PERCENT,
+        MONTH,
+        DAY
     }
 }

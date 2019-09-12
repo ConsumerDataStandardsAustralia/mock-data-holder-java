@@ -155,16 +155,6 @@ public class BankingProductDepositRate {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    public enum DepositRateType {
-        FIXED,
-        BONUS,
-        BUNDLE_BONUS,
-        VARIABLE,
-        INTRODUCTORY,
-        FLOATING,
-        MARKET_LINKED
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -191,5 +181,15 @@ public class BankingProductDepositRate {
                 ", additionalInfo='" + additionalInfo + '\'' +
                 ", additionalInfoUri=" + additionalInfoUri +
                 '}';
+    }
+
+    public enum DepositRateType {
+        FIXED,
+        BONUS,
+        BUNDLE_BONUS,
+        VARIABLE,
+        INTRODUCTORY,
+        FLOATING,
+        MARKET_LINKED
     }
 }

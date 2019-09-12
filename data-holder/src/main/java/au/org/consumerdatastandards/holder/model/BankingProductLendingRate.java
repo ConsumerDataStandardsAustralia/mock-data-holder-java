@@ -183,6 +183,36 @@ public class BankingProductLendingRate {
         this.additionalInfoUri = additionalInfoUri;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankingProductLendingRate that = (BankingProductLendingRate) o;
+        return Objects.equals(lendingRateId, that.lendingRateId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lendingRateId);
+    }
+
+    @Override
+    public String toString() {
+        return "BankingProductLendingRate{" +
+            "lendingRateId='" + lendingRateId + '\'' +
+            ", lendingRateType=" + lendingRateType +
+            ", rate=" + rate +
+            ", comparisonRate=" + comparisonRate +
+            ", calculationFrequency='" + calculationFrequency + '\'' +
+            ", applicationFrequency='" + applicationFrequency + '\'' +
+            ", interestPaymentDue=" + interestPaymentDue +
+            ", tiers=" + tiers +
+            ", additionalValue='" + additionalValue + '\'' +
+            ", additionalInfo='" + additionalInfo + '\'' +
+            ", additionalInfoUri=" + additionalInfoUri +
+            '}';
+    }
+
     public enum InterestPaymentDue {
         IN_ARREARS,
         IN_ADVANCE
@@ -200,35 +230,5 @@ public class BankingProductLendingRate {
         PURCHASE,
         BUNDLE_DISCOUNT_FIXED,
         BUNDLE_DISCOUNT_VARIABLE
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BankingProductLendingRate that = (BankingProductLendingRate) o;
-        return Objects.equals(lendingRateId, that.lendingRateId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(lendingRateId);
-    }
-
-    @Override
-    public String toString() {
-        return "BankingProductLendingRate{" +
-                "lendingRateId='" + lendingRateId + '\'' +
-                ", lendingRateType=" + lendingRateType +
-                ", rate=" + rate +
-                ", comparisonRate=" + comparisonRate +
-                ", calculationFrequency='" + calculationFrequency + '\'' +
-                ", applicationFrequency='" + applicationFrequency + '\'' +
-                ", interestPaymentDue=" + interestPaymentDue +
-                ", tiers=" + tiers +
-                ", additionalValue='" + additionalValue + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", additionalInfoUri=" + additionalInfoUri +
-                '}';
     }
 }

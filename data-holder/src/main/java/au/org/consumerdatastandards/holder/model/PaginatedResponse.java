@@ -10,7 +10,7 @@ package au.org.consumerdatastandards.holder.model;
 
 import java.util.Objects;
 
-public class PaginatedResponse  {
+public class PaginatedResponse {
 
     /**
      * The links attribute contains a Links object with links to
@@ -34,7 +34,7 @@ public class PaginatedResponse  {
     public void setLinks(LinksPaginated links) {
         this.links = links;
     }
-    
+
     public MetaPaginated getMeta() {
         return meta;
     }
@@ -49,19 +49,21 @@ public class PaginatedResponse  {
         if (o == null || getClass() != o.getClass()) return false;
         PaginatedResponse that = (PaginatedResponse) o;
         return Objects.equals(links, that.links) &&
-                Objects.equals(meta, that.meta);
+            Objects.equals(meta, that.meta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(links, meta);
+        return Objects.hash(
+            links,
+            meta);
     }
 
     @Override
     public String toString() {
         return "PaginatedResponse{" +
-                "links=" + links +
-                ", meta=" + meta +
-                '}';
+            "links=" + links +
+            ", meta=" + meta +
+            '}';
     }
 }

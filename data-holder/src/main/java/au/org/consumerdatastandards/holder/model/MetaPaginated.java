@@ -10,7 +10,7 @@ package au.org.consumerdatastandards.holder.model;
 
 import java.util.Objects;
 
-public class MetaPaginated  {
+public class MetaPaginated {
 
     /**
      * The total number of records in the full set
@@ -29,7 +29,7 @@ public class MetaPaginated  {
     public void setTotalRecords(Integer totalRecords) {
         this.totalRecords = totalRecords;
     }
-    
+
     public Integer getTotalPages() {
         return totalPages;
     }
@@ -44,19 +44,21 @@ public class MetaPaginated  {
         if (o == null || getClass() != o.getClass()) return false;
         MetaPaginated that = (MetaPaginated) o;
         return Objects.equals(totalRecords, that.totalRecords) &&
-                Objects.equals(totalPages, that.totalPages);
+            Objects.equals(totalPages, that.totalPages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(totalRecords, totalPages);
+        return Objects.hash(
+            totalRecords,
+            totalPages);
     }
 
     @Override
     public String toString() {
         return "MetaPaginated{" +
-                "totalRecords=" + totalRecords +
-                ", totalPages=" + totalPages +
-                '}';
+            "totalRecords=" + totalRecords +
+            ", totalPages=" + totalPages +
+            '}';
     }
 }

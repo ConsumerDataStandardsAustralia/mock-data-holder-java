@@ -49,7 +49,7 @@ public class BaseResponse {
         if (o == null || getClass() != o.getClass()) return false;
         BaseResponse that = (BaseResponse) o;
         return Objects.equals(links, that.links) &&
-                Objects.equals(meta, that.meta);
+            Objects.equals(meta, that.meta);
     }
 
     @Override
@@ -60,8 +60,8 @@ public class BaseResponse {
     @Override
     public String toString() {
         return "BaseResponse{" +
-                "links=" + links +
-                ", meta=" + meta +
-                '}';
+            "links=" + links +
+            ", meta=" + meta +
+            '}';
     }
 }

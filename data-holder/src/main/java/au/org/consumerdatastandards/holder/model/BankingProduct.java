@@ -20,7 +20,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "BankingProduct")
-public class BankingProduct  {
+public class BankingProduct {
 
     /**
      * A provider specific unique identifier for this product. This
@@ -37,7 +37,7 @@ public class BankingProduct  {
      * available for customers to originate
      */
     @DateTimeFormat(iso = ISO.DATE_TIME)
-    @JsonFormat(shape = JsonFormat.Shape.STRING)        
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveFrom;
 
     /**
@@ -45,9 +45,9 @@ public class BankingProduct  {
      * will no longer be offered.  Used to enable the managed
      * deprecation of products
      */
-    
+
     @DateTimeFormat(iso = ISO.DATE_TIME)
-    @JsonFormat(shape = JsonFormat.Shape.STRING)    
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveTo;
 
     /**
@@ -56,22 +56,22 @@ public class BankingProduct  {
      * never been altered)
      */
     @DateTimeFormat(iso = ISO.DATE_TIME)
-    @JsonFormat(shape = JsonFormat.Shape.STRING)    
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastUpdated;
 
-    
-    private BankingEnumProductCategory productCategory;
+
+    private BankingProductCategory productCategory;
 
     /**
      * The display name of the product
      */
-    
+
     private String name;
 
     /**
      * A description of the product
      */
-    
+
     private String description;
 
     /**
@@ -79,20 +79,20 @@ public class BankingProduct  {
      * filtering. For data providers with single brands this value
      * is still required
      */
-    
+
     private String brand;
 
     /**
      * An optional display name of the brand
      */
-    
+
     private String brandName;
 
     /**
      * A link to an application web page where this product can be
      * applied for.
      */
-    
+
     private String applicationUri;
 
     /**
@@ -103,7 +103,7 @@ public class BankingProduct  {
      * indicates that tailoring is expected and thus that the
      * provision of specific fees and rates is not applicable
      */
-    
+
     private Boolean isTailored;
 
     public String getProductId() {
@@ -113,7 +113,7 @@ public class BankingProduct  {
     public void setProductId(String productId) {
         this.productId = productId;
     }
-    
+
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
     }
@@ -121,7 +121,7 @@ public class BankingProduct  {
     public void setEffectiveFrom(OffsetDateTime effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
     }
-    
+
     public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
     }
@@ -129,7 +129,7 @@ public class BankingProduct  {
     public void setEffectiveTo(OffsetDateTime effectiveTo) {
         this.effectiveTo = effectiveTo;
     }
-    
+
     public OffsetDateTime getLastUpdated() {
         return lastUpdated;
     }
@@ -137,15 +137,15 @@ public class BankingProduct  {
     public void setLastUpdated(OffsetDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
-    
-    public BankingEnumProductCategory getProductCategory() {
+
+    public BankingProductCategory getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(BankingEnumProductCategory productCategory) {
+    public void setProductCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -153,7 +153,7 @@ public class BankingProduct  {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -161,7 +161,7 @@ public class BankingProduct  {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public String getBrand() {
         return brand;
     }
@@ -169,7 +169,7 @@ public class BankingProduct  {
     public void setBrand(String brand) {
         this.brand = brand;
     }
-    
+
     public String getBrandName() {
         return brandName;
     }
@@ -177,7 +177,7 @@ public class BankingProduct  {
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
-    
+
     public String getApplicationUri() {
         return applicationUri;
     }
@@ -185,7 +185,7 @@ public class BankingProduct  {
     public void setApplicationUri(String applicationUri) {
         this.applicationUri = applicationUri;
     }
-    
+
     public Boolean getIsTailored() {
         return isTailored;
     }
@@ -193,7 +193,7 @@ public class BankingProduct  {
     public void setIsTailored(Boolean isTailored) {
         this.isTailored = isTailored;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -210,17 +210,17 @@ public class BankingProduct  {
     @Override
     public String toString() {
         return "BankingProduct{" +
-                "productId='" + productId + '\'' +
-                ", effectiveFrom=" + effectiveFrom +
-                ", effectiveTo=" + effectiveTo +
-                ", lastUpdated=" + lastUpdated +
-                ", productCategory=" + productCategory +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", brand='" + brand + '\'' +
-                ", brandName='" + brandName + '\'' +
-                ", applicationUri='" + applicationUri + '\'' +
-                ", isTailored=" + isTailored +
-                '}';
+            "productId='" + productId + '\'' +
+            ", effectiveFrom=" + effectiveFrom +
+            ", effectiveTo=" + effectiveTo +
+            ", lastUpdated=" + lastUpdated +
+            ", productCategory=" + productCategory +
+            ", name='" + name + '\'' +
+            ", description='" + description + '\'' +
+            ", brand='" + brand + '\'' +
+            ", brandName='" + brandName + '\'' +
+            ", applicationUri='" + applicationUri + '\'' +
+            ", isTailored=" + isTailored +
+            '}';
     }
 }

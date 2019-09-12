@@ -9,11 +9,10 @@
 package au.org.consumerdatastandards.holder.model;
 
 /**
- * Used to filter results on the productCategory field
- * applicable to accounts. Any one of the valid values for this
- * field can be supplied. If absent then all accounts returned.
- */
-public enum ParamProductCategory {
+* The category to which a product or account belongs. See
+* [here](#product-categories) for more details
+*/
+public enum BankingProductCategory {
     TRANS_AND_SAVINGS_ACCOUNTS,
     TERM_DEPOSITS,
     TRAVEL_CARDS,

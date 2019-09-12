@@ -9,7 +9,6 @@
 package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.ElementCollection;
@@ -55,11 +54,10 @@ public class BankingProductBundle {
     /**
      * Array of product IDs for products included in the bundle
      */
-    @JsonProperty("productIds")
     @ElementCollection
     @Valid
     private List<String> productIds = new ArrayList<>();
-    
+
     public String getName() {
         return name;
     }
@@ -117,12 +115,12 @@ public class BankingProductBundle {
     @Override
     public String toString() {
         return "BankingProductBundle{" +
-                "bundleId='" + bundleId + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", additionalInfoUri=" + additionalInfoUri +
-                ", bundleProductMembers=" + productIds +
-                '}';
+            "bundleId='" + bundleId + '\'' +
+            ", name='" + name + '\'' +
+            ", description='" + description + '\'' +
+            ", additionalInfo='" + additionalInfo + '\'' +
+            ", additionalInfoUri=" + additionalInfoUri +
+            ", bundleProductMembers=" + productIds +
+            '}';
     }
 }

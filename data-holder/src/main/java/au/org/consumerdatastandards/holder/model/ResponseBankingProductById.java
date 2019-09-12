@@ -39,7 +39,7 @@ public class ResponseBankingProductById extends BaseResponse {
     @Override
     public String toString() {
         return "ResponseBankingProductById{" +
-                "data=" + data +
-                '}';
+            "data=" + data +
+            '}';
     }
 }

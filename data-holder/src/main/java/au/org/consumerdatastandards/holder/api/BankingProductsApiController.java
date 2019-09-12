@@ -76,7 +76,7 @@ public class BankingProductsApiController implements BankingProductsApi {
     public ResponseEntity<ResponseBankingProductList> listProducts(@Valid ParamEffective effective,
                                                                    @Valid OffsetDateTime updatedSince,
                                                                    @Valid String brand,
-                                                                   @Valid ParamProductCategory productCategory,
+                                                                   @Valid BankingProductCategory productCategory,
                                                                    @Valid Integer page,
                                                                    @Valid Integer pageSize) {
 
@@ -101,7 +101,7 @@ public class BankingProductsApiController implements BankingProductsApi {
         bankingProduct.setLastUpdated(updatedSince);
         bankingProduct.setBrand(brand);
         if (productCategory != null) {
-            bankingProduct.setProductCategory(BankingEnumProductCategory.valueOf(productCategory.name()));
+            bankingProduct.setProductCategory(BankingProductCategory.valueOf(productCategory.name()));
         }
 
         Integer actualPage = getPagingValue(page, 1);

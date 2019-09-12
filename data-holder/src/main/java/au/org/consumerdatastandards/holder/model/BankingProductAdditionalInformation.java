@@ -120,12 +120,12 @@ public class BankingProductAdditionalInformation {
     @Override
     public String toString() {
         return "BankingProductAdditionalInformation{" +
-                "additionalInformationId='" + additionalInformationId + '\'' +
-                ", overviewUri=" + overviewUri +
-                ", termsUri=" + termsUri +
-                ", eligibilityUri=" + eligibilityUri +
-                ", feesAndPricingUri=" + feesAndPricingUri +
-                ", bundleUri=" + bundleUri +
-                '}';
+            "additionalInformationId='" + additionalInformationId + '\'' +
+            ", overviewUri=" + overviewUri +
+            ", termsUri=" + termsUri +
+            ", eligibilityUri=" + eligibilityUri +
+            ", feesAndPricingUri=" + feesAndPricingUri +
+            ", bundleUri=" + bundleUri +
+            '}';
     }
 }

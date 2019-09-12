@@ -95,21 +95,6 @@ public class BankingProductEligibility {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    public enum EligibilityType {
-        BUSINESS,
-        PENSION_RECIPIENT,
-        MIN_AGE,
-        MAX_AGE,
-        MIN_INCOME,
-        MIN_TURNOVER,
-        STAFF,
-        STUDENT,
-        EMPLOYMENT_STATUS,
-        RESIDENCY_STATUS,
-        NATURAL_PERSON,
-        OTHER
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,11 +111,26 @@ public class BankingProductEligibility {
     @Override
     public String toString() {
         return "BankingProductEligibility{" +
-                "eligibilityId='" + eligibilityId + '\'' +
-                ", eligibilityType=" + eligibilityType +
-                ", additionalValue='" + additionalValue + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", additionalInfoUri=" + additionalInfoUri +
-                '}';
+            "eligibilityId='" + eligibilityId + '\'' +
+            ", eligibilityType=" + eligibilityType +
+            ", additionalValue='" + additionalValue + '\'' +
+            ", additionalInfo='" + additionalInfo + '\'' +
+            ", additionalInfoUri=" + additionalInfoUri +
+            '}';
+    }
+
+    public enum EligibilityType {
+        BUSINESS,
+        PENSION_RECIPIENT,
+        MIN_AGE,
+        MAX_AGE,
+        MIN_INCOME,
+        MIN_TURNOVER,
+        STAFF,
+        STUDENT,
+        EMPLOYMENT_STATUS,
+        RESIDENCY_STATUS,
+        NATURAL_PERSON,
+        OTHER
     }
 }

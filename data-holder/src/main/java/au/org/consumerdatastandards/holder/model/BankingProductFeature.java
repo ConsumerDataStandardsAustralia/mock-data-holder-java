@@ -91,6 +91,30 @@ public class BankingProductFeature {
         this.additionalInfoUri = additionalInfoUri;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankingProductFeature that = (BankingProductFeature) o;
+        return Objects.equals(featureId, that.featureId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(featureId);
+    }
+
+    @Override
+    public String toString() {
+        return "BankingProductFeature{" +
+            "featureId='" + featureId + '\'' +
+            ", featureType=" + featureType +
+            ", additionalValue='" + additionalValue + '\'' +
+            ", additionalInfo='" + additionalInfo + '\'' +
+            ", additionalInfoUri=" + additionalInfoUri +
+            '}';
+    }
+
     public enum FeatureType {
         CARD_ACCESS,
         ADDITIONAL_CARDS,
@@ -115,29 +139,5 @@ public class BankingProductFeature {
         BONUS_REWARDS,
         NOTIFICATIONS,
         OTHER
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BankingProductFeature that = (BankingProductFeature) o;
-        return Objects.equals(featureId, that.featureId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(featureId);
-    }
-
-    @Override
-    public String toString() {
-        return "BankingProductFeature{" +
-                "featureId='" + featureId + '\'' +
-                ", featureType=" + featureType +
-                ", additionalValue='" + additionalValue + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", additionalInfoUri=" + additionalInfoUri +
-                '}';
     }
 }

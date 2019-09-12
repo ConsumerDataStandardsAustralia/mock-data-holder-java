@@ -81,9 +81,9 @@ public class BankingProductRateCondition {
     @Override
     public String toString() {
         return "BankingProductRateCondition{" +
-                "rateConditionId='" + rateConditionId + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", additionalInfoUri=" + additionalInfoUri +
-                '}';
+            "rateConditionId='" + rateConditionId + '\'' +
+            ", additionalInfo='" + additionalInfo + '\'' +
+            ", additionalInfoUri=" + additionalInfoUri +
+            '}';
     }
 }

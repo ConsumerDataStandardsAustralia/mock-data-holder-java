@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
 
-public class ResponseBankingProductListData  {
+public class ResponseBankingProductListData {
 
     /**
      * The list of products returned.  If the filter results in an
@@ -20,7 +20,6 @@ public class ResponseBankingProductListData  {
      */
     private List<BankingProduct> products;
 
-    
     public List<BankingProduct> getProducts() {
         return products;
     }
@@ -45,7 +44,7 @@ public class ResponseBankingProductListData  {
     @Override
     public String toString() {
         return "ResponseBankingProductListData{" +
-                "products=" + products +
-                '}';
+            "products=" + products +
+            '}';
     }
 }

@@ -8,78 +8,77 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import java.net.URI;
 import java.util.Objects;
 
-public class LinksPaginated  {
+public class LinksPaginated {
 
     /**
      * Fully qualified link to this API call
      */
-    private URI self;
+    private String self;
 
     /**
-     * URI to the first page of this set. Mandatory if this
+     * String to the first page of this set. Mandatory if this
      * response is not the first page
      */
-    private URI first;
+    private String first;
 
     /**
-     * URI to the previous page of this set. Mandatory if this
+     * String to the previous page of this set. Mandatory if this
      * response is not the first page
      */
-    private URI prev;
+    private String prev;
 
     /**
-     * URI to the next page of this set. Mandatory if this response
+     * String to the next page of this set. Mandatory if this response
      * is not the last page
      */
-    private URI next;
+    private String next;
 
     /**
-     * URI to the last page of this set. Mandatory if this response
+     * String to the last page of this set. Mandatory if this response
      * is not the last page
      */
-    private URI last;
+    private String last;
 
-    
-    public URI getSelf() {
+
+    public String getSelf() {
         return self;
     }
 
-    public void setSelf(URI self) {
+    public void setSelf(String self) {
         this.self = self;
     }
-    
-    public URI getFirst() {
+
+    public String getFirst() {
         return first;
     }
 
-    public void setFirst(URI first) {
+    public void setFirst(String first) {
         this.first = first;
     }
-    
-    public URI getPrev() {
+
+    public String getPrev() {
         return prev;
     }
 
-    public void setPrev(URI prev) {
+    public void setPrev(String prev) {
         this.prev = prev;
     }
-    
-    public URI getNext() {
+
+    public String getNext() {
         return next;
     }
 
-    public void setNext(URI next) {
+    public void setNext(String next) {
         this.next = next;
     }
-    
-    public URI getLast() {
+
+    public String getLast() {
         return last;
     }
 
-    public void setLast(URI last) {
+    public void setLast(String last) {
         this.last = last;
     }
 
@@ -89,25 +88,30 @@ public class LinksPaginated  {
         if (o == null || getClass() != o.getClass()) return false;
         LinksPaginated that = (LinksPaginated) o;
         return Objects.equals(self, that.self) &&
-                Objects.equals(first, that.first) &&
-                Objects.equals(prev, that.prev) &&
-                Objects.equals(next, that.next) &&
-                Objects.equals(last, that.last);
+            Objects.equals(first, that.first) &&
+            Objects.equals(prev, that.prev) &&
+            Objects.equals(next, that.next) &&
+            Objects.equals(last, that.last);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(self, first, prev, next, last);
+        return Objects.hash(
+            self,
+            first,
+            prev,
+            next,
+            last);
     }
 
     @Override
     public String toString() {
         return "LinksPaginated{" +
-                "self=" + self +
-                ", first=" + first +
-                ", prev=" + prev +
-                ", next=" + next +
-                ", last=" + last +
-                '}';
+            "self=" + self +
+            ", first=" + first +
+            ", prev=" + prev +
+            ", next=" + next +
+            ", last=" + last +
+            '}';
     }
 }

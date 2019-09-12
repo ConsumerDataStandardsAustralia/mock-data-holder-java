@@ -102,9 +102,9 @@ public class BankingProductFee {
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "product_fee_discounts",
-            joinColumns = @JoinColumn(name = "product_fee_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_discount_id"))
+        name = "product_fee_discounts",
+        joinColumns = @JoinColumn(name = "product_fee_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_discount_id"))
     private List<BankingProductDiscount> discounts;
 
     public String getFeeId() {
@@ -211,17 +211,6 @@ public class BankingProductFee {
         this.discounts = discounts;
     }
 
-    public enum FeeType {
-        PERIODIC,
-        TRANSACTION, WITHDRAWAL,
-        DEPOSIT,
-        PAYMENT,
-        PURCHASE,
-        EVENT,
-        UPFRONT,
-        EXIT
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -238,19 +227,30 @@ public class BankingProductFee {
     @Override
     public String toString() {
         return "BankingProductFee{" +
-                "feeId='" + feeId + '\'' +
-                ", name='" + name + '\'' +
-                ", feeType=" + feeType +
-                ", amount=" + amount +
-                ", balanceRate=" + balanceRate +
-                ", transactionRate=" + transactionRate +
-                ", accruedRate=" + accruedRate +
-                ", accrualFrequency='" + accrualFrequency + '\'' +
-                ", currency='" + currency + '\'' +
-                ", additionalValue='" + additionalValue + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", additionalInfoUri=" + additionalInfoUri +
-                ", discounts=" + discounts +
-                '}';
+            "feeId='" + feeId + '\'' +
+            ", name='" + name + '\'' +
+            ", feeType=" + feeType +
+            ", amount=" + amount +
+            ", balanceRate=" + balanceRate +
+            ", transactionRate=" + transactionRate +
+            ", accruedRate=" + accruedRate +
+            ", accrualFrequency='" + accrualFrequency + '\'' +
+            ", currency='" + currency + '\'' +
+            ", additionalValue='" + additionalValue + '\'' +
+            ", additionalInfo='" + additionalInfo + '\'' +
+            ", additionalInfoUri=" + additionalInfoUri +
+            ", discounts=" + discounts +
+            '}';
+    }
+
+    public enum FeeType {
+        PERIODIC,
+        TRANSACTION, WITHDRAWAL,
+        DEPOSIT,
+        PAYMENT,
+        PURCHASE,
+        EVENT,
+        UPFRONT,
+        EXIT
     }
 }

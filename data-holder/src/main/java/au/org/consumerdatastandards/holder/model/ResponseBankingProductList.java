@@ -39,7 +39,7 @@ public class ResponseBankingProductList extends PaginatedResponse {
     @Override
     public String toString() {
         return "ResponseBankingProductList{" +
-                "data=" + data +
-                '}';
+            "data=" + data +
+            '}';
     }
 }

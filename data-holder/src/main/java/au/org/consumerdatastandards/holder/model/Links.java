@@ -8,22 +8,20 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
-import java.net.URI;
 import java.util.Objects;
 
-public class Links  {
+public class Links {
 
     /**
      * Fully qualified link to this API call
      */
-    private URI self;
+    private String self;
 
-    
-    public URI getSelf() {
+    public String getSelf() {
         return self;
     }
 
-    public void setSelf(URI self) {
+    public void setSelf(String self) {
         this.self = self;
     }
 
@@ -43,7 +41,7 @@ public class Links  {
     @Override
     public String toString() {
         return "Links{" +
-                "self=" + self +
-                '}';
+            "self=" + self +
+            '}';
     }
 }

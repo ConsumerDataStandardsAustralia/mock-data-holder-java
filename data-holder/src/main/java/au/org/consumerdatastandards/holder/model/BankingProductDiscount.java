@@ -109,9 +109,9 @@ public class BankingProductDiscount {
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "product_discount_eligibility",
-            joinColumns = @JoinColumn(name = "product_discount_id"),
-            inverseJoinColumns = @JoinColumn(name = "discount_eligibility_id"))
+        name = "product_discount_eligibility",
+        joinColumns = @JoinColumn(name = "product_discount_id"),
+        inverseJoinColumns = @JoinColumn(name = "discount_eligibility_id"))
     @Valid
     private List<BankingProductDiscountEligibility> eligibility;
 
@@ -211,14 +211,6 @@ public class BankingProductDiscount {
         this.eligibility = eligibility;
     }
 
-    public enum DiscountType {
-        BALANCE,
-        DEPOSITS,
-        PAYMENTS,
-        FEE_CAP,
-        ELIGIBILITY_ONLY
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -235,18 +227,26 @@ public class BankingProductDiscount {
     @Override
     public String toString() {
         return "BankingProductDiscount{" +
-                "discountId='" + discountId + '\'' +
-                ", description='" + description + '\'' +
-                ", discountType=" + discountType +
-                ", amount=" + amount +
-                ", balanceRate=" + balanceRate +
-                ", transactionRate=" + transactionRate +
-                ", accruedRate=" + accruedRate +
-                ", feeRate=" + feeRate +
-                ", additionalValue='" + additionalValue + '\'' +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                ", additionalInfoUri=" + additionalInfoUri +
-                ", eligibility=" + eligibility +
-                '}';
+            "discountId='" + discountId + '\'' +
+            ", description='" + description + '\'' +
+            ", discountType=" + discountType +
+            ", amount=" + amount +
+            ", balanceRate=" + balanceRate +
+            ", transactionRate=" + transactionRate +
+            ", accruedRate=" + accruedRate +
+            ", feeRate=" + feeRate +
+            ", additionalValue='" + additionalValue + '\'' +
+            ", additionalInfo='" + additionalInfo + '\'' +
+            ", additionalInfoUri=" + additionalInfoUri +
+            ", eligibility=" + eligibility +
+            '}';
+    }
+
+    public enum DiscountType {
+        BALANCE,
+        DEPOSITS,
+        PAYMENTS,
+        FEE_CAP,
+        ELIGIBILITY_ONLY
     }
 }

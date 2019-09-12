@@ -1,20 +1,13 @@
 package au.org.consumerdatastandards.holder.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.UUID;
 
 public class WebUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebUtil.class);
 
     final static String V = "x-v";
     final static String MIN_V = "x-min-v";
@@ -22,7 +15,7 @@ public class WebUtil {
     final static String CORRELATION_ID = "x-Correlation-Id";
     final static String FAPI_INTERACTION_ID = "x-fapi-interaction-id";
 
-    public static URI getPaginatedLink(NativeWebRequest request, Integer page, Integer pageSize) {
+    public static String getPaginatedLink(NativeWebRequest request, Integer page, Integer pageSize) {
         HttpServletRequest servletRequest = request.getNativeRequest(HttpServletRequest.class);
         String paginatedLink = getOriginalUrl(servletRequest);
         String originalPage = servletRequest.getParameter("page");
@@ -38,22 +31,11 @@ public class WebUtil {
         } else {
             paginatedLink = paginatedLink.replace("page-size=" + originalPageSize, "page-size=" + pageSize);
         }
-        try {
-            return new URI(paginatedLink);
-        } catch (URISyntaxException e) {
-            LOGGER.error(e.getMessage(), e);
-            return null;
-        }
+        return paginatedLink;
     }
 
-    public static URI getOriginalUrl(NativeWebRequest request) {
-        String originalUrl = getOriginalUrl(request.getNativeRequest(HttpServletRequest.class));
-        try {
-            return new URI(originalUrl);
-        } catch (URISyntaxException e) {
-            LOGGER.error(e.getMessage(), e);
-            return null;
-        }
+    public static String getOriginalUrl(NativeWebRequest request) {
+        return getOriginalUrl(request.getNativeRequest(HttpServletRequest.class));
     }
 
     public static HttpHeaders processHeaders(NativeWebRequest request) {

@@ -84,14 +84,6 @@ public class BankingProductConstraint {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    public enum ConstraintType {
-        MIN_BALANCE,
-        MAX_BALANCE,
-        OPENING_BALANCE,
-        MAX_LIMIT,
-        MIN_LIMIT
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,5 +106,13 @@ public class BankingProductConstraint {
                 ", additionalInfo='" + additionalInfo + '\'' +
                 ", additionalInfoUri=" + additionalInfoUri +
                 '}';
+    }
+
+    public enum ConstraintType {
+        MIN_BALANCE,
+        MAX_BALANCE,
+        OPENING_BALANCE,
+        MAX_LIMIT,
+        MIN_LIMIT
     }
 }

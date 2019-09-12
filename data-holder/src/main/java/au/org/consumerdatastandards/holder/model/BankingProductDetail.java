@@ -1,16 +1,12 @@
 package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,56 +17,43 @@ import java.util.Objects;
 public class BankingProductDetail {
 
     @Id
-    @JsonProperty("productId")
     private String productId;
 
-    @OneToOne (cascade = CascadeType.ALL)
-    @JsonProperty("additionalInformation")
+    @OneToOne(cascade = CascadeType.ALL)
     private BankingProductAdditionalInformation additionalInformation;
 
-    @JsonProperty("applicationUri")
     private String applicationUri;
 
-    @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("brandName")
     private String brandName;
 
-    @JsonProperty("description")
     @Column(length = 2048)
     private String description;
 
-    @JsonProperty("effectiveFrom")
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveFrom;
 
-    @JsonProperty("effectiveTo")
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveTo;
 
-    @JsonProperty("isTailored")
     private Boolean isTailored;
 
-    @JsonProperty("lastUpdated")
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastUpdated;
 
-    @JsonProperty("name")
     private String name;
 
-    @JsonProperty("productCategory")
-    private BankingEnumProductCategory productCategory;
+    private BankingProductCategory productCategory;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_bundles",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "bundle_id"))
-    @JsonProperty("bundles")
     @Valid
     private List<BankingProductBundle> bundles = null;
 
@@ -79,7 +62,6 @@ public class BankingProductDetail {
         name = "product_constraints",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "constraint_id"))
-    @JsonProperty("constraints")
     @Valid
     private List<BankingProductConstraint> constraints = null;
 
@@ -88,7 +70,6 @@ public class BankingProductDetail {
         name = "product_deposit_rates",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "deposit_rate_id"))
-    @JsonProperty("depositRates")
     @Valid
     private List<BankingProductDepositRate> depositRates = null;
 
@@ -97,7 +78,6 @@ public class BankingProductDetail {
         name = "product_eligibility",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "eligibility_id"))
-    @JsonProperty("eligibility")
     @Valid
     private List<BankingProductEligibility> eligibility = null;
 
@@ -106,7 +86,6 @@ public class BankingProductDetail {
         name = "product_features",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "feature_id"))
-    @JsonProperty("features")
     @Valid
     private List<BankingProductFeature> features = null;
 
@@ -115,7 +94,6 @@ public class BankingProductDetail {
         name = "product_fees",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "fee_id"))
-    @JsonProperty("fees")
     @Valid
     private List<BankingProductFee> fees = null;
 
@@ -124,7 +102,6 @@ public class BankingProductDetail {
         name = "product_lending_rates",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "lending_rate_id"))
-    @JsonProperty("lendingRates")
     @Valid
     private List<BankingProductLendingRate> lendingRates = null;
 
@@ -138,7 +115,6 @@ public class BankingProductDetail {
      *
      * @return additionalInformation
      */
-    @ApiModelProperty()
     @Valid
     public BankingProductAdditionalInformation getAdditionalInformation() {
         return additionalInformation;
@@ -158,7 +134,6 @@ public class BankingProductDetail {
      *
      * @return applicationUri
      */
-    @ApiModelProperty(value = "A link to the an application web page where this product can be applied for.")
     public String getApplicationUri() {
         return applicationUri;
     }
@@ -177,7 +152,6 @@ public class BankingProductDetail {
      *
      * @return brand
      */
-    @ApiModelProperty(required = true, value = "A label of the brand for the product. Able to be used for filtering. For data providers with single brands this value is still required")
     @NotNull
     public String getBrand() {
         return brand;
@@ -197,7 +171,6 @@ public class BankingProductDetail {
      *
      * @return brandName
      */
-    @ApiModelProperty(value = "An optional display name of the brand")
     public String getBrandName() {
         return brandName;
     }
@@ -216,7 +189,6 @@ public class BankingProductDetail {
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "A description of the product")
     @NotNull
     public String getDescription() {
         return description;
@@ -236,7 +208,6 @@ public class BankingProductDetail {
      *
      * @return effectiveFrom
      */
-    @ApiModelProperty(value = "The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate")
     @Valid
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
@@ -256,7 +227,6 @@ public class BankingProductDetail {
      *
      * @return effectiveTo
      */
-    @ApiModelProperty(value = "The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products")
     @Valid
     public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
@@ -276,7 +246,6 @@ public class BankingProductDetail {
      *
      * @return isTailored
      */
-    @ApiModelProperty(required = true, value = "Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable")
     @NotNull
     public Boolean getIsTailored() {
         return isTailored;
@@ -296,7 +265,6 @@ public class BankingProductDetail {
      *
      * @return lastUpdated
      */
-    @ApiModelProperty(required = true, value = "The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)")
     @NotNull
     @Valid
     public OffsetDateTime getLastUpdated() {
@@ -317,7 +285,6 @@ public class BankingProductDetail {
      *
      * @return name
      */
-    @ApiModelProperty(required = true, value = "The display name of the product")
     @NotNull
     public String getName() {
         return name;
@@ -327,7 +294,7 @@ public class BankingProductDetail {
         this.name = name;
     }
 
-    public BankingProductDetail productCategory(BankingEnumProductCategory productCategory) {
+    public BankingProductDetail productCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
         return this;
     }
@@ -337,14 +304,13 @@ public class BankingProductDetail {
      *
      * @return productCategory
      */
-    @ApiModelProperty(required = true, value = "")
     @NotNull
     @Valid
-    public BankingEnumProductCategory getProductCategory() {
+    public BankingProductCategory getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(BankingEnumProductCategory productCategory) {
+    public void setProductCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
     }
 
@@ -358,7 +324,6 @@ public class BankingProductDetail {
      *
      * @return productId
      */
-    @ApiModelProperty(required = true, value = "A provider specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.")
     @NotNull
     public String getProductId() {
         return productId;
@@ -386,7 +351,6 @@ public class BankingProductDetail {
      *
      * @return bundles
      */
-    @ApiModelProperty(value = "An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also")
     @Valid
     public List<BankingProductBundle> getBundles() {
         return bundles;
@@ -414,7 +378,6 @@ public class BankingProductDetail {
      *
      * @return constraints
      */
-    @ApiModelProperty(value = "Constraints on the application for or operation of the product such as minimum balances or limit thresholds")
     @Valid
     public List<BankingProductConstraint> getConstraints() {
         return constraints;
@@ -442,7 +405,6 @@ public class BankingProductDetail {
      *
      * @return depositRates
      */
-    @ApiModelProperty(value = "Interest rates available for deposits")
     @Valid
     public List<BankingProductDepositRate> getDepositRates() {
         return depositRates;
@@ -470,7 +432,6 @@ public class BankingProductDetail {
      *
      * @return eligibility
      */
-    @ApiModelProperty(value = "Eligibility criteria for the product")
     @Valid
     public List<BankingProductEligibility> getEligibility() {
         return eligibility;
@@ -498,7 +459,6 @@ public class BankingProductDetail {
      *
      * @return features
      */
-    @ApiModelProperty(value = "Array of features available for the product")
     @Valid
     public List<BankingProductFeature> getFeatures() {
         return features;
@@ -526,7 +486,6 @@ public class BankingProductDetail {
      *
      * @return fees
      */
-    @ApiModelProperty(value = "Fees applicable for the product")
     @Valid
     public List<BankingProductFee> getFees() {
         return fees;
@@ -554,7 +513,6 @@ public class BankingProductDetail {
      *
      * @return lendingRates
      */
-    @ApiModelProperty(value = "Interest rates charged against lending balances")
     @Valid
     public List<BankingProductLendingRate> getLendingRates() {
         return lendingRates;
@@ -581,26 +539,26 @@ public class BankingProductDetail {
     @Override
     public String toString() {
         return "BankingProductDetail{" +
-                "productId='" + productId + '\'' +
-                ", additionalInformation=" + additionalInformation +
-                ", applicationUri='" + applicationUri + '\'' +
-                ", brand='" + brand + '\'' +
-                ", brandName='" + brandName + '\'' +
-                ", description='" + description + '\'' +
-                ", effectiveFrom=" + effectiveFrom +
-                ", effectiveTo=" + effectiveTo +
-                ", isTailored=" + isTailored +
-                ", lastUpdated=" + lastUpdated +
-                ", name='" + name + '\'' +
-                ", productCategory=" + productCategory +
-                ", bundles=" + bundles +
-                ", constraints=" + constraints +
-                ", depositRates=" + depositRates +
-                ", eligibility=" + eligibility +
-                ", features=" + features +
-                ", fees=" + fees +
-                ", lendingRates=" + lendingRates +
-                '}';
+            "productId='" + productId + '\'' +
+            ", additionalInformation=" + additionalInformation +
+            ", applicationUri='" + applicationUri + '\'' +
+            ", brand='" + brand + '\'' +
+            ", brandName='" + brandName + '\'' +
+            ", description='" + description + '\'' +
+            ", effectiveFrom=" + effectiveFrom +
+            ", effectiveTo=" + effectiveTo +
+            ", isTailored=" + isTailored +
+            ", lastUpdated=" + lastUpdated +
+            ", name='" + name + '\'' +
+            ", productCategory=" + productCategory +
+            ", bundles=" + bundles +
+            ", constraints=" + constraints +
+            ", depositRates=" + depositRates +
+            ", eligibility=" + eligibility +
+            ", features=" + features +
+            ", fees=" + fees +
+            ", lendingRates=" + lendingRates +
+            '}';
     }
 }
 
