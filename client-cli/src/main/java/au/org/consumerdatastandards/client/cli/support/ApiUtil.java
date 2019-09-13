@@ -87,7 +87,7 @@ public class ApiUtil {
                 printProxyExamples();
                 throw new ApiException("Invalid proxy, please double check it.");
             }
-            Integer portNumber = Integer.parseInt(port);
+            int portNumber = Integer.parseInt(port);
             builder.proxy(new Proxy(getProxyType(typeAndOther[0]), new InetSocketAddress(host, portNumber)));
             if (authAndOther.length > 1) {
                 String[] userAndPass = authAndOther[0].split(":", 2);
@@ -135,7 +135,7 @@ public class ApiUtil {
             LOGGER.trace("Server URL of {} passes validation", url);
             return true;
         } catch (MalformedURLException e) {
-            LOGGER.error("Specified URL of {} is malformed and exception caught: {}", e.getMessage());
+            LOGGER.error("Specified URL of {} is malformed and exception caught: {}", url, e.getMessage());
             return false;
         }
     }
