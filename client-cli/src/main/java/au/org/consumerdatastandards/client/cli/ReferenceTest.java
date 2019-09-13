@@ -39,7 +39,7 @@ public class ReferenceTest {
         payloadValidationStatus();
     }
 
-    @ShellMethod("Validate json payload(s) against cds-models")
+    @ShellMethod("Validate json payload(s) against CDS")
     public void validatePath(@ShellOption(value = "-f", help = "payload file or folder") String fileOrFolder) throws IOException {
         
         File file = new File(fileOrFolder);

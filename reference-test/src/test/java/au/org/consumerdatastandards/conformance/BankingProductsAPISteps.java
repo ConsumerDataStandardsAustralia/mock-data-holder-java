@@ -86,7 +86,7 @@ public class BankingProductsAPISteps {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listProductsResponse = given.when().get(url).then().log().all().extract().response();
+        listProductsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/products response")
@@ -310,7 +310,7 @@ public class BankingProductsAPISteps {
     void getProductDetail(String productId) {
         String url = apiBasePath + "/banking/products/" + productId;
         requestUrl = url;
-        getProductDetailResponse = given()
+        getProductDetailResponse = given().relaxedHTTPSValidation()
                 .header("Accept", "application/json")
                 .header("x-v", 1)
                 .when().get(url).then().log().body().extract().response();
