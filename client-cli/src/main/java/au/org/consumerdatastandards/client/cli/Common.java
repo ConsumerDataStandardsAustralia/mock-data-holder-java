@@ -33,7 +33,13 @@ public class Common {
         apiClientOptions.setServerUrl(url);
         LOGGER.info("Server URL is set to {}", apiClientOptions.getServerUrl());
     }
-    
+
+    @ShellMethod("Set proxy, e.g. http://http-proxy:8080 or https://https-proxy:8443 or socks://socks-proxy:5050 or none")
+    public void proxy(@ShellOption String proxy) {
+        apiClientOptions.setProxy(proxy);
+        LOGGER.info("Proxy is set to {}", apiClientOptions.getProxy());
+    }
+
     @ShellMethod("Setup minimum log level, default is INFO")
     public void setLogLevel(@ShellOption Level targetLevel) {
         Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
@@ -71,7 +77,7 @@ public class Common {
     public void getClientDebug() {
         Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         root.setLevel(Level.INFO);
-        LOGGER.info("Client debug is currently set to: {}", apiClientOptions.getDebugEnabled());
+        LOGGER.info("Client debug is currently set to: {}", apiClientOptions.isDebugEnabled());
     }
 }
 

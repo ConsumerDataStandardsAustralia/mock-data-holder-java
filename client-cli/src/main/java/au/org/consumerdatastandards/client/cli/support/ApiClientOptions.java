@@ -11,9 +11,10 @@ package au.org.consumerdatastandards.client.cli.support;
 public class ApiClientOptions {
 
     private String serverUrl;
+    private String proxy;
     private boolean validationEnabled = false;
     private String userAgent;
-    private Boolean debugEnabled = false;
+    private boolean debugEnabled = false;
 
     public String getServerUrl() {
         return serverUrl;
@@ -21,6 +22,14 @@ public class ApiClientOptions {
 
     public void setServerUrl(String serverUrl) {
         this.serverUrl = serverUrl;
+    }
+
+    public String getProxy() {
+        return proxy;
+    }
+
+    public void setProxy(String proxy) {
+        this.proxy = proxy;
     }
 
     public boolean isValidationEnabled() {
@@ -39,12 +48,11 @@ public class ApiClientOptions {
         this.userAgent = userAgent;
     }
 
-    public Boolean getDebugEnabled() {
+    public boolean isDebugEnabled() {
         return debugEnabled;
     }
 
-    public void setDebugEnabled(Boolean debugEnabled) {
+    public void setDebugEnabled(boolean debugEnabled) {
         this.debugEnabled = debugEnabled;
     }
-
 }

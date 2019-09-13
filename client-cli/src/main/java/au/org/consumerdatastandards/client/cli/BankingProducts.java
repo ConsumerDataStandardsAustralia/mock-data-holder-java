@@ -58,7 +58,7 @@ public class BankingProducts {
         if (apiClientOptions.getUserAgent() != null) {
             LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
         }
-        api.setApiClient(ApiUtil.getApiClient(apiClientOptions.getServerUrl(), apiClientOptions.getUserAgent(), apiClientOptions.getDebugEnabled()));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
         try {
             ResponseBankingProductList response = api.listProducts(effective, updatedSince, brand, productCategory,
@@ -105,7 +105,7 @@ public class BankingProducts {
             @ShellOption(defaultValue = ShellOption.NULL) Boolean check) throws Exception {
 
         LOGGER.info("Get Product Detail CLI initiated with product id {}", productId);
-        api.setApiClient(ApiUtil.getApiClient(apiClientOptions.getServerUrl(), apiClientOptions.getUserAgent(), apiClientOptions.getDebugEnabled()));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
         try {
             ResponseBankingProductById response = api.getProductDetail(productId);
