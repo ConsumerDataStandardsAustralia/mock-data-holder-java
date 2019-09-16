@@ -43,17 +43,20 @@ public class BankingScheduledPaymentTo {
     String payeeId;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "toUType", values = {"domestic"}) }
+        requiredIf = { @Condition(propertyName = "toUType", values = {"domestic"}) },
+        nullIf = { @Condition(propertyName = "toUType", values = {"biller", "international"}) }
     )
     BankingDomesticPayee domestic;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "toUType", values = {"biller"}) }
+        requiredIf = { @Condition(propertyName = "toUType", values = {"biller"}) },
+        nullIf = { @Condition(propertyName = "toUType", values = {"domestic", "international"}) }
     )
     BankingBillerPayee biller;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "toUType", values = {"international"}) }
+        requiredIf = { @Condition(propertyName = "toUType", values = {"international"}) },
+        nullIf = { @Condition(propertyName = "toUType", values = {"domestic", "biller"}) }
     )
     BankingInternationalPayee international;
 }

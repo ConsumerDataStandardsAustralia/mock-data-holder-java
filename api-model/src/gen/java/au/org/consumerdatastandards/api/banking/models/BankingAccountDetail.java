@@ -41,17 +41,20 @@ public class BankingAccountDetail {
     SpecificAccountUType specificAccountUType;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "specificAccountUType", values = {"termDeposit"}) }
+        requiredIf = { @Condition(propertyName = "specificAccountUType", values = {"termDeposit"}) },
+        nullIf = { @Condition(propertyName = "specificAccountUType", values = {"creditCard", "loan"}) }
     )
     BankingTermDepositAccount termDeposit;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "specificAccountUType", values = {"creditCard"}) }
+        requiredIf = { @Condition(propertyName = "specificAccountUType", values = {"creditCard"}) },
+        nullIf = { @Condition(propertyName = "specificAccountUType", values = {"termDeposit", "loan"}) }
     )
     BankingCreditCardAccount creditCard;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "specificAccountUType", values = {"loan"}) }
+        requiredIf = { @Condition(propertyName = "specificAccountUType", values = {"loan"}) },
+        nullIf = { @Condition(propertyName = "specificAccountUType", values = {"termDeposit", "creditCard"}) }
     )
     BankingLoanAccount loan;
 

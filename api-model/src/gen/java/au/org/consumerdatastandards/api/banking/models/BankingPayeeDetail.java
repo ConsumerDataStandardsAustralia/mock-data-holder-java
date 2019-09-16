@@ -26,17 +26,20 @@ public class BankingPayeeDetail {
     PayeeUType payeeUType;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "payeeUType", values = {"domestic"}) }
+        requiredIf = { @Condition(propertyName = "payeeUType", values = {"domestic"}) },
+        nullIf = { @Condition(propertyName = "payeeUType", values = {"biller", "international"}) }
     )
     BankingDomesticPayee domestic;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "payeeUType", values = {"biller"}) }
+        requiredIf = { @Condition(propertyName = "payeeUType", values = {"biller"}) },
+        nullIf = { @Condition(propertyName = "payeeUType", values = {"domestic", "international"}) }
     )
     BankingBillerPayee biller;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "payeeUType", values = {"international"}) }
+        requiredIf = { @Condition(propertyName = "payeeUType", values = {"international"}) },
+        nullIf = { @Condition(propertyName = "payeeUType", values = {"domestic", "biller"}) }
     )
     BankingInternationalPayee international;
 }

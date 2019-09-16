@@ -21,12 +21,14 @@ public class CommonPhysicalAddress {
     AddressUType addressUType;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "addressUType", values = {"simple"}) }
+        requiredIf = { @Condition(propertyName = "addressUType", values = {"simple"}) },
+        nullIf = { @Condition(propertyName = "addressUType", values = {"paf"}) }
     )
     CommonSimpleAddress simple;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "addressUType", values = {"paf"}) }
+        requiredIf = { @Condition(propertyName = "addressUType", values = {"paf"}) },
+        nullIf = { @Condition(propertyName = "addressUType", values = {"simple"}) }
     )
     CommonPAFAddress paf;
 }

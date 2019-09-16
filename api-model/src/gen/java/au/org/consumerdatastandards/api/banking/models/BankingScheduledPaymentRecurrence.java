@@ -33,22 +33,26 @@ public class BankingScheduledPaymentRecurrence {
     RecurrenceUType recurrenceUType;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"onceOff"}) }
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"onceOff"}) },
+        nullIf = { @Condition(propertyName = "recurrenceUType", values = {"intervalSchedule", "lastWeekDay", "eventBased"}) }
     )
     BankingScheduledPaymentRecurrenceOnceOff onceOff;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"intervalSchedule"}) }
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"intervalSchedule"}) },
+        nullIf = { @Condition(propertyName = "recurrenceUType", values = {"onceOff", "lastWeekDay", "eventBased"}) }
     )
     BankingScheduledPaymentRecurrenceIntervalSchedule intervalSchedule;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"lastWeekDay"}) }
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"lastWeekDay"}) },
+        nullIf = { @Condition(propertyName = "recurrenceUType", values = {"intervalSchedule", "intervalSchedule", "eventBased"}) }
     )
     BankingScheduledPaymentRecurrenceLastWeekday lastWeekDay;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"eventBased"}) }
+        requiredIf = { @Condition(propertyName = "recurrenceUType", values = {"eventBased"}) },
+        nullIf = { @Condition(propertyName = "recurrenceUType", values = {"onceOff", "intervalSchedule", "lastWeekDay"}) }
     )
     BankingScheduledPaymentRecurrenceEventBased eventBased;
 }

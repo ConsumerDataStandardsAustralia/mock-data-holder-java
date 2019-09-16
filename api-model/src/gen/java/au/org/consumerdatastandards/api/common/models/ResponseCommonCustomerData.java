@@ -19,12 +19,14 @@ public class ResponseCommonCustomerData {
     CustomerUType customerUType;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "customerUType", values = {"person"}) }
+        requiredIf = { @Condition(propertyName = "customerUType", values = {"person"}) },
+        nullIf = { @Condition(propertyName = "customerUType", values = {"organisation"}) }
     )
     CommonPerson person;
 
     @Property(
-        requiredIf = { @Condition(propertyName = "customerUType", values = {"organisation"}) }
+        requiredIf = { @Condition(propertyName = "customerUType", values = {"organisation"}) },
+        nullIf = { @Condition(propertyName = "customerUType", values = {"person"}) }
     )
     CommonOrganisation organisation;
 }
