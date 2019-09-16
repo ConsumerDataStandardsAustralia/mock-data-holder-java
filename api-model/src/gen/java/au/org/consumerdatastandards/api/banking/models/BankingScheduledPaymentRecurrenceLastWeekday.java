@@ -27,7 +27,7 @@ public class BankingScheduledPaymentRecurrenceLastWeekday {
     String interval;
 
     @Property(
-        description = "The weekDay specified. The payment will occur on the last occurrence of this weekday in the interval. Value is constrained to 1 to 7 with 1 indicating Sunday.",
+        description = "The weekDay specified. The payment will occur on the last occurrence of this weekday in the interval. Value is constrained to 1 to 7 with 1 indicating Monday.",
         required = true
     )
     @CDSDataType(CustomDataType.PositiveInteger)

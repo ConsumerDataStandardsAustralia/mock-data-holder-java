@@ -44,18 +44,46 @@ public interface BankingAccountsAPI  {
         String accountId, 
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
-        String xMinV
+        String xMinV, 
+        @Param(
+            name = "x-fapi-interaction-id",
+            description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-interaction-id"
+        )
+        String xFapiInteractionId, 
+        @Param(
+            name = "x-fapi-auth-date",
+            description = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-auth-date"
+        )
+        String xFapiAuthDate, 
+        @Param(
+            name = "x-fapi-customer-ip-address",
+            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-customer-ip-address"
+        )
+        String xFapiCustomerIpAddress, 
+        @Param(
+            name = "x-cds-User-Agent",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-User-Agent"
+        )
+        String xCdsUserAgent
     );
 
     @Endpoint(
@@ -93,24 +121,52 @@ public interface BankingAccountsAPI  {
         String transactionId, 
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
-        String xMinV
+        String xMinV, 
+        @Param(
+            name = "x-fapi-interaction-id",
+            description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-interaction-id"
+        )
+        String xFapiInteractionId, 
+        @Param(
+            name = "x-fapi-auth-date",
+            description = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-auth-date"
+        )
+        String xFapiAuthDate, 
+        @Param(
+            name = "x-fapi-customer-ip-address",
+            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-customer-ip-address"
+        )
+        String xFapiCustomerIpAddress, 
+        @Param(
+            name = "x-cds-User-Agent",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-User-Agent"
+        )
+        String xCdsUserAgent
     );
 
     @Endpoint(
         path = "/banking/accounts/{accountId}/transactions",
         summary = "Get Transactions For Account",
-        description = "Obtain transactions for a specific account.  Some general notes that apply to all end points that retrieve transactions:  - Where multiple transactions are returned, transactions should be ordered according to effective date in descending order - As the date and time for a transaction can alter depending on status and transaction type two separate date/times are included in the payload. There are still some scenarios where neither of these time stamps is available. For the purpose of filtering and ordering it is expected that the holder will use the “effective” date/time which will be defined as:   - Posted date/time if available, then   - Execution date/time if available, then   - A reasonable date/time nominated by the data holder using internal data structures - For transaction amounts it should be assumed that a negative value indicates a reduction of the available balance on the account while a positive value indicates an increase in the available balance on the account",
+        description = "Obtain transactions for a specific account.  Some general notes that apply to all end points that retrieve transactions:  - Where multiple transactions are returned, transactions should be ordered according to effective date in descending order - As the date and time for a transaction can alter depending on status and transaction type two separate date/times are included in the payload. There are still some scenarios where neither of these time stamps is available. For the purpose of filtering and ordering it is expected that the data holder will use the “effective” date/time which will be defined as:   - Posted date/time if available, then   - Execution date/time if available, then   - A reasonable date/time nominated by the data holder using internal data structures - For transaction amounts it should be assumed that a negative value indicates a reduction of the available balance on the account while a positive value indicates an increase in the available balance on the account",
         requestMethod = RequestMethod.GET,
         operationId = "getTransactions",
         responses = {
@@ -192,18 +248,46 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
-        String xMinV
+        String xMinV, 
+        @Param(
+            name = "x-fapi-interaction-id",
+            description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-interaction-id"
+        )
+        String xFapiInteractionId, 
+        @Param(
+            name = "x-fapi-auth-date",
+            description = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-auth-date"
+        )
+        String xFapiAuthDate, 
+        @Param(
+            name = "x-fapi-customer-ip-address",
+            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-customer-ip-address"
+        )
+        String xFapiCustomerIpAddress, 
+        @Param(
+            name = "x-cds-User-Agent",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-User-Agent"
+        )
+        String xCdsUserAgent
     );
 
     @Endpoint(
@@ -268,18 +352,46 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
-        String xMinV
+        String xMinV, 
+        @Param(
+            name = "x-fapi-interaction-id",
+            description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-interaction-id"
+        )
+        String xFapiInteractionId, 
+        @Param(
+            name = "x-fapi-auth-date",
+            description = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-auth-date"
+        )
+        String xFapiAuthDate, 
+        @Param(
+            name = "x-fapi-customer-ip-address",
+            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-customer-ip-address"
+        )
+        String xFapiCustomerIpAddress, 
+        @Param(
+            name = "x-cds-User-Agent",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-User-Agent"
+        )
+        String xCdsUserAgent
     );
 
     @Endpoint(
@@ -310,18 +422,46 @@ public interface BankingAccountsAPI  {
         String accountId, 
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV, 
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
-        String xMinV
+        String xMinV, 
+        @Param(
+            name = "x-fapi-interaction-id",
+            description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-interaction-id"
+        )
+        String xFapiInteractionId, 
+        @Param(
+            name = "x-fapi-auth-date",
+            description = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-auth-date"
+        )
+        String xFapiAuthDate, 
+        @Param(
+            name = "x-fapi-customer-ip-address",
+            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-customer-ip-address"
+        )
+        String xFapiCustomerIpAddress, 
+        @Param(
+            name = "x-cds-User-Agent",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-User-Agent"
+        )
+        String xCdsUserAgent
     );
 
     @Endpoint(
@@ -386,18 +526,46 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
-        String xMinV
+        String xMinV, 
+        @Param(
+            name = "x-fapi-interaction-id",
+            description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-interaction-id"
+        )
+        String xFapiInteractionId, 
+        @Param(
+            name = "x-fapi-auth-date",
+            description = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-auth-date"
+        )
+        String xFapiAuthDate, 
+        @Param(
+            name = "x-fapi-customer-ip-address",
+            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-customer-ip-address"
+        )
+        String xFapiCustomerIpAddress, 
+        @Param(
+            name = "x-cds-User-Agent",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-User-Agent"
+        )
+        String xCdsUserAgent
     );
 
     @Endpoint(
@@ -451,17 +619,45 @@ public interface BankingAccountsAPI  {
         Integer pageSize,
         @Param(
             name = "x-v",
-            description = "Version of the API end point requested by the client. Must be set to a positive integer. If the version(s) requested is not supported then the holder should respond with a 406 Not Acceptable. See [here](#request-headers)",
+            description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-v"
         )
         String xV,
         @Param(
             name = "x-min-v",
-            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the holder should respond with a 406 Not Acceptable.",
+            description = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-min-v"
         )
-        String xMinV
+        String xMinV, 
+        @Param(
+            name = "x-fapi-interaction-id",
+            description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-interaction-id"
+        )
+        String xFapiInteractionId, 
+        @Param(
+            name = "x-fapi-auth-date",
+            description = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-auth-date"
+        )
+        String xFapiAuthDate, 
+        @Param(
+            name = "x-fapi-customer-ip-address",
+            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-fapi-customer-ip-address"
+        )
+        String xFapiCustomerIpAddress, 
+        @Param(
+            name = "x-cds-User-Agent",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-User-Agent"
+        )
+        String xCdsUserAgent
     );
 }

@@ -11,8 +11,6 @@ public class RequestAccountIds {
     )
     RequestAccountIdsData data;
 
-    @Property(
-        required = true
-    )
+    @Property
     Meta meta;
 }

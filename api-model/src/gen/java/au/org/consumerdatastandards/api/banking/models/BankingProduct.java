@@ -6,7 +6,7 @@ import au.org.consumerdatastandards.support.data.*;
 public class BankingProduct {
 
     @Property(
-        description = "A holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.",
+        description = "A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.",
         required = true
     )
     @CDSDataType(CustomDataType.ASCII)

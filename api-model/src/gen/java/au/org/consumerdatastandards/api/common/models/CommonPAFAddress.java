@@ -57,8 +57,7 @@ public class CommonPAFAddress {
     @Property(
         description = "Allotment number for the address"
     )
-    @CDSDataType(CustomDataType.PositiveInteger)
-    Integer lotNumber;
+    String lotNumber;
 
     @Property(
         description = "Building/Property name 1"
@@ -119,7 +118,7 @@ public class CommonPAFAddress {
     String postcode;
 
     @Property(
-        description = "State in which the address belongs. Valid enumeration defined by Australia Post PAF code file",
+        description = "State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)",
         required = true
     )
     String state;

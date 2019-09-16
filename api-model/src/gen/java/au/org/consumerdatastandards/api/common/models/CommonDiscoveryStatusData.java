@@ -5,7 +5,7 @@ import au.org.consumerdatastandards.support.data.*;
 @DataDefinition(
     referenced = false
 )
-public class ResponseDiscoveryStatusData {
+public class CommonDiscoveryStatusData {
 
     public enum Status {
         OK,

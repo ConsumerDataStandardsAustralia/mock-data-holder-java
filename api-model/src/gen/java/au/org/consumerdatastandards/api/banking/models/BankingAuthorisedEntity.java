@@ -11,8 +11,7 @@ public class BankingAuthorisedEntity {
     String description;
 
     @Property(
-        description = "Name of the financial institution through which the direct debit will be executed",
-        required = true
+        description = "Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme"
     )
     String financialInstitution;
 

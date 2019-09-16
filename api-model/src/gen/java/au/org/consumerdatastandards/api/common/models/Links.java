@@ -6,7 +6,7 @@ import au.org.consumerdatastandards.support.data.*;
 public class Links {
 
     @Property(
-        description = "Fully qualified link to this API call",
+        description = "Fully qualified link that generated the current response document",
         required = true
     )
     @CDSDataType(CustomDataType.URI)
