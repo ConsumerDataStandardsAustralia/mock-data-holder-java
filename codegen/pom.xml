@@ -10,8 +10,6 @@
     <name>Code Generator</name>
     <description>This artefact generates other artefacts such as API client, API server out of API Model</description>
     <properties>
-        <velocity.version>2.1</velocity.version>
-        <velocity.tools.version>3.0</velocity.tools.version>
         <jcommander.version>1.72</jcommander.version>
         <swagger-core.version>1.5.22</swagger-core.version>
         <jackson-databind.version>2.9.9.1</jackson-databind.version>
@@ -95,21 +93,6 @@
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>${velocity.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-scripting</artifactId>
-            <version>${velocity.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity.tools</groupId>
-            <artifactId>velocity-tools-generic</artifactId>
-            <version>${velocity.tools.version}</version>
-        </dependency>
         <dependency>
             <groupId>au.org.consumerdatastandards</groupId>
             <artifactId>reflection</artifactId>
