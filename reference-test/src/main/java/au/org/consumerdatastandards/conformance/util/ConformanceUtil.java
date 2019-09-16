@@ -58,10 +58,9 @@ public class ConformanceUtil {
                 CDSDataType cdsDataType = modelField.getAnnotation(CDSDataType.class);
                 checkAgainstCDSDataType(data, modelField, dataFieldValue, cdsDataType, errors);
             }
-            Condition[] conditions = property.requiredIf();
-            if (conditions.length > 0) {
-
-                Condition condition = conditions[0];
+            Condition[] requiredIfConditions = property.requiredIf();
+            if (requiredIfConditions.length > 0) {
+                Condition condition = requiredIfConditions[0];
                 Field relatedProperty = propertyMap.get(condition.propertyName());
                 if (relatedProperty != null) {
                     Object relatedPropertyValue = getDataFieldValue(data, relatedProperty);
@@ -86,6 +85,23 @@ public class ConformanceUtil {
                         if (requiredCDSDataType != null) {
                             checkAgainstCDSDataType(data, modelField, dataFieldValue, requiredCDSDataType, errors);
                         }
+                    }
+                }
+            }
+            Condition[] nullIfConditions = property.nullIf();
+            if (nullIfConditions.length > 0) {
+                Condition condition = nullIfConditions[0];
+                Field relatedProperty = propertyMap.get(condition.propertyName());
+                if (relatedProperty != null) {
+                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty);
+                    boolean conditionsMet = isValueSpecified(relatedPropertyValue, condition.values());
+                    if (conditionsMet && dataFieldValue != null) {
+                        errors.add(new ConformanceError()
+                            .errorType(ConformanceError.Type.REDUNDANT_VALUE)
+                            .dataJson(toJson(data))
+                            .errorField(modelField)
+                            .errorMessage(String.format("%s should be null given %s value is %s",
+                                modelField.getName(), relatedProperty.getName(), relatedPropertyValue)));
                     }
                 }
             }
@@ -241,7 +257,7 @@ public class ConformanceUtil {
 
     private static Object getDataFieldValue(Object data, String fieldName) {
         if (isGeneratedClass(data.getClass())) {
-            fieldName = "$cglib_prop_" + fieldName;
+            fieldName = GENERATED_PROPERTY_PREFIX + fieldName;
         }
         Field dataField = FieldUtils.getField(data.getClass(), fieldName, true);
         dataField.setAccessible(true);

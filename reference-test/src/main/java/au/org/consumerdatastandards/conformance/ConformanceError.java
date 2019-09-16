@@ -84,6 +84,7 @@ public class ConformanceError {
 
         MISSING_PROPERTY,
         MISSING_VALUE,
+        REDUNDANT_VALUE,
         NO_MATCHING_MODEL,
         BROKEN_CONSTRAINT,
         PATTERN_NOT_MATCHED,
