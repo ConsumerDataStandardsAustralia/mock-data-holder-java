@@ -206,6 +206,7 @@
                     <version>${javadoc.plugin.version}</version>
                     <configuration>
                         <encoding>UTF-8</encoding>
+                        <source>8</source>
                     </configuration>
                     <executions>
                         <execution>
