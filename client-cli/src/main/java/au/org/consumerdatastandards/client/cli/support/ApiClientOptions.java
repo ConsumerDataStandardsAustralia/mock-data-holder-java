@@ -15,6 +15,7 @@ public class ApiClientOptions {
     private boolean validationEnabled = false;
     private String userAgent;
     private boolean debugEnabled = false;
+    private boolean verifyingSsl = true;
 
     public String getServerUrl() {
         return serverUrl;
@@ -54,5 +55,13 @@ public class ApiClientOptions {
 
     public void setDebugEnabled(boolean debugEnabled) {
         this.debugEnabled = debugEnabled;
+    }
+
+    public boolean isVerifyingSsl() {
+        return verifyingSsl;
+    }
+
+    public void setVerifyingSsl(boolean verifyingSsl) {
+        this.verifyingSsl = verifyingSsl;
     }
 }

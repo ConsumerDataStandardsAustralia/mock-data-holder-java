@@ -6,14 +6,14 @@ import au.org.consumerdatastandards.support.data.*;
 public class MetaPaginated {
 
     @Property(
-        description = "The total number of records in the full set",
+        description = "The total number of records in the full set. See [pagination](#pagination).",
         required = true
     )
     @CDSDataType(CustomDataType.NaturalNumber)
     Integer totalRecords;
 
     @Property(
-        description = "The total number of pages in the full set",
+        description = "The total number of pages in the full set. See [pagination](#pagination).",
         required = true
     )
     @CDSDataType(CustomDataType.NaturalNumber)

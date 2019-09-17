@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import au.org.consumerdatastandards.support.model.APIModel;
-import org.apache.velocity.shaded.commons.io.FilenameUtils;
 
 import au.org.consumerdatastandards.codegen.generator.AbstractGenerator;
 import au.org.consumerdatastandards.codegen.util.ModelSwaggerConverter;
@@ -41,7 +40,7 @@ public class SwaggerGenerator extends AbstractGenerator<SwaggerGeneratorOptions>
         LOGGER.debug("Attempting swagger output file writing to {}", outputFile);
         FileWriter outputFileWriter = null;
         try {
-            Files.createDirectories(Paths.get(FilenameUtils.getPath(outputFile)));
+            Files.createDirectories(Paths.get(outputFile));
             outputFileWriter = new FileWriter(outputFile);
             outputFileWriter.write(Json.pretty(swagger));
             outputFileWriter.flush();

@@ -13,4 +13,6 @@ public @interface Property {
 	boolean required() default false;
 
 	Condition[] requiredIf() default {};
+
+	Condition[] nullIf() default {};
 }

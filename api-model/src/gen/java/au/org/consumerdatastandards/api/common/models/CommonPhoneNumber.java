@@ -18,7 +18,7 @@ public class CommonPhoneNumber {
     }
 
     @Property(
-        description = "Required to be true for one and only one entry to indicate the preferred phone number.  Assumed to be 'false' if not present"
+        description = "May be true for one and only one entry to indicate the preferred phone number. Assumed to be 'false' if not present"
     )
     @CDSDataType(CustomDataType.Boolean)
     Boolean isPreferred;
