@@ -26,7 +26,7 @@ public class CdsClientShell {
 
     @Bean
     public PromptProvider myPromptProvider() {
-        return () -> new AttributedString("cds-shell:>", AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
+        return () -> new AttributedString("cds-client:>", AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
     }
     
     @Bean

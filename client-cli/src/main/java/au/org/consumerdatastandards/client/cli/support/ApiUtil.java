@@ -53,7 +53,9 @@ public class ApiUtil {
             LOGGER.info("Proxy is set to {}", proxy);
         }
         apiClient.setDebugging(clientOptions.isDebugEnabled());
-
+        LOGGER.info("Debugging is set to {}", apiClient.isDebugging());
+        apiClient.setVerifyingSsl(clientOptions.isVerifyingSsl());
+        LOGGER.info("Verifying SSL is set to {}", apiClient.isVerifyingSsl());
         return apiClient;
     }
 

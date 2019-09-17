@@ -26,6 +26,7 @@ import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -1017,44 +1018,37 @@ public class ApiClient {
             TrustManager[] trustManagers = null;
             HostnameVerifier hostnameVerifier = null;
             if (!verifyingSsl) {
-                trustManagers =
-                    new TrustManager[]{
-                        new X509TrustManager() {
-                            @Override
-                            public void checkClientTrusted(
-                                java.security.cert.X509Certificate[] chain, String authType) {
-                            }
-
-                            @Override
-                            public void checkServerTrusted(
-                                java.security.cert.X509Certificate[] chain, String authType) {
-                            }
-
-                            @Override
-                            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                                return new java.security.cert.X509Certificate[]{};
-                            }
+                trustManagers = new TrustManager[]{
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] chain, String authType) {
                         }
-                    };
-                SSLContext.getInstance("TLS");
-                hostnameVerifier =
-                    (hostname, session) -> true;
+
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                        }
+
+                        @Override
+                        public X509Certificate[] getAcceptedIssuers() {
+                            return new X509Certificate[]{};
+                        }
+                    }
+                };
+                hostnameVerifier = (hostname, session) -> true;
             } else if (sslCaCert != null) {
-                char[] password = UUID.randomUUID().toString().toCharArray(); // Any password will work.
+                char[] password = null; // Any password will work.
                 CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-                Collection<? extends Certificate> certificates =
-                    certificateFactory.generateCertificates(sslCaCert);
+                Collection<? extends Certificate> certificates = certificateFactory.generateCertificates(sslCaCert);
                 if (certificates.isEmpty()) {
                     throw new IllegalArgumentException("expected non-empty set of trusted certificates");
                 }
                 KeyStore caKeyStore = newEmptyKeyStore(password);
                 int index = 0;
                 for (Certificate certificate : certificates) {
-                    String certificateAlias = "ca" + index++;
+                    String certificateAlias = "ca" + Integer.toString(index++);
                     caKeyStore.setCertificateEntry(certificateAlias, certificate);
                 }
-                TrustManagerFactory trustManagerFactory =
-                    TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
                 trustManagerFactory.init(caKeyStore);
                 trustManagers = trustManagerFactory.getTrustManagers();
             }
@@ -1062,14 +1056,9 @@ public class ApiClient {
             if (keyManagers != null || trustManagers != null) {
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(keyManagers, trustManagers, new SecureRandom());
-                httpClient =
-                    httpClient
-                        .newBuilder()
-                        .sslSocketFactory(
-                            sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0])
-                        .build();
+                httpClient = httpClient.newBuilder().sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0]).build();
             } else {
-                httpClient = httpClient.newBuilder().sslSocketFactory(null, null).build();
+                httpClient = httpClient.newBuilder().sslSocketFactory(null, (X509TrustManager) trustManagers[0]).build();
             }
 
             httpClient = httpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();

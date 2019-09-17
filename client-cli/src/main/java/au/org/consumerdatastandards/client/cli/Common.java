@@ -34,10 +34,16 @@ public class Common {
         LOGGER.info("Server URL is set to {}", apiClientOptions.getServerUrl());
     }
 
-    @ShellMethod("Set proxy, e.g. http://http-proxy:8080 or https://https-proxy:8443 or socks://socks-proxy:5050 or none")
+    @ShellMethod("Set proxy, e.g. http://http-proxy:8080, https://https-proxy:8443, socks://socks-proxy:5050, none")
     public void proxy(@ShellOption String proxy) {
         apiClientOptions.setProxy(proxy);
         LOGGER.info("Proxy is set to {}", apiClientOptions.getProxy());
+    }
+
+    @ShellMethod("Set verifyingSsl, e.g. true, false")
+    public void verifyingSsl(@ShellOption String verifyingSsl) {
+        apiClientOptions.setVerifyingSsl(Boolean.getBoolean(verifyingSsl));
+        LOGGER.info("VerifyingSsl is set to {}", verifyingSsl);
     }
 
     @ShellMethod("Setup minimum log level, default is INFO")
