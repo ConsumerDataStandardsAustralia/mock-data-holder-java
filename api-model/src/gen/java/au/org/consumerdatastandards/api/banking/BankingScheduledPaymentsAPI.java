@@ -224,8 +224,7 @@ public interface BankingScheduledPaymentsAPI  {
     )
     @CustomAttributes({
         @CustomAttribute(name = "x-scopes", value = "bank:regular_payments:read", multiple = true),
-        @CustomAttribute(name = "x-version", value = "1"),
-        @CustomAttribute(name = "x-contentType", value = "16")
+        @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingScheduledPaymentsList listScheduledPaymentsSpecificAccounts(
         @Param(

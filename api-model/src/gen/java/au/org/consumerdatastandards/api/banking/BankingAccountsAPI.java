@@ -589,8 +589,7 @@ public interface BankingAccountsAPI  {
     )
     @CustomAttributes({
         @CustomAttribute(name = "x-scopes", value = "bank:accounts.basic:read", multiple = true),
-        @CustomAttribute(name = "x-version", value = "1"),
-        @CustomAttribute(name = "x-contentType", value = "16")
+        @CustomAttribute(name = "x-version", value = "1")
     })
     ResponseBankingAccountsBalanceList listBalancesSpecificAccounts(
         @Param(
