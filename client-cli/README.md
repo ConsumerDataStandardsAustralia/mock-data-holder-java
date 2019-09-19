@@ -37,7 +37,7 @@ Common Functions
 Reference Testing
         auto-validate: Validate all Payloads Automatically
         reference-status: Retrieve current reference check status
-        validate-path: Validate json payload(s) against cds-models
+        validate-path: Validate json payload(s) against api-model
 
 Products API
         get-product-detail: Get Product Detail

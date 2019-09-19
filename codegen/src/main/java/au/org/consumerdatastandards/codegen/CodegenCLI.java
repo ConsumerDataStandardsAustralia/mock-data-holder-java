@@ -93,5 +93,4 @@ public class CodegenCLI {
             throw new ParameterException(message);
         }
     }
-
 }
