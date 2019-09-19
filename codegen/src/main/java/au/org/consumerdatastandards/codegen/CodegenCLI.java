@@ -1,7 +1,5 @@
 package au.org.consumerdatastandards.codegen;
 
-import au.org.consumerdatastandards.codegen.generator.AbstractGenerator;
-import au.org.consumerdatastandards.codegen.generator.Options;
 import au.org.consumerdatastandards.support.model.APIModel;
 import au.org.consumerdatastandards.support.model.ModelBuilder;
 import au.org.consumerdatastandards.support.model.SectionModel;

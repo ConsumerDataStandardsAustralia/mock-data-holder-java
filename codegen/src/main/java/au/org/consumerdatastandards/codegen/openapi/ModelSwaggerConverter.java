@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.codegen.util;
+package au.org.consumerdatastandards.codegen.openapi;
 
 import au.org.consumerdatastandards.reflection.ReflectionUtil;
 import au.org.consumerdatastandards.support.Endpoint;

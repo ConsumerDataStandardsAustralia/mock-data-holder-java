@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.codegen.generator;
+package au.org.consumerdatastandards.codegen;
 
 import au.org.consumerdatastandards.support.model.ModelBuilderOptions;
 import com.beust.jcommander.Parameter;

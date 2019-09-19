@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.codegen.generator;
+package au.org.consumerdatastandards.codegen;
 
 import au.org.consumerdatastandards.support.model.APIModel;
 import com.beust.jcommander.JCommander;
