@@ -19,19 +19,18 @@ public class Configurator extends CodegenConfigurator {
 
     @Override
     public ClientOptInput toClientOptInput() {
-        CodegenConfig config = CodegenConfigLoader.forName(getLang());
+        CodeGeneratorConfig codeGeneratorConfig = CodeGeneratorConfigLoader.forName(getLang());
 
-        config.setInputSpec(getInputSpec());
-        config.setOutputDir(getOutputDir());
-        config.setSkipOverwrite(isSkipOverwrite());
-        config.setIgnoreFilePathOverride(getIgnoreFileOverride());
-        config.setRemoveOperationIdPrefix(getRemoveOperationIdPrefix());
+        codeGeneratorConfig.setOutputDir(getOutputDir());
+        codeGeneratorConfig.setSkipOverwrite(isSkipOverwrite());
+        codeGeneratorConfig.setIgnoreFilePathOverride(getIgnoreFileOverride());
+        codeGeneratorConfig.setRemoveOperationIdPrefix(getRemoveOperationIdPrefix());
 
-        config.instantiationTypes().putAll(getInstantiationTypes());
-        config.typeMapping().putAll(getTypeMappings());
-        config.importMapping().putAll(getImportMappings());
-        config.languageSpecificPrimitives().addAll(getLanguageSpecificPrimitives());
-        config.reservedWordsMappings().putAll(getReservedWordsMappings());
+        codeGeneratorConfig.instantiationTypes().putAll(getInstantiationTypes());
+        codeGeneratorConfig.typeMapping().putAll(getTypeMappings());
+        codeGeneratorConfig.importMapping().putAll(getImportMappings());
+        codeGeneratorConfig.languageSpecificPrimitives().addAll(getLanguageSpecificPrimitives());
+        codeGeneratorConfig.reservedWordsMappings().putAll(getReservedWordsMappings());
 
         setAdditionalProperty(getApiPackage(), CodegenConstants.API_PACKAGE);
         setAdditionalProperty(getModelPackage(), CodegenConstants.MODEL_PACKAGE);
@@ -47,19 +46,17 @@ public class Configurator extends CodegenConfigurator {
         setAdditionalProperty(getReleaseNote(), CodegenConstants.RELEASE_NOTE);
         setAdditionalProperty(getHttpUserAgent(), CodegenConstants.HTTP_USER_AGENT);
 
-        handleDynamicProperties(config);
+        handleDynamicProperties(codeGeneratorConfig);
 
         if (isNotEmpty(getLibrary())) {
-            config.setLibrary(getLibrary());
+            codeGeneratorConfig.setLibrary(getLibrary());
         }
 
-        config.additionalProperties().putAll(getAdditionalProperties());
+        codeGeneratorConfig.additionalProperties().putAll(getAdditionalProperties());
 
-        ClientOptInput input = new ClientOptInput()
-            .config(config);
+        ClientOptInput input = new ClientOptInput().config(codeGeneratorConfig);
 
-        input.opts(new ClientOpts())
-            .swagger(swagger);
+        input.opts(new ClientOpts()).swagger(swagger);
 
         return input;
     }
