@@ -16,7 +16,7 @@ import java.util.Set;
 public class CodegenCLI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CodegenCLI.class);
-    private static final String BASE_PACKAGE = "au.org.consumerdatastandards.codegen.generator";
+    private static final String BASE_PACKAGE = "au.org.consumerdatastandards.codegen";
     private static Reflections reflections = new Reflections(BASE_PACKAGE);
     private static Set<Class<? extends AbstractGenerator>> generators = reflections.getSubTypesOf(AbstractGenerator.class);
 

@@ -5,6 +5,8 @@ import au.org.consumerdatastandards.codegen.openapi.ModelSwaggerConverter;
 import au.org.consumerdatastandards.support.model.APIModel;
 import io.swagger.codegen.ClientOptInput;
 import io.swagger.codegen.DefaultGenerator;
+import io.swagger.models.Swagger;
+import io.swagger.parser.SwaggerResolver;
 
 import static io.swagger.codegen.config.CodegenConfiguratorUtils.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -18,18 +20,25 @@ public class CodeGenerator extends AbstractGenerator<CodeGeneratorOptions> {
     @Override
     public void generate() {
         Configurator configurator = new Configurator();
-        configurator.setSwagger(ModelSwaggerConverter.convert(apiModel));
+        Swagger swagger = ModelSwaggerConverter.convert(apiModel);
+        configurator.setSwagger(new SwaggerResolver(swagger, null, null).resolve());
         if (isNotEmpty(options.getBasePackage())) {
             configurator.setInvokerPackage(options.getBasePackage());
         }
-        if (!isNotEmpty(options.getModelPackage())) {
+        if (isNotEmpty(options.getModelPackage())) {
             configurator.setModelPackage(options.getModelPackage());
         }
-        if (!isNotEmpty(options.getApiPackage())) {
+        if (isNotEmpty(options.getApiPackage())) {
             configurator.setApiPackage(options.getApiPackage());
         }
-        if (!isNotEmpty(options.getCodegenType())) {
+        if (isNotEmpty(options.getCodegenType())) {
             configurator.setLang(options.getCodegenType());
+        }
+        if (isNotEmpty(options.getOutputDir())) {
+            configurator.setOutputDir(options.getOutputDir());
+        }
+        if (isNotEmpty(options.getTemplateDir())) {
+            configurator.setTemplateDir(options.getTemplateDir());
         }
 
         applySystemPropertiesKvpList(options.getSystemProperties(), configurator);
