@@ -25,6 +25,9 @@ public class Options implements ModelBuilderOptions {
     @Parameter(names = {"--listGenerators", "-lg"}, description = "List Available Generators", order = 5)
     private boolean listGenerators;
 
+    @Parameter(names = {"--listCodegenTypes", "-lct"}, description = "List Available Code Generator Types", order = 6)
+    private boolean listCodegenTypes;
+
     @Parameter(names = {"--help", "-?", "-h" }, help = true)
     private boolean help;
 
@@ -66,5 +69,9 @@ public class Options implements ModelBuilderOptions {
 
     public boolean isListGenerators() {
         return listGenerators;
+    }
+
+    public boolean isListCodegenTypes() {
+        return listCodegenTypes;
     }
 }

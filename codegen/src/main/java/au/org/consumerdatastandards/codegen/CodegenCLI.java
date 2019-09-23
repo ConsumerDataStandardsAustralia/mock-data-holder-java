@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.codegen;
 
+import au.org.consumerdatastandards.codegen.code.CodeGeneratorConfig;
 import au.org.consumerdatastandards.support.model.APIModel;
 import au.org.consumerdatastandards.support.model.ModelBuilder;
 import au.org.consumerdatastandards.support.model.SectionModel;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
+
+import static java.util.ServiceLoader.load;
 
 public class CodegenCLI {
 
@@ -42,6 +45,13 @@ public class CodegenCLI {
             JCommander.getConsole().println("Generators:");
             for (Class<? extends AbstractGenerator> generator: generators) {
                 JCommander.getConsole().println(" - " + generator.getSimpleName());
+            }
+        }
+        if (options.isListCodegenTypes()) {
+            listing = true;
+            JCommander.getConsole().println("Codegen Types:");
+            for (CodeGeneratorConfig config: load(CodeGeneratorConfig.class)) {
+                JCommander.getConsole().println(" - " + config.getName());
             }
         }
         if (!listing) {
