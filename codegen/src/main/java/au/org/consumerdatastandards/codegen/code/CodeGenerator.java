@@ -50,7 +50,7 @@ public class CodeGenerator extends AbstractGenerator<CodeGeneratorOptions> {
         applyReservedWordsMappingsKvpList(options.getReservedWordsMappings(), configurator);
 
         final ClientOptInput clientOptInput = configurator.toClientOptInput();
-        new DefaultGenerator().opts(clientOptInput).generate();
+        new CdsCodeGenerator().opts(clientOptInput).generate();
     }
 
     @Override

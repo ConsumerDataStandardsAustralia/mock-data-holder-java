@@ -1,22 +1,21 @@
-package au.org.consumerdatastandards.codegen.code.client.java;
+package au.org.consumerdatastandards.codegen.code.java.client;
 
-import au.org.consumerdatastandards.codegen.code.CodeGeneratorConfig;
+import au.org.consumerdatastandards.codegen.code.java.JavaCodegenBase;
 import io.swagger.codegen.CodegenModel;
 import io.swagger.codegen.CodegenProperty;
 import io.swagger.codegen.CodegenType;
 import io.swagger.codegen.SupportingFile;
-import io.swagger.codegen.languages.AbstractJavaCodegen;
 
 import java.io.File;
 
-public class CdsClientJavaGen extends AbstractJavaCodegen implements CodeGeneratorConfig {
+public class JavaClientGen extends JavaCodegenBase {
 
     private static final String DEFAULT_BASE_PACKAGE = "au.org.consumerdatastandards.client";
 
-    public CdsClientJavaGen() {
+    public JavaClientGen() {
         super();
         outputFolder = "generated-code" + File.separator + "client";
-        embeddedTemplateDir = templateDir = "CdsClientJava";
+        embeddedTemplateDir = templateDir = "JavaClient";
         invokerPackage = DEFAULT_BASE_PACKAGE;
         apiPackage = DEFAULT_BASE_PACKAGE + ".api";
         modelPackage = DEFAULT_BASE_PACKAGE + ".model";
@@ -30,7 +29,7 @@ public class CdsClientJavaGen extends AbstractJavaCodegen implements CodeGenerat
 
     @Override
     public String getName() {
-        return "cds-client-java";
+        return "java-client";
     }
 
     @Override

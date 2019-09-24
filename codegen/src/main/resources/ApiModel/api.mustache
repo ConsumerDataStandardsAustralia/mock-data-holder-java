@@ -1,0 +1,49 @@
+package {{cdsApiPackage}};
+
+{{#imports}}import {{import}};
+{{/imports}}import au.org.consumerdatastandards.support.data.*;
+import au.org.consumerdatastandards.support.*;
+
+{{#operations}}
+@Section(name = "{{section}}"{{#tags}}{{#-first}}, tags = {"{{.}}"{{/-first}}{{^-first}}"{{.}}"{{/-first}}{{^-last}}, {{/-last}}{{#-last}}{{closeBracket}}{{/-last}}{{/tags}})
+public interface {{classname}}  {
+{{#_enums}}
+
+{{>enumClass}}
+{{/_enums}}
+{{#operation}}
+
+    @Endpoint(
+        path = "{{{path}}}",
+        summary = "{{ summary }}",{{#notes}}
+        description = "{{{notes}}}",{{/notes}}
+        requestMethod = RequestMethod.{{ httpMethod }},
+        operationId = "{{operationId}}",
+        responses = {
+            {{#responses}}@EndpointResponse(
+                responseCode = {{code}},
+                description = "{{message}}",
+                content = {{dataType}}.class
+            ){{#hasMore}},
+            {{/hasMore}}{{/responses}}
+        }
+    ){{#cdsExtensionSet}}{{#-first}}
+    @CustomAttributes({{openBracket}}{{/-first}}
+        {{#value.length}}@CustomAttribute(name = "{{key}}", value = "{{value}}"){{/value.length}}{{^value.length}}{{#value}}@CustomAttribute(name = "{{key}}", value = "{{.}}", multiple = true){{^-last}},
+        {{/-last}}{{/value}}{{/value.length}}{{^-last}}{{^value.empty}},{{/value.empty}}{{/-last}}{{#-last}}
+    {{closeBracket}}){{/-last}}{{/cdsExtensionSet}}
+    {{returnType}} {{operationId}}({{^hasParams}});{{/hasParams}}{{#hasParams}}{{#allParams}}
+        @Param(
+            name = "{{baseName}}",
+            description = "{{description}}",
+            in = {{#isHeaderParam}}ParamLocation.HEADER{{/isHeaderParam}}{{#isPathParam}}ParamLocation.PATH{{/isPathParam}}{{#isQueryParam}}ParamLocation.QUERY{{/isQueryParam}}{{#isBodyParam}}ParamLocation.BODY{{/isBodyParam}}{{#defaultValue}},
+            defaultValue = "{{{defaultValue}}}"{{/defaultValue}}{{#isRequired}},
+            required = true{{/isRequired}}{{#isReference}},
+            reference = "{{referenceName}}"{{/isReference}}
+        ){{#isCdsType}}
+        {{cdsTypeAnnotation}}{{/isCdsType}}
+        {{#isEnum}}{{datatypeWithEnum}}{{/isEnum}}{{^isEnum}}{{dataType}}{{/isEnum}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}
+    );{{/hasParams}}
+{{/operation}}
+{{/operations}}
+}

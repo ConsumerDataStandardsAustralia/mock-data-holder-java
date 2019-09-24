@@ -1,1 +1,2 @@
-au.org.consumerdatastandards.codegen.code.client.java.CdsClientJavaGen
+au.org.consumerdatastandards.codegen.code.java.client.JavaClientGen
+au.org.consumerdatastandards.codegen.code.java.apimodel.ApiModelGen

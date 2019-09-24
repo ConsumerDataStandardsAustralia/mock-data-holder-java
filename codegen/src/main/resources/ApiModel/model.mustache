@@ -1,0 +1,9 @@
+package {{package}};
+
+{{#imports}}import {{import}};
+{{/imports}}{{#models}}{{#model}}{{#importingBaseResponse}}import au.org.consumerdatastandards.api.common.models.BaseResponse;
+{{/importingBaseResponse}}{{#importingPaginatedResponse}}import au.org.consumerdatastandards.api.common.models.PaginatedResponse;
+{{/importingPaginatedResponse}}{{#isEnum}}{{>enumOuterClass}}{{/isEnum}}{{^isEnum}}import au.org.consumerdatastandards.support.data.*;
+
+{{>pojo}}{{/isEnum}}
+{{/model}}{{/models}}
