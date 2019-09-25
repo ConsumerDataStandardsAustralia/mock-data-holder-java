@@ -18,6 +18,13 @@ public interface CommonDiscoveryAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    )
+                },
                 content = ResponseDiscoveryOutagesList.class
             )
         }
@@ -52,6 +59,13 @@ public interface CommonDiscoveryAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    )
+                },
                 content = CommonDiscoveryStatus.class
             )
         }

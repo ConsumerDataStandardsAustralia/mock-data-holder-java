@@ -8,13 +8,11 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EndpointResponse {
+public @interface ResponseHeader {
 
-    String description() default "";
+    String name();
 
-    ResponseCode responseCode();
+    String type();
 
-    ResponseHeader[] headers() default {};
-
-    Class<?> content() default Void.class;
+    String description();
 }

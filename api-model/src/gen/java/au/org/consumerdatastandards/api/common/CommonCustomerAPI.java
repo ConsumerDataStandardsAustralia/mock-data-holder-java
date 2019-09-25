@@ -18,6 +18,18 @@ public interface CommonCustomerAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseCommonCustomer.class
             )
         }
@@ -64,11 +76,19 @@ public interface CommonCustomerAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 
     @Endpoint(
@@ -81,6 +101,18 @@ public interface CommonCustomerAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseCommonCustomerDetail.class
             )
         }
@@ -127,10 +159,18 @@ public interface CommonCustomerAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 }

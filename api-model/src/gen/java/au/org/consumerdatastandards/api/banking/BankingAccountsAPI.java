@@ -26,6 +26,18 @@ public interface BankingAccountsAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseBankingAccountById.class
             )
         }
@@ -79,11 +91,19 @@ public interface BankingAccountsAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 
     @Endpoint(
@@ -96,6 +116,18 @@ public interface BankingAccountsAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseBankingTransactionById.class
             )
         }
@@ -156,11 +188,19 @@ public interface BankingAccountsAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 
     @Endpoint(
@@ -173,6 +213,18 @@ public interface BankingAccountsAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseBankingTransactionList.class
             )
         }
@@ -188,7 +240,7 @@ public interface BankingAccountsAPI  {
             in = ParamLocation.PATH
         )
         @CDSDataType(CustomDataType.ASCII)
-        String accountId, 
+        String accountId,
         @Param(
             name = "oldest-time",
             description = "Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type",
@@ -283,11 +335,19 @@ public interface BankingAccountsAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 
     @Endpoint(
@@ -300,6 +360,18 @@ public interface BankingAccountsAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseBankingAccountList.class
             )
         }
@@ -349,7 +421,7 @@ public interface BankingAccountsAPI  {
             reference = "ParamPageSize"
         )
         @CDSDataType(CustomDataType.PositiveInteger)
-        Integer pageSize,
+        Integer pageSize, 
         @Param(
             name = "x-v",
             description = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -387,11 +459,19 @@ public interface BankingAccountsAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 
     @Endpoint(
@@ -404,6 +484,18 @@ public interface BankingAccountsAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseBankingAccountsBalanceById.class
             )
         }
@@ -457,11 +549,19 @@ public interface BankingAccountsAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 
     @Endpoint(
@@ -474,6 +574,18 @@ public interface BankingAccountsAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseBankingAccountsBalanceList.class
             )
         }
@@ -561,11 +673,19 @@ public interface BankingAccountsAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 
     @Endpoint(
@@ -578,11 +698,30 @@ public interface BankingAccountsAPI  {
             @EndpointResponse(
                 responseCode = ResponseCode.OK,
                 description = "Success",
+                headers = {
+                    @ResponseHeader(
+                        name="x-v",
+                        type = "string",
+                        description = "The [version](#response-headers) of the API end point that the data holder has responded with."
+                    ),
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An RFC4122 UID used as a correlation id. The data holder must set the response header x-fapi-interaction-id to the value received from the corresponding fapi client request header or to a new RFC4122 UUID value if the request header was not provided to track the interaction."
+                    )
+                },
                 content = ResponseBankingAccountsBalanceList.class
             ),
             @EndpointResponse(
                 responseCode = ResponseCode.UNPROCESSABLE_ENTITY,
                 description = "The request was well formed but was unable to be processed due to business logic specific to the request",
+                headers = {
+                    @ResponseHeader(
+                        name="x-fapi-interaction-id",
+                        type = "string",
+                        description = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
+                    )
+                },
                 content = ResponseErrorList.class
             )
         }
@@ -597,7 +736,7 @@ public interface BankingAccountsAPI  {
             description = "The list of account IDs to obtain balances for",
             in = ParamLocation.BODY
         )
-        RequestAccountIds accountIds, 
+        RequestAccountIds accountIds,
         @Param(
             name = "page",
             description = "Page of results to request (standard pagination)",
@@ -653,10 +792,18 @@ public interface BankingAccountsAPI  {
         String xFapiCustomerIpAddress, 
         @Param(
             name = "x-cds-User-Agent",
-            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.",
+            description = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-cds-User-Agent"
         )
-        String xCdsUserAgent
+        @CDSDataType(CustomDataType.Base64)
+        String xCdsUserAgent, 
+        @Param(
+            name = "x-cds-subject",
+            description = "Subject identifier. Locally unique and never reassigned identifier within the Holder for the End-User. Mandatory for authenticated calls. Not required for unattended or unauthenticated calls.",
+            in = ParamLocation.HEADER,
+            reference = "RequestHeader_x-cds-subject"
+        )
+        String xCdsSubject
     );
 }
