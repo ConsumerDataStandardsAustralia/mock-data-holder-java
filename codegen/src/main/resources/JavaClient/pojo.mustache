@@ -3,9 +3,10 @@
  */{{/description}}
 public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcelableModel}}implements Parcelable {{#serializableModel}}, Serializable {{/serializableModel}}{{/parcelableModel}}{{^parcelableModel}}{{#serializableModel}}implements Serializable {{/serializableModel}}{{/parcelableModel}}{
 {{#serializableModel}}
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
 {{/serializableModel}}
+
   {{#vars}}
     {{#isEnum}}
     {{^isContainer}}
@@ -23,7 +24,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
     private {{{datatypeWithEnum}}} {{name}}{{#required}} = {{{defaultValue}}}{{/required}};
   {{/isContainer}}
   {{^isContainer}}
-    private {{{datatypeWithEnum}}} {{name}}{{#defaultValue}} = {{{defaultValue}}}{{/defaultValue}};
+    private {{{datatypeWithEnum}}} {{name}}{{#isDefaultValueVisible}} = {{{defaultValue}}}{{/isDefaultValueVisible}};
   {{/isContainer}}
 
   {{/vars}}
@@ -90,12 +91,9 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class {{classname}} {\n");
-        {{#parent}}sb.append("    ").append(toIndentedString(super.toString())).append("\n");{{/parent}}
-        {{#vars}}sb.append("    {{name}}: ").append(toIndentedString({{name}})).append("\n");
-        {{/vars}}sb.append("}");
-        return sb.toString();
+        return "class {{classname}} {\n" +{{#vars}}
+            "   {{name}}: " + toIndentedString({{name}}) + "\n" + {{/vars}}
+            "}";
     }
 
     /**
