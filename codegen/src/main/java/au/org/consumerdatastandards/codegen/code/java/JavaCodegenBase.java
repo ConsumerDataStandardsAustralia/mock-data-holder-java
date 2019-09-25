@@ -10,7 +10,6 @@ import io.swagger.models.parameters.SerializableParameter;
 import io.swagger.models.properties.*;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -208,9 +207,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
     private void addPackageForModel(String packageName, String modelName) {
         if (!StringUtils.isBlank(modelName)) {
             modelPackages.computeIfAbsent(modelName, k -> new HashSet<>());
-            if (!modelPackages.get(modelName).contains(packageName)) {
-                modelPackages.get(modelName).add(packageName);
-            }
+            modelPackages.get(modelName).add(packageName);
         }
     }
 
@@ -338,7 +335,8 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         return false;
     }
 
-    private String findEnumType(CodegenProperty cp, List<String> interfaces) {
+    @SuppressWarnings("unchecked")
+    private void findEnumType(CodegenProperty cp, List<String> interfaces) {
         for (String modelKey : interfaces) {
             Model model = swagger.getDefinitions().get(modelKey);
             if (model != null) {
@@ -348,14 +346,13 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                     cp.datatype = enumType;
                     cp.datatypeWithEnum = enumType;
                     ((CdsCodegenProperty) cp).isEnumTypeExternal = true;
-                    return enumType;
                 }
             }
         }
-        return null;
     }
 
-    private boolean isEnumTypeExternal(CodegenProperty cp, CodegenModel cm) {
+    @SuppressWarnings("unchecked")
+    private boolean isEnumTypeInternal(CodegenProperty cp, CodegenModel cm) {
         if (cm.interfaces != null && !cm.interfaces.isEmpty()) {
             for (String modelKey : cm.interfaces) {
                 Model model = swagger.getDefinitions().get(modelKey);
@@ -363,12 +360,12 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                     List<String> values = (List<String>) cp.allowableValues.get("values");
                     String enumType = findEnumType(cp.datatypeWithEnum, values, modelKey, model);
                     if (enumType != null) {
-                        return true;
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     private String findEnumType(String datatypeWithEnum, List<String> values, String modelKey, Model model) {
@@ -433,9 +430,9 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             codegenModel.vendorExtensions.putAll(child.getVendorExtensions());
         }
         for (CodegenProperty cp : codegenModel.vars) {
-            if (cp.isEnum && !isEnumTypeExternal(cp, codegenModel)) {
+            if (cp.isEnum && isEnumTypeInternal(cp, codegenModel)) {
                 codegenModel._enums.add(cp);
-            } else if (cp.items != null && cp.items.isEnum && !isEnumTypeExternal(cp.items, codegenModel)) {
+            } else if (cp.items != null && cp.items.isEnum && isEnumTypeInternal(cp.items, codegenModel)) {
                 codegenModel._enums.add(cp.items);
             }
         }
@@ -444,6 +441,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Map<String, Object> postProcessOperations(Map<String, Object> objs) {
         super.postProcessOperations(objs);
         Map<String, Object> obj = (Map<String, Object>) objs.get("operations");
@@ -470,7 +468,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                             ccp.datatypeWithEnum = String.format("Param%s", ccp.datatypeWithEnum);
                         }
                         _enums.add(ccp);
-                        addedEnums.contains(ccp.datatypeWithEnum);
+                        addedEnums.add(ccp.datatypeWithEnum);
                     }
                 }
             }
@@ -491,6 +489,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         return objs;
     }
 
+    @SuppressWarnings("unchecked")
     private void postProcessImports(Map<String, Object> objs) {
         String currentPackage = null;
         CdsCodegenModel model = null;
@@ -526,27 +525,6 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
     }
 
-    @Override
-    public String apiFilename(String templateName, String tag) {
-        String suffix = apiTemplateFiles().get(templateName);
-        return apiFileFolder() + File.separator + getApiSubPackage(tag) + File.separator + toApiFilename(tag) + suffix;
-    }
-
-    private String getApiSubPackage(String tag) {
-        StringBuilder sb = new StringBuilder();
-        int capitalCharOccurrence = 0;
-        for (char c : tag.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                capitalCharOccurrence += 1;
-            }
-            if (capitalCharOccurrence < 2) {
-                sb.append(Character.toLowerCase(c));
-            } else {
-                break;
-            }
-        }
-        return sb.toString();
-    }
 
     @Override
     public Map<String, Object> postProcessModels(Map<String, Object> objs) {
@@ -614,6 +592,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             }
         }
 
+        @SuppressWarnings("unused")
         public Set<Map.Entry<String, Object>> getCdsExtensionSet() {
             return vendorExtensions.entrySet();
         }
@@ -719,6 +698,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.subPackage = getSubPackage(this.name);
         }
 
+        @SuppressWarnings("unused")
         public Set<Map.Entry<String, Object>> getCdsExtensionSet() {
             return vendorExtensions.entrySet();
         }
@@ -731,6 +711,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             return modelPackage.replace("models", subPackage + ".models");
         }
 
+        @SuppressWarnings("unused")
         public boolean hasDescriptionOrNotReferenced() {
             return !StringUtils.isBlank(description) || !isReferenced;
         }
