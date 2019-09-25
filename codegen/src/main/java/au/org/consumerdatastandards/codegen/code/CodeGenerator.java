@@ -4,8 +4,8 @@ import au.org.consumerdatastandards.codegen.AbstractGenerator;
 import au.org.consumerdatastandards.codegen.openapi.ModelSwaggerConverter;
 import au.org.consumerdatastandards.support.model.APIModel;
 import io.swagger.codegen.ClientOptInput;
-import io.swagger.codegen.DefaultGenerator;
 import io.swagger.models.Swagger;
+import io.swagger.parser.SwaggerParser;
 import io.swagger.parser.SwaggerResolver;
 
 import static io.swagger.codegen.config.CodegenConfiguratorUtils.*;
@@ -20,8 +20,13 @@ public class CodeGenerator extends AbstractGenerator<CodeGeneratorOptions> {
     @Override
     public void generate() {
         Configurator configurator = new Configurator();
-        Swagger swagger = ModelSwaggerConverter.convert(apiModel);
-        configurator.setSwagger(new SwaggerResolver(swagger, null, null).resolve());
+        if (isNotEmpty(options.getSpec())) {
+            Swagger swagger = new SwaggerParser().read(options.getSpec(), null, true);
+            configurator.setSwagger(swagger);
+        } else {
+            Swagger swagger = ModelSwaggerConverter.convert(apiModel);
+            configurator.setSwagger(new SwaggerResolver(swagger, null, null).resolve());
+        }
         if (isNotEmpty(options.getBasePackage())) {
             configurator.setInvokerPackage(options.getBasePackage());
         }

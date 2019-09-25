@@ -10,11 +10,14 @@ import java.util.List;
 @Parameters(commandDescription = "Generate java client out of api model")
 public class CodeGeneratorOptions extends Options {
 
-    @Parameter(names = {"--output-dir", "-o"}, description = "Output directory to place generated client")
+    @Parameter(names = {"--output-dir", "-o"}, description = "Output directory")
     private String outputDir = "";
 
     @Parameter(names = {"--template-dir", "-t"}, description = "Template directory")
     private String templateDir;
+
+    @Parameter(names = {"--input-spec", "-is"}, description = "location of the swagger spec, as URL or file")
+    private String spec;
 
     @Parameter(
         names = {"--skip-overwrite", "-s"},
@@ -213,5 +216,13 @@ public class CodeGeneratorOptions extends Options {
 
     public void setSystemProperties(List<String> systemProperties) {
         this.systemProperties = systemProperties;
+    }
+
+    public String getSpec() {
+        return spec;
+    }
+
+    public void setSpec(String spec) {
+        this.spec = spec;
     }
 }

@@ -7,6 +7,7 @@ import static java.util.ServiceLoader.load;
 public class CodeGeneratorConfigLoader {
 
     public static CodeGeneratorConfig forName(String name) {
+
         ServiceLoader<CodeGeneratorConfig> loader = load(CodeGeneratorConfig.class);
 
         StringBuilder availableTypes = new StringBuilder();
