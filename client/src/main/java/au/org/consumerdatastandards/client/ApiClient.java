@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okio.BufferedSink;
 import okio.Okio;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.net.ssl.*;
 import java.io.File;
@@ -569,7 +570,7 @@ public class ApiClient {
             throw new ApiException(e);
         }
 
-        if (respBody == null || "".equals(respBody)) {
+        if (StringUtils.isEmpty(respBody)) {
             return null;
         }
 
