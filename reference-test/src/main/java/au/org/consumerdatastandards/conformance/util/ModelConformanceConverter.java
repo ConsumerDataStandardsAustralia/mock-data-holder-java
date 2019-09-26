@@ -20,12 +20,13 @@ public class ModelConformanceConverter {
 
     public static ConformanceModel convert(APIModel apiModel) {
         ConformanceModel conformanceModel = new ConformanceModel();
+        Map<String, String> endpointVersionMap = new HashMap<>();
         Map<String, Map<ResponseCode, EndpointResponse>> responseMap = new HashMap<>();
         Map<Class<?>, Payload> payloadMap = new HashMap<>();
         Set<Class<?>> processedClasses = new HashSet<>();
         for (SectionModel sectionModel : apiModel.getSectionModels()) {
             for (EndpointModel endpointModel : sectionModel.getEndpointModels()) {
-                add(endpointModel, responseMap, payloadMap, processedClasses);
+                add(endpointModel, endpointVersionMap, responseMap, payloadMap, processedClasses);
             }
         }
         conformanceModel.setResponseMap(responseMap);
@@ -34,6 +35,7 @@ public class ModelConformanceConverter {
     }
 
     private static void add(EndpointModel endpointModel,
+                            Map<String, String> endpointVersionMap,
                             Map<String, Map<ResponseCode, EndpointResponse>> responseMap,
                             Map<Class<?>, Payload> payloadMap,
                             Set<Class<?>> processedClasses) {

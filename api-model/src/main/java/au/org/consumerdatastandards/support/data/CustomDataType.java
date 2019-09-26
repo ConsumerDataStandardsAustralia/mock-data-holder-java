@@ -17,7 +17,9 @@ public enum CustomDataType {
     URI("URIString", Format.URI),
     Boolean("Boolean"),
     ExternalRef("ExternalRef"),
-    Base64("Base64");
+    Base64("Base64"),
+    IPAddress("IPAddress","\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b"),
+    UUID("UUID");
 
     CustomDataType(String name) {
         this.name = name;

@@ -277,17 +277,18 @@ public class BankingProductsAPISteps {
         return (ResponseBankingProductListData) ReflectionUtils.getField(dataField, productList);
     }
 
+    @SuppressWarnings("unchecked")
     private List<BankingProduct> getProducts(ResponseBankingProductListData productListData) {
         Field dataField = FieldUtils.getField(ResponseBankingProductListData.class, "products", true);
         try {
             return (List<BankingProduct>) ReflectionUtils.getField(dataField, productListData);
         } catch (NullPointerException e) {
             // Empty responses is ok?
-            return new ArrayList<BankingProduct>();
+            return new ArrayList<>();
         }
     }
 
-    public List<String> getProductIds() {
+    List<String> getProductIds() {
         String json = listProductsResponse.getBody().asString();
         ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
         try {
@@ -376,11 +377,7 @@ public class BankingProductsAPISteps {
         return (String) ReflectionUtils.getField(idField, data);
     }
 
-    public ResponseBankingProductList getResponseBankingProductList() {
-        return responseBankingProductList;
-    }
-
-    public String getApiBasePath() {
+    String getApiBasePath() {
         return apiBasePath;
     }
 }
