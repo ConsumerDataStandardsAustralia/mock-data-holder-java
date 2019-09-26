@@ -67,7 +67,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("CDS Client/0.9.6/java");
+        setUserAgent("CDS Client/1.0.0/java");
 
         addDefaultHeader("Accept", "application/json");
         addDefaultHeader("Content-Type", "application/json");
@@ -295,29 +295,6 @@ public class ApiClient {
             }
         }
         this.debugging = debugging;
-        return this;
-    }
-
-    /**
-     * The path of temporary folder used to store downloaded files from endpoints with file response.
-     * The default value is <code>null</code>, i.e. using the system's default temporary folder.
-     *
-     * @return Temporary folder path
-     * @see <a
-     * href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html#createTempFile">createTempFile</a>
-     */
-    public String getTempFolderPath() {
-        return tempFolderPath;
-    }
-
-    /**
-     * Set the temporary folder path (for downloading files)
-     *
-     * @param tempFolderPath Temporary folder path
-     * @return ApiClient
-     */
-    public ApiClient setTempFolderPath(String tempFolderPath) {
-        this.tempFolderPath = tempFolderPath;
         return this;
     }
 
