@@ -32,6 +32,10 @@ public class PayloadValidator {
         conformanceModel = ModelConformanceConverter.convert(modelBuilder.build());
     }
 
+    public String getEndpointVersion(String operationId) {
+        return conformanceModel.getEndpointVersionMap().get(operationId);
+    }
+
     public List<ConformanceError> validateFile(File jsonFile) {
         LOGGER.info("Validating " + jsonFile.getAbsolutePath());
         byte[] jsonData;

@@ -4,6 +4,7 @@ import au.org.consumerdatastandards.conformance.ConformanceModel;
 import au.org.consumerdatastandards.conformance.Payload;
 import au.org.consumerdatastandards.reflection.ReflectionUtil;
 import au.org.consumerdatastandards.support.EndpointResponse;
+import au.org.consumerdatastandards.support.Extension;
 import au.org.consumerdatastandards.support.ResponseCode;
 import au.org.consumerdatastandards.support.data.DataDefinition;
 import au.org.consumerdatastandards.support.model.APIModel;
@@ -29,6 +30,7 @@ public class ModelConformanceConverter {
                 add(endpointModel, endpointVersionMap, responseMap, payloadMap, processedClasses);
             }
         }
+        conformanceModel.setEndpointVersionMap(endpointVersionMap);
         conformanceModel.setResponseMap(responseMap);
         conformanceModel.setPayloadMap(payloadMap);
         return conformanceModel;
@@ -44,6 +46,7 @@ public class ModelConformanceConverter {
             processBodyParams(endpointModel, bodyParams, payloadMap, processedClasses);
         }
         String operationId = endpointModel.getEndpoint().operationId();
+        endpointVersionMap.put(operationId, endpointModel.getCustomAttributeValue(Extension.VERSION.getKey()));
         for (EndpointResponse response : endpointModel.getEndpoint().responses()) {
             responseMap.computeIfAbsent(operationId, k -> new HashMap<>());
             responseMap.get(operationId).put(response.responseCode(), response);

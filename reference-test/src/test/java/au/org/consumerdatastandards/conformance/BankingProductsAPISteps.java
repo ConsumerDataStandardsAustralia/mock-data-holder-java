@@ -2,6 +2,7 @@ package au.org.consumerdatastandards.conformance;
 
 import au.org.consumerdatastandards.api.banking.models.*;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
+import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
 import au.org.consumerdatastandards.support.data.CustomDataType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import static au.org.consumerdatastandards.api.banking.BankingProductsAPI.ParamEffective;
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
+import static au.org.consumerdatastandards.conformance.ConformanceError.Type.MISSING_HEADER;
 import static net.serenitybdd.rest.SerenityRest.given;
 import static org.junit.Assert.*;
 
@@ -55,7 +57,7 @@ public class BankingProductsAPISteps {
         boolean paramAdded = false;
         RequestSpecification given = given()
                 .header("Accept", "application/json")
-                .header("x-v", 1);
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listProducts"));
         if (!StringUtils.isBlank(effective)) {
             given.queryParam("effective", effective);
             requestUrl += "?effective=" + effective;
@@ -99,6 +101,7 @@ public class BankingProductsAPISteps {
         } else {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
+            checkResponseHeaders(listProductsResponse, conformanceErrors);
             String contentType = listProductsResponse.contentType();
             if (contentType == null) {
                 conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
@@ -313,7 +316,7 @@ public class BankingProductsAPISteps {
         requestUrl = url;
         getProductDetailResponse = given().relaxedHTTPSValidation()
                 .header("Accept", "application/json")
-                .header("x-v", 1)
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getProductDetail"))
                 .when().get(url).then().log().body().extract().response();
     }
 
@@ -325,6 +328,7 @@ public class BankingProductsAPISteps {
         } else {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
+            checkResponseHeaders(getProductDetailResponse, conformanceErrors);
             String contentType = getProductDetailResponse.contentType();
             if (!"application/json".equals(contentType)) {
                 conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
@@ -354,6 +358,16 @@ public class BankingProductsAPISteps {
             } catch (IOException e) {
                 fail(e.getMessage());
             }
+        }
+    }
+
+    private void checkResponseHeaders(Response response, List<ConformanceError> conformanceErrors) {
+        String version = response.header(Header.VERSION.getKey());
+        if (StringUtils.isBlank(version)) {
+            conformanceErrors.add(new ConformanceError().errorType(MISSING_HEADER)
+                .errorMessage("missing '" + Header.VERSION.getKey() + "' in response header"));
+        } else {
+            ConformanceUtil.checkHeaderValue(version, Header.VERSION, conformanceErrors);
         }
     }
 
