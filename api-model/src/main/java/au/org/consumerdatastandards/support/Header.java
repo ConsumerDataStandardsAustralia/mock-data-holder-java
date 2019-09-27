@@ -18,26 +18,26 @@ public enum Header {
 
     CDS_SUBJECT("x-cds-subject", CustomDataType.ASCII);
 
-    private String name;
+    private String key;
 
     private CustomDataType customDataType;
 
-    Header(String name, CustomDataType customDataType) {
-        this.name = name;
+    Header(String key, CustomDataType customDataType) {
+        this.key = key;
         this.customDataType = customDataType;
     }
 
-    public String getName() {
-        return name;
+    public String getKey() {
+        return key;
     }
 
     public CustomDataType getCustomDataType() {
         return customDataType;
     }
 
-    public Header fromName(String name) {
+    public Header fromKey(String key) {
         for (Header header: values()) {
-            if (header.name.equals(name)) {
+            if (header.key.equals(key)) {
                 return header;
             }
         }

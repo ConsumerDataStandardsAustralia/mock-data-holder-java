@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.codegen.code.java;
 
 import au.org.consumerdatastandards.codegen.code.CodeGeneratorConfig;
+import au.org.consumerdatastandards.support.Extension;
 import io.swagger.codegen.*;
 import io.swagger.codegen.languages.AbstractJavaCodegen;
 import io.swagger.models.*;
@@ -632,7 +633,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 this.datatypeWithEnum = referenceName;
             }
             if (cp.vendorExtensions != null) {
-                String cdsType = (String) cp.vendorExtensions.get("x-cds-type");
+                String cdsType = (String) cp.vendorExtensions.get(Extension.CDS_TYPE.getKey());
                 if (!StringUtils.isBlank(cdsType)) {
                     this.cdsTypeAnnotation = buildCdsTypeAnnotation(cdsType);
                     this.isCdsType = true;
@@ -753,7 +754,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
 
             // set cds specific properties
             if (cp.vendorExtensions != null) {
-                String cdsType = (String) cp.vendorExtensions.get("x-cds-type");
+                String cdsType = (String) cp.vendorExtensions.get(Extension.CDS_TYPE.getKey());
                 if (!StringUtils.isBlank(cdsType)) {
                     this.cdsTypeAnnotation = buildCdsTypeAnnotation(cdsType);
                     this.isCdsType = true;
