@@ -253,7 +253,6 @@ public class ApiClient {
      */
     public ApiClient setUserAgent(String userAgent) {
         addDefaultHeader("User-Agent", userAgent);
-        addDefaultHeader("x-cds-User-Agent", userAgent);
         return this;
     }
 
