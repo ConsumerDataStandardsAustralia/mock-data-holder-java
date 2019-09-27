@@ -1,0 +1,22 @@
+{{>licenseInfo}}
+package {{package}};
+
+{{^supportJava6}}
+import java.util.Objects;
+import java.util.Arrays;
+{{/supportJava6}}
+{{#imports}}
+import {{import}};
+{{/imports}}
+{{#serializableModel}}
+import java.io.Serializable;
+{{/serializableModel}}
+{{#useBeanValidation}}
+import javax.validation.constraints.*;
+import javax.validation.Valid;
+{{/useBeanValidation}}
+{{#models}}
+{{#model}}
+{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>pojo}}{{/isEnum}}
+{{/model}}
+{{/models}}

@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.codegen.util;
+package au.org.consumerdatastandards.codegen.openapi;
 
 import au.org.consumerdatastandards.reflection.ReflectionUtil;
 import au.org.consumerdatastandards.support.Endpoint;
@@ -314,10 +314,16 @@ public class ModelSwaggerConverter {
             composedModel.setDescription(dataDefinition.description());
         }
         composedModel.setReference(dataType.getSimpleName());
+        List<RefModel> interfaces = new ArrayList<>();
         for (Class<?> allOfClass : allOf) {
-            composedModel.child(convertToModel(swagger, allOfClass));
+            Model model = convertToModel(swagger, allOfClass);
+            composedModel.child(model);
+            if (model instanceof RefModel) {
+                interfaces.add((RefModel) model);
+            }
         }
         composedModel.child(convertToModelImpl(swagger, dataType));
+        composedModel.interfaces(interfaces);
         composedModel.setVendorExtensions(CustomAttributesUtil.getGroupedAttributes(dataType));
         return composedModel;
     }

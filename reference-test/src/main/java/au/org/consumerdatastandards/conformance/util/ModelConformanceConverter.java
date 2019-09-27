@@ -4,6 +4,7 @@ import au.org.consumerdatastandards.conformance.ConformanceModel;
 import au.org.consumerdatastandards.conformance.Payload;
 import au.org.consumerdatastandards.reflection.ReflectionUtil;
 import au.org.consumerdatastandards.support.EndpointResponse;
+import au.org.consumerdatastandards.support.Extension;
 import au.org.consumerdatastandards.support.ResponseCode;
 import au.org.consumerdatastandards.support.data.DataDefinition;
 import au.org.consumerdatastandards.support.model.APIModel;
@@ -20,20 +21,23 @@ public class ModelConformanceConverter {
 
     public static ConformanceModel convert(APIModel apiModel) {
         ConformanceModel conformanceModel = new ConformanceModel();
+        Map<String, String> endpointVersionMap = new HashMap<>();
         Map<String, Map<ResponseCode, EndpointResponse>> responseMap = new HashMap<>();
         Map<Class<?>, Payload> payloadMap = new HashMap<>();
         Set<Class<?>> processedClasses = new HashSet<>();
         for (SectionModel sectionModel : apiModel.getSectionModels()) {
             for (EndpointModel endpointModel : sectionModel.getEndpointModels()) {
-                add(endpointModel, responseMap, payloadMap, processedClasses);
+                add(endpointModel, endpointVersionMap, responseMap, payloadMap, processedClasses);
             }
         }
+        conformanceModel.setEndpointVersionMap(endpointVersionMap);
         conformanceModel.setResponseMap(responseMap);
         conformanceModel.setPayloadMap(payloadMap);
         return conformanceModel;
     }
 
     private static void add(EndpointModel endpointModel,
+                            Map<String, String> endpointVersionMap,
                             Map<String, Map<ResponseCode, EndpointResponse>> responseMap,
                             Map<Class<?>, Payload> payloadMap,
                             Set<Class<?>> processedClasses) {
@@ -42,6 +46,7 @@ public class ModelConformanceConverter {
             processBodyParams(endpointModel, bodyParams, payloadMap, processedClasses);
         }
         String operationId = endpointModel.getEndpoint().operationId();
+        endpointVersionMap.put(operationId, endpointModel.getCustomAttributeValue(Extension.VERSION.getKey()));
         for (EndpointResponse response : endpointModel.getEndpoint().responses()) {
             responseMap.computeIfAbsent(operationId, k -> new HashMap<>());
             responseMap.get(operationId).put(response.responseCode(), response);

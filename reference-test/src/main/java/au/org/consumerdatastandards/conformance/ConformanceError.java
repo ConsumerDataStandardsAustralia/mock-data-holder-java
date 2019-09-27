@@ -82,6 +82,8 @@ public class ConformanceError {
 
     public enum Type {
 
+        MISSING_HEADER,
+        INCORRECT_HEADER_VALUE,
         MISSING_PROPERTY,
         MISSING_VALUE,
         REDUNDANT_VALUE,

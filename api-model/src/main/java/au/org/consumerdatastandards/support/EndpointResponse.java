@@ -14,5 +14,7 @@ public @interface EndpointResponse {
 
     ResponseCode responseCode();
 
+    ResponseHeader[] headers() default {};
+
     Class<?> content() default Void.class;
 }

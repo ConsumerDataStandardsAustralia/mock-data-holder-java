@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.codegen.generator.openapi;
+package au.org.consumerdatastandards.codegen.openapi;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,8 +7,7 @@ import java.nio.file.Paths;
 
 import au.org.consumerdatastandards.support.model.APIModel;
 
-import au.org.consumerdatastandards.codegen.generator.AbstractGenerator;
-import au.org.consumerdatastandards.codegen.util.ModelSwaggerConverter;
+import au.org.consumerdatastandards.codegen.AbstractGenerator;
 import io.swagger.models.Swagger;
 import io.swagger.util.Json;
 import org.slf4j.Logger;

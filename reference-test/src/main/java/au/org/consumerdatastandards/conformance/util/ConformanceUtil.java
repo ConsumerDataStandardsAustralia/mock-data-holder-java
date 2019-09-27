@@ -4,6 +4,7 @@ import au.org.consumerdatastandards.conformance.CglibBeanDeserializerModifier;
 import au.org.consumerdatastandards.conformance.CglibBeanSerializerModifier;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.reflection.ReflectionUtil;
+import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.data.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import net.sf.cglib.beans.BeanGenerator;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Array;
@@ -21,10 +23,7 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ConformanceUtil {
@@ -156,6 +155,79 @@ public class ConformanceUtil {
         return false;
     }
 
+    public static void checkHeaderValue(String value, Header header, List<ConformanceError> errors) {
+        CustomDataType customDataType = header.getCustomDataType();
+        if (customDataType.getPattern() != null) {
+            if (!value.matches(customDataType.getPattern())) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.INCORRECT_HEADER_VALUE)
+                    .errorMessage(String.format("Header '%s' value '%s' does not conform to CDS type %s",
+                        header.getKey(), value, header.getCustomDataType().getName()))
+                );
+            }
+        }
+        Number min = customDataType.getMin();
+        if (min != null && new BigDecimal(min.toString()).compareTo(new BigDecimal(value)) > 0) {
+            errors.add(new ConformanceError()
+                .errorType(ConformanceError.Type.INCORRECT_HEADER_VALUE)
+                .errorMessage(String.format("Header '%s' value %s is smaller than CDS type %s minimum value %s",
+                    header.getKey(), value, header.getCustomDataType().getName(), header.getCustomDataType().getMin()))
+            );
+        }
+        Number max = customDataType.getMax();
+        if (max != null && new BigDecimal(max.toString()).compareTo(new BigDecimal(value)) < 0) {
+            errors.add(new ConformanceError()
+                .errorType(ConformanceError.Type.INCORRECT_HEADER_VALUE)
+                .errorMessage(String.format("Header '%s' value %s is bigger than CDS type %s max value %s.",
+                    header.getKey(), value, header.getCustomDataType().getName(), header.getCustomDataType().getMin()))
+            );
+        }
+        if (CustomDataType.URI.equals(customDataType)) {
+            try {
+                new URI(value);
+            } catch (URISyntaxException e) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.INCORRECT_HEADER_VALUE)
+                    .errorMessage(String.format("Header '%s' value '%s' does not conform to CDS type %s",
+                        header.getKey(), value, header.getCustomDataType().getName()))
+                );
+            }
+        }
+        switch (customDataType) {
+            case URI:
+                try {
+                    new URI(value);
+                } catch (URISyntaxException e) {
+                    errors.add(new ConformanceError()
+                        .errorType(ConformanceError.Type.INCORRECT_HEADER_VALUE)
+                        .errorMessage(String.format("Header '%s' value '%s' does not conform to CDS type %s",
+                            header.getKey(), value, header.getCustomDataType().getName()))
+                    );
+                }
+                break;
+            case Base64:
+                if (!Base64.isBase64(value)) {
+                    errors.add(new ConformanceError()
+                        .errorType(ConformanceError.Type.INCORRECT_HEADER_VALUE)
+                        .errorMessage(String.format("Header '%s' value '%s' does not conform to CDS type %s",
+                            header.getKey(), value, header.getCustomDataType().getName()))
+                    );
+                }
+                break;
+            case UUID:
+                try {
+                    UUID.fromString(value);
+                } catch (IllegalArgumentException e) {
+                    errors.add(new ConformanceError()
+                        .errorType(ConformanceError.Type.INCORRECT_HEADER_VALUE)
+                        .errorMessage(String.format("Header '%s' value '%s' does not conform to CDS type %s",
+                            header.getKey(), value, header.getCustomDataType().getName()))
+                    );
+                }
+                break;
+        }
+    }
+
     private static void checkAgainstCDSDataType(Object data, Field modelField, Object dataFieldValue, CDSDataType cdsDataType, List<ConformanceError> errors) {
         CustomDataType customDataType = cdsDataType.value();
         if (customDataType.getPattern() != null) {
@@ -189,18 +261,44 @@ public class ConformanceUtil {
                 .errorFieldValue(dataFieldValue)
             );
         }
-        if (CustomDataType.URI.equals(customDataType)) {
-            try {
-                new URI(dataFieldValue.toString());
-            } catch (URISyntaxException e) {
-                errors.add(new ConformanceError()
-                    .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
-                    .cdsDataType(cdsDataType)
-                    .dataJson(toJson(data))
-                    .errorField(modelField)
-                    .errorFieldValue(dataFieldValue)
-                );
-            }
+        switch (customDataType) {
+            case URI:
+                try {
+                    new URI(dataFieldValue.toString());
+                } catch (URISyntaxException e) {
+                    errors.add(new ConformanceError()
+                        .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
+                        .cdsDataType(cdsDataType)
+                        .dataJson(toJson(data))
+                        .errorField(modelField)
+                        .errorFieldValue(dataFieldValue)
+                    );
+                }
+                break;
+            case Base64:
+                if (!Base64.isBase64(dataFieldValue.toString())) {
+                    errors.add(new ConformanceError()
+                        .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
+                        .cdsDataType(cdsDataType)
+                        .dataJson(toJson(data))
+                        .errorField(modelField)
+                        .errorFieldValue(dataFieldValue)
+                    );
+                }
+                break;
+            case UUID:
+                try {
+                    UUID.fromString(dataFieldValue.toString());
+                } catch (IllegalArgumentException e) {
+                    errors.add(new ConformanceError()
+                        .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
+                        .cdsDataType(cdsDataType)
+                        .dataJson(toJson(data))
+                        .errorField(modelField)
+                        .errorFieldValue(dataFieldValue)
+                    );
+                }
+                break;
         }
     }
 

@@ -11,12 +11,12 @@
     <description>This artefact generates other artefacts such as API client, API server out of API Model</description>
     <properties>
         <jcommander.version>1.72</jcommander.version>
-        <swagger-core.version>1.5.22</swagger-core.version>
         <jackson-databind.version>2.9.9.1</jackson-databind.version>
         <commons-text.version>1.6</commons-text.version>
         <commons-cli.version>1.4</commons-cli.version>
         <google-java-format.version>1.7</google-java-format.version>
         <guava.version>27.1-jre</guava.version>
+        <swagger-codegen.version>2.4.8</swagger-codegen.version>
     </properties>
     <build>
         <resources>
@@ -108,11 +108,20 @@
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
-            <artifactId>swagger-core</artifactId>
+            <artifactId>swagger-codegen</artifactId>
+            <version>${swagger-codegen.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.validation</groupId>
-                    <artifactId>validation-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-ext</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

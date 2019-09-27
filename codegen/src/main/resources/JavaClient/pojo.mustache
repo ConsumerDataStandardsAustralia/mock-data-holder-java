@@ -1,0 +1,109 @@
+{{#description}}/**
+ * {{.}}
+ */{{/description}}
+public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcelableModel}}implements Parcelable {{#serializableModel}}, Serializable {{/serializableModel}}{{/parcelableModel}}{{^parcelableModel}}{{#serializableModel}}implements Serializable {{/serializableModel}}{{/parcelableModel}}{
+{{#serializableModel}}
+
+    private static final long serialVersionUID = 1L;
+{{/serializableModel}}
+
+  {{#vars}}
+    {{#isEnum}}
+    {{^isContainer}}
+{{>modelInnerEnum}}
+    {{/isContainer}}
+    {{/isEnum}}
+    {{#items.isEnum}}
+      {{#items}}
+      {{^isContainer}}
+{{>modelInnerEnum}}
+      {{/isContainer}}
+      {{/items}}
+    {{/items.isEnum}}
+  {{#isContainer}}
+    private {{{datatypeWithEnum}}} {{name}}{{#required}} = {{{defaultValue}}}{{/required}};
+  {{/isContainer}}
+  {{^isContainer}}
+    private {{{datatypeWithEnum}}} {{name}}{{#isDefaultValueVisible}} = {{{defaultValue}}}{{/isDefaultValueVisible}};
+  {{/isContainer}}
+
+  {{/vars}}
+  {{^parcelableModel}}
+  {{#gson}}
+  {{#discriminator}}
+    public {{classname}}() {
+        this.{{discriminatorClassVarName}} = this.getClass().getSimpleName();
+    }
+  {{/discriminator}}
+  {{/gson}}
+  {{/parcelableModel}}
+  {{#vars}}
+    /**
+  {{#description}}
+     * {{description}}
+  {{/description}}
+  {{^description}}
+     * Get {{name}}
+  {{/description}}
+  {{#minimum}}
+     * minimum: {{minimum}}
+  {{/minimum}}
+  {{#maximum}}
+     * maximum: {{maximum}}
+  {{/maximum}}
+     * @return {{name}}
+     */
+{{#vendorExtensions.extraAnnotation}}
+  {{{vendorExtensions.extraAnnotation}}}
+{{/vendorExtensions.extraAnnotation}}
+    public {{{datatypeWithEnum}}} {{#isBoolean}}is{{/isBoolean}}{{getter}}() {
+        return {{name}};
+    }
+  {{^isReadOnly}}
+
+    public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+        this.{{name}} = {{name}};
+    }
+  {{/isReadOnly}}
+
+  {{/vars}}
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }{{#hasVars}}
+        {{classname}} {{classVarName}} = ({{classname}}) o;
+        return {{#vars}}{{#isByteArray}}Arrays{{/isByteArray}}{{#isBinary}}Arrays{{/isBinary}}{{^isByteArray}}{{^isBinary}}Objects{{/isBinary}}{{/isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{#hasMore}} &&
+            {{/hasMore}}{{/vars}}{{#parent}} &&
+            super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
+        return {{#parent}}super.equals(o){{/parent}}{{^parent}}true{{/parent}};{{/hasVars}}
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash({{#vars}}
+            {{^isByteArray}}{{^isBinary}}{{name}}{{/isBinary}}{{/isByteArray}}{{#isByteArray}}Arrays.hashCode({{name}}){{/isByteArray}}{{#isBinary}}Arrays.hashCode({{name}}){{/isBinary}}{{#hasMore}},{{/hasMore}}{{/vars}}{{#parent}}{{#hasVars}},{{/hasVars}}super.hashCode(){{/parent}}
+        );
+    }
+
+    @Override
+    public String toString() {
+        return "class {{classname}} {\n" +{{#vars}}
+            "   {{name}}: " + toIndentedString({{name}}) + "\n" + {{/vars}}
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+}

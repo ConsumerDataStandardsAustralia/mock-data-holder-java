@@ -8,8 +8,17 @@ import java.util.Set;
 
 public class ConformanceModel {
 
+    private Map<String, String> endpointVersionMap;
     private Map<String, Map<ResponseCode, EndpointResponse>> responseMap;
     private Map<Class<?>, Payload> payloadMap;
+
+    public Map<String, String> getEndpointVersionMap() {
+        return endpointVersionMap;
+    }
+
+    public void setEndpointVersionMap(Map<String, String> endpointVersionMap) {
+        this.endpointVersionMap = endpointVersionMap;
+    }
 
     public void setResponseMap(Map<String, Map<ResponseCode, EndpointResponse>> responseMap) {
         this.responseMap = responseMap;

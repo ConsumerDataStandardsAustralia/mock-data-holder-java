@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import okio.BufferedSink;
 import okio.Okio;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.net.ssl.*;
 import java.io.File;
@@ -67,7 +68,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("CDS Client/0.9.6/java");
+        setUserAgent("CDS Client/1.0.0/java");
 
         addDefaultHeader("Accept", "application/json");
         addDefaultHeader("Content-Type", "application/json");
@@ -252,7 +253,6 @@ public class ApiClient {
      */
     public ApiClient setUserAgent(String userAgent) {
         addDefaultHeader("User-Agent", userAgent);
-        addDefaultHeader("x-cds-User-Agent", userAgent);
         return this;
     }
 
@@ -295,29 +295,6 @@ public class ApiClient {
             }
         }
         this.debugging = debugging;
-        return this;
-    }
-
-    /**
-     * The path of temporary folder used to store downloaded files from endpoints with file response.
-     * The default value is <code>null</code>, i.e. using the system's default temporary folder.
-     *
-     * @return Temporary folder path
-     * @see <a
-     * href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html#createTempFile">createTempFile</a>
-     */
-    public String getTempFolderPath() {
-        return tempFolderPath;
-    }
-
-    /**
-     * Set the temporary folder path (for downloading files)
-     *
-     * @param tempFolderPath Temporary folder path
-     * @return ApiClient
-     */
-    public ApiClient setTempFolderPath(String tempFolderPath) {
-        this.tempFolderPath = tempFolderPath;
         return this;
     }
 
@@ -592,7 +569,7 @@ public class ApiClient {
             throw new ApiException(e);
         }
 
-        if (respBody == null || "".equals(respBody)) {
+        if (StringUtils.isEmpty(respBody)) {
             return null;
         }
 
@@ -1035,6 +1012,7 @@ public class ApiClient {
                     }
                 };
                 hostnameVerifier = (hostname, session) -> true;
+                httpClient = httpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
             } else if (sslCaCert != null) {
                 char[] password = null; // Any password will work.
                 CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
@@ -1057,11 +1035,9 @@ public class ApiClient {
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(keyManagers, trustManagers, new SecureRandom());
                 httpClient = httpClient.newBuilder().sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0]).build();
-            } else {
-                httpClient = httpClient.newBuilder().sslSocketFactory(null, (X509TrustManager) trustManagers[0]).build();
             }
 
-            httpClient = httpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
+            httpClient = httpClient.newBuilder().build();
         } catch (GeneralSecurityException e) {
             throw new RuntimeException(e);
         }

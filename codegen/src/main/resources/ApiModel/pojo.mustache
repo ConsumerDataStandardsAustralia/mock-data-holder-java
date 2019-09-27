@@ -1,0 +1,27 @@
+{{#models}}{{#model}}@DataDefinition{{^isSimple}}({{#interfaces.size}}
+    allOf = { {{#interfaces}}{{.}}.class{{^-last}}, {{/-last}}{{/interfaces}} }{{#hasDescriptionOrNotReferenced}},{{/hasDescriptionOrNotReferenced}}{{/interfaces.size}}{{^isReferenced}}
+    referenced = false{{#description}},{{/description}}{{/isReferenced}}{{#description}}
+    description = "{{{description}}}"{{/description}}
+){{/isSimple}}{{#cdsExtensionSet}}{{#-first}}
+@CustomAttributes({{openBracket}}{{/-first}}{{^value.length}}
+    {{#value}}@CustomAttribute(name = "{{key}}", value = "{{.}}", multiple = true){{^-last}},
+    {{/-last}}{{/value}}{{/value.length}}{{#value.length}}@CustomAttribute(name = "{{key}}", value = "{{value}}"){{/value.length}}{{^-last}}{{^value.empty}},
+    {{/value.empty}}{{/-last}}{{#-last}}
+{{closeBracket}}){{/-last}}{{/cdsExtensionSet}}
+public class {{classname}}{{#isPaginatedResponse}} extends PaginatedResponse{{/isPaginatedResponse}}{{#isBaseResponse}} extends BaseResponse{{/isBaseResponse}} {
+{{#_enums}}
+
+{{>enumClass}}
+{{/_enums}}
+{{#vars}}
+    {{^isInherited}}
+
+    @Property{{^isSimple}}({{#description}}
+        description = "{{{description}}}"{{/description}}{{#required}}{{#description}},{{/description}}{{/required}}{{#required}}
+        required = true{{/required}}
+    ){{/isSimple}}{{#isCdsType}}
+    {{cdsTypeAnnotation}}{{/isCdsType}}
+    {{{datatypeWithEnum}}} {{baseName}}{{#isDefaultValueVisible}} = {{defaultValue}}{{/isDefaultValueVisible}};
+    {{/isInherited}}
+{{/vars}}
+}{{/model}}{{/models}}
