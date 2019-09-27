@@ -19,6 +19,7 @@ import org.springframework.util.ReflectionUtils;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -130,7 +131,7 @@ public class BankingProductsAPISteps {
                 }
 
                 assertTrue("Conformance errors found in response payload"
-                                + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             } catch (IOException e) {
                 fail(e.getMessage());
             }
@@ -283,12 +284,7 @@ public class BankingProductsAPISteps {
     @SuppressWarnings("unchecked")
     private List<BankingProduct> getProducts(ResponseBankingProductListData productListData) {
         Field dataField = FieldUtils.getField(ResponseBankingProductListData.class, "products", true);
-        try {
-            return (List<BankingProduct>) ReflectionUtils.getField(dataField, productListData);
-        } catch (NullPointerException e) {
-            // Empty responses is ok?
-            return new ArrayList<>();
-        }
+        return (List<BankingProduct>) ReflectionUtils.getField(dataField, productListData);
     }
 
     List<String> getProductIds() {
@@ -298,6 +294,7 @@ public class BankingProductsAPISteps {
             responseBankingProductList = objectMapper.readValue(json, ResponseBankingProductList.class);
             if (responseBankingProductList != null) {
                 List<BankingProduct> products = getProducts(getProductListData(responseBankingProductList));
+                if (products == null || products.isEmpty()) return null;
                 List<String> productIds = new ArrayList<>();
                 for (BankingProduct product : products) {
                     productIds.add(getProductId(product));
