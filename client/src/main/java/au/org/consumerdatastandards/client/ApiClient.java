@@ -1012,6 +1012,7 @@ public class ApiClient {
                     }
                 };
                 hostnameVerifier = (hostname, session) -> true;
+                httpClient = httpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
             } else if (sslCaCert != null) {
                 char[] password = null; // Any password will work.
                 CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
@@ -1034,11 +1035,9 @@ public class ApiClient {
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(keyManagers, trustManagers, new SecureRandom());
                 httpClient = httpClient.newBuilder().sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0]).build();
-            } else {
-                httpClient = httpClient.newBuilder().sslSocketFactory(null, (X509TrustManager) trustManagers[0]).build();
             }
 
-            httpClient = httpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
+            httpClient = httpClient.newBuilder().build();
         } catch (GeneralSecurityException e) {
             throw new RuntimeException(e);
         }
