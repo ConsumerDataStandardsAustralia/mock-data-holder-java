@@ -75,7 +75,7 @@ public class Common {
     }
     
     @ShellMethod("Enable client debug")
-    public void enableClientDebug(@ShellOption String debugEnabled) {
+    public void enableClientDebug(@ShellOption(help = "true / false") String debugEnabled) {
         apiClientOptions.setDebugEnabled(Boolean.parseBoolean(debugEnabled));
     }
     
@@ -85,6 +85,9 @@ public class Common {
         root.setLevel(Level.INFO);
         LOGGER.info("Client debug is currently set to: {}", apiClientOptions.isDebugEnabled());
     }
+
+    @ShellMethod("Set access token to send as the Authorization: Bearer header")
+    public void accessToken(@ShellOption String jwt) {
+        apiClientOptions.setAccessToken(jwt);
+    }
 }
-
-

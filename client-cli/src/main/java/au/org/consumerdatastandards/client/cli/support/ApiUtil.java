@@ -47,6 +47,11 @@ public class ApiUtil {
             LOGGER.info("User Agent is set to {}", userAgent);
         }
 
+        String accessToken = clientOptions.getAccessToken();
+        if (StringUtils.isNotBlank(accessToken)) {
+            apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
+        }
+
         String proxy = clientOptions.getProxy();
         if (!StringUtils.isBlank(proxy)) {
             setProxy(apiClient, proxy);
