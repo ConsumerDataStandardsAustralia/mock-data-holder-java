@@ -145,7 +145,7 @@ public class PayloadValidator {
                 String next = getFieldValueAsString(links, "next");
                 String last = getFieldValueAsString(links, "last");
                 String self = getFieldValueAsString(links, "self");
-                checkFirstLink(pageSize, errors, totalPages, linksJson, first);
+                checkFirstLink(page, pageSize, errors, totalPages, linksJson, first);
                 checkLastLink(page, pageSize, errors, totalPages, linksJson, last);
                 checkSelfLink(requestUrl, errors, linksJson, self);
                 checkPrevLink(page, errors, linksJson, prev);
@@ -240,7 +240,7 @@ public class PayloadValidator {
     }
 
     private void checkLastLink(Integer page, Integer pageSize, List<ConformanceError> errors, Integer totalPages, String linksJson, String last) {
-        if (StringUtils.isBlank(last) && totalPages != null && totalPages > 0) {
+        if (StringUtils.isBlank(last) && totalPages != null && totalPages > 0 && !page.equals(totalPages)) {
             errors.add(new ConformanceError().errorType(ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA)
                 .errorMessage(String.format("last link data is missing given totalPages %d in meta. See below:\n%s",
                     totalPages, linksJson))
@@ -284,8 +284,8 @@ public class PayloadValidator {
         }
     }
 
-    private void checkFirstLink(Integer pageSize, List<ConformanceError> errors, Integer totalPages, String linksJson, String first) {
-        if (StringUtils.isBlank(first) && totalPages != null && totalPages > 0) {
+    private void checkFirstLink(Integer page, Integer pageSize, List<ConformanceError> errors, Integer totalPages, String linksJson, String first) {
+        if (StringUtils.isBlank(first) && totalPages != null && totalPages > 0 && page != 1) {
             errors.add(new ConformanceError().errorType(ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA)
                 .errorMessage(String.format("first link data is missing given totalPages %d in meta. See below:\n%s",
                     totalPages, linksJson))
