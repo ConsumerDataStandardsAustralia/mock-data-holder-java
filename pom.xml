@@ -52,7 +52,7 @@
         <gpg.plugin.version>1.5</gpg.plugin.version>
         <javadoc.plugin.version>2.9.1</javadoc.plugin.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.9.10</jackson.version>
         <junit.version>5.5.0</junit.version>
         <jacoco.version>0.8.4</jacoco.version>
         <reflections.version>0.9.11</reflections.version>

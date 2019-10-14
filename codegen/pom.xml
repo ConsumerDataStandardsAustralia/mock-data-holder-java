@@ -11,7 +11,7 @@
     <description>This artefact generates other artefacts such as API client, API server out of API Model</description>
     <properties>
         <jcommander.version>1.72</jcommander.version>
-        <jackson-databind.version>2.9.9.1</jackson-databind.version>
+        <jackson-databind.version>2.9.10</jackson-databind.version>
         <commons-text.version>1.6</commons-text.version>
         <commons-cli.version>1.4</commons-cli.version>
         <google-java-format.version>1.7</google-java-format.version>
