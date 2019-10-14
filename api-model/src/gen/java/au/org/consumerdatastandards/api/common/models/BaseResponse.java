@@ -13,8 +13,7 @@ public class BaseResponse {
     protected Links links;
 
     @Property(
-        description = "The meta object is used to provide additional information such as second factor authorisation data, traffic management, pagination counts or other purposes that are complementary to the workings of the API.",
-        required = true
+        description = "The meta object is used to provide additional information such as second factor authorisation data, traffic management, pagination counts or other purposes that are complementary to the workings of the API."
     )
     protected Meta meta;
 }
