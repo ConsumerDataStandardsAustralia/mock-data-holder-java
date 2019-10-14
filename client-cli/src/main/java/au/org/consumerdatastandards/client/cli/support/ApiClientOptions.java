@@ -16,6 +16,7 @@ public class ApiClientOptions {
     private String userAgent;
     private boolean debugEnabled = false;
     private boolean verifyingSsl = true;
+    private String accessToken;
 
     public String getServerUrl() {
         return serverUrl;
@@ -63,5 +64,13 @@ public class ApiClientOptions {
 
     public void setVerifyingSsl(boolean verifyingSsl) {
         this.verifyingSsl = verifyingSsl;
+    }
+
+    public void setAccessToken(String jwt) {
+        this.accessToken = jwt;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
     }
 }
