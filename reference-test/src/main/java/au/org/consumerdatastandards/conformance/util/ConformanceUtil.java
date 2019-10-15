@@ -9,7 +9,9 @@ import au.org.consumerdatastandards.support.data.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -142,7 +144,9 @@ public class ConformanceUtil {
             .registerModule(new SimpleModule().setDeserializerModifier(new CglibBeanDeserializerModifier()))
             .registerModule(new SimpleModule().setSerializerModifier(new CglibBeanSerializerModifier()))
             .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
-            .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+            .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+            .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
+            .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
     }
 
     private static boolean isValueSpecified(Object relatedPropertyValue, String[] values) {
