@@ -58,6 +58,8 @@ public class PayloadValidator {
     }
 
     private List<ConformanceError> validatePayload(byte[] jsonData) {
+        Class<?> bestMatchingModel = null;
+        List<ConformanceError> errorsOfBestMatchingModel = null;
         for (Class<?> modelClass : conformanceModel.getPayloadModels()) {
             try {
                 ObjectMapper objectMapper = createObjectMapper();
@@ -65,11 +67,17 @@ public class PayloadValidator {
                 Object data = objectMapper.readValue(jsonData, payload.getDataClass());
                 List<ConformanceError> errors = new ArrayList<>();
                 ConformanceUtil.checkAgainstModel(data, modelClass, errors);
-                LOGGER.info("Found matching model " + modelClass.getSimpleName());
-                return errors;
+                if (bestMatchingModel == null || errorsOfBestMatchingModel.size() > errors.size()) {
+                    bestMatchingModel = modelClass;
+                    errorsOfBestMatchingModel = errors;
+                }
             } catch (IOException e) {
                 // ignored
             }
+        }
+        if (bestMatchingModel != null) {
+            LOGGER.info("Found matching model " + bestMatchingModel.getSimpleName());
+            return errorsOfBestMatchingModel;
         }
         return Collections.singletonList(new ConformanceError()
             .errorType(ConformanceError.Type.NO_MATCHING_MODEL)
