@@ -7,6 +7,7 @@ import au.org.consumerdatastandards.reflection.ReflectionUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.data.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -146,7 +147,8 @@ public class ConformanceUtil {
             .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
             .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
             .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
-            .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
+            .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true)
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
     }
 
     private static boolean isValueSpecified(Object relatedPropertyValue, String[] values) {
@@ -352,7 +354,7 @@ public class ConformanceUtil {
         return values;
     }
 
-    private static Object getDataFieldValue(Object data, Field modelField) {
+    public static Object getDataFieldValue(Object data, Field modelField) {
         String fieldName = modelField.getName();
         return getDataFieldValue(data, fieldName);
     }
@@ -362,7 +364,6 @@ public class ConformanceUtil {
             fieldName = GENERATED_PROPERTY_PREFIX + fieldName;
         }
         Field dataField = FieldUtils.getField(data.getClass(), fieldName, true);
-        dataField.setAccessible(true);
         Object dataFieldValue;
         try {
             dataFieldValue = dataField.get(data);
