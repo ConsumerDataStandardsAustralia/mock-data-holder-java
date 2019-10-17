@@ -26,13 +26,16 @@ Built-In Commands
         stacktrace: Display the full stacktrace of the last error.
 
 Common Functions
-        client-debug-enable: Enable client debugging
+        access-token: Set access token to send as the Authorization: Bearer header
+        enable-client-debug: Enable client debug
         get-client-debug: Client debug enabled
         get-log-level: Retrieve current minimum log level
         get-user-agent: Get browser user-agent
+        proxy: Set proxy, e.g. http://http-proxy:8080, https://https-proxy:8443, socks://socks-proxy:5050, none
         server: Set CDS server URL, e.g. http://data.holder/cds-au/v1
         set-log-level: Setup minimum log level, default is INFO
         set-user-agent: Set browser user-agent
+        verifying-ssl: Set verifyingSsl, e.g. true, false
 
 Reference Testing
         auto-validate: Validate all Payloads Automatically
