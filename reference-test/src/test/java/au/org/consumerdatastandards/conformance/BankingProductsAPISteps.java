@@ -106,7 +106,7 @@ public class BankingProductsAPISteps {
             if (contentType == null) {
                 conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorMessage("missing content-type application/json in response header"));
-            } else if (!contentType.startsWith("application/json")) {
+            } else if (!isContentTypeValid(contentType)) {
                 conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorMessage(String.format("invalid content-type of %s specified", contentType)));
             }
@@ -326,7 +326,7 @@ public class BankingProductsAPISteps {
             List<ConformanceError> conformanceErrors = new ArrayList<>();
             checkResponseHeaders(getProductDetailResponse, conformanceErrors);
             String contentType = getProductDetailResponse.contentType();
-            if (!"application/json".equals(contentType)) {
+            if (!isContentTypeValid(contentType)) {
                 conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorMessage("missing content-type application/json in response header"));
             }
@@ -385,6 +385,10 @@ public class BankingProductsAPISteps {
         String idFieldName = ConformanceUtil.getFieldName(data, "productId");
         Field idField = FieldUtils.getField(data.getClass(), idFieldName, true);
         return (String) ReflectionUtils.getField(idField, data);
+    }
+
+    private boolean isContentTypeValid(String contentType) {
+        return contentType != null && contentType.startsWith("application/json");
     }
 
     String getApiBasePath() {

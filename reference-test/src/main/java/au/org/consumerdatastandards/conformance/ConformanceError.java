@@ -74,6 +74,9 @@ public class ConformanceError {
                 return String.format("%s '%s' is bigger than CDS type %s max value %s. See below:\n%s",
                     errorField.getName().replace(ConformanceUtil.GENERATED_PROPERTY_PREFIX, ""),
                     errorFieldValue, dataType.getName(), dataType.getMax(), dataJson);
+            case BROKEN_CONSTRAINT:
+            case REDUNDANT_VALUE:
+                return String.format("%s. See below:\n%s", message, dataJson);
             default:
                 if (!StringUtils.isBlank(message)) return message;
                 else return "Unknown error";

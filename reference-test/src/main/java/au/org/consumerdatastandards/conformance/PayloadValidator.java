@@ -58,6 +58,8 @@ public class PayloadValidator {
     }
 
     private List<ConformanceError> validatePayload(byte[] jsonData) {
+        Class<?> bestMatchingModel = null;
+        List<ConformanceError> errorsOfBestMatchingModel = null;
         for (Class<?> modelClass : conformanceModel.getPayloadModels()) {
             try {
                 ObjectMapper objectMapper = createObjectMapper();
@@ -65,11 +67,17 @@ public class PayloadValidator {
                 Object data = objectMapper.readValue(jsonData, payload.getDataClass());
                 List<ConformanceError> errors = new ArrayList<>();
                 ConformanceUtil.checkAgainstModel(data, modelClass, errors);
-                LOGGER.info("Found matching model " + modelClass.getSimpleName());
-                return errors;
+                if (bestMatchingModel == null || errorsOfBestMatchingModel.size() > errors.size()) {
+                    bestMatchingModel = modelClass;
+                    errorsOfBestMatchingModel = errors;
+                }
             } catch (IOException e) {
                 // ignored
             }
+        }
+        if (bestMatchingModel != null) {
+            LOGGER.info("Found matching model " + bestMatchingModel.getSimpleName());
+            return errorsOfBestMatchingModel;
         }
         return Collections.singletonList(new ConformanceError()
             .errorType(ConformanceError.Type.NO_MATCHING_MODEL)
@@ -145,7 +153,7 @@ public class PayloadValidator {
                 String next = getFieldValueAsString(links, "next");
                 String last = getFieldValueAsString(links, "last");
                 String self = getFieldValueAsString(links, "self");
-                checkFirstLink(pageSize, errors, totalPages, linksJson, first);
+                checkFirstLink(page, pageSize, errors, totalPages, linksJson, first);
                 checkLastLink(page, pageSize, errors, totalPages, linksJson, last);
                 checkSelfLink(requestUrl, errors, linksJson, self);
                 checkPrevLink(page, errors, linksJson, prev);
@@ -240,7 +248,7 @@ public class PayloadValidator {
     }
 
     private void checkLastLink(Integer page, Integer pageSize, List<ConformanceError> errors, Integer totalPages, String linksJson, String last) {
-        if (StringUtils.isBlank(last) && totalPages != null && totalPages > 0) {
+        if (StringUtils.isBlank(last) && totalPages != null && totalPages > 0 && !page.equals(totalPages)) {
             errors.add(new ConformanceError().errorType(ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA)
                 .errorMessage(String.format("last link data is missing given totalPages %d in meta. See below:\n%s",
                     totalPages, linksJson))
@@ -284,8 +292,8 @@ public class PayloadValidator {
         }
     }
 
-    private void checkFirstLink(Integer pageSize, List<ConformanceError> errors, Integer totalPages, String linksJson, String first) {
-        if (StringUtils.isBlank(first) && totalPages != null && totalPages > 0) {
+    private void checkFirstLink(Integer page, Integer pageSize, List<ConformanceError> errors, Integer totalPages, String linksJson, String first) {
+        if (StringUtils.isBlank(first) && totalPages != null && totalPages > 0 && page != 1) {
             errors.add(new ConformanceError().errorType(ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA)
                 .errorMessage(String.format("first link data is missing given totalPages %d in meta. See below:\n%s",
                     totalPages, linksJson))

@@ -3,19 +3,25 @@ package au.org.consumerdatastandards.conformance.util;
 import au.org.consumerdatastandards.conformance.CglibBeanDeserializerModifier;
 import au.org.consumerdatastandards.conformance.CglibBeanSerializerModifier;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.validator.ModelValidator;
+import au.org.consumerdatastandards.conformance.validator.ModelValidatorRegistry;
 import au.org.consumerdatastandards.reflection.ReflectionUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.data.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import net.sf.cglib.beans.BeanGenerator;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Array;
@@ -46,7 +52,7 @@ public class ConformanceUtil {
         List<Field> properties = getAllProperties(model);
         Map<String, Field> propertyMap = buildPropertyMap(properties);
         for (Field modelField : properties) {
-            Object dataFieldValue = getDataFieldValue(data, modelField);
+            Object dataFieldValue = getDataFieldValue(data, modelField.getName());
             Property property = modelField.getAnnotation(Property.class);
             if (property.required() && dataFieldValue == null) {
                 errors.add(new ConformanceError()
@@ -62,7 +68,7 @@ public class ConformanceUtil {
                 Condition condition = requiredIfConditions[0];
                 Field relatedProperty = propertyMap.get(condition.propertyName());
                 if (relatedProperty != null) {
-                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty);
+                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty.getName());
                     boolean conditionsMet = isValueSpecified(relatedPropertyValue, condition.values());
                     if (conditionsMet && dataFieldValue == null) {
                         errors.add(new ConformanceError()
@@ -92,7 +98,7 @@ public class ConformanceUtil {
                 Condition condition = nullIfConditions[0];
                 Field relatedProperty = propertyMap.get(condition.propertyName());
                 if (relatedProperty != null) {
-                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty);
+                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty.getName());
                     boolean conditionsMet = isValueSpecified(relatedPropertyValue, condition.values());
                     if (conditionsMet && dataFieldValue != null) {
                         errors.add(new ConformanceError()
@@ -134,6 +140,11 @@ public class ConformanceUtil {
                 checkAgainstModel(dataFieldValue, modelFieldType, errors);
             }
         }
+        String modelName = model.getSimpleName().replace(GENERATED_CLASS_SUFFIX, "");
+        ModelValidator validator = ModelValidatorRegistry.getModelValidator(modelName);
+        if (validator != null) {
+            errors.addAll(validator.validate(data));
+        }
     }
 
     public static ObjectMapper createObjectMapper() {
@@ -142,7 +153,10 @@ public class ConformanceUtil {
             .registerModule(new SimpleModule().setDeserializerModifier(new CglibBeanDeserializerModifier()))
             .registerModule(new SimpleModule().setSerializerModifier(new CglibBeanSerializerModifier()))
             .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
-            .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+            .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+            .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
+            .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true)
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
     }
 
     private static boolean isValueSpecified(Object relatedPropertyValue, String[] values) {
@@ -242,24 +256,44 @@ public class ConformanceUtil {
             }
         }
         Number min = customDataType.getMin();
-        if (min != null && new BigDecimal(min.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) > 0) {
-            errors.add(new ConformanceError()
-                .errorType(ConformanceError.Type.NUMBER_TOO_SMALL)
-                .cdsDataType(cdsDataType)
-                .dataJson(toJson(data))
-                .errorField(modelField)
-                .errorFieldValue(dataFieldValue)
-            );
+        if (min != null) {
+            if (!NumberUtils.isParsable(dataFieldValue.toString())) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            } else if (new BigDecimal(min.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) > 0) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.NUMBER_TOO_SMALL)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            }
         }
         Number max = customDataType.getMax();
-        if (max != null && new BigDecimal(max.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) < 0) {
-            errors.add(new ConformanceError()
-                .errorType(ConformanceError.Type.NUMBER_TOO_BIG)
-                .cdsDataType(cdsDataType)
-                .dataJson(toJson(data))
-                .errorField(modelField)
-                .errorFieldValue(dataFieldValue)
-            );
+        if (max != null) {
+            if (!NumberUtils.isParsable(dataFieldValue.toString())) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            } else if (new BigDecimal(max.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) < 0) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.NUMBER_TOO_BIG)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            }
         }
         switch (customDataType) {
             case URI:
@@ -348,17 +382,11 @@ public class ConformanceUtil {
         return values;
     }
 
-    private static Object getDataFieldValue(Object data, Field modelField) {
-        String fieldName = modelField.getName();
-        return getDataFieldValue(data, fieldName);
-    }
-
-    private static Object getDataFieldValue(Object data, String fieldName) {
-        if (isGeneratedClass(data.getClass())) {
+    public static Object getDataFieldValue(Object data, String fieldName) {
+        if (isGeneratedClass(data.getClass()) && !fieldName.startsWith(GENERATED_PROPERTY_PREFIX)) {
             fieldName = GENERATED_PROPERTY_PREFIX + fieldName;
         }
         Field dataField = FieldUtils.getField(data.getClass(), fieldName, true);
-        dataField.setAccessible(true);
         Object dataFieldValue;
         try {
             dataFieldValue = dataField.get(data);
