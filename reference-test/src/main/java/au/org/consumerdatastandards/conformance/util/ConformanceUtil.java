@@ -3,6 +3,8 @@ package au.org.consumerdatastandards.conformance.util;
 import au.org.consumerdatastandards.conformance.CglibBeanDeserializerModifier;
 import au.org.consumerdatastandards.conformance.CglibBeanSerializerModifier;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.validator.ModelValidator;
+import au.org.consumerdatastandards.conformance.validator.ModelValidatorRegistry;
 import au.org.consumerdatastandards.reflection.ReflectionUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.data.*;
@@ -49,7 +51,7 @@ public class ConformanceUtil {
         List<Field> properties = getAllProperties(model);
         Map<String, Field> propertyMap = buildPropertyMap(properties);
         for (Field modelField : properties) {
-            Object dataFieldValue = getDataFieldValue(data, modelField);
+            Object dataFieldValue = getDataFieldValue(data, modelField.getName());
             Property property = modelField.getAnnotation(Property.class);
             if (property.required() && dataFieldValue == null) {
                 errors.add(new ConformanceError()
@@ -65,7 +67,7 @@ public class ConformanceUtil {
                 Condition condition = requiredIfConditions[0];
                 Field relatedProperty = propertyMap.get(condition.propertyName());
                 if (relatedProperty != null) {
-                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty);
+                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty.getName());
                     boolean conditionsMet = isValueSpecified(relatedPropertyValue, condition.values());
                     if (conditionsMet && dataFieldValue == null) {
                         errors.add(new ConformanceError()
@@ -95,7 +97,7 @@ public class ConformanceUtil {
                 Condition condition = nullIfConditions[0];
                 Field relatedProperty = propertyMap.get(condition.propertyName());
                 if (relatedProperty != null) {
-                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty);
+                    Object relatedPropertyValue = getDataFieldValue(data, relatedProperty.getName());
                     boolean conditionsMet = isValueSpecified(relatedPropertyValue, condition.values());
                     if (conditionsMet && dataFieldValue != null) {
                         errors.add(new ConformanceError()
@@ -136,6 +138,11 @@ public class ConformanceUtil {
             if (dataFieldValue != null && modelFieldType.isAnnotationPresent(DataDefinition.class)) {
                 checkAgainstModel(dataFieldValue, modelFieldType, errors);
             }
+        }
+        String modelName = model.getSimpleName().replace(GENERATED_CLASS_SUFFIX, "");
+        ModelValidator validator = ModelValidatorRegistry.getModelValidator(modelName);
+        if (validator != null) {
+            errors.addAll(validator.validate(data));
         }
     }
 
@@ -354,13 +361,8 @@ public class ConformanceUtil {
         return values;
     }
 
-    public static Object getDataFieldValue(Object data, Field modelField) {
-        String fieldName = modelField.getName();
-        return getDataFieldValue(data, fieldName);
-    }
-
-    private static Object getDataFieldValue(Object data, String fieldName) {
-        if (isGeneratedClass(data.getClass())) {
+    public static Object getDataFieldValue(Object data, String fieldName) {
+        if (isGeneratedClass(data.getClass()) && !fieldName.startsWith(GENERATED_PROPERTY_PREFIX)) {
             fieldName = GENERATED_PROPERTY_PREFIX + fieldName;
         }
         Field dataField = FieldUtils.getField(data.getClass(), fieldName, true);
