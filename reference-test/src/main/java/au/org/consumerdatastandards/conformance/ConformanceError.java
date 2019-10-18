@@ -75,6 +75,7 @@ public class ConformanceError {
                     errorField.getName().replace(ConformanceUtil.GENERATED_PROPERTY_PREFIX, ""),
                     errorFieldValue, dataType.getName(), dataType.getMax(), dataJson);
             case BROKEN_CONSTRAINT:
+            case REDUNDANT_VALUE:
                 return String.format("%s. See below:\n%s", message, dataJson);
             default:
                 if (!StringUtils.isBlank(message)) return message;

@@ -21,6 +21,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import net.sf.cglib.beans.BeanGenerator;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Array;
@@ -255,24 +256,44 @@ public class ConformanceUtil {
             }
         }
         Number min = customDataType.getMin();
-        if (min != null && new BigDecimal(min.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) > 0) {
-            errors.add(new ConformanceError()
-                .errorType(ConformanceError.Type.NUMBER_TOO_SMALL)
-                .cdsDataType(cdsDataType)
-                .dataJson(toJson(data))
-                .errorField(modelField)
-                .errorFieldValue(dataFieldValue)
-            );
+        if (min != null) {
+            if (!NumberUtils.isParsable(dataFieldValue.toString())) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            } else if (new BigDecimal(min.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) > 0) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.NUMBER_TOO_SMALL)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            }
         }
         Number max = customDataType.getMax();
-        if (max != null && new BigDecimal(max.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) < 0) {
-            errors.add(new ConformanceError()
-                .errorType(ConformanceError.Type.NUMBER_TOO_BIG)
-                .cdsDataType(cdsDataType)
-                .dataJson(toJson(data))
-                .errorField(modelField)
-                .errorFieldValue(dataFieldValue)
-            );
+        if (max != null) {
+            if (!NumberUtils.isParsable(dataFieldValue.toString())) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.PATTERN_NOT_MATCHED)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            } else if (new BigDecimal(max.toString()).compareTo(new BigDecimal(dataFieldValue.toString())) < 0) {
+                errors.add(new ConformanceError()
+                    .errorType(ConformanceError.Type.NUMBER_TOO_BIG)
+                    .cdsDataType(cdsDataType)
+                    .dataJson(toJson(data))
+                    .errorField(modelField)
+                    .errorFieldValue(dataFieldValue)
+                );
+            }
         }
         switch (customDataType) {
             case URI:
