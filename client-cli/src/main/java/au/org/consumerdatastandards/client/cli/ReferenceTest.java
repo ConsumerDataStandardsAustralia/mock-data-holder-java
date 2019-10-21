@@ -16,6 +16,8 @@ import org.springframework.shell.standard.ShellOption;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -77,7 +79,9 @@ public class ReferenceTest {
     }
 
     @ShellMethod("List top-level payload models")
-    public void listPayloadModels() {
+    public String listPayloadModels() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
         Set<String> topLevelModels = new TreeSet<>();
         ConformanceModel conformanceModel = payloadValidator.getConformanceModel();
         for (Class<?> payloadModel : conformanceModel.getPayloadModels()) {
@@ -87,7 +91,8 @@ public class ReferenceTest {
             }
         }
         for (String topLevelModel : topLevelModels) {
-            LOGGER.info(topLevelModel);
+            pw.println(topLevelModel);
         }
+        return sw.toString();
     }
 }
