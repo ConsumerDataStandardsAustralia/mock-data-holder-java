@@ -33,6 +33,10 @@ public class Payload {
             + endpointModel.getEndpoint().path();
     }
 
+    public Type getPayloadType() {
+        return payloadType;
+    }
+
     public enum Type {
 
         REQUEST_BODY,

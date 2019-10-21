@@ -2,6 +2,8 @@ package au.org.consumerdatastandards.client.cli;
 
 import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.ConformanceModel;
+import au.org.consumerdatastandards.conformance.Payload;
 import au.org.consumerdatastandards.conformance.PayloadValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import org.springframework.shell.standard.ShellOption;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @ShellComponent
 @ShellCommandGroup("Reference Testing")
@@ -58,6 +62,21 @@ public class ReferenceTest {
             } else {
                 LOGGER.info("Validation of {} successful", file.getAbsolutePath());
             }
+        }
+    }
+
+    @ShellMethod("List top-level payload models")
+    public void listPayloadModels() {
+        Set<String> topLevelModels = new TreeSet<>();
+        ConformanceModel conformanceModel = payloadValidator.getConformanceModel();
+        for (Class<?> payloadModel : conformanceModel.getPayloadModels()) {
+            Payload.Type payloadType = conformanceModel.getPayload(payloadModel).getPayloadType();
+            if (Payload.Type.RESPONSE_BODY.equals(payloadType)) {
+                topLevelModels.add(payloadModel.getSimpleName());
+            }
+        }
+        for (String topLevelModel : topLevelModels) {
+            LOGGER.info(topLevelModel);
         }
     }
 }
