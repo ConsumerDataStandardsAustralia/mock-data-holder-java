@@ -2,7 +2,10 @@ package au.org.consumerdatastandards.client.cli;
 
 import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.ConformanceModel;
+import au.org.consumerdatastandards.conformance.Payload;
 import au.org.consumerdatastandards.conformance.PayloadValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,11 @@ import org.springframework.shell.standard.ShellOption;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @ShellComponent
 @ShellCommandGroup("Reference Testing")
@@ -40,7 +47,8 @@ public class ReferenceTest {
     }
 
     @ShellMethod("Validate json payload(s) against CDS")
-    public void validatePath(@ShellOption(value = "-f", help = "payload file or folder") String fileOrFolder) throws IOException {
+    public void validatePath(@ShellOption(value = "-f", help = "payload file or folder") String fileOrFolder,
+                             @ShellOption(value="-m", help = "model", defaultValue = "") String model) throws IOException {
         
         File file = new File(fileOrFolder);
         if (!file.exists()) {
@@ -48,10 +56,19 @@ public class ReferenceTest {
         } else if (file.isDirectory()) {
             File[] files = file.listFiles();
             for (File oneFile : files) {
-                payloadValidator.validateFile(new File(oneFile.getAbsolutePath()));
+                if (StringUtils.isBlank(model)) {
+                    payloadValidator.validateFile(new File(oneFile.getAbsolutePath()));
+                } else {
+                    payloadValidator.validateFile(new File(oneFile.getAbsolutePath()), model);
+                }
             }
         } else {
-            List<ConformanceError> payloadErrors = payloadValidator.validateFile(file);
+            List<ConformanceError> payloadErrors = null;
+            if (StringUtils.isBlank(model)) {
+                payloadErrors = payloadValidator.validateFile(file);
+            } else {
+                payloadErrors = payloadValidator.validateFile(file, model);
+            }
             if(!payloadErrors.isEmpty()) {
                 LOGGER.error("Encountered errors while validating: {}",file.getAbsolutePath());
                 payloadErrors.forEach(e -> LOGGER.error("\n" + e.getDescription()));
@@ -59,5 +76,23 @@ public class ReferenceTest {
                 LOGGER.info("Validation of {} successful", file.getAbsolutePath());
             }
         }
+    }
+
+    @ShellMethod("List top-level payload models")
+    public String listPayloadModels() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        Set<String> topLevelModels = new TreeSet<>();
+        ConformanceModel conformanceModel = payloadValidator.getConformanceModel();
+        for (Class<?> payloadModel : conformanceModel.getPayloadModels()) {
+            Payload.Type payloadType = conformanceModel.getPayload(payloadModel).getPayloadType();
+            if (Payload.Type.RESPONSE_BODY.equals(payloadType)) {
+                topLevelModels.add(payloadModel.getSimpleName());
+            }
+        }
+        for (String topLevelModel : topLevelModels) {
+            pw.println(topLevelModel);
+        }
+        return sw.toString();
     }
 }

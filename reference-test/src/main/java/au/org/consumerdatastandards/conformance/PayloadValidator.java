@@ -36,12 +36,29 @@ public class PayloadValidator {
         return conformanceModel.getEndpointVersionMap().get(operationId);
     }
 
+    public ConformanceModel getConformanceModel() {
+        return conformanceModel;
+    }
+
     public List<ConformanceError> validateFile(File jsonFile) {
         LOGGER.info("Validating " + jsonFile.getAbsolutePath());
         byte[] jsonData;
         try {
             jsonData = Files.readAllBytes(Paths.get(jsonFile.getCanonicalPath()));
             return validatePayload(jsonData);
+        } catch (IOException e) {
+            return Collections.singletonList(new ConformanceError().errorMessage(
+                "Failed to load file " + jsonFile.getAbsolutePath()
+            ));
+        }
+    }
+
+    public List<ConformanceError> validateFile(File jsonFile, String modelName) {
+        LOGGER.info("Validating " + jsonFile.getAbsolutePath() + " against model " + modelName);
+        byte[] jsonData;
+        try {
+            jsonData = Files.readAllBytes(Paths.get(jsonFile.getCanonicalPath()));
+            return validatePayload(jsonData, modelName);
         } catch (IOException e) {
             return Collections.singletonList(new ConformanceError().errorMessage(
                 "Failed to load file " + jsonFile.getAbsolutePath()
@@ -82,6 +99,31 @@ public class PayloadValidator {
         return Collections.singletonList(new ConformanceError()
             .errorType(ConformanceError.Type.NO_MATCHING_MODEL)
             .errorMessage("No matching model found"));
+    }
+
+    private List<ConformanceError> validatePayload(byte[] jsonData, String modelName) {
+        Class<?> modelClass = conformanceModel.getPayloadModel(modelName);
+        if (modelClass == null) {
+            return Collections.singletonList(
+                new ConformanceError()
+                    .errorType(ConformanceError.Type.NO_MATCHING_MODEL)
+                    .errorMessage("model '" + modelName + "' cannot be found"));
+        }
+        ObjectMapper objectMapper = createObjectMapper();
+        Payload payload = conformanceModel.getPayload(modelClass);
+        try {
+            Object data = objectMapper.readValue(jsonData, payload.getDataClass());
+            List<ConformanceError> errors = new ArrayList<>();
+            ConformanceUtil.checkAgainstModel(data, modelClass, errors);
+            return errors;
+        } catch (IOException e) {
+            return Collections.singletonList(
+                new ConformanceError()
+                    .errorType(ConformanceError.Type.NO_MATCHING_MODEL)
+                    .errorMessage(
+                        "Failed to read data into model " + modelName +
+                        ". See error message below: \n" + e.getMessage()));
+        }
     }
 
     public List<ConformanceError> validateResponse(String requestUrl, Object response, String operationId, ResponseCode responseCode) {

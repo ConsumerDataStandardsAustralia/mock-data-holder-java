@@ -40,6 +40,7 @@ Common Functions
 Reference Testing
         auto-validate: Validate all Payloads Automatically
         reference-status: Retrieve current reference check status
+        list-payload-models: List top-level payload models
         validate-path: Validate json payload(s) against api-model
 
 Products API
