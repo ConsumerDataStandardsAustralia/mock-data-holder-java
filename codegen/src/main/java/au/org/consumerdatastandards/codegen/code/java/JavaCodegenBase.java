@@ -744,11 +744,24 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.datatype = cp.datatype;
             this.datatypeWithEnum = cp.datatypeWithEnum;
             this.isContainer = cp.isContainer;
+            this.containerType = cp.containerType;
+            this.isBoolean = cp.isBoolean;
+            this.isInherited = cp.isInherited;
+            this.isListContainer = cp.isListContainer;
+            this.isMapContainer = cp.isMapContainer;
+            this.hasMore = cp.hasMore;
             this.required = cp.required;
             this.baseName = cp.baseName;
+            this.name = cp.name;
             this.defaultValue = cp.defaultValue;
             this.isEnum = cp.isEnum;
             this.enumName = cp.enumName;
+            if (cp.isBoolean) {
+                this.getter = toGetter(cp.name);
+            } else {
+                this.getter = cp.getter;
+            }
+            this.setter = cp.setter;
             this.items = cp.items;
             this.allowableValues = cp.allowableValues;
             this.vendorExtensions = cp.vendorExtensions;
