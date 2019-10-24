@@ -4,7 +4,7 @@
     <parent>
         <groupId>au.org.consumerdatastandards</groupId>
         <artifactId>cds-java-artefacts</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-RC3</version>
     </parent>
     <artifactId>data-holder</artifactId>
     <name>Data Holder</name>
