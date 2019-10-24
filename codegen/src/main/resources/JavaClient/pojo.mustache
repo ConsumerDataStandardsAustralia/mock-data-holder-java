@@ -68,7 +68,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
 
   {{/vars}}
     @Override
-    public boolean equals(java.lang.Object o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -85,8 +85,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
     @Override
     public int hashCode() {
         return Objects.hash({{#vars}}
-            {{^isByteArray}}{{^isBinary}}{{name}}{{/isBinary}}{{/isByteArray}}{{#isByteArray}}Arrays.hashCode({{name}}){{/isByteArray}}{{#isBinary}}Arrays.hashCode({{name}}){{/isBinary}}{{#hasMore}},{{/hasMore}}{{/vars}}{{#parent}}{{#hasVars}},{{/hasVars}}super.hashCode(){{/parent}}
-        );
+            {{^isByteArray}}{{^isBinary}}{{name}}{{/isBinary}}{{/isByteArray}}{{#isByteArray}}Arrays.hashCode({{name}}){{/isByteArray}}{{#isBinary}}Arrays.hashCode({{name}}){{/isBinary}}{{#hasMore}},{{/hasMore}}{{/vars}}{{#parent}}{{#hasVars}},{{/hasVars}}super.hashCode(){{/parent}});
     }
 
     @Override
@@ -100,7 +99,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(java.lang.Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }
