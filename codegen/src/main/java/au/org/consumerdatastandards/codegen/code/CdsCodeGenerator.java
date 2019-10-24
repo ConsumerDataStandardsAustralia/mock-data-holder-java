@@ -13,10 +13,15 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.io.File;
 import java.util.*;
 
+import static io.swagger.codegen.CodegenConstants.API_DOCS;
+import static io.swagger.codegen.CodegenConstants.MODEL_DOCS;
+
 public class CdsCodeGenerator extends DefaultGenerator {
 
     public CdsCodeGenerator() {
         this.setGenerateSwaggerMetadata(false);
+        this.setGeneratorPropertyDefault(MODEL_DOCS, "false");
+        this.setGeneratorPropertyDefault(API_DOCS, "false");
     }
 
     @Override

@@ -31,8 +31,7 @@ public class JavaServerGen extends JavaCodegenBase {
     public void processOpts() {
         setJava8Mode(true);
         super.processOpts();
-        modelDocTemplateFiles.remove("model_doc.mustache");
-        apiDocTemplateFiles.remove("api_doc.mustache");
+        modelDocTemplateFiles.clear();
         typeMapping.put("file", "Resource");
         importMapping.put("Resource", "org.springframework.core.io.Resource");
         supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
