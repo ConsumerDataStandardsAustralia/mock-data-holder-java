@@ -685,6 +685,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.mandatory = cm.mandatory;
             this.allMandatory = cm.allMandatory;
             this.hasEnums = cm.hasEnums;
+            this.hasVars = cm.hasVars;
             this.isEnum = cm.isEnum;
             this.isArrayModel = cm.isArrayModel;
             this.hasChildren = cm.hasChildren;
