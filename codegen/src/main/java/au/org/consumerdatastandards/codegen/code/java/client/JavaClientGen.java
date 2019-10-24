@@ -60,6 +60,7 @@ public class JavaClientGen extends JavaCodegenBase {
 
     @Override
     public void postProcessModelProperty(CodegenModel model, CodegenProperty property) {
+        super.postProcessModelProperty(model, property);
         if (!fullJavaUtil) {
             if ("array".equals(property.containerType)) {
                 model.imports.add("ArrayList");
