@@ -16,6 +16,13 @@ import java.util.stream.Collectors;
 
 public abstract class JavaCodegenBase extends AbstractJavaCodegen implements CodeGeneratorConfig {
 
+    protected Map<String, String> cdsTypeMapping = new HashMap<String, String>() {
+        {
+            put("DateString", "LocalDate");
+            put("DateTimeString", "OffsetDateTime");
+        }
+    };
+
     private Map<String, String> modelNameMap = new HashMap<String, String>() {
         {
             put("ResponseErrorList_errors", "Error");
@@ -60,6 +67,11 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
     };
 
+    public JavaCodegenBase() {
+        super();
+        setDateLibrary("java8");
+    }
+
     @Override
     public void addOperationToGroup(String tag, String resourcePath, Operation operation, CodegenOperation co,
                                     Map<String, List<CodegenOperation>> operations) {
@@ -86,6 +98,31 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         String subGroupName = co.tags.get(1).getName();
         String[] parts = groupName.split(" ");
         return parts[0] + sanitizeName(subGroupName).replace("_", "");
+    }
+
+    @Override
+    public String getTypeDeclaration(Property p) {
+        String cdsDataType = getCdsDataType(p);
+        if (cdsDataType != null && cdsTypeMapping.get(cdsDataType) != null) {
+            return cdsTypeMapping.get(cdsDataType);
+        }
+        return super.getTypeDeclaration(p);
+    }
+
+    private String getCdsDataType(Property p) {
+        if (p.getVendorExtensions() == null || p.getVendorExtensions().isEmpty()) {
+            return null;
+        }
+        return p.getVendorExtensions().get(Extension.CDS_TYPE.getKey()).toString();
+    }
+
+    @Override
+    public String getSwaggerType(Property p) {
+        String cdsDataType = getCdsDataType(p);
+        if (cdsDataType != null && cdsTypeMapping.get(cdsDataType) != null) {
+            return cdsTypeMapping.get(cdsDataType);
+        }
+        return super.getSwaggerType(p);
     }
 
     @Override
@@ -772,6 +809,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 if (!StringUtils.isBlank(cdsType)) {
                     this.cdsTypeAnnotation = buildCdsTypeAnnotation(cdsType);
                     this.isCdsType = true;
+
                 }
             }
             this.isSimple = (StringUtils.isBlank(description) && !required);

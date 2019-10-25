@@ -1,10 +1,10 @@
 {{>licenseInfo}}
 package {{package}};
 
-import java.util.Objects;
 {{#imports}}
 import {{import}};
 {{/imports}}
+import java.util.Objects;
 {{#models}}
 {{#model}}
 {{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>pojo}}{{/isEnum}}
