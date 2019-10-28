@@ -16,7 +16,7 @@ public class BaseResponse {
    * related API end points. This will include links to support
    * pagination.
    */
-  private Links links;
+  protected Links links;
 
   /**
    * The meta object is used to provide additional information
@@ -24,7 +24,7 @@ public class BaseResponse {
    * management, pagination counts or other purposes that are
    * complementary to the workings of the API.
    */
-  private Meta meta;
+  protected Object meta;
 
   public Links getLinks() {
     return links;
@@ -34,11 +34,11 @@ public class BaseResponse {
     this.links = links;
   }
 
-  public Meta getMeta() {
+  public Object getMeta() {
     return meta;
   }
 
-  public void setMeta(Meta meta) {
+  public void setMeta(Object meta) {
     this.meta = meta;
   }
 

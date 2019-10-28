@@ -12,190 +12,182 @@ import java.util.Objects;
 
 public class BankingProductDepositRate {
 
-  public enum DepositRateTypeEnum {
-
-    BONUS,
-
-    BUNDLE_BONUS,
-
-    FIXED,
-
-    FLOATING,
-
-    INTRODUCTORY,
-
-    MARKET_LINKED,
-
-    VARIABLE
-  }
-
-  private String additionalInfo;
-
-  private String additionalInfoUri;
-
-  private String additionalValue;
-
-  private String applicationFrequency;
-
-  private String calculationFrequency;
-
-  private DepositRateTypeEnum depositRateType;
-
-  private String rate;
-
-  private List<BankingProductRateTier> tiers;
-
-  /**
-   * Display text providing more information on the rate
-   * @return additionalInfo
-   */
-  public String getAdditionalInfo() {
-    return additionalInfo;
-  }
-
-  public void setAdditionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
-  }
-
-  /**
-   * Link to a web page with more information on this rate
-   * @return additionalInfoUri
-   */
-  public String getAdditionalInfoUri() {
-    return additionalInfoUri;
-  }
-
-  public void setAdditionalInfoUri(String additionalInfoUri) {
-    this.additionalInfoUri = additionalInfoUri;
-  }
-
-  /**
-   * Generic field containing additional information relevant to the [depositRateType](#tocSproductdepositratetypedoc) specified. Whether mandatory or not is dependent on the value of [depositRateType](#tocSproductdepositratetypedoc)
-   * @return additionalValue
-   */
-  public String getAdditionalValue() {
-    return additionalValue;
-  }
-
-  public void setAdditionalValue(String additionalValue) {
-    this.additionalValue = additionalValue;
-  }
-
-  /**
-   * The period after which the calculated amount(s) (see calculationFrequency) are &#39;applied&#39; (i.e. debited or credited) to the account. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
-   * @return applicationFrequency
-   */
-  public String getApplicationFrequency() {
-    return applicationFrequency;
-  }
-
-  public void setApplicationFrequency(String applicationFrequency) {
-    this.applicationFrequency = applicationFrequency;
-  }
-
-  /**
-   * The period after which the rate is applied to the balance to calculate the amount due for the period. Calculation of the amount is often daily (as balances may change) but accumulated until the total amount is &#39;applied&#39; to the account (see applicationFrequency). Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
-   * @return calculationFrequency
-   */
-  public String getCalculationFrequency() {
-    return calculationFrequency;
-  }
-
-  public void setCalculationFrequency(String calculationFrequency) {
-    this.calculationFrequency = calculationFrequency;
-  }
-
-  /**
-   * Get depositRateType
-   * @return depositRateType
-   */
-  public DepositRateTypeEnum getDepositRateType() {
-    return depositRateType;
-  }
-
-  public void setDepositRateType(DepositRateTypeEnum depositRateType) {
-    this.depositRateType = depositRateType;
-  }
-
-  /**
-   * The rate to be applied
-   * @return rate
-   */
-  public String getRate() {
-    return rate;
-  }
-
-  public void setRate(String rate) {
-    this.rate = rate;
-  }
-
-  /**
-   * Rate tiers applicable for this rate
-   * @return tiers
-  */
-  public List<BankingProductRateTier> getTiers() {
-    return tiers;
-  }
-
-  public void setTiers(List<BankingProductRateTier> tiers) {
-    this.tiers = tiers;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public enum DepositRateType {
+        BONUS,
+        BUNDLE_BONUS,
+        FIXED,
+        FLOATING,
+        INTRODUCTORY,
+        MARKET_LINKED,
+        VARIABLE
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private String additionalInfo;
+
+    private String additionalInfoUri;
+
+    private String additionalValue;
+
+    private String applicationFrequency;
+
+    private String calculationFrequency;
+
+    private DepositRateType depositRateType;
+
+    private String rate;
+
+    private List<BankingProductRateTier> tiers;
+
+    /**
+     * Display text providing more information on the rate
+     * @return additionalInfo
+     */
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
-    BankingProductDepositRate bankingProductDepositRate = (BankingProductDepositRate) o;
-    return Objects.equals(this.additionalInfo, bankingProductDepositRate.additionalInfo) &&
-        Objects.equals(this.additionalInfoUri, bankingProductDepositRate.additionalInfoUri) &&
-        Objects.equals(this.additionalValue, bankingProductDepositRate.additionalValue) &&
-        Objects.equals(this.applicationFrequency, bankingProductDepositRate.applicationFrequency) &&
-        Objects.equals(this.calculationFrequency, bankingProductDepositRate.calculationFrequency) &&
-        Objects.equals(this.depositRateType, bankingProductDepositRate.depositRateType) &&
-        Objects.equals(this.rate, bankingProductDepositRate.rate) &&
-        Objects.equals(this.tiers, bankingProductDepositRate.tiers);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        additionalInfo,
-        additionalInfoUri,
-        additionalValue,
-        applicationFrequency,
-        calculationFrequency,
-        depositRateType,
-        rate,
-        tiers);
-  }
-
-
-  @Override
-  public String toString() {
-    return "class BankingProductDepositRate {\n" +
-        "    additionalInfo: " + toIndentedString(additionalInfo) + "\n" +
-        "    additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" +
-        "    additionalValue: " + toIndentedString(additionalValue) + "\n" +
-        "    applicationFrequency: " + toIndentedString(applicationFrequency) + "\n" +
-        "    calculationFrequency: " + toIndentedString(calculationFrequency) + "\n" +
-        "    depositRateType: " + toIndentedString(depositRateType) + "\n" +
-        "    rate: " + toIndentedString(rate) + "\n" +
-        "    tiers: " + toIndentedString(tiers) + "\n" +
-        "}";
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Link to a web page with more information on this rate
+     * @return additionalInfoUri
+     */
+    public String getAdditionalInfoUri() {
+        return additionalInfoUri;
+    }
+
+    public void setAdditionalInfoUri(String additionalInfoUri) {
+        this.additionalInfoUri = additionalInfoUri;
+    }
+
+    /**
+     * Generic field containing additional information relevant to the [depositRateType](#tocSproductdepositratetypedoc) specified. Whether mandatory or not is dependent on the value of [depositRateType](#tocSproductdepositratetypedoc)
+     * @return additionalValue
+     */
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
+
+    /**
+     * The period after which the calculated amount(s) (see calculationFrequency) are &#39;applied&#39; (i.e. debited or credited) to the account. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
+     * @return applicationFrequency
+     */
+    public String getApplicationFrequency() {
+        return applicationFrequency;
+    }
+
+    public void setApplicationFrequency(String applicationFrequency) {
+        this.applicationFrequency = applicationFrequency;
+    }
+
+    /**
+     * The period after which the rate is applied to the balance to calculate the amount due for the period. Calculation of the amount is often daily (as balances may change) but accumulated until the total amount is &#39;applied&#39; to the account (see applicationFrequency). Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
+     * @return calculationFrequency
+     */
+    public String getCalculationFrequency() {
+        return calculationFrequency;
+    }
+
+    public void setCalculationFrequency(String calculationFrequency) {
+        this.calculationFrequency = calculationFrequency;
+    }
+
+    /**
+     * Get depositRateType
+     * @return depositRateType
+     */
+    public DepositRateType getDepositRateType() {
+        return depositRateType;
+    }
+
+    public void setDepositRateType(DepositRateType depositRateType) {
+        this.depositRateType = depositRateType;
+    }
+
+    /**
+     * The rate to be applied
+     * @return rate
+     */
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    /**
+     * Rate tiers applicable for this rate
+     * @return tiers
+     */
+    public List<BankingProductRateTier> getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(List<BankingProductRateTier> tiers) {
+        this.tiers = tiers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BankingProductDepositRate bankingProductDepositRate = (BankingProductDepositRate) o;
+        return Objects.equals(this.additionalInfo, bankingProductDepositRate.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductDepositRate.additionalInfoUri) &&
+            Objects.equals(this.additionalValue, bankingProductDepositRate.additionalValue) &&
+            Objects.equals(this.applicationFrequency, bankingProductDepositRate.applicationFrequency) &&
+            Objects.equals(this.calculationFrequency, bankingProductDepositRate.calculationFrequency) &&
+            Objects.equals(this.depositRateType, bankingProductDepositRate.depositRateType) &&
+            Objects.equals(this.rate, bankingProductDepositRate.rate) &&
+            Objects.equals(this.tiers, bankingProductDepositRate.tiers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            additionalInfo,
+            additionalInfoUri,
+            additionalValue,
+            applicationFrequency,
+            calculationFrequency,
+            depositRateType,
+            rate,
+            tiers);
+    }
+
+    @Override
+    public String toString() {
+        return "class BankingProductDepositRate {\n" +
+            "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
+            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
+            "   applicationFrequency: " + toIndentedString(applicationFrequency) + "\n" + 
+            "   calculationFrequency: " + toIndentedString(calculationFrequency) + "\n" + 
+            "   depositRateType: " + toIndentedString(depositRateType) + "\n" + 
+            "   rate: " + toIndentedString(rate) + "\n" + 
+            "   tiers: " + toIndentedString(tiers) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

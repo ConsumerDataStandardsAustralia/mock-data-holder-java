@@ -456,9 +456,11 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 RefProperty refProperty = (RefProperty) property;
                 if (refProperty.getSimpleRef().equals("Links")) {
                     codegenModel.isBaseResponse = true;
+                    codegenModel.parent = "BaseResponse";
                     codegenModel.importingBaseResponse = !"common".equals(subPackage);
                 } else if (refProperty.getSimpleRef().equals("LinksPaginated")) {
                     codegenModel.isPaginatedResponse = true;
+                    codegenModel.parent = "PaginatedResponse";
                     codegenModel.importingPaginatedResponse = !"common".equals(subPackage);
                 }
             }
@@ -466,15 +468,30 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         if (model instanceof ComposedModel) {
             Model child = ((ComposedModel) model).getChild();
             codegenModel.vendorExtensions.putAll(child.getVendorExtensions());
+            codegenModel.parent = ((ComposedModel) model).getInterfaces().get(0).getSimpleRef();
         }
+        codegenModel.imports.clear();
         for (CodegenProperty cp : codegenModel.vars) {
             if (cp.isEnum && isEnumTypeInternal(cp, codegenModel)) {
                 codegenModel._enums.add(cp);
             } else if (cp.items != null && cp.items.isEnum && isEnumTypeInternal(cp.items, codegenModel)) {
                 codegenModel._enums.add(cp.items);
             }
+            if (!cp.isInherited) {
+                codegenModel.nonInheritedVars.add(cp);
+                if (cp.isContainer) {
+                    addImport(codegenModel, typeMapping.get("array"));
+                }
+                addImport(codegenModel, cp.baseType);
+                CodegenProperty innerCp = cp;
+                while(innerCp != null) {
+                    addImport(codegenModel, innerCp.complexType);
+                    innerCp = innerCp.items;
+                }
+            }
         }
         codegenModel.imports.remove("ApiModel");
+        codegenModel.imports.remove("ArrayList");
         return codegenModel;
     }
 
@@ -563,11 +580,17 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
     }
 
-
     @Override
     public Map<String, Object> postProcessModels(Map<String, Object> objs) {
         super.postProcessModels(objs);
         postProcessImports(objs);
+        List<Object> models = (List<Object>)objs.get("models");
+        CdsCodegenModel model = null;
+        if (models != null) {
+            Map<String, Object> map = (Map<String, Object>)models.get(0);
+            model = (CdsCodegenModel) map.get("model");
+        }
+        objs.put("isEnum", model != null && model.isEnum);
         objs.put("openBracket", "{");
         objs.put("closeBracket", "}");
         return objs;
@@ -699,6 +722,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         public boolean importingPaginatedResponse;
         public boolean isBaseResponse;
         public boolean isPaginatedResponse;
+        public List<CodegenProperty> nonInheritedVars = new ArrayList<>();
         public List<CodegenProperty> _enums = new ArrayList<>();
         public String subPackage;
 
@@ -720,6 +744,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.optionalVars = cm.optionalVars;
             this.allowableValues = cm.allowableValues;
             this.mandatory = cm.mandatory;
+            this.parent = cm.parent;
             this.allMandatory = cm.allMandatory;
             this.hasEnums = cm.hasEnums;
             this.hasVars = cm.hasVars;
@@ -809,7 +834,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 if (!StringUtils.isBlank(cdsType)) {
                     this.cdsTypeAnnotation = buildCdsTypeAnnotation(cdsType);
                     this.isCdsType = true;
-
+                    this.baseType = this.datatype;
                 }
             }
             this.isSimple = (StringUtils.isBlank(description) && !required);
