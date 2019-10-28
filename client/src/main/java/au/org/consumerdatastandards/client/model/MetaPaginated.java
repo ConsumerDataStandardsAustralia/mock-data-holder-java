@@ -11,74 +11,70 @@ import java.util.Objects;
 
 public class MetaPaginated {
 
-  private Integer totalPages;
+    private Integer totalPages;
 
-  private Integer totalRecords;
+    private Integer totalRecords;
 
-  /**
-   * The total number of pages in the full set
-   * minimum: 0
-   * maximum: 2147483647
-   * @return totalPages
-   */
-  public Integer getTotalPages() {
-    return totalPages;
-  }
-
-  public void setTotalPages(Integer totalPages) {
-    this.totalPages = totalPages;
-  }
-
-  /**
-   * The total number of records in the full set
-   * minimum: 0
-   * maximum: 2147483647
-   * @return totalRecords
-   */
-  public Integer getTotalRecords() {
-    return totalRecords;
-  }
-
-  public void setTotalRecords(Integer totalRecords) {
-    this.totalRecords = totalRecords;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * The total number of pages in the full set. See [pagination](#pagination).
+     * @return totalPages
+     */
+    public Integer getTotalPages() {
+        return totalPages;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
-    MetaPaginated metaPaginated = (MetaPaginated) o;
-    return Objects.equals(this.totalPages, metaPaginated.totalPages) &&
-        Objects.equals(this.totalRecords, metaPaginated.totalRecords);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        totalPages,
-        totalRecords);
-  }
-
-  @Override
-  public String toString() {
-    return "class MetaPaginated {\n" +
-        "    totalPages: " + toIndentedString(totalPages) + "\n" +
-        "    totalRecords: " + toIndentedString(totalRecords) + "\n" +
-        "}";
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * The total number of records in the full set. See [pagination](#pagination).
+     * @return totalRecords
+     */
+    public Integer getTotalRecords() {
+        return totalRecords;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setTotalRecords(Integer totalRecords) {
+        this.totalRecords = totalRecords;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MetaPaginated metaPaginated = (MetaPaginated) o;
+        return Objects.equals(this.totalPages, metaPaginated.totalPages) &&
+            Objects.equals(this.totalRecords, metaPaginated.totalRecords);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            totalPages,
+            totalRecords);
+    }
+
+    @Override
+    public String toString() {
+        return "class MetaPaginated {\n" +
+            "   totalPages: " + toIndentedString(totalPages) + "\n" + 
+            "   totalRecords: " + toIndentedString(totalRecords) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

@@ -7,369 +7,174 @@
  */
 package au.org.consumerdatastandards.client.model;
 
-import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 
-/**
- * BankingProductDetail
- */
-public class BankingProductDetail {
+public class BankingProductDetail extends BankingProduct {
 
-  private BankingProductAdditionalInformation additionalInformation = null;
+    private List<BankingProductBundle> bundles;
 
-  private String applicationUri;
+    private List<BankingProductConstraint> constraints;
 
-  private String brand;
+    private List<BankingProductDepositRate> depositRates;
 
-  private String brandName;
+    private List<BankingProductEligibility> eligibility;
 
-  private String description;
+    private List<BankingProductFeature> features;
 
-  private OffsetDateTime effectiveFrom;
+    private List<BankingProductFee> fees;
 
-  private OffsetDateTime effectiveTo;
+    private List<BankingProductLendingRate> lendingRates;
 
-  private Boolean isTailored;
-
-  private OffsetDateTime lastUpdated;
-
-  private String name;
-
-  private BankingProductCategory productCategory;
-
-  private String productId;
-
-  private List<BankingProductBundle> bundles;
-
-  private List<BankingProductConstraint> constraints;
-
-  private List<BankingProductDepositRate> depositRates;
-
-  private List<BankingProductEligibility> eligibility;
-
-  private List<BankingProductFeature> features;
-
-  private List<BankingProductFee> fees;
-
-  private List<BankingProductLendingRate> lendingRates;
-
-  /**
-   * Get additionalInformation
-   * @return additionalInformation
-   */
-  public BankingProductAdditionalInformation getAdditionalInformation() {
-    return additionalInformation;
-  }
-
-  public void setAdditionalInformation(BankingProductAdditionalInformation additionalInformation) {
-    this.additionalInformation = additionalInformation;
-  }
-
-  /**
-   * A link to an application web page where this product can be applied for.
-   * @return applicationUri
-   */
-  public String getApplicationUri() {
-    return applicationUri;
-  }
-
-  public void setApplicationUri(String applicationUri) {
-    this.applicationUri = applicationUri;
-  }
-
-  /**
-   * A label of the brand for the product. Able to be used for filtering. For data providers with single brands this value is still required
-   * @return brand
-   */
-  public String getBrand() {
-    return brand;
-  }
-
-  public void setBrand(String brand) {
-    this.brand = brand;
-  }
-
-  /**
-   * An optional display name of the brand
-   * @return brandName
-   */
-  public String getBrandName() {
-    return brandName;
-  }
-
-  public void setBrandName(String brandName) {
-    this.brandName = brandName;
-  }
-
-  /**
-   * A description of the product
-   * @return description
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate
-   * @return effectiveFrom
-   */
-  public OffsetDateTime getEffectiveFrom() {
-    return effectiveFrom;
-  }
-
-  public void setEffectiveFrom(OffsetDateTime effectiveFrom) {
-    this.effectiveFrom = effectiveFrom;
-  }
-
-  /**
-   * The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products
-   * @return effectiveTo
-   */
-  public OffsetDateTime getEffectiveTo() {
-    return effectiveTo;
-  }
-
-  public void setEffectiveTo(OffsetDateTime effectiveTo) {
-    this.effectiveTo = effectiveTo;
-  }
-
-  /**
-   * Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable
-   * @return isTailored
-   */
-  public Boolean getIsTailored() {
-    return isTailored;
-  }
-
-  public void setIsTailored(Boolean isTailored) {
-    this.isTailored = isTailored;
-  }
-
-  /**
-   * The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)
-   * @return lastUpdated
-   */
-  public OffsetDateTime getLastUpdated() {
-    return lastUpdated;
-  }
-
-  public void setLastUpdated(OffsetDateTime lastUpdated) {
-    this.lastUpdated = lastUpdated;
-  }
-
-  /**
-   * The display name of the product
-   * @return name
-   */
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Get productCategory
-   * @return productCategory
-   */
-  public BankingProductCategory getProductCategory() {
-    return productCategory;
-  }
-
-  public void setProductCategory(BankingProductCategory productCategory) {
-    this.productCategory = productCategory;
-  }
-
-  /**
-   * A provider specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
-   * @return productId
-   */
-  public String getProductId() {
-    return productId;
-  }
-
-  public void setProductId(String productId) {
-    this.productId = productId;
-  }
-
-  /**
-   * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
-   * @return bundles
-   */
-  public List<BankingProductBundle> getBundles() {
-    return bundles;
-  }
-
-  public void setBundles(List<BankingProductBundle> bundles) {
-    this.bundles = bundles;
-  }
-
-  /**
-   * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
-   * @return constraints
-   */
-  public List<BankingProductConstraint> getConstraints() {
-    return constraints;
-  }
-
-  public void setConstraints(List<BankingProductConstraint> constraints) {
-    this.constraints = constraints;
-  }
-
-  /**
-   * Interest rates available for deposits
-   * @return depositRates
-   */
-  public List<BankingProductDepositRate> getDepositRates() {
-    return depositRates;
-  }
-
-  public void setDepositRates(List<BankingProductDepositRate> depositRates) {
-    this.depositRates = depositRates;
-  }
-
-  /**
-   * Eligibility criteria for the product
-   * @return eligibility
-   */
-  public List<BankingProductEligibility> getEligibility() {
-    return eligibility;
-  }
-
-  public void setEligibility(List<BankingProductEligibility> eligibility) {
-    this.eligibility = eligibility;
-  }
-
-  /**
-   * Array of features available for the product
-   * @return features
-   */
-  public List<BankingProductFeature> getFeatures() {
-    return features;
-  }
-
-  public void setFeatures(List<BankingProductFeature> features) {
-    this.features = features;
-  }
-
-  /**
-   * Fees applicable for the product
-   * @return fees
-   */
-  public List<BankingProductFee> getFees() {
-    return fees;
-  }
-
-  public void setFees(List<BankingProductFee> fees) {
-    this.fees = fees;
-  }
-
-  /**
-   * Interest rates charged against lending balances
-   * @return lendingRates
-   */
-  public List<BankingProductLendingRate> getLendingRates() {
-    return lendingRates;
-  }
-
-  public void setLendingRates(List<BankingProductLendingRate> lendingRates) {
-    this.lendingRates = lendingRates;
-  }
-  
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
+     * @return bundles
+     */
+    public List<BankingProductBundle> getBundles() {
+        return bundles;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public void setBundles(List<BankingProductBundle> bundles) {
+        this.bundles = bundles;
     }
-    BankingProductDetail bankingProductDetail = (BankingProductDetail) o;
-    return Objects.equals(this.additionalInformation, bankingProductDetail.additionalInformation) &&
-        Objects.equals(this.applicationUri, bankingProductDetail.applicationUri) &&
-        Objects.equals(this.brand, bankingProductDetail.brand) &&
-        Objects.equals(this.brandName, bankingProductDetail.brandName) &&
-        Objects.equals(this.description, bankingProductDetail.description) &&
-        Objects.equals(this.effectiveFrom, bankingProductDetail.effectiveFrom) &&
-        Objects.equals(this.effectiveTo, bankingProductDetail.effectiveTo) &&
-        Objects.equals(this.isTailored, bankingProductDetail.isTailored) &&
-        Objects.equals(this.lastUpdated, bankingProductDetail.lastUpdated) &&
-        Objects.equals(this.name, bankingProductDetail.name) &&
-        Objects.equals(this.productCategory, bankingProductDetail.productCategory) &&
-        Objects.equals(this.productId, bankingProductDetail.productId) &&
-        Objects.equals(this.bundles, bankingProductDetail.bundles) &&
-        Objects.equals(this.constraints, bankingProductDetail.constraints) &&
-        Objects.equals(this.depositRates, bankingProductDetail.depositRates) &&
-        Objects.equals(this.eligibility, bankingProductDetail.eligibility) &&
-        Objects.equals(this.features, bankingProductDetail.features) &&
-        Objects.equals(this.fees, bankingProductDetail.fees) &&
-        Objects.equals(this.lendingRates, bankingProductDetail.lendingRates);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        additionalInformation,
-        applicationUri,
-        brand,
-        brandName,
-        description,
-        effectiveFrom,
-        effectiveTo,
-        isTailored,
-        lastUpdated,
-        name,
-        productCategory,
-        productId,
-        bundles,
-        constraints,
-        depositRates,
-        eligibility,
-        features,
-        fees,
-        lendingRates);
-  }
-
-
-  @Override
-  public String toString() {
-    return "class BankingProductDetail {\n" +
-        "    additionalInformation: " + toIndentedString(additionalInformation) + "\n" +
-        "    applicationUri: " + toIndentedString(applicationUri) + "\n" +
-        "    brand: " + toIndentedString(brand) + "\n" +
-        "    brandName: " + toIndentedString(brandName) + "\n" +
-        "    description: " + toIndentedString(description) + "\n" +
-        "    effectiveFrom: " + toIndentedString(effectiveFrom) + "\n" +
-        "    effectiveTo: " + toIndentedString(effectiveTo) + "\n" +
-        "    isTailored: " + toIndentedString(isTailored) + "\n" +
-        "    lastUpdated: " + toIndentedString(lastUpdated) + "\n" +
-        "    name: " + toIndentedString(name) + "\n" +
-        "    productCategory: " + toIndentedString(productCategory) + "\n" +
-        "    productId: " + toIndentedString(productId) + "\n" +
-        "    bundles: " + toIndentedString(bundles) + "\n" +
-        "    constraints: " + toIndentedString(constraints) + "\n" +
-        "    depositRates: " + toIndentedString(depositRates) + "\n" +
-        "    eligibility: " + toIndentedString(eligibility) + "\n" +
-        "    features: " + toIndentedString(features) + "\n" +
-        "    fees: " + toIndentedString(fees) + "\n" +
-        "    lendingRates: " + toIndentedString(lendingRates) + "\n" +
-        "}";
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
+     * @return constraints
+     */
+    public List<BankingProductConstraint> getConstraints() {
+        return constraints;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setConstraints(List<BankingProductConstraint> constraints) {
+        this.constraints = constraints;
+    }
+
+    /**
+     * Interest rates available for deposits
+     * @return depositRates
+     */
+    public List<BankingProductDepositRate> getDepositRates() {
+        return depositRates;
+    }
+
+    public void setDepositRates(List<BankingProductDepositRate> depositRates) {
+        this.depositRates = depositRates;
+    }
+
+    /**
+     * Eligibility criteria for the product
+     * @return eligibility
+     */
+    public List<BankingProductEligibility> getEligibility() {
+        return eligibility;
+    }
+
+    public void setEligibility(List<BankingProductEligibility> eligibility) {
+        this.eligibility = eligibility;
+    }
+
+    /**
+     * Array of features available for the product
+     * @return features
+     */
+    public List<BankingProductFeature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<BankingProductFeature> features) {
+        this.features = features;
+    }
+
+    /**
+     * Fees applicable for the product
+     * @return fees
+     */
+    public List<BankingProductFee> getFees() {
+        return fees;
+    }
+
+    public void setFees(List<BankingProductFee> fees) {
+        this.fees = fees;
+    }
+
+    /**
+     * Interest rates charged against lending balances
+     * @return lendingRates
+     */
+    public List<BankingProductLendingRate> getLendingRates() {
+        return lendingRates;
+    }
+
+    public void setLendingRates(List<BankingProductLendingRate> lendingRates) {
+        this.lendingRates = lendingRates;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BankingProductDetail bankingProductDetail = (BankingProductDetail) o;
+        return Objects.equals(this.bundles, bankingProductDetail.bundles) &&
+            Objects.equals(this.constraints, bankingProductDetail.constraints) &&
+            Objects.equals(this.depositRates, bankingProductDetail.depositRates) &&
+            Objects.equals(this.eligibility, bankingProductDetail.eligibility) &&
+            Objects.equals(this.features, bankingProductDetail.features) &&
+            Objects.equals(this.fees, bankingProductDetail.fees) &&
+            Objects.equals(this.lendingRates, bankingProductDetail.lendingRates) &&
+            super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            bundles,
+            constraints,
+            depositRates,
+            eligibility,
+            features,
+            fees,
+            lendingRates,
+            super.hashCode());
+    }
+
+    @Override
+    public String toString() {
+        return "class BankingProductDetail {\n" +
+            "   additionalInformation: " + toIndentedString(getAdditionalInformation()) + "\n" + 
+            "   applicationUri: " + toIndentedString(getApplicationUri()) + "\n" + 
+            "   brand: " + toIndentedString(getBrand()) + "\n" + 
+            "   brandName: " + toIndentedString(getBrandName()) + "\n" + 
+            "   description: " + toIndentedString(getDescription()) + "\n" + 
+            "   effectiveFrom: " + toIndentedString(getEffectiveFrom()) + "\n" + 
+            "   effectiveTo: " + toIndentedString(getEffectiveTo()) + "\n" + 
+            "   isTailored: " + toIndentedString(getIsTailored()) + "\n" + 
+            "   lastUpdated: " + toIndentedString(getLastUpdated()) + "\n" + 
+            "   name: " + toIndentedString(getName()) + "\n" + 
+            "   productCategory: " + toIndentedString(getProductCategory()) + "\n" + 
+            "   productId: " + toIndentedString(getProductId()) + "\n" + 
+            "   bundles: " + toIndentedString(bundles) + "\n" + 
+            "   constraints: " + toIndentedString(constraints) + "\n" + 
+            "   depositRates: " + toIndentedString(depositRates) + "\n" + 
+            "   eligibility: " + toIndentedString(eligibility) + "\n" + 
+            "   features: " + toIndentedString(features) + "\n" + 
+            "   fees: " + toIndentedString(fees) + "\n" + 
+            "   lendingRates: " + toIndentedString(lendingRates) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

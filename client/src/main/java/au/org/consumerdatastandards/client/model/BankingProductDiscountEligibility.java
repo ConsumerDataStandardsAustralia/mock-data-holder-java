@@ -10,136 +10,121 @@ package au.org.consumerdatastandards.client.model;
 import java.util.Objects;
 
 public class BankingProductDiscountEligibility {
-  private String additionalInfo;
 
-  private String additionalInfoUri;
-
-  private String additionalValue;
-
-  /**
-   * Gets or Sets discountEligibilityType
-   */
-  public enum DiscountEligibilityTypeEnum {
-    BUSINESS,
-    
-    EMPLOYMENT_STATUS,
-    
-    INTRODUCTORY,
-    
-    MAX_AGE,
-    
-    MIN_AGE,
-    
-    MIN_INCOME,
-    
-    MIN_TURNOVER,
-    
-    NATURAL_PERSON,
-    
-    OTHER,
-    
-    PENSION_RECIPIENT,
-    
-    RESIDENCY_STATUS,
-    
-    STAFF,
-    
-    STUDENT
-  }
-
-  private DiscountEligibilityTypeEnum discountEligibilityType;
-
-  /**
-   * Display text providing more information on this eligibility constraint
-   * @return additionalInfo
-   */
-  public String getAdditionalInfo() {
-    return additionalInfo;
-  }
-
-  public void setAdditionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
-  }
-
-  /**
-   * Link to a web page with more information on this eligibility constraint
-   * @return additionalInfoUri
-   */
-  public String getAdditionalInfoUri() {
-    return additionalInfoUri;
-  }
-
-  public void setAdditionalInfoUri(String additionalInfoUri) {
-    this.additionalInfoUri = additionalInfoUri;
-  }
-
-  /**
-   * Generic field containing additional information relevant to the [discountEligibilityType](#tocSproductdiscounteligibilitydoc) specified. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
-   * @return additionalValue
-   */
-  public String getAdditionalValue() {
-    return additionalValue;
-  }
-
-  public void setAdditionalValue(String additionalValue) {
-    this.additionalValue = additionalValue;
-  }
-
-  /**
-   * Get discountEligibilityType
-   * @return discountEligibilityType
-   */
-  public DiscountEligibilityTypeEnum getDiscountEligibilityType() {
-    return discountEligibilityType;
-  }
-
-  public void setDiscountEligibilityType(DiscountEligibilityTypeEnum discountEligibilityType) {
-    this.discountEligibilityType = discountEligibilityType;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public enum DiscountEligibilityType {
+        BUSINESS,
+        EMPLOYMENT_STATUS,
+        INTRODUCTORY,
+        MAX_AGE,
+        MIN_AGE,
+        MIN_INCOME,
+        MIN_TURNOVER,
+        NATURAL_PERSON,
+        OTHER,
+        PENSION_RECIPIENT,
+        RESIDENCY_STATUS,
+        STAFF,
+        STUDENT
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private String additionalInfo;
+
+    private String additionalInfoUri;
+
+    private String additionalValue;
+
+    private DiscountEligibilityType discountEligibilityType;
+
+    /**
+     * Display text providing more information on this eligibility constraint
+     * @return additionalInfo
+     */
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
-    BankingProductDiscountEligibility bankingProductDiscountEligibility = (BankingProductDiscountEligibility) o;
-    return Objects.equals(this.additionalInfo, bankingProductDiscountEligibility.additionalInfo) &&
-        Objects.equals(this.additionalInfoUri, bankingProductDiscountEligibility.additionalInfoUri) &&
-        Objects.equals(this.additionalValue, bankingProductDiscountEligibility.additionalValue) &&
-        Objects.equals(this.discountEligibilityType, bankingProductDiscountEligibility.discountEligibilityType);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        additionalInfo,
-        additionalInfoUri,
-        additionalValue,
-        discountEligibilityType);
-  }
-
-
-  @Override
-  public String toString() {
-    return "class BankingProductDiscountEligibility {\n" +
-        "    additionalInfo: " + toIndentedString(additionalInfo) + "\n" +
-        "    additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" +
-        "    additionalValue: " + toIndentedString(additionalValue) + "\n" +
-        "    discountEligibilityType: " + toIndentedString(discountEligibilityType) + "\n" +
-        "}";
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Link to a web page with more information on this eligibility constraint
+     * @return additionalInfoUri
+     */
+    public String getAdditionalInfoUri() {
+        return additionalInfoUri;
+    }
+
+    public void setAdditionalInfoUri(String additionalInfoUri) {
+        this.additionalInfoUri = additionalInfoUri;
+    }
+
+    /**
+     * Generic field containing additional information relevant to the [discountEligibilityType](#tocSproductdiscounteligibilitydoc) specified. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
+     * @return additionalValue
+     */
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
+
+    /**
+     * Get discountEligibilityType
+     * @return discountEligibilityType
+     */
+    public DiscountEligibilityType getDiscountEligibilityType() {
+        return discountEligibilityType;
+    }
+
+    public void setDiscountEligibilityType(DiscountEligibilityType discountEligibilityType) {
+        this.discountEligibilityType = discountEligibilityType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BankingProductDiscountEligibility bankingProductDiscountEligibility = (BankingProductDiscountEligibility) o;
+        return Objects.equals(this.additionalInfo, bankingProductDiscountEligibility.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductDiscountEligibility.additionalInfoUri) &&
+            Objects.equals(this.additionalValue, bankingProductDiscountEligibility.additionalValue) &&
+            Objects.equals(this.discountEligibilityType, bankingProductDiscountEligibility.discountEligibilityType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            additionalInfo,
+            additionalInfoUri,
+            additionalValue,
+            discountEligibilityType);
+    }
+
+    @Override
+    public String toString() {
+        return "class BankingProductDiscountEligibility {\n" +
+            "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
+            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
+            "   discountEligibilityType: " + toIndentedString(discountEligibilityType) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

@@ -4,7 +4,7 @@ package {{package}};
 {{#imports}}
 import {{import}};
 {{/imports}}
-import java.util.Objects;
+{{^isEnum}}import java.util.Objects;{{/isEnum}}
 {{#models}}
 {{#model}}
 {{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>pojo}}{{/isEnum}}
