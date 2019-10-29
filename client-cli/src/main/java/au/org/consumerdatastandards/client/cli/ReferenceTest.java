@@ -55,16 +55,16 @@ public class ReferenceTest {
             LOGGER.error("Unable to find the specified file for validation: {}", fileOrFolder);
         } else if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (File oneFile : files) {
-                validatePath(oneFile.getAbsolutePath(), model);
+            if (files == null || files.length == 0) {
+                LOGGER.error("No files found in directory: {}", file.getAbsolutePath());
+            } else {
+                for (File oneFile : files) {
+                    validatePath(oneFile.getAbsolutePath(), model);
+                }
             }
         } else {
-            List<ConformanceError> payloadErrors;
-            if (StringUtils.isBlank(model)) {
-                payloadErrors = payloadValidator.validateFile(file);
-            } else {
-                payloadErrors = payloadValidator.validateFile(file, model);
-            }
+            List<ConformanceError> payloadErrors = StringUtils.isBlank(model) ?
+                payloadValidator.validateFile(file) : payloadValidator.validateFile(file, model);
             if(!payloadErrors.isEmpty()) {
                 LOGGER.error("Encountered errors while validating: {}",file.getAbsolutePath());
                 for(int i = 0; i < payloadErrors.size(); i++ ) {
