@@ -55,23 +55,21 @@ public class ReferenceTest {
             LOGGER.error("Unable to find the specified file for validation: {}", fileOrFolder);
         } else if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (File oneFile : files) {
-                if (StringUtils.isBlank(model)) {
-                    payloadValidator.validateFile(new File(oneFile.getAbsolutePath()));
-                } else {
-                    payloadValidator.validateFile(new File(oneFile.getAbsolutePath()), model);
+            if (files == null || files.length == 0) {
+                LOGGER.error("No files found in directory: {}", file.getAbsolutePath());
+            } else {
+                for (File oneFile : files) {
+                    validatePath(oneFile.getAbsolutePath(), model);
                 }
             }
         } else {
-            List<ConformanceError> payloadErrors = null;
-            if (StringUtils.isBlank(model)) {
-                payloadErrors = payloadValidator.validateFile(file);
-            } else {
-                payloadErrors = payloadValidator.validateFile(file, model);
-            }
+            List<ConformanceError> payloadErrors = StringUtils.isBlank(model) ?
+                payloadValidator.validateFile(file) : payloadValidator.validateFile(file, model);
             if(!payloadErrors.isEmpty()) {
                 LOGGER.error("Encountered errors while validating: {}",file.getAbsolutePath());
-                payloadErrors.forEach(e -> LOGGER.error("\n" + e.getDescription()));
+                for(int i = 0; i < payloadErrors.size(); i++ ) {
+                    LOGGER.error("\n{}. {}", i + 1, payloadErrors.get(i).getDescription());
+                }
             } else {
                 LOGGER.info("Validation of {} successful", file.getAbsolutePath());
             }

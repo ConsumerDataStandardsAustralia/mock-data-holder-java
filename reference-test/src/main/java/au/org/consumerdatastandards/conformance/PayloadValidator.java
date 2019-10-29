@@ -41,7 +41,7 @@ public class PayloadValidator {
     }
 
     public List<ConformanceError> validateFile(File jsonFile) {
-        LOGGER.info("Validating " + jsonFile.getAbsolutePath());
+        LOGGER.info("\nValidating " + jsonFile.getAbsolutePath());
         byte[] jsonData;
         try {
             jsonData = Files.readAllBytes(Paths.get(jsonFile.getCanonicalPath()));
@@ -54,7 +54,7 @@ public class PayloadValidator {
     }
 
     public List<ConformanceError> validateFile(File jsonFile, String modelName) {
-        LOGGER.info("Validating " + jsonFile.getAbsolutePath() + " against model " + modelName);
+        LOGGER.info("\nValidating " + jsonFile.getAbsolutePath() + " against model " + modelName);
         byte[] jsonData;
         try {
             jsonData = Files.readAllBytes(Paths.get(jsonFile.getCanonicalPath()));
@@ -98,7 +98,7 @@ public class PayloadValidator {
         }
         return Collections.singletonList(new ConformanceError()
             .errorType(ConformanceError.Type.NO_MATCHING_MODEL)
-            .errorMessage("No matching model found"));
+            .errorMessage("No matching model found. Specifying a target model will produce more informative errors."));
     }
 
     private List<ConformanceError> validatePayload(byte[] jsonData, String modelName) {
