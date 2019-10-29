@@ -632,6 +632,10 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.defaultResponse = co.defaultResponse;
             this.discriminator = co.discriminator;
             this.allParams = co.allParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.queryParams = co.queryParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.bodyParams = co.bodyParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.pathParams = co.pathParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.headerParams = co.headerParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
             this.vendorExtensions = co.vendorExtensions;
             this.authMethods = co.authMethods;
             this.tags = co.tags;
@@ -651,6 +655,13 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                     iterator.remove();
                 }
             }
+        }
+
+        public List<CodegenParameter> getNonHeaderParams() {
+            List<CodegenParameter> nonHeaderParams = new ArrayList<>();
+            nonHeaderParams.addAll(this.allParams);
+            nonHeaderParams.removeAll(this.headerParams);
+            return nonHeaderParams;
         }
 
         @SuppressWarnings("unused")
@@ -699,6 +710,10 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                     this.isCdsType = true;
                 }
             }
+        }
+
+        public boolean isString() {
+            return "String".equals(this.dataType);
         }
     }
 
