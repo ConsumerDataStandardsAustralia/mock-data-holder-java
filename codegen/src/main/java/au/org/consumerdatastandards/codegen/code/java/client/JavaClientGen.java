@@ -7,6 +7,9 @@ import io.swagger.codegen.CodegenType;
 import io.swagger.codegen.SupportingFile;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class JavaClientGen extends JavaCodegenBase {
 
@@ -69,6 +72,31 @@ public class JavaClientGen extends JavaCodegenBase {
                 model.imports.add("ArrayList");
             } else if ("map".equals(property.containerType)) {
                 model.imports.add("HashMap");
+            }
+        }
+    }
+
+    @Override
+    protected void postProcessImports(Map<String, Object> objs) {
+        super.postProcessImports(objs);
+        List<Object> imports = (List) objs.get("imports");
+        Iterator<Object> iterator = imports.iterator();
+        while (iterator.hasNext()) {
+            Map<String, String> importMap = (Map<String, String>) iterator.next();
+            Iterator<Map.Entry<String, String>> iter = importMap.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry<String, String> i = iter.next();
+                String originalImport = i.getValue();
+                String[] packages = originalImport.split("\\.");
+                String importedModel = packages[packages.length - 1];
+                if(originalImport.equals(modelPackage + "." + importedModel)) {
+                    iter.remove();
+                } else {
+                    importMap.put(i.getKey(), transformImport(originalImport));
+                }
+            }
+            if (importMap.isEmpty()) {
+                iterator.remove();
             }
         }
     }

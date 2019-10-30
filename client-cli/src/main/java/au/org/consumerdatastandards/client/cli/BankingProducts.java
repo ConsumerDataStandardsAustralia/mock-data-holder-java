@@ -26,6 +26,7 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,8 +45,8 @@ public class BankingProducts {
     @ShellMethod("List Products")
     public void listProducts(@ShellOption(defaultValue = ShellOption.NULL) Boolean summary,
             @ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-            @ShellOption(defaultValue = ShellOption.NULL) ParamEffective effective,
-            @ShellOption(defaultValue = ShellOption.NULL) String updatedSince,
+            @ShellOption(defaultValue = ShellOption.NULL) BankingProductsAPI.ParamEffective effective,
+            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince,
             @ShellOption(defaultValue = ShellOption.NULL) String brand,
             @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
@@ -61,13 +62,11 @@ public class BankingProducts {
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
         try {
-            ResponseBankingProductList response = api.listProducts(effective, updatedSince, brand, productCategory,
-                    page, pageSize);
+            ResponseBankingProductList response = api.listProducts(brand, effective, page, pageSize, productCategory, updatedSince);
 
             if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
                 LOGGER.info("Conformance verification is enabled, initiating conformance check on payload");
-                okhttp3.Call call = api.listProductsCall(effective, updatedSince, brand, productCategory, page,
-                        pageSize, null);
+                okhttp3.Call call = api.listProductsCall(brand, effective, page, pageSize, productCategory, updatedSince, null);
                 List<ConformanceError> conformanceErrors = payloadValidator
                         .validateResponse(call.request().url().toString(), response, "listProducts", ResponseCode.OK);
                 if (conformanceErrors.isEmpty()) {
@@ -141,5 +140,4 @@ public class BankingProducts {
             }
         }
     }
-
 }

@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 /**
  * Defines the sub-tier criteria and conditions for which a rate applies
