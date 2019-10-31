@@ -83,10 +83,7 @@ public class {{classname}} {
         {{javaUtilPrefix}}List<Pair> queryParams = new {{javaUtilPrefix}}ArrayList<>();
         {{javaUtilPrefix}}List<Pair> collectionQueryParams = new {{javaUtilPrefix}}ArrayList<>();
         {{#queryParams}}
-        if ({{paramName}} != null) {
-            {{#collectionFormat}}collectionQueryParams.addAll(apiClient.parameterToPairs("{{{collectionFormat}}}", {{/collectionFormat}}{{^collectionFormat}}queryParams.addAll(apiClient.parameterToPair({{/collectionFormat}}"{{baseName}}", {{paramName}}));
-        }
-
+        addQueryParam({{#collectionFormat}}collectionQueryParams, "{{{collectionFormat}}}"{{/collectionFormat}}{{^collectionFormat}}queryParams, "{{baseName}}"{{/collectionFormat}}, {{paramName}});
         {{/queryParams}}
         {{javaUtilPrefix}}Map<String, String> headerParams = new {{javaUtilPrefix}}HashMap<>();
         String[] authNames = new String[] { {{#authMethods}}"{{name}}"{{^-last}}, {{/-last}}{{/authMethods}} };
@@ -135,6 +132,11 @@ public class {{classname}} {
     @Deprecated
     {{/isDeprecated}}
     public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#nonHeaderParams}}{{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}} {{paramName}}{{^-last}}, {{/-last}}{{/nonHeaderParams}}) throws ApiException {
+
+        LOGGER.trace(
+            "{{operationId}} with {{#nonHeaderParams}}{{baseName}}: {{openBracket}}{{closeBracket}}{{^-last}}, {{last}}{{/-last}}{{/nonHeaderParams}}",{{#nonHeaderParams}}
+            {{paramName}}{{^-last}},{{/-last}}{{/nonHeaderParams}});
+
         {{#returnType}}ApiResponse<{{{returnType}}}> resp = {{/returnType}}{{operationId}}WithHttpInfo({{#nonHeaderParams}}{{paramName}}{{^-last}}, {{/-last}}{{/nonHeaderParams}});{{#returnType}}
         return resp.getData();{{/returnType}}
     }
@@ -200,11 +202,22 @@ public class {{classname}} {
     {{/isDeprecated}}
     public okhttp3.Call {{operationId}}Async({{#nonHeaderParams}}{{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}} {{paramName}}, {{/nonHeaderParams}}final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> _callback) throws ApiException {
 
+        LOGGER.trace(
+            "Asynchronously {{operationId}} with {{#nonHeaderParams}}{{baseName}}: {{openBracket}}{{closeBracket}}{{^-last}}, {{last}}{{/-last}}{{/nonHeaderParams}}",{{#nonHeaderParams}}
+            {{paramName}}{{^-last}},{{/-last}}{{/nonHeaderParams}});
+
         okhttp3.Call call = {{operationId}}ValidateBeforeCall({{#nonHeaderParams}}{{paramName}}, {{/nonHeaderParams}}_callback);
         {{#returnType}}Type returnType = new TypeToken<{{{returnType}}}>(){}.getType();
         apiClient.executeAsync(call, returnType, _callback);{{/returnType}}{{^returnType}}apiClient.executeAsync(call, _callback);{{/returnType}}
         return call;
     }
     {{/operation}}
+
+    private void addQueryParam(List<Pair> queryParams, String paramName, Object paramValue) {
+        if (paramValue != null) {
+            LOGGER.trace("Adding query parameter of {} with value of {}", paramName, paramValue);
+            queryParams.addAll(apiClient.parameterToPair(paramName, paramValue));
+        }
+    }
 }
 {{/operations}}

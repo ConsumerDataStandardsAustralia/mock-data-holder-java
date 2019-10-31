@@ -104,6 +104,11 @@ public class BankingProductsAPI {
      </table>
      */
     public ResponseBankingProductById getProductDetail(String productId) throws ApiException {
+
+        LOGGER.trace(
+            "getProductDetail with productId: {}",
+            productId);
+
         ApiResponse<ResponseBankingProductById> resp = getProductDetailWithHttpInfo(productId);
         return resp.getData();
     }
@@ -140,6 +145,10 @@ public class BankingProductsAPI {
      </table>
      */
     public okhttp3.Call getProductDetailAsync(String productId, final ApiCallback<ResponseBankingProductById> _callback) throws ApiException {
+
+        LOGGER.trace(
+            "Asynchronously getProductDetail with productId: {}",
+            productId);
 
         okhttp3.Call call = getProductDetailValidateBeforeCall(productId, _callback);
         Type returnType = new TypeToken<ResponseBankingProductById>(){}.getType();
@@ -182,30 +191,12 @@ public class BankingProductsAPI {
 
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
-        if (brand != null) {
-            queryParams.addAll(apiClient.parameterToPair("brand", brand));
-        }
-
-        if (effective != null) {
-            queryParams.addAll(apiClient.parameterToPair("effective", effective));
-        }
-
-        if (page != null) {
-            queryParams.addAll(apiClient.parameterToPair("page", page));
-        }
-
-        if (pageSize != null) {
-            queryParams.addAll(apiClient.parameterToPair("page-size", pageSize));
-        }
-
-        if (productCategory != null) {
-            queryParams.addAll(apiClient.parameterToPair("product-category", productCategory));
-        }
-
-        if (updatedSince != null) {
-            queryParams.addAll(apiClient.parameterToPair("updated-since", updatedSince));
-        }
-
+        addQueryParam(queryParams, "brand", brand);
+        addQueryParam(queryParams, "effective", effective);
+        addQueryParam(queryParams, "page", page);
+        addQueryParam(queryParams, "page-size", pageSize);
+        addQueryParam(queryParams, "product-category", productCategory);
+        addQueryParam(queryParams, "updated-since", updatedSince);
         Map<String, String> headerParams = new HashMap<>();
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
@@ -236,6 +227,16 @@ public class BankingProductsAPI {
      </table>
      */
     public ResponseBankingProductList listProducts(String brand, ParamEffective effective, Integer page, Integer pageSize, ParamProductCategory productCategory, OffsetDateTime updatedSince) throws ApiException {
+
+        LOGGER.trace(
+            "listProducts with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
+            brand,
+            effective,
+            page,
+            pageSize,
+            productCategory,
+            updatedSince);
+
         ApiResponse<ResponseBankingProductList> resp = listProductsWithHttpInfo(brand, effective, page, pageSize, productCategory, updatedSince);
         return resp.getData();
     }
@@ -283,9 +284,25 @@ public class BankingProductsAPI {
      */
     public okhttp3.Call listProductsAsync(String brand, ParamEffective effective, Integer page, Integer pageSize, ParamProductCategory productCategory, OffsetDateTime updatedSince, final ApiCallback<ResponseBankingProductList> _callback) throws ApiException {
 
+        LOGGER.trace(
+            "Asynchronously listProducts with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
+            brand,
+            effective,
+            page,
+            pageSize,
+            productCategory,
+            updatedSince);
+
         okhttp3.Call call = listProductsValidateBeforeCall(brand, effective, page, pageSize, productCategory, updatedSince, _callback);
         Type returnType = new TypeToken<ResponseBankingProductList>(){}.getType();
         apiClient.executeAsync(call, returnType, _callback);
         return call;
+    }
+
+    private void addQueryParam(List<Pair> queryParams, String paramName, Object paramValue) {
+        if (paramValue != null) {
+            LOGGER.trace("Adding query parameter of {} with value of {}", paramName, paramValue);
+            queryParams.addAll(apiClient.parameterToPair(paramName, paramValue));
+        }
     }
 }
