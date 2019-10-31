@@ -67,8 +67,7 @@ public class BankingProductsAPI {
         String path = "/banking/products/{productId}"
             .replaceAll("\\{" + "productId" + "\\}", apiClient.escapeString(productId));
 
-        LOGGER.trace(
-            "Building Call for getProductDetail with path: {}, productId: {}",
+        LOGGER.trace("Building Call for getProductDetail with path: {}, productId: {}",
             path,
             productId);
 
@@ -105,8 +104,7 @@ public class BankingProductsAPI {
      */
     public ResponseBankingProductById getProductDetail(String productId) throws ApiException {
 
-        LOGGER.trace(
-            "getProductDetail with productId: {}",
+        LOGGER.trace("getProductDetail with productId: {}",
             productId);
 
         ApiResponse<ResponseBankingProductById> resp = getProductDetailWithHttpInfo(productId);
@@ -146,8 +144,7 @@ public class BankingProductsAPI {
      */
     public okhttp3.Call getProductDetailAsync(String productId, final ApiCallback<ResponseBankingProductById> _callback) throws ApiException {
 
-        LOGGER.trace(
-            "Asynchronously getProductDetail with productId: {}",
+        LOGGER.trace("Asynchronously getProductDetail with productId: {}",
             productId);
 
         okhttp3.Call call = getProductDetailValidateBeforeCall(productId, _callback);
@@ -179,8 +176,7 @@ public class BankingProductsAPI {
         // create path and map variables
         String path = "/banking/products";
 
-        LOGGER.trace(
-            "Building Call for listProducts with path: {}, brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
+        LOGGER.trace("Building Call for listProducts with path: {}, brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
             path,
             brand,
             effective,
@@ -228,8 +224,7 @@ public class BankingProductsAPI {
      */
     public ResponseBankingProductList listProducts(String brand, ParamEffective effective, Integer page, Integer pageSize, ParamProductCategory productCategory, OffsetDateTime updatedSince) throws ApiException {
 
-        LOGGER.trace(
-            "listProducts with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
+        LOGGER.trace("listProducts with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
             brand,
             effective,
             page,
@@ -284,8 +279,7 @@ public class BankingProductsAPI {
      */
     public okhttp3.Call listProductsAsync(String brand, ParamEffective effective, Integer page, Integer pageSize, ParamProductCategory productCategory, OffsetDateTime updatedSince, final ApiCallback<ResponseBankingProductList> _callback) throws ApiException {
 
-        LOGGER.trace(
-            "Asynchronously listProducts with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
+        LOGGER.trace("Asynchronously listProducts with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
             brand,
             effective,
             page,
