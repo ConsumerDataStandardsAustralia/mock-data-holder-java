@@ -665,6 +665,13 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             return nonHeaderParams;
         }
 
+        public boolean hasNonHeaderParams() {
+            for (CodegenParameter cp : this.allParams) {
+                if (!cp.isHeaderParam) return true;
+            }
+            return false;
+        }
+
         @SuppressWarnings("unused")
         public Set<Map.Entry<String, Object>> getCdsExtensionSet() {
             return vendorExtensions.entrySet();

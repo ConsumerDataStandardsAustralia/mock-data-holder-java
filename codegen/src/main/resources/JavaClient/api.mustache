@@ -75,8 +75,7 @@ public class {{classname}} {
         String path = "{{{path}}}"{{#pathParams}}
             .replaceAll("\\{" + "{{baseName}}" + "\\}", apiClient.escapeString({{#collectionFormat}}apiClient.collectionPathParameterToString("{{{collectionFormat}}}", {{{paramName}}}){{/collectionFormat}}{{^collectionFormat}}{{{paramName}}}{{^isString}}.toString(){{/isString}}{{/collectionFormat}})){{/pathParams}};
 
-        LOGGER.trace(
-            "Building Call for {{operationId}} with path: {}{{#nonHeaderParams}}, {{baseName}}: {{openBracket}}{{closeBracket}}{{/nonHeaderParams}}",
+        LOGGER.trace("Building Call for {{operationId}} with path: {}{{#nonHeaderParams}}, {{baseName}}: {{openBracket}}{{closeBracket}}{{/nonHeaderParams}}",
             path{{#nonHeaderParams}},
             {{paramName}}{{/nonHeaderParams}});
 
@@ -133,9 +132,8 @@ public class {{classname}} {
     {{/isDeprecated}}
     public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#nonHeaderParams}}{{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}} {{paramName}}{{^-last}}, {{/-last}}{{/nonHeaderParams}}) throws ApiException {
 
-        LOGGER.trace(
-            "{{operationId}} with {{#nonHeaderParams}}{{baseName}}: {{openBracket}}{{closeBracket}}{{^-last}}, {{last}}{{/-last}}{{/nonHeaderParams}}",{{#nonHeaderParams}}
-            {{paramName}}{{^-last}},{{/-last}}{{/nonHeaderParams}});
+        LOGGER.trace("{{operationId}}{{#hasNonHeaderParams}} with {{#nonHeaderParams}}{{baseName}}: {{openBracket}}{{closeBracket}}{{^-last}}, {{last}}{{/-last}}{{/nonHeaderParams}}",{{#nonHeaderParams}}
+            {{paramName}}{{^-last}},{{/-last}}{{/nonHeaderParams}}{{/hasNonHeaderParams}}{{^hasNonHeaderParams}}"{{/hasNonHeaderParams}});
 
         {{#returnType}}ApiResponse<{{{returnType}}}> resp = {{/returnType}}{{operationId}}WithHttpInfo({{#nonHeaderParams}}{{paramName}}{{^-last}}, {{/-last}}{{/nonHeaderParams}});{{#returnType}}
         return resp.getData();{{/returnType}}
@@ -202,9 +200,8 @@ public class {{classname}} {
     {{/isDeprecated}}
     public okhttp3.Call {{operationId}}Async({{#nonHeaderParams}}{{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}} {{paramName}}, {{/nonHeaderParams}}final ApiCallback<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}> _callback) throws ApiException {
 
-        LOGGER.trace(
-            "Asynchronously {{operationId}} with {{#nonHeaderParams}}{{baseName}}: {{openBracket}}{{closeBracket}}{{^-last}}, {{last}}{{/-last}}{{/nonHeaderParams}}",{{#nonHeaderParams}}
-            {{paramName}}{{^-last}},{{/-last}}{{/nonHeaderParams}});
+        LOGGER.trace("Asynchronously {{operationId}}{{#hasNonHeaderParams}} with {{#nonHeaderParams}}{{baseName}}: {{openBracket}}{{closeBracket}}{{^-last}}, {{last}}{{/-last}}{{/nonHeaderParams}}",{{#nonHeaderParams}}
+            {{paramName}}{{^-last}},{{/-last}}{{/nonHeaderParams}}{{/hasNonHeaderParams}}{{^hasNonHeaderParams}}"{{/hasNonHeaderParams}});
 
         okhttp3.Call call = {{operationId}}ValidateBeforeCall({{#nonHeaderParams}}{{paramName}}, {{/nonHeaderParams}}_callback);
         {{#returnType}}Type returnType = new TypeToken<{{{returnType}}}>(){}.getType();

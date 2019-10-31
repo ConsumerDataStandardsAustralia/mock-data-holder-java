@@ -164,7 +164,7 @@ public class CdsCodeGenerator extends DefaultGenerator {
                         LOGGER.info("Skipped overwriting " + filename);
                         continue;
                     }
-                    if (cm.hasVars || !StringUtils.isBlank(cm.parent)) {
+                    if (cm.hasVars || !StringUtils.isBlank(cm.parent) || cm.isEnum) {
                         File written = processTemplateToFile(models, templateName, filename);
                         if (written != null) {
                             files.add(written);
