@@ -11,7 +11,7 @@ The Parameterized Test Tool is a testing framework built to assist DHs and DRs v
 
 The tool takes input from parameter files, makes requests to the Standards API endpoints using parameters from these files, and then validates responses. (Currently only Product endpoints are supported).
 
-The PTT validates the structure of payloads returned from a DH, confirming that they meet the schema as defined by the Standards. (Currently only with file-based inputs).
+The PTT validates the structure of payloads returned from a DH, confirming that they meet the schema as defined by the Standards.
 
 The source code for the tool can be found [here](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/tree/master/reference-test).
 
