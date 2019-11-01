@@ -1,10 +1,13 @@
 package au.org.consumerdatastandards.codegen.code.java.clientcli;
 
 import au.org.consumerdatastandards.codegen.code.java.JavaCodegenBase;
+import io.swagger.codegen.CodegenConstants;
 import io.swagger.codegen.CodegenType;
 import io.swagger.codegen.SupportingFile;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JavaClientCliGen extends JavaCodegenBase {
     private static final String DEFAULT_BASE_PACKAGE = "au.org.consumerdatastandards.client.cli";
@@ -57,5 +60,10 @@ public class JavaClientCliGen extends JavaCodegenBase {
         supportingFiles.add(new SupportingFile("application.mustache", resourcesFolder, "application.properties"));
         supportingFiles.add(new SupportingFile("banner.mustache", resourcesFolder, "banner.txt"));
         additionalProperties.put("gson", "true");
+    }
+
+    @Override
+    public Map<String, Object> postProcessAllModels(Map<String, Object> objs) {
+        return new HashMap<>(); // no models needed for client-cli
     }
 }

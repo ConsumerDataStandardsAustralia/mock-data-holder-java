@@ -1,24 +1,11 @@
 {{>licenseInfo}}
 package {{package}};
 
-import {{invokerPackage}}.*;
-import {{modelPackage}}.*;{{#imports}}
-import {{import}};{{/imports}}
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 {{#operations}}
 public class {{classname}} {
-{{#_enums}}
-
-{{>modelInnerEnum}}
-{{/_enums}}
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger({{classname}}.class);
 
