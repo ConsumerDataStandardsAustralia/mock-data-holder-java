@@ -32,7 +32,7 @@ import java.util.List;
 
 @ShellComponent
 @ShellCommandGroup("Products API")
-public class BankingProducts {
+public class BankingProducts extends ApiCliBase {
 
     @Autowired
     ApiClientOptions apiClientOptions;
@@ -43,14 +43,13 @@ public class BankingProducts {
     private final BankingProductsAPI api = new BankingProductsAPI();
 
     @ShellMethod("List Products")
-    public void listProducts(@ShellOption(defaultValue = ShellOption.NULL) Boolean summary,
-            @ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-            @ShellOption(defaultValue = ShellOption.NULL) BankingProductsAPI.ParamEffective effective,
-            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince,
-            @ShellOption(defaultValue = ShellOption.NULL) String brand,
-            @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory,
-            @ShellOption(defaultValue = ShellOption.NULL) Integer page,
-            @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
+    public void listProducts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+                             @ShellOption(defaultValue = ShellOption.NULL) BankingProductsAPI.ParamEffective effective,
+                             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince,
+                             @ShellOption(defaultValue = ShellOption.NULL) String brand,
+                             @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory,
+                             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
+                             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
         LOGGER.info(
                 "List Products CLI initiated with effective: {}, updated-since: {}, brand: {}, product-category: {}, page: {}, page-size: {}",
@@ -65,7 +64,7 @@ public class BankingProducts {
             ResponseBankingProductList response = api.listProducts(brand, effective, page, pageSize, productCategory, updatedSince);
 
             if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
-                LOGGER.info("Conformance verification is enabled, initiating conformance check on payload");
+                LOGGER.info("Payload validation is enabled");
                 okhttp3.Call call = api.listProductsCall(brand, effective, page, pageSize, productCategory, updatedSince, null);
                 List<ConformanceError> conformanceErrors = payloadValidator
                         .validateResponse(call.request().url().toString(), response, "listProducts", ResponseCode.OK);
@@ -73,24 +72,6 @@ public class BankingProducts {
                     LOGGER.info(JsonPrinter.toJson(response));
                 } else {
                     logConformanceErrors(conformanceErrors);
-                }
-            } else {
-                if (summary != null && summary && response.getData() != null
-                        && response.getData().getProducts() != null) {
-                    List<BankingProduct> bankingProducts = response.getData().getProducts();
-
-                    for (String logLine : AsciiTable
-                            .getTable(bankingProducts, Arrays.asList(
-                                    new Column().header("ID").with(bankingProduct -> bankingProduct.getProductId()),
-                                    new Column().header("Name").with(bankingProduct -> bankingProduct.getName()),
-                                    new Column().header("Product Category")
-                                            .with(bankingProduct -> bankingProduct.getProductCategory().toString())))
-                            .split("\\r?\\n")) {
-                        LOGGER.info(logLine);
-                    }
-
-                } else {
-                    LOGGER.info(JsonPrinter.toJson(response));
                 }
             }
         } catch (Exception e) {
@@ -100,8 +81,8 @@ public class BankingProducts {
     }
 
     @ShellMethod("Get Product Detail")
-    public void getProductDetail(@ShellOption(defaultValue = ShellOption.NULL) String productId,
-            @ShellOption(defaultValue = ShellOption.NULL) Boolean check) throws Exception {
+    public void getProductDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+                                 @ShellOption(defaultValue = ShellOption.NULL) String productId) throws Exception {
 
         LOGGER.info("Get Product Detail CLI initiated with product id {}", productId);
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
@@ -124,20 +105,6 @@ public class BankingProducts {
         } catch (Exception e) {
             LOGGER.error("Encountered error while performing getProductDetail: {}", e.getMessage());
             throw e;
-        }
-    }
-
-    private void logConformanceErrors(List<ConformanceError> conformanceErrors) {
-        if (conformanceErrors != null) {
-            if (conformanceErrors.isEmpty()) {
-                LOGGER.info("Received zero conformance errors for listProductsCall");
-            } else {
-                LOGGER.warn("Received {} conformance errors for listProductsCall", conformanceErrors.size());
-                for (ConformanceError conformanceError : conformanceErrors) {
-                    LOGGER.warn("Conformance Error: {}", conformanceError.getDescription());
-                }
-                LOGGER.info("Found a total of {} conformance errors", conformanceErrors.size());
-            }
         }
     }
 }
