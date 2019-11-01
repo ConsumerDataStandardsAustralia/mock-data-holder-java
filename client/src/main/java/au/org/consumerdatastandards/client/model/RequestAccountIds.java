@@ -13,7 +13,7 @@ public class RequestAccountIds {
 
     private RequestAccountIdsData data;
 
-    private Object Object;
+    private Object meta;
 
     /**
      * Get data
@@ -28,15 +28,15 @@ public class RequestAccountIds {
     }
 
     /**
-     * Get Object
-     * @return Object
+     * Get meta
+     * @return meta
      */
-    public Object getObject() {
-        return Object;
+    public Object getMeta() {
+        return meta;
     }
 
-    public void setObject(Object Object) {
-        this.Object = Object;
+    public void setMeta(Object meta) {
+        this.meta = meta;
     }
 
     @Override
@@ -49,21 +49,21 @@ public class RequestAccountIds {
         }
         RequestAccountIds requestAccountIds = (RequestAccountIds) o;
         return Objects.equals(this.data, requestAccountIds.data) &&
-            Objects.equals(this.Object, requestAccountIds.Object);
+            Objects.equals(this.meta, requestAccountIds.meta);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             data,
-            Object);
+            meta);
     }
 
     @Override
     public String toString() {
         return "class RequestAccountIds {\n" +
             "   data: " + toIndentedString(data) + "\n" + 
-            "   Object: " + toIndentedString(Object) + "\n" + 
+            "   meta: " + toIndentedString(meta) + "\n" + 
             "}";
     }
 

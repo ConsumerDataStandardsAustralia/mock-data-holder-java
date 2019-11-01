@@ -865,6 +865,10 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             }
             this.isSimple = (StringUtils.isBlank(description) && !required);
         }
+
+        public boolean isMeta() {
+            return this.datatypeWithEnum.equals("Meta");
+        }
     }
 
 }

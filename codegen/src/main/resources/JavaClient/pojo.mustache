@@ -12,7 +12,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
     private {{{datatypeWithEnum}}} {{name}};
   {{/isContainer}}
   {{^isContainer}}
-    private {{{datatypeWithEnum}}} {{name}}{{#isDefaultValueVisible}} = {{{defaultValue}}}{{/isDefaultValueVisible}};
+    private {{^isMeta}}{{{datatypeWithEnum}}}{{/isMeta}}{{#isMeta}}Object{{/isMeta}} {{name}}{{#isDefaultValueVisible}} = {{{defaultValue}}}{{/isDefaultValueVisible}};
   {{/isContainer}}
 
   {{/nonInheritedVars}}
@@ -35,12 +35,12 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
 {{#vendorExtensions.extraAnnotation}}
   {{{vendorExtensions.extraAnnotation}}}
 {{/vendorExtensions.extraAnnotation}}
-    public {{{datatypeWithEnum}}} {{getter}}() {
+    public {{^isMeta}}{{{datatypeWithEnum}}}{{/isMeta}}{{#isMeta}}Object{{/isMeta}} {{getter}}() {
         return {{name}};
     }
   {{^isReadOnly}}
 
-    public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+    public void {{setter}}({{^isMeta}}{{{datatypeWithEnum}}}{{/isMeta}}{{#isMeta}}Object{{/isMeta}} {{name}}) {
         this.{{name}} = {{name}};
     }
   {{/isReadOnly}}
