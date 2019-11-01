@@ -47,7 +47,7 @@ public class BankingAccountsAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -90,7 +90,7 @@ public class BankingAccountsAPI {
      * @param accountId A tokenised identifier for the account which is unique but not shareable (required)
      * @return ResponseBankingAccountById
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -111,7 +111,7 @@ public class BankingAccountsAPI {
      * @param accountId A tokenised identifier for the account which is unique but not shareable (required)
      * @return ApiResponse&lt;ResponseBankingAccountById&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -130,7 +130,7 @@ public class BankingAccountsAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -153,7 +153,7 @@ public class BankingAccountsAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -204,7 +204,7 @@ public class BankingAccountsAPI {
      * @param transactionId ID of the transaction obtained from a previous call to one of the other transaction end points (required)
      * @return ResponseBankingTransactionById
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -227,7 +227,7 @@ public class BankingAccountsAPI {
      * @param transactionId ID of the transaction obtained from a previous call to one of the other transaction end points (required)
      * @return ApiResponse&lt;ResponseBankingTransactionById&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -247,7 +247,7 @@ public class BankingAccountsAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -277,7 +277,7 @@ public class BankingAccountsAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -341,7 +341,7 @@ public class BankingAccountsAPI {
      * @param text Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string. This parameter is optionally implemented by data holders. If it is not implemented then a response should be provided as normal without text filtering applied (optional)
      * @return ResponseBankingTransactionList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -376,7 +376,7 @@ public class BankingAccountsAPI {
      * @param text Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string. This parameter is optionally implemented by data holders. If it is not implemented then a response should be provided as normal without text filtering applied (optional)
      * @return ApiResponse&lt;ResponseBankingTransactionList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -402,7 +402,7 @@ public class BankingAccountsAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -435,7 +435,7 @@ public class BankingAccountsAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -485,7 +485,7 @@ public class BankingAccountsAPI {
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @return ResponseBankingAccountList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -514,7 +514,7 @@ public class BankingAccountsAPI {
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @return ApiResponse&lt;ResponseBankingAccountList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -537,7 +537,7 @@ public class BankingAccountsAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -563,7 +563,7 @@ public class BankingAccountsAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -606,7 +606,7 @@ public class BankingAccountsAPI {
      * @param accountId ID of the specific account requested (required)
      * @return ResponseBankingAccountsBalanceById
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -627,7 +627,7 @@ public class BankingAccountsAPI {
      * @param accountId ID of the specific account requested (required)
      * @return ApiResponse&lt;ResponseBankingAccountsBalanceById&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -646,7 +646,7 @@ public class BankingAccountsAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -670,7 +670,7 @@ public class BankingAccountsAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -714,7 +714,7 @@ public class BankingAccountsAPI {
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @return ResponseBankingAccountsBalanceList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -740,7 +740,7 @@ public class BankingAccountsAPI {
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @return ApiResponse&lt;ResponseBankingAccountsBalanceList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -762,7 +762,7 @@ public class BankingAccountsAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>

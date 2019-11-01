@@ -53,7 +53,7 @@ public class BankingPayeesAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -96,7 +96,7 @@ public class BankingPayeesAPI {
      * @param payeeId The ID used to locate the details of a particular payee (required)
      * @return ResponseBankingPayeeById
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -117,7 +117,7 @@ public class BankingPayeesAPI {
      * @param payeeId The ID used to locate the details of a particular payee (required)
      * @return ApiResponse&lt;ResponseBankingPayeeById&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -136,7 +136,7 @@ public class BankingPayeesAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -160,7 +160,7 @@ public class BankingPayeesAPI {
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -204,7 +204,7 @@ public class BankingPayeesAPI {
      * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @return ResponseBankingPayeeList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -229,7 +229,7 @@ public class BankingPayeesAPI {
      * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @return ApiResponse&lt;ResponseBankingPayeeList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
@@ -250,7 +250,7 @@ public class BankingPayeesAPI {
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
+     * http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
