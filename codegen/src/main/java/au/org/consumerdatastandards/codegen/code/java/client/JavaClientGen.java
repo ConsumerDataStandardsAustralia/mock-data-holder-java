@@ -46,6 +46,7 @@ public class JavaClientGen extends JavaCodegenBase {
 
         final String invokerFolder = (sourceFolder + '/' + invokerPackage).replace(".", "/");
         final String modelFolder = (sourceFolder + '/' + modelPackage).replace(".", "/");
+        final String resourcesFolder = (projectFolder + "/resources");
 
         //Common files
         writeOptional(outputFolder, new SupportingFile("pom.mustache", "", "pom.xml"));
@@ -61,6 +62,7 @@ public class JavaClientGen extends JavaCodegenBase {
         supportingFiles.add(new SupportingFile("ProgressResponseBody.mustache", invokerFolder, "ProgressResponseBody.java"));
         supportingFiles.add(new SupportingFile("BaseResponse.mustache", modelFolder, "BaseResponse.java"));
         supportingFiles.add(new SupportingFile("PaginatedResponse.mustache", modelFolder, "PaginatedResponse.java"));
+        supportingFiles.add(new SupportingFile("logback.mustache", resourcesFolder, "logback.xml"));
         additionalProperties.put("gson", "true");
     }
 
