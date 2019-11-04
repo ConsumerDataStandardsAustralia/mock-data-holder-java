@@ -1,43 +1,22 @@
 {{#description}}/**
  * {{.}}
  */{{/description}}
-public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcelableModel}}implements Parcelable {{#serializableModel}}, Serializable {{/serializableModel}}{{/parcelableModel}}{{^parcelableModel}}{{#serializableModel}}implements Serializable {{/serializableModel}}{{/parcelableModel}}{
-{{#serializableModel}}
+public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
+{{#_enums}}
 
-    private static final long serialVersionUID = 1L;
-{{/serializableModel}}
+{{>modelInnerEnum}}
+{{/_enums}}
 
-  {{#vars}}
-    {{#isEnum}}
-    {{^isContainer}}
-{{>modelInnerEnum}}
-    {{/isContainer}}
-    {{/isEnum}}
-    {{#items.isEnum}}
-      {{#items}}
-      {{^isContainer}}
-{{>modelInnerEnum}}
-      {{/isContainer}}
-      {{/items}}
-    {{/items.isEnum}}
+  {{#nonInheritedVars}}
   {{#isContainer}}
-    private {{{datatypeWithEnum}}} {{name}}{{#required}} = {{{defaultValue}}}{{/required}};
+    private {{{datatypeWithEnum}}} {{name}};
   {{/isContainer}}
   {{^isContainer}}
-    private {{{datatypeWithEnum}}} {{name}}{{#isDefaultValueVisible}} = {{{defaultValue}}}{{/isDefaultValueVisible}};
+    private {{^isMeta}}{{{datatypeWithEnum}}}{{/isMeta}}{{#isMeta}}Object{{/isMeta}} {{name}}{{#isDefaultValueVisible}} = {{{defaultValue}}}{{/isDefaultValueVisible}};
   {{/isContainer}}
 
-  {{/vars}}
-  {{^parcelableModel}}
-  {{#gson}}
-  {{#discriminator}}
-    public {{classname}}() {
-        this.{{discriminatorClassVarName}} = this.getClass().getSimpleName();
-    }
-  {{/discriminator}}
-  {{/gson}}
-  {{/parcelableModel}}
-  {{#vars}}
+  {{/nonInheritedVars}}
+  {{#nonInheritedVars}}
     /**
   {{#description}}
      * {{description}}
@@ -56,19 +35,19 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
 {{#vendorExtensions.extraAnnotation}}
   {{{vendorExtensions.extraAnnotation}}}
 {{/vendorExtensions.extraAnnotation}}
-    public {{{datatypeWithEnum}}} {{#isBoolean}}is{{/isBoolean}}{{getter}}() {
+    public {{^isMeta}}{{{datatypeWithEnum}}}{{/isMeta}}{{#isMeta}}Object{{/isMeta}} {{getter}}() {
         return {{name}};
     }
   {{^isReadOnly}}
 
-    public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
+    public void {{setter}}({{^isMeta}}{{{datatypeWithEnum}}}{{/isMeta}}{{#isMeta}}Object{{/isMeta}} {{name}}) {
         this.{{name}} = {{name}};
     }
   {{/isReadOnly}}
 
-  {{/vars}}
+  {{/nonInheritedVars}}
     @Override
-    public boolean equals(java.lang.Object o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -76,34 +55,34 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
             return false;
         }{{#hasVars}}
         {{classname}} {{classVarName}} = ({{classname}}) o;
-        return {{#vars}}{{#isByteArray}}Arrays{{/isByteArray}}{{#isBinary}}Arrays{{/isBinary}}{{^isByteArray}}{{^isBinary}}Objects{{/isBinary}}{{/isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{#hasMore}} &&
-            {{/hasMore}}{{/vars}}{{#parent}} &&
+        return {{#nonInheritedVars}}{{#isByteArray}}Arrays{{/isByteArray}}{{#isBinary}}Arrays{{/isBinary}}{{^isByteArray}}{{^isBinary}}Objects{{/isBinary}}{{/isByteArray}}.equals(this.{{name}}, {{classVarName}}.{{name}}){{^-last}} &&
+            {{/-last}}{{/nonInheritedVars}}{{#parent}} &&
             super.equals(o){{/parent}};{{/hasVars}}{{^hasVars}}
         return {{#parent}}super.equals(o){{/parent}}{{^parent}}true{{/parent}};{{/hasVars}}
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash({{#vars}}
-            {{^isByteArray}}{{^isBinary}}{{name}}{{/isBinary}}{{/isByteArray}}{{#isByteArray}}Arrays.hashCode({{name}}){{/isByteArray}}{{#isBinary}}Arrays.hashCode({{name}}){{/isBinary}}{{#hasMore}},{{/hasMore}}{{/vars}}{{#parent}}{{#hasVars}},{{/hasVars}}super.hashCode(){{/parent}}
-        );
+        return Objects.hash({{#nonInheritedVars}}
+            {{^isByteArray}}{{^isBinary}}{{name}}{{/isBinary}}{{/isByteArray}}{{#isByteArray}}Arrays.hashCode({{name}}){{/isByteArray}}{{#isBinary}}Arrays.hashCode({{name}}){{/isBinary}}{{^-last}},{{/-last}}{{/nonInheritedVars}}{{#parent}}{{#hasVars}},
+            {{/hasVars}}super.hashCode(){{/parent}});
     }
 
     @Override
     public String toString() {
         return "class {{classname}} {\n" +{{#vars}}
-            "   {{name}}: " + toIndentedString({{name}}) + "\n" + {{/vars}}
+            "   {{name}}: " + toIndentedString({{^isInherited}}{{name}}{{/isInherited}}{{#isInherited}}{{getter}}(){{/isInherited}}) + "\n" + {{/vars}}
             "}";
-    }
+    }{{#hasVars}}
 
     /**
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(java.lang.Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
-    }
+    }{{/hasVars}}
 }

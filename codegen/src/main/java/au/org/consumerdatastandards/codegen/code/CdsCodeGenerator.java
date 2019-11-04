@@ -9,14 +9,20 @@ import io.swagger.models.Model;
 import io.swagger.models.RefModel;
 import io.swagger.util.Json;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.*;
+
+import static io.swagger.codegen.CodegenConstants.*;
 
 public class CdsCodeGenerator extends DefaultGenerator {
 
     public CdsCodeGenerator() {
         this.setGenerateSwaggerMetadata(false);
+        this.setGeneratorPropertyDefault(MODEL_DOCS, "false");
+        this.setGeneratorPropertyDefault(API_DOCS, "false");
+        this.setGeneratorPropertyDefault(API_TESTS, "false");
     }
 
     @Override
@@ -33,7 +39,7 @@ public class CdsCodeGenerator extends DefaultGenerator {
         String modelNames = System.getProperty("models");
         Set<String> modelsToGenerate = null;
         if (modelNames != null && !modelNames.isEmpty()) {
-            modelsToGenerate = new HashSet<String>(Arrays.asList(modelNames.split(",")));
+            modelsToGenerate = new HashSet<>(Arrays.asList(modelNames.split(",")));
         }
 
         Set<String> modelKeys = definitions.keySet();
@@ -158,9 +164,11 @@ public class CdsCodeGenerator extends DefaultGenerator {
                         LOGGER.info("Skipped overwriting " + filename);
                         continue;
                     }
-                    File written = processTemplateToFile(models, templateName, filename);
-                    if (written != null) {
-                        files.add(written);
+                    if (cm.hasVars || !StringUtils.isBlank(cm.parent) || cm.isEnum) {
+                        File written = processTemplateToFile(models, templateName, filename);
+                        if (written != null) {
+                            files.add(written);
+                        }
                     }
                 }
                 if(isGenerateModelTests) {

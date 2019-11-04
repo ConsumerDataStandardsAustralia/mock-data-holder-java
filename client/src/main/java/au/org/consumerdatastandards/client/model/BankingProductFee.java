@@ -12,262 +12,252 @@ import java.util.Objects;
 
 public class BankingProductFee {
 
-  public enum FeeTypeEnum {
-
-    DEPOSIT,
-
-    EVENT,
-
-    EXIT,
-
-    PAYMENT,
-
-    PERIODIC,
-
-    PURCHASE,
-
-    TRANSACTION,
-
-    UPFRONT,
-
-    WITHDRAWAL
-  }
-
-  private String accrualFrequency;
-
-  private String accruedRate;
-
-  private String additionalInfo;
-
-  private String additionalInfoUri;
-
-  private String additionalValue;
-
-  private String amount;
-
-  private String balanceRate;
-
-  private String currency;
-
-  private List<BankingProductDiscount> discounts;
-
-  private FeeTypeEnum feeType;
-
-  private String name;
-
-  private String transactionRate;
-
-  /**
-   * The indicative frequency with which the fee is calculated on the account. Only applies if balanceRate or accruedRate is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
-   * @return accrualFrequency
-   */
-  public String getAccrualFrequency() {
-    return accrualFrequency;
-  }
-
-  public void setAccrualFrequency(String accrualFrequency) {
-    this.accrualFrequency = accrualFrequency;
-  }
-
-  /**
-   * A fee rate calculated based on a proportion of the calculated interest accrued on the account. One of amount, balanceRate, transactionRate and accruedRate is mandatory
-   * @return accruedRate
-   */
-  public String getAccruedRate() {
-    return accruedRate;
-  }
-
-  public void setAccruedRate(String accruedRate) {
-    this.accruedRate = accruedRate;
-  }
-
-  /**
-   * Display text providing more information on the fee
-   * @return additionalInfo
-   */
-  public String getAdditionalInfo() {
-    return additionalInfo;
-  }
-
-  public void setAdditionalInfo(String additionalInfo) {
-    this.additionalInfo = additionalInfo;
-  }
-
-  /**
-   * Link to a web page with more information on this fee
-   * @return additionalInfoUri
-   */
-  public String getAdditionalInfoUri() {
-    return additionalInfoUri;
-  }
-
-  public void setAdditionalInfoUri(String additionalInfoUri) {
-    this.additionalInfoUri = additionalInfoUri;
-  }
-
-  /**
-   * Generic field containing additional information relevant to the [feeType](#tocSproductfeetypedoc) specified. Whether mandatory or not is dependent on the value of [feeType](#tocSproductfeetypedoc)
-   * @return additionalValue
-   */
-  public String getAdditionalValue() {
-    return additionalValue;
-  }
-
-  public void setAdditionalValue(String additionalValue) {
-    this.additionalValue = additionalValue;
-  }
-
-  /**
-   * The amount charged for the fee. One of amount, balanceRate, transactionRate and accruedRate is mandatory
-   * @return amount
-   */
-  public String getAmount() {
-    return amount;
-  }
-
-  public void setAmount(String amount) {
-    this.amount = amount;
-  }
-
-  /**
-   * A fee rate calculated based on a proportion of the balance. One of amount, balanceRate, transactionRate and accruedRate is mandatory
-   * @return balanceRate
-   */
-  public String getBalanceRate() {
-    return balanceRate;
-  }
-
-  public void setBalanceRate(String balanceRate) {
-    this.balanceRate = balanceRate;
-  }
-
-  /**
-   * The currency the fee will be charged in. Assumes AUD if absent
-   * @return currency
-   */
-  public String getCurrency() {
-    return currency;
-  }
-
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
-
-  /**
-   * An optional list of discounts to this fee that may be available
-   * @return discounts
-   */
-  public List<BankingProductDiscount> getDiscounts() {
-    return discounts;
-  }
-
-  public void setDiscounts(List<BankingProductDiscount> discounts) {
-    this.discounts = discounts;
-  }
-
-  /**
-   * Get feeType
-   * @return feeType
-   */
-  public FeeTypeEnum getFeeType() {
-    return feeType;
-  }
-
-  public void setFeeType(FeeTypeEnum feeType) {
-    this.feeType = feeType;
-  }
-
-  /**
-   * Name of the fee
-   * @return name
-   */
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * A fee rate calculated based on a proportion of a transaction. One of amount, balanceRate, transactionRate and accruedRate is mandatory
-   * @return transactionRate
-   */
-  public String getTransactionRate() {
-    return transactionRate;
-  }
-
-  public void setTransactionRate(String transactionRate) {
-    this.transactionRate = transactionRate;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public enum FeeType {
+        DEPOSIT,
+        EVENT,
+        EXIT,
+        PAYMENT,
+        PERIODIC,
+        PURCHASE,
+        TRANSACTION,
+        UPFRONT,
+        WITHDRAWAL
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    private String accrualFrequency;
+
+    private String accruedRate;
+
+    private String additionalInfo;
+
+    private String additionalInfoUri;
+
+    private String additionalValue;
+
+    private String amount;
+
+    private String balanceRate;
+
+    private String currency;
+
+    private List<BankingProductDiscount> discounts;
+
+    private FeeType feeType;
+
+    private String name;
+
+    private String transactionRate;
+
+    /**
+     * The indicative frequency with which the fee is calculated on the account. Only applies if balanceRate or accruedRate is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
+     * @return accrualFrequency
+     */
+    public String getAccrualFrequency() {
+        return accrualFrequency;
     }
-    BankingProductFee bankingProductFee = (BankingProductFee) o;
-    return Objects.equals(this.accrualFrequency, bankingProductFee.accrualFrequency) &&
-        Objects.equals(this.accruedRate, bankingProductFee.accruedRate) &&
-        Objects.equals(this.additionalInfo, bankingProductFee.additionalInfo) &&
-        Objects.equals(this.additionalInfoUri, bankingProductFee.additionalInfoUri) &&
-        Objects.equals(this.additionalValue, bankingProductFee.additionalValue) &&
-        Objects.equals(this.amount, bankingProductFee.amount) &&
-        Objects.equals(this.balanceRate, bankingProductFee.balanceRate) &&
-        Objects.equals(this.currency, bankingProductFee.currency) &&
-        Objects.equals(this.discounts, bankingProductFee.discounts) &&
-        Objects.equals(this.feeType, bankingProductFee.feeType) &&
-        Objects.equals(this.name, bankingProductFee.name) &&
-        Objects.equals(this.transactionRate, bankingProductFee.transactionRate);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        accrualFrequency,
-        accruedRate,
-        additionalInfo,
-        additionalInfoUri,
-        additionalValue,
-        amount,
-        balanceRate,
-        currency,
-        discounts,
-        feeType,
-        name,
-        transactionRate);
-  }
-
-
-  @Override
-  public String toString() {
-    return "class BankingProductFee {\n" +
-        "    accrualFrequency: " + toIndentedString(accrualFrequency) + "\n" +
-        "    accruedRate: " + toIndentedString(accruedRate) + "\n" +
-        "    additionalInfo: " + toIndentedString(additionalInfo) + "\n" +
-        "    additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" +
-        "    additionalValue: " + toIndentedString(additionalValue) + "\n" +
-        "    amount: " + toIndentedString(amount) + "\n" +
-        "    balanceRate: " + toIndentedString(balanceRate) + "\n" +
-        "    currency: " + toIndentedString(currency) + "\n" +
-        "    discounts: " + toIndentedString(discounts) + "\n" +
-        "    feeType: " + toIndentedString(feeType) + "\n" +
-        "    name: " + toIndentedString(name) + "\n" +
-        "    transactionRate: " + toIndentedString(transactionRate) + "\n" +
-        "}";
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setAccrualFrequency(String accrualFrequency) {
+        this.accrualFrequency = accrualFrequency;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * A fee rate calculated based on a proportion of the calculated interest accrued on the account. One of amount, balanceRate, transactionRate and accruedRate is mandatory
+     * @return accruedRate
+     */
+    public String getAccruedRate() {
+        return accruedRate;
+    }
+
+    public void setAccruedRate(String accruedRate) {
+        this.accruedRate = accruedRate;
+    }
+
+    /**
+     * Display text providing more information on the fee
+     * @return additionalInfo
+     */
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    /**
+     * Link to a web page with more information on this fee
+     * @return additionalInfoUri
+     */
+    public String getAdditionalInfoUri() {
+        return additionalInfoUri;
+    }
+
+    public void setAdditionalInfoUri(String additionalInfoUri) {
+        this.additionalInfoUri = additionalInfoUri;
+    }
+
+    /**
+     * Generic field containing additional information relevant to the [feeType](#tocSproductfeetypedoc) specified. Whether mandatory or not is dependent on the value of [feeType](#tocSproductfeetypedoc)
+     * @return additionalValue
+     */
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
+
+    /**
+     * The amount charged for the fee. One of amount, balanceRate, transactionRate and accruedRate is mandatory
+     * @return amount
+     */
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    /**
+     * A fee rate calculated based on a proportion of the balance. One of amount, balanceRate, transactionRate and accruedRate is mandatory
+     * @return balanceRate
+     */
+    public String getBalanceRate() {
+        return balanceRate;
+    }
+
+    public void setBalanceRate(String balanceRate) {
+        this.balanceRate = balanceRate;
+    }
+
+    /**
+     * The currency the fee will be charged in. Assumes AUD if absent
+     * @return currency
+     */
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    /**
+     * An optional list of discounts to this fee that may be available
+     * @return discounts
+     */
+    public List<BankingProductDiscount> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(List<BankingProductDiscount> discounts) {
+        this.discounts = discounts;
+    }
+
+    /**
+     * Get feeType
+     * @return feeType
+     */
+    public FeeType getFeeType() {
+        return feeType;
+    }
+
+    public void setFeeType(FeeType feeType) {
+        this.feeType = feeType;
+    }
+
+    /**
+     * Name of the fee
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * A fee rate calculated based on a proportion of a transaction. One of amount, balanceRate, transactionRate and accruedRate is mandatory
+     * @return transactionRate
+     */
+    public String getTransactionRate() {
+        return transactionRate;
+    }
+
+    public void setTransactionRate(String transactionRate) {
+        this.transactionRate = transactionRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BankingProductFee bankingProductFee = (BankingProductFee) o;
+        return Objects.equals(this.accrualFrequency, bankingProductFee.accrualFrequency) &&
+            Objects.equals(this.accruedRate, bankingProductFee.accruedRate) &&
+            Objects.equals(this.additionalInfo, bankingProductFee.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductFee.additionalInfoUri) &&
+            Objects.equals(this.additionalValue, bankingProductFee.additionalValue) &&
+            Objects.equals(this.amount, bankingProductFee.amount) &&
+            Objects.equals(this.balanceRate, bankingProductFee.balanceRate) &&
+            Objects.equals(this.currency, bankingProductFee.currency) &&
+            Objects.equals(this.discounts, bankingProductFee.discounts) &&
+            Objects.equals(this.feeType, bankingProductFee.feeType) &&
+            Objects.equals(this.name, bankingProductFee.name) &&
+            Objects.equals(this.transactionRate, bankingProductFee.transactionRate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            accrualFrequency,
+            accruedRate,
+            additionalInfo,
+            additionalInfoUri,
+            additionalValue,
+            amount,
+            balanceRate,
+            currency,
+            discounts,
+            feeType,
+            name,
+            transactionRate);
+    }
+
+    @Override
+    public String toString() {
+        return "class BankingProductFee {\n" +
+            "   accrualFrequency: " + toIndentedString(accrualFrequency) + "\n" + 
+            "   accruedRate: " + toIndentedString(accruedRate) + "\n" + 
+            "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
+            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
+            "   amount: " + toIndentedString(amount) + "\n" + 
+            "   balanceRate: " + toIndentedString(balanceRate) + "\n" + 
+            "   currency: " + toIndentedString(currency) + "\n" + 
+            "   discounts: " + toIndentedString(discounts) + "\n" + 
+            "   feeType: " + toIndentedString(feeType) + "\n" + 
+            "   name: " + toIndentedString(name) + "\n" + 
+            "   transactionRate: " + toIndentedString(transactionRate) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

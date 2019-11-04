@@ -16,6 +16,13 @@ import java.util.stream.Collectors;
 
 public abstract class JavaCodegenBase extends AbstractJavaCodegen implements CodeGeneratorConfig {
 
+    protected Map<String, String> cdsTypeMapping = new HashMap<String, String>() {
+        {
+            put("DateString", "LocalDate");
+            put("DateTimeString", "OffsetDateTime");
+        }
+    };
+
     private Map<String, String> modelNameMap = new HashMap<String, String>() {
         {
             put("ResponseErrorList_errors", "Error");
@@ -60,6 +67,11 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
     };
 
+    public JavaCodegenBase() {
+        super();
+        setDateLibrary("java8");
+    }
+
     @Override
     public void addOperationToGroup(String tag, String resourcePath, Operation operation, CodegenOperation co,
                                     Map<String, List<CodegenOperation>> operations) {
@@ -86,6 +98,31 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         String subGroupName = co.tags.get(1).getName();
         String[] parts = groupName.split(" ");
         return parts[0] + sanitizeName(subGroupName).replace("_", "");
+    }
+
+    @Override
+    public String getTypeDeclaration(Property p) {
+        String cdsDataType = getCdsDataType(p);
+        if (cdsDataType != null && cdsTypeMapping.get(cdsDataType) != null) {
+            return cdsTypeMapping.get(cdsDataType);
+        }
+        return super.getTypeDeclaration(p);
+    }
+
+    private String getCdsDataType(Property p) {
+        if (p.getVendorExtensions() == null || p.getVendorExtensions().isEmpty()) {
+            return null;
+        }
+        return p.getVendorExtensions().get(Extension.CDS_TYPE.getKey()).toString();
+    }
+
+    @Override
+    public String getSwaggerType(Property p) {
+        String cdsDataType = getCdsDataType(p);
+        if (cdsDataType != null && cdsTypeMapping.get(cdsDataType) != null) {
+            return cdsTypeMapping.get(cdsDataType);
+        }
+        return super.getSwaggerType(p);
     }
 
     @Override
@@ -419,9 +456,11 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 RefProperty refProperty = (RefProperty) property;
                 if (refProperty.getSimpleRef().equals("Links")) {
                     codegenModel.isBaseResponse = true;
+                    codegenModel.parent = "BaseResponse";
                     codegenModel.importingBaseResponse = !"common".equals(subPackage);
                 } else if (refProperty.getSimpleRef().equals("LinksPaginated")) {
                     codegenModel.isPaginatedResponse = true;
+                    codegenModel.parent = "PaginatedResponse";
                     codegenModel.importingPaginatedResponse = !"common".equals(subPackage);
                 }
             }
@@ -429,15 +468,30 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         if (model instanceof ComposedModel) {
             Model child = ((ComposedModel) model).getChild();
             codegenModel.vendorExtensions.putAll(child.getVendorExtensions());
+            codegenModel.parent = ((ComposedModel) model).getInterfaces().get(0).getSimpleRef();
         }
+        codegenModel.imports.clear();
         for (CodegenProperty cp : codegenModel.vars) {
             if (cp.isEnum && isEnumTypeInternal(cp, codegenModel)) {
                 codegenModel._enums.add(cp);
             } else if (cp.items != null && cp.items.isEnum && isEnumTypeInternal(cp.items, codegenModel)) {
                 codegenModel._enums.add(cp.items);
             }
+            if (!cp.isInherited) {
+                codegenModel.nonInheritedVars.add(cp);
+                if (cp.isContainer) {
+                    addImport(codegenModel, typeMapping.get("array"));
+                }
+                addImport(codegenModel, cp.baseType);
+                CodegenProperty innerCp = cp;
+                while(innerCp != null) {
+                    addImport(codegenModel, innerCp.complexType);
+                    innerCp = innerCp.items;
+                }
+            }
         }
         codegenModel.imports.remove("ApiModel");
+        codegenModel.imports.remove("ArrayList");
         return codegenModel;
     }
 
@@ -491,7 +545,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
     }
 
     @SuppressWarnings("unchecked")
-    private void postProcessImports(Map<String, Object> objs) {
+    protected void postProcessImports(Map<String, Object> objs) {
         String currentPackage = null;
         CdsCodegenModel model = null;
         List<Object> models = (List<Object>)objs.get("models");
@@ -510,7 +564,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 String originalImport = i.getValue();
                 String[] packages = originalImport.split("\\.");
                 String importedModel = packages[packages.length - 1];
-                if(Objects.equals(currentPackage, getSubPackage(importedModel))) {
+                if(originalImport.startsWith(modelPackage) && Objects.equals(currentPackage, getSubPackage(importedModel))) {
                     iter.remove();
                 } else if (model != null && model.isBaseResponse && (importedModel.equals("Links") || importedModel.equals("Meta"))) {
                     iter.remove();
@@ -526,11 +580,17 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
     }
 
-
     @Override
     public Map<String, Object> postProcessModels(Map<String, Object> objs) {
         super.postProcessModels(objs);
         postProcessImports(objs);
+        List<Object> models = (List<Object>)objs.get("models");
+        CdsCodegenModel model = null;
+        if (models != null) {
+            Map<String, Object> map = (Map<String, Object>)models.get(0);
+            model = (CdsCodegenModel) map.get("model");
+        }
+        objs.put("isEnum", model != null && model.isEnum);
         objs.put("openBracket", "{");
         objs.put("closeBracket", "}");
         return objs;
@@ -572,6 +632,10 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.defaultResponse = co.defaultResponse;
             this.discriminator = co.discriminator;
             this.allParams = co.allParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.queryParams = co.queryParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.bodyParams = co.bodyParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.pathParams = co.pathParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
+            this.headerParams = co.headerParams.stream().map(CdsCodegenParameter::new).collect(Collectors.toList());
             this.vendorExtensions = co.vendorExtensions;
             this.authMethods = co.authMethods;
             this.tags = co.tags;
@@ -594,12 +658,47 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
 
         @SuppressWarnings("unused")
+        public List<CodegenParameter> getNonHeaderParams() {
+            List<CodegenParameter> nonHeaderParams = new ArrayList<>();
+            nonHeaderParams.addAll(this.allParams);
+            nonHeaderParams.removeAll(this.headerParams);
+            return nonHeaderParams;
+        }
+
+        @SuppressWarnings("unused")
+        public boolean hasNonHeaderParams() {
+            for (CodegenParameter cp : this.allParams) {
+                if (!cp.isHeaderParam) return true;
+            }
+            return false;
+        }
+
+        @SuppressWarnings("unused")
+        public String getOperationDesc() {
+            StringBuilder sb = new StringBuilder();
+            boolean firstCharConverted = false;
+            for(char ch : operationId.toCharArray()) {
+                if (firstCharConverted) {
+                    if (Character.isUpperCase(ch)) {
+                        sb.append(" ").append(Character.toLowerCase(ch));
+                    } else {
+                        sb.append(ch);
+                    }
+                } else {
+                    sb.append(Character.toUpperCase(ch));
+                    firstCharConverted = true;
+                }
+            }
+            return sb.toString();
+        }
+
+        @SuppressWarnings("unused")
         public Set<Map.Entry<String, Object>> getCdsExtensionSet() {
             return vendorExtensions.entrySet();
         }
     }
 
-    private class CdsCodegenParameter extends CodegenParameter {
+    public class CdsCodegenParameter extends CodegenParameter {
         public String cdsTypeAnnotation;
         public boolean isCdsType;
         public boolean isReference;
@@ -622,6 +721,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.datatypeWithEnum = cp.datatypeWithEnum;
             this.allowableValues = cp.allowableValues;
             this.dataType = cp.dataType;
+            this.baseType = cp.baseType;
             this.paramName = cp.paramName;
             this.hasMore = cp.hasMore;
             this.items = cp.items;
@@ -637,8 +737,13 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 if (!StringUtils.isBlank(cdsType)) {
                     this.cdsTypeAnnotation = buildCdsTypeAnnotation(cdsType);
                     this.isCdsType = true;
+                    this.baseType = cdsType;
                 }
             }
+        }
+
+        public boolean isString() {
+            return "String".equals(this.dataType);
         }
     }
 
@@ -662,6 +767,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         public boolean importingPaginatedResponse;
         public boolean isBaseResponse;
         public boolean isPaginatedResponse;
+        public List<CodegenProperty> nonInheritedVars = new ArrayList<>();
         public List<CodegenProperty> _enums = new ArrayList<>();
         public String subPackage;
 
@@ -683,8 +789,10 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.optionalVars = cm.optionalVars;
             this.allowableValues = cm.allowableValues;
             this.mandatory = cm.mandatory;
+            this.parent = cm.parent;
             this.allMandatory = cm.allMandatory;
             this.hasEnums = cm.hasEnums;
+            this.hasVars = cm.hasVars;
             this.isEnum = cm.isEnum;
             this.isArrayModel = cm.isArrayModel;
             this.hasChildren = cm.hasChildren;
@@ -718,7 +826,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
     }
 
-    private String transformImport(String originalImport) {
+    protected String transformImport(String originalImport) {
         if(originalImport.startsWith(modelPackage)) {
             String modelName = originalImport.substring(modelPackage.length());
             String subPackage = getSubPackage(modelName);
@@ -743,12 +851,26 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             this.datatype = cp.datatype;
             this.datatypeWithEnum = cp.datatypeWithEnum;
             this.isContainer = cp.isContainer;
+            this.containerType = cp.containerType;
+            this.isBoolean = cp.isBoolean;
+            this.isInherited = cp.isInherited;
+            this.isListContainer = cp.isListContainer;
+            this.isMapContainer = cp.isMapContainer;
+            this.hasMore = cp.hasMore;
             this.required = cp.required;
             this.baseName = cp.baseName;
+            this.name = cp.name;
             this.defaultValue = cp.defaultValue;
             this.isEnum = cp.isEnum;
             this.enumName = cp.enumName;
+            if (cp.isBoolean) {
+                this.getter = toGetter(cp.name);
+            } else {
+                this.getter = cp.getter;
+            }
+            this.setter = cp.setter;
             this.items = cp.items;
+            this.baseType = cp.baseType;
             this.allowableValues = cp.allowableValues;
             this.vendorExtensions = cp.vendorExtensions;
 
@@ -758,9 +880,14 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                 if (!StringUtils.isBlank(cdsType)) {
                     this.cdsTypeAnnotation = buildCdsTypeAnnotation(cdsType);
                     this.isCdsType = true;
+                    this.baseType = this.datatype;
                 }
             }
             this.isSimple = (StringUtils.isBlank(description) && !required);
+        }
+
+        public boolean isMeta() {
+            return this.datatypeWithEnum.equals("Meta");
         }
     }
 

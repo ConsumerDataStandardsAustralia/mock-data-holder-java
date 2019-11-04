@@ -9,162 +9,155 @@ package au.org.consumerdatastandards.client.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-
 /**
  * Defines the sub-tier criteria and conditions for which a rate applies
  */
 public class BankingProductRateTierSubTier {
 
-  public enum RateApplicationMethodEnum {
-
-    PER_TIER,
-
-    WHOLE_BALANCE
-  }
-
-  public enum UnitOfMeasureEnum {
-
-    DAY,
-
-    DOLLAR,
-
-    MONTH,
-
-    PERCENT
-  }
-
-  private BigDecimal minimumValue;
-
-  private BankingProductRateCondition applicabilityConditions = null;
-
-  private UnitOfMeasureEnum unitOfMeasure;
-
-  private String name;
-
-  private BigDecimal maximumValue;
-
-  private RateApplicationMethodEnum rateApplicationMethod;
-
-  /**
-   * The number of tierUnitOfMeasure units that form the lower bound of the tier. The tier should be inclusive of this value
-   * @return minimumValue
-   */
-  public BigDecimal getMinimumValue() {
-    return minimumValue;
-  }
-
-  public void setMinimumValue(BigDecimal minimumValue) {
-    this.minimumValue = minimumValue;
-  }
-
-  /**
-   * Get applicabilityConditions
-   * @return applicabilityConditions
-   */
-  public BankingProductRateCondition getApplicabilityConditions() {
-    return applicabilityConditions;
-  }
-
-  public void setApplicabilityConditions(BankingProductRateCondition applicabilityConditions) {
-    this.applicabilityConditions = applicabilityConditions;
-  }
-
-  /**
-   * Get unitOfMeasure
-   * @return unitOfMeasure
-   */
-  public UnitOfMeasureEnum getUnitOfMeasure() {
-    return unitOfMeasure;
-  }
-
-  public void setUnitOfMeasure(UnitOfMeasureEnum unitOfMeasure) {
-    this.unitOfMeasure = unitOfMeasure;
-  }
-
-  /**
-   * A display name for the tier
-   * @return name
-   */
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * The number of tierUnitOfMeasure units that form the upper bound of the tier or band. For a tier with a discrete value (as opposed to a range of values e.g. 1 month) this must be the same as tierValueMinimum. Where this is the same as the tierValueMinimum value of the next-higher tier the referenced tier should be exclusive of this value. For example a term deposit of 2 months falls into the upper tier of the following tiers: (1 – 2 months, 2 – 3 months)
-   * @return maximumValue
-   */
-  public BigDecimal getMaximumValue() {
-    return maximumValue;
-  }
-
-  public void setMaximumValue(BigDecimal maximumValue) {
-    this.maximumValue = maximumValue;
-  }
-
-  /**
-   * Get rateApplicationMethod
-   * @return rateApplicationMethod
-   */
-  public RateApplicationMethodEnum getRateApplicationMethod() {
-    return rateApplicationMethod;
-  }
-
-  public void setRateApplicationMethod(RateApplicationMethodEnum rateApplicationMethod) {
-    this.rateApplicationMethod = rateApplicationMethod;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public enum RateApplicationMethod {
+        PER_TIER,
+        WHOLE_BALANCE
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public enum UnitOfMeasure {
+        DAY,
+        DOLLAR,
+        MONTH,
+        PERCENT
     }
-    BankingProductRateTierSubTier bankingProductRateTierSubTier = (BankingProductRateTierSubTier) o;
-    return Objects.equals(this.minimumValue, bankingProductRateTierSubTier.minimumValue) &&
-        Objects.equals(this.applicabilityConditions, bankingProductRateTierSubTier.applicabilityConditions) &&
-        Objects.equals(this.unitOfMeasure, bankingProductRateTierSubTier.unitOfMeasure) &&
-        Objects.equals(this.name, bankingProductRateTierSubTier.name) &&
-        Objects.equals(this.maximumValue, bankingProductRateTierSubTier.maximumValue) &&
-        Objects.equals(this.rateApplicationMethod, bankingProductRateTierSubTier.rateApplicationMethod);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        minimumValue,
-        applicabilityConditions,
-        unitOfMeasure,
-        name,
-        maximumValue,
-        rateApplicationMethod);
-  }
+    private BankingProductRateCondition applicabilityConditions;
 
-  @Override
-  public String toString() {
-    return "class BankingProductRateTierSubTier {\n" +
-        "    minimumValue: " + toIndentedString(minimumValue) + "\n" +
-        "    applicabilityConditions: " + toIndentedString(applicabilityConditions) + "\n" +
-        "    unitOfMeasure: " + toIndentedString(unitOfMeasure) + "\n" +
-        "    name: " + toIndentedString(name) + "\n" +
-        "    maximumValue: " + toIndentedString(maximumValue) + "\n" +
-        "    rateApplicationMethod: " + toIndentedString(rateApplicationMethod) + "\n" +
-        "}";
-  }
+    private BigDecimal maximumValue;
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    private BigDecimal minimumValue;
+
+    private String name;
+
+    private RateApplicationMethod rateApplicationMethod;
+
+    private UnitOfMeasure unitOfMeasure;
+
+    /**
+     * Get applicabilityConditions
+     * @return applicabilityConditions
+     */
+    public BankingProductRateCondition getApplicabilityConditions() {
+        return applicabilityConditions;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public void setApplicabilityConditions(BankingProductRateCondition applicabilityConditions) {
+        this.applicabilityConditions = applicabilityConditions;
+    }
+
+    /**
+     * The number of tierUnitOfMeasure units that form the upper bound of the tier or band. For a tier with a discrete value (as opposed to a range of values e.g. 1 month) this must be the same as tierValueMinimum. Where this is the same as the tierValueMinimum value of the next-higher tier the referenced tier should be exclusive of this value. For example a term deposit of 2 months falls into the upper tier of the following tiers: (1 – 2 months, 2 – 3 months)
+     * @return maximumValue
+     */
+    public BigDecimal getMaximumValue() {
+        return maximumValue;
+    }
+
+    public void setMaximumValue(BigDecimal maximumValue) {
+        this.maximumValue = maximumValue;
+    }
+
+    /**
+     * The number of tierUnitOfMeasure units that form the lower bound of the tier. The tier should be inclusive of this value
+     * @return minimumValue
+     */
+    public BigDecimal getMinimumValue() {
+        return minimumValue;
+    }
+
+    public void setMinimumValue(BigDecimal minimumValue) {
+        this.minimumValue = minimumValue;
+    }
+
+    /**
+     * A display name for the tier
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Get rateApplicationMethod
+     * @return rateApplicationMethod
+     */
+    public RateApplicationMethod getRateApplicationMethod() {
+        return rateApplicationMethod;
+    }
+
+    public void setRateApplicationMethod(RateApplicationMethod rateApplicationMethod) {
+        this.rateApplicationMethod = rateApplicationMethod;
+    }
+
+    /**
+     * Get unitOfMeasure
+     * @return unitOfMeasure
+     */
+    public UnitOfMeasure getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BankingProductRateTierSubTier bankingProductRateTierSubTier = (BankingProductRateTierSubTier) o;
+        return Objects.equals(this.applicabilityConditions, bankingProductRateTierSubTier.applicabilityConditions) &&
+            Objects.equals(this.maximumValue, bankingProductRateTierSubTier.maximumValue) &&
+            Objects.equals(this.minimumValue, bankingProductRateTierSubTier.minimumValue) &&
+            Objects.equals(this.name, bankingProductRateTierSubTier.name) &&
+            Objects.equals(this.rateApplicationMethod, bankingProductRateTierSubTier.rateApplicationMethod) &&
+            Objects.equals(this.unitOfMeasure, bankingProductRateTierSubTier.unitOfMeasure);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            applicabilityConditions,
+            maximumValue,
+            minimumValue,
+            name,
+            rateApplicationMethod,
+            unitOfMeasure);
+    }
+
+    @Override
+    public String toString() {
+        return "class BankingProductRateTierSubTier {\n" +
+            "   applicabilityConditions: " + toIndentedString(applicabilityConditions) + "\n" + 
+            "   maximumValue: " + toIndentedString(maximumValue) + "\n" + 
+            "   minimumValue: " + toIndentedString(minimumValue) + "\n" + 
+            "   name: " + toIndentedString(name) + "\n" + 
+            "   rateApplicationMethod: " + toIndentedString(rateApplicationMethod) + "\n" + 
+            "   unitOfMeasure: " + toIndentedString(unitOfMeasure) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

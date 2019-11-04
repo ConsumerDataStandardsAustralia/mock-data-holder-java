@@ -9,89 +9,59 @@ package au.org.consumerdatastandards.client.model;
 
 import java.util.Objects;
 
-public class ResponseBankingProductById {
+public class ResponseBankingProductById extends BaseResponse {
 
-  private BankingProductDetail data = null;
+    private BankingProductDetail data;
 
-  private Links links = null;
-
-  private Object meta = null;
-
-  /**
-   * Get data
-   * @return data
-   */
-  public BankingProductDetail getData() {
-    return data;
-  }
-
-  public void setData(BankingProductDetail data) {
-    this.data = data;
-  }
-
-  /**
-   * Get links
-   * @return links
-   */
-  public Links getLinks() {
-    return links;
-  }
-
-  public void setLinks(Links links) {
-    this.links = links;
-  }
-
-  /**
-   * Get meta
-   * @return meta
-   */
-  public Object getMeta() {
-    return meta;
-  }
-
-  public void setMeta(Object meta) {
-    this.meta = meta;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Get data
+     * @return data
+     */
+    public BankingProductDetail getData() {
+        return data;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public void setData(BankingProductDetail data) {
+        this.data = data;
     }
-    ResponseBankingProductById responseBankingProductById = (ResponseBankingProductById) o;
-    return Objects.equals(this.data, responseBankingProductById.data) &&
-        Objects.equals(this.links, responseBankingProductById.links) &&
-        Objects.equals(this.meta, responseBankingProductById.meta);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        data,
-        links,
-        meta);
-  }
-
-  @Override
-  public String toString() {
-    return "class ResponseBankingProductById {\n" +
-        "    data: " + toIndentedString(data) + "\n" +
-        "    links: " + toIndentedString(links) + "\n" +
-        "    meta: " + toIndentedString(meta) + "\n" +
-        "}";
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ResponseBankingProductById responseBankingProductById = (ResponseBankingProductById) o;
+        return Objects.equals(this.data, responseBankingProductById.data) &&
+            super.equals(o);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            data,
+            super.hashCode());
+    }
+
+    @Override
+    public String toString() {
+        return "class ResponseBankingProductById {\n" +
+            "   data: " + toIndentedString(data) + "\n" + 
+            "   links: " + toIndentedString(getLinks()) + "\n" + 
+            "   meta: " + toIndentedString(getMeta()) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

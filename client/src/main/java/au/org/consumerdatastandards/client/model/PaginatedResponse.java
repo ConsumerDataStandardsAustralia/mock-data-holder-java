@@ -11,9 +11,9 @@ import java.util.Objects;
 
 public class PaginatedResponse {
 
-  private LinksPaginated links;
+  protected LinksPaginated links;
 
-  private MetaPaginated meta;
+  protected MetaPaginated meta;
 
   /**
    * The links attribute contains a Links object with links to
