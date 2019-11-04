@@ -1,15 +1,13 @@
 package au.org.consumerdatastandards.codegen.code.java.clientcli;
 
-import au.org.consumerdatastandards.codegen.code.java.JavaCodegenBase;
-import io.swagger.codegen.CodegenConstants;
-import io.swagger.codegen.CodegenType;
+import au.org.consumerdatastandards.codegen.code.java.client.JavaClientGen;
+import io.swagger.codegen.CodegenParameter;
 import io.swagger.codegen.SupportingFile;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class JavaClientCliGen extends JavaCodegenBase {
+public class JavaClientCliGen extends JavaClientGen {
     private static final String DEFAULT_BASE_PACKAGE = "au.org.consumerdatastandards.client.cli";
 
     public JavaClientCliGen() {
@@ -18,12 +16,8 @@ public class JavaClientCliGen extends JavaCodegenBase {
         embeddedTemplateDir = templateDir = "JavaClientCli";
         invokerPackage = DEFAULT_BASE_PACKAGE;
         apiPackage = invokerPackage;
+        modelPackage = invokerPackage.replace("client.cli", "client.model");
         artifactId = "client-cli";
-    }
-
-    @Override
-    public CodegenType getTag() {
-        return CodegenType.CLIENT;
     }
 
     @Override
@@ -34,6 +28,11 @@ public class JavaClientCliGen extends JavaCodegenBase {
     @Override
     public String getHelp() {
         return "Generates a Java client cli.";
+    }
+
+    @Override
+    public String toApiName(String name) {
+        return name;
     }
 
     @Override
@@ -49,6 +48,7 @@ public class JavaClientCliGen extends JavaCodegenBase {
         writeOptional(outputFolder, new SupportingFile("README.mustache", "", "README.md"));
         writeOptional(outputFolder, new SupportingFile("Dockerfile.mustache", "", "Dockerfile"));
 
+        supportingFiles.clear();
         supportingFiles.add(new SupportingFile("ApiCliBase.mustache", invokerFolder, "ApiCliBase.java"));
         supportingFiles.add(new SupportingFile("ApiClientOptions.mustache", supportFolder, "ApiClientOptions.java"));
         supportingFiles.add(new SupportingFile("ApiUtil.mustache", supportFolder, "ApiUtil.java"));
@@ -65,5 +65,28 @@ public class JavaClientCliGen extends JavaCodegenBase {
     @Override
     public Map<String, Object> postProcessAllModels(Map<String, Object> objs) {
         return new HashMap<>(); // no models needed for client-cli
+    }
+
+    @Override
+    public Map<String, Object> postProcessOperations(Map<String, Object> objs) {
+        super.postProcessOperations(objs);
+        Map<String, Object> obj = (Map<String, Object>) objs.get("operations");
+        List<CdsCodegenOperation> operations = (List<CdsCodegenOperation>) obj.get("operation");
+        Set<String> addedImports = new HashSet<>();
+        List imports = (List) objs.get("imports");
+        for (CdsCodegenOperation co : operations) {
+            for (CodegenParameter cp : co.allParams) {
+                CdsCodegenParameter ccp = (CdsCodegenParameter) cp;
+                if (ccp.isEnum && !ccp.isReference && !addedImports.contains(ccp.datatypeWithEnum)) {
+                    imports.add(new HashMap<String, String>() {{
+                        String clientApiPackage = apiPackage.replace("client.cli", "client.api");
+                        String clientApiName = obj.get("classname") + "API";
+                        put("import", clientApiPackage + "." + clientApiName + "." + ccp.datatypeWithEnum);
+                    }});
+                    addedImports.add(ccp.datatypeWithEnum);
+                }
+            }
+        }
+        return objs;
     }
 }

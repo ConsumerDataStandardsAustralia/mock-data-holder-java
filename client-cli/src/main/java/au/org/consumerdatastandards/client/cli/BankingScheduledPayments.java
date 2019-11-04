@@ -12,8 +12,6 @@ import au.org.consumerdatastandards.client.cli.support.*;
 import au.org.consumerdatastandards.client.model.*;
 import au.org.consumerdatastandards.conformance.*;
 import au.org.consumerdatastandards.support.ResponseCode;
-import java.time.OffsetDateTime;
-import au.org.consumerdatastandards.client.api.BankingProductsAPI.ParamEffective;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,35 +22,39 @@ import org.springframework.shell.standard.ShellOption;
 import java.util.List;
 
 @ShellComponent
-@ShellCommandGroup("BankingProducts")
-public class BankingProducts extends ApiCliBase {
+@ShellCommandGroup("BankingScheduledPayments")
+public class BankingScheduledPayments extends ApiCliBase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BankingProducts.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BankingScheduledPayments.class);
 
     @Autowired
     ApiClientOptions apiClientOptions;
 
     private PayloadValidator payloadValidator = new PayloadValidator();
-    private final BankingProductsAPI api = new BankingProductsAPI();
+    private final BankingScheduledPaymentsAPI api = new BankingScheduledPaymentsAPI();
 
-    @ShellMethod("Get product detail")
-    public String getProductDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) String productId) throws Exception {
+    @ShellMethod("List scheduled payments")
+    public String listScheduledPayments(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+        @ShellOption(defaultValue = ShellOption.NULL) String accountId,
+        @ShellOption(defaultValue = ShellOption.NULL) Integer page,
+        @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get product detail CLI initiated with productId: {}",
-            productId);
+        LOGGER.info("List scheduled payments CLI initiated with accountId: {}, page: {}, page-size: {}",
+            accountId,
+            page,
+            pageSize);
 
         if (apiClientOptions.getUserAgent() != null) {
             LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
         }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
-        ResponseBankingProductById response = api.getProductDetail(productId);
+        ResponseBankingScheduledPaymentsList response = api.listScheduledPayments(accountId, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.getProductDetailCall(productId, null);
+            okhttp3.Call call = api.listScheduledPaymentsCall(accountId, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getProductDetail", ResponseCode.OK);
+                .validateResponse(call.request().url().toString(), response, "listScheduledPayments", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -60,34 +62,28 @@ public class BankingProducts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("List products")
-    public String listProducts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) String brand,
-        @ShellOption(defaultValue = ShellOption.NULL) ParamEffective effective,
+    @ShellMethod("List scheduled payments specific accounts")
+    public String listScheduledPaymentsSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+        @ShellOption(defaultValue = ShellOption.NULL) RequestAccountIds accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
-        @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
-        @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory,
-        @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince) throws Exception {
+        @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("List products CLI initiated with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
-            brand,
-            effective,
+        LOGGER.info("List scheduled payments specific accounts CLI initiated with accountIds: {}, page: {}, page-size: {}",
+            accountIds,
             page,
-            pageSize,
-            productCategory,
-            updatedSince);
+            pageSize);
 
         if (apiClientOptions.getUserAgent() != null) {
             LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
         }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
-        ResponseBankingProductList response = api.listProducts(brand, effective, page, pageSize, productCategory, updatedSince);
+        ResponseBankingScheduledPaymentsList response = api.listScheduledPaymentsSpecificAccounts(accountIds, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listProductsCall(brand, effective, page, pageSize, productCategory, updatedSince, null);
+            okhttp3.Call call = api.listScheduledPaymentsSpecificAccountsCall(accountIds, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listProducts", ResponseCode.OK);
+                .validateResponse(call.request().url().toString(), response, "listScheduledPaymentsSpecificAccounts", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

@@ -12,8 +12,6 @@ import au.org.consumerdatastandards.client.cli.support.*;
 import au.org.consumerdatastandards.client.model.*;
 import au.org.consumerdatastandards.conformance.*;
 import au.org.consumerdatastandards.support.ResponseCode;
-import java.time.OffsetDateTime;
-import au.org.consumerdatastandards.client.api.BankingProductsAPI.ParamEffective;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,35 +22,33 @@ import org.springframework.shell.standard.ShellOption;
 import java.util.List;
 
 @ShellComponent
-@ShellCommandGroup("BankingProducts")
-public class BankingProducts extends ApiCliBase {
+@ShellCommandGroup("CommonDiscovery")
+public class CommonDiscovery extends ApiCliBase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BankingProducts.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommonDiscovery.class);
 
     @Autowired
     ApiClientOptions apiClientOptions;
 
     private PayloadValidator payloadValidator = new PayloadValidator();
-    private final BankingProductsAPI api = new BankingProductsAPI();
+    private final CommonDiscoveryAPI api = new CommonDiscoveryAPI();
 
-    @ShellMethod("Get product detail")
-    public String getProductDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) String productId) throws Exception {
+    @ShellMethod("Get outages")
+    public String getOutages(@ShellOption(defaultValue = ShellOption.NULL) Boolean check) throws Exception {
 
-        LOGGER.info("Get product detail CLI initiated with productId: {}",
-            productId);
+        LOGGER.info("Get outages CLI initiated");
 
         if (apiClientOptions.getUserAgent() != null) {
             LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
         }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
-        ResponseBankingProductById response = api.getProductDetail(productId);
+        ResponseDiscoveryOutagesList response = api.getOutages();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.getProductDetailCall(productId, null);
+            okhttp3.Call call = api.getOutagesCall(null);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getProductDetail", ResponseCode.OK);
+                .validateResponse(call.request().url().toString(), response, "getOutages", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -60,34 +56,22 @@ public class BankingProducts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("List products")
-    public String listProducts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) String brand,
-        @ShellOption(defaultValue = ShellOption.NULL) ParamEffective effective,
-        @ShellOption(defaultValue = ShellOption.NULL) Integer page,
-        @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
-        @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory,
-        @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince) throws Exception {
+    @ShellMethod("Get status")
+    public String getStatus(@ShellOption(defaultValue = ShellOption.NULL) Boolean check) throws Exception {
 
-        LOGGER.info("List products CLI initiated with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
-            brand,
-            effective,
-            page,
-            pageSize,
-            productCategory,
-            updatedSince);
+        LOGGER.info("Get status CLI initiated");
 
         if (apiClientOptions.getUserAgent() != null) {
             LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
         }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
-        ResponseBankingProductList response = api.listProducts(brand, effective, page, pageSize, productCategory, updatedSince);
+        CommonDiscoveryStatus response = api.getStatus();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listProductsCall(brand, effective, page, pageSize, productCategory, updatedSince, null);
+            okhttp3.Call call = api.getStatusCall(null);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listProducts", ResponseCode.OK);
+                .validateResponse(call.request().url().toString(), response, "getStatus", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

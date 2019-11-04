@@ -665,6 +665,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             return nonHeaderParams;
         }
 
+        @SuppressWarnings("unused")
         public boolean hasNonHeaderParams() {
             for (CodegenParameter cp : this.allParams) {
                 if (!cp.isHeaderParam) return true;
@@ -673,12 +674,31 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
 
         @SuppressWarnings("unused")
+        public String getOperationDesc() {
+            StringBuilder sb = new StringBuilder();
+            boolean firstCharConverted = false;
+            for(char ch : operationId.toCharArray()) {
+                if (firstCharConverted) {
+                    if (Character.isUpperCase(ch)) {
+                        sb.append(" ").append(Character.toLowerCase(ch));
+                    } else {
+                        sb.append(ch);
+                    }
+                } else {
+                    sb.append(Character.toUpperCase(ch));
+                    firstCharConverted = true;
+                }
+            }
+            return sb.toString();
+        }
+
+        @SuppressWarnings("unused")
         public Set<Map.Entry<String, Object>> getCdsExtensionSet() {
             return vendorExtensions.entrySet();
         }
     }
 
-    private class CdsCodegenParameter extends CodegenParameter {
+    public class CdsCodegenParameter extends CodegenParameter {
         public String cdsTypeAnnotation;
         public boolean isCdsType;
         public boolean isReference;
