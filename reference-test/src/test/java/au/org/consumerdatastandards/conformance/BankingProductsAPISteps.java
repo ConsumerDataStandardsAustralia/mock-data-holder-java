@@ -24,17 +24,14 @@ import java.util.List;
 
 import static au.org.consumerdatastandards.api.banking.BankingProductsAPI.ParamEffective;
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
-import static au.org.consumerdatastandards.conformance.ConformanceError.Type.MISSING_HEADER;
 import static net.serenitybdd.rest.SerenityRest.given;
 import static org.junit.Assert.*;
 
-public class BankingProductsAPISteps {
+public class BankingProductsAPISteps extends APIStepsBase {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private PayloadValidator payloadValidator = new PayloadValidator();
-
-    private String apiBasePath;
 
     private Response listProductsResponse;
 
@@ -44,15 +41,10 @@ public class BankingProductsAPISteps {
 
     private ResponseBankingProductList responseBankingProductList;
 
-    @Step("Setup API base path to {0}")
-    void setupApiBasePath(String apiBasePath) {
-        this.apiBasePath = apiBasePath;
-    }
-
     @Step("Request /banking/products")
     void listProducts(String effective, String updatedSince, String brand, String productCategory, Integer page,
                       Integer pageSize) {
-        String url = apiBasePath + "/banking/products";
+        String url = getApiBasePath() + "/banking/products";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = given()
@@ -153,7 +145,7 @@ public class BankingProductsAPISteps {
             BankingProductCategory bankingProductCategory = getProductCategory(bankingProduct);
             if (bankingProductCategory == null || !bankingProductCategory.name().equals(productCategory)) {
                 errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                        .errorField(FieldUtils.getField(BankingProduct.class, "effectiveFrom", true))
+                        .errorField(FieldUtils.getField(BankingProduct.class, "productCategory", true))
                         .dataJson(ConformanceUtil.toJson(bankingProduct))
                         .errorMessage(String.format(
                                 "BankingProduct productCategory %s does not match productCategory query %s",
@@ -308,7 +300,7 @@ public class BankingProductsAPISteps {
 
     @Step("Request /banking/products/{productId}")
     void getProductDetail(String productId) {
-        String url = apiBasePath + "/banking/products/" + productId;
+        String url = getApiBasePath() + "/banking/products/" + productId;
         requestUrl = url;
         getProductDetailResponse = given().relaxedHTTPSValidation()
                 .header("Accept", "application/json")
@@ -325,11 +317,7 @@ public class BankingProductsAPISteps {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
             checkResponseHeaders(getProductDetailResponse, conformanceErrors);
-            String contentType = getProductDetailResponse.contentType();
-            if (!isContentTypeValid(contentType)) {
-                conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                        .errorMessage("missing content-type application/json in response header"));
-            }
+            checkJsonContentType(getProductDetailResponse.contentType(), conformanceErrors);
             String json = getProductDetailResponse.getBody().asString();
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
             try {
@@ -357,16 +345,6 @@ public class BankingProductsAPISteps {
         }
     }
 
-    private void checkResponseHeaders(Response response, List<ConformanceError> conformanceErrors) {
-        String version = response.header(Header.VERSION.getKey());
-        if (StringUtils.isBlank(version)) {
-            conformanceErrors.add(new ConformanceError().errorType(MISSING_HEADER)
-                .errorMessage("missing '" + Header.VERSION.getKey() + "' in response header"));
-        } else {
-            ConformanceUtil.checkHeaderValue(version, Header.VERSION, conformanceErrors);
-        }
-    }
-
     private String buildConformanceErrorsDescription(List<ConformanceError> conformanceErrors) {
         StringBuilder sb = new StringBuilder();
         for (ConformanceError error : conformanceErrors) {
@@ -385,13 +363,5 @@ public class BankingProductsAPISteps {
         String idFieldName = ConformanceUtil.getFieldName(data, "productId");
         Field idField = FieldUtils.getField(data.getClass(), idFieldName, true);
         return (String) ReflectionUtils.getField(idField, data);
-    }
-
-    private boolean isContentTypeValid(String contentType) {
-        return contentType != null && contentType.startsWith("application/json");
-    }
-
-    String getApiBasePath() {
-        return apiBasePath;
     }
 }
