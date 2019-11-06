@@ -1,4 +1,4 @@
-package {{basePackage}};
+package {{basePackage}}.util;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
@@ -99,4 +99,3 @@ public class WebUtil {
         return getMinimumVersion(request) == null || getCurrentVersion() >= getMinimumVersion(request);
     }
 }
-
