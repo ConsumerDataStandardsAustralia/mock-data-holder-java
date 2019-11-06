@@ -73,7 +73,7 @@ public class AccountsAPISteps extends APIStepsBase {
         listAccountsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
     }
 
-    @Step("Validate /banking/accounts resposnse")
+    @Step("Validate /banking/accounts response")
     void validateListAccountsResponse(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
         boolean paramsValid = validateListAccountsParams(productCategory, openStatus, isOwned, page, pageSize);
         int statusCode = listAccountsResponse.statusCode();
@@ -87,11 +87,13 @@ public class AccountsAPISteps extends APIStepsBase {
             try {
                 responseBankingAccountList = objectMapper.readValue(json, ResponseBankingAccountList.class);
                 payloadValidator.validateResponse(this.requestUrl, responseBankingAccountList, "listAccounts", statusCode);
-                ResponseBankingAccountListData data = getAccountListData(responseBankingAccountList);
+                ResponseBankingAccountListData data = (ResponseBankingAccountListData) getField(responseBankingAccountList, "data");
                 List<BankingAccount> accounts = getAccounts(data);
                 if (accounts != null) {
                     for (BankingAccount account : accounts) {
                         checkProductCategory(account, productCategory, conformanceErrors);
+                        checkOpenStatus(account, openStatus, conformanceErrors);
+                        checkOwned(account, isOwned, conformanceErrors);
                     }
                 }
             } catch (IOException e) {
@@ -102,9 +104,37 @@ public class AccountsAPISteps extends APIStepsBase {
         }
     }
 
+    private void checkOwned(BankingAccount account, Boolean isOwned, List<ConformanceError> errors) {
+        if (isOwned != null) {
+            Boolean accountOwned = (Boolean) getField(account, "isOwned");
+            if (!isOwned.equals(accountOwned)) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingAccount.class, "isOwned", true))
+                        .dataJson(ConformanceUtil.toJson(account))
+                        .errorMessage(String.format(
+                                "BankingAccount isOwned %b does not match isOwned query %b",
+                                accountOwned, isOwned)));
+            }
+        }
+    }
+
+    private void checkOpenStatus(BankingAccount account, String openStatus, List<ConformanceError> errors) {
+        if (!StringUtils.isBlank(openStatus)) {
+            BankingAccount.OpenStatus accountOpenStatus = (BankingAccount.OpenStatus) getField(account, "openStatus");
+            if (accountOpenStatus == null || !accountOpenStatus.name().equals(openStatus)) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingAccount.class, "openStatus", true))
+                        .dataJson(ConformanceUtil.toJson(account))
+                        .errorMessage(String.format(
+                                "BankingAccount openStatus %s does not match openStatus query %s",
+                                accountOpenStatus.name(), openStatus)));
+            }
+        }
+    }
+
     private void checkProductCategory(BankingAccount account, String productCategory, List<ConformanceError> errors) {
         if (!StringUtils.isBlank(productCategory)) {
-            BankingProductCategory bankingProductCategory = getProductCategory(account);
+            BankingProductCategory bankingProductCategory = (BankingProductCategory) getField(account, "productCategory");
             if (bankingProductCategory == null || !bankingProductCategory.name().equals(productCategory)) {
                 errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorField(FieldUtils.getField(BankingAccount.class, "productCategory", true))
@@ -116,20 +146,14 @@ public class AccountsAPISteps extends APIStepsBase {
         }
     }
 
-    private BankingProductCategory getProductCategory(BankingAccount account) {
-        Field dataField = FieldUtils.getField(account.getClass(), "productCategory", true);
-        return (BankingProductCategory) ReflectionUtils.getField(dataField, account);
-    }
-
-    private ResponseBankingAccountListData getAccountListData(ResponseBankingAccountList accountList) {
-        Field dataField = FieldUtils.getField(ResponseBankingAccountList.class, "data", true);
-        return (ResponseBankingAccountListData) ReflectionUtils.getField(dataField, accountList);
+    private Object getField(Object obj, String fieldName) {
+        Field dataField = FieldUtils.getField(obj.getClass(), fieldName, true);
+        return ReflectionUtils.getField(dataField, obj);
     }
 
     @SuppressWarnings("unchecked")
     private List<BankingAccount> getAccounts(ResponseBankingAccountListData accountListData) {
-        Field dataField = FieldUtils.getField(ResponseBankingAccountListData.class, "accounts", true);
-        return (List<BankingAccount>) ReflectionUtils.getField(dataField, accountListData);
+        return (List<BankingAccount>) getField(accountListData, "accounts");
     }
 
     private boolean validateListAccountsParams(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
