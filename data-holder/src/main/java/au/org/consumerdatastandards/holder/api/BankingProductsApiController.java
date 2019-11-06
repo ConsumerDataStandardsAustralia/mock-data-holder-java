@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.*;
-import au.org.consumerdatastandards.holder.service.BankingProductsService;
+import au.org.consumerdatastandards.holder.service.BankingProductService;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 
 import org.apache.logging.log4j.LogManager;
@@ -24,13 +24,13 @@ import java.util.Optional;
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class BankingProductsApiController implements BankingProductsApi {
 
-    private final BankingProductsService service;
+    private final BankingProductService service;
     private static final Logger LOGGER = LogManager.getLogger(BankingProductsApiController.class);
 
     private final NativeWebRequest request;
 
     @Autowired
-    public BankingProductsApiController(NativeWebRequest request, BankingProductsService service) {
+    public BankingProductsApiController(NativeWebRequest request, BankingProductService service) {
         this.request = request;
         this.service = service;
     }

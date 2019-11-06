@@ -13,9 +13,11 @@ public class JavaServerGen extends JavaCodegenBase {
 
     private String configPackage = DEFAULT_BASE_PACKAGE + ".configuration";
 
+    private String utilPackage = DEFAULT_BASE_PACKAGE + ".util";
+
     public JavaServerGen() {
         super();
-        outputFolder = "generated-code" + File.separator + "client";
+        outputFolder = "generated-code" + File.separator + "holder";
         embeddedTemplateDir = templateDir = "JavaServer";
         invokerPackage = DEFAULT_BASE_PACKAGE;
         apiPackage = DEFAULT_BASE_PACKAGE + ".api";
@@ -29,17 +31,23 @@ public class JavaServerGen extends JavaCodegenBase {
 
     @Override
     public void processOpts() {
+        final String resourcesFolder = (projectFolder + "/resources");
+        final String configFolder = (sourceFolder + File.separator + configPackage).replace(".", File.separator);
+        final String utilFolder = (sourceFolder + File.separator + utilPackage).replace(".", File.separator);
         setJava8Mode(true);
         super.processOpts();
-        modelDocTemplateFiles.clear();
         typeMapping.put("file", "Resource");
         importMapping.put("Resource", "org.springframework.core.io.Resource");
         supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-        supportingFiles.add(new SupportingFile("homeController.mustache",
-            (sourceFolder + File.separator + configPackage).replace(".", java.io.File.separator), "HomeController.java"));
-        supportingFiles.add(new SupportingFile("application.mustache",
-            ("src.main.resources").replace(".", java.io.File.separator), "application.properties"));
+        supportingFiles.add(new SupportingFile("HomeController.mustache", configFolder, "HomeController.java"));
+        supportingFiles.add(new SupportingFile("OpenAPIDocumentationConfig.mustache", configFolder, "OpenAPIDocumentationConfig.java"));
+        supportingFiles.add(new SupportingFile("application.mustache", resourcesFolder, "application.properties"));
+        supportingFiles.add(new SupportingFile("banner.mustache", resourcesFolder, "banner.txt"));
+        supportingFiles.add(new SupportingFile("CdsDataLoader.mustache", utilFolder, "CdsDataLoader.java"));
+        supportingFiles.add(new SupportingFile("ContextEventListener.mustache", utilFolder, "ContextEventListener.java"));
+        supportingFiles.add(new SupportingFile("SwaggerJacksonModuleRegistrar.mustache", utilFolder, "SwaggerJacksonModuleRegistrar.java"));
+        supportingFiles.add(new SupportingFile("WebUtil.mustache", utilFolder, "WebUtil.java"));
     }
 
     @Override

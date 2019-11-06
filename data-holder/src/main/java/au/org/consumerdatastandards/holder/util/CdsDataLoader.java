@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.util;
 
 import au.org.consumerdatastandards.holder.model.BankingProductDetail;
-import au.org.consumerdatastandards.holder.repository.BankingProductDetailsRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductDetailRepository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -21,13 +21,13 @@ import java.nio.file.Paths;
 @Component
 public class CdsDataLoader {
 
-    private BankingProductDetailsRepository productDetailsRepository;
+    private BankingProductDetailRepository productDetailsRepository;
     
     private static final Logger LOG = LogManager.getLogger(CdsDataLoader.class);
 
 
     @Autowired
-    public CdsDataLoader(BankingProductDetailsRepository productDetailsRepository) {
+    public CdsDataLoader(BankingProductDetailRepository productDetailsRepository) {
         this.productDetailsRepository = productDetailsRepository;
     }
 

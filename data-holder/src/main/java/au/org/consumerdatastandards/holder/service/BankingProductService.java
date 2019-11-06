@@ -3,8 +3,8 @@ package au.org.consumerdatastandards.holder.service;
 import au.org.consumerdatastandards.holder.model.BankingProduct;
 import au.org.consumerdatastandards.holder.model.BankingProductDetail;
 import au.org.consumerdatastandards.holder.model.ParamEffective;
-import au.org.consumerdatastandards.holder.repository.BankingProductDetailsRepository;
-import au.org.consumerdatastandards.holder.repository.BankingProductsRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductDetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductRepository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,16 +22,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BankingProductsService {
+public class BankingProductService {
 
-    private final BankingProductsRepository productsRepository;
-    private final BankingProductDetailsRepository productDetailsRepository;
+    private final BankingProductRepository productsRepository;
+    private final BankingProductDetailRepository productDetailsRepository;
     
-    private static final Logger LOG = LogManager.getLogger(BankingProductsService.class);
+    private static final Logger LOG = LogManager.getLogger(BankingProductService.class);
 
 
     @Autowired
-    public BankingProductsService(BankingProductsRepository productsRepository, BankingProductDetailsRepository productDetailsRepository) {
+    public BankingProductService(BankingProductRepository productsRepository, BankingProductDetailRepository productDetailsRepository) {
         this.productsRepository = productsRepository;
         this.productDetailsRepository = productDetailsRepository;
     }
