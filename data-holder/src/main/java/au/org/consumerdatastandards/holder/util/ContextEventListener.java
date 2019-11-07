@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 @Component
@@ -26,7 +25,6 @@ public class ContextEventListener implements ApplicationListener<ContextRefreshe
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         try {
             LOG.info("Service setup in progress, performing boot time operations");
-            LOG.info("Initiating data loader for Products");
             dataLoader.loadProducts("payloads");
 
         } catch (IOException e) {

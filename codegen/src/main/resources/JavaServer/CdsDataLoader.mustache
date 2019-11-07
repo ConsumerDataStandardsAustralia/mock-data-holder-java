@@ -21,10 +21,9 @@ import java.nio.file.Paths;
 @Component
 public class CdsDataLoader {
 
-    private BankingProductDetailRepository productDetailRepository;
-    
     private static final Logger LOG = LogManager.getLogger(CdsDataLoader.class);
 
+    private BankingProductDetailRepository productDetailRepository;
 
     @Autowired
     public CdsDataLoader(BankingProductDetailRepository productDetailRepository) {

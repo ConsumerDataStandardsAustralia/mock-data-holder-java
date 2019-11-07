@@ -21,14 +21,13 @@ import java.nio.file.Paths;
 @Component
 public class CdsDataLoader {
 
-    private BankingProductDetailRepository productDetailsRepository;
-    
     private static final Logger LOG = LogManager.getLogger(CdsDataLoader.class);
 
+    private BankingProductDetailRepository productDetailRepository;
 
     @Autowired
-    public CdsDataLoader(BankingProductDetailRepository productDetailsRepository) {
-        this.productDetailsRepository = productDetailsRepository;
+    public CdsDataLoader(BankingProductDetailRepository productDetailRepository) {
+        this.productDetailRepository = productDetailRepository;
     }
 
     public void loadProducts(String fileOrFolder) throws IOException {
@@ -50,7 +49,7 @@ public class CdsDataLoader {
                     .registerModule(new JavaTimeModule());
                 BankingProductDetail productDetail = objectMapper.readValue(jsonData, BankingProductDetail.class);
 
-                productDetailsRepository.save(productDetail);
+                productDetailRepository.save(productDetail);
 
                 LOG.info("Product Data loader saved the following to the database: \n{}", new String(jsonData));
             } catch (IOException e) {

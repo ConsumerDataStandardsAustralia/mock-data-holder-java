@@ -53,6 +53,7 @@ public class JavaServerGen extends JavaCodegenBase {
         supportingFiles.add(new SupportingFile("ContextEventListener.mustache", utilFolder, "ContextEventListener.java"));
         supportingFiles.add(new SupportingFile("SwaggerJacksonModuleRegistrar.mustache", utilFolder, "SwaggerJacksonModuleRegistrar.java"));
         supportingFiles.add(new SupportingFile("WebUtil.mustache", utilFolder, "WebUtil.java"));
+        apiTemplateFiles.put("apiController.mustache", "Controller.java");
     }
 
     @Override
