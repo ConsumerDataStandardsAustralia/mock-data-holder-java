@@ -30,6 +30,11 @@ public class JavaServerGen extends JavaCodegenBase {
     }
 
     @Override
+    public String toApiName(String name) {
+        return name + "Api";
+    }
+
+    @Override
     public void processOpts() {
         final String resourcesFolder = (projectFolder + "/resources");
         final String configFolder = (sourceFolder + File.separator + configPackage).replace(".", File.separator);
