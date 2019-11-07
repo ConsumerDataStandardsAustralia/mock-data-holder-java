@@ -81,6 +81,7 @@ public class AccountsAPISteps extends APIStepsBase {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
             checkResponseHeaders(listAccountsResponse, conformanceErrors);
+            checkProtectedEndpointResponseHeaders(listAccountsResponse, conformanceErrors);
             checkJsonContentType(listAccountsResponse.contentType(), conformanceErrors);
             String json = listAccountsResponse.getBody().asString();
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();

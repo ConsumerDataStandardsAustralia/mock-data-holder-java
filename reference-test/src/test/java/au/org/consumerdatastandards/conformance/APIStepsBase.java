@@ -35,6 +35,17 @@ public class APIStepsBase {
             ConformanceUtil.checkHeaderValue(version, Header.VERSION, conformanceErrors);
         }
     }
+
+    protected void checkProtectedEndpointResponseHeaders(Response response, List<ConformanceError> conformanceErrors) {
+        String version = response.header(Header.FAPI_INTERACTION_ID.getKey());
+        if (StringUtils.isBlank(version)) {
+            conformanceErrors.add(new ConformanceError().errorType(MISSING_HEADER)
+                    .errorMessage("missing '" + Header.FAPI_INTERACTION_ID.getKey() + "' in response header"));
+        } else {
+            ConformanceUtil.checkHeaderValue(version, Header.FAPI_INTERACTION_ID, conformanceErrors);
+        }
+    }
+
     protected void checkJsonContentType(String contentType, List<ConformanceError> conformanceErrors) {
         if (!isContentTypeValid(contentType)) {
             conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
