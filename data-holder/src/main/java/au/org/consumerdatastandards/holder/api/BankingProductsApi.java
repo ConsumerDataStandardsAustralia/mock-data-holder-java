@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 
 @Validated
-@Api(value = "banking", description = "the banking API")
+@Api(value = "BankingProducts", description = "the BankingProducts API")
 public interface BankingProductsApi {
 
     default Optional<NativeWebRequest> getRequest() {
