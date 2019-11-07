@@ -345,14 +345,6 @@ public class BankingProductsAPISteps extends APIStepsBase {
         }
     }
 
-    private String buildConformanceErrorsDescription(List<ConformanceError> conformanceErrors) {
-        StringBuilder sb = new StringBuilder();
-        for (ConformanceError error : conformanceErrors) {
-            sb.append("\n\n").append(error.getDescription());
-        }
-        return sb.toString();
-    }
-
     private Object getBankingProductDetail(Object responseBankingProductById) {
         String dataFieldName = ConformanceUtil.getFieldName(responseBankingProductById, "data");
         Field dataField = FieldUtils.getField(responseBankingProductById.getClass(), dataFieldName, true);

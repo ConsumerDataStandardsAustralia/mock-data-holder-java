@@ -56,4 +56,12 @@ public class APIStepsBase {
     protected boolean isContentTypeValid(String contentType) {
         return contentType != null && contentType.startsWith("application/json");
     }
+
+    protected String buildConformanceErrorsDescription(List<ConformanceError> conformanceErrors) {
+        StringBuilder sb = new StringBuilder();
+        for (ConformanceError error : conformanceErrors) {
+            sb.append("\n\n").append(error.getDescription());
+        }
+        return sb.toString();
+    }
 }

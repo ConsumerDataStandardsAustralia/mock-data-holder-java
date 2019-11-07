@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.conformance;
 
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
-import net.thucydides.core.annotations.Steps;
 import net.thucydides.junit.annotations.UseTestDataFrom;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -9,21 +8,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(SerenityParameterizedRunner.class)
 @UseTestDataFrom("testdata/banking-accounts-api-params.csv")
-public class AccountsTest extends APITestBase {
-
-    @Steps
-    AccountsAPISteps steps;
+public class ListAccountsTest extends BankingAccountsAPITestBase {
 
     private String productCategory;
     private String openStatus;
     private Boolean isOwned;
     private Integer page;
     private Integer pageSize;
-
-    @Override
-    protected APIStepsBase getSteps() {
-        return steps;
-    }
 
     @Test
     public void listAccounts() {
