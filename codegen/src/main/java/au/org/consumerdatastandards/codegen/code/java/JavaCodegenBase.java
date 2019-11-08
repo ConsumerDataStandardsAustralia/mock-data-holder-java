@@ -29,32 +29,6 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
         }
     };
 
-    enum ResponseCode {
-        OK("200"),
-        CREATED("201"),
-        ACCEPTED("202"),
-        NO_CONTENT("204"),
-        BAD_REQUEST("400"),
-        UNAUTHORIZED("401"),
-        FORBIDDEN("403"),
-        UNPROCESSABLE_ENTITY("422"),
-        TOO_MANY_REQUESTS("429");
-
-        String code;
-
-        ResponseCode(String code) {
-            this.code = code;
-        }
-
-        static ResponseCode of(String code) {
-            for (ResponseCode value : values()) {
-                if (value.code.equals(code)) {
-                    return value;
-                }
-            }
-            return null;
-        }
-    }
 
     private Swagger swagger;
     private Map<String, String> refParameters = new HashMap<>();
@@ -527,10 +501,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
                     }
                 }
             }
-            for (CodegenResponse cr : co.responses) {
-                ResponseCode responseCode = ResponseCode.of(cr.code);
-                cr.code = "ResponseCode." + (responseCode == null ? cr.code : responseCode);
-            }
+
         }
         String currentPackage = apiPackage + "." + operations.get(0).tags.get(0).getName().split(" ")[0].toLowerCase();
         objs.put("cdsApiPackage", currentPackage);

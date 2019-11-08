@@ -1,8 +1,10 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.*;
+import au.org.consumerdatastandards.holder.model.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.ParamEffective;
+import au.org.consumerdatastandards.holder.model.ResponseBankingProductById;
+import au.org.consumerdatastandards.holder.model.ResponseBankingProductList;
 import io.swagger.annotations.*;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +42,6 @@ public interface BankingProductsApi {
     })
     @RequestMapping(
         value = "/banking/products/{productId}",
-        produces = MediaType.APPLICATION_JSON_VALUE,
         method = RequestMethod.GET
     )
     ResponseEntity<ResponseBankingProductById> getProductDetail(
@@ -67,7 +68,8 @@ public interface BankingProductsApi {
     })
     @RequestMapping(
         value = "/banking/products",
-        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = {MediaType.APPLICATION_JSON_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE},
         method = RequestMethod.GET
     )
     ResponseEntity<ResponseBankingProductList> listProducts(
@@ -99,5 +101,6 @@ public interface BankingProductsApi {
             value = "Page size to request. Default is 25 (standard pagination)",
             defaultValue = "25"
         )
-        @Valid @RequestParam(value = "page-size", required = false, defaultValue = "25") Integer pageSize);
+        @Valid @RequestParam(value = "page-size", required = false, defaultValue = "25") Integer pageSize
+    );
 }

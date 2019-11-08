@@ -83,7 +83,7 @@ public interface BankingPayeesAPI  {
         String xFapiAuthDate, 
         @Param(
             name = "x-fapi-customer-ip-address",
-            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            description = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-fapi-customer-ip-address"
         )
@@ -191,7 +191,7 @@ public interface BankingPayeesAPI  {
         String xFapiAuthDate, 
         @Param(
             name = "x-fapi-customer-ip-address",
-            description = "The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
+            description = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.",
             in = ParamLocation.HEADER,
             reference = "RequestHeader_x-fapi-customer-ip-address"
         )
