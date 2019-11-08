@@ -2,6 +2,9 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.List;
 
@@ -63,14 +66,6 @@ public class CommonOrganisationDetail extends CommonOrganisation {
      */
     private String legalName;
 
-    public enum CommonOrganisation.OrganisationType {
-        COMPANY,
-        GOVERNMENT_ENTITY,
-        OTHER,
-        PARTNERSHIP,
-        SOLE_TRADER,
-        TRUST
-    }
     /**
      * Get organisationType
      */

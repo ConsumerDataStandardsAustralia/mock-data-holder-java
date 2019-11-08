@@ -2,6 +2,8 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.time.LocalDate;
 import java.util.Objects;
 
 @ApiModel
@@ -27,11 +29,6 @@ public class BankingPayeeDetail extends BankingPayee {
      */
     private String payeeId;
 
-    public enum BankingPayee.Type {
-        BILLER,
-        DOMESTIC,
-        INTERNATIONAL
-    }
     /**
      * Get type
      */
@@ -153,6 +150,7 @@ public class BankingPayeeDetail extends BankingPayee {
     public void setDomestic(BankingDomesticPayee domestic) {
         this.domestic = domestic;
     }
+
     public BankingPayeeDetail international(BankingInternationalPayee international) {
         this.international = international;
         return this;
@@ -166,6 +164,7 @@ public class BankingPayeeDetail extends BankingPayee {
     public void setInternational(BankingInternationalPayee international) {
         this.international = international;
     }
+
     public BankingPayeeDetail payeeUType(PayeeUType payeeUType) {
         this.payeeUType = payeeUType;
         return this;

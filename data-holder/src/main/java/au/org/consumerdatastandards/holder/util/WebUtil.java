@@ -9,11 +9,10 @@ import java.util.UUID;
 
 public class WebUtil {
 
-    final static String V = "x-v";
-    final static String MIN_V = "x-min-v";
-    final static Integer CURRENT_VERSION = 1;
-    final static String CORRELATION_ID = "x-Correlation-Id";
-    final static String FAPI_INTERACTION_ID = "x-fapi-interaction-id";
+    private final static String V = "x-v";
+    private final static Integer CURRENT_VERSION = 1;
+    private final static String CORRELATION_ID = "x-Correlation-Id";
+    private final static String FAPI_INTERACTION_ID = "x-fapi-interaction-id";
 
     public static String getPaginatedLink(NativeWebRequest request, Integer page, Integer pageSize) {
         HttpServletRequest servletRequest = request.getNativeRequest(HttpServletRequest.class);
@@ -66,36 +65,28 @@ public class WebUtil {
         }
     }
 
-    public static Integer getVersionHeader(NativeWebRequest request, String header) {
+    private static Integer getVersionNumber(String version) {
         Integer versionValue = null;
-        String headerValue = request.getHeader(header);
-        if (!StringUtils.isEmpty(headerValue)) {
+        if (!StringUtils.isEmpty(version)) {
             try {
-                versionValue = Integer.parseInt(headerValue);
+                versionValue = Integer.parseInt(version);
             } catch (NumberFormatException e) {
                 // ignore it
             }
         }
-
         return versionValue;
-    }
-
-    public static Integer getMaximumVersion(NativeWebRequest request) {
-        return getVersionHeader(request, V);
-    }
-
-    public static Integer getMinimumVersion(NativeWebRequest request) {
-        return getVersionHeader(request, MIN_V);
     }
 
     public static Integer getCurrentVersion() {
         return CURRENT_VERSION;
     }
 
-    public static boolean hasSupportedVersion(NativeWebRequest request) {
-        if (getMaximumVersion(request) != null && getCurrentVersion() > getMaximumVersion(request)) {
+    public static boolean hasSupportedVersion(String xMinV, String xV) {
+        Integer maxVersion = getVersionNumber(xV);
+        Integer minVersion = getVersionNumber(xMinV);
+        if (maxVersion != null && getCurrentVersion() > maxVersion) {
             return false;
         }
-        return getMinimumVersion(request) == null || getCurrentVersion() >= getMinimumVersion(request);
+        return minVersion == null || getCurrentVersion() >= minVersion;
     }
 }

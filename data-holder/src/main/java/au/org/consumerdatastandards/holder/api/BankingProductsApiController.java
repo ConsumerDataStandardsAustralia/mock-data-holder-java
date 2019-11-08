@@ -41,13 +41,13 @@ public class BankingProductsApiController implements BankingProductsApi {
     }
 
     @Override
-    public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId) {
+    public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId, String xMinV, String xV) {
         LOGGER.info("Retrieving Detailed Product Information for {}", productId);
 
-        if (!WebUtil.hasSupportedVersion(request)) {
+        if (!WebUtil.hasSupportedVersion(xMinV, xV)) {
             LOGGER.error(
                 "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                WebUtil.getMinimumVersion(request), WebUtil.getMaximumVersion(request),
+                xMinV, xV,
                 WebUtil.getCurrentVersion());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
@@ -73,22 +73,24 @@ public class BankingProductsApiController implements BankingProductsApi {
     }
 
     @Override
-    public ResponseEntity<ResponseBankingProductList> listProducts(@Valid ParamEffective effective,
-                                                                   @Valid OffsetDateTime updatedSince,
-                                                                   @Valid String brand,
-                                                                   @Valid BankingProductCategory productCategory,
-                                                                   @Valid Integer page,
-                                                                   @Valid Integer pageSize) {
+    public ResponseEntity<ResponseBankingProductList> listProducts(ParamEffective effective,
+                                                                   OffsetDateTime updatedSince,
+                                                                   String brand,
+                                                                   BankingProductCategory productCategory,
+                                                                   Integer page,
+                                                                   Integer pageSize, 
+                                                                   String xMinV, 
+                                                                   String xV) {
 
         LOGGER.info(
             "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",
             effective, updatedSince, brand, productCategory, page, pageSize);
 
-        if (!WebUtil.hasSupportedVersion(request)) {
+        if (!WebUtil.hasSupportedVersion(xMinV, xV)) {
             LOGGER.error(
                 "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                WebUtil.getMinimumVersion(request),
-                WebUtil.getMaximumVersion(request),
+                xMinV,
+                xV,
                 WebUtil.getCurrentVersion());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
@@ -152,7 +154,7 @@ public class BankingProductsApiController implements BankingProductsApi {
         return new ResponseEntity<>(responseProductList, headers, HttpStatus.OK);
     }
 
-    private Integer getPagingValue(@Valid Integer page, int defaultValue) {
+    private Integer getPagingValue(Integer page, int defaultValue) {
         LOGGER.debug("Loading page {} with default value of {}", page, defaultValue);
         return page != null && page > 0 ? page : defaultValue;
     }

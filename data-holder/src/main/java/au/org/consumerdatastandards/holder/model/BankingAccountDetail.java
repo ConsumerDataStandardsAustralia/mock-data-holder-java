@@ -2,6 +2,9 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 
@@ -38,10 +41,6 @@ public class BankingAccountDetail extends BankingAccount {
      */
     private String nickname;
 
-    public enum BankingAccount.OpenStatus {
-        CLOSED,
-        OPEN
-    }
     /**
      * Get openStatus
      */

@@ -2,6 +2,8 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @ApiModel
@@ -77,10 +79,6 @@ public class BankingTransactionDetail extends BankingTransaction {
      */
     private String reference;
 
-    public enum BankingTransaction.Status {
-        PENDING,
-        POSTED
-    }
     /**
      * Get status
      */
@@ -91,16 +89,6 @@ public class BankingTransactionDetail extends BankingTransaction {
      */
     private String transactionId;
 
-    public enum BankingTransaction.Type {
-        DIRECT_DEBIT,
-        FEE,
-        INTEREST_CHARGED,
-        INTEREST_PAID,
-        OTHER,
-        PAYMENT,
-        TRANSFER_INCOMING,
-        TRANSFER_OUTGOING
-    }
     /**
      * Get type
      */

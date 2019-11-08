@@ -8,10 +8,7 @@ import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
@@ -49,7 +46,15 @@ public interface BankingProductsApi {
             value = "ID of the specific product requested",
             required = true
         )
-        @PathVariable("productId") String productId
+        @PathVariable("productId") String productId,
+        @ApiParam(
+            value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
+        )
+        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @ApiParam(
+            value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
+        )
+        @RequestHeader(value = "x-v", required = false) String xV
     );
 
     @ApiOperation(
@@ -101,6 +106,14 @@ public interface BankingProductsApi {
             value = "Page size to request. Default is 25 (standard pagination)",
             defaultValue = "25"
         )
-        @Valid @RequestParam(value = "page-size", required = false, defaultValue = "25") Integer pageSize
+        @Valid @RequestParam(value = "page-size", required = false, defaultValue = "25") Integer pageSize,
+        @ApiParam(
+            value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
+        )
+        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @ApiParam(
+            value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
+        )
+        @RequestHeader(value = "x-v", required = false) String xV
     );
 }

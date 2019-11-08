@@ -2,6 +2,8 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.List;
 

@@ -7,10 +7,6 @@ import java.util.Objects;
 @ApiModel
 public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
 
-    public enum CommonPhysicalAddress.AddressUType {
-        PAF,
-        SIMPLE
-    }
     /**
      * Get addressUType
      */
