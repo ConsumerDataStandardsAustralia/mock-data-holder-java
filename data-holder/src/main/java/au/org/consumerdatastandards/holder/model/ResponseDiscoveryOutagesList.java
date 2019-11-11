@@ -7,20 +7,7 @@ import java.util.Objects;
 @ApiModel
 public class ResponseDiscoveryOutagesList extends BaseResponse {
 
-    /**
-     * Get data
-     */
     private ResponseDiscoveryOutagesListData data;
-
-    /**
-     * Get links
-     */
-    private Links links;
-
-    /**
-     * Get meta
-     */
-    private Meta meta;
 
     public ResponseDiscoveryOutagesList data(ResponseDiscoveryOutagesListData data) {
         this.data = data;
@@ -34,32 +21,6 @@ public class ResponseDiscoveryOutagesList extends BaseResponse {
 
     public void setData(ResponseDiscoveryOutagesListData data) {
         this.data = data;
-    }
-    public ResponseDiscoveryOutagesList links(Links links) {
-        this.links = links;
-        return this;
-    }
-
-    @ApiModelProperty(required = true)
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-    public ResponseDiscoveryOutagesList meta(Meta meta) {
-        this.meta = meta;
-        return this;
-    }
-
-    @ApiModelProperty
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
     }
 
     @Override

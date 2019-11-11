@@ -101,12 +101,10 @@ public class CommonOrganisationDetail extends CommonOrganisation {
         inverseJoinColumns = @JoinColumn(name = "physical_address_id"))
     private List<CommonPhysicalAddressWithPurpose> physicalAddresses;
 
-    @Override
     public String getId() {
         return id;
     }
 
-    @Override
     public void setId(String id) {
         this.id = id;
     }

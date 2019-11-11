@@ -1,14 +1,25 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.List;
 
 @ApiModel
+@Entity
+@Table(name = "CommonPerson")
 public class CommonPersonDetail extends CommonPerson {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * For people with single names this field need not be present.  The single name should be in the lastName field
@@ -28,7 +39,7 @@ public class CommonPersonDetail extends CommonPerson {
     /**
      * Field is mandatory but array may be empty
      */
-    
+    @ElementCollection
     private List<String> middleNames;
 
     /**
@@ -49,20 +60,41 @@ public class CommonPersonDetail extends CommonPerson {
     /**
      * May be empty
      */
-    
+    @OneToMany
+    @JoinTable(
+        name = "person_email_addresses",
+        joinColumns = @JoinColumn(name = "person_id"),
+        inverseJoinColumns = @JoinColumn(name = "email_address_id"))
     private List<CommonEmailAddress> emailAddresses;
 
     /**
      * Array is mandatory but may be empty if no phone numbers are held
      */
-    
+    @OneToMany
+    @JoinTable(
+        name = "person_phone_numbers",
+        joinColumns = @JoinColumn(name = "person_id"),
+        inverseJoinColumns = @JoinColumn(name = "phone_number_id"))
     private List<CommonPhoneNumber> phoneNumbers;
 
     /**
      * Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
      */
-    
+    @OneToMany
+    @JoinTable(
+        name = "person_physical_addresses",
+        joinColumns = @JoinColumn(name = "person_id"),
+        inverseJoinColumns = @JoinColumn(name = "physical_address_id"))
     private List<CommonPhysicalAddressWithPurpose> physicalAddresses;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CommonPersonDetail firstName(String firstName) {
         this.firstName = firstName;
@@ -242,8 +274,9 @@ public class CommonPersonDetail extends CommonPerson {
     @Override
     public String toString() {
         return "class CommonPersonDetail {\n" +
-            "   firstName: " + toIndentedString(getFirstName()) + "\n" + 
-            "   lastName: " + toIndentedString(getLastName()) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   firstName: " + toIndentedString(getFirstName()) + "\n" +
+            "   lastName: " + toIndentedString(getLastName()) + "\n" +
             "   lastUpdateTime: " + toIndentedString(getLastUpdateTime()) + "\n" + 
             "   middleNames: " + toIndentedString(getMiddleNames()) + "\n" + 
             "   occupationCode: " + toIndentedString(getOccupationCode()) + "\n" + 

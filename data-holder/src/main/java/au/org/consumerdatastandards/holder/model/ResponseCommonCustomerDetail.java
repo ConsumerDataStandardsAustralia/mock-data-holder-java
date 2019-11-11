@@ -7,20 +7,7 @@ import java.util.Objects;
 @ApiModel
 public class ResponseCommonCustomerDetail extends BaseResponse {
 
-    /**
-     * Get data
-     */
     private ResponseCommonCustomerDetailData data;
-
-    /**
-     * Get links
-     */
-    private Links links;
-
-    /**
-     * Get meta
-     */
-    private Meta meta;
 
     public ResponseCommonCustomerDetail data(ResponseCommonCustomerDetailData data) {
         this.data = data;
@@ -34,32 +21,6 @@ public class ResponseCommonCustomerDetail extends BaseResponse {
 
     public void setData(ResponseCommonCustomerDetailData data) {
         this.data = data;
-    }
-    public ResponseCommonCustomerDetail links(Links links) {
-        this.links = links;
-        return this;
-    }
-
-    @ApiModelProperty(required = true)
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-    public ResponseCommonCustomerDetail meta(Meta meta) {
-        this.meta = meta;
-        return this;
-    }
-
-    @ApiModelProperty
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
     }
 
     @Override

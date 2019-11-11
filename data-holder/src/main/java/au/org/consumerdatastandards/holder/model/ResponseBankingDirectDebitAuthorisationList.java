@@ -7,20 +7,7 @@ import java.util.Objects;
 @ApiModel
 public class ResponseBankingDirectDebitAuthorisationList extends PaginatedResponse {
 
-    /**
-     * Get data
-     */
     private ResponseBankingDirectDebitAuthorisationListData data;
-
-    /**
-     * Get links
-     */
-    private LinksPaginated links;
-
-    /**
-     * Get meta
-     */
-    private MetaPaginated meta;
 
     public ResponseBankingDirectDebitAuthorisationList data(ResponseBankingDirectDebitAuthorisationListData data) {
         this.data = data;
@@ -34,32 +21,6 @@ public class ResponseBankingDirectDebitAuthorisationList extends PaginatedRespon
 
     public void setData(ResponseBankingDirectDebitAuthorisationListData data) {
         this.data = data;
-    }
-    public ResponseBankingDirectDebitAuthorisationList links(LinksPaginated links) {
-        this.links = links;
-        return this;
-    }
-
-    @ApiModelProperty(required = true)
-    public LinksPaginated getLinks() {
-        return links;
-    }
-
-    public void setLinks(LinksPaginated links) {
-        this.links = links;
-    }
-    public ResponseBankingDirectDebitAuthorisationList meta(MetaPaginated meta) {
-        this.meta = meta;
-        return this;
-    }
-
-    @ApiModelProperty(required = true)
-    public MetaPaginated getMeta() {
-        return meta;
-    }
-
-    public void setMeta(MetaPaginated meta) {
-        this.meta = meta;
     }
 
     @Override

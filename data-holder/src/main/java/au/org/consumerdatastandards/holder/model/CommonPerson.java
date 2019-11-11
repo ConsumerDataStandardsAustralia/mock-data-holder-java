@@ -1,13 +1,25 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Objects;
 import java.time.OffsetDateTime;
 import java.util.List;
 
 @ApiModel
+@Entity
+@Table(name = "CommonPerson")
 public class CommonPerson  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * For people with single names this field need not be present.  The single name should be in the lastName field
@@ -27,7 +39,7 @@ public class CommonPerson  {
     /**
      * Field is mandatory but array may be empty
      */
-    
+    @ElementCollection
     private List<String> middleNames;
 
     /**
@@ -45,6 +57,14 @@ public class CommonPerson  {
      */
     private String suffix;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public CommonPerson firstName(String firstName) {
         this.firstName = firstName;
         return this;
@@ -58,6 +78,7 @@ public class CommonPerson  {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public CommonPerson lastName(String lastName) {
         this.lastName = lastName;
         return this;
@@ -71,6 +92,7 @@ public class CommonPerson  {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public CommonPerson lastUpdateTime(OffsetDateTime lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
         return this;
@@ -84,6 +106,7 @@ public class CommonPerson  {
     public void setLastUpdateTime(OffsetDateTime lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
+
     public CommonPerson middleNames(List<String> middleNames) {
         this.middleNames = middleNames;
         return this;
@@ -102,6 +125,7 @@ public class CommonPerson  {
     public void setMiddleNames(List<String> middleNames) {
         this.middleNames = middleNames;
     }
+
     public CommonPerson occupationCode(String occupationCode) {
         this.occupationCode = occupationCode;
         return this;
@@ -115,6 +139,7 @@ public class CommonPerson  {
     public void setOccupationCode(String occupationCode) {
         this.occupationCode = occupationCode;
     }
+
     public CommonPerson prefix(String prefix) {
         this.prefix = prefix;
         return this;
@@ -128,6 +153,7 @@ public class CommonPerson  {
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
+
     public CommonPerson suffix(String suffix) {
         this.suffix = suffix;
         return this;
@@ -151,7 +177,8 @@ public class CommonPerson  {
             return false;
         }
         CommonPerson commonPerson = (CommonPerson) o;
-        return Objects.equals(this.firstName, commonPerson.firstName) &&
+        return Objects.equals(this.id, commonPerson.id) &&
+            Objects.equals(this.firstName, commonPerson.firstName) &&
             Objects.equals(this.lastName, commonPerson.lastName) &&
             Objects.equals(this.lastUpdateTime, commonPerson.lastUpdateTime) &&
             Objects.equals(this.middleNames, commonPerson.middleNames) &&
@@ -163,6 +190,7 @@ public class CommonPerson  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             firstName,
             lastName,
             lastUpdateTime,
@@ -175,8 +203,9 @@ public class CommonPerson  {
     @Override
     public String toString() {
         return "class CommonPerson {\n" +
-            "   firstName: " + toIndentedString(firstName) + "\n" + 
-            "   lastName: " + toIndentedString(lastName) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   firstName: " + toIndentedString(firstName) + "\n" +
+            "   lastName: " + toIndentedString(lastName) + "\n" +
             "   lastUpdateTime: " + toIndentedString(lastUpdateTime) + "\n" + 
             "   middleNames: " + toIndentedString(middleNames) + "\n" + 
             "   occupationCode: " + toIndentedString(occupationCode) + "\n" + 

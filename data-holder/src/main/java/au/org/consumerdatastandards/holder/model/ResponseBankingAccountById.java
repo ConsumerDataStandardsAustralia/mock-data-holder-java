@@ -7,20 +7,7 @@ import java.util.Objects;
 @ApiModel
 public class ResponseBankingAccountById extends BaseResponse {
 
-    /**
-     * Get data
-     */
     private BankingAccountDetail data;
-
-    /**
-     * Get links
-     */
-    private Links links;
-
-    /**
-     * Get meta
-     */
-    private Meta meta;
 
     public ResponseBankingAccountById data(BankingAccountDetail data) {
         this.data = data;
@@ -34,32 +21,6 @@ public class ResponseBankingAccountById extends BaseResponse {
 
     public void setData(BankingAccountDetail data) {
         this.data = data;
-    }
-    public ResponseBankingAccountById links(Links links) {
-        this.links = links;
-        return this;
-    }
-
-    @ApiModelProperty(required = true)
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-    public ResponseBankingAccountById meta(Meta meta) {
-        this.meta = meta;
-        return this;
-    }
-
-    @ApiModelProperty
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
     }
 
     @Override

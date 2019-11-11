@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class CommonPhoneNumber  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
@@ -37,18 +50,15 @@ public class CommonPhoneNumber  {
      */
     private String number;
 
-    public enum Purpose {
-        HOME,
-        INTERNATIONAL,
-        MOBILE,
-        OTHER,
-        UNSPECIFIED,
-        WORK
-    }
-    /**
-     * Get purpose
-     */
     private Purpose purpose;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CommonPhoneNumber areaCode(String areaCode) {
         this.areaCode = areaCode;
@@ -63,6 +73,7 @@ public class CommonPhoneNumber  {
     public void setAreaCode(String areaCode) {
         this.areaCode = areaCode;
     }
+
     public CommonPhoneNumber countryCode(String countryCode) {
         this.countryCode = countryCode;
         return this;
@@ -76,6 +87,7 @@ public class CommonPhoneNumber  {
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
+
     public CommonPhoneNumber extension(String extension) {
         this.extension = extension;
         return this;
@@ -89,6 +101,7 @@ public class CommonPhoneNumber  {
     public void setExtension(String extension) {
         this.extension = extension;
     }
+
     public CommonPhoneNumber fullNumber(String fullNumber) {
         this.fullNumber = fullNumber;
         return this;
@@ -102,6 +115,7 @@ public class CommonPhoneNumber  {
     public void setFullNumber(String fullNumber) {
         this.fullNumber = fullNumber;
     }
+
     public CommonPhoneNumber isPreferred(Boolean isPreferred) {
         this.isPreferred = isPreferred;
         return this;
@@ -115,6 +129,7 @@ public class CommonPhoneNumber  {
     public void setIsPreferred(Boolean isPreferred) {
         this.isPreferred = isPreferred;
     }
+
     public CommonPhoneNumber number(String number) {
         this.number = number;
         return this;
@@ -128,6 +143,7 @@ public class CommonPhoneNumber  {
     public void setNumber(String number) {
         this.number = number;
     }
+
     public CommonPhoneNumber purpose(Purpose purpose) {
         this.purpose = purpose;
         return this;
@@ -151,7 +167,8 @@ public class CommonPhoneNumber  {
             return false;
         }
         CommonPhoneNumber commonPhoneNumber = (CommonPhoneNumber) o;
-        return Objects.equals(this.areaCode, commonPhoneNumber.areaCode) &&
+        return Objects.equals(this.id, commonPhoneNumber.id) &&
+            Objects.equals(this.areaCode, commonPhoneNumber.areaCode) &&
             Objects.equals(this.countryCode, commonPhoneNumber.countryCode) &&
             Objects.equals(this.extension, commonPhoneNumber.extension) &&
             Objects.equals(this.fullNumber, commonPhoneNumber.fullNumber) &&
@@ -163,6 +180,7 @@ public class CommonPhoneNumber  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             areaCode,
             countryCode,
             extension,
@@ -175,8 +193,9 @@ public class CommonPhoneNumber  {
     @Override
     public String toString() {
         return "class CommonPhoneNumber {\n" +
-            "   areaCode: " + toIndentedString(areaCode) + "\n" + 
-            "   countryCode: " + toIndentedString(countryCode) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   areaCode: " + toIndentedString(areaCode) + "\n" +
+            "   countryCode: " + toIndentedString(countryCode) + "\n" +
             "   extension: " + toIndentedString(extension) + "\n" + 
             "   fullNumber: " + toIndentedString(fullNumber) + "\n" + 
             "   isPreferred: " + toIndentedString(isPreferred) + "\n" + 
@@ -194,6 +213,15 @@ public class CommonPhoneNumber  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum Purpose {
+        HOME,
+        INTERNATIONAL,
+        MOBILE,
+        OTHER,
+        UNSPECIFIED,
+        WORK
     }
 }
 

@@ -8,14 +8,8 @@ import au.org.consumerdatastandards.holder.model.Meta;
 @ApiModel
 public class RequestAccountIds  {
 
-    /**
-     * Get data
-     */
     private RequestAccountIdsData data;
 
-    /**
-     * Get meta
-     */
     private Meta meta;
 
     public RequestAccountIds data(RequestAccountIdsData data) {

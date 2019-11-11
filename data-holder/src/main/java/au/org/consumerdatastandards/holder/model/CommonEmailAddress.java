@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class CommonEmailAddress  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * A correctly formatted email address, as defined by the addr_spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)
@@ -17,10 +30,15 @@ public class CommonEmailAddress  {
      */
     private Boolean isPreferred;
 
-    /**
-     * Get purpose
-     */
     private Purpose purpose;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CommonEmailAddress address(String address) {
         this.address = address;
@@ -35,6 +53,7 @@ public class CommonEmailAddress  {
     public void setAddress(String address) {
         this.address = address;
     }
+
     public CommonEmailAddress isPreferred(Boolean isPreferred) {
         this.isPreferred = isPreferred;
         return this;
@@ -48,6 +67,7 @@ public class CommonEmailAddress  {
     public void setIsPreferred(Boolean isPreferred) {
         this.isPreferred = isPreferred;
     }
+
     public CommonEmailAddress purpose(Purpose purpose) {
         this.purpose = purpose;
         return this;
@@ -71,7 +91,8 @@ public class CommonEmailAddress  {
             return false;
         }
         CommonEmailAddress commonEmailAddress = (CommonEmailAddress) o;
-        return Objects.equals(this.address, commonEmailAddress.address) &&
+        return Objects.equals(this.id, commonEmailAddress.id) &&
+            Objects.equals(this.address, commonEmailAddress.address) &&
             Objects.equals(this.isPreferred, commonEmailAddress.isPreferred) &&
             Objects.equals(this.purpose, commonEmailAddress.purpose);
     }
@@ -79,6 +100,7 @@ public class CommonEmailAddress  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             address,
             isPreferred,
             purpose);
@@ -87,8 +109,9 @@ public class CommonEmailAddress  {
     @Override
     public String toString() {
         return "class CommonEmailAddress {\n" +
-            "   address: " + toIndentedString(address) + "\n" + 
-            "   isPreferred: " + toIndentedString(isPreferred) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   address: " + toIndentedString(address) + "\n" +
+            "   isPreferred: " + toIndentedString(isPreferred) + "\n" +
             "   purpose: " + toIndentedString(purpose) + "\n" + 
             "}";
     }
