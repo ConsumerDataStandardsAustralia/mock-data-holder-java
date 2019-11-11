@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingDomesticPayeeAccount  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Name of the account to pay to
@@ -21,6 +34,14 @@ public class BankingDomesticPayeeAccount  {
      * BSB of the account to pay to
      */
     private String bsb;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingDomesticPayeeAccount accountName(String accountName) {
         this.accountName = accountName;
@@ -71,7 +92,8 @@ public class BankingDomesticPayeeAccount  {
             return false;
         }
         BankingDomesticPayeeAccount bankingDomesticPayeeAccount = (BankingDomesticPayeeAccount) o;
-        return Objects.equals(this.accountName, bankingDomesticPayeeAccount.accountName) &&
+        return Objects.equals(this.id, bankingDomesticPayeeAccount.id) &&
+            Objects.equals(this.accountName, bankingDomesticPayeeAccount.accountName) &&
             Objects.equals(this.accountNumber, bankingDomesticPayeeAccount.accountNumber) &&
             Objects.equals(this.bsb, bankingDomesticPayeeAccount.bsb);
     }
@@ -79,6 +101,7 @@ public class BankingDomesticPayeeAccount  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             accountName,
             accountNumber,
             bsb);
@@ -87,8 +110,9 @@ public class BankingDomesticPayeeAccount  {
     @Override
     public String toString() {
         return "class BankingDomesticPayeeAccount {\n" +
-            "   accountName: " + toIndentedString(accountName) + "\n" + 
-            "   accountNumber: " + toIndentedString(accountNumber) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   accountName: " + toIndentedString(accountName) + "\n" +
+            "   accountNumber: " + toIndentedString(accountNumber) + "\n" +
             "   bsb: " + toIndentedString(bsb) + "\n" + 
             "}";
     }

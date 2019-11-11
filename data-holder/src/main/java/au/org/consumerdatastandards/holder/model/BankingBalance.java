@@ -1,14 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 
 @ApiModel
+@Entity
 public class BankingBalance  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * A unique ID of the account adhering to the standards for ID permanence
@@ -43,8 +53,20 @@ public class BankingBalance  {
     /**
      * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards
      */
-    
+    @OneToMany
+    @JoinTable(
+        name = "banking_balance_purses",
+        joinColumns = @JoinColumn(name = "banking_balance_id"),
+        inverseJoinColumns = @JoinColumn(name = "purse_id"))
     private List<BankingBalancePurse> purses;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingBalance accountId(String accountId) {
         this.accountId = accountId;
@@ -85,6 +107,7 @@ public class BankingBalance  {
     public void setAvailableBalance(String availableBalance) {
         this.availableBalance = availableBalance;
     }
+
     public BankingBalance creditLimit(String creditLimit) {
         this.creditLimit = creditLimit;
         return this;
@@ -98,6 +121,7 @@ public class BankingBalance  {
     public void setCreditLimit(String creditLimit) {
         this.creditLimit = creditLimit;
     }
+
     public BankingBalance currency(String currency) {
         this.currency = currency;
         return this;
@@ -111,6 +135,7 @@ public class BankingBalance  {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
     public BankingBalance currentBalance(String currentBalance) {
         this.currentBalance = currentBalance;
         return this;
@@ -124,6 +149,7 @@ public class BankingBalance  {
     public void setCurrentBalance(String currentBalance) {
         this.currentBalance = currentBalance;
     }
+
     public BankingBalance purses(List<BankingBalancePurse> purses) {
         this.purses = purses;
         return this;
@@ -155,7 +181,8 @@ public class BankingBalance  {
             return false;
         }
         BankingBalance bankingBalance = (BankingBalance) o;
-        return Objects.equals(this.accountId, bankingBalance.accountId) &&
+        return Objects.equals(this.id, bankingBalance.id) &&
+            Objects.equals(this.accountId, bankingBalance.accountId) &&
             Objects.equals(this.amortisedLimit, bankingBalance.amortisedLimit) &&
             Objects.equals(this.availableBalance, bankingBalance.availableBalance) &&
             Objects.equals(this.creditLimit, bankingBalance.creditLimit) &&
@@ -167,6 +194,7 @@ public class BankingBalance  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             accountId,
             amortisedLimit,
             availableBalance,
@@ -179,8 +207,9 @@ public class BankingBalance  {
     @Override
     public String toString() {
         return "class BankingBalance {\n" +
-            "   accountId: " + toIndentedString(accountId) + "\n" + 
-            "   amortisedLimit: " + toIndentedString(amortisedLimit) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   accountId: " + toIndentedString(accountId) + "\n" +
+            "   amortisedLimit: " + toIndentedString(amortisedLimit) + "\n" +
             "   availableBalance: " + toIndentedString(availableBalance) + "\n" + 
             "   creditLimit: " + toIndentedString(creditLimit) + "\n" + 
             "   currency: " + toIndentedString(currency) + "\n" + 

@@ -1,36 +1,44 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingDomesticPayee  {
 
-    /**
-     * Get account
-     */
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
+    @ManyToOne
     private BankingDomesticPayeeAccount account;
 
-    /**
-     * Get card
-     */
+    @ManyToOne
     private BankingDomesticPayeeCard card;
 
-    /**
-     * Get payId
-     */
+    @ManyToOne
     private BankingDomesticPayeePayId payId;
 
-    public enum PayeeAccountUType {
-        ACCOUNT,
-        CARD,
-        PAYID
-    }
-    /**
-     * Get payeeAccountUType
-     */
     private PayeeAccountUType payeeAccountUType;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingDomesticPayee account(BankingDomesticPayeeAccount account) {
         this.account = account;
@@ -94,7 +102,8 @@ public class BankingDomesticPayee  {
             return false;
         }
         BankingDomesticPayee bankingDomesticPayee = (BankingDomesticPayee) o;
-        return Objects.equals(this.account, bankingDomesticPayee.account) &&
+        return Objects.equals(this.id, bankingDomesticPayee.id) &&
+            Objects.equals(this.account, bankingDomesticPayee.account) &&
             Objects.equals(this.card, bankingDomesticPayee.card) &&
             Objects.equals(this.payId, bankingDomesticPayee.payId) &&
             Objects.equals(this.payeeAccountUType, bankingDomesticPayee.payeeAccountUType);
@@ -103,6 +112,7 @@ public class BankingDomesticPayee  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             account,
             card,
             payId,
@@ -112,8 +122,9 @@ public class BankingDomesticPayee  {
     @Override
     public String toString() {
         return "class BankingDomesticPayee {\n" +
-            "   account: " + toIndentedString(account) + "\n" + 
-            "   card: " + toIndentedString(card) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   account: " + toIndentedString(account) + "\n" +
+            "   card: " + toIndentedString(card) + "\n" +
             "   payId: " + toIndentedString(payId) + "\n" + 
             "   payeeAccountUType: " + toIndentedString(payeeAccountUType) + "\n" + 
             "}";
@@ -128,6 +139,12 @@ public class BankingDomesticPayee  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum PayeeAccountUType {
+        ACCOUNT,
+        CARD,
+        PAYID
     }
 }
 

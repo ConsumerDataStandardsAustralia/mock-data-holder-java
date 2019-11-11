@@ -3,11 +3,23 @@ package au.org.consumerdatastandards.holder.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @ApiModel
-public class BankingPayeeDetail extends BankingPayee {
+@Entity
+@Table(name = "BankingPayee")
+public class BankingPayeeDetail {
+
+    /**
+     * ID of the payee adhering to the rules of ID permanence
+     */
+    @Id
+    private String payeeId;
 
     /**
      * The date the payee was created by the customer
@@ -24,29 +36,15 @@ public class BankingPayeeDetail extends BankingPayee {
      */
     private String nickname;
 
-    /**
-     * ID of the payee adhering to the rules of ID permanence
-     */
-    private String payeeId;
-
-    /**
-     * Get type
-     */
     private BankingPayee.Type type;
 
-    /**
-     * Get biller
-     */
+    @OneToOne
     private BankingBillerPayee biller;
 
-    /**
-     * Get domestic
-     */
+    @OneToOne
     private BankingDomesticPayee domestic;
 
-    /**
-     * Get international
-     */
+    @OneToOne
     private BankingInternationalPayee international;
 
     public enum PayeeUType {
@@ -72,6 +70,7 @@ public class BankingPayeeDetail extends BankingPayee {
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
+
     public BankingPayeeDetail description(String description) {
         this.description = description;
         return this;
@@ -111,6 +110,7 @@ public class BankingPayeeDetail extends BankingPayee {
     public void setPayeeId(String payeeId) {
         this.payeeId = payeeId;
     }
+
     public BankingPayeeDetail type(BankingPayee.Type type) {
         this.type = type;
         return this;

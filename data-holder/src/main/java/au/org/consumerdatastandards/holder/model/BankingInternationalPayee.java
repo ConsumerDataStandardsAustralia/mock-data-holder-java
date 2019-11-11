@@ -1,21 +1,39 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingInternationalPayee  {
 
-    /**
-     * Get bankDetails
-     */
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
+    @OneToOne
     private BankingInternationalPayeeBankDetails bankDetails;
 
-    /**
-     * Get beneficiaryDetails
-     */
+    @OneToOne
     private BankingInternationalPayeeBeneficiaryDetails beneficiaryDetails;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingInternationalPayee bankDetails(BankingInternationalPayeeBankDetails bankDetails) {
         this.bankDetails = bankDetails;
@@ -53,13 +71,15 @@ public class BankingInternationalPayee  {
             return false;
         }
         BankingInternationalPayee bankingInternationalPayee = (BankingInternationalPayee) o;
-        return Objects.equals(this.bankDetails, bankingInternationalPayee.bankDetails) &&
+        return Objects.equals(this.id, bankingInternationalPayee.id) &&
+            Objects.equals(this.bankDetails, bankingInternationalPayee.bankDetails) &&
             Objects.equals(this.beneficiaryDetails, bankingInternationalPayee.beneficiaryDetails);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             bankDetails,
             beneficiaryDetails);
     }
@@ -67,8 +87,9 @@ public class BankingInternationalPayee  {
     @Override
     public String toString() {
         return "class BankingInternationalPayee {\n" +
-            "   bankDetails: " + toIndentedString(bankDetails) + "\n" + 
-            "   beneficiaryDetails: " + toIndentedString(beneficiaryDetails) + "\n" + 
+            "   bankDetails: " + toIndentedString(id) + "\n" +
+            "   bankDetails: " + toIndentedString(bankDetails) + "\n" +
+            "   beneficiaryDetails: " + toIndentedString(beneficiaryDetails) + "\n" +
             "}";
     }
 

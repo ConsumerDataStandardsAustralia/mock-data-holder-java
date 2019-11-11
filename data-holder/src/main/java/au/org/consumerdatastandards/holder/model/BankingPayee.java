@@ -1,16 +1,35 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel
+@Entity
+@Table(name = "BankingPayee")
 public class BankingPayee  {
+
+    /**
+     * ID of the payee adhering to the rules of ID permanence
+     */
+    @Id
+    private String payeeId;
 
     /**
      * The date the payee was created by the customer
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
     /**
@@ -23,19 +42,6 @@ public class BankingPayee  {
      */
     private String nickname;
 
-    /**
-     * ID of the payee adhering to the rules of ID permanence
-     */
-    private String payeeId;
-
-    public enum Type {
-        BILLER,
-        DOMESTIC,
-        INTERNATIONAL
-    }
-    /**
-     * Get type
-     */
     private Type type;
 
     public BankingPayee creationDate(LocalDate creationDate) {
@@ -150,6 +156,12 @@ public class BankingPayee  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum Type {
+        BILLER,
+        DOMESTIC,
+        INTERNATIONAL
     }
 }
 

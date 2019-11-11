@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingInternationalPayeeBankDetailsBankAddress  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Address of the recipient Bank
@@ -16,6 +29,14 @@ public class BankingInternationalPayeeBankDetailsBankAddress  {
      * Name of the recipient Bank
      */
     private String name;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingInternationalPayeeBankDetailsBankAddress address(String address) {
         this.address = address;
@@ -30,6 +51,7 @@ public class BankingInternationalPayeeBankDetailsBankAddress  {
     public void setAddress(String address) {
         this.address = address;
     }
+
     public BankingInternationalPayeeBankDetailsBankAddress name(String name) {
         this.name = name;
         return this;
@@ -53,13 +75,15 @@ public class BankingInternationalPayeeBankDetailsBankAddress  {
             return false;
         }
         BankingInternationalPayeeBankDetailsBankAddress bankingInternationalPayeeBankDetailsBankAddress = (BankingInternationalPayeeBankDetailsBankAddress) o;
-        return Objects.equals(this.address, bankingInternationalPayeeBankDetailsBankAddress.address) &&
+        return Objects.equals(this.id, bankingInternationalPayeeBankDetailsBankAddress.id) &&
+            Objects.equals(this.address, bankingInternationalPayeeBankDetailsBankAddress.address) &&
             Objects.equals(this.name, bankingInternationalPayeeBankDetailsBankAddress.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             address,
             name);
     }
@@ -67,8 +91,9 @@ public class BankingInternationalPayeeBankDetailsBankAddress  {
     @Override
     public String toString() {
         return "class BankingInternationalPayeeBankDetailsBankAddress {\n" +
-            "   address: " + toIndentedString(address) + "\n" + 
-            "   name: " + toIndentedString(name) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   address: " + toIndentedString(address) + "\n" +
+            "   name: " + toIndentedString(name) + "\n" +
             "}";
     }
 

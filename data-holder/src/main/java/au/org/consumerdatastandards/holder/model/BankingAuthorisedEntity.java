@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingAuthorisedEntity  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Australian Business Number for the authorised entity
@@ -31,6 +44,14 @@ public class BankingAuthorisedEntity  {
      * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme
      */
     private String financialInstitution;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingAuthorisedEntity abn(String abn) {
         this.abn = abn;
@@ -58,6 +79,7 @@ public class BankingAuthorisedEntity  {
     public void setAcn(String acn) {
         this.acn = acn;
     }
+
     public BankingAuthorisedEntity arbn(String arbn) {
         this.arbn = arbn;
         return this;
@@ -84,6 +106,7 @@ public class BankingAuthorisedEntity  {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public BankingAuthorisedEntity financialInstitution(String financialInstitution) {
         this.financialInstitution = financialInstitution;
         return this;
@@ -107,7 +130,8 @@ public class BankingAuthorisedEntity  {
             return false;
         }
         BankingAuthorisedEntity bankingAuthorisedEntity = (BankingAuthorisedEntity) o;
-        return Objects.equals(this.abn, bankingAuthorisedEntity.abn) &&
+        return Objects.equals(this.id, bankingAuthorisedEntity.id) &&
+            Objects.equals(this.abn, bankingAuthorisedEntity.abn) &&
             Objects.equals(this.acn, bankingAuthorisedEntity.acn) &&
             Objects.equals(this.arbn, bankingAuthorisedEntity.arbn) &&
             Objects.equals(this.description, bankingAuthorisedEntity.description) &&
@@ -117,6 +141,7 @@ public class BankingAuthorisedEntity  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             abn,
             acn,
             arbn,
@@ -127,8 +152,9 @@ public class BankingAuthorisedEntity  {
     @Override
     public String toString() {
         return "class BankingAuthorisedEntity {\n" +
-            "   abn: " + toIndentedString(abn) + "\n" + 
-            "   acn: " + toIndentedString(acn) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   abn: " + toIndentedString(abn) + "\n" +
+            "   acn: " + toIndentedString(acn) + "\n" +
             "   arbn: " + toIndentedString(arbn) + "\n" + 
             "   description: " + toIndentedString(description) + "\n" + 
             "   financialInstitution: " + toIndentedString(financialInstitution) + "\n" + 

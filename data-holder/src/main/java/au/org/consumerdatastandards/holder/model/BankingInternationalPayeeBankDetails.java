@@ -1,20 +1,32 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingInternationalPayeeBankDetails  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Account Targeted for payment
      */
     private String accountNumber;
 
-    /**
-     * Get bankAddress
-     */
+    @OneToOne
     private BankingInternationalPayeeBankDetailsBankAddress bankAddress;
 
     /**
@@ -52,6 +64,14 @@ public class BankingInternationalPayeeBankDetails  {
      */
     private String sortCode;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public BankingInternationalPayeeBankDetails accountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
@@ -65,6 +85,7 @@ public class BankingInternationalPayeeBankDetails  {
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
+
     public BankingInternationalPayeeBankDetails bankAddress(BankingInternationalPayeeBankDetailsBankAddress bankAddress) {
         this.bankAddress = bankAddress;
         return this;
@@ -91,6 +112,7 @@ public class BankingInternationalPayeeBankDetails  {
     public void setBeneficiaryBankBIC(String beneficiaryBankBIC) {
         this.beneficiaryBankBIC = beneficiaryBankBIC;
     }
+
     public BankingInternationalPayeeBankDetails chipNumber(String chipNumber) {
         this.chipNumber = chipNumber;
         return this;
@@ -104,6 +126,7 @@ public class BankingInternationalPayeeBankDetails  {
     public void setChipNumber(String chipNumber) {
         this.chipNumber = chipNumber;
     }
+
     public BankingInternationalPayeeBankDetails country(String country) {
         this.country = country;
         return this;
@@ -130,6 +153,7 @@ public class BankingInternationalPayeeBankDetails  {
     public void setFedWireNumber(String fedWireNumber) {
         this.fedWireNumber = fedWireNumber;
     }
+
     public BankingInternationalPayeeBankDetails legalEntityIdentifier(String legalEntityIdentifier) {
         this.legalEntityIdentifier = legalEntityIdentifier;
         return this;
@@ -143,6 +167,7 @@ public class BankingInternationalPayeeBankDetails  {
     public void setLegalEntityIdentifier(String legalEntityIdentifier) {
         this.legalEntityIdentifier = legalEntityIdentifier;
     }
+
     public BankingInternationalPayeeBankDetails routingNumber(String routingNumber) {
         this.routingNumber = routingNumber;
         return this;
@@ -156,6 +181,7 @@ public class BankingInternationalPayeeBankDetails  {
     public void setRoutingNumber(String routingNumber) {
         this.routingNumber = routingNumber;
     }
+
     public BankingInternationalPayeeBankDetails sortCode(String sortCode) {
         this.sortCode = sortCode;
         return this;
@@ -179,7 +205,8 @@ public class BankingInternationalPayeeBankDetails  {
             return false;
         }
         BankingInternationalPayeeBankDetails bankingInternationalPayeeBankDetails = (BankingInternationalPayeeBankDetails) o;
-        return Objects.equals(this.accountNumber, bankingInternationalPayeeBankDetails.accountNumber) &&
+        return Objects.equals(this.id, bankingInternationalPayeeBankDetails.id) &&
+            Objects.equals(this.accountNumber, bankingInternationalPayeeBankDetails.accountNumber) &&
             Objects.equals(this.bankAddress, bankingInternationalPayeeBankDetails.bankAddress) &&
             Objects.equals(this.beneficiaryBankBIC, bankingInternationalPayeeBankDetails.beneficiaryBankBIC) &&
             Objects.equals(this.chipNumber, bankingInternationalPayeeBankDetails.chipNumber) &&
@@ -193,6 +220,7 @@ public class BankingInternationalPayeeBankDetails  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             accountNumber,
             bankAddress,
             beneficiaryBankBIC,
@@ -207,8 +235,9 @@ public class BankingInternationalPayeeBankDetails  {
     @Override
     public String toString() {
         return "class BankingInternationalPayeeBankDetails {\n" +
-            "   accountNumber: " + toIndentedString(accountNumber) + "\n" + 
-            "   bankAddress: " + toIndentedString(bankAddress) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   accountNumber: " + toIndentedString(accountNumber) + "\n" +
+            "   bankAddress: " + toIndentedString(bankAddress) + "\n" +
             "   beneficiaryBankBIC: " + toIndentedString(beneficiaryBankBIC) + "\n" + 
             "   chipNumber: " + toIndentedString(chipNumber) + "\n" + 
             "   country: " + toIndentedString(country) + "\n" + 

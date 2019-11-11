@@ -1,12 +1,28 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 import java.time.OffsetDateTime;
 
 @ApiModel
+@Entity
 public class BankingDirectDebit  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * A unique ID of the account adhering to the standards for ID permanence.
@@ -16,6 +32,7 @@ public class BankingDirectDebit  {
     /**
      * Get authorisedEntity
      */
+    @ManyToOne
     private BankingAuthorisedEntity authorisedEntity;
 
     /**
@@ -26,7 +43,17 @@ public class BankingDirectDebit  {
     /**
      * The date and time of the last debit executed under this authorisation
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastDebitDateTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingDirectDebit accountId(String accountId) {
         this.accountId = accountId;
@@ -90,7 +117,8 @@ public class BankingDirectDebit  {
             return false;
         }
         BankingDirectDebit bankingDirectDebit = (BankingDirectDebit) o;
-        return Objects.equals(this.accountId, bankingDirectDebit.accountId) &&
+        return Objects.equals(this.id, bankingDirectDebit.id) &&
+            Objects.equals(this.accountId, bankingDirectDebit.accountId) &&
             Objects.equals(this.authorisedEntity, bankingDirectDebit.authorisedEntity) &&
             Objects.equals(this.lastDebitAmount, bankingDirectDebit.lastDebitAmount) &&
             Objects.equals(this.lastDebitDateTime, bankingDirectDebit.lastDebitDateTime);
@@ -99,6 +127,7 @@ public class BankingDirectDebit  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             accountId,
             authorisedEntity,
             lastDebitAmount,
@@ -108,8 +137,9 @@ public class BankingDirectDebit  {
     @Override
     public String toString() {
         return "class BankingDirectDebit {\n" +
-            "   accountId: " + toIndentedString(accountId) + "\n" + 
-            "   authorisedEntity: " + toIndentedString(authorisedEntity) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   accountId: " + toIndentedString(accountId) + "\n" +
+            "   authorisedEntity: " + toIndentedString(authorisedEntity) + "\n" +
             "   lastDebitAmount: " + toIndentedString(lastDebitAmount) + "\n" + 
             "   lastDebitDateTime: " + toIndentedString(lastDebitDateTime) + "\n" + 
             "}";

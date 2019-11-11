@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingInternationalPayeeBeneficiaryDetails  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
@@ -21,6 +34,14 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
      * Name of the beneficiary
      */
     private String name;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingInternationalPayeeBeneficiaryDetails country(String country) {
         this.country = country;
@@ -48,6 +69,7 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
     public void setMessage(String message) {
         this.message = message;
     }
+
     public BankingInternationalPayeeBeneficiaryDetails name(String name) {
         this.name = name;
         return this;
@@ -71,7 +93,8 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
             return false;
         }
         BankingInternationalPayeeBeneficiaryDetails bankingInternationalPayeeBeneficiaryDetails = (BankingInternationalPayeeBeneficiaryDetails) o;
-        return Objects.equals(this.country, bankingInternationalPayeeBeneficiaryDetails.country) &&
+        return Objects.equals(this.id, bankingInternationalPayeeBeneficiaryDetails.id) &&
+            Objects.equals(this.country, bankingInternationalPayeeBeneficiaryDetails.country) &&
             Objects.equals(this.message, bankingInternationalPayeeBeneficiaryDetails.message) &&
             Objects.equals(this.name, bankingInternationalPayeeBeneficiaryDetails.name);
     }
@@ -79,6 +102,7 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             country,
             message,
             name);
@@ -87,8 +111,9 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
     @Override
     public String toString() {
         return "class BankingInternationalPayeeBeneficiaryDetails {\n" +
-            "   country: " + toIndentedString(country) + "\n" + 
-            "   message: " + toIndentedString(message) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   country: " + toIndentedString(country) + "\n" +
+            "   message: " + toIndentedString(message) + "\n" +
             "   name: " + toIndentedString(name) + "\n" + 
             "}";
     }

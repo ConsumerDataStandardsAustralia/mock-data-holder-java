@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class BankingBillerPayee  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * BPAY Biller Code of the Biller
@@ -21,6 +34,14 @@ public class BankingBillerPayee  {
      * BPAY CRN of the Biller. If the contents of the CRN match the format of a Credit Card PAN then it should be masked using the rules applicable for the MaskedPANString common type
      */
     private String crn;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingBillerPayee billerCode(String billerCode) {
         this.billerCode = billerCode;
@@ -71,7 +92,8 @@ public class BankingBillerPayee  {
             return false;
         }
         BankingBillerPayee bankingBillerPayee = (BankingBillerPayee) o;
-        return Objects.equals(this.billerCode, bankingBillerPayee.billerCode) &&
+        return Objects.equals(this.id, bankingBillerPayee.id) &&
+            Objects.equals(this.billerCode, bankingBillerPayee.billerCode) &&
             Objects.equals(this.billerName, bankingBillerPayee.billerName) &&
             Objects.equals(this.crn, bankingBillerPayee.crn);
     }
@@ -79,6 +101,7 @@ public class BankingBillerPayee  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             billerCode,
             billerName,
             crn);
@@ -87,8 +110,9 @@ public class BankingBillerPayee  {
     @Override
     public String toString() {
         return "class BankingBillerPayee {\n" +
-            "   billerCode: " + toIndentedString(billerCode) + "\n" + 
-            "   billerName: " + toIndentedString(billerName) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   billerCode: " + toIndentedString(billerCode) + "\n" +
+            "   billerName: " + toIndentedString(billerName) + "\n" +
             "   crn: " + toIndentedString(crn) + "\n" + 
             "}";
     }
