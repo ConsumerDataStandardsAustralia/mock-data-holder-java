@@ -83,7 +83,7 @@ public class CommonDiscoveryStatusData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Status getStatus() {
         return status;
     }

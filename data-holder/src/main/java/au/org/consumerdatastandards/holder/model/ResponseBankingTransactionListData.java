@@ -24,7 +24,7 @@ public class ResponseBankingTransactionListData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public List<BankingTransaction> getTransactions() {
         return transactions;
     }

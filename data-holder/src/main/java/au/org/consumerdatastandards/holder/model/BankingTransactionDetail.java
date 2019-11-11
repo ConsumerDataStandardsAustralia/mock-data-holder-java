@@ -291,7 +291,7 @@ public class BankingTransactionDetail extends BankingTransaction {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingTransaction.Status getStatus() {
         return status;
     }
@@ -317,7 +317,7 @@ public class BankingTransactionDetail extends BankingTransaction {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingTransaction.Type getType() {
         return type;
     }
@@ -343,7 +343,7 @@ public class BankingTransactionDetail extends BankingTransaction {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingTransactionDetailExtendedData getExtendedData() {
         return extendedData;
     }

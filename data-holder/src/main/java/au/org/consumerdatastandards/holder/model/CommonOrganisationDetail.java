@@ -235,7 +235,7 @@ public class CommonOrganisationDetail extends CommonOrganisation {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public CommonOrganisation.OrganisationType getOrganisationType() {
         return organisationType;
     }

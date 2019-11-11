@@ -1,19 +1,36 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.time.LocalDate;
 import java.util.List;
 
 @ApiModel
+@Entity
 public class BankingLoanAccount  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Date that the loan is due to be repaid in full
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate loanEndDate;
 
     /**
@@ -49,6 +66,8 @@ public class BankingLoanAccount  {
     /**
      * Next date that an instalment is required
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate nextInstalmentDate;
 
     /**
@@ -59,7 +78,7 @@ public class BankingLoanAccount  {
     /**
      * The accountIDs of the configured offset accounts attached to this loan. Only offset accounts that can be accessed under the current authorisation should be included. It is expected behaviour that offsetAccountEnabled is set to true but the offsetAccountIds field is absent or empty. This represents a situation where an offset account exists but details can not be accessed under the current authorisation
      */
-    
+    @ElementCollection
     private List<String> offsetAccountIds;
 
     /**
@@ -75,6 +94,8 @@ public class BankingLoanAccount  {
     /**
      * Optional original start date for the loan
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate originalStartDate;
 
     /**
@@ -82,10 +103,6 @@ public class BankingLoanAccount  {
      */
     private String repaymentFrequency;
 
-    public enum RepaymentType {
-        INTEREST_ONLY,
-        PRINCIPAL_AND_INTEREST
-    }
     /**
      * Get repaymentType
      */
@@ -286,7 +303,7 @@ public class BankingLoanAccount  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public RepaymentType getRepaymentType() {
         return repaymentType;
     }
@@ -304,7 +321,8 @@ public class BankingLoanAccount  {
             return false;
         }
         BankingLoanAccount bankingLoanAccount = (BankingLoanAccount) o;
-        return Objects.equals(this.loanEndDate, bankingLoanAccount.loanEndDate) &&
+        return Objects.equals(this.id, bankingLoanAccount.id) &&
+            Objects.equals(this.loanEndDate, bankingLoanAccount.loanEndDate) &&
             Objects.equals(this.maxRedraw, bankingLoanAccount.maxRedraw) &&
             Objects.equals(this.maxRedrawCurrency, bankingLoanAccount.maxRedrawCurrency) &&
             Objects.equals(this.minInstalmentAmount, bankingLoanAccount.minInstalmentAmount) &&
@@ -324,6 +342,7 @@ public class BankingLoanAccount  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             loanEndDate,
             maxRedraw,
             maxRedrawCurrency,
@@ -344,8 +363,9 @@ public class BankingLoanAccount  {
     @Override
     public String toString() {
         return "class BankingLoanAccount {\n" +
-            "   loanEndDate: " + toIndentedString(loanEndDate) + "\n" + 
-            "   maxRedraw: " + toIndentedString(maxRedraw) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   loanEndDate: " + toIndentedString(loanEndDate) + "\n" +
+            "   maxRedraw: " + toIndentedString(maxRedraw) + "\n" +
             "   maxRedrawCurrency: " + toIndentedString(maxRedrawCurrency) + "\n" + 
             "   minInstalmentAmount: " + toIndentedString(minInstalmentAmount) + "\n" + 
             "   minInstalmentCurrency: " + toIndentedString(minInstalmentCurrency) + "\n" + 
@@ -371,6 +391,11 @@ public class BankingLoanAccount  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum RepaymentType {
+        INTEREST_ONLY,
+        PRINCIPAL_AND_INTEREST
     }
 }
 

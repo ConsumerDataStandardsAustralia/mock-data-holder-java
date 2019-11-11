@@ -1,12 +1,27 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel
+@Entity
 public class BankingCreditCardAccount  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * The minimum payment amount due for the next card payment
@@ -26,7 +41,17 @@ public class BankingCreditCardAccount  {
     /**
      * Date that the next payment for the card is due
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate paymentDueDate;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingCreditCardAccount minPaymentAmount(String minPaymentAmount) {
         this.minPaymentAmount = minPaymentAmount;
@@ -54,6 +79,7 @@ public class BankingCreditCardAccount  {
     public void setPaymentCurrency(String paymentCurrency) {
         this.paymentCurrency = paymentCurrency;
     }
+
     public BankingCreditCardAccount paymentDueAmount(String paymentDueAmount) {
         this.paymentDueAmount = paymentDueAmount;
         return this;
@@ -67,6 +93,7 @@ public class BankingCreditCardAccount  {
     public void setPaymentDueAmount(String paymentDueAmount) {
         this.paymentDueAmount = paymentDueAmount;
     }
+
     public BankingCreditCardAccount paymentDueDate(LocalDate paymentDueDate) {
         this.paymentDueDate = paymentDueDate;
         return this;
@@ -90,7 +117,8 @@ public class BankingCreditCardAccount  {
             return false;
         }
         BankingCreditCardAccount bankingCreditCardAccount = (BankingCreditCardAccount) o;
-        return Objects.equals(this.minPaymentAmount, bankingCreditCardAccount.minPaymentAmount) &&
+        return Objects.equals(this.id, bankingCreditCardAccount.id) &&
+            Objects.equals(this.minPaymentAmount, bankingCreditCardAccount.minPaymentAmount) &&
             Objects.equals(this.paymentCurrency, bankingCreditCardAccount.paymentCurrency) &&
             Objects.equals(this.paymentDueAmount, bankingCreditCardAccount.paymentDueAmount) &&
             Objects.equals(this.paymentDueDate, bankingCreditCardAccount.paymentDueDate);
@@ -99,6 +127,7 @@ public class BankingCreditCardAccount  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             minPaymentAmount,
             paymentCurrency,
             paymentDueAmount,
@@ -108,8 +137,9 @@ public class BankingCreditCardAccount  {
     @Override
     public String toString() {
         return "class BankingCreditCardAccount {\n" +
-            "   minPaymentAmount: " + toIndentedString(minPaymentAmount) + "\n" + 
-            "   paymentCurrency: " + toIndentedString(paymentCurrency) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   minPaymentAmount: " + toIndentedString(minPaymentAmount) + "\n" +
+            "   paymentCurrency: " + toIndentedString(paymentCurrency) + "\n" +
             "   paymentDueAmount: " + toIndentedString(paymentDueAmount) + "\n" + 
             "   paymentDueDate: " + toIndentedString(paymentDueDate) + "\n" + 
             "}";

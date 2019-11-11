@@ -116,7 +116,7 @@ public class BankingPayeeDetail extends BankingPayee {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingPayee.Type getType() {
         return type;
     }
@@ -129,7 +129,7 @@ public class BankingPayeeDetail extends BankingPayee {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingBillerPayee getBiller() {
         return biller;
     }
@@ -142,7 +142,7 @@ public class BankingPayeeDetail extends BankingPayee {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingDomesticPayee getDomestic() {
         return domestic;
     }
@@ -156,7 +156,7 @@ public class BankingPayeeDetail extends BankingPayee {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingInternationalPayee getInternational() {
         return international;
     }
@@ -170,7 +170,7 @@ public class BankingPayeeDetail extends BankingPayee {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public PayeeUType getPayeeUType() {
         return payeeUType;
     }

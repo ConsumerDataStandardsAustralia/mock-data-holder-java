@@ -22,7 +22,7 @@ public class BankingInternationalPayee  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingInternationalPayeeBankDetails getBankDetails() {
         return bankDetails;
     }
@@ -35,7 +35,7 @@ public class BankingInternationalPayee  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingInternationalPayeeBeneficiaryDetails getBeneficiaryDetails() {
         return beneficiaryDetails;
     }

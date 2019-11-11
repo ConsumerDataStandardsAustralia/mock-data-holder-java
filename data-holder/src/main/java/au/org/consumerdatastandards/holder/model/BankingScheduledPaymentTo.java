@@ -62,7 +62,7 @@ public class BankingScheduledPaymentTo  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingBillerPayee getBiller() {
         return biller;
     }
@@ -75,7 +75,7 @@ public class BankingScheduledPaymentTo  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingDomesticPayee getDomestic() {
         return domestic;
     }
@@ -88,7 +88,7 @@ public class BankingScheduledPaymentTo  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingInternationalPayee getInternational() {
         return international;
     }
@@ -114,7 +114,7 @@ public class BankingScheduledPaymentTo  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public ToUType getToUType() {
         return toUType;
     }

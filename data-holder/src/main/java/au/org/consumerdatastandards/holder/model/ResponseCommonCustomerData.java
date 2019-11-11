@@ -31,7 +31,7 @@ public class ResponseCommonCustomerData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public CustomerUType getCustomerUType() {
         return customerUType;
     }
@@ -44,7 +44,7 @@ public class ResponseCommonCustomerData  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public CommonOrganisation getOrganisation() {
         return organisation;
     }
@@ -57,7 +57,7 @@ public class ResponseCommonCustomerData  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public CommonPerson getPerson() {
         return person;
     }

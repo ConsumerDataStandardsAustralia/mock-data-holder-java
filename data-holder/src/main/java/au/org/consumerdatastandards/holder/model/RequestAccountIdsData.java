@@ -24,7 +24,7 @@ public class RequestAccountIdsData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public List<String> getAccountIds() {
         return accountIds;
     }

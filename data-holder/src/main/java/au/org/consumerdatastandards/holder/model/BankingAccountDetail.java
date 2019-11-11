@@ -1,24 +1,32 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 
 @ApiModel
-public class BankingAccountDetail extends BankingAccount {
+@Entity
+@Table(name="BankingAccount")
+public class BankingAccountDetail {
 
     /**
      * A unique ID of the account adhering to the standards for ID permanence
      */
+    @Id
     private String accountId;
 
     /**
      * Date that the account was created (if known)
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
     /**
@@ -41,14 +49,8 @@ public class BankingAccountDetail extends BankingAccount {
      */
     private String nickname;
 
-    /**
-     * Get openStatus
-     */
     private BankingAccount.OpenStatus openStatus;
 
-    /**
-     * Get productCategory
-     */
     private BankingProductCategory productCategory;
 
     /**
@@ -64,7 +66,11 @@ public class BankingAccountDetail extends BankingAccount {
     /**
      * The addresses for the account to be used for correspondence
      */
-    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "banking_account_addresses",
+        joinColumns = @JoinColumn(name = "banking_account_id"),
+        inverseJoinColumns = @JoinColumn(name = "common_physical_address_id"))
     private List<CommonPhysicalAddress> addresses;
 
     /**
@@ -80,6 +86,7 @@ public class BankingAccountDetail extends BankingAccount {
     /**
      * Get creditCard
      */
+    @ManyToOne
     private BankingCreditCardAccount creditCard;
 
     /**
@@ -90,19 +97,27 @@ public class BankingAccountDetail extends BankingAccount {
     /**
      * Fully described deposit rates for this account based on the equivalent structure in Product Reference
      */
-    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "banking_account_deposit_rates",
+        joinColumns = @JoinColumn(name = "banking_account_id"),
+        inverseJoinColumns = @JoinColumn(name = "deposit_rate_id"))
     private List<BankingProductDepositRate> depositRates;
 
     /**
      * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
      */
-    
-    private List<Object> features;
+    @OneToMany(mappedBy = "bankingAccountDetail")
+    private List<BankingAccountProductFeature> features;
 
     /**
      * Fees and charges applicable to the account based on the equivalent structure in Product Reference
      */
-    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "banking_account_fees",
+        joinColumns = @JoinColumn(name = "banking_account_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_fee_id"))
     private List<BankingProductFee> fees;
 
     /**
@@ -113,27 +128,19 @@ public class BankingAccountDetail extends BankingAccount {
     /**
      * Fully described deposit rates for this account based on the equivalent structure in Product Reference
      */
-    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "banking_account_lending_rates",
+        joinColumns = @JoinColumn(name = "banking_account_id"),
+        inverseJoinColumns = @JoinColumn(name = "lending_rate_id"))
     private List<BankingProductLendingRate> lendingRates;
 
-    /**
-     * Get loan
-     */
+    @ManyToOne
     private BankingLoanAccount loan;
 
-    public enum SpecificAccountUType {
-        CREDITCARD,
-        LOAN,
-        TERMDEPOSIT
-    }
-    /**
-     * Get specificAccountUType
-     */
     private SpecificAccountUType specificAccountUType;
 
-    /**
-     * Get termDeposit
-     */
+    @ManyToOne
     private BankingTermDepositAccount termDeposit;
 
     public BankingAccountDetail accountId(String accountId) {
@@ -219,7 +226,7 @@ public class BankingAccountDetail extends BankingAccount {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingAccount.OpenStatus getOpenStatus() {
         return openStatus;
     }
@@ -232,7 +239,7 @@ public class BankingAccountDetail extends BankingAccount {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingProductCategory getProductCategory() {
         return productCategory;
     }
@@ -266,6 +273,7 @@ public class BankingAccountDetail extends BankingAccount {
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
+
     public BankingAccountDetail addresses(List<CommonPhysicalAddress> addresses) {
         this.addresses = addresses;
         return this;
@@ -287,6 +295,7 @@ public class BankingAccountDetail extends BankingAccount {
     public void setAddresses(List<CommonPhysicalAddress> addresses) {
         this.addresses = addresses;
     }
+
     public BankingAccountDetail bsb(String bsb) {
         this.bsb = bsb;
         return this;
@@ -300,6 +309,7 @@ public class BankingAccountDetail extends BankingAccount {
     public void setBsb(String bsb) {
         this.bsb = bsb;
     }
+
     public BankingAccountDetail bundleName(String bundleName) {
         this.bundleName = bundleName;
         return this;
@@ -313,12 +323,13 @@ public class BankingAccountDetail extends BankingAccount {
     public void setBundleName(String bundleName) {
         this.bundleName = bundleName;
     }
+
     public BankingAccountDetail creditCard(BankingCreditCardAccount creditCard) {
         this.creditCard = creditCard;
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingCreditCardAccount getCreditCard() {
         return creditCard;
     }
@@ -326,6 +337,7 @@ public class BankingAccountDetail extends BankingAccount {
     public void setCreditCard(BankingCreditCardAccount creditCard) {
         this.creditCard = creditCard;
     }
+
     public BankingAccountDetail depositRate(String depositRate) {
         this.depositRate = depositRate;
         return this;
@@ -339,6 +351,7 @@ public class BankingAccountDetail extends BankingAccount {
     public void setDepositRate(String depositRate) {
         this.depositRate = depositRate;
     }
+
     public BankingAccountDetail depositRates(List<BankingProductDepositRate> depositRates) {
         this.depositRates = depositRates;
         return this;
@@ -360,12 +373,13 @@ public class BankingAccountDetail extends BankingAccount {
     public void setDepositRates(List<BankingProductDepositRate> depositRates) {
         this.depositRates = depositRates;
     }
-    public BankingAccountDetail features(List<Object> features) {
+
+    public BankingAccountDetail features(List<BankingAccountProductFeature> features) {
         this.features = features;
         return this;
     }
 
-    public BankingAccountDetail addItem(Object featuresItem) {
+    public BankingAccountDetail addItem(BankingAccountProductFeature featuresItem) {
         if (this.features == null) {
             this.features = new ArrayList<>();
         }
@@ -374,13 +388,14 @@ public class BankingAccountDetail extends BankingAccount {
     }
 
     @ApiModelProperty(value = "Array of features of the account based on the equivalent structure in Product Reference with the following additional field")
-    public List<Object> getFeatures() {
+    public List<BankingAccountProductFeature> getFeatures() {
         return features;
     }
 
-    public void setFeatures(List<Object> features) {
+    public void setFeatures(List<BankingAccountProductFeature> features) {
         this.features = features;
     }
+
     public BankingAccountDetail fees(List<BankingProductFee> fees) {
         this.fees = fees;
         return this;
@@ -402,6 +417,7 @@ public class BankingAccountDetail extends BankingAccount {
     public void setFees(List<BankingProductFee> fees) {
         this.fees = fees;
     }
+
     public BankingAccountDetail lendingRate(String lendingRate) {
         this.lendingRate = lendingRate;
         return this;
@@ -415,6 +431,7 @@ public class BankingAccountDetail extends BankingAccount {
     public void setLendingRate(String lendingRate) {
         this.lendingRate = lendingRate;
     }
+
     public BankingAccountDetail lendingRates(List<BankingProductLendingRate> lendingRates) {
         this.lendingRates = lendingRates;
         return this;
@@ -436,12 +453,13 @@ public class BankingAccountDetail extends BankingAccount {
     public void setLendingRates(List<BankingProductLendingRate> lendingRates) {
         this.lendingRates = lendingRates;
     }
+
     public BankingAccountDetail loan(BankingLoanAccount loan) {
         this.loan = loan;
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingLoanAccount getLoan() {
         return loan;
     }
@@ -449,12 +467,13 @@ public class BankingAccountDetail extends BankingAccount {
     public void setLoan(BankingLoanAccount loan) {
         this.loan = loan;
     }
+
     public BankingAccountDetail specificAccountUType(SpecificAccountUType specificAccountUType) {
         this.specificAccountUType = specificAccountUType;
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public SpecificAccountUType getSpecificAccountUType() {
         return specificAccountUType;
     }
@@ -462,12 +481,13 @@ public class BankingAccountDetail extends BankingAccount {
     public void setSpecificAccountUType(SpecificAccountUType specificAccountUType) {
         this.specificAccountUType = specificAccountUType;
     }
+
     public BankingAccountDetail termDeposit(BankingTermDepositAccount termDeposit) {
         this.termDeposit = termDeposit;
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingTermDepositAccount getTermDeposit() {
         return termDeposit;
     }
@@ -498,8 +518,7 @@ public class BankingAccountDetail extends BankingAccount {
             Objects.equals(this.lendingRates, bankingAccountDetail.lendingRates) &&
             Objects.equals(this.loan, bankingAccountDetail.loan) &&
             Objects.equals(this.specificAccountUType, bankingAccountDetail.specificAccountUType) &&
-            Objects.equals(this.termDeposit, bankingAccountDetail.termDeposit) &&
-            super.equals(o);
+            Objects.equals(this.termDeposit, bankingAccountDetail.termDeposit);
     }
 
     @Override
@@ -518,8 +537,7 @@ public class BankingAccountDetail extends BankingAccount {
             lendingRates,
             loan,
             specificAccountUType,
-            termDeposit,
-            super.hashCode());
+            termDeposit);
     }
 
     @Override
@@ -560,6 +578,12 @@ public class BankingAccountDetail extends BankingAccount {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum SpecificAccountUType {
+        CREDITCARD,
+        LOAN,
+        TERMDEPOSIT
     }
 }
 

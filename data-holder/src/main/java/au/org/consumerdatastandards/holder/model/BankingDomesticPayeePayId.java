@@ -59,7 +59,7 @@ public class BankingDomesticPayeePayId  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Type getType() {
         return type;
     }

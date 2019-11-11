@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class CommonSimpleAddress  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * First line of the standard address object
@@ -47,6 +60,14 @@ public class CommonSimpleAddress  {
      */
     private String state;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public CommonSimpleAddress addressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
         return this;
@@ -73,6 +94,7 @@ public class CommonSimpleAddress  {
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
     }
+
     public CommonSimpleAddress addressLine3(String addressLine3) {
         this.addressLine3 = addressLine3;
         return this;
@@ -86,6 +108,7 @@ public class CommonSimpleAddress  {
     public void setAddressLine3(String addressLine3) {
         this.addressLine3 = addressLine3;
     }
+
     public CommonSimpleAddress city(String city) {
         this.city = city;
         return this;
@@ -99,6 +122,7 @@ public class CommonSimpleAddress  {
     public void setCity(String city) {
         this.city = city;
     }
+
     public CommonSimpleAddress country(String country) {
         this.country = country;
         return this;
@@ -112,6 +136,7 @@ public class CommonSimpleAddress  {
     public void setCountry(String country) {
         this.country = country;
     }
+
     public CommonSimpleAddress mailingName(String mailingName) {
         this.mailingName = mailingName;
         return this;
@@ -125,6 +150,7 @@ public class CommonSimpleAddress  {
     public void setMailingName(String mailingName) {
         this.mailingName = mailingName;
     }
+
     public CommonSimpleAddress postcode(String postcode) {
         this.postcode = postcode;
         return this;
@@ -138,6 +164,7 @@ public class CommonSimpleAddress  {
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
+
     public CommonSimpleAddress state(String state) {
         this.state = state;
         return this;
@@ -161,7 +188,8 @@ public class CommonSimpleAddress  {
             return false;
         }
         CommonSimpleAddress commonSimpleAddress = (CommonSimpleAddress) o;
-        return Objects.equals(this.addressLine1, commonSimpleAddress.addressLine1) &&
+        return Objects.equals(this.id, commonSimpleAddress.id) &&
+            Objects.equals(this.addressLine1, commonSimpleAddress.addressLine1) &&
             Objects.equals(this.addressLine2, commonSimpleAddress.addressLine2) &&
             Objects.equals(this.addressLine3, commonSimpleAddress.addressLine3) &&
             Objects.equals(this.city, commonSimpleAddress.city) &&
@@ -174,6 +202,7 @@ public class CommonSimpleAddress  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             addressLine1,
             addressLine2,
             addressLine3,
@@ -187,8 +216,9 @@ public class CommonSimpleAddress  {
     @Override
     public String toString() {
         return "class CommonSimpleAddress {\n" +
-            "   addressLine1: " + toIndentedString(addressLine1) + "\n" + 
-            "   addressLine2: " + toIndentedString(addressLine2) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   addressLine1: " + toIndentedString(addressLine1) + "\n" +
+            "   addressLine2: " + toIndentedString(addressLine2) + "\n" +
             "   addressLine3: " + toIndentedString(addressLine3) + "\n" + 
             "   city: " + toIndentedString(city) + "\n" + 
             "   country: " + toIndentedString(country) + "\n" + 

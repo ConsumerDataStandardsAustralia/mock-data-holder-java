@@ -1,11 +1,24 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @ApiModel(description = "Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)")
+@Entity
 public class CommonPAFAddress  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Building/Property name 1
@@ -117,6 +130,14 @@ public class CommonPAFAddress  {
      */
     private String thoroughfareNumber2Suffix;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public CommonPAFAddress buildingName1(String buildingName1) {
         this.buildingName1 = buildingName1;
         return this;
@@ -156,6 +177,7 @@ public class CommonPAFAddress  {
     public void setDpid(String dpid) {
         this.dpid = dpid;
     }
+
     public CommonPAFAddress flatUnitNumber(String flatUnitNumber) {
         this.flatUnitNumber = flatUnitNumber;
         return this;
@@ -169,6 +191,7 @@ public class CommonPAFAddress  {
     public void setFlatUnitNumber(String flatUnitNumber) {
         this.flatUnitNumber = flatUnitNumber;
     }
+
     public CommonPAFAddress flatUnitType(String flatUnitType) {
         this.flatUnitType = flatUnitType;
         return this;
@@ -182,6 +205,7 @@ public class CommonPAFAddress  {
     public void setFlatUnitType(String flatUnitType) {
         this.flatUnitType = flatUnitType;
     }
+
     public CommonPAFAddress floorLevelNumber(String floorLevelNumber) {
         this.floorLevelNumber = floorLevelNumber;
         return this;
@@ -195,6 +219,7 @@ public class CommonPAFAddress  {
     public void setFloorLevelNumber(String floorLevelNumber) {
         this.floorLevelNumber = floorLevelNumber;
     }
+
     public CommonPAFAddress floorLevelType(String floorLevelType) {
         this.floorLevelType = floorLevelType;
         return this;
@@ -221,6 +246,7 @@ public class CommonPAFAddress  {
     public void setLocalityName(String localityName) {
         this.localityName = localityName;
     }
+
     public CommonPAFAddress lotNumber(String lotNumber) {
         this.lotNumber = lotNumber;
         return this;
@@ -234,6 +260,7 @@ public class CommonPAFAddress  {
     public void setLotNumber(String lotNumber) {
         this.lotNumber = lotNumber;
     }
+
     public CommonPAFAddress postalDeliveryNumber(Integer postalDeliveryNumber) {
         this.postalDeliveryNumber = postalDeliveryNumber;
         return this;
@@ -286,6 +313,7 @@ public class CommonPAFAddress  {
     public void setPostalDeliveryType(String postalDeliveryType) {
         this.postalDeliveryType = postalDeliveryType;
     }
+
     public CommonPAFAddress postcode(String postcode) {
         this.postcode = postcode;
         return this;
@@ -299,6 +327,7 @@ public class CommonPAFAddress  {
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
+
     public CommonPAFAddress state(String state) {
         this.state = state;
         return this;
@@ -364,6 +393,7 @@ public class CommonPAFAddress  {
     public void setThoroughfareNumber1(Integer thoroughfareNumber1) {
         this.thoroughfareNumber1 = thoroughfareNumber1;
     }
+
     public CommonPAFAddress thoroughfareNumber1Suffix(String thoroughfareNumber1Suffix) {
         this.thoroughfareNumber1Suffix = thoroughfareNumber1Suffix;
         return this;
@@ -390,6 +420,7 @@ public class CommonPAFAddress  {
     public void setThoroughfareNumber2(Integer thoroughfareNumber2) {
         this.thoroughfareNumber2 = thoroughfareNumber2;
     }
+
     public CommonPAFAddress thoroughfareNumber2Suffix(String thoroughfareNumber2Suffix) {
         this.thoroughfareNumber2Suffix = thoroughfareNumber2Suffix;
         return this;
@@ -413,7 +444,8 @@ public class CommonPAFAddress  {
             return false;
         }
         CommonPAFAddress commonPAFAddress = (CommonPAFAddress) o;
-        return Objects.equals(this.buildingName1, commonPAFAddress.buildingName1) &&
+        return Objects.equals(this.id, commonPAFAddress.id) &&
+            Objects.equals(this.buildingName1, commonPAFAddress.buildingName1) &&
             Objects.equals(this.buildingName2, commonPAFAddress.buildingName2) &&
             Objects.equals(this.dpid, commonPAFAddress.dpid) &&
             Objects.equals(this.flatUnitNumber, commonPAFAddress.flatUnitNumber) &&
@@ -440,6 +472,7 @@ public class CommonPAFAddress  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             buildingName1,
             buildingName2,
             dpid,
@@ -467,8 +500,9 @@ public class CommonPAFAddress  {
     @Override
     public String toString() {
         return "class CommonPAFAddress {\n" +
-            "   buildingName1: " + toIndentedString(buildingName1) + "\n" + 
-            "   buildingName2: " + toIndentedString(buildingName2) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   buildingName1: " + toIndentedString(buildingName1) + "\n" +
+            "   buildingName2: " + toIndentedString(buildingName2) + "\n" +
             "   dpid: " + toIndentedString(dpid) + "\n" + 
             "   flatUnitNumber: " + toIndentedString(flatUnitNumber) + "\n" + 
             "   flatUnitType: " + toIndentedString(flatUnitType) + "\n" + 

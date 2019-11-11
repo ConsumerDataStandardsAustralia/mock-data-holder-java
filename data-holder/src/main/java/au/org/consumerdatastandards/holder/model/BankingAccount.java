@@ -1,21 +1,32 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel
+@Entity
+@Table(name="BankingAccount")
 public class BankingAccount  {
 
     /**
      * A unique ID of the account adhering to the standards for ID permanence
      */
+    @Id
     private String accountId;
 
     /**
      * Date that the account was created (if known)
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
     /**
@@ -38,10 +49,6 @@ public class BankingAccount  {
      */
     private String nickname;
 
-    public enum OpenStatus {
-        CLOSED,
-        OPEN
-    }
     /**
      * Get openStatus
      */
@@ -140,7 +147,7 @@ public class BankingAccount  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public OpenStatus getOpenStatus() {
         return openStatus;
     }
@@ -153,7 +160,7 @@ public class BankingAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingProductCategory getProductCategory() {
         return productCategory;
     }
@@ -233,6 +240,11 @@ public class BankingAccount  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum OpenStatus {
+        CLOSED,
+        OPEN
     }
 }
 

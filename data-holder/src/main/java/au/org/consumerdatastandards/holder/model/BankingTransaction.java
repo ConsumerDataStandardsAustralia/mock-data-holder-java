@@ -299,7 +299,7 @@ public class BankingTransaction  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Status getStatus() {
         return status;
     }
@@ -325,7 +325,7 @@ public class BankingTransaction  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Type getType() {
         return type;
     }

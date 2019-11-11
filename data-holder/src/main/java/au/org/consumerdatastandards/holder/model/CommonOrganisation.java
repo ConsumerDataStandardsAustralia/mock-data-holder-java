@@ -235,7 +235,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public OrganisationType getOrganisationType() {
         return organisationType;
     }

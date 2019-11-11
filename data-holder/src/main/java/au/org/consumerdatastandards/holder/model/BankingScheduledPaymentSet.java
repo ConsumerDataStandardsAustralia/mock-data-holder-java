@@ -71,7 +71,7 @@ public class BankingScheduledPaymentSet  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingScheduledPaymentTo getTo() {
         return to;
     }

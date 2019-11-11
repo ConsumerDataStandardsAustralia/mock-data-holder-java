@@ -1,16 +1,33 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel
+@Entity
 public class BankingTermDepositAccount  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * The lodgement date of the original deposit
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate lodgementDate;
 
     /**
@@ -26,15 +43,10 @@ public class BankingTermDepositAccount  {
     /**
      * Maturity date for the term deposit
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate maturityDate;
 
-    public enum MaturityInstructions {
-        PAID_OUT_AT_MATURITY,
-        ROLLED_OVER
-    }
-    /**
-     * Get maturityInstructions
-     */
     private MaturityInstructions maturityInstructions;
 
     public BankingTermDepositAccount lodgementDate(LocalDate lodgementDate) {
@@ -94,7 +106,7 @@ public class BankingTermDepositAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public MaturityInstructions getMaturityInstructions() {
         return maturityInstructions;
     }
@@ -112,7 +124,8 @@ public class BankingTermDepositAccount  {
             return false;
         }
         BankingTermDepositAccount bankingTermDepositAccount = (BankingTermDepositAccount) o;
-        return Objects.equals(this.lodgementDate, bankingTermDepositAccount.lodgementDate) &&
+        return Objects.equals(this.id, bankingTermDepositAccount.id) &&
+            Objects.equals(this.lodgementDate, bankingTermDepositAccount.lodgementDate) &&
             Objects.equals(this.maturityAmount, bankingTermDepositAccount.maturityAmount) &&
             Objects.equals(this.maturityCurrency, bankingTermDepositAccount.maturityCurrency) &&
             Objects.equals(this.maturityDate, bankingTermDepositAccount.maturityDate) &&
@@ -122,6 +135,7 @@ public class BankingTermDepositAccount  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             lodgementDate,
             maturityAmount,
             maturityCurrency,
@@ -132,8 +146,9 @@ public class BankingTermDepositAccount  {
     @Override
     public String toString() {
         return "class BankingTermDepositAccount {\n" +
-            "   lodgementDate: " + toIndentedString(lodgementDate) + "\n" + 
-            "   maturityAmount: " + toIndentedString(maturityAmount) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   lodgementDate: " + toIndentedString(lodgementDate) + "\n" +
+            "   maturityAmount: " + toIndentedString(maturityAmount) + "\n" +
             "   maturityCurrency: " + toIndentedString(maturityCurrency) + "\n" + 
             "   maturityDate: " + toIndentedString(maturityDate) + "\n" + 
             "   maturityInstructions: " + toIndentedString(maturityInstructions) + "\n" + 
@@ -149,6 +164,11 @@ public class BankingTermDepositAccount  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum MaturityInstructions {
+        PAID_OUT_AT_MATURITY,
+        ROLLED_OVER
     }
 }
 

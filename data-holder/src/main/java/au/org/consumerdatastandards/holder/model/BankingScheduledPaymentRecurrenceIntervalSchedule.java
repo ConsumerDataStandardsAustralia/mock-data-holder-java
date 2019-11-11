@@ -72,7 +72,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public NonBusinessDayTreatment getNonBusinessDayTreatment() {
         return nonBusinessDayTreatment;
     }

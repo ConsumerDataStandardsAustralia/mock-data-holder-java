@@ -24,7 +24,7 @@ public class ResponseErrorList  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public List<Error> getErrors() {
         return errors;
     }

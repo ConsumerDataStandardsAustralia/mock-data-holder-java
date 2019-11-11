@@ -39,7 +39,7 @@ public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public CommonPhysicalAddress.AddressUType getAddressUType() {
         return addressUType;
     }
@@ -52,7 +52,7 @@ public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public CommonPAFAddress getPaf() {
         return paf;
     }
@@ -65,7 +65,7 @@ public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public CommonSimpleAddress getSimple() {
         return simple;
     }
@@ -78,7 +78,7 @@ public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Purpose getPurpose() {
         return purpose;
     }

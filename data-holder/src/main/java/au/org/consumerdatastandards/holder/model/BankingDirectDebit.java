@@ -46,7 +46,7 @@ public class BankingDirectDebit  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingAuthorisedEntity getAuthorisedEntity() {
         return authorisedEntity;
     }

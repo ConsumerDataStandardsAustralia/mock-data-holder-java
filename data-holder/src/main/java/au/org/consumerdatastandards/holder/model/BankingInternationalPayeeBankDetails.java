@@ -70,7 +70,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingInternationalPayeeBankDetailsBankAddress getBankAddress() {
         return bankAddress;
     }

@@ -27,7 +27,7 @@ public class ResponseBankingAccountList extends PaginatedResponse {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public ResponseBankingAccountListData getData() {
         return data;
     }
@@ -40,7 +40,7 @@ public class ResponseBankingAccountList extends PaginatedResponse {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public LinksPaginated getLinks() {
         return links;
     }
@@ -53,7 +53,7 @@ public class ResponseBankingAccountList extends PaginatedResponse {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public MetaPaginated getMeta() {
         return meta;
     }

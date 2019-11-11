@@ -23,7 +23,7 @@ public class RequestAccountIds  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public RequestAccountIdsData getData() {
         return data;
     }
@@ -36,7 +36,7 @@ public class RequestAccountIds  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public Meta getMeta() {
         return meta;
     }

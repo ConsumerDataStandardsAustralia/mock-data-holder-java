@@ -37,7 +37,7 @@ public class BankingDomesticPayee  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingDomesticPayeeAccount getAccount() {
         return account;
     }
@@ -50,7 +50,7 @@ public class BankingDomesticPayee  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingDomesticPayeeCard getCard() {
         return card;
     }
@@ -63,7 +63,7 @@ public class BankingDomesticPayee  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingDomesticPayeePayId getPayId() {
         return payId;
     }
@@ -76,7 +76,7 @@ public class BankingDomesticPayee  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public PayeeAccountUType getPayeeAccountUType() {
         return payeeAccountUType;
     }

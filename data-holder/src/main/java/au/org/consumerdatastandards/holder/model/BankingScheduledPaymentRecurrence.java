@@ -49,7 +49,7 @@ public class BankingScheduledPaymentRecurrence  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingScheduledPaymentRecurrenceEventBased getEventBased() {
         return eventBased;
     }
@@ -62,7 +62,7 @@ public class BankingScheduledPaymentRecurrence  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingScheduledPaymentRecurrenceIntervalSchedule getIntervalSchedule() {
         return intervalSchedule;
     }
@@ -75,7 +75,7 @@ public class BankingScheduledPaymentRecurrence  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingScheduledPaymentRecurrenceLastWeekday getLastWeekDay() {
         return lastWeekDay;
     }
@@ -101,7 +101,7 @@ public class BankingScheduledPaymentRecurrence  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingScheduledPaymentRecurrenceOnceOff getOnceOff() {
         return onceOff;
     }
@@ -114,7 +114,7 @@ public class BankingScheduledPaymentRecurrence  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public RecurrenceUType getRecurrenceUType() {
         return recurrenceUType;
     }

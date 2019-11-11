@@ -59,7 +59,7 @@ public class BankingScheduledPayment  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingScheduledPaymentFrom getFrom() {
         return from;
     }
@@ -116,7 +116,7 @@ public class BankingScheduledPayment  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public List<BankingScheduledPaymentSet> getPaymentSet() {
         return paymentSet;
     }
@@ -129,7 +129,7 @@ public class BankingScheduledPayment  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingScheduledPaymentRecurrence getRecurrence() {
         return recurrence;
     }
@@ -155,7 +155,7 @@ public class BankingScheduledPayment  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Status getStatus() {
         return status;
     }

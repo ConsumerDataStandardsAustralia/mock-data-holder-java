@@ -43,7 +43,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public ExtensionUType getExtensionUType() {
         return extensionUType;
     }
@@ -82,7 +82,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Service getService() {
         return service;
     }
@@ -95,7 +95,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public BankingTransactionDetailExtendedDataX2p101Payload getX2p101Payload() {
         return x2p101Payload;
     }

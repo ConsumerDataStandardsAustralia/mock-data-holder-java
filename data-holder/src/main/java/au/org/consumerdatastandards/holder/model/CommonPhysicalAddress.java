@@ -1,29 +1,37 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class CommonPhysicalAddress  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     public enum AddressUType {
         PAF,
         SIMPLE
     }
-    /**
-     * Get addressUType
-     */
+
     private AddressUType addressUType;
 
-    /**
-     * Get paf
-     */
+    @ManyToOne
     private CommonPAFAddress paf;
 
-    /**
-     * Get simple
-     */
+    @ManyToOne
     private CommonSimpleAddress simple;
 
     public CommonPhysicalAddress addressUType(AddressUType addressUType) {
@@ -31,7 +39,7 @@ public class CommonPhysicalAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public AddressUType getAddressUType() {
         return addressUType;
     }
@@ -44,7 +52,7 @@ public class CommonPhysicalAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public CommonPAFAddress getPaf() {
         return paf;
     }
@@ -57,7 +65,7 @@ public class CommonPhysicalAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public CommonSimpleAddress getSimple() {
         return simple;
     }
@@ -75,7 +83,8 @@ public class CommonPhysicalAddress  {
             return false;
         }
         CommonPhysicalAddress commonPhysicalAddress = (CommonPhysicalAddress) o;
-        return Objects.equals(this.addressUType, commonPhysicalAddress.addressUType) &&
+        return Objects.equals(this.id, commonPhysicalAddress.id) &&
+            Objects.equals(this.addressUType, commonPhysicalAddress.addressUType) &&
             Objects.equals(this.paf, commonPhysicalAddress.paf) &&
             Objects.equals(this.simple, commonPhysicalAddress.simple);
     }
@@ -83,6 +92,7 @@ public class CommonPhysicalAddress  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             addressUType,
             paf,
             simple);
@@ -91,8 +101,9 @@ public class CommonPhysicalAddress  {
     @Override
     public String toString() {
         return "class CommonPhysicalAddress {\n" +
-            "   addressUType: " + toIndentedString(addressUType) + "\n" + 
-            "   paf: " + toIndentedString(paf) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   addressUType: " + toIndentedString(addressUType) + "\n" +
+            "   paf: " + toIndentedString(paf) + "\n" +
             "   simple: " + toIndentedString(simple) + "\n" + 
             "}";
     }

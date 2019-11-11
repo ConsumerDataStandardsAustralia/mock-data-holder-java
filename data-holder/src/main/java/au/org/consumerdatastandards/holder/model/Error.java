@@ -58,7 +58,7 @@ public class Error  {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public Object getMeta() {
         return meta;
     }

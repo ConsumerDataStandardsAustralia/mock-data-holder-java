@@ -27,7 +27,7 @@ public class ResponseBankingAccountsBalanceById extends BaseResponse {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public BankingBalance getData() {
         return data;
     }
@@ -40,7 +40,7 @@ public class ResponseBankingAccountsBalanceById extends BaseResponse {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true)
     public Links getLinks() {
         return links;
     }
@@ -53,7 +53,7 @@ public class ResponseBankingAccountsBalanceById extends BaseResponse {
         return this;
     }
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty
     public Meta getMeta() {
         return meta;
     }
