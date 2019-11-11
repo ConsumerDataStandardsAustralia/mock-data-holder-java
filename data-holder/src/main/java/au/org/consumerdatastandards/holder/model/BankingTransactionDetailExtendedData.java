@@ -2,9 +2,13 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import java.util.Objects;
 
 @ApiModel
+@Embeddable
 public class BankingTransactionDetailExtendedData  {
 
     public enum ExtensionUType {
@@ -36,6 +40,7 @@ public class BankingTransactionDetailExtendedData  {
     /**
      * Get x2p101Payload
      */
+    @Embedded
     private BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload;
 
     public BankingTransactionDetailExtendedData extensionUType(ExtensionUType extensionUType) {

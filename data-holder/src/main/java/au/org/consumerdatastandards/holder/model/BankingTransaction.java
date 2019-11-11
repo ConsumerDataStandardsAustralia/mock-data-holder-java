@@ -1,12 +1,26 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 import java.time.OffsetDateTime;
 
 @ApiModel
+@Entity
+@Table(name = "BankingTransaction")
 public class BankingTransaction  {
+
+    /**
+     * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
+     */
+    @Id
+    private String transactionId;
 
     /**
      * ID of the account for which transactions are provided
@@ -51,6 +65,8 @@ public class BankingTransaction  {
     /**
      * The time the transaction was executed by the originating customer, if available
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime executionDateTime;
 
     /**
@@ -71,6 +87,8 @@ public class BankingTransaction  {
     /**
      * The time the transaction was posted. This field is Mandatory if the transaction has status POSTED.  This is the time that appears on a standard statement
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime postingDateTime;
 
     /**
@@ -78,33 +96,8 @@ public class BankingTransaction  {
      */
     private String reference;
 
-    public enum Status {
-        PENDING,
-        POSTED
-    }
-    /**
-     * Get status
-     */
     private Status status;
 
-    /**
-     * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
-     */
-    private String transactionId;
-
-    public enum Type {
-        DIRECT_DEBIT,
-        FEE,
-        INTEREST_CHARGED,
-        INTEREST_PAID,
-        OTHER,
-        PAYMENT,
-        TRANSFER_INCOMING,
-        TRANSFER_OUTGOING
-    }
-    /**
-     * Get type
-     */
     private Type type;
 
     /**
@@ -432,6 +425,22 @@ public class BankingTransaction  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum Type {
+        DIRECT_DEBIT,
+        FEE,
+        INTEREST_CHARGED,
+        INTEREST_PAID,
+        OTHER,
+        PAYMENT,
+        TRANSFER_INCOMING,
+        TRANSFER_OUTGOING
+    }
+
+    public enum Status {
+        PENDING,
+        POSTED
     }
 }
 

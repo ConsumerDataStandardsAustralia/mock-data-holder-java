@@ -2,9 +2,12 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @ApiModel
+@Embeddable
 public class BankingTransactionDetailExtendedDataX2p101Payload  {
 
     /**

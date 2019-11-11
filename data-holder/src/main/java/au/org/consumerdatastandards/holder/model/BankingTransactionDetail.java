@@ -1,13 +1,27 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @ApiModel
-public class BankingTransactionDetail extends BankingTransaction {
+@Entity
+@Table(name = "BankingTransaction")
+public class BankingTransactionDetail {
+
+    /**
+     * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
+     */
+    @Id
+    private String transactionId;
 
     /**
      * ID of the account for which transactions are provided
@@ -52,6 +66,8 @@ public class BankingTransactionDetail extends BankingTransaction {
     /**
      * The time the transaction was executed by the originating customer, if available
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime executionDateTime;
 
     /**
@@ -72,6 +88,8 @@ public class BankingTransactionDetail extends BankingTransaction {
     /**
      * The time the transaction was posted. This field is Mandatory if the transaction has status POSTED.  This is the time that appears on a standard statement
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime postingDateTime;
 
     /**
@@ -83,11 +101,6 @@ public class BankingTransactionDetail extends BankingTransaction {
      * Get status
      */
     private BankingTransaction.Status status;
-
-    /**
-     * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
-     */
-    private String transactionId;
 
     /**
      * Get type
@@ -102,6 +115,7 @@ public class BankingTransactionDetail extends BankingTransaction {
     /**
      * Get extendedData
      */
+    @Embedded
     private BankingTransactionDetailExtendedData extendedData;
 
     public BankingTransactionDetail accountId(String accountId) {
