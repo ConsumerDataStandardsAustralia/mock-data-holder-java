@@ -10,8 +10,8 @@ package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -28,7 +28,7 @@ public class BankingProduct {
      * otherwise need to adhere to ID permanence guidelines.
      */
     @Id
-    private String productId;
+    protected String productId;
 
     /**
      * The date and time from which this product is effective (ie.
@@ -36,7 +36,7 @@ public class BankingProduct {
      * articulation of products to the regime before they are
      * available for customers to originate
      */
-    @DateTimeFormat(iso = ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveFrom;
 
@@ -45,55 +45,49 @@ public class BankingProduct {
      * will no longer be offered.  Used to enable the managed
      * deprecation of products
      */
-
-    @DateTimeFormat(iso = ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private OffsetDateTime effectiveTo;
+    protected OffsetDateTime effectiveTo;
 
     /**
      * The last date and time that the information for this product
      * was changed (or the creation date for the product if it has
      * never been altered)
      */
-    @DateTimeFormat(iso = ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private OffsetDateTime lastUpdated;
+    protected OffsetDateTime lastUpdated;
 
-
-    private BankingProductCategory productCategory;
+    protected BankingProductCategory productCategory;
 
     /**
      * The display name of the product
      */
-
-    private String name;
+    protected String name;
 
     /**
      * A description of the product
      */
-
-    private String description;
+    @Column(length = 2048)
+    protected String description;
 
     /**
      * A label of the brand for the product. Able to be used for
      * filtering. For data providers with single brands this value
      * is still required
      */
-
-    private String brand;
+    protected String brand;
 
     /**
      * An optional display name of the brand
      */
-
-    private String brandName;
+    protected String brandName;
 
     /**
      * A link to an application web page where this product can be
      * applied for.
      */
-
-    private String applicationUri;
+    protected String applicationUri;
 
     /**
      * Indicates whether the product is specifically tailored to a
@@ -103,8 +97,7 @@ public class BankingProduct {
      * indicates that tailoring is expected and thus that the
      * provision of specific fees and rates is not applicable
      */
-
-    private Boolean isTailored;
+    protected Boolean isTailored;
 
     public String getProductId() {
         return productId;
