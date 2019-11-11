@@ -17,12 +17,6 @@ public class CommonEmailAddress  {
      */
     private Boolean isPreferred;
 
-    public enum Purpose {
-        HOME,
-        OTHER,
-        UNSPECIFIED,
-        WORK
-    }
     /**
      * Get purpose
      */
@@ -108,6 +102,13 @@ public class CommonEmailAddress  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum Purpose {
+        HOME,
+        OTHER,
+        UNSPECIFIED,
+        WORK
     }
 }
 

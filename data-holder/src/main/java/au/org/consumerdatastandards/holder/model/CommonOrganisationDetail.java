@@ -1,16 +1,26 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.List;
 
 @ApiModel
+@Entity
+@Table(name = "CommonOrganisation")
 public class CommonOrganisationDetail extends CommonOrganisation {
 
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
     /**
      * Australian Business Number for the organisation
      */
@@ -84,8 +94,22 @@ public class CommonOrganisationDetail extends CommonOrganisation {
     /**
      * Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
      */
-    
+    @OneToMany
+    @JoinTable(
+        name = "organisation_physical_addresses",
+        joinColumns = @JoinColumn(name = "organisation_id"),
+        inverseJoinColumns = @JoinColumn(name = "physical_address_id"))
     private List<CommonPhysicalAddressWithPurpose> physicalAddresses;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CommonOrganisationDetail abn(String abn) {
         this.abn = abn;
@@ -311,8 +335,9 @@ public class CommonOrganisationDetail extends CommonOrganisation {
     @Override
     public String toString() {
         return "class CommonOrganisationDetail {\n" +
-            "   abn: " + toIndentedString(getAbn()) + "\n" + 
-            "   acn: " + toIndentedString(getAcn()) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   abn: " + toIndentedString(getAbn()) + "\n" +
+            "   acn: " + toIndentedString(getAcn()) + "\n" +
             "   agentFirstName: " + toIndentedString(getAgentFirstName()) + "\n" + 
             "   agentLastName: " + toIndentedString(getAgentLastName()) + "\n" + 
             "   agentRole: " + toIndentedString(getAgentRole()) + "\n" + 

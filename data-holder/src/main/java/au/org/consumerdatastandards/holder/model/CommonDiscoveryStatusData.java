@@ -23,15 +23,6 @@ public class CommonDiscoveryStatusData  {
      */
     private String explanation;
 
-    public enum Status {
-        OK,
-        PARTIAL_FAILURE,
-        SCHEDULED_OUTAGE,
-        UNAVAILABLE
-    }
-    /**
-     * Get status
-     */
     private Status status;
 
     /**
@@ -151,6 +142,13 @@ public class CommonDiscoveryStatusData  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum Status {
+        OK,
+        PARTIAL_FAILURE,
+        SCHEDULED_OUTAGE,
+        UNAVAILABLE
     }
 }
 

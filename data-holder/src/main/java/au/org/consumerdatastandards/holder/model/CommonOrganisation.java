@@ -1,13 +1,28 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 @ApiModel
+@Entity
+@Table(name = "CommonOrganisation")
 public class CommonOrganisation  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Australian Business Number for the organisation
@@ -64,14 +79,6 @@ public class CommonOrganisation  {
      */
     private String legalName;
 
-    public enum OrganisationType {
-        COMPANY,
-        GOVERNMENT_ENTITY,
-        OTHER,
-        PARTNERSHIP,
-        SOLE_TRADER,
-        TRUST
-    }
     /**
      * Get organisationType
      */
@@ -86,6 +93,14 @@ public class CommonOrganisation  {
      * Short name used for communication, if  different to the business name
      */
     private String shortName;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CommonOrganisation abn(String abn) {
         this.abn = abn;
@@ -279,7 +294,8 @@ public class CommonOrganisation  {
             return false;
         }
         CommonOrganisation commonOrganisation = (CommonOrganisation) o;
-        return Objects.equals(this.abn, commonOrganisation.abn) &&
+        return Objects.equals(this.id, commonOrganisation.id) &&
+            Objects.equals(this.abn, commonOrganisation.abn) &&
             Objects.equals(this.acn, commonOrganisation.acn) &&
             Objects.equals(this.agentFirstName, commonOrganisation.agentFirstName) &&
             Objects.equals(this.agentLastName, commonOrganisation.agentLastName) &&
@@ -298,6 +314,7 @@ public class CommonOrganisation  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             abn,
             acn,
             agentFirstName,
@@ -317,8 +334,9 @@ public class CommonOrganisation  {
     @Override
     public String toString() {
         return "class CommonOrganisation {\n" +
-            "   abn: " + toIndentedString(abn) + "\n" + 
-            "   acn: " + toIndentedString(acn) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   abn: " + toIndentedString(abn) + "\n" +
+            "   acn: " + toIndentedString(acn) + "\n" +
             "   agentFirstName: " + toIndentedString(agentFirstName) + "\n" + 
             "   agentLastName: " + toIndentedString(agentLastName) + "\n" + 
             "   agentRole: " + toIndentedString(agentRole) + "\n" + 
@@ -343,6 +361,15 @@ public class CommonOrganisation  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum OrganisationType {
+        COMPANY,
+        GOVERNMENT_ENTITY,
+        OTHER,
+        PARTNERSHIP,
+        SOLE_TRADER,
+        TRUST
     }
 }
 

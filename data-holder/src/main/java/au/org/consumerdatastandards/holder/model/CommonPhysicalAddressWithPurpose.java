@@ -2,36 +2,24 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @ApiModel
+@Entity
 public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
 
-    /**
-     * Get addressUType
-     */
     private CommonPhysicalAddress.AddressUType addressUType;
 
-    /**
-     * Get paf
-     */
+    @ManyToOne
     private CommonPAFAddress paf;
 
-    /**
-     * Get simple
-     */
+    @Embedded
     private CommonSimpleAddress simple;
 
-    public enum Purpose {
-        MAIL,
-        OTHER,
-        PHYSICAL,
-        REGISTERED,
-        WORK
-    }
-    /**
-     * Get purpose
-     */
     private Purpose purpose;
 
     public CommonPhysicalAddressWithPurpose addressUType(CommonPhysicalAddress.AddressUType addressUType) {
@@ -126,6 +114,14 @@ public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum Purpose {
+        MAIL,
+        OTHER,
+        PHYSICAL,
+        REGISTERED,
+        WORK
     }
 }
 

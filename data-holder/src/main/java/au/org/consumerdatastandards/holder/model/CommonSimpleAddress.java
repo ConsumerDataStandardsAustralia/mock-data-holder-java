@@ -1,24 +1,14 @@
 package au.org.consumerdatastandards.holder.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @ApiModel
-@Entity
+@Embeddable
 public class CommonSimpleAddress  {
-
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @JsonIgnore
-    private String id;
 
     /**
      * First line of the standard address object
@@ -59,14 +49,6 @@ public class CommonSimpleAddress  {
      * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
      */
     private String state;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public CommonSimpleAddress addressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
@@ -188,8 +170,7 @@ public class CommonSimpleAddress  {
             return false;
         }
         CommonSimpleAddress commonSimpleAddress = (CommonSimpleAddress) o;
-        return Objects.equals(this.id, commonSimpleAddress.id) &&
-            Objects.equals(this.addressLine1, commonSimpleAddress.addressLine1) &&
+        return Objects.equals(this.addressLine1, commonSimpleAddress.addressLine1) &&
             Objects.equals(this.addressLine2, commonSimpleAddress.addressLine2) &&
             Objects.equals(this.addressLine3, commonSimpleAddress.addressLine3) &&
             Objects.equals(this.city, commonSimpleAddress.city) &&
@@ -202,7 +183,6 @@ public class CommonSimpleAddress  {
     @Override
     public int hashCode() {
         return Objects.hash(
-            id,
             addressLine1,
             addressLine2,
             addressLine3,
@@ -216,7 +196,6 @@ public class CommonSimpleAddress  {
     @Override
     public String toString() {
         return "class CommonSimpleAddress {\n" +
-            "   id: " + toIndentedString(id) + "\n" +
             "   addressLine1: " + toIndentedString(addressLine1) + "\n" +
             "   addressLine2: " + toIndentedString(addressLine2) + "\n" +
             "   addressLine3: " + toIndentedString(addressLine3) + "\n" + 

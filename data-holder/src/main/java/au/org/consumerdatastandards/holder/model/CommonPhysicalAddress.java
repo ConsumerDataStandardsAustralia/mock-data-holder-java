@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @ApiModel
@@ -31,7 +28,7 @@ public class CommonPhysicalAddress  {
     @ManyToOne
     private CommonPAFAddress paf;
 
-    @ManyToOne
+    @Embedded
     private CommonSimpleAddress simple;
 
     public CommonPhysicalAddress addressUType(AddressUType addressUType) {

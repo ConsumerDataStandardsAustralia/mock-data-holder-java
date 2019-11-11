@@ -8,6 +8,8 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Objects;
 
 public class BaseResponse {
@@ -27,6 +29,7 @@ public class BaseResponse {
      */
     private Meta meta;
 
+    @ApiModelProperty(required = true)
     public Links getLinks() {
         return links;
     }
@@ -35,6 +38,7 @@ public class BaseResponse {
         this.links = links;
     }
 
+    @ApiModelProperty
     public Meta getMeta() {
         return meta;
     }
