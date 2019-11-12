@@ -2,15 +2,22 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.List;
 
 @ApiModel
+@Entity
 public class BankingScheduledPayment  {
 
     /**
-     * Get from
+     * A unique ID of the scheduled payment adhering to the standards for ID permanence
      */
+    @Id
+    private String scheduledPaymentId;
+
+    @Embedded
     private BankingScheduledPaymentFrom from;
 
     /**
@@ -28,30 +35,16 @@ public class BankingScheduledPayment  {
      */
     private String payerReference;
 
-    /**
-     * Get paymentSet
-     */
-    
+    @OneToMany
+    @JoinTable(
+        name = "banking_scheduled_payment_sets",
+        joinColumns = @JoinColumn(name = "scheduled_payment_id"),
+        inverseJoinColumns = @JoinColumn(name = "payment_set_id"))
     private List<BankingScheduledPaymentSet> paymentSet;
 
-    /**
-     * Get recurrence
-     */
+    @ManyToOne
     private BankingScheduledPaymentRecurrence recurrence;
 
-    /**
-     * A unique ID of the scheduled payment adhering to the standards for ID permanence
-     */
-    private String scheduledPaymentId;
-
-    public enum Status {
-        ACTIVE,
-        INACTIVE,
-        SKIP
-    }
-    /**
-     * Get status
-     */
     private Status status;
 
     public BankingScheduledPayment from(BankingScheduledPaymentFrom from) {
@@ -219,6 +212,12 @@ public class BankingScheduledPayment  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum Status {
+        ACTIVE,
+        INACTIVE,
+        SKIP
     }
 }
 

@@ -1,16 +1,23 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Embeddable;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel(description = "Indicates that the payment is a once off payment on a specific future date. Mandatory if recurrenceUType is set to onceOff")
+@Embeddable
 public class BankingScheduledPaymentRecurrenceOnceOff  {
 
     /**
      * The scheduled date for the once off payment
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate paymentDate;
 
     public BankingScheduledPaymentRecurrenceOnceOff paymentDate(LocalDate paymentDate) {

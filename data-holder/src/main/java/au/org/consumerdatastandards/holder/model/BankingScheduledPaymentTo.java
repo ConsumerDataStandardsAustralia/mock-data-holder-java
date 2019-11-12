@@ -1,30 +1,38 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @ApiModel(description = "Object containing details of the destination of the payment. Used to specify a variety of payment destination types")
+@Entity
 public class BankingScheduledPaymentTo  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent
      */
     private String accountId;
 
-    /**
-     * Get biller
-     */
+    @ManyToOne
     private BankingBillerPayee biller;
 
-    /**
-     * Get domestic
-     */
+    @ManyToOne
     private BankingDomesticPayee domestic;
 
-    /**
-     * Get international
-     */
+    @ManyToOne
     private BankingInternationalPayee international;
 
     /**
@@ -32,17 +40,15 @@ public class BankingScheduledPaymentTo  {
      */
     private String payeeId;
 
-    public enum ToUType {
-        ACCOUNTID,
-        BILLER,
-        DOMESTIC,
-        INTERNATIONAL,
-        PAYEEID
-    }
-    /**
-     * Get toUType
-     */
     private ToUType toUType;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingScheduledPaymentTo accountId(String accountId) {
         this.accountId = accountId;
@@ -57,6 +63,7 @@ public class BankingScheduledPaymentTo  {
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
+
     public BankingScheduledPaymentTo biller(BankingBillerPayee biller) {
         this.biller = biller;
         return this;
@@ -70,6 +77,7 @@ public class BankingScheduledPaymentTo  {
     public void setBiller(BankingBillerPayee biller) {
         this.biller = biller;
     }
+
     public BankingScheduledPaymentTo domestic(BankingDomesticPayee domestic) {
         this.domestic = domestic;
         return this;
@@ -83,6 +91,7 @@ public class BankingScheduledPaymentTo  {
     public void setDomestic(BankingDomesticPayee domestic) {
         this.domestic = domestic;
     }
+
     public BankingScheduledPaymentTo international(BankingInternationalPayee international) {
         this.international = international;
         return this;
@@ -96,6 +105,7 @@ public class BankingScheduledPaymentTo  {
     public void setInternational(BankingInternationalPayee international) {
         this.international = international;
     }
+
     public BankingScheduledPaymentTo payeeId(String payeeId) {
         this.payeeId = payeeId;
         return this;
@@ -132,7 +142,8 @@ public class BankingScheduledPaymentTo  {
             return false;
         }
         BankingScheduledPaymentTo bankingScheduledPaymentTo = (BankingScheduledPaymentTo) o;
-        return Objects.equals(this.accountId, bankingScheduledPaymentTo.accountId) &&
+        return Objects.equals(this.id, bankingScheduledPaymentTo.id) &&
+            Objects.equals(this.accountId, bankingScheduledPaymentTo.accountId) &&
             Objects.equals(this.biller, bankingScheduledPaymentTo.biller) &&
             Objects.equals(this.domestic, bankingScheduledPaymentTo.domestic) &&
             Objects.equals(this.international, bankingScheduledPaymentTo.international) &&
@@ -143,6 +154,7 @@ public class BankingScheduledPaymentTo  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             accountId,
             biller,
             domestic,
@@ -154,8 +166,9 @@ public class BankingScheduledPaymentTo  {
     @Override
     public String toString() {
         return "class BankingScheduledPaymentTo {\n" +
-            "   accountId: " + toIndentedString(accountId) + "\n" + 
-            "   biller: " + toIndentedString(biller) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   accountId: " + toIndentedString(accountId) + "\n" +
+            "   biller: " + toIndentedString(biller) + "\n" +
             "   domestic: " + toIndentedString(domestic) + "\n" + 
             "   international: " + toIndentedString(international) + "\n" + 
             "   payeeId: " + toIndentedString(payeeId) + "\n" + 
@@ -172,6 +185,14 @@ public class BankingScheduledPaymentTo  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum ToUType {
+        ACCOUNTID,
+        BILLER,
+        DOMESTIC,
+        INTERNATIONAL,
+        PAYEEID
     }
 }
 

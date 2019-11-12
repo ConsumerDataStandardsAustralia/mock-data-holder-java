@@ -1,48 +1,54 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel(description = "Object containing the detail of the schedule for the payment")
+@Entity
 public class BankingScheduledPaymentRecurrence  {
 
-    /**
-     * Get eventBased
-     */
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
+    @Embedded
     private BankingScheduledPaymentRecurrenceEventBased eventBased;
 
-    /**
-     * Get intervalSchedule
-     */
+    @ManyToOne
     private BankingScheduledPaymentRecurrenceIntervalSchedule intervalSchedule;
 
-    /**
-     * Get lastWeekDay
-     */
+    @Embedded
     private BankingScheduledPaymentRecurrenceLastWeekday lastWeekDay;
 
     /**
      * The date of the next payment under the recurrence schedule
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate nextPaymentDate;
 
-    /**
-     * Get onceOff
-     */
+    @Embedded
     private BankingScheduledPaymentRecurrenceOnceOff onceOff;
 
-    public enum RecurrenceUType {
-        EVENTBASED,
-        INTERVALSCHEDULE,
-        LASTWEEKDAY,
-        ONCEOFF
-    }
-    /**
-     * Get recurrenceUType
-     */
     private RecurrenceUType recurrenceUType;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingScheduledPaymentRecurrence eventBased(BankingScheduledPaymentRecurrenceEventBased eventBased) {
         this.eventBased = eventBased;
@@ -132,7 +138,8 @@ public class BankingScheduledPaymentRecurrence  {
             return false;
         }
         BankingScheduledPaymentRecurrence bankingScheduledPaymentRecurrence = (BankingScheduledPaymentRecurrence) o;
-        return Objects.equals(this.eventBased, bankingScheduledPaymentRecurrence.eventBased) &&
+        return Objects.equals(this.id, bankingScheduledPaymentRecurrence.id) &&
+            Objects.equals(this.eventBased, bankingScheduledPaymentRecurrence.eventBased) &&
             Objects.equals(this.intervalSchedule, bankingScheduledPaymentRecurrence.intervalSchedule) &&
             Objects.equals(this.lastWeekDay, bankingScheduledPaymentRecurrence.lastWeekDay) &&
             Objects.equals(this.nextPaymentDate, bankingScheduledPaymentRecurrence.nextPaymentDate) &&
@@ -143,6 +150,7 @@ public class BankingScheduledPaymentRecurrence  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             eventBased,
             intervalSchedule,
             lastWeekDay,
@@ -154,8 +162,9 @@ public class BankingScheduledPaymentRecurrence  {
     @Override
     public String toString() {
         return "class BankingScheduledPaymentRecurrence {\n" +
-            "   eventBased: " + toIndentedString(eventBased) + "\n" + 
-            "   intervalSchedule: " + toIndentedString(intervalSchedule) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   eventBased: " + toIndentedString(eventBased) + "\n" +
+            "   intervalSchedule: " + toIndentedString(intervalSchedule) + "\n" +
             "   lastWeekDay: " + toIndentedString(lastWeekDay) + "\n" + 
             "   nextPaymentDate: " + toIndentedString(nextPaymentDate) + "\n" + 
             "   onceOff: " + toIndentedString(onceOff) + "\n" + 
@@ -172,6 +181,13 @@ public class BankingScheduledPaymentRecurrence  {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+
+    public enum RecurrenceUType {
+        EVENTBASED,
+        INTERVALSCHEDULE,
+        LASTWEEKDAY,
+        ONCEOFF
     }
 }
 

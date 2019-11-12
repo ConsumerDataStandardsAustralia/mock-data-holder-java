@@ -38,7 +38,7 @@ public class BankingProduct {
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private OffsetDateTime effectiveFrom;
+    protected OffsetDateTime effectiveFrom;
 
     /**
      * The date and time at which this product will be retired and

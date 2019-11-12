@@ -2,9 +2,12 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @ApiModel(description = "Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if recurrenceUType is set to eventBased")
+@Embeddable
 public class BankingScheduledPaymentRecurrenceEventBased  {
 
     /**

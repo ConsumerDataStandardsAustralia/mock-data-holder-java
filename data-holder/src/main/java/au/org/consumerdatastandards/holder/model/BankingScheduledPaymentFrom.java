@@ -2,9 +2,12 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @ApiModel(description = "Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object")
+@Embeddable
 public class BankingScheduledPaymentFrom  {
 
     /**

@@ -2,10 +2,14 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel(description = "Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if recurrenceUType is set to lastWeekDay")
+@Embeddable
 public class BankingScheduledPaymentRecurrenceLastWeekday  {
 
     /**
@@ -16,6 +20,7 @@ public class BankingScheduledPaymentRecurrenceLastWeekday  {
     /**
      * The interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) with components less than a day in length ignored. This duration defines the period between payments starting with nextPaymentDate
      */
+    @Column(name = "interv")
     private String interval;
 
     /**

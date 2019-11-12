@@ -1,11 +1,25 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @ApiModel(description = "The set of payment amounts and destination accounts for this payment accommodating multi-part payments. A single entry indicates a simple payment with one destination account. Must have at least one entry")
+@Entity
 public class BankingScheduledPaymentSet  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Flag indicating whether the amount of the payment is calculated based on the context of the event. For instance a payment to reduce the balance of a credit card to zero. If absent then false is assumed
@@ -22,10 +36,16 @@ public class BankingScheduledPaymentSet  {
      */
     private Boolean isAmountCalculated;
 
-    /**
-     * Get to
-     */
+    @ManyToOne
     private BankingScheduledPaymentTo to;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BankingScheduledPaymentSet amount(String amount) {
         this.amount = amount;
@@ -89,7 +109,8 @@ public class BankingScheduledPaymentSet  {
             return false;
         }
         BankingScheduledPaymentSet bankingScheduledPaymentSet = (BankingScheduledPaymentSet) o;
-        return Objects.equals(this.amount, bankingScheduledPaymentSet.amount) &&
+        return Objects.equals(this.id, bankingScheduledPaymentSet.id) &&
+            Objects.equals(this.amount, bankingScheduledPaymentSet.amount) &&
             Objects.equals(this.currency, bankingScheduledPaymentSet.currency) &&
             Objects.equals(this.isAmountCalculated, bankingScheduledPaymentSet.isAmountCalculated) &&
             Objects.equals(this.to, bankingScheduledPaymentSet.to);
@@ -98,6 +119,7 @@ public class BankingScheduledPaymentSet  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             amount,
             currency,
             isAmountCalculated,
@@ -107,8 +129,9 @@ public class BankingScheduledPaymentSet  {
     @Override
     public String toString() {
         return "class BankingScheduledPaymentSet {\n" +
-            "   amount: " + toIndentedString(amount) + "\n" + 
-            "   currency: " + toIndentedString(currency) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   amount: " + toIndentedString(amount) + "\n" +
+            "   currency: " + toIndentedString(currency) + "\n" +
             "   isAmountCalculated: " + toIndentedString(isAmountCalculated) + "\n" + 
             "   to: " + toIndentedString(to) + "\n" + 
             "}";
