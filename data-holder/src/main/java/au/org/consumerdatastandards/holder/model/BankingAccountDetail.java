@@ -1,62 +1,18 @@
 package au.org.consumerdatastandards.holder.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 
 @ApiModel
 @Entity
 @Table(name="BankingAccount")
-public class BankingAccountDetail {
-
-    /**
-     * A unique ID of the account adhering to the standards for ID permanence
-     */
-    @Id
-    private String accountId;
-
-    /**
-     * Date that the account was created (if known)
-     */
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private LocalDate creationDate;
-
-    /**
-     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
-     */
-    private String displayName;
-
-    /**
-     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
-     */
-    private Boolean isOwned;
-
-    /**
-     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
-     */
-    private String maskedNumber;
-
-    /**
-     * A customer supplied nick name for the account
-     */
-    private String nickname;
-
-    private BankingAccount.OpenStatus openStatus;
-
-    private BankingProductCategory productCategory;
-
-    /**
-     * The unique identifier of the account as defined by the account holder (akin to model number for the account)
-     */
-    private String productName;
+public class BankingAccountDetail extends BankingAccount {
 
     /**
      * The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
@@ -148,118 +104,46 @@ public class BankingAccountDetail {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence")
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
     public BankingAccountDetail creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
         return this;
     }
 
-    @ApiModelProperty(value = "Date that the account was created (if known)")
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
     public BankingAccountDetail displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.")
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
     public BankingAccountDetail isOwned(Boolean isOwned) {
         this.isOwned = isOwned;
         return this;
     }
 
-    @ApiModelProperty(value = "Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed")
-    public Boolean getIsOwned() {
-        return isOwned;
-    }
-
-    public void setIsOwned(Boolean isOwned) {
-        this.isOwned = isOwned;
-    }
     public BankingAccountDetail maskedNumber(String maskedNumber) {
         this.maskedNumber = maskedNumber;
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number")
-    public String getMaskedNumber() {
-        return maskedNumber;
-    }
-
-    public void setMaskedNumber(String maskedNumber) {
-        this.maskedNumber = maskedNumber;
-    }
     public BankingAccountDetail nickname(String nickname) {
         this.nickname = nickname;
         return this;
     }
 
-    @ApiModelProperty(value = "A customer supplied nick name for the account")
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
     public BankingAccountDetail openStatus(BankingAccount.OpenStatus openStatus) {
         this.openStatus = openStatus;
         return this;
     }
 
-    @ApiModelProperty
-    public BankingAccount.OpenStatus getOpenStatus() {
-        return openStatus;
-    }
-
-    public void setOpenStatus(BankingAccount.OpenStatus openStatus) {
-        this.openStatus = openStatus;
-    }
     public BankingAccountDetail productCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
         return this;
     }
 
-    @ApiModelProperty(required = true)
-    public BankingProductCategory getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(BankingProductCategory productCategory) {
-        this.productCategory = productCategory;
-    }
     public BankingAccountDetail productName(String productName) {
         this.productName = productName;
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The unique identifier of the account as defined by the account holder (akin to model number for the account)")
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
     public BankingAccountDetail accountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
@@ -518,7 +402,8 @@ public class BankingAccountDetail {
             Objects.equals(this.lendingRates, bankingAccountDetail.lendingRates) &&
             Objects.equals(this.loan, bankingAccountDetail.loan) &&
             Objects.equals(this.specificAccountUType, bankingAccountDetail.specificAccountUType) &&
-            Objects.equals(this.termDeposit, bankingAccountDetail.termDeposit);
+            Objects.equals(this.termDeposit, bankingAccountDetail.termDeposit) &&
+            super.equals(o);
     }
 
     @Override
@@ -537,7 +422,8 @@ public class BankingAccountDetail {
             lendingRates,
             loan,
             specificAccountUType,
-            termDeposit);
+            termDeposit,
+            super.hashCode());
     }
 
     @Override
@@ -567,17 +453,6 @@ public class BankingAccountDetail {
             "   specificAccountUType: " + toIndentedString(specificAccountUType) + "\n" + 
             "   termDeposit: " + toIndentedString(termDeposit) + "\n" + 
             "}";
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
     }
 
     public enum SpecificAccountUType {
