@@ -1,12 +1,27 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.time.OffsetDateTime;
 
 @ApiModel
+@Entity
 public class DiscoveryOutage  {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     /**
      * Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
@@ -26,7 +41,17 @@ public class DiscoveryOutage  {
     /**
      * Date and time that the outage is scheduled to begin
      */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime outageTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public DiscoveryOutage duration(String duration) {
         this.duration = duration;
@@ -90,7 +115,8 @@ public class DiscoveryOutage  {
             return false;
         }
         DiscoveryOutage discoveryOutage = (DiscoveryOutage) o;
-        return Objects.equals(this.duration, discoveryOutage.duration) &&
+        return Objects.equals(this.id, discoveryOutage.id) &&
+            Objects.equals(this.duration, discoveryOutage.duration) &&
             Objects.equals(this.explanation, discoveryOutage.explanation) &&
             Objects.equals(this.isPartial, discoveryOutage.isPartial) &&
             Objects.equals(this.outageTime, discoveryOutage.outageTime);
@@ -99,6 +125,7 @@ public class DiscoveryOutage  {
     @Override
     public int hashCode() {
         return Objects.hash(
+            id,
             duration,
             explanation,
             isPartial,
@@ -108,8 +135,9 @@ public class DiscoveryOutage  {
     @Override
     public String toString() {
         return "class DiscoveryOutage {\n" +
-            "   duration: " + toIndentedString(duration) + "\n" + 
-            "   explanation: " + toIndentedString(explanation) + "\n" + 
+            "   id: " + toIndentedString(id) + "\n" +
+            "   duration: " + toIndentedString(duration) + "\n" +
+            "   explanation: " + toIndentedString(explanation) + "\n" +
             "   isPartial: " + toIndentedString(isPartial) + "\n" + 
             "   outageTime: " + toIndentedString(outageTime) + "\n" + 
             "}";
