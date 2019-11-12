@@ -1,6 +1,11 @@
 package au.org.consumerdatastandards.conformance;
 
-import au.org.consumerdatastandards.api.banking.models.*;
+import au.org.consumerdatastandards.api.banking.models.BankingProduct;
+import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
+import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductById;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductList;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductListData;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -12,8 +17,6 @@ import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
@@ -25,11 +28,11 @@ import java.util.List;
 import static au.org.consumerdatastandards.api.banking.BankingProductsAPI.ParamEffective;
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static net.serenitybdd.rest.SerenityRest.given;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class BankingProductsAPISteps extends APIStepsBase {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private PayloadValidator payloadValidator = new PayloadValidator();
 
@@ -116,12 +119,10 @@ public class BankingProductsAPISteps extends APIStepsBase {
                                 brand, productCategory));
                     }
                 }
-                for (ConformanceError error : conformanceErrors) {
-                    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    logger.error(error.getDescription());
-                }
 
-                assertTrue("Conformance errors found in response payload"
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload:"
                         + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             } catch (IOException e) {
                 fail(e.getMessage());
@@ -332,10 +333,9 @@ public class BankingProductsAPISteps extends APIStepsBase {
                             .dataJson(ConformanceUtil.toJson(responseBankingProductById)).errorMessage(String.format(
                                     "Response productId %s does not match request productId %s", id, productId)));
                 }
-                for (ConformanceError error : conformanceErrors) {
-                    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    logger.error(error.getDescription());
-                }
+
+                dumpConformanceErrors(conformanceErrors);
+
                 String message = "Conformance errors found in response payload: "
                         + buildConformanceErrorsDescription(conformanceErrors);
                 assertTrue(message, conformanceErrors.isEmpty());

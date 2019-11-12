@@ -16,12 +16,8 @@ import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +28,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class AccountsAPISteps extends APIStepsBase {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private PayloadValidator payloadValidator = new PayloadValidator();
     private Response listAccountsResponse;
@@ -101,10 +95,9 @@ public class AccountsAPISteps extends APIStepsBase {
                         checkOwned(account, isOwned, conformanceErrors);
                     }
                 }
-                for (ConformanceError error : conformanceErrors) {
-                    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    logger.error(error.getDescription());
-                }
+
+                dumpConformanceErrors(conformanceErrors);
+
 
                 assertTrue("Conformance errors found in response payload"
                         + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
@@ -156,11 +149,6 @@ public class AccountsAPISteps extends APIStepsBase {
                                 bankingProductCategory, productCategory)));
             }
         }
-    }
-
-    private static Object getField(Object obj, String fieldName) {
-        Field dataField = FieldUtils.getField(obj.getClass(), fieldName, true);
-        return ReflectionUtils.getField(dataField, obj);
     }
 
     @SuppressWarnings("unchecked")
@@ -218,13 +206,11 @@ public class AccountsAPISteps extends APIStepsBase {
                             .dataJson(ConformanceUtil.toJson(responseBankingAccountById)).errorMessage(String.format(
                                     "Response accountId %s does not match request accountId %s", id, accountId)));
                 }
-                for (ConformanceError error : conformanceErrors) {
-                    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    logger.error(error.getDescription());
-                }
-                String message = "Conformance errors found in response payload: "
-                        + buildConformanceErrorsDescription(conformanceErrors);
-                assertTrue(message, conformanceErrors.isEmpty());
+
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload:"
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             } catch (IOException e) {
                 fail(e.getMessage());
             }

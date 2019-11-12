@@ -5,13 +5,20 @@ import au.org.consumerdatastandards.support.Header;
 import io.restassured.response.Response;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.MISSING_HEADER;
 
 public class APIStepsBase {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected PayloadValidator payloadValidator = new PayloadValidator();
 
@@ -63,5 +70,17 @@ public class APIStepsBase {
             sb.append("\n\n").append(error.getDescription());
         }
         return sb.toString();
+    }
+
+    protected static Object getField(Object obj, String fieldName) {
+        Field dataField = FieldUtils.getField(obj.getClass(), fieldName, true);
+        return ReflectionUtils.getField(dataField, obj);
+    }
+
+    protected void dumpConformanceErrors(List<ConformanceError> conformanceErrors) {
+        for (ConformanceError error : conformanceErrors) {
+            logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            logger.error(error.getDescription());
+        }
     }
 }

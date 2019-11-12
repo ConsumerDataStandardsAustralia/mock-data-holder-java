@@ -13,16 +13,13 @@ import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static net.serenitybdd.rest.SerenityRest.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -30,8 +27,7 @@ import static org.junit.Assert.fail;
 
 public class TransactionsAPISteps extends APIStepsBase {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    public static final long NINETY_DAYS_IN_MILLIS = 90 * 24 * 60 * 60 * 1000L;
     private PayloadValidator payloadValidator = new PayloadValidator();
     private Response getTransactionsResponse;
     private String requestUrl;
@@ -104,14 +100,13 @@ public class TransactionsAPISteps extends APIStepsBase {
                 List<BankingTransaction> transactions = getTransactions(data);
                 if (transactions != null) {
                     for (BankingTransaction transaction : transactions) {
+                        checkOldestTime(transaction, oldestTime, conformanceErrors);
                     }
                 }
-                for (ConformanceError error : conformanceErrors) {
-                    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    logger.error(error.getDescription());
-                }
 
-                assertTrue("Conformance errors found in response payload"
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload:"
                         + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             } catch (IOException e) {
                 fail(e.getMessage());
@@ -121,9 +116,17 @@ public class TransactionsAPISteps extends APIStepsBase {
         }
     }
 
-    private static Object getField(Object obj, String fieldName) {
-        Field dataField = FieldUtils.getField(obj.getClass(), fieldName, true);
-        return ReflectionUtils.getField(dataField, obj);
+    private void checkOldestTime(BankingTransaction transaction, String oldestTime, List<ConformanceError> errors) {
+        if (StringUtils.isBlank(oldestTime)) {
+            DateTime execTime = DateTime.parseRfc3339((String) getField(transaction, "executionDateTime"));
+            if (execTime.getValue() < System.currentTimeMillis() - NINETY_DAYS_IN_MILLIS) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingTransaction.class, "executionDateTime", true))
+                        .dataJson(ConformanceUtil.toJson(transaction))
+                        .errorMessage(String.format(
+                                "BankingTransaction executionDateTime %s is before default 90 days", execTime)));
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
