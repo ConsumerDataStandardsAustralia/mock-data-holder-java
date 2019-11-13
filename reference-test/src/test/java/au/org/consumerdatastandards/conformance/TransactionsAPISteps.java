@@ -16,6 +16,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +103,7 @@ public class TransactionsAPISteps extends APIStepsBase {
                 if (transactions != null) {
                     for (BankingTransaction transaction : transactions) {
                         checkOldestTime(transaction, oldestTime, conformanceErrors);
+                        checkNewestTime(transaction, newestTime, conformanceErrors);
                     }
                 }
 
@@ -117,14 +120,46 @@ public class TransactionsAPISteps extends APIStepsBase {
     }
 
     private void checkOldestTime(BankingTransaction transaction, String oldestTime, List<ConformanceError> errors) {
+        DateTime execTime = DateTime.parseRfc3339((String) getField(transaction, "executionDateTime"));
         if (StringUtils.isBlank(oldestTime)) {
-            DateTime execTime = DateTime.parseRfc3339((String) getField(transaction, "executionDateTime"));
             if (execTime.getValue() < System.currentTimeMillis() - NINETY_DAYS_IN_MILLIS) {
                 errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorField(FieldUtils.getField(BankingTransaction.class, "executionDateTime", true))
                         .dataJson(ConformanceUtil.toJson(transaction))
                         .errorMessage(String.format(
                                 "BankingTransaction executionDateTime %s is before default 90 days", execTime)));
+            }
+        } else {
+            long oldestTimeMillis = DateTime.parseRfc3339(oldestTime).getValue();
+            if (execTime.getValue() < oldestTimeMillis) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingTransaction.class, "executionDateTime", true))
+                        .dataJson(ConformanceUtil.toJson(transaction))
+                        .errorMessage(String.format(
+                                "BankingTransaction executionDateTime %s is before oldest-time %s", execTime, oldestTime)));
+            }
+        }
+    }
+
+    private void checkNewestTime(BankingTransaction transaction, String newestTime, List<ConformanceError> errors) {
+        DateTime execTime = DateTime.parseRfc3339((String) getField(transaction, "executionDateTime"));
+        if (StringUtils.isBlank(newestTime)) {
+            ZoneOffset zoneOffset = ZoneOffset.ofTotalSeconds(execTime.getTimeZoneShift() * 60);
+            if (execTime.getValue() >= LocalDate.now().plusDays(1).atStartOfDay().toInstant(zoneOffset).toEpochMilli()) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingTransaction.class, "executionDateTime", true))
+                        .dataJson(ConformanceUtil.toJson(transaction))
+                        .errorMessage(String.format(
+                                "BankingTransaction executionDateTime %s is after today", execTime)));
+            }
+        } else {
+            long newestTimeMillis = DateTime.parseRfc3339(newestTime).getValue();
+            if (execTime.getValue() > newestTimeMillis) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingTransaction.class, "executionDateTime", true))
+                        .dataJson(ConformanceUtil.toJson(transaction))
+                        .errorMessage(String.format(
+                                "BankingTransaction executionDateTime %s is after newest-time %s", execTime, newestTime)));
             }
         }
     }
