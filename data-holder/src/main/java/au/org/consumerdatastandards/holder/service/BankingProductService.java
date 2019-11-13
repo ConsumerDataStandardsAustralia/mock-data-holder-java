@@ -24,11 +24,10 @@ import java.util.Optional;
 @Service
 public class BankingProductService {
 
+    private static final Logger LOGGER = LogManager.getLogger(BankingProductService.class);
+
     private final BankingProductRepository productsRepository;
     private final BankingProductDetailRepository productDetailsRepository;
-    
-    private static final Logger LOG = LogManager.getLogger(BankingProductService.class);
-
 
     @Autowired
     public BankingProductService(BankingProductRepository productsRepository, BankingProductDetailRepository productDetailsRepository) {
@@ -38,7 +37,7 @@ public class BankingProductService {
 
     public Page<BankingProduct> findProductsLike(ParamEffective effective, BankingProduct bankingProduct, Pageable pageable) {
         
-        LOG.debug("Retrieve products matching inputs of effective {}, BankingProduct specified as {} with Paging content specified as {}" ,  effective,  bankingProduct,  pageable);
+        LOGGER.debug("Retrieve products matching inputs of effective {}, BankingProduct specified as {} with Paging content specified as {}" ,  effective,  bankingProduct,  pageable);
         
         return productsRepository.findAll((Specification<BankingProduct>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -66,7 +65,7 @@ public class BankingProductService {
     }
 
     public BankingProductDetail getProductDetail(String productId) {
-        LOG.debug("Retrieving detailed product information from database for Product ID of {}",  productId);
+        LOGGER.debug("Retrieving product detail by id {}",  productId);
         Optional<BankingProductDetail> byId = productDetailsRepository.findById(productId);
         return byId.orElse(null);
     }
