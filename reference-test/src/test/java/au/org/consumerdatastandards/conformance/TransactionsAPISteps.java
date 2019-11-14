@@ -104,6 +104,8 @@ public class TransactionsAPISteps extends APIStepsBase {
                     for (BankingTransaction transaction : transactions) {
                         checkOldestTime(transaction, oldestTime, conformanceErrors);
                         checkNewestTime(transaction, newestTime, conformanceErrors);
+                        checkMinAmount(transaction, minAmount, conformanceErrors);
+                        checkMaxAmount(transaction, maxAmount, conformanceErrors);
                     }
                 }
 
@@ -116,6 +118,32 @@ public class TransactionsAPISteps extends APIStepsBase {
             }
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
+        }
+    }
+
+    private void checkMinAmount(BankingTransaction transaction, String minAmount, List<ConformanceError> errors) {
+        if (!StringUtils.isBlank(minAmount)) {
+            String amount = (String) getField(transaction, "amount");
+            if (new BigDecimal(amount).compareTo(new BigDecimal(minAmount)) < 0) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingTransaction.class, "amount", true))
+                        .dataJson(ConformanceUtil.toJson(transaction))
+                        .errorMessage(String.format(
+                                "BankingTransaction amount %s is less than min-amount %s", amount, minAmount)));
+            }
+        }
+    }
+
+    private void checkMaxAmount(BankingTransaction transaction, String maxAmount, List<ConformanceError> errors) {
+        if (!StringUtils.isBlank(maxAmount)) {
+            String amount = (String) getField(transaction, "amount");
+            if (new BigDecimal(amount).compareTo(new BigDecimal(maxAmount)) > 0) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingTransaction.class, "amount", true))
+                        .dataJson(ConformanceUtil.toJson(transaction))
+                        .errorMessage(String.format(
+                                "BankingTransaction amount %s is greater than max-amount %s", amount, maxAmount)));
+            }
         }
     }
 
