@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Objects;
 import java.time.LocalDate;
 
@@ -21,6 +23,9 @@ public class BankingAccount  {
      */
     @Id
     protected String accountId;
+
+    @JsonIgnore
+    protected String userId;
 
     /**
      * Date that the account was created (if known)
@@ -37,6 +42,7 @@ public class BankingAccount  {
     /**
      * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
      */
+    @Transient
     protected Boolean isOwned;
 
     /**
@@ -49,14 +55,8 @@ public class BankingAccount  {
      */
     protected String nickname;
 
-    /**
-     * Get openStatus
-     */
     protected OpenStatus openStatus;
 
-    /**
-     * Get productCategory
-     */
     protected BankingProductCategory productCategory;
 
     /**
@@ -77,6 +77,20 @@ public class BankingAccount  {
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
+
+    public BankingAccount userId(String userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public BankingAccount creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
         return this;
@@ -192,6 +206,7 @@ public class BankingAccount  {
         }
         BankingAccount bankingAccount = (BankingAccount) o;
         return Objects.equals(this.accountId, bankingAccount.accountId) &&
+            Objects.equals(this.userId, bankingAccount.userId) &&
             Objects.equals(this.creationDate, bankingAccount.creationDate) &&
             Objects.equals(this.displayName, bankingAccount.displayName) &&
             Objects.equals(this.isOwned, bankingAccount.isOwned) &&
@@ -206,6 +221,7 @@ public class BankingAccount  {
     public int hashCode() {
         return Objects.hash(
             accountId,
+            userId,
             creationDate,
             displayName,
             isOwned,
@@ -220,7 +236,8 @@ public class BankingAccount  {
     public String toString() {
         return "class BankingAccount {\n" +
             "   accountId: " + toIndentedString(accountId) + "\n" + 
-            "   creationDate: " + toIndentedString(creationDate) + "\n" + 
+            "   userId: " + toIndentedString(userId) + "\n" +
+            "   creationDate: " + toIndentedString(creationDate) + "\n" +
             "   displayName: " + toIndentedString(displayName) + "\n" + 
             "   isOwned: " + toIndentedString(isOwned) + "\n" + 
             "   maskedNumber: " + toIndentedString(maskedNumber) + "\n" + 

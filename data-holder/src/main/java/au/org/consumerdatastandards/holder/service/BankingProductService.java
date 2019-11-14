@@ -45,20 +45,20 @@ public class BankingProductService {
                 // If Effective is not supplied, assume CURRENT as per Standard
                 // https://consumerdatastandardsaustralia.github.io/standards/#get-products
                 OffsetDateTime now = OffsetDateTime.now();
-                predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("effectiveFrom"), now)));
-                predicates.add(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("effectiveTo"), now)));
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("effectiveFrom"), now));
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("effectiveTo"), now));
             } else if(ParamEffective.FUTURE.equals(effective)) {
                 OffsetDateTime now = OffsetDateTime.now();
-                predicates.add(criteriaBuilder.and(criteriaBuilder.greaterThan(root.get("effectiveFrom"), now)));
+                predicates.add(criteriaBuilder.greaterThan(root.get("effectiveFrom"), now));
             }
             if (bankingProduct.getProductCategory() != null) {
-                predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("productCategory"), bankingProduct.getProductCategory())));
+                predicates.add(criteriaBuilder.equal(root.get("productCategory"), bankingProduct.getProductCategory()));
             }
             if (bankingProduct.getLastUpdated() != null) {
-                predicates.add(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("lastUpdated"), bankingProduct.getLastUpdated())));
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("lastUpdated"), bankingProduct.getLastUpdated()));
             }
             if (!StringUtils.isEmpty(bankingProduct.getBrand())) {
-                predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("brand"), "%" + bankingProduct.getBrand() + "%")));
+                predicates.add(criteriaBuilder.like(root.get("brand"), "%" + bankingProduct.getBrand() + "%"));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);

@@ -7,9 +7,16 @@ import au.org.consumerdatastandards.holder.repository.BankingAccountRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class BankingAccountService {
@@ -33,5 +40,21 @@ public class BankingAccountService {
         LOGGER.debug("Retrieving account detail by id {}",  accountId);
         Optional<BankingAccountDetail> byId = bankingAccountDetailRepository.findById(accountId);
         return byId.orElse(null);
+    }
+
+    public Page<BankingAccount> findBankingAccountsLike(Boolean isOwned, BankingAccount bankingAccount, Pageable pageable) {
+        LOGGER.debug("Retrieve {} accounts like BankingAccount specified as {} with Paging content specified as {}" ,
+            isOwned ? "owned" : "all", bankingAccount,  pageable);
+        return bankingAccountRepository.findAll((Specification<BankingAccount>) (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            //TODO handle isOwned when we have security context implemented
+            if (bankingAccount.getProductCategory() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("productCategory"), bankingAccount.getProductCategory()));
+            }
+            if (bankingAccount.getOpenStatus() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("openStatus"), bankingAccount.getOpenStatus()));
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
     }
 }

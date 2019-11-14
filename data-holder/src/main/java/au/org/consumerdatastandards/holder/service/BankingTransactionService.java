@@ -43,7 +43,7 @@ public class BankingTransactionService {
     }
 
     public Page<BankingTransaction> findTransactionsLike(BankingTransaction bankingTransaction, Pageable pageable) {
-        LOGGER.debug("Retrieve transactions like BankingProduct specified as {} with Paging content specified as {}" ,  bankingTransaction,  pageable);
+        LOGGER.debug("Retrieve transactions like BankingTransaction specified as {} with Paging content specified as {}" ,  bankingTransaction,  pageable);
         return bankingTransactionRepository.findAll((Specification<BankingTransaction>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (StringUtils.isNotBlank(bankingTransaction.getAccountId())) {

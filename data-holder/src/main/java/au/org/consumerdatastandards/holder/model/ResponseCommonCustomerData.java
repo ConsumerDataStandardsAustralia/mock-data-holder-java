@@ -11,19 +11,11 @@ public class ResponseCommonCustomerData  {
         ORGANISATION,
         PERSON
     }
-    /**
-     * Get customerUType
-     */
+
     private CustomerUType customerUType;
 
-    /**
-     * Get organisation
-     */
     private CommonOrganisation organisation;
 
-    /**
-     * Get person
-     */
     private CommonPerson person;
 
     public ResponseCommonCustomerData customerUType(CustomerUType customerUType) {
