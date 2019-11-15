@@ -32,7 +32,8 @@ import static org.junit.Assert.fail;
 
 public class TransactionsAPISteps extends APIStepsBase {
 
-    public static final long NINETY_DAYS_IN_MILLIS = 90 * 24 * 60 * 60 * 1000L;
+    private static final long NINETY_DAYS_IN_MILLIS = 90 * 24 * 60 * 60 * 1000L;
+
     private PayloadValidator payloadValidator = new PayloadValidator();
     private Response getTransactionsResponse;
     private String requestUrl;
