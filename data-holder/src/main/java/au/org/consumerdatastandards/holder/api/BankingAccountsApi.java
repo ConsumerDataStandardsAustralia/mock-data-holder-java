@@ -353,7 +353,9 @@ public interface BankingAccountsApi {
         method = RequestMethod.POST
     )
     ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesSpecificAccounts(
-        @ApiParam(value = "The list of account IDs to obtain balances for") @RequestBody RequestAccountIds accountIds,
+        @ApiParam(
+            value = "The list of account IDs to obtain balances for"
+        ) @RequestBody RequestAccountIds accountIds,
         @ApiParam(
             value = "Page of results to request (standard pagination)",
             defaultValue = "1"

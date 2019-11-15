@@ -103,7 +103,9 @@ public interface BankingDirectDebitsApi {
         method = RequestMethod.POST
     )
     ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsSpecificAccounts(
-        @ApiParam(value = "Array of specific accountIds to obtain authorisations for") @RequestBody RequestAccountIds accountIds,
+        @ApiParam(
+            value = "Array of specific accountIds to obtain authorisations for"
+        ) @RequestBody RequestAccountIds accountIds,
         @ApiParam(
             value = "Page of results to request (standard pagination)",
             defaultValue = "1"
