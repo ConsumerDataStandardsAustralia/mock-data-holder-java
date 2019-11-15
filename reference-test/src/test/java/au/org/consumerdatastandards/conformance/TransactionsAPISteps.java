@@ -1,11 +1,13 @@
 package au.org.consumerdatastandards.conformance;
 
 import au.org.consumerdatastandards.api.banking.models.BankingTransaction;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionListData;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
+import au.org.consumerdatastandards.support.data.CustomDataType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.util.DateTime;
 import io.restassured.response.Response;
@@ -20,6 +22,7 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static net.serenitybdd.rest.SerenityRest.given;
@@ -34,6 +37,7 @@ public class TransactionsAPISteps extends APIStepsBase {
     private Response getTransactionsResponse;
     private String requestUrl;
     private ResponseBankingTransactionList responseBankingTransactionList;
+    private Response getTransactionDetailResponse;
 
     @Step("Request /banking/accounts/{accountId}/transactions")
     void getTransactions(String accountId, String oldestTime, String newestTime, String minAmount, String maxAmount,
@@ -102,10 +106,12 @@ public class TransactionsAPISteps extends APIStepsBase {
                 List<BankingTransaction> transactions = getTransactions(data);
                 if (transactions != null) {
                     for (BankingTransaction transaction : transactions) {
+                        checkAccountId(transaction, accountId, conformanceErrors);
                         checkOldestTime(transaction, oldestTime, conformanceErrors);
                         checkNewestTime(transaction, newestTime, conformanceErrors);
                         checkMinAmount(transaction, minAmount, conformanceErrors);
                         checkMaxAmount(transaction, maxAmount, conformanceErrors);
+                        checkText(transaction, text, conformanceErrors);
                     }
                 }
 
@@ -119,6 +125,36 @@ public class TransactionsAPISteps extends APIStepsBase {
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
         }
+    }
+
+    private void checkAccountId(Object transaction, String accountId, List<ConformanceError> conformanceErrors) {
+        String fieldName = ConformanceUtil.getFieldName(transaction, "accountId");
+        String id = (String) getField(transaction, fieldName);;
+        if (!id.equals(accountId)) {
+            conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                    .dataJson(ConformanceUtil.toJson(transaction)).errorMessage(String.format(
+                            "Response accountId %s does not match request accountId %s", id, accountId)));
+        }
+    }
+
+    private void checkText(BankingTransaction transaction, String text, List<ConformanceError> errors) {
+        if (!StringUtils.isBlank(text) && isTextQueryParamSupported()) {
+            String description = (String) getField(transaction, "description");
+            String reference = (String) getField(transaction, "reference");
+            if ((description == null || !description.contains(text)) && (reference == null || !reference.contains(text))) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorField(FieldUtils.getField(BankingTransaction.class, (description == null ? "reference" : "description"), true))
+                        .dataJson(ConformanceUtil.toJson(transaction))
+                        .errorMessage(String.format(
+                                "BankingTransaction description (%s) or reference (%s) should contain: %s", description, reference, text)));
+            }
+        }
+    }
+
+    private boolean isTextQueryParamSupported() {
+        // TODO implement me
+        // Requires a parameter to check that response's meta doesn't contain isQueryParamUnsupported set to true
+        return true;
     }
 
     private void checkMinAmount(BankingTransaction transaction, String minAmount, List<ConformanceError> errors) {
@@ -233,7 +269,75 @@ public class TransactionsAPISteps extends APIStepsBase {
         return (page == null || page >= 1) && (pageSize == null || pageSize >= 1);
     }
 
-    private static Object getResponseData(Object response) {
-        return getField(response, "data");
+    List<String> getTransactionIds() {
+        String json = getTransactionsResponse.getBody().asString();
+        ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+        try {
+            responseBankingTransactionList = objectMapper.readValue(json, ResponseBankingTransactionList.class);
+            if (responseBankingTransactionList != null) {
+                ResponseBankingTransactionListData data = (ResponseBankingTransactionListData) getResponseData(responseBankingTransactionList);
+                List<BankingTransaction> transactions = getTransactions(data);
+                if (transactions != null && !transactions.isEmpty()) {
+                    return transactions.stream().map(transaction -> getTransactionId(transaction)).collect(Collectors.toList());
+                }
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        return null;
+    }
+
+    private static String getTransactionId(Object data) {
+        String fieldName = ConformanceUtil.getFieldName(data, "transactionId");
+        return (String) getField(data, fieldName);
+    }
+
+    @Step("Request /banking/accounts/{accountId}/transactions/{transactionId}")
+    public void getTransactionDetail(String accountId, String transactionId) {
+        String url = getApiBasePath() + "/banking/accounts/" + accountId + "/transactions/" + transactionId;
+        requestUrl = url;
+        getTransactionDetailResponse = given().relaxedHTTPSValidation()
+                .header("Accept", "application/json")
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getTransactionDetail"))
+                .when().get(url).then().log().body().extract().response();
+    }
+
+    @Step("Validate /banking/accounts/{accountId}/transactions/{transactionId} response")
+    public void validateGetTransactionDetailResponse(String accountId, String transactionId) {
+        int statusCode = getTransactionDetailResponse.statusCode();
+        if (transactionId.matches(CustomDataType.ASCII.getPattern())) {
+            List<ConformanceError> conformanceErrors = new ArrayList<>();
+            checkResponseHeaders(getTransactionDetailResponse, conformanceErrors);
+            checkJsonContentType(getTransactionDetailResponse.contentType(), conformanceErrors);
+            String json = getTransactionDetailResponse.getBody().asString();
+            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+            try {
+                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingTransactionById.class);
+                Object responseBankingTransactionById = objectMapper.readValue(json, expandedResponseClass);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionById,
+                        "getTransactionDetail", statusCode));
+                Object data = getResponseData(responseBankingTransactionById);
+                checkAccountId(data, accountId, conformanceErrors);
+                checkTransactionId(data, transactionId, conformanceErrors);
+
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload:"
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+            } catch (IOException e) {
+                fail(e.getMessage());
+            }
+        } else {
+            assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
+        }
+    }
+
+    private void checkTransactionId(Object data, String transactionId, List<ConformanceError> conformanceErrors) {
+        String id = getTransactionId(data);
+        if (!id.equals(transactionId)) {
+            conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                    .dataJson(ConformanceUtil.toJson(data)).errorMessage(String.format(
+                            "Response transactionId %s does not match request transactionId %s", id, transactionId)));
+        }
     }
 }

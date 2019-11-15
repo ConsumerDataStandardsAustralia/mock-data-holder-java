@@ -77,6 +77,11 @@ public class APIStepsBase {
         return ReflectionUtils.getField(dataField, obj);
     }
 
+    protected static Object getResponseData(Object response) {
+        String fieldName = ConformanceUtil.getFieldName(response, "data");
+        return getField(response, fieldName);
+    }
+
     protected void dumpConformanceErrors(List<ConformanceError> conformanceErrors) {
         for (ConformanceError error : conformanceErrors) {
             logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

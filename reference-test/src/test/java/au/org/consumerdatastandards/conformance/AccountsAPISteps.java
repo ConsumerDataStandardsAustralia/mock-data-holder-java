@@ -20,6 +20,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static net.serenitybdd.rest.SerenityRest.given;
@@ -86,7 +87,7 @@ public class AccountsAPISteps extends APIStepsBase {
             try {
                 responseBankingAccountList = objectMapper.readValue(json, ResponseBankingAccountList.class);
                 payloadValidator.validateResponse(this.requestUrl, responseBankingAccountList, "listAccounts", statusCode);
-                ResponseBankingAccountListData data = (ResponseBankingAccountListData) getAccountListData(responseBankingAccountList);
+                ResponseBankingAccountListData data = (ResponseBankingAccountListData) getResponseData(responseBankingAccountList);
                 List<BankingAccount> accounts = getAccounts(data);
                 if (accounts != null) {
                     for (BankingAccount account : accounts) {
@@ -199,8 +200,7 @@ public class AccountsAPISteps extends APIStepsBase {
                 Object responseBankingAccountById = objectMapper.readValue(json, expandedResponseClass);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountById,
                         "getAccountDetail", statusCode));
-                Object data = getAccountListData(responseBankingAccountById);
-                String id = getAccountId(data);
+                String id = getAccountId(getResponseData(responseBankingAccountById));
                 if (!id.equals(accountId)) {
                     conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                             .dataJson(ConformanceUtil.toJson(responseBankingAccountById)).errorMessage(String.format(
@@ -220,11 +220,8 @@ public class AccountsAPISteps extends APIStepsBase {
     }
 
     private static String getAccountId(Object data) {
-        return (String) getField(data, "accountId");
-    }
-
-    private static Object getAccountListData(Object responseBankingAccountById) {
-        return getField(responseBankingAccountById, "data");
+        String fieldName = ConformanceUtil.getFieldName(data, "accountId");
+        return (String) getField(data, fieldName);
     }
 
     List<String> getAccountIds() {
@@ -233,15 +230,10 @@ public class AccountsAPISteps extends APIStepsBase {
         try {
             responseBankingAccountList = objectMapper.readValue(json, ResponseBankingAccountList.class);
             if (responseBankingAccountList != null) {
-                List<BankingAccount> accounts = getAccounts(getAccountListData(responseBankingAccountList));
-                if (accounts == null || accounts.isEmpty()) {
-                    return null;
+                List<BankingAccount> accounts = getAccounts(getResponseData(responseBankingAccountList));
+                if (accounts != null && !accounts.isEmpty()) {
+                    return accounts.stream().map(account -> getAccountId(account)).collect(Collectors.toList());
                 }
-                List<String> productIds = new ArrayList<>();
-                for (BankingAccount account : accounts) {
-                    productIds.add(getAccountId(account));
-                }
-                return productIds;
             }
         } catch (IOException e) {
             fail(e.getMessage());
