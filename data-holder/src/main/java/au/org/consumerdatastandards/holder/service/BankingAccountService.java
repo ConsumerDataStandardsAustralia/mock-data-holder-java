@@ -2,8 +2,10 @@ package au.org.consumerdatastandards.holder.service;
 
 import au.org.consumerdatastandards.holder.model.BankingAccount;
 import au.org.consumerdatastandards.holder.model.BankingAccountDetail;
+import au.org.consumerdatastandards.holder.model.BankingBalance;
 import au.org.consumerdatastandards.holder.repository.BankingAccountDetailRepository;
 import au.org.consumerdatastandards.holder.repository.BankingAccountRepository;
+import au.org.consumerdatastandards.holder.repository.BankingBalanceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +29,17 @@ public class BankingAccountService {
 
     private final BankingAccountDetailRepository bankingAccountDetailRepository;
 
+    private final BankingBalanceRepository bankingBalanceRepository;
+
     @Autowired
     public BankingAccountService(
         BankingAccountRepository bankingAccountRepository,
-        BankingAccountDetailRepository bankingAccountDetailRepository)
+        BankingAccountDetailRepository bankingAccountDetailRepository,
+        BankingBalanceRepository bankingBalanceRepository)
     {
         this.bankingAccountRepository = bankingAccountRepository;
         this.bankingAccountDetailRepository = bankingAccountDetailRepository;
+        this.bankingBalanceRepository = bankingBalanceRepository;
     }
 
     public BankingAccountDetail getBankingAccountDetail(String accountId) {
@@ -54,6 +60,20 @@ public class BankingAccountService {
             if (bankingAccount.getOpenStatus() != null) {
                 predicates.add(criteriaBuilder.equal(root.get("openStatus"), bankingAccount.getOpenStatus()));
             }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
+    }
+
+    public BankingBalance getBankingBalance(String accountId) {
+        LOGGER.debug("Retrieving banking balance for account id {}",  accountId);
+        return bankingBalanceRepository.findByAccountId(accountId);
+    }
+
+    public Page<BankingBalance> getBankingBalances(List<String> accountIds, Pageable pageable) {
+        LOGGER.debug("Retrieving banking balance for account ids {}",  accountIds);
+        return bankingBalanceRepository.findAll((Specification<BankingBalance>) (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(criteriaBuilder.in(root.get("accountId").in(accountIds)));
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }
