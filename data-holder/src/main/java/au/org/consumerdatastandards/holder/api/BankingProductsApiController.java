@@ -24,9 +24,9 @@ import java.util.Optional;
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class BankingProductsApiController implements BankingProductsApi {
 
-    private final BankingProductService service;
     private static final Logger LOGGER = LogManager.getLogger(BankingProductsApiController.class);
 
+    private final BankingProductService service;
     private final NativeWebRequest request;
 
     @Autowired
