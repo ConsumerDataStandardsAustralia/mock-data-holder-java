@@ -46,6 +46,10 @@ public class BankingScheduledPaymentService {
         return bankingScheduledPaymentRepository.findAll((Specification<BankingScheduledPayment>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(criteriaBuilder.equal(root.get("from").get("bankingAccount").get("productCategory"), productCategory));
+            if (!ParamAccountOpenStatus.ALL.equals(openStatus)) {
+                predicates.add(criteriaBuilder.equal(root.get("from").get("bankingAccount").get("openStatus"), openStatus));
+            }
+            //TODO process isOwned when security context is set
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }
