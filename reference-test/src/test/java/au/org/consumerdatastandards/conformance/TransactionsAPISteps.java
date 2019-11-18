@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class TransactionsAPISteps extends APIStepsBase {
+public class TransactionsAPISteps extends AccountsAPIStepsBase {
 
     private static final long NINETY_DAYS_IN_MILLIS = 90 * 24 * 60 * 60 * 1000L;
 
@@ -125,15 +125,6 @@ public class TransactionsAPISteps extends APIStepsBase {
             }
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
-        }
-    }
-
-    private void checkAccountId(Object transaction, String accountId, List<ConformanceError> conformanceErrors) {
-        String id = (String) getField(transaction, "accountId");;
-        if (!id.equals(accountId)) {
-            conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                    .dataJson(ConformanceUtil.toJson(transaction)).errorMessage(String.format(
-                            "Response accountId %s does not match request accountId %s", id, accountId)));
         }
     }
 

@@ -4,11 +4,13 @@ import au.org.consumerdatastandards.api.banking.models.BankingAccount;
 import au.org.consumerdatastandards.api.banking.models.BankingAccountDetail;
 import au.org.consumerdatastandards.api.banking.models.BankingBalance;
 import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceListData;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
+import au.org.consumerdatastandards.support.data.CustomDataType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -30,6 +32,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
     private String requestUrl;
     private Response listBalancesBulkResponse;
     private ResponseBankingAccountsBalanceList responseBankingAccountsBalancesList;
+    private Response listBalanceResponse;
 
     @Step("Request /banking/accounts/balances")
     public void listBalancesBulk(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
@@ -135,5 +138,44 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
 
         assertTrue("Conformance errors found in response payload"
                 + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+    }
+
+    @Step("Request /banking/accounts/{accountId}/balance")
+    public void listBalance(String accountId) {
+        String url = getApiBasePath() + "/banking/accounts/" + accountId + "/balance";
+        requestUrl = url;
+        listBalanceResponse = given().relaxedHTTPSValidation()
+                .header("Accept", "application/json")
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalance"))
+                .when().get(url).then().log().all().extract().response();
+    }
+
+    @Step("Validate /banking/accounts/{accountId}/balance response")
+    public void validateListBalanceResponse(String accountId) {
+        int statusCode = listBalanceResponse.statusCode();
+        if (accountId.matches(CustomDataType.ASCII.getPattern())) {
+            List<ConformanceError> conformanceErrors = new ArrayList<>();
+            checkResponseHeaders(listBalanceResponse, conformanceErrors);
+            checkJsonContentType(listBalanceResponse.contentType(), conformanceErrors);
+            String json = listBalanceResponse.getBody().asString();
+            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+            try {
+                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountsBalanceById.class);
+                Object responseBankingAccountsBalanceById = objectMapper.readValue(json, expandedResponseClass);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalanceById,
+                        "listBalance", statusCode));
+                Object data = getResponseData(responseBankingAccountsBalanceById);
+                checkAccountId(data, accountId, conformanceErrors);
+
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload:"
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+            } catch (IOException e) {
+                fail(e.getMessage());
+            }
+        } else {
+            assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
+        }
     }
 }

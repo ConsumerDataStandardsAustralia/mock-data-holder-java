@@ -125,4 +125,13 @@ public class AccountsAPIStepsBase extends APIStepsBase {
             }
         }
     }
+
+    protected void checkAccountId(Object obj, String accountId, List<ConformanceError> conformanceErrors) {
+        String id = (String) getField(obj, "accountId");;
+        if (!id.equals(accountId)) {
+            conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                    .dataJson(ConformanceUtil.toJson(obj)).errorMessage(String.format(
+                            "Response accountId %s does not match request accountId %s", id, accountId)));
+        }
+    }
 }
