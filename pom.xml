@@ -59,6 +59,7 @@
         <swagger-core.version>1.5.23</swagger-core.version>
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
+        <commons-validator.version>1.6</commons-validator.version>
     </properties>
 
     <modules>
@@ -295,6 +296,11 @@
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${commons-validator.version}</version>
             </dependency>
             <dependency>
                 <groupId>au.org.consumerdatastandards</groupId>

@@ -8,6 +8,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Api(value = "BankingAccounts", description = "the BankingAccounts API")
 public interface BankingAccountsApi {
@@ -51,7 +52,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) String xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -59,15 +60,15 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
         )
-        @RequestHeader(value = "x-fapi-interaction-id", required = false) String xFapiInteractionId,
+        @RequestHeader(value = "x-fapi-interaction-id", required = false) UUID xFapiInteractionId,
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) String xV
+        @RequestHeader(value = "x-v", required = false) Integer xV
     );
 
     @ApiOperation(
@@ -110,7 +111,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) String xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -118,15 +119,15 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
         )
-        @RequestHeader(value = "x-fapi-interaction-id", required = false) String xFapiInteractionId,
+        @RequestHeader(value = "x-fapi-interaction-id", required = false) UUID xFapiInteractionId,
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) String xV
+        @RequestHeader(value = "x-v", required = false) Integer xV
     );
 
     @ApiOperation(
@@ -187,7 +188,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) String xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -195,15 +196,15 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
         )
-        @RequestHeader(value = "x-fapi-interaction-id", required = false) String xFapiInteractionId,
+        @RequestHeader(value = "x-fapi-interaction-id", required = false) UUID xFapiInteractionId,
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) String xV
+        @RequestHeader(value = "x-v", required = false) Integer xV
     );
 
     @ApiOperation(
@@ -256,7 +257,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) String xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -264,15 +265,15 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
         )
-        @RequestHeader(value = "x-fapi-interaction-id", required = false) String xFapiInteractionId,
+        @RequestHeader(value = "x-fapi-interaction-id", required = false) UUID xFapiInteractionId,
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) String xV
+        @RequestHeader(value = "x-v", required = false) Integer xV
     );
 
     @ApiOperation(
@@ -310,7 +311,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) String xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -318,15 +319,15 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
         )
-        @RequestHeader(value = "x-fapi-interaction-id", required = false) String xFapiInteractionId,
+        @RequestHeader(value = "x-fapi-interaction-id", required = false) UUID xFapiInteractionId,
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) String xV
+        @RequestHeader(value = "x-v", required = false) Integer xV
     );
 
     @ApiOperation(
@@ -375,7 +376,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) String xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -383,14 +384,14 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
         )
-        @RequestHeader(value = "x-fapi-interaction-id", required = false) String xFapiInteractionId,
+        @RequestHeader(value = "x-fapi-interaction-id", required = false) UUID xFapiInteractionId,
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) String xMinV,
+        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) String xV
+        @RequestHeader(value = "x-v", required = false) Integer xV
     );
 }

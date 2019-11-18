@@ -1,26 +1,33 @@
 package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.*;
-import io.swagger.annotations.ApiParam;
+import au.org.consumerdatastandards.holder.service.BankingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
+@Validated
 @Controller
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
-public class BankingAccountsApiController implements BankingAccountsApi {
+public class BankingAccountsApiController extends ApiControllerBase implements BankingAccountsApi {
 
+    private final BankingAccountService service;
     private final NativeWebRequest request;
 
     @Autowired
-    public BankingAccountsApiController(NativeWebRequest request) {
+    public BankingAccountsApiController(NativeWebRequest request, BankingAccountService service) {
         this.request = request;
+        this.service = service;
     }
 
     @Override
@@ -31,11 +38,17 @@ public class BankingAccountsApiController implements BankingAccountsApi {
     public ResponseEntity<ResponseBankingAccountById> getAccountDetail(String accountId,
                                                                        String xCdsUserAgent,
                                                                        String xCdsSubject,
-                                                                       String xFapiAuthDate,
+                                                                       @NotNull OffsetDateTime xFapiAuthDate,
                                                                        String xFapiCustomerIpAddress,
-                                                                       String xFapiInteractionId,
-                                                                       String xMinV,
-                                                                       String xV) {
+                                                                       UUID xFapiInteractionId,
+                                                                       @Min(1) Integer xMinV,
+                                                                       @Min(1) Integer xV) {
+        if (!hasSupportedVersion(xMinV, xV)) {
+            logger.error(
+                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
+                xMinV, xV, getCurrentVersion());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -43,11 +56,11 @@ public class BankingAccountsApiController implements BankingAccountsApi {
                                                                                String transactionId,
                                                                                String xCdsUserAgent,
                                                                                String xCdsSubject,
-                                                                               String xFapiAuthDate,
+                                                                               @NotNull OffsetDateTime xFapiAuthDate,
                                                                                String xFapiCustomerIpAddress,
-                                                                               String xFapiInteractionId,
-                                                                               String xMinV,
-                                                                               String xV) {
+                                                                               UUID xFapiInteractionId,
+                                                                               Integer xMinV,
+                                                                               Integer xV) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -61,11 +74,11 @@ public class BankingAccountsApiController implements BankingAccountsApi {
                                                                           String text,
                                                                           String xCdsUserAgent,
                                                                           String xCdsSubject,
-                                                                          String xFapiAuthDate,
+                                                                          @NotNull OffsetDateTime xFapiAuthDate,
                                                                           String xFapiCustomerIpAddress,
-                                                                          String xFapiInteractionId,
-                                                                          String xMinV,
-                                                                          String xV) {
+                                                                          UUID xFapiInteractionId,
+                                                                          @Min(1) Integer xMinV,
+                                                                          @Min(1) Integer xV) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -76,22 +89,22 @@ public class BankingAccountsApiController implements BankingAccountsApi {
                                                                    String productCategory,
                                                                    String xCdsUserAgent,
                                                                    String xCdsSubject,
-                                                                   String xFapiAuthDate,
+                                                                   @NotNull OffsetDateTime xFapiAuthDate,
                                                                    String xFapiCustomerIpAddress,
-                                                                   String xFapiInteractionId,
-                                                                   String xMinV,
-                                                                   String xV) {
+                                                                   UUID xFapiInteractionId,
+                                                                   @Min(1) Integer xMinV,
+                                                                   @Min(1) Integer xV) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<ResponseBankingAccountsBalanceById> listBalance(String accountId,
                                                                           String xCdsUserAgent,
                                                                           String xCdsSubject,
-                                                                          String xFapiAuthDate,
+                                                                          @NotNull OffsetDateTime xFapiAuthDate,
                                                                           String xFapiCustomerIpAddress,
-                                                                          String xFapiInteractionId,
-                                                                          String xMinV,
-                                                                          String xV) {
+                                                                          UUID xFapiInteractionId,
+                                                                          @Min(1) Integer xMinV,
+                                                                          @Min(1) Integer xV) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -100,11 +113,11 @@ public class BankingAccountsApiController implements BankingAccountsApi {
                                                                                            Integer pageSize,
                                                                                            String xCdsUserAgent,
                                                                                            String xCdsSubject,
-                                                                                           String xFapiAuthDate,
+                                                                                           @NotNull OffsetDateTime xFapiAuthDate,
                                                                                            String xFapiCustomerIpAddress,
-                                                                                           String xFapiInteractionId,
-                                                                                           String xMinV,
-                                                                                           String xV) {
+                                                                                           UUID xFapiInteractionId,
+                                                                                           @Min(1) Integer xMinV,
+                                                                                           @Min(1) Integer xV) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 }
