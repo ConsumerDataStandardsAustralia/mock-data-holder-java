@@ -1,8 +1,12 @@
 package au.org.consumerdatastandards.holder.api;
 
+import au.org.consumerdatastandards.holder.model.LinksPaginated;
+import au.org.consumerdatastandards.holder.model.MetaPaginated;
+import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -72,5 +76,34 @@ public class ApiControllerBase {
                 throw new ValidationException("request header x-cds-subject is not present");
             }
         }
+    }
+
+    protected LinksPaginated getLinkData(NativeWebRequest request, Page page, Integer actualPage, Integer actualPageSize) {
+        LinksPaginated linkData = new LinksPaginated();
+        linkData.setSelf(WebUtil.getOriginalUrl(request));
+
+        if (page.getTotalPages() == 0) {
+            linkData.setFirst(null);
+            linkData.setLast(null);
+        } else {
+            linkData.setFirst(WebUtil.getPaginatedLink(request, 1, actualPageSize));
+            linkData.setLast(WebUtil.getPaginatedLink(request, page.getTotalPages(), actualPageSize));
+        }
+
+        if (page.hasPrevious()) {
+            linkData.setPrev(WebUtil.getPaginatedLink(request, actualPage - 1, actualPageSize));
+        }
+
+        if (page.hasNext()) {
+            linkData.setPrev(WebUtil.getPaginatedLink(request, actualPage + 1, actualPageSize));
+        }
+        return linkData;
+    }
+
+    protected MetaPaginated getMetaData(Page page) {
+        MetaPaginated metaData = new MetaPaginated();
+        metaData.setTotalPages(page.getTotalPages());
+        metaData.setTotalRecords((int)page.getTotalElements());
+        return metaData;
     }
 }

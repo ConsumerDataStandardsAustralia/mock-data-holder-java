@@ -2,7 +2,12 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.*;
 import au.org.consumerdatastandards.holder.service.BankingAccountService;
+import au.org.consumerdatastandards.holder.service.BankingTransactionService;
+import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,13 +26,17 @@ import java.util.UUID;
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class BankingAccountsApiController extends ApiControllerBase implements BankingAccountsApi {
 
-    private final BankingAccountService service;
+    private final BankingAccountService accountService;
+    private final BankingTransactionService transactionService;
     private final NativeWebRequest request;
 
     @Autowired
-    public BankingAccountsApiController(NativeWebRequest request, BankingAccountService service) {
+    public BankingAccountsApiController(NativeWebRequest request,
+                                        BankingAccountService accountService,
+                                        BankingTransactionService transactionService) {
         this.request = request;
-        this.service = service;
+        this.accountService = accountService;
+        this.transactionService = transactionService;
     }
 
     @Override
@@ -43,13 +52,24 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                        UUID xFapiInteractionId,
                                                                        @Min(1) Integer xMinV,
                                                                        @Min(1) Integer xV) {
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
         if (!hasSupportedVersion(xMinV, xV)) {
             logger.error(
                 "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
                 xMinV, xV, getCurrentVersion());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        HttpHeaders headers = generateResponseHeaders(request);
+        BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId);
+        if (bankingAccountDetail == null) {
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+
+        ResponseBankingAccountById responseBankingAccountById = new ResponseBankingAccountById();
+        responseBankingAccountById.setData(bankingAccountDetail);
+        responseBankingAccountById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
+        responseBankingAccountById.setMeta(new Meta());
+        return new ResponseEntity<>(responseBankingAccountById, headers, HttpStatus.OK);
     }
 
     public ResponseEntity<ResponseBankingTransactionById> getTransactionDetail(String accountId,
@@ -61,7 +81,23 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV,
                                                                                Integer xV) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
+        if (!hasSupportedVersion(xMinV, xV)) {
+            logger.error(
+                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
+                xMinV, xV, getCurrentVersion());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
+        HttpHeaders headers = generateResponseHeaders(request);
+        BankingTransactionDetail transactionDetail = transactionService.getBankingTransactionDetail(transactionId);
+        if (transactionDetail == null) {
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        ResponseBankingTransactionById responseBankingTransactionById = new ResponseBankingTransactionById();
+        responseBankingTransactionById.setData(transactionDetail);
+        responseBankingTransactionById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
+        responseBankingTransactionById.setMeta(new Meta());
+        return new ResponseEntity<>(responseBankingTransactionById, headers, HttpStatus.OK);
     }
 
     public ResponseEntity<ResponseBankingTransactionList> getTransactions(String accountId,
@@ -83,10 +119,10 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
     }
 
     public ResponseEntity<ResponseBankingAccountList> listAccounts(Boolean isOwned,
-                                                                   String openStatus,
+                                                                   ParamAccountOpenStatus openStatus,
                                                                    Integer page,
                                                                    Integer pageSize,
-                                                                   String productCategory,
+                                                                   ParamProductCategory productCategory,
                                                                    String xCdsUserAgent,
                                                                    String xCdsSubject,
                                                                    @NotNull OffsetDateTime xFapiAuthDate,
@@ -94,7 +130,34 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                    UUID xFapiInteractionId,
                                                                    @Min(1) Integer xMinV,
                                                                    @Min(1) Integer xV) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
+        if (!hasSupportedVersion(xMinV, xV)) {
+            logger.error(
+                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
+                xMinV, xV, getCurrentVersion());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
+        HttpHeaders headers = generateResponseHeaders(request);
+        if (!validatePageInputs(page, pageSize)) {
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+        }
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        BankingAccount bankingAccount = new BankingAccount();
+        if (openStatus != null && !openStatus.equals(ParamAccountOpenStatus.ALL)) {
+            bankingAccount.setOpenStatus(BankingAccount.OpenStatus.valueOf(openStatus.name()));
+        }
+        if (productCategory != null ) {
+            bankingAccount.setProductCategory(BankingProductCategory.valueOf(productCategory.name()));
+        }
+        Page<BankingAccount> accountPage = accountService.findBankingAccountsLike(isOwned, bankingAccount, PageRequest.of(actualPage, actualPageSize));
+        ResponseBankingAccountListData listData = new ResponseBankingAccountListData();
+        listData.setAccounts(accountPage.getContent());
+        ResponseBankingAccountList responseBankingAccountList = new ResponseBankingAccountList();
+        responseBankingAccountList.setData(listData);
+        responseBankingAccountList.setLinks(getLinkData(request, accountPage, actualPage, actualPageSize));
+        responseBankingAccountList.setMeta(getMetaData(accountPage));
+        return new ResponseEntity<>(responseBankingAccountList, headers, HttpStatus.OK);
     }
 
     public ResponseEntity<ResponseBankingAccountsBalanceById> listBalance(String accountId,
@@ -105,7 +168,23 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           UUID xFapiInteractionId,
                                                                           @Min(1) Integer xMinV,
                                                                           @Min(1) Integer xV) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
+        if (!hasSupportedVersion(xMinV, xV)) {
+            logger.error(
+                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
+                xMinV, xV, getCurrentVersion());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
+        HttpHeaders headers = generateResponseHeaders(request);
+        BankingBalance balance = accountService.getBankingBalance(accountId);
+        if (balance == null) {
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+        }
+        ResponseBankingAccountsBalanceById responseBankingAccountsBalanceById = new ResponseBankingAccountsBalanceById();
+        responseBankingAccountsBalanceById.setData(balance);
+        responseBankingAccountsBalanceById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
+        responseBankingAccountsBalanceById.setMeta(new Meta());
+        return new ResponseEntity<>(responseBankingAccountsBalanceById, headers, HttpStatus.OK);
     }
 
     public ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesSpecificAccounts(RequestAccountIds accountIds,
@@ -118,6 +197,27 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                            UUID xFapiInteractionId,
                                                                                            @Min(1) Integer xMinV,
                                                                                            @Min(1) Integer xV) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
+        if (!hasSupportedVersion(xMinV, xV)) {
+            logger.error(
+                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
+                xMinV, xV, getCurrentVersion());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
+        HttpHeaders headers = generateResponseHeaders(request);
+        if (!validatePageInputs(page, pageSize)) {
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+        }
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIds.getData().getAccountIds(),
+            PageRequest.of(actualPage, actualPageSize));
+        ResponseBankingAccountsBalanceListData listData = new ResponseBankingAccountsBalanceListData();
+        listData.setBalances(balancePage.getContent());
+        ResponseBankingAccountsBalanceList responseBankingAccountsBalanceList = new ResponseBankingAccountsBalanceList();
+        responseBankingAccountsBalanceList.setData(listData);
+        responseBankingAccountsBalanceList.setLinks(getLinkData(request, balancePage, actualPage, actualPageSize));
+        responseBankingAccountsBalanceList.setMeta(getMetaData(balancePage));
+        return new ResponseEntity<>(responseBankingAccountsBalanceList, headers, HttpStatus.OK);
     }
 }

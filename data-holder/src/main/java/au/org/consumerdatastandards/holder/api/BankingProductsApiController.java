@@ -110,34 +110,10 @@ public class BankingProductsApiController extends ApiControllerBase implements B
 
         logger.info("Products Page data set to isFirst: {}, isLast: {}", productsPage.isFirst(), productsPage.isLast());
 
-        LinksPaginated linkData = new LinksPaginated();
-        // Baselines
-        linkData.setSelf(WebUtil.getOriginalUrl(request));
-
-        if (productsPage.getTotalPages() == 0) {
-            linkData.setFirst(null);
-            linkData.setLast(null);
-        } else {
-            linkData.setFirst(WebUtil.getPaginatedLink(request, 1, actualPageSize));
-            linkData.setLast(WebUtil.getPaginatedLink(request, productsPage.getTotalPages(), actualPageSize));
-        }
-
-        if (productsPage.hasPrevious()) {
-            linkData.setPrev(WebUtil.getPaginatedLink(request, actualPage - 1, actualPageSize));
-        }
-
-        if (productsPage.hasNext()) {
-            linkData.setPrev(WebUtil.getPaginatedLink(request, actualPage + 1, actualPageSize));
-        }
-
-        MetaPaginated metaData = new MetaPaginated();
-        metaData.setTotalPages(productsPage.getTotalPages());
-        metaData.setTotalRecords((int) productsPage.getTotalElements());
-
         ResponseBankingProductList responseProductList = new ResponseBankingProductList();
         responseProductList.setData(listData);
-        responseProductList.setLinks(linkData);
-        responseProductList.setMeta(metaData);
+        responseProductList.setLinks(getLinkData(request, productsPage, actualPage, actualPageSize));
+        responseProductList.setMeta(getMetaData(productsPage));
 
         logger.debug("Product listing raw response payload is: {}", responseProductList);
         return new ResponseEntity<>(responseProductList, headers, HttpStatus.OK);

@@ -233,7 +233,7 @@ public interface BankingAccountsApi {
             value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
             allowableValues = "ALL, CLOSED, OPEN",
             defaultValue = "ALL"
-        ) @RequestParam(value = "open-status", required = false, defaultValue = "ALL") String openStatus,
+        ) @RequestParam(value = "open-status", required = false, defaultValue = "ALL") ParamAccountOpenStatus openStatus,
         @ApiParam(
             value = "Page of results to request (standard pagination)",
             defaultValue = "1"
@@ -245,7 +245,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
             allowableValues = "BUSINESS_LOANS, CRED_AND_CHRG_CARDS, LEASES, MARGIN_LOANS, OVERDRAFTS, PERS_LOANS, REGULATED_TRUST_ACCOUNTS, RESIDENTIAL_MORTGAGES, TERM_DEPOSITS, TRADE_FINANCE, TRANS_AND_SAVINGS_ACCOUNTS, TRAVEL_CARDS"
-        ) @RequestParam(value = "product-category", required = false) String productCategory,
+        ) @RequestParam(value = "product-category", required = false) ParamProductCategory productCategory,
         @ApiParam(
             value = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters."
         )
