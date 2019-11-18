@@ -129,8 +129,7 @@ public class TransactionsAPISteps extends APIStepsBase {
     }
 
     private void checkAccountId(Object transaction, String accountId, List<ConformanceError> conformanceErrors) {
-        String fieldName = ConformanceUtil.getFieldName(transaction, "accountId");
-        String id = (String) getField(transaction, fieldName);;
+        String id = (String) getField(transaction, "accountId");;
         if (!id.equals(accountId)) {
             conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                     .dataJson(ConformanceUtil.toJson(transaction)).errorMessage(String.format(
@@ -289,8 +288,7 @@ public class TransactionsAPISteps extends APIStepsBase {
     }
 
     private static String getTransactionId(Object data) {
-        String fieldName = ConformanceUtil.getFieldName(data, "transactionId");
-        return (String) getField(data, fieldName);
+        return (String) getField(data, "transactionId");
     }
 
     @Step("Request /banking/accounts/{accountId}/transactions/{transactionId}")

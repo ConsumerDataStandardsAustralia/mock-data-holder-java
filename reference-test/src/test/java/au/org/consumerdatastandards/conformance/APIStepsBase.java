@@ -73,13 +73,13 @@ public class APIStepsBase {
     }
 
     protected static Object getField(Object obj, String fieldName) {
-        Field dataField = FieldUtils.getField(obj.getClass(), fieldName, true);
+        String expandedFieldName = ConformanceUtil.getFieldName(obj, fieldName);
+        Field dataField = FieldUtils.getField(obj.getClass(), expandedFieldName, true);
         return ReflectionUtils.getField(dataField, obj);
     }
 
     protected static Object getResponseData(Object response) {
-        String fieldName = ConformanceUtil.getFieldName(response, "data");
-        return getField(response, fieldName);
+        return getField(response, "data");
     }
 
     protected void dumpConformanceErrors(List<ConformanceError> conformanceErrors) {
