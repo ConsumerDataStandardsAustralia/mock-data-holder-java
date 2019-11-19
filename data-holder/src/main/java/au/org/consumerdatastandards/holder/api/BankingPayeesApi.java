@@ -14,6 +14,13 @@ import java.util.UUID;
 @Api(value = "BankingPayees", description = "the BankingPayees API")
 public interface BankingPayeesApi {
 
+    public enum ParamPayeeType {
+        ALL,
+        BILLER,
+        DOMESTIC,
+        INTERNATIONAL
+    }
+
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
@@ -103,7 +110,7 @@ public interface BankingPayeesApi {
             value = "Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL",
             allowableValues = "ALL, BILLER, DOMESTIC, INTERNATIONAL",
             defaultValue = "ALL"
-        ) @RequestParam(value = "type", required = false, defaultValue = "ALL") String type,
+        ) @RequestParam(value = "type", required = false, defaultValue = "ALL") ParamPayeeType type,
         @ApiParam(
             value = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters."
         )

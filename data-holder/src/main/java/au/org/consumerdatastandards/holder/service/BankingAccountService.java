@@ -73,7 +73,7 @@ public class BankingAccountService {
         LOGGER.debug("Retrieving banking balance for account ids {}",  accountIds);
         return bankingBalanceRepository.findAll((Specification<BankingBalance>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            predicates.add(criteriaBuilder.in(root.get("accountId").in(accountIds)));
+            predicates.add(root.get("accountId").in(accountIds));
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }

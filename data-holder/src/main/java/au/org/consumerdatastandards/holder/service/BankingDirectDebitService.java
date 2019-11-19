@@ -35,7 +35,7 @@ public class BankingDirectDebitService {
         LOGGER.debug("Retrieving banking direct debits by account ids {}", accountIds);
         return bankingDirectDebitRepository.findAll((Specification<BankingDirectDebit>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            predicates.add(criteriaBuilder.in(root.get("accountId").in(accountIds)));
+            predicates.add(root.get("accountId").in(accountIds));
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }

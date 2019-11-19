@@ -1,8 +1,12 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.ResponseBankingPayeeById;
-import au.org.consumerdatastandards.holder.model.ResponseBankingPayeeList;
+import au.org.consumerdatastandards.holder.model.*;
+import au.org.consumerdatastandards.holder.service.BankingPayeeService;
+import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,13 +23,15 @@ import java.util.UUID;
 @Validated
 @Controller
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
-public class BankingPayeesApiController implements BankingPayeesApi {
+public class BankingPayeesApiController extends ApiControllerBase implements BankingPayeesApi {
 
+    private final BankingPayeeService payeeService;
     private final NativeWebRequest request;
 
     @Autowired
-    public BankingPayeesApiController(NativeWebRequest request) {
+    public BankingPayeesApiController(NativeWebRequest request, BankingPayeeService payeeService) {
         this.request = request;
+        this.payeeService = payeeService;
     }
 
     @Override
@@ -41,12 +47,22 @@ public class BankingPayeesApiController implements BankingPayeesApi {
                                                                    UUID xFapiInteractionId,
                                                                    @Min(1) Integer xMinV,
                                                                    @Min(1) Integer xV) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        HttpHeaders headers = generateResponseHeaders(request);
+        BankingPayeeDetail payeeDetail = payeeService.getBankingPayeeDetail(payeeId);
+        if (payeeDetail == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ResponseBankingPayeeById responseBankingPayeeById = new ResponseBankingPayeeById();
+        responseBankingPayeeById.setData(payeeDetail);
+        responseBankingPayeeById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
+        responseBankingPayeeById.setMeta(new Meta());
+        return new ResponseEntity<>(responseBankingPayeeById, headers, HttpStatus.OK);
     }
 
     public ResponseEntity<ResponseBankingPayeeList> listPayees(Integer page,
                                                                Integer pageSize,
-                                                               String type,
+                                                               ParamPayeeType type,
                                                                String xCdsUserAgent,
                                                                String xCdsSubject,
                                                                @NotNull OffsetDateTime xFapiAuthDate,
@@ -54,6 +70,22 @@ public class BankingPayeesApiController implements BankingPayeesApi {
                                                                UUID xFapiInteractionId,
                                                                @Min(1) Integer xMinV,
                                                                @Min(1) Integer xV) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validatePageInputs(page, pageSize);
+        HttpHeaders headers = generateResponseHeaders(request);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        ResponseBankingPayeeListData listData = new ResponseBankingPayeeListData();
+        BankingPayee.Type payeeType = null;
+        if (!ParamPayeeType.ALL.equals(type)) {
+            payeeType = BankingPayee.Type.valueOf(type.name());
+        }
+        Page<BankingPayee> payeePage = payeeService.getBankingPayees(payeeType, PageRequest.of(actualPage, actualPageSize));
+        listData.setPayees(payeePage.getContent());
+        ResponseBankingPayeeList responseBankingPayeeList = new ResponseBankingPayeeList();
+        responseBankingPayeeList.setData(listData);
+        responseBankingPayeeList.setLinks(getLinkData(request, payeePage, actualPage, actualPageSize));
+        responseBankingPayeeList.setMeta(getMetaData(payeePage));
+        return new ResponseEntity<>(responseBankingPayeeList, headers, HttpStatus.OK);
     }
 }

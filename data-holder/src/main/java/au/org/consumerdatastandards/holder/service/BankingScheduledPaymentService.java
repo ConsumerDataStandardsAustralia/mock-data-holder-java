@@ -35,6 +35,15 @@ public class BankingScheduledPaymentService {
         return bankingScheduledPaymentRepository.findByFrom(from, pageable);
     }
 
+    public Page<BankingScheduledPayment> getBankingScheduledPayments(List<String> accountIds, Pageable pageable) {
+        LOGGER.debug("Retrieving banking scheduled payments by account ids {}", accountIds);
+        return bankingScheduledPaymentRepository.findAll((Specification<BankingScheduledPayment>) (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(root.get("from").get("accountId").in(accountIds));
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
+    }
+
     public Page<BankingScheduledPayment> getBankingScheduledPayments(
         BankingProductCategory productCategory,
         ParamAccountOpenStatus openStatus,

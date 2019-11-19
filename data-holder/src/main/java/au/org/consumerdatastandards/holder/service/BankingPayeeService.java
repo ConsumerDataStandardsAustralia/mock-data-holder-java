@@ -36,17 +36,11 @@ public class BankingPayeeService {
         return byId.orElse(null);
     }
 
-    public Page<BankingPayee> getBankingPayees(String type, Pageable pageable) {
+    public Page<BankingPayee> getBankingPayees(BankingPayee.Type type, Pageable pageable) {
         LOGGER.debug("Retrieving banking payees by type {}", type);
-        BankingPayee.Type bankingPayeeType = null;
-        try {
-            bankingPayeeType = BankingPayee.Type.valueOf(type);
-        } catch (IllegalArgumentException e) {
-            //ignored
+        if (type == null) {
+            return bankingPayeeRepository.findAll(pageable);
         }
-        if (bankingPayeeType != null) {
-            return bankingPayeeRepository.findByType(bankingPayeeType, pageable);
-        }
-        return bankingPayeeRepository.findAll(pageable);
+        return bankingPayeeRepository.findByType(type, pageable);
     }
 }
