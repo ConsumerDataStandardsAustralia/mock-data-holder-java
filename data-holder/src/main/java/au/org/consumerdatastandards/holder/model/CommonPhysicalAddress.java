@@ -12,16 +12,16 @@ import java.util.Objects;
 @Entity
 public class CommonPhysicalAddress  {
 
+    public enum AddressUType {
+        PAF,
+        SIMPLE
+    }
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @JsonIgnore
     private String id;
-
-    public enum AddressUType {
-        PAF,
-        SIMPLE
-    }
 
     private AddressUType addressUType;
 

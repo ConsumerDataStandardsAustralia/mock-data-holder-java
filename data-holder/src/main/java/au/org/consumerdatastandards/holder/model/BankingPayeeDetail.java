@@ -1,9 +1,12 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -12,7 +15,32 @@ import java.util.Objects;
 @ApiModel
 @Entity
 @Table(name = "BankingPayee")
-public class BankingPayeeDetail extends BankingPayee {
+public class BankingPayeeDetail {
+
+    /**
+     * ID of the payee adhering to the rules of ID permanence
+     */
+    @Id
+    private String payeeId;
+
+    /**
+     * The date the payee was created by the customer
+     */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate creationDate;
+
+    /**
+     * A description of the payee provided by the customer
+     */
+    private String description;
+
+    /**
+     * The short display name of the payee as provided by the customer
+     */
+    private String nickname;
+
+    private BankingPayee.Type type;
 
     @ManyToOne
     private BankingBillerPayee biller;
@@ -24,6 +52,46 @@ public class BankingPayeeDetail extends BankingPayee {
     private BankingInternationalPayee international;
 
     private PayeeUType payeeUType;
+
+    public String getPayeeId() {
+        return payeeId;
+    }
+
+    public void setPayeeId(String payeeId) {
+        this.payeeId = payeeId;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public BankingPayee.Type getType() {
+        return type;
+    }
+
+    public void setType(BankingPayee.Type type) {
+        this.type = type;
+    }
 
     public BankingPayeeDetail creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
@@ -144,6 +212,17 @@ public class BankingPayeeDetail extends BankingPayee {
             "   international: " + toIndentedString(international) + "\n" + 
             "   payeeUType: " + toIndentedString(payeeUType) + "\n" + 
             "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
     }
 
     public enum PayeeUType {

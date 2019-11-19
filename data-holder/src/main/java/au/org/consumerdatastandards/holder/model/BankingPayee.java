@@ -23,26 +23,26 @@ public class BankingPayee  {
      * ID of the payee adhering to the rules of ID permanence
      */
     @Id
-    protected String payeeId;
+    private String payeeId;
 
     /**
      * The date the payee was created by the customer
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    protected LocalDate creationDate;
+    private LocalDate creationDate;
 
     /**
      * A description of the payee provided by the customer
      */
-    protected String description;
+    private String description;
 
     /**
      * The short display name of the payee as provided by the customer
      */
-    protected String nickname;
+    private String nickname;
 
-    protected Type type;
+    private Type type;
 
     public BankingPayee creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
@@ -151,7 +151,7 @@ public class BankingPayee  {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    protected String toIndentedString(Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

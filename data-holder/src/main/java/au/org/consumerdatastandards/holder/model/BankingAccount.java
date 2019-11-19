@@ -22,47 +22,47 @@ public class BankingAccount  {
      * A unique ID of the account adhering to the standards for ID permanence
      */
     @Id
-    protected String accountId;
+    private String accountId;
 
     @JsonIgnore
-    protected String userId;
+    private String userId;
 
     /**
      * Date that the account was created (if known)
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    protected LocalDate creationDate;
+    private LocalDate creationDate;
 
     /**
      * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
      */
-    protected String displayName;
+    private String displayName;
 
     /**
      * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
      */
     @Transient
-    protected Boolean isOwned;
+    private Boolean isOwned;
 
     /**
      * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
      */
-    protected String maskedNumber;
+    private String maskedNumber;
 
     /**
      * A customer supplied nick name for the account
      */
-    protected String nickname;
+    private String nickname;
 
-    protected OpenStatus openStatus;
+    private OpenStatus openStatus;
 
-    protected BankingProductCategory productCategory;
+    private BankingProductCategory productCategory;
 
     /**
      * The unique identifier of the account as defined by the account holder (akin to model number for the account)
      */
-    protected String productName;
+    private String productName;
 
     public BankingAccount accountId(String accountId) {
         this.accountId = accountId;
@@ -252,7 +252,7 @@ public class BankingAccount  {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    protected String toIndentedString(Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

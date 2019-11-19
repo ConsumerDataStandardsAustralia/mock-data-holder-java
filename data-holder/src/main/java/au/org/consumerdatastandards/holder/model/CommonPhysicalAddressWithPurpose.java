@@ -1,16 +1,22 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @ApiModel
 @Entity
-public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
+public class CommonPhysicalAddressWithPurpose {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     private CommonPhysicalAddress.AddressUType addressUType;
 
@@ -21,6 +27,14 @@ public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
     private CommonSimpleAddress simple;
 
     private Purpose purpose;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CommonPhysicalAddressWithPurpose addressUType(CommonPhysicalAddress.AddressUType addressUType) {
         this.addressUType = addressUType;

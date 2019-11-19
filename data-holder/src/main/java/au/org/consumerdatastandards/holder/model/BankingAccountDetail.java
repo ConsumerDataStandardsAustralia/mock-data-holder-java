@@ -1,7 +1,10 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,7 +15,53 @@ import java.util.Objects;
 @ApiModel
 @Entity
 @Table(name="BankingAccount")
-public class BankingAccountDetail extends BankingAccount {
+public class BankingAccountDetail {
+
+    /**
+     * A unique ID of the account adhering to the standards for ID permanence
+     */
+    @Id
+    private String accountId;
+
+    @JsonIgnore
+    private String userId;
+
+    /**
+     * Date that the account was created (if known)
+     */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate creationDate;
+
+    /**
+     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
+     */
+    private String displayName;
+
+    /**
+     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
+     */
+    @Transient
+    private Boolean isOwned;
+
+    /**
+     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
+     */
+    private String maskedNumber;
+
+    /**
+     * A customer supplied nick name for the account
+     */
+    private String nickname;
+
+    private BankingAccount.OpenStatus openStatus;
+
+    private BankingProductCategory productCategory;
+
+    /**
+     * The unique identifier of the account as defined by the account holder (akin to model number for the account)
+     */
+    private String productName;
 
     /**
      * The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
@@ -98,6 +147,86 @@ public class BankingAccountDetail extends BankingAccount {
 
     @ManyToOne
     private BankingTermDepositAccount termDeposit;
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public Boolean getIsOwned() {
+        return isOwned;
+    }
+
+    public void setIsOwned(Boolean owned) {
+        isOwned = owned;
+    }
+
+    public String getMaskedNumber() {
+        return maskedNumber;
+    }
+
+    public void setMaskedNumber(String maskedNumber) {
+        this.maskedNumber = maskedNumber;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public BankingAccount.OpenStatus getOpenStatus() {
+        return openStatus;
+    }
+
+    public void setOpenStatus(BankingAccount.OpenStatus openStatus) {
+        this.openStatus = openStatus;
+    }
+
+    public BankingProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(BankingProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     public BankingAccountDetail accountId(String accountId) {
         this.accountId = accountId;
@@ -453,6 +582,17 @@ public class BankingAccountDetail extends BankingAccount {
             "   specificAccountUType: " + toIndentedString(specificAccountUType) + "\n" + 
             "   termDeposit: " + toIndentedString(termDeposit) + "\n" + 
             "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
     }
 
     public enum SpecificAccountUType {

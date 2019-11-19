@@ -19,43 +19,43 @@ public class CommonPerson  {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @JsonIgnore
-    protected String id;
+    private String id;
 
     /**
      * For people with single names this field need not be present.  The single name should be in the lastName field
      */
-    protected String firstName;
+    private String firstName;
 
     /**
      * For people with single names the single name should be in this field
      */
-    protected String lastName;
+    private String lastName;
 
     /**
      * The date and time that this record was last updated by the customer.  If no update has occurred then this date should reflect the initial creation date for the data
      */
-    protected OffsetDateTime lastUpdateTime;
+    private OffsetDateTime lastUpdateTime;
 
     /**
      * Field is mandatory but array may be empty
      */
     @ElementCollection
-    protected List<String> middleNames;
+    private List<String> middleNames;
 
     /**
      * Value is a valid [ANZCO v1.2](http://www.abs.gov.au/ANZSCO) Standard Occupation classification.
      */
-    protected String occupationCode;
+    private String occupationCode;
 
     /**
      * Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
      */
-    protected String prefix;
+    private String prefix;
 
     /**
      * Used for a trailing suffix to the name (e.g. Jr)
      */
-    protected String suffix;
+    private String suffix;
 
     public String getId() {
         return id;
@@ -218,7 +218,7 @@ public class CommonPerson  {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    protected String toIndentedString(Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

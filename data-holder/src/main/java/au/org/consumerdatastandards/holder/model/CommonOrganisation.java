@@ -22,77 +22,77 @@ public class CommonOrganisation  {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @JsonIgnore
-    protected String id;
+    private String id;
 
     /**
      * Australian Business Number for the organisation
      */
-    protected String abn;
+    private String abn;
 
     /**
      * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type
      */
-    protected String acn;
+    private String acn;
 
     /**
      * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present.  The single name should be in the lastName field
      */
-    protected String agentFirstName;
+    private String agentFirstName;
 
     /**
      * The last name of the individual providing access on behalf of the organisation. For people with single names the single name should be in this field
      */
-    protected String agentLastName;
+    private String agentLastName;
 
     /**
      * The role of the individual identified as the agent who is providing authorisation.  Expected to be used for display.  Default to “Unspecified” if the role is not known
      */
-    protected String agentRole;
+    private String agentRole;
 
     /**
      * Name of the organisation
      */
-    protected String businessName;
+    private String businessName;
 
     /**
      * The date the organisation described was established
      */
-    protected LocalDate establishmentDate;
+    private LocalDate establishmentDate;
 
     /**
      * [ANZSIC (2006)](http://www.abs.gov.au/anzsic) code for the organisation.
      */
-    protected String industryCode;
+    private String industryCode;
 
     /**
      * True if registered with the ACNC.  False if not. Absent or null if not confirmed.
      */
-    protected Boolean isACNCRegistered;
+    private Boolean isACNCRegistered;
 
     /**
      * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data
      */
-    protected OffsetDateTime lastUpdateTime;
+    private OffsetDateTime lastUpdateTime;
 
     /**
      * Legal name, if different to the business name
      */
-    protected String legalName;
+    private String legalName;
 
     /**
      * Get organisationType
      */
-    protected OrganisationType organisationType;
+    private OrganisationType organisationType;
 
     /**
      * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.  Assumed to be AUS if absent
      */
-    protected String registeredCountry;
+    private String registeredCountry;
 
     /**
      * Short name used for communication, if  different to the business name
      */
-    protected String shortName;
+    private String shortName;
 
     public String getId() {
         return id;
@@ -356,7 +356,7 @@ public class CommonOrganisation  {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    protected String toIndentedString(Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

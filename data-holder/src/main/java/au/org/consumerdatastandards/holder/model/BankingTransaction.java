@@ -21,90 +21,90 @@ public class BankingTransaction  {
      * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
      */
     @Id
-    protected String transactionId;
+    private String transactionId;
 
     /**
      * ID of the account for which transactions are provided
      */
-    protected String accountId;
+    private String accountId;
 
     /**
      * The value of the transaction. Negative values mean money was outgoing from the account
      */
-    protected BigDecimal amount;
+    private BigDecimal amount;
 
     /**
      * 6 Digit APCA number for the initiating institution
      */
-    protected String apcaNumber;
+    private String apcaNumber;
 
     /**
      * BPAY Biller Code for the transaction (if available)
      */
-    protected String billerCode;
+    private String billerCode;
 
     /**
      * Name of the BPAY biller for the transaction (if available)
      */
-    protected String billerName;
+    private String billerName;
 
     /**
      * BPAY CRN for the transaction (if available)
      */
-    protected String crn;
+    private String crn;
 
     /**
      * The currency for the transaction amount. AUD assumed if not present
      */
-    protected String currency;
+    private String currency;
 
     /**
      * The transaction description as applied by the financial institution
      */
-    protected String description;
+    private String description;
 
     /**
      * The time the transaction was executed by the originating customer, if available
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    protected OffsetDateTime executionDateTime;
+    private OffsetDateTime executionDateTime;
 
     /**
      * True if extended information is available using the transaction detail end point. False if extended data is not available
      */
-    protected Boolean isDetailAvailable;
+    private Boolean isDetailAvailable;
 
     /**
      * The merchant category code (or MCC) for an outgoing payment to a merchant
      */
-    protected String merchantCategoryCode;
+    private String merchantCategoryCode;
 
     /**
      * Name of the merchant for an outgoing payment to a merchant
      */
-    protected String merchantName;
+    private String merchantName;
 
     /**
      * The time the transaction was posted. This field is Mandatory if the transaction has status POSTED.  This is the time that appears on a standard statement
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    protected OffsetDateTime postingDateTime;
+    private OffsetDateTime postingDateTime;
 
     /**
      * The reference for the transaction provided by the originating institution. Empty string if no data provided
      */
-    protected String reference;
+    private String reference;
 
-    protected Status status;
+    private Status status;
 
-    protected Type type;
+    private Type type;
 
     /**
      * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry
      */
-    protected OffsetDateTime valueDateTime;
+    private OffsetDateTime valueDateTime;
 
     public BankingTransaction accountId(String accountId) {
         this.accountId = accountId;
@@ -435,7 +435,7 @@ public class BankingTransaction  {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    protected String toIndentedString(Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }
