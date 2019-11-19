@@ -27,18 +27,20 @@ public class ApiControllerBase {
         return page != null && page > 0 ? page : defaultValue;
     }
 
-    protected boolean validatePageInputs(Integer page, Integer pageSize) {
-        return (page == null || page >= 1) && (pageSize == null || pageSize >= 1);
+    protected void validatePageInputs(Integer page, Integer pageSize) {
+        if (page != null && page < 1 || pageSize != null && pageSize < 1) {
+            throw new ValidationException("Invalid page or page-size");
+        }
     }
 
-    protected boolean hasSupportedVersion(Integer xMinV, Integer xV) {
+    private boolean hasSupportedVersion(Integer xMinV, Integer xV) {
         if (xV != null && getCurrentVersion() > xV) {
             return false;
         }
         return xMinV == null || getCurrentVersion() >= xMinV;
     }
 
-    protected Integer getCurrentVersion() {
+    private Integer getCurrentVersion() {
         return 1;
     }
 
@@ -59,9 +61,21 @@ public class ApiControllerBase {
         return responseHeaders;
     }
 
+
+    protected void validateHeaders(Integer xMinV, Integer xV) {
+        if (!hasSupportedVersion(xMinV, xV)) {
+            String message = String.format(
+                "Unsupported version requested, minimum version specified is %d, maximum version specified is %d, current version is %d",
+                xMinV, xV, getCurrentVersion());
+            throw new VersionNotSupportedException(message);
+        }
+    }
+
     protected void validateHeaders(String xCdsUserAgent,
                                    String xCdsSubject,
-                                   String xFapiCustomerIpAddress) {
+                                   String xFapiCustomerIpAddress,
+                                   Integer xMinV, Integer xV) {
+        validateHeaders(xMinV, xV);
         if (StringUtils.hasText(xFapiCustomerIpAddress)) {
             InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {

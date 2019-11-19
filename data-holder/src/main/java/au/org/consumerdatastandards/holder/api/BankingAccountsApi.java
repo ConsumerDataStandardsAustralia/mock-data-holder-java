@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -156,10 +157,10 @@ public interface BankingAccountsApi {
         @PathVariable("accountId") String accountId,
         @ApiParam(
             value = "Filter transactions to only transactions with amounts less than or equal to than this amount"
-        ) @RequestParam(value = "max-amount", required = false) String maxAmount,
+        ) @RequestParam(value = "max-amount", required = false) BigDecimal maxAmount,
         @ApiParam(
             value = "Filter transactions to only transactions with amounts higher or equal to than this amount"
-        ) @RequestParam(value = "min-amount", required = false) String minAmount,
+        ) @RequestParam(value = "min-amount", required = false) BigDecimal minAmount,
         @ApiParam(
             value = "Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type"
         ) @RequestParam(value = "newest-time", required = false) OffsetDateTime newestTime,

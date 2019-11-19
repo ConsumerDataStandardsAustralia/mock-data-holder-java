@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.time.OffsetDateTime;
 
@@ -30,7 +31,7 @@ public class BankingTransaction  {
     /**
      * The value of the transaction. Negative values mean money was outgoing from the account
      */
-    protected String amount;
+    protected BigDecimal amount;
 
     /**
      * 6 Digit APCA number for the initiating institution
@@ -118,19 +119,21 @@ public class BankingTransaction  {
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
-    public BankingTransaction amount(String amount) {
+
+    public BankingTransaction amount(BigDecimal amount) {
         this.amount = amount;
         return this;
     }
 
     @ApiModelProperty(required = true, value = "The value of the transaction. Negative values mean money was outgoing from the account")
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
     public BankingTransaction apcaNumber(String apcaNumber) {
         this.apcaNumber = apcaNumber;
         return this;
@@ -144,6 +147,7 @@ public class BankingTransaction  {
     public void setApcaNumber(String apcaNumber) {
         this.apcaNumber = apcaNumber;
     }
+
     public BankingTransaction billerCode(String billerCode) {
         this.billerCode = billerCode;
         return this;
@@ -157,6 +161,7 @@ public class BankingTransaction  {
     public void setBillerCode(String billerCode) {
         this.billerCode = billerCode;
     }
+
     public BankingTransaction billerName(String billerName) {
         this.billerName = billerName;
         return this;
@@ -170,6 +175,7 @@ public class BankingTransaction  {
     public void setBillerName(String billerName) {
         this.billerName = billerName;
     }
+
     public BankingTransaction crn(String crn) {
         this.crn = crn;
         return this;
@@ -183,6 +189,7 @@ public class BankingTransaction  {
     public void setCrn(String crn) {
         this.crn = crn;
     }
+
     public BankingTransaction currency(String currency) {
         this.currency = currency;
         return this;
@@ -196,6 +203,7 @@ public class BankingTransaction  {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
     public BankingTransaction description(String description) {
         this.description = description;
         return this;
@@ -209,6 +217,7 @@ public class BankingTransaction  {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public BankingTransaction executionDateTime(OffsetDateTime executionDateTime) {
         this.executionDateTime = executionDateTime;
         return this;
@@ -222,6 +231,7 @@ public class BankingTransaction  {
     public void setExecutionDateTime(OffsetDateTime executionDateTime) {
         this.executionDateTime = executionDateTime;
     }
+
     public BankingTransaction isDetailAvailable(Boolean isDetailAvailable) {
         this.isDetailAvailable = isDetailAvailable;
         return this;
@@ -235,6 +245,7 @@ public class BankingTransaction  {
     public void setIsDetailAvailable(Boolean isDetailAvailable) {
         this.isDetailAvailable = isDetailAvailable;
     }
+
     public BankingTransaction merchantCategoryCode(String merchantCategoryCode) {
         this.merchantCategoryCode = merchantCategoryCode;
         return this;
@@ -261,6 +272,7 @@ public class BankingTransaction  {
     public void setMerchantName(String merchantName) {
         this.merchantName = merchantName;
     }
+
     public BankingTransaction postingDateTime(OffsetDateTime postingDateTime) {
         this.postingDateTime = postingDateTime;
         return this;
@@ -287,6 +299,7 @@ public class BankingTransaction  {
     public void setReference(String reference) {
         this.reference = reference;
     }
+
     public BankingTransaction status(Status status) {
         this.status = status;
         return this;
@@ -300,6 +313,7 @@ public class BankingTransaction  {
     public void setStatus(Status status) {
         this.status = status;
     }
+
     public BankingTransaction transactionId(String transactionId) {
         this.transactionId = transactionId;
         return this;
@@ -313,6 +327,7 @@ public class BankingTransaction  {
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
+
     public BankingTransaction type(Type type) {
         this.type = type;
         return this;

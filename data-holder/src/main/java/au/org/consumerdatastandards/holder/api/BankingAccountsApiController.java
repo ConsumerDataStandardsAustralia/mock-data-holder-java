@@ -17,6 +17,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -52,13 +53,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                        UUID xFapiInteractionId,
                                                                        @Min(1) Integer xMinV,
                                                                        @Min(1) Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
-        if (!hasSupportedVersion(xMinV, xV)) {
-            logger.error(
-                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                xMinV, xV, getCurrentVersion());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId);
         if (bankingAccountDetail == null) {
@@ -81,13 +76,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV,
                                                                                Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
-        if (!hasSupportedVersion(xMinV, xV)) {
-            logger.error(
-                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                xMinV, xV, getCurrentVersion());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingTransactionDetail transactionDetail = transactionService.getBankingTransactionDetail(transactionId);
         if (transactionDetail == null) {
@@ -101,8 +90,8 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
     }
 
     public ResponseEntity<ResponseBankingTransactionList> getTransactions(String accountId,
-                                                                          String maxAmount,
-                                                                          String minAmount,
+                                                                          BigDecimal maxAmount,
+                                                                          BigDecimal minAmount,
                                                                           OffsetDateTime newestTime,
                                                                           OffsetDateTime oldestTime,
                                                                           Integer page,
@@ -115,7 +104,20 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           UUID xFapiInteractionId,
                                                                           @Min(1) Integer xMinV,
                                                                           @Min(1) Integer xV) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validatePageInputs(page, pageSize);
+        HttpHeaders headers = generateResponseHeaders(request);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<BankingTransaction> transactionPage = transactionService.findTransactions(
+            accountId, maxAmount, minAmount, newestTime, oldestTime, text, PageRequest.of(actualPage, actualPageSize));
+        ResponseBankingTransactionListData listData = new ResponseBankingTransactionListData();
+        listData.setTransactions(transactionPage.getContent());
+        ResponseBankingTransactionList responseBankingTransactionList = new ResponseBankingTransactionList();
+        responseBankingTransactionList.setData(listData);
+        responseBankingTransactionList.setLinks(getLinkData(request, transactionPage, actualPage, actualPageSize));
+        responseBankingTransactionList.setMeta(getMetaData(transactionPage));
+        return new ResponseEntity<>(responseBankingTransactionList, headers, HttpStatus.OK);
     }
 
     public ResponseEntity<ResponseBankingAccountList> listAccounts(Boolean isOwned,
@@ -130,17 +132,9 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                    UUID xFapiInteractionId,
                                                                    @Min(1) Integer xMinV,
                                                                    @Min(1) Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
-        if (!hasSupportedVersion(xMinV, xV)) {
-            logger.error(
-                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                xMinV, xV, getCurrentVersion());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
-        if (!validatePageInputs(page, pageSize)) {
-            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
-        }
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         BankingAccount bankingAccount = new BankingAccount();
@@ -168,13 +162,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           UUID xFapiInteractionId,
                                                                           @Min(1) Integer xMinV,
                                                                           @Min(1) Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
-        if (!hasSupportedVersion(xMinV, xV)) {
-            logger.error(
-                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                xMinV, xV, getCurrentVersion());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingBalance balance = accountService.getBankingBalance(accountId);
         if (balance == null) {
@@ -197,17 +185,9 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                            UUID xFapiInteractionId,
                                                                                            @Min(1) Integer xMinV,
                                                                                            @Min(1) Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress);
-        if (!hasSupportedVersion(xMinV, xV)) {
-            logger.error(
-                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                xMinV, xV, getCurrentVersion());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
-        if (!validatePageInputs(page, pageSize)) {
-            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
-        }
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIds.getData().getAccountIds(),

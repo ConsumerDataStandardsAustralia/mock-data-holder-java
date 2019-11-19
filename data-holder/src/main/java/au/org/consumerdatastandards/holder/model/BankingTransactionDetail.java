@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
@@ -14,9 +15,6 @@ import java.util.Objects;
 @Table(name = "BankingTransaction")
 public class BankingTransactionDetail extends BankingTransaction {
 
-    /**
-     * Get extendedData
-     */
     @Embedded
     private BankingTransactionDetailExtendedData extendedData;
 
@@ -25,7 +23,7 @@ public class BankingTransactionDetail extends BankingTransaction {
         return this;
     }
 
-    public BankingTransactionDetail amount(String amount) {
+    public BankingTransactionDetail amount(BigDecimal amount) {
         this.amount = amount;
         return this;
     }

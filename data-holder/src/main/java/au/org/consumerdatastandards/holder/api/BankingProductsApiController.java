@@ -39,12 +39,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
 
     @Override
     public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId, @Min(1) Integer xMinV, @Min(1) Integer xV) {
-        if (!hasSupportedVersion(xMinV, xV)) {
-            logger.error(
-                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                xMinV, xV, getCurrentVersion());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+        validateHeaders(xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingProductDetail productDetail = service.getProductDetail(productId);
         if (productDetail == null) {
@@ -76,18 +71,9 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         logger.info(
             "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",
             effective, updatedSince, brand, productCategory, page, pageSize);
-
-        if (!hasSupportedVersion(xMinV, xV)) {
-            logger.error(
-                "Unsupported version requested, minimum version specified is {}, maximum version specified is {}, current version is {}",
-                xMinV, xV, getCurrentVersion());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+        validateHeaders(xMinV, xV);
+        validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
-        if (!validatePageInputs(page, pageSize)) {
-            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
-        }
-
         BankingProduct bankingProduct = new BankingProduct();
         bankingProduct.setLastUpdated(updatedSince);
         bankingProduct.setBrand(brand);
