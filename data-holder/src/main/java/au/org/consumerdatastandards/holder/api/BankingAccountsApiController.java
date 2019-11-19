@@ -15,8 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -48,11 +46,11 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingAccountById> getAccountDetail(String accountId,
                                                                        String xCdsUserAgent,
                                                                        String xCdsSubject,
-                                                                       @NotNull OffsetDateTime xFapiAuthDate,
+                                                                       OffsetDateTime xFapiAuthDate,
                                                                        String xFapiCustomerIpAddress,
                                                                        UUID xFapiInteractionId,
-                                                                       @Min(1) Integer xMinV,
-                                                                       @Min(1) Integer xV) {
+                                                                       Integer xMinV,
+                                                                       Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId);
@@ -63,7 +61,6 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         ResponseBankingAccountById responseBankingAccountById = new ResponseBankingAccountById();
         responseBankingAccountById.setData(bankingAccountDetail);
         responseBankingAccountById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        responseBankingAccountById.setMeta(new Meta());
         return new ResponseEntity<>(responseBankingAccountById, headers, HttpStatus.OK);
     }
 
@@ -71,7 +68,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                String transactionId,
                                                                                String xCdsUserAgent,
                                                                                String xCdsSubject,
-                                                                               @NotNull OffsetDateTime xFapiAuthDate,
+                                                                               OffsetDateTime xFapiAuthDate,
                                                                                String xFapiCustomerIpAddress,
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV,
@@ -85,7 +82,6 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         ResponseBankingTransactionById responseBankingTransactionById = new ResponseBankingTransactionById();
         responseBankingTransactionById.setData(transactionDetail);
         responseBankingTransactionById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        responseBankingTransactionById.setMeta(new Meta());
         return new ResponseEntity<>(responseBankingTransactionById, headers, HttpStatus.OK);
     }
 
@@ -99,11 +95,11 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           String text,
                                                                           String xCdsUserAgent,
                                                                           String xCdsSubject,
-                                                                          @NotNull OffsetDateTime xFapiAuthDate,
+                                                                          OffsetDateTime xFapiAuthDate,
                                                                           String xFapiCustomerIpAddress,
                                                                           UUID xFapiInteractionId,
-                                                                          @Min(1) Integer xMinV,
-                                                                          @Min(1) Integer xV) {
+                                                                          Integer xMinV,
+                                                                          Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
@@ -127,11 +123,11 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                    ParamProductCategory productCategory,
                                                                    String xCdsUserAgent,
                                                                    String xCdsSubject,
-                                                                   @NotNull OffsetDateTime xFapiAuthDate,
+                                                                   OffsetDateTime xFapiAuthDate,
                                                                    String xFapiCustomerIpAddress,
                                                                    UUID xFapiInteractionId,
-                                                                   @Min(1) Integer xMinV,
-                                                                   @Min(1) Integer xV) {
+                                                                   Integer xMinV,
+                                                                   Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
@@ -157,11 +153,11 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingAccountsBalanceById> listBalance(String accountId,
                                                                           String xCdsUserAgent,
                                                                           String xCdsSubject,
-                                                                          @NotNull OffsetDateTime xFapiAuthDate,
+                                                                          OffsetDateTime xFapiAuthDate,
                                                                           String xFapiCustomerIpAddress,
                                                                           UUID xFapiInteractionId,
-                                                                          @Min(1) Integer xMinV,
-                                                                          @Min(1) Integer xV) {
+                                                                          Integer xMinV,
+                                                                          Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingBalance balance = accountService.getBankingBalance(accountId);
@@ -171,7 +167,6 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         ResponseBankingAccountsBalanceById responseBankingAccountsBalanceById = new ResponseBankingAccountsBalanceById();
         responseBankingAccountsBalanceById.setData(balance);
         responseBankingAccountsBalanceById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        responseBankingAccountsBalanceById.setMeta(new Meta());
         return new ResponseEntity<>(responseBankingAccountsBalanceById, headers, HttpStatus.OK);
     }
 
@@ -180,11 +175,11 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                            Integer pageSize,
                                                                                            String xCdsUserAgent,
                                                                                            String xCdsSubject,
-                                                                                           @NotNull OffsetDateTime xFapiAuthDate,
+                                                                                           OffsetDateTime xFapiAuthDate,
                                                                                            String xFapiCustomerIpAddress,
                                                                                            UUID xFapiInteractionId,
-                                                                                           @Min(1) Integer xMinV,
-                                                                                           @Min(1) Integer xV) {
+                                                                                           Integer xMinV,
+                                                                                           Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);

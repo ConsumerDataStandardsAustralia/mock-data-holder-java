@@ -2,15 +2,16 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Map;
 import java.util.Objects;
-import au.org.consumerdatastandards.holder.model.Meta;
 
 @ApiModel
 public class RequestAccountIds  {
 
     private RequestAccountIdsData data;
 
-    private Meta meta;
+    private Map<String, Object> meta;
 
     public RequestAccountIds data(RequestAccountIdsData data) {
         this.data = data;
@@ -25,17 +26,18 @@ public class RequestAccountIds  {
     public void setData(RequestAccountIdsData data) {
         this.data = data;
     }
-    public RequestAccountIds meta(Meta meta) {
+
+    public RequestAccountIds meta(Map<String, Object> meta) {
         this.meta = meta;
         return this;
     }
 
     @ApiModelProperty
-    public Meta getMeta() {
+    public Map<String, Object> getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public void setMeta(Map<String, Object> meta) {
         this.meta = meta;
     }
 

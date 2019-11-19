@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
         return Optional.ofNullable(request);
     }
 
-    public ResponseEntity<ResponseDiscoveryOutagesList> getOutages(@Min(1) Integer xMinV, @Min(1) Integer xV) {
+    public ResponseEntity<ResponseDiscoveryOutagesList> getOutages(Integer xMinV, Integer xV) {
         validateHeaders(xMinV, xV);
         ResponseDiscoveryOutagesListData listData = new ResponseDiscoveryOutagesListData();
         List<DiscoveryOutage> outages = new ArrayList<>();
@@ -45,18 +44,16 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
         ResponseDiscoveryOutagesList responseDiscoveryOutagesList = new ResponseDiscoveryOutagesList();
         responseDiscoveryOutagesList.setData(listData);
         responseDiscoveryOutagesList.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        responseDiscoveryOutagesList.setMeta(new Meta());
         return new ResponseEntity<>(responseDiscoveryOutagesList, generateResponseHeaders(request), HttpStatus.OK);
     }
 
-      public ResponseEntity<CommonDiscoveryStatus> getStatus(@Min(1) Integer xMinV, @Min(1) Integer xV) {
+      public ResponseEntity<CommonDiscoveryStatus> getStatus(Integer xMinV, Integer xV) {
         validateHeaders(xMinV, xV);
         CommonDiscoveryStatusData data = new CommonDiscoveryStatusData();
         data.setStatus(CommonDiscoveryStatusData.Status.OK);
         CommonDiscoveryStatus commonDiscoveryStatus = new CommonDiscoveryStatus();
         commonDiscoveryStatus.setData(data);
         commonDiscoveryStatus.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        commonDiscoveryStatus.setMeta(new Meta());
         return new ResponseEntity<>(commonDiscoveryStatus, generateResponseHeaders(request), HttpStatus.OK);
     }
 }

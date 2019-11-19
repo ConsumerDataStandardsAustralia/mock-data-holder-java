@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
@@ -38,7 +39,9 @@ public class BankingProductsApiController extends ApiControllerBase implements B
     }
 
     @Override
-    public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId, @Min(1) Integer xMinV, @Min(1) Integer xV) {
+    public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId,
+                                                                       Integer xMinV,
+                                                                       Integer xV) {
         validateHeaders(xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingProductDetail productDetail = service.getProductDetail(productId);
@@ -50,9 +53,6 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         responseProductById.setData(productDetail);
         responseProductById.setLinks(new Links());
         responseProductById.getLinks().setSelf(WebUtil.getOriginalUrl(request));
-        responseProductById.setMeta(new Meta());
-
-
         logger.info("Found product id of {} and returning formatted response", productId);
         logger.debug("Detail product response is: {}", responseProductById);
         return new ResponseEntity<>(responseProductById, headers, HttpStatus.OK);
@@ -64,9 +64,9 @@ public class BankingProductsApiController extends ApiControllerBase implements B
                                                                    String brand,
                                                                    BankingProductCategory productCategory,
                                                                    Integer page,
-                                                                   Integer pageSize, 
-                                                                   @Min(1) Integer xMinV,
-                                                                   @Min(1) Integer xV) {
+                                                                   Integer pageSize,
+                                                                   Integer xMinV,
+                                                                   Integer xV) {
 
         logger.info(
             "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",

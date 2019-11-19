@@ -1,5 +1,8 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
@@ -8,7 +11,84 @@ import java.util.List;
 
 @Entity
 @Table(name = "BankingProduct")
-public class BankingProductDetail extends BankingProduct {
+public class BankingProductDetail {
+
+    /**
+     * A provider specific unique identifier for this product. This
+     * identifier must be unique to a product but does not
+     * otherwise need to adhere to ID permanence guidelines.
+     */
+    @Id
+    private String productId;
+
+    /**
+     * The date and time from which this product is effective (ie.
+     * is available for origination).  Used to enable the
+     * articulation of products to the regime before they are
+     * available for customers to originate
+     */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime effectiveFrom;
+
+    /**
+     * The date and time at which this product will be retired and
+     * will no longer be offered.  Used to enable the managed
+     * deprecation of products
+     */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime effectiveTo;
+
+    /**
+     * The last date and time that the information for this product
+     * was changed (or the creation date for the product if it has
+     * never been altered)
+     */
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime lastUpdated;
+
+    private BankingProductCategory productCategory;
+
+    /**
+     * The display name of the product
+     */
+    private String name;
+
+    /**
+     * A description of the product
+     */
+    @Column(length = 2048)
+    private String description;
+
+    /**
+     * A label of the brand for the product. Able to be used for
+     * filtering. For data providers with single brands this value
+     * is still required
+     */
+    private String brand;
+
+    /**
+     * An optional display name of the brand
+     */
+    private String brandName;
+
+    /**
+     * A link to an application web page where this product can be
+     * applied for.
+     */
+    private String applicationUri;
+
+    /**
+     * Indicates whether the product is specifically tailored to a
+     * circumstance.  In this case fees and prices are
+     * significantly negotiated depending on context. While all
+     * products are open to a degree of tailoring this flag
+     * indicates that tailoring is expected and thus that the
+     * provision of specific fees and rates is not applicable
+     */
+    private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
     private BankingProductAdditionalInformation additionalInformation;
@@ -68,6 +148,94 @@ public class BankingProductDetail extends BankingProduct {
         inverseJoinColumns = @JoinColumn(name = "lending_rate_id"))
     @Valid
     private List<BankingProductLendingRate> lendingRates = null;
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public OffsetDateTime getEffectiveFrom() {
+        return effectiveFrom;
+    }
+
+    public void setEffectiveFrom(OffsetDateTime effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+
+    public OffsetDateTime getEffectiveTo() {
+        return effectiveTo;
+    }
+
+    public void setEffectiveTo(OffsetDateTime effectiveTo) {
+        this.effectiveTo = effectiveTo;
+    }
+
+    public OffsetDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(OffsetDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public BankingProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(BankingProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getApplicationUri() {
+        return applicationUri;
+    }
+
+    public void setApplicationUri(String applicationUri) {
+        this.applicationUri = applicationUri;
+    }
+
+    public Boolean getIsTailored() {
+        return isTailored;
+    }
+
+    public void setIsTailored(Boolean tailored) {
+        isTailored = tailored;
+    }
 
     public BankingProductDetail additionalInformation(BankingProductAdditionalInformation additionalInformation) {
         this.additionalInformation = additionalInformation;

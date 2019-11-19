@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -41,7 +44,7 @@ public interface BankingAccountsApi {
             value = "A tokenised identifier for the account which is unique but not shareable",
             required = true
         )
-        @PathVariable("accountId") String accountId,
+        @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
             value = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters."
         )
@@ -53,7 +56,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) @NotNull OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -65,11 +68,11 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
+        @RequestHeader(value = "x-min-v", required = false) @Min(1) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) Integer xV
+        @RequestHeader(value = "x-v", required = false) @Min(1) Integer xV
     );
 
     @ApiOperation(
@@ -95,12 +98,12 @@ public interface BankingAccountsApi {
             value = "ID of the account to get transactions for.  Must have previously been returned by one of the account list end points",
             required = true
         )
-        @PathVariable("accountId") String accountId,
+        @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
             value = "ID of the transaction obtained from a previous call to one of the other transaction end points",
             required = true
         )
-        @PathVariable("transactionId") String transactionId,
+        @PathVariable("transactionId") @NotBlank String transactionId,
         @ApiParam(
             value = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters."
         )
@@ -112,7 +115,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) @NotNull OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -124,11 +127,11 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
+        @RequestHeader(value = "x-min-v", required = false) @Min(1) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) Integer xV
+        @RequestHeader(value = "x-v", required = false) @Min(1) Integer xV
     );
 
     @ApiOperation(
@@ -154,7 +157,7 @@ public interface BankingAccountsApi {
             value = "ID of the account to get transactions for.  Must have previously been returned by one of the account list end points.",
             required = true
         )
-        @PathVariable("accountId") String accountId,
+        @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
             value = "Filter transactions to only transactions with amounts less than or equal to than this amount"
         ) @RequestParam(value = "max-amount", required = false) BigDecimal maxAmount,
@@ -170,11 +173,11 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Page of results to request (standard pagination)",
             defaultValue = "1"
-        ) @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+        ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
             value = "Page size to request. Default is 25 (standard pagination)",
             defaultValue = "25"
-        ) @RequestParam(value = "page-size", required = false, defaultValue = "25") Integer pageSize,
+        ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
             value = "Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string. This parameter is optionally implemented by data holders. If it is not implemented then a response should be provided as normal without text filtering applied"
         ) @RequestParam(value = "text", required = false) String text,
@@ -189,7 +192,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) @NotNull OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -201,11 +204,11 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
+        @RequestHeader(value = "x-min-v", required = false) @Min(1) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) Integer xV
+        @RequestHeader(value = "x-v", required = false) @Min(1) Integer xV
     );
 
     @ApiOperation(
@@ -238,11 +241,11 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Page of results to request (standard pagination)",
             defaultValue = "1"
-        ) @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+        ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
             value = "Page size to request. Default is 25 (standard pagination)",
             defaultValue = "25"
-        ) @RequestParam(value = "page-size", required = false, defaultValue = "25") Integer pageSize,
+        ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
             value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
             allowableValues = "BUSINESS_LOANS, CRED_AND_CHRG_CARDS, LEASES, MARGIN_LOANS, OVERDRAFTS, PERS_LOANS, REGULATED_TRUST_ACCOUNTS, RESIDENTIAL_MORTGAGES, TERM_DEPOSITS, TRADE_FINANCE, TRANS_AND_SAVINGS_ACCOUNTS, TRAVEL_CARDS"
@@ -258,7 +261,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) @NotNull OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -270,11 +273,11 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
+        @RequestHeader(value = "x-min-v", required = false) @Min(1) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) Integer xV
+        @RequestHeader(value = "x-v", required = false) @Min(1) Integer xV
     );
 
     @ApiOperation(
@@ -300,7 +303,7 @@ public interface BankingAccountsApi {
             value = "ID of the specific account requested",
             required = true
         )
-        @PathVariable("accountId") String accountId,
+        @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
             value = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters."
         )
@@ -312,7 +315,7 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls."
         )
-        @RequestHeader(value = "x-fapi-auth-date", required = false) OffsetDateTime xFapiAuthDate,
+        @RequestHeader(value = "x-fapi-auth-date", required = false) @NotNull OffsetDateTime xFapiAuthDate,
         @ApiParam(
             value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
         )
@@ -324,11 +327,11 @@ public interface BankingAccountsApi {
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )
-        @RequestHeader(value = "x-min-v", required = false) Integer xMinV,
+        @RequestHeader(value = "x-min-v", required = false) @Min(1) Integer xMinV,
         @ApiParam(
             value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
         )
-        @RequestHeader(value = "x-v", required = false) Integer xV
+        @RequestHeader(value = "x-v", required = false) @Min(1) Integer xV
     );
 
     @ApiOperation(

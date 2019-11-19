@@ -13,8 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,11 +41,11 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                       Integer pageSize,
                                                                                       String xCdsUserAgent,
                                                                                       String xCdsSubject,
-                                                                                      @NotNull OffsetDateTime xFapiAuthDate,
+                                                                                      OffsetDateTime xFapiAuthDate,
                                                                                       String xFapiCustomerIpAddress,
                                                                                       UUID xFapiInteractionId,
-                                                                                      @Min(1) Integer xMinV,
-                                                                                      @Min(1) Integer xV) {
+                                                                                      Integer xMinV,
+                                                                                      Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
@@ -67,11 +65,11 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                           Integer pageSize,
                                                                                           String xCdsUserAgent,
                                                                                           String xCdsSubject,
-                                                                                          @NotNull OffsetDateTime xFapiAuthDate,
+                                                                                          OffsetDateTime xFapiAuthDate,
                                                                                           String xFapiCustomerIpAddress,
                                                                                           UUID xFapiInteractionId,
-                                                                                          @Min(1) Integer xMinV,
-                                                                                          @Min(1) Integer xV) {
+                                                                                          Integer xMinV,
+                                                                                          Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
@@ -89,11 +87,11 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                                       Integer pageSize,
                                                                                                       String xCdsUserAgent,
                                                                                                       String xCdsSubject,
-                                                                                                      @NotNull OffsetDateTime xFapiAuthDate,
+                                                                                                      OffsetDateTime xFapiAuthDate,
                                                                                                       String xFapiCustomerIpAddress,
                                                                                                       UUID xFapiInteractionId,
-                                                                                                      @Min(1) Integer xMinV,
-                                                                                                      @Min(1) Integer xV) {
+                                                                                                      Integer xMinV,
+                                                                                                      Integer xV) {
         validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);

@@ -28,7 +28,7 @@ public class BankingProduct {
      * otherwise need to adhere to ID permanence guidelines.
      */
     @Id
-    protected String productId;
+    private String productId;
 
     /**
      * The date and time from which this product is effective (ie.
@@ -38,7 +38,7 @@ public class BankingProduct {
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    protected OffsetDateTime effectiveFrom;
+    private OffsetDateTime effectiveFrom;
 
     /**
      * The date and time at which this product will be retired and
@@ -47,7 +47,7 @@ public class BankingProduct {
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    protected OffsetDateTime effectiveTo;
+    private OffsetDateTime effectiveTo;
 
     /**
      * The last date and time that the information for this product
@@ -56,38 +56,38 @@ public class BankingProduct {
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    protected OffsetDateTime lastUpdated;
+    private OffsetDateTime lastUpdated;
 
-    protected BankingProductCategory productCategory;
+    private BankingProductCategory productCategory;
 
     /**
      * The display name of the product
      */
-    protected String name;
+    private String name;
 
     /**
      * A description of the product
      */
     @Column(length = 2048)
-    protected String description;
+    private String description;
 
     /**
      * A label of the brand for the product. Able to be used for
      * filtering. For data providers with single brands this value
      * is still required
      */
-    protected String brand;
+    private String brand;
 
     /**
      * An optional display name of the brand
      */
-    protected String brandName;
+    private String brandName;
 
     /**
      * A link to an application web page where this product can be
      * applied for.
      */
-    protected String applicationUri;
+    private String applicationUri;
 
     /**
      * Indicates whether the product is specifically tailored to a
@@ -97,7 +97,7 @@ public class BankingProduct {
      * indicates that tailoring is expected and thus that the
      * provision of specific fees and rates is not applicable
      */
-    protected Boolean isTailored;
+    private Boolean isTailored;
 
     public String getProductId() {
         return productId;
