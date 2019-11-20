@@ -11,7 +11,10 @@ import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
 import au.org.consumerdatastandards.support.data.CustomDataType;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
@@ -19,8 +22,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static net.serenitybdd.rest.SerenityRest.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -31,8 +36,8 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
     private PayloadValidator payloadValidator = new PayloadValidator();
     private String requestUrl;
     private Response listBalancesBulkResponse;
-    private ResponseBankingAccountsBalanceList responseBankingAccountsBalancesList;
     private Response listBalanceResponse;
+    private Response listBalancesSpecificAccountsResponse;
 
     @Step("Request /banking/accounts/balances")
     public void listBalancesBulk(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
@@ -90,7 +95,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
 
             try {
-                responseBankingAccountsBalancesList = objectMapper.readValue(json, ResponseBankingAccountsBalanceList.class);
+                ResponseBankingAccountsBalanceList responseBankingAccountsBalancesList = objectMapper.readValue(json, ResponseBankingAccountsBalanceList.class);
                 payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalancesList, "listBalancesBulk", statusCode);
 
                 ResponseBankingAccountsBalanceListData data = (ResponseBankingAccountsBalanceListData) getResponseData(responseBankingAccountsBalancesList);
@@ -154,6 +159,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
     public void validateListBalanceResponse(String accountId) {
         int statusCode = listBalanceResponse.statusCode();
         if (accountId.matches(CustomDataType.ASCII.getPattern())) {
+            assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
             checkResponseHeaders(listBalanceResponse, conformanceErrors);
             checkJsonContentType(listBalanceResponse.contentType(), conformanceErrors);
@@ -177,5 +183,102 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
         }
+    }
+
+    @Step("Request POST /banking/accounts/balances")
+    public void listBalancesSpecificAccounts(String[] accountIds, Integer page, Integer pageSize) throws JsonProcessingException {
+        String url = getApiBasePath() + "/banking/accounts/balances";
+        requestUrl = url;
+        boolean paramAdded = false;
+        RequestSpecification given = given()
+                .header("Accept", "application/json")
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalancesSpecificAccounts"));
+        if (page != null) {
+            given.queryParam("page", page);
+            requestUrl += "?page=" + page;
+            paramAdded = true;
+        }
+        if (pageSize != null) {
+            given.queryParam("page-size", pageSize);
+            requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
+        }
+        listBalancesSpecificAccountsResponse = given.relaxedHTTPSValidation().body(prepareRequestJson(accountIds))
+                .when().post(url).then().log().all().extract().response();
+    }
+
+    private String prepareRequestJson(String[] accountIds) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode accIdsObj = mapper.createObjectNode();
+        ObjectNode accData = mapper.createObjectNode();
+        ArrayNode accIdsArr = mapper.createArrayNode();
+        for (String accountId : accountIds) {
+            accIdsArr.add(accountId);
+        }
+        accData.set("accountIds", accIdsArr);
+        accIdsObj.set("data", accData);
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(accIdsObj);
+    }
+
+    @Step("Request POST /banking/accounts/balances response")
+    public void validateListBalancesSpecificAccountsResponse(String[] accountIds, Integer page, Integer pageSize) {
+        boolean paramsValid = validateListBalancesSpecificAccountsParams(accountIds, page, pageSize);
+        int statusCode = listBalancesSpecificAccountsResponse.statusCode();
+        if (paramsValid) {
+            assertEquals(ResponseCode.OK.getCode(), statusCode);
+            List<ConformanceError> conformanceErrors = new ArrayList<>();
+            checkResponseHeaders(listBalancesSpecificAccountsResponse, conformanceErrors);
+            checkJsonContentType(listBalancesSpecificAccountsResponse.contentType(), conformanceErrors);
+            String json = listBalancesSpecificAccountsResponse.getBody().asString();
+            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+            try {
+                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountsBalanceList.class);
+                Object responseBankingAccountsBalanceList = objectMapper.readValue(json, expandedResponseClass);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalanceList,
+                        "listBalancesSpecificAccounts", statusCode));
+                Object data = getResponseData(responseBankingAccountsBalanceList);
+                checkAccountIds(data, accountIds, conformanceErrors);
+
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload:"
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+            } catch (IOException e) {
+                fail(e.getMessage());
+            }
+        } else {
+            assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<BankingBalance> getBalances(Object data) {
+        return (List<BankingBalance>) getField(data, "balances");
+    }
+
+    private void checkAccountIds(Object data, String[] accountIds, List<ConformanceError> conformanceErrors) {
+        List<BankingBalance> balances = getBalances(data);
+        if (balances != null) {
+            List<String> idList = Arrays.asList(accountIds);
+            for (BankingBalance balance : balances) {
+                String accountId = getAccountId(balance);
+                if (!idList.contains(accountId)) {
+                    conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                            .dataJson(ConformanceUtil.toJson(balance)).errorMessage(String.format(
+                                    "Unexpected accountId %s in response", accountId)));
+                }
+            }
+        }
+    }
+
+    private boolean validateListBalancesSpecificAccountsParams(String[] accountIds, Integer page, Integer pageSize) {
+        if (accountIds == null || accountIds.length == 0) {
+            return false;
+        }
+        for (String accountId : accountIds) {
+            if (StringUtils.isBlank(accountId)) {
+                return false;
+            }
+        }
+        return (page == null || page >= 1) && (pageSize == null || pageSize >= 1);
     }
 }
