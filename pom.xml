@@ -52,11 +52,11 @@
         <gpg.plugin.version>1.5</gpg.plugin.version>
         <javadoc.plugin.version>2.9.1</javadoc.plugin.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
-        <jackson.version>[2.9.10.1,)</jackson.version>
+        <jackson.version>2.10.1</jackson.version>
         <junit.version>5.5.0</junit.version>
         <jacoco.version>0.8.4</jacoco.version>
         <reflections.version>0.9.11</reflections.version>
-        <swagger-core.version>1.5.23</swagger-core.version>
+        <swagger-core.version>1.5.24</swagger-core.version>
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <commons-validator.version>1.6</commons-validator.version>
