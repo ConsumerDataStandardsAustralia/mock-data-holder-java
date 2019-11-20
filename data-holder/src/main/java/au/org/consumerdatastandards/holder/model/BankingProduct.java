@@ -10,8 +10,8 @@ package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -36,7 +36,7 @@ public class BankingProduct {
      * articulation of products to the regime before they are
      * available for customers to originate
      */
-    @DateTimeFormat(iso = ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveFrom;
 
@@ -45,8 +45,7 @@ public class BankingProduct {
      * will no longer be offered.  Used to enable the managed
      * deprecation of products
      */
-
-    @DateTimeFormat(iso = ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveTo;
 
@@ -55,23 +54,21 @@ public class BankingProduct {
      * was changed (or the creation date for the product if it has
      * never been altered)
      */
-    @DateTimeFormat(iso = ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastUpdated;
-
 
     private BankingProductCategory productCategory;
 
     /**
      * The display name of the product
      */
-
     private String name;
 
     /**
      * A description of the product
      */
-
+    @Column(length = 2048)
     private String description;
 
     /**
@@ -79,20 +76,17 @@ public class BankingProduct {
      * filtering. For data providers with single brands this value
      * is still required
      */
-
     private String brand;
 
     /**
      * An optional display name of the brand
      */
-
     private String brandName;
 
     /**
      * A link to an application web page where this product can be
      * applied for.
      */
-
     private String applicationUri;
 
     /**
@@ -103,7 +97,6 @@ public class BankingProduct {
      * indicates that tailoring is expected and thus that the
      * provision of specific fees and rates is not applicable
      */
-
     private Boolean isTailored;
 
     public String getProductId() {

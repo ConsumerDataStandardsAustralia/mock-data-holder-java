@@ -1,19 +1,11 @@
 package au.org.consumerdatastandards.holder.util;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.UUID;
 
 public class WebUtil {
-
-    final static String V = "x-v";
-    final static String MIN_V = "x-min-v";
-    final static Integer CURRENT_VERSION = 1;
-    final static String CORRELATION_ID = "x-Correlation-Id";
-    final static String FAPI_INTERACTION_ID = "x-fapi-interaction-id";
 
     public static String getPaginatedLink(NativeWebRequest request, Integer page, Integer pageSize) {
         HttpServletRequest servletRequest = request.getNativeRequest(HttpServletRequest.class);
@@ -38,23 +30,6 @@ public class WebUtil {
         return getOriginalUrl(request.getNativeRequest(HttpServletRequest.class));
     }
 
-    public static HttpHeaders processHeaders(NativeWebRequest request) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("content-type", "application/json");
-        responseHeaders.set(V, getCurrentVersion().toString());
-        String correlationId = request.getHeader(CORRELATION_ID);
-        if (!StringUtils.isEmpty(correlationId)) {
-            responseHeaders.set(CORRELATION_ID, correlationId);
-        }
-        String fapiInteractionId = request.getHeader(FAPI_INTERACTION_ID);
-        if (!StringUtils.isEmpty(fapiInteractionId)) {
-            responseHeaders.set(FAPI_INTERACTION_ID, fapiInteractionId);
-        } else {
-            responseHeaders.set(FAPI_INTERACTION_ID, UUID.randomUUID().toString());
-        }
-        return responseHeaders;
-    }
-
     private static String getOriginalUrl(HttpServletRequest request) {
         StringBuffer requestURL = request.getRequestURL();
         String queryString = request.getQueryString();
@@ -64,38 +39,5 @@ public class WebUtil {
         } else {
             return requestURL.append("?").append(queryString).toString();
         }
-    }
-
-    public static Integer getVersionHeader(NativeWebRequest request, String header) {
-        Integer versionValue = null;
-        String headerValue = request.getHeader(header);
-        if (!StringUtils.isEmpty(headerValue)) {
-            try {
-                versionValue = Integer.parseInt(headerValue);
-            } catch (NumberFormatException e) {
-                // ignore it
-            }
-        }
-
-        return versionValue;
-    }
-
-    public static Integer getMaximumVersion(NativeWebRequest request) {
-        return getVersionHeader(request, V);
-    }
-
-    public static Integer getMinimumVersion(NativeWebRequest request) {
-        return getVersionHeader(request, MIN_V);
-    }
-
-    public static Integer getCurrentVersion() {
-        return CURRENT_VERSION;
-    }
-
-    public static boolean hasSupportedVersion(NativeWebRequest request) {
-        if (getMaximumVersion(request) != null && getCurrentVersion() > getMaximumVersion(request)) {
-            return false;
-        }
-        return getMinimumVersion(request) == null || getCurrentVersion() >= getMinimumVersion(request);
     }
 }

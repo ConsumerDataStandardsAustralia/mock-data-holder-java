@@ -34,7 +34,7 @@ public class OpenAPIDocumentationConfig {
     }
 
     @Bean
-    public Docket customImplementation(ServletContext servletContext, @Value("${openapi.consumerdatastandards.base-path:/cds-au/v1}") String basePath) {
+    public Docket customImplementation(ServletContext servletContext, @Value("${openapi.consumerdatastandards.base-path:/cds-au/v1}") String basePath){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("au.org.consumerdatastandards.holder.api"))
@@ -65,5 +65,4 @@ public class OpenAPIDocumentationConfig {
                     uriComponentsBuilder.path(operationPath.replaceFirst("^" + basePath, "")).build().toString());
         }
     }
-
 }

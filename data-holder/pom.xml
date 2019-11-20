@@ -11,7 +11,7 @@
     <description>CDS sample data holder</description>
     <properties>
         <springfox.version>2.9.2</springfox.version>
-        <jackson-databind-nullable.version>0.1.0</jackson-databind-nullable.version>
+        <jackson-databind-nullable.version>0.2.0</jackson-databind-nullable.version>
         <h2.version>1.4.199</h2.version>
     </properties>
     <build>
@@ -156,6 +156,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
         </dependency>
     </dependencies>
 </project>

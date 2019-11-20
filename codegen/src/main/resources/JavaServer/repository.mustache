@@ -1,0 +1,11 @@
+package {{repositoryPackage}};
+
+{{#imports}}
+{{import}}
+{{/imports}}
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface {{entityClassName}}Repository{{#crudRepository}} extends CrudRepository<{{entityClassName}}, {{primaryKeyClassName}}>{{/crudRepository}}
+    {{#pagingAndSortingRepository}}extends PagingAndSortingRepository<{{entityClassName}}, {{primaryKeyClassName}}>JpaSpecificationExecutor<{{entityClassName}}>{{/pagingAndSortingRepository}}

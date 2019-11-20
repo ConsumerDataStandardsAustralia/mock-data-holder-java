@@ -1,25 +1,17 @@
 package {{package}};
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 {{#imports}}import {{import}};
 {{/imports}}
-{{#serializableModel}}
-import java.io.Serializable;
-{{/serializableModel}}
 {{#useBeanValidation}}
-import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 {{/useBeanValidation}}
-{{#jackson}}
-{{#withXml}}
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-{{/withXml}}
-{{/jackson}}
-{{#withXml}}
-import javax.xml.bind.annotation.*;
-{{/withXml}}
+{{#performBeanValidation}}
+import org.hibernate.validator.constraints.*;
+{{/performBeanValidation}}
 
 {{#models}}
 {{#model}}

@@ -8,6 +8,9 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Map;
 import java.util.Objects;
 
 public class BaseResponse {
@@ -25,8 +28,9 @@ public class BaseResponse {
      * management, pagination counts or other purposes that are
      * complementary to the workings of the API.
      */
-    private Meta meta;
+    private Map<String, Object> meta;
 
+    @ApiModelProperty(required = true)
     public Links getLinks() {
         return links;
     }
@@ -35,11 +39,12 @@ public class BaseResponse {
         this.links = links;
     }
 
-    public Meta getMeta() {
+    @ApiModelProperty
+    public Map<String, Object> getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public void setMeta(Map<String, Object> meta) {
         this.meta = meta;
     }
 

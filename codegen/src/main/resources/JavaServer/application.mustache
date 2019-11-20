@@ -1,5 +1,28 @@
-springfox.documentation.swagger.v2.path=/api-docs
-server.contextPath={{^contextPath}}/{{/contextPath}}{{#contextPath}}{{contextPath}}{{/contextPath}}
-server.port={{serverPort}}
-spring.jackson.date-format={{basePackage}}.RFC3339DateFormat
+springfox.documentation.swagger.v2.path=/swagger.json
+spring.datasource.url=jdbc:h2:mem:CDS;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=passw0rd
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS=false
+
+#Security Properties
+rest.security.enabled=true
+rest.security.issuer-uri=http://localhost:8180/auth/realms/cds
+rest.security.api-matcher=/cds-au/v1/common/customer/**
+rest.security.cors.allowed-origins=*
+rest.security.cors.allowed-headers=*
+rest.security.cors.allowed-methods=GET,POST
+rest.security.cors.max-age=3600
+security.oauth2.resource.id=cds-service
+security.oauth2.resource.token-info-uri=${rest.security.issuer-uri}/protocol/openid-connect/token/introspect
+security.oauth2.resource.user-info-uri=${rest.security.issuer-uri}/protocol/openid-connect/userinfo
+security.oauth2.resource.jwt.key-value=-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArp2BrNItXwHzqzmfJcDZQIYm6ORB64LHtxVRjsLWYAHnAxvfJK74ghVjh6A7eEW6/lW1V+3KbHp5pEMb7Z+4Gf2M8K7Hr53mrIAfk4GHYxuJmmT7Us3snyZQc7UQnw7WinRm/msNaiBaTlo24lk3mlUzPF+pk4B/pG+rnyzeV1CHzT7f1U22zGkXmUpfMsjq0dS5n6kP8A8TwzvEtEnl7pTRHwNCTL0Es9VlXza7D4nm+0+VZZDYhT7tXDoitc1bdxaP56nOS/JuLnROUAiZzaekI+3Ve2l76Qdz6UMTwH3SuXMwbT8Scp18/GRsC/o4dG2z0KaVOAbHenUkWBuY4wIDAQAB\n-----END PUBLIC KEY-----
+
+#Required for micro services that needs to call another secured micro service call
+security.oauth2.client.client-id=cds-service
+security.oauth2.client.client-secret=secret
+security.oauth2.client.user-authorization-uri=${rest.security.issuer-uri}/protocol/openid-connect/auth
+security.oauth2.client.access-token-uri=${rest.security.issuer-uri}/protocol/openid-connect/token
+security.oauth2.client.scope=openid
+security.oauth2.client.grant-type=authorization_code

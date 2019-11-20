@@ -1,23 +1,20 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.*;
+import au.org.consumerdatastandards.holder.model.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.ParamEffective;
+import au.org.consumerdatastandards.holder.model.ResponseBankingProductById;
+import au.org.consumerdatastandards.holder.model.ResponseBankingProductList;
 import io.swagger.annotations.*;
-
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
-@Validated
-@Api(value = "banking", description = "the banking API")
+@Api(value = "BankingProducts", description = "the BankingProducts API")
 public interface BankingProductsApi {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -40,7 +37,6 @@ public interface BankingProductsApi {
     })
     @RequestMapping(
         value = "/banking/products/{productId}",
-        produces = MediaType.APPLICATION_JSON_VALUE,
         method = RequestMethod.GET
     )
     ResponseEntity<ResponseBankingProductById> getProductDetail(
@@ -48,7 +44,15 @@ public interface BankingProductsApi {
             value = "ID of the specific product requested",
             required = true
         )
-        @PathVariable("productId") String productId
+        @PathVariable("productId") @NotBlank String productId,
+        @ApiParam(
+            value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
+        )
+        @RequestHeader(value = "x-min-v", required = false) @Min(1) Integer xMinV,
+        @ApiParam(
+            value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
+        )
+        @RequestHeader(value = "x-v", required = false) @Min(1) Integer xV
     );
 
     @ApiOperation(
@@ -67,7 +71,6 @@ public interface BankingProductsApi {
     })
     @RequestMapping(
         value = "/banking/products",
-        produces = MediaType.APPLICATION_JSON_VALUE,
         method = RequestMethod.GET
     )
     ResponseEntity<ResponseBankingProductList> listProducts(
@@ -76,28 +79,37 @@ public interface BankingProductsApi {
             allowableValues = "ALL, CURRENT, FUTURE",
             defaultValue = "CURRENT"
         )
-        @Valid @RequestParam(value = "effective", required = false, defaultValue = "CURRENT") ParamEffective effective,
+        @RequestParam(value = "effective", required = false, defaultValue = "CURRENT") ParamEffective effective,
         @ApiParam(
             value = "Only include products that have been updated after the specified date and time. If absent defaults to include all products"
         )
-        @Valid @RequestParam(value = "updated-since", required = false) OffsetDateTime updatedSince,
+        @RequestParam(value = "updated-since", required = false) OffsetDateTime updatedSince,
         @ApiParam(
             value = "Filter results based on a specific brand"
         )
-        @Valid @RequestParam(value = "brand", required = false) String brand,
+        @RequestParam(value = "brand", required = false) String brand,
         @ApiParam(
             value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
             allowableValues = "CRED_AND_CHRG_CARDS, LEASES, MARGIN_LOANS, PERS_LOANS, REGULATED_TRUST_ACCOUNTS, RESIDENTIAL_MORTGAGES, TERM_DEPOSITS, TRADE_FINANCE, TRANS_AND_SAVINGS_ACCOUNTS, TRAVEL_CARDS"
         )
-        @Valid @RequestParam(value = "product-category", required = false) BankingProductCategory productCategory,
+        @RequestParam(value = "product-category", required = false) BankingProductCategory productCategory,
         @ApiParam(
             value = "Page of results to request (standard pagination)",
             defaultValue = "1"
         )
-        @Valid @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
             value = "Page size to request. Default is 25 (standard pagination)",
             defaultValue = "25"
         )
-        @Valid @RequestParam(value = "page-size", required = false, defaultValue = "25") Integer pageSize);
+        @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
+        @ApiParam(
+            value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
+        )
+        @RequestHeader(value = "x-min-v", required = false) @Min(1) Integer xMinV,
+        @ApiParam(
+            value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)"
+        )
+        @RequestHeader(value = "x-v", required = false) @Min(1) Integer xV
+    );
 }

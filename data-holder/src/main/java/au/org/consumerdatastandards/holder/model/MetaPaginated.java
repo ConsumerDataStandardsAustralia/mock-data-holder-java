@@ -8,20 +8,42 @@
  */
 package au.org.consumerdatastandards.holder.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
-public class MetaPaginated {
+@ApiModel
+public class MetaPaginated  {
 
     /**
-     * The total number of records in the full set
-     */
-    private Integer totalRecords;
-
-    /**
-     * The total number of pages in the full set
+     * The total number of pages in the full set. See [pagination](#pagination).
      */
     private Integer totalPages;
 
+    /**
+     * The total number of records in the full set. See [pagination](#pagination).
+     */
+    private Integer totalRecords;
+
+    public MetaPaginated totalPages(Integer totalPages) {
+        this.totalPages = totalPages;
+        return this;
+    }
+
+    @ApiModelProperty(required = true, value = "The total number of pages in the full set. See [pagination](#pagination).")
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
+    }
+    public MetaPaginated totalRecords(Integer totalRecords) {
+        this.totalRecords = totalRecords;
+        return this;
+    }
+
+    @ApiModelProperty(required = true, value = "The total number of records in the full set. See [pagination](#pagination).")
     public Integer getTotalRecords() {
         return totalRecords;
     }
@@ -30,35 +52,43 @@ public class MetaPaginated {
         this.totalRecords = totalRecords;
     }
 
-    public Integer getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MetaPaginated that = (MetaPaginated) o;
-        return Objects.equals(totalRecords, that.totalRecords) &&
-            Objects.equals(totalPages, that.totalPages);
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MetaPaginated metaPaginated = (MetaPaginated) o;
+        return Objects.equals(this.totalPages, metaPaginated.totalPages) &&
+            Objects.equals(this.totalRecords, metaPaginated.totalRecords);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            totalRecords,
-            totalPages);
+            totalPages,
+            totalRecords);
     }
 
     @Override
     public String toString() {
-        return "MetaPaginated{" +
-            "totalRecords=" + totalRecords +
-            ", totalPages=" + totalPages +
-            '}';
+        return "class MetaPaginated {\n" +
+            "   totalPages: " + toIndentedString(totalPages) + "\n" + 
+            "   totalRecords: " + toIndentedString(totalRecords) + "\n" + 
+            "}";
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    protected String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
     }
 }
+
