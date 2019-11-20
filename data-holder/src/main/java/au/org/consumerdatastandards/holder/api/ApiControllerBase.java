@@ -2,6 +2,7 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
+import au.org.consumerdatastandards.holder.model.TxMetaPaginated;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.slf4j.Logger;
@@ -116,6 +117,13 @@ public class ApiControllerBase {
 
     protected MetaPaginated getMetaData(Page page) {
         MetaPaginated metaData = new MetaPaginated();
+        metaData.setTotalPages(page.getTotalPages());
+        metaData.setTotalRecords((int)page.getTotalElements());
+        return metaData;
+    }
+
+    protected TxMetaPaginated getTxMetaData(Page page, boolean isQueryParamUnsupported) {
+        TxMetaPaginated metaData = new TxMetaPaginated();
         metaData.setTotalPages(page.getTotalPages());
         metaData.setTotalRecords((int)page.getTotalElements());
         return metaData;
