@@ -58,18 +58,6 @@ class CustomDataTypeTests {
         assertFalse(maskedPAN.matches(CustomDataType.MaskedPAN.getPattern()));
     }
 
-    @ParameterizedTest(name = "{0} should be valid masked account")
-    @ValueSource(strings = {"xxxx xxxx xxxx 1234", "xxx-xxx xxxxx1234"})
-    void validMaskedAccounts(String maskedAccount) {
-        assertTrue(maskedAccount.matches(CustomDataType.MaskedAccount.getPattern()));
-    }
-
-    @ParameterizedTest(name = "{0} should be invalid masked account")
-    @ValueSource(strings = {"xxxx xxxx xxxx x234", "xxxxxx xxxxx1234"})
-    void invalidMaskedAccounts(String maskedAccount) {
-        assertFalse(maskedAccount.matches(CustomDataType.MaskedAccount.getPattern()));
-    }
-
     @ParameterizedTest(name = "{0} should be valid ASCII String")
     @ValueSource(strings = {"", " ", "abc", " 1 2", "@$&&%(*"})
     void validASCIIString(String asciiString) {
