@@ -5,7 +5,7 @@ public enum CustomDataType {
     Date("DateString", Format.DATE),
     Duration("DurationString", "P(?:(\\d+(?:[\\.,]\\d+)?W)|(\\d+(?:[\\.,]\\d+)?Y)?(\\d+(?:[\\.,]\\d+)?M)?(\\d+(?:[\\.,]\\d+)?D)?(?:T(\\d+(?:[\\.,]\\d+)?H)?(\\d+(?:[\\.,]\\d+)?M)?(\\d+(?:[\\.,]\\d+)?S)?)?)"),
     MaskedPAN("MaskedPANString", "(x{4} ){3}\\d{4}"),
-    MaskedAccount("MaskedAccountString", "(xxx\\-xxx xxxxx|(xxxx ){3})?\\d{4}"),
+    MaskedAccount("MaskedAccountString"),
     NaturalNumber("NaturalNumber", 0, Integer.MAX_VALUE),
     ASCII("ASCIIString", "\\p{Print}*"),
     Unicode("UnicodeString", "(\\p{L}|\\p{Print})*"),
