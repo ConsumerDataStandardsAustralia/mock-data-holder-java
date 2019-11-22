@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.accounts;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import org.apache.commons.lang3.StringUtils;
@@ -19,8 +19,7 @@ public class GetAccountDetailTest extends BankingAccountsAPITestBase {
         List<String> accountIds = steps.getAccountIds();
         if (accountIds != null) {
             for (String accountId : accountIds) {
-                steps.getAccountDetail(accountId);
-                steps.validateGetAccountDetailResponse(accountId);
+                getAccountDetail(accountId);
             }
         }
     }

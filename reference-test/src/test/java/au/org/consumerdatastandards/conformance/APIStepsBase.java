@@ -29,7 +29,7 @@ public class APIStepsBase {
         this.apiBasePath = apiBasePath;
     }
 
-    String getApiBasePath() {
+    public String getApiBasePath() {
         return apiBasePath;
     }
 

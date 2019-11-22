@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.balances;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;

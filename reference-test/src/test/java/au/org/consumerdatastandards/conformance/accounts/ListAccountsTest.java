@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.accounts;
 
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.thucydides.junit.annotations.UseTestDataFrom;

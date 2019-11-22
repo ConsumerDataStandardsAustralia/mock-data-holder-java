@@ -1,20 +1,20 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.balances;
 
 import au.org.consumerdatastandards.api.banking.models.BankingAccount;
-import au.org.consumerdatastandards.api.banking.models.BankingAccountDetail;
 import au.org.consumerdatastandards.api.banking.models.BankingBalance;
 import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceListData;
+import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
+import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
 import au.org.consumerdatastandards.support.data.CustomDataType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
@@ -99,7 +99,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
                 payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalancesList, "listBalancesBulk", statusCode);
 
                 ResponseBankingAccountsBalanceListData data = (ResponseBankingAccountsBalanceListData) getResponseData(responseBankingAccountsBalancesList);
-                return getBulkBalances(data);
+                return getBalances(data);
             } catch (IOException e) {
                 fail(e.getMessage());
             }
@@ -107,11 +107,6 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
         }
         return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    private List<BankingBalance> getBulkBalances(ResponseBankingAccountsBalanceListData balancesListData) {
-        return (List<BankingBalance>) getField(balancesListData, "balances");
     }
 
     private static boolean validateListBalanceBulkParams(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
@@ -130,19 +125,6 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
             }
         }
         return (page == null || page >= 1) && (pageSize == null || pageSize >= 1);
-    }
-
-    @Step("Validate BankingAccountDetail productCategory, openStatus, isOwned")
-    public void validateReferencedByIdAccount(BankingAccountDetail accountDetail, String productCategory, String openStatus, Boolean isOwned) {
-        List<ConformanceError> conformanceErrors = new ArrayList<>();
-        checkProductCategory(accountDetail, productCategory, conformanceErrors);
-        checkOpenStatus(accountDetail, openStatus, conformanceErrors);
-        checkOwned(accountDetail, isOwned, conformanceErrors);
-
-        dumpConformanceErrors(conformanceErrors);
-
-        assertTrue("Conformance errors found in response payload"
-                + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
     }
 
     @Step("Request /banking/accounts/{accountId}/balance")
@@ -204,19 +186,6 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
         }
         listBalancesSpecificAccountsResponse = given.relaxedHTTPSValidation().body(prepareRequestJson(accountIds))
                 .when().post(url).then().log().all().extract().response();
-    }
-
-    private String prepareRequestJson(String[] accountIds) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode accIdsObj = mapper.createObjectNode();
-        ObjectNode accData = mapper.createObjectNode();
-        ArrayNode accIdsArr = mapper.createArrayNode();
-        for (String accountId : accountIds) {
-            accIdsArr.add(accountId);
-        }
-        accData.set("accountIds", accIdsArr);
-        accIdsObj.set("data", accData);
-        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(accIdsObj);
     }
 
     @Step("Request POST /banking/accounts/balances response")

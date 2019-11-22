@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.products;
 
 import au.org.consumerdatastandards.api.banking.models.BankingProduct;
 import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
@@ -6,6 +6,9 @@ import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductListData;
+import au.org.consumerdatastandards.conformance.APIStepsBase;
+import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;

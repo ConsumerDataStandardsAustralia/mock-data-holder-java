@@ -9,7 +9,10 @@ import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
 import au.org.consumerdatastandards.support.data.CustomDataType;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.response.Response;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +37,7 @@ public class AccountsAPIStepsBase extends APIStepsBase {
     private Response getAccountDetailResponse;
 
     @Step("Request /banking/accounts/{accountId}")
-    void getAccountDetail(String accountId) {
+    public void getAccountDetail(String accountId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId;
         requestUrl = url;
         getAccountDetailResponse = given().relaxedHTTPSValidation()
@@ -44,7 +47,7 @@ public class AccountsAPIStepsBase extends APIStepsBase {
     }
 
     @Step("Validate /banking/accounts/{accountId} response")
-    BankingAccountDetail validateGetAccountDetailResponse(String accountId) {
+    public BankingAccountDetail validateGetAccountDetailResponse(String accountId) {
         int statusCode = getAccountDetailResponse.statusCode();
         if (accountId.matches(CustomDataType.ASCII.getPattern())) {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
@@ -80,7 +83,7 @@ public class AccountsAPIStepsBase extends APIStepsBase {
         return null;
     }
 
-    protected static String getAccountId(Object data) {
+    public static String getAccountId(Object data) {
         return (String) getField(data, "accountId");
     }
 
@@ -133,5 +136,31 @@ public class AccountsAPIStepsBase extends APIStepsBase {
                     .dataJson(ConformanceUtil.toJson(obj)).errorMessage(String.format(
                             "Response accountId %s does not match request accountId %s", id, accountId)));
         }
+    }
+
+    @Step("Validate BankingAccountDetail productCategory, openStatus, isOwned")
+    public void validateReferencedByIdAccount(BankingAccountDetail accountDetail, String productCategory, String openStatus, Boolean isOwned) {
+        List<ConformanceError> conformanceErrors = new ArrayList<>();
+        checkProductCategory(accountDetail, productCategory, conformanceErrors);
+        checkOpenStatus(accountDetail, openStatus, conformanceErrors);
+        checkOwned(accountDetail, isOwned, conformanceErrors);
+
+        dumpConformanceErrors(conformanceErrors);
+
+        assertTrue("Conformance errors found in response payload"
+                + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+    }
+
+    protected String prepareRequestJson(String[] accountIds) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode accIdsObj = mapper.createObjectNode();
+        ObjectNode accData = mapper.createObjectNode();
+        ArrayNode accIdsArr = mapper.createArrayNode();
+        for (String accountId : accountIds) {
+            accIdsArr.add(accountId);
+        }
+        accData.set("accountIds", accIdsArr);
+        accIdsObj.set("data", accData);
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(accIdsObj);
     }
 }

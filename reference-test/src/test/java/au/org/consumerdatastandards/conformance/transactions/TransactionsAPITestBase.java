@@ -1,5 +1,6 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.transactions;
 
+import au.org.consumerdatastandards.conformance.APITestBase;
 import net.thucydides.core.annotations.Steps;
 
 public class TransactionsAPITestBase extends APITestBase {
