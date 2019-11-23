@@ -1,10 +1,11 @@
-package au.org.consumerdatastandards.conformance.directdebits;
+package au.org.consumerdatastandards.conformance.scheduled.payments;
 
 import au.org.consumerdatastandards.api.banking.models.BankingAccount;
-import au.org.consumerdatastandards.api.banking.models.BankingDirectDebit;
+import au.org.consumerdatastandards.api.banking.models.BankingScheduledPayment;
+import au.org.consumerdatastandards.api.banking.models.BankingScheduledPaymentFrom;
 import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationListData;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsList;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.PayloadValidator;
@@ -30,22 +31,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
+public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
 
     private PayloadValidator payloadValidator = new PayloadValidator();
     private String requestUrl;
-    private Response listDirectDebitsBulkResponse;
-    private Response listDirectDebitsResponse;
-    private Response listDirectDebitsSpecificAccountsResponse;
+    private Response listScheduledPaymentsBulkResponse;
+    private Response listScheduledPaymentsResponse;
+    private Response listScheduledPaymentsSpecificAccountsResponse;
 
-    @Step("Request /banking/accounts/direct-debits")
-    public void listDirectDebitsBulk(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
-        String url = getApiBasePath() + "/banking/accounts/direct-debits";
+    @Step("Request /banking/payments/scheduled")
+    public void listScheduledPaymentsBulk(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
+        String url = getApiBasePath() + "/banking/payments/scheduled";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = given()
                 .header("Accept", "application/json")
-                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listDirectDebitsBulk"));
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listScheduledPaymentsBulk"));
         if (!StringUtils.isBlank(openStatus)) {
             given.queryParam("open-status", openStatus);
             requestUrl += "?open-status=" + openStatus;
@@ -71,34 +72,34 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listDirectDebitsBulkResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listScheduledPaymentsBulkResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
     }
 
-    @Step("Validate /banking/accounts/direct-debits response")
-    public List<BankingDirectDebit> validateListDirectDebitsBulkResponse(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
-        boolean paramsValid = validateListDirectDebitsBulkParams(productCategory, openStatus, isOwned, page, pageSize);
-        int statusCode = listDirectDebitsBulkResponse.statusCode();
+    @Step("Validate /banking/payments/scheduled response")
+    public List<BankingScheduledPayment> validateListScheduledPaymentsBulkResponse(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
+        boolean paramsValid = validateListScheduledPaymentsBulkParams(productCategory, openStatus, isOwned, page, pageSize);
+        int statusCode = listScheduledPaymentsBulkResponse.statusCode();
         if (paramsValid) {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(listDirectDebitsBulkResponse, conformanceErrors);
-            checkProtectedEndpointResponseHeaders(listDirectDebitsBulkResponse, conformanceErrors);
-            checkJsonContentType(listDirectDebitsBulkResponse.contentType(), conformanceErrors);
+            checkResponseHeaders(listScheduledPaymentsBulkResponse, conformanceErrors);
+            checkProtectedEndpointResponseHeaders(listScheduledPaymentsBulkResponse, conformanceErrors);
+            checkJsonContentType(listScheduledPaymentsBulkResponse.contentType(), conformanceErrors);
 
             dumpConformanceErrors(conformanceErrors);
 
             assertTrue("Conformance errors found in response payload"
                     + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
 
-            String json = listDirectDebitsBulkResponse.getBody().asString();
+            String json = listScheduledPaymentsBulkResponse.getBody().asString();
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
 
             try {
-                ResponseBankingDirectDebitAuthorisationList responseDirectDebitList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseDirectDebitList, "listDirectDebitsBulk", statusCode);
+                ResponseBankingScheduledPaymentsList responseScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
+                payloadValidator.validateResponse(this.requestUrl, responseScheduledPaymentsList, "listScheduledPaymentsBulk", statusCode);
 
-                ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseDirectDebitList);
-                return getDirectDebitList(data);
+                ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseScheduledPaymentsList);
+                return getScheduledPaymentsList(data);
             } catch (IOException e) {
                 fail(e.getMessage());
             }
@@ -108,7 +109,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         return null;
     }
 
-    private static boolean validateListDirectDebitsBulkParams(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
+    private static boolean validateListScheduledPaymentsBulkParams(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
         if (!StringUtils.isBlank(productCategory)) {
             try {
                 ParamProductCategory.valueOf(productCategory);
@@ -126,14 +127,14 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         return (page == null || page >= 1) && (pageSize == null || pageSize >= 1);
     }
 
-    @Step("Request /banking/accounts/{accountId}/direct-debits")
-    public void listDirectDebits(String accountId, Integer page, Integer pageSize) {
+    @Step("Request /banking/accounts/{accountId}/payments/scheduled")
+    public void listScheduledPayments(String accountId, Integer page, Integer pageSize) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/direct-debits";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = given()
                 .header("Accept", "application/json")
-                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listDirectDebits"));
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listScheduledPayments"));
         if (page != null) {
             given.queryParam("page", page);
             requestUrl += "?page=" + page;
@@ -144,30 +145,30 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listDirectDebitsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listScheduledPaymentsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
     }
 
-    @Step("Validate /banking/accounts/{accountId}/direct-debits response")
-    public void validateListDirectDebitsResponse(String accountId, Integer page, Integer pageSize) {
-        boolean paramsValid = validateListDirectDebitsParams(accountId, page, pageSize);
-        int statusCode = listDirectDebitsResponse.statusCode();
+    @Step("Validate /banking/accounts/{accountId}/payments/scheduled response")
+    public void validateListScheduledPaymentsResponse(String accountId, Integer page, Integer pageSize) {
+        boolean paramsValid = validateListScheduledPaymentsParams(accountId, page, pageSize);
+        int statusCode = listScheduledPaymentsResponse.statusCode();
         if (paramsValid) {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(listDirectDebitsResponse, conformanceErrors);
-            checkProtectedEndpointResponseHeaders(listDirectDebitsResponse, conformanceErrors);
-            checkJsonContentType(listDirectDebitsResponse.contentType(), conformanceErrors);
+            checkResponseHeaders(listScheduledPaymentsResponse, conformanceErrors);
+            checkProtectedEndpointResponseHeaders(listScheduledPaymentsResponse, conformanceErrors);
+            checkJsonContentType(listScheduledPaymentsResponse.contentType(), conformanceErrors);
 
-            String json = listDirectDebitsResponse.getBody().asString();
+            String json = listScheduledPaymentsResponse.getBody().asString();
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
 
             try {
-                ResponseBankingDirectDebitAuthorisationList responseBankingDirectDebitAuthorisationList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList, "listDirectDebits", statusCode);
+                ResponseBankingScheduledPaymentsList responseBankingScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
+                payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList, "listScheduledPayments", statusCode);
 
-                ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseBankingDirectDebitAuthorisationList);
+                ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseBankingScheduledPaymentsList);
 
-                checkDirectDebitsForAccountId(data, accountId, conformanceErrors);
+                checkScheduledPaymentsForAccountId(data, accountId, conformanceErrors);
             } catch (IOException e) {
                 fail(e.getMessage());
             }
@@ -181,40 +182,44 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         }
     }
 
-    private void checkDirectDebitsForAccountId(ResponseBankingDirectDebitAuthorisationListData data, String accountId, List<ConformanceError> errors) {
+    private void checkScheduledPaymentsForAccountId(ResponseBankingScheduledPaymentsListData data, String accountId, List<ConformanceError> errors) {
         if (StringUtils.isNotBlank(accountId)) {
-            List<BankingDirectDebit> directDebits = getDirectDebitList(data);
-            for (BankingDirectDebit directDebit : directDebits) {
-                String accId = (String) getField(directDebit, "accountId");
+            List<BankingScheduledPayment> scheduledPayments = getScheduledPaymentsList(data);
+            for (BankingScheduledPayment scheduledPayment : scheduledPayments) {
+                String accId = getSchdeduledPaymentAccountId(scheduledPayment);
                 if (!accId.equals(accountId)) {
                     errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                            .dataJson(ConformanceUtil.toJson(directDebit)).errorMessage(String.format(
+                            .dataJson(ConformanceUtil.toJson(scheduledPayment)).errorMessage(String.format(
                                     "Unexpected accountId %s in response. Expected: %s", accId, accountId)));
                 }
             }
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private List<BankingDirectDebit> getDirectDebitList(Object directDebitListData) {
-        return (List<BankingDirectDebit>) getField(directDebitListData, "directDebitAuthorisations");
+    static String getSchdeduledPaymentAccountId(BankingScheduledPayment scheduledPayment) {
+        return getAccountId((BankingScheduledPaymentFrom) getField(scheduledPayment, "from"));
     }
 
-    private static boolean validateListDirectDebitsParams(String accountId, Integer page, Integer pageSize) {
+    @SuppressWarnings("unchecked")
+    private List<BankingScheduledPayment> getScheduledPaymentsList(Object scheduledPaymentsListData) {
+        return (List<BankingScheduledPayment>) getField(scheduledPaymentsListData, "scheduledPayments");
+    }
+
+    private static boolean validateListScheduledPaymentsParams(String accountId, Integer page, Integer pageSize) {
         if (!accountId.matches(CustomDataType.ASCII.getPattern())) {
             return false;
         }
         return (page == null || page >= 1) && (pageSize == null || pageSize >= 1);
     }
 
-    @Step("Request POST /banking/accounts/direct-debits")
-    public void listDirectDebitsSpecificAccounts(String[] accountIds, Integer page, Integer pageSize) throws JsonProcessingException {
-        String url = getApiBasePath() + "/banking/accounts/direct-debits";
+    @Step("Request POST /banking/payments/scheduled")
+    public void listScheduledPaymentsSpecificAccounts(String[] accountIds, Integer page, Integer pageSize) throws JsonProcessingException {
+        String url = getApiBasePath() + "/banking/payments/scheduled";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = given()
                 .header("Accept", "application/json")
-                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listDirectDebitsSpecificAccounts"));
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listScheduledPaymentsSpecificAccounts"));
         if (page != null) {
             given.queryParam("page", page);
             requestUrl += "?page=" + page;
@@ -224,27 +229,27 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
             given.queryParam("page-size", pageSize);
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
-        listDirectDebitsSpecificAccountsResponse = given.relaxedHTTPSValidation().body(prepareRequestJson(accountIds))
+        listScheduledPaymentsSpecificAccountsResponse = given.relaxedHTTPSValidation().body(prepareRequestJson(accountIds))
                 .when().post(url).then().log().all().extract().response();
     }
 
-    @Step("Request POST /banking/accounts/direct-debits response")
-    public void validateListDirectDebitsSpecificAccountsResponse(String[] accountIds, Integer page, Integer pageSize) {
-        boolean paramsValid = validateListDirectDebitsSpecificAccountsParams(accountIds, page, pageSize);
-        int statusCode = listDirectDebitsSpecificAccountsResponse.statusCode();
+    @Step("Request POST /banking/payments/scheduled response")
+    public void validateListScheduledPaymentsSpecificAccountsResponse(String[] accountIds, Integer page, Integer pageSize) {
+        boolean paramsValid = validateListScheduledPaymentsSpecificAccountsParams(accountIds, page, pageSize);
+        int statusCode = listScheduledPaymentsSpecificAccountsResponse.statusCode();
         if (paramsValid) {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(listDirectDebitsSpecificAccountsResponse, conformanceErrors);
-            checkJsonContentType(listDirectDebitsSpecificAccountsResponse.contentType(), conformanceErrors);
-            String json = listDirectDebitsSpecificAccountsResponse.getBody().asString();
+            checkResponseHeaders(listScheduledPaymentsSpecificAccountsResponse, conformanceErrors);
+            checkJsonContentType(listScheduledPaymentsSpecificAccountsResponse.contentType(), conformanceErrors);
+            String json = listScheduledPaymentsSpecificAccountsResponse.getBody().asString();
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
             try {
-                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingDirectDebitAuthorisationList.class);
-                Object responseBankingDirectDebitAuthorisationList = objectMapper.readValue(json, expandedResponseClass);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList,
-                        "listDirectDebitsSpecificAccounts", statusCode));
-                Object data = getResponseData(responseBankingDirectDebitAuthorisationList);
+                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingScheduledPaymentsList.class);
+                Object responseBankingScheduledPaymentsList = objectMapper.readValue(json, expandedResponseClass);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList,
+                        "listScheduledPaymentsSpecificAccounts", statusCode));
+                Object data = getResponseData(responseBankingScheduledPaymentsList);
                 checkAccountIds(data, accountIds, conformanceErrors);
 
                 dumpConformanceErrors(conformanceErrors);
@@ -260,21 +265,21 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
     }
 
     private void checkAccountIds(Object data, String[] accountIds, List<ConformanceError> conformanceErrors) {
-        List<BankingDirectDebit> directDebits = getDirectDebitList(data);
-        if (directDebits != null) {
+        List<BankingScheduledPayment> scheduledPayments = getScheduledPaymentsList(data);
+        if (scheduledPayments != null) {
             List<String> idList = Arrays.asList(accountIds);
-            for (BankingDirectDebit directDebit : directDebits) {
-                String accountId = getAccountId(directDebit);
+            for (BankingScheduledPayment scheduledPayment : scheduledPayments) {
+                String accountId = getSchdeduledPaymentAccountId(scheduledPayment);
                 if (!idList.contains(accountId)) {
                     conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                            .dataJson(ConformanceUtil.toJson(directDebit)).errorMessage(String.format(
+                            .dataJson(ConformanceUtil.toJson(scheduledPayment)).errorMessage(String.format(
                                     "Unexpected accountId %s in response", accountId)));
                 }
             }
         }
     }
 
-    private boolean validateListDirectDebitsSpecificAccountsParams(String[] accountIds, Integer page, Integer pageSize) {
+    private boolean validateListScheduledPaymentsSpecificAccountsParams(String[] accountIds, Integer page, Integer pageSize) {
         if (accountIds == null || accountIds.length == 0) {
             return false;
         }

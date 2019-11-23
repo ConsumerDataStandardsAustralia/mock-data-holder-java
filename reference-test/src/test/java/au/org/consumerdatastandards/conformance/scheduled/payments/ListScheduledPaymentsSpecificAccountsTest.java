@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.conformance.directdebits;
+package au.org.consumerdatastandards.conformance.scheduled.payments;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
@@ -8,21 +8,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(SerenityParameterizedRunner.class)
-@UseTestDataFrom("testdata/banking-direct-debits-accounts-api-params.csv")
-public class ListDirectDebitsSpecificAccountsTest extends DirectDebitsAPITestBase {
+@UseTestDataFrom("testdata/banking-scheduled-payments-accounts-api-params.csv")
+public class ListScheduledPaymentsSpecificAccountsTest extends ScheduledPaymentsAPITestBase {
 
     private String accountIds;
     private Integer page;
     private Integer pageSize;
 
     @Test
-    public void listDirectDebitsSpecificAccounts() throws JsonProcessingException {
+    public void listScheduledPaymentsSpecificAccounts() throws JsonProcessingException {
         if (StringUtils.isBlank(steps.getApiBasePath())) {
             return;
         }
         String[] ids = (accountIds == null ? null : accountIds.split(" "));
-        steps.listDirectDebitsSpecificAccounts(ids, page, pageSize);
-        steps.validateListDirectDebitsSpecificAccountsResponse(ids, page, pageSize);
+        steps.listScheduledPaymentsSpecificAccounts(ids, page, pageSize);
+        steps.validateListScheduledPaymentsSpecificAccountsResponse(ids, page, pageSize);
     }
 
     public void setAccountIds(String accountIds) {
