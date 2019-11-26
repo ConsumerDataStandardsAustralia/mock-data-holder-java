@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.products;
 
 
 import net.serenitybdd.junit.runners.SerenityRunner;

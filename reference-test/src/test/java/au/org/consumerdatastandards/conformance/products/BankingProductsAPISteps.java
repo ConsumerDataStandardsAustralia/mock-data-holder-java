@@ -1,6 +1,13 @@
-package au.org.consumerdatastandards.conformance;
+package au.org.consumerdatastandards.conformance.products;
 
-import au.org.consumerdatastandards.api.banking.models.*;
+import au.org.consumerdatastandards.api.banking.models.BankingProduct;
+import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
+import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductById;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductList;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductListData;
+import au.org.consumerdatastandards.conformance.APIStepsBase;
+import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -12,8 +19,6 @@ import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
@@ -24,17 +29,12 @@ import java.util.List;
 
 import static au.org.consumerdatastandards.api.banking.BankingProductsAPI.ParamEffective;
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
-import static au.org.consumerdatastandards.conformance.ConformanceError.Type.MISSING_HEADER;
 import static net.serenitybdd.rest.SerenityRest.given;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class BankingProductsAPISteps {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private PayloadValidator payloadValidator = new PayloadValidator();
-
-    private String apiBasePath;
+public class BankingProductsAPISteps extends APIStepsBase {
 
     private Response listProductsResponse;
 
@@ -44,15 +44,10 @@ public class BankingProductsAPISteps {
 
     private ResponseBankingProductList responseBankingProductList;
 
-    @Step("Setup API base path to {0}")
-    void setupApiBasePath(String apiBasePath) {
-        this.apiBasePath = apiBasePath;
-    }
-
     @Step("Request /banking/products")
     void listProducts(String effective, String updatedSince, String brand, String productCategory, Integer page,
                       Integer pageSize) {
-        String url = apiBasePath + "/banking/products";
+        String url = getApiBasePath() + "/banking/products";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = given()
@@ -124,12 +119,10 @@ public class BankingProductsAPISteps {
                                 brand, productCategory));
                     }
                 }
-                for (ConformanceError error : conformanceErrors) {
-                    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    logger.error(error.getDescription());
-                }
 
-                assertTrue("Conformance errors found in response payload"
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload:"
                         + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             } catch (IOException e) {
                 fail(e.getMessage());
@@ -153,7 +146,7 @@ public class BankingProductsAPISteps {
             BankingProductCategory bankingProductCategory = getProductCategory(bankingProduct);
             if (bankingProductCategory == null || !bankingProductCategory.name().equals(productCategory)) {
                 errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                        .errorField(FieldUtils.getField(BankingProduct.class, "effectiveFrom", true))
+                        .errorField(FieldUtils.getField(BankingProduct.class, "productCategory", true))
                         .dataJson(ConformanceUtil.toJson(bankingProduct))
                         .errorMessage(String.format(
                                 "BankingProduct productCategory %s does not match productCategory query %s",
@@ -308,7 +301,7 @@ public class BankingProductsAPISteps {
 
     @Step("Request /banking/products/{productId}")
     void getProductDetail(String productId) {
-        String url = apiBasePath + "/banking/products/" + productId;
+        String url = getApiBasePath() + "/banking/products/" + productId;
         requestUrl = url;
         getProductDetailResponse = given().relaxedHTTPSValidation()
                 .header("Accept", "application/json")
@@ -325,11 +318,7 @@ public class BankingProductsAPISteps {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
             List<ConformanceError> conformanceErrors = new ArrayList<>();
             checkResponseHeaders(getProductDetailResponse, conformanceErrors);
-            String contentType = getProductDetailResponse.contentType();
-            if (!isContentTypeValid(contentType)) {
-                conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                        .errorMessage("missing content-type application/json in response header"));
-            }
+            checkJsonContentType(getProductDetailResponse.contentType(), conformanceErrors);
             String json = getProductDetailResponse.getBody().asString();
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
             try {
@@ -344,10 +333,9 @@ public class BankingProductsAPISteps {
                             .dataJson(ConformanceUtil.toJson(responseBankingProductById)).errorMessage(String.format(
                                     "Response productId %s does not match request productId %s", id, productId)));
                 }
-                for (ConformanceError error : conformanceErrors) {
-                    logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    logger.error(error.getDescription());
-                }
+
+                dumpConformanceErrors(conformanceErrors);
+
                 String message = "Conformance errors found in response payload: "
                         + buildConformanceErrorsDescription(conformanceErrors);
                 assertTrue(message, conformanceErrors.isEmpty());
@@ -355,24 +343,6 @@ public class BankingProductsAPISteps {
                 fail(e.getMessage());
             }
         }
-    }
-
-    private void checkResponseHeaders(Response response, List<ConformanceError> conformanceErrors) {
-        String version = response.header(Header.VERSION.getKey());
-        if (StringUtils.isBlank(version)) {
-            conformanceErrors.add(new ConformanceError().errorType(MISSING_HEADER)
-                .errorMessage("missing '" + Header.VERSION.getKey() + "' in response header"));
-        } else {
-            ConformanceUtil.checkHeaderValue(version, Header.VERSION, conformanceErrors);
-        }
-    }
-
-    private String buildConformanceErrorsDescription(List<ConformanceError> conformanceErrors) {
-        StringBuilder sb = new StringBuilder();
-        for (ConformanceError error : conformanceErrors) {
-            sb.append("\n\n").append(error.getDescription());
-        }
-        return sb.toString();
     }
 
     private Object getBankingProductDetail(Object responseBankingProductById) {
@@ -385,13 +355,5 @@ public class BankingProductsAPISteps {
         String idFieldName = ConformanceUtil.getFieldName(data, "productId");
         Field idField = FieldUtils.getField(data.getClass(), idFieldName, true);
         return (String) ReflectionUtils.getField(idField, data);
-    }
-
-    private boolean isContentTypeValid(String contentType) {
-        return contentType != null && contentType.startsWith("application/json");
-    }
-
-    String getApiBasePath() {
-        return apiBasePath;
     }
 }
