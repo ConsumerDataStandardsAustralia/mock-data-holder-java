@@ -2,14 +2,16 @@ package au.org.consumerdatastandards.conformance.payees;
 
 import au.org.consumerdatastandards.api.banking.BankingPayeesAPI;
 import au.org.consumerdatastandards.api.banking.models.BankingPayee;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationListData;
+import au.org.consumerdatastandards.api.banking.models.BankingPayeeDetail;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeList;
+import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeListData;
 import au.org.consumerdatastandards.conformance.APIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
+import au.org.consumerdatastandards.support.data.CustomDataType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -20,6 +22,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static net.serenitybdd.rest.SerenityRest.given;
@@ -29,9 +32,9 @@ import static org.junit.Assert.fail;
 
 public class PayeesAPISteps extends APIStepsBase {
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private String requestUrl;
     private Response listPayeesResponse;
+    private Response getPayeeDetailResponse;
 
     @Step("Request /banking/payees")
     public void listPayees(String type, Integer page, Integer pageSize) {
@@ -80,9 +83,10 @@ public class PayeesAPISteps extends APIStepsBase {
 
             try {
                 ResponseBankingPayeeList responseBankingPayeeList = objectMapper.readValue(json, ResponseBankingPayeeList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseBankingPayeeList, "listPayees", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingPayeeList,
+                        "listPayees", statusCode));
 
-                ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseBankingPayeeList);
+                ResponseBankingPayeeListData data = (ResponseBankingPayeeListData) getResponseData(responseBankingPayeeList);
                 List<BankingPayee> payees = getBankingPayeeList(data);
                 for (BankingPayee payee : payees) {
                     checkType(payee, type, conformanceErrors);
@@ -124,5 +128,71 @@ public class PayeesAPISteps extends APIStepsBase {
     @SuppressWarnings("unchecked")
     private List<BankingPayee> getBankingPayeeList(Object bankingPayeeListData) {
         return (List<BankingPayee>) getField(bankingPayeeListData, "payees");
+    }
+
+    @Step("Request /banking/payees/{payeeId}")
+    public void getPayeeDetail(String payeeId) {
+        String url = getApiBasePath() + "/banking/payees/" + payeeId;
+        requestUrl = url;
+        getPayeeDetailResponse = given().relaxedHTTPSValidation()
+                .header("Accept", "application/json")
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getPayeeDetail"))
+                .when().get(url).then().log().all().extract().response();
+    }
+
+    @Step("Validate /banking/payees/{payeeId} response")
+    public void validateGetPayeeDetailResponse(String payeeId) {
+        int statusCode = getPayeeDetailResponse.statusCode();
+        if (payeeId.matches(CustomDataType.ASCII.getPattern())) {
+            assertEquals(ResponseCode.OK.getCode(), statusCode);
+            List<ConformanceError> conformanceErrors = new ArrayList<>();
+            checkResponseHeaders(getPayeeDetailResponse, conformanceErrors);
+            checkProtectedEndpointResponseHeaders(getPayeeDetailResponse, conformanceErrors);
+            checkJsonContentType(getPayeeDetailResponse.contentType(), conformanceErrors);
+
+            String json = getPayeeDetailResponse.getBody().asString();
+            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+
+            try {
+                ResponseBankingPayeeById responseBankingPayeeById = objectMapper.readValue(json, ResponseBankingPayeeById.class);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingPayeeById,
+                        "getPayeeDetail", statusCode));
+
+                BankingPayeeDetail data = (BankingPayeeDetail) getResponseData(responseBankingPayeeById);
+                String bankingPayeeId = (String) getField(data, "payeeId");
+                if (!payeeId.equals(bankingPayeeId)) {
+                    conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                            .dataJson(ConformanceUtil.toJson(responseBankingPayeeById)).errorMessage(String.format(
+                                    "Response payeeId %s does not match request payeeId %s", bankingPayeeId, payeeId)));
+                }
+
+            } catch (IOException e) {
+                fail(e.getMessage());
+            }
+
+            dumpConformanceErrors(conformanceErrors);
+
+            assertTrue("Conformance errors found in response payload"
+                    + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+        } else {
+            assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
+        }
+    }
+
+    List<String> getPayeeIds() {
+        String json = listPayeesResponse.getBody().asString();
+        ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+
+        try {
+            ResponseBankingPayeeList responseBankingPayeeList = objectMapper.readValue(json, ResponseBankingPayeeList.class);
+            ResponseBankingPayeeListData data = (ResponseBankingPayeeListData) getResponseData(responseBankingPayeeList);
+            List<BankingPayee> payees = getBankingPayeeList(data);
+            if (payees != null && !payees.isEmpty()) {
+                return payees.stream().map(payee -> (String) getField(payee, "payeeId")).collect(Collectors.toList());
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        return null;
     }
 }
