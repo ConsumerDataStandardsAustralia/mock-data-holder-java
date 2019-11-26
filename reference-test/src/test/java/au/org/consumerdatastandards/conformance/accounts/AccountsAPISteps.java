@@ -6,7 +6,6 @@ import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountLis
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -28,11 +27,9 @@ import static org.junit.Assert.fail;
 
 public class AccountsAPISteps extends AccountsAPIStepsBase {
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private Response listAccountsResponse;
     private String requestUrl;
     private ResponseBankingAccountList responseBankingAccountList;
-    private Response getAccountDetailResponse;
 
     @Step("Request /banking/accounts")
     void listAccounts(String productCategory, String openStatus, Boolean isOwned, Integer page, Integer pageSize) {
@@ -84,7 +81,8 @@ public class AccountsAPISteps extends AccountsAPIStepsBase {
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
             try {
                 responseBankingAccountList = objectMapper.readValue(json, ResponseBankingAccountList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseBankingAccountList, "listAccounts", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountList,
+                        "listAccounts", statusCode));
                 ResponseBankingAccountListData data = (ResponseBankingAccountListData) getResponseData(responseBankingAccountList);
                 List<BankingAccount> accounts = getAccounts(data);
                 if (accounts != null) {

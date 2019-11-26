@@ -8,7 +8,6 @@ import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductLis
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductListData;
 import au.org.consumerdatastandards.conformance.APIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -36,8 +35,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class BankingProductsAPISteps extends APIStepsBase {
-
-    private PayloadValidator payloadValidator = new PayloadValidator();
 
     private Response listProductsResponse;
 

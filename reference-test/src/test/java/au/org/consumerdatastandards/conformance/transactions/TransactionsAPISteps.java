@@ -4,9 +4,9 @@ import au.org.consumerdatastandards.api.banking.models.BankingTransaction;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionListData;
+import au.org.consumerdatastandards.api.banking.models.TxMetaPaginated;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -37,7 +37,6 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
 
     private static final long NINETY_DAYS_IN_MILLIS = 90 * 24 * 60 * 60 * 1000L;
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private Response getTransactionsResponse;
     private String requestUrl;
     private ResponseBankingTransactionList responseBankingTransactionList;
@@ -105,17 +104,20 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
             ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
             try {
                 responseBankingTransactionList = objectMapper.readValue(json, ResponseBankingTransactionList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionList, "getTransactions", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionList,
+                        "getTransactions", statusCode));
                 ResponseBankingTransactionListData data = (ResponseBankingTransactionListData) getResponseData(responseBankingTransactionList);
                 List<BankingTransaction> transactions = getTransactions(data);
                 if (transactions != null) {
+                    TxMetaPaginated meta = (TxMetaPaginated) getField(responseBankingTransactionList, "meta");
+                    Boolean isQueryParamUnsupported = (Boolean) getField(meta, "isQueryParamUnsupported");
                     for (BankingTransaction transaction : transactions) {
                         checkAccountId(transaction, accountId, conformanceErrors);
                         checkOldestTime(transaction, oldestTime, conformanceErrors);
                         checkNewestTime(transaction, newestTime, conformanceErrors);
                         checkMinAmount(transaction, minAmount, conformanceErrors);
                         checkMaxAmount(transaction, maxAmount, conformanceErrors);
-                        checkText(transaction, text, conformanceErrors);
+                        checkText(transaction, text, isQueryParamUnsupported, conformanceErrors);
                     }
                 }
 
@@ -131,8 +133,8 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
         }
     }
 
-    private void checkText(BankingTransaction transaction, String text, List<ConformanceError> errors) {
-        if (!StringUtils.isBlank(text) && isTextQueryParamSupported()) {
+    private void checkText(BankingTransaction transaction, String text, Boolean isQueryParamUnsupported, List<ConformanceError> errors) {
+        if (!StringUtils.isBlank(text) && isTextQueryParamSupported(isQueryParamUnsupported)) {
             String description = (String) getField(transaction, "description");
             String reference = (String) getField(transaction, "reference");
             if ((description == null || !description.contains(text)) && (reference == null || !reference.contains(text))) {
@@ -145,10 +147,8 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
         }
     }
 
-    private boolean isTextQueryParamSupported() {
-        // TODO implement me
-        // Requires a parameter to check that response's meta doesn't contain isQueryParamUnsupported set to true
-        return true;
+    private boolean isTextQueryParamSupported(Boolean isQueryParamUnsupported) {
+        return !Boolean.TRUE.equals(isQueryParamUnsupported);
     }
 
     private void checkMinAmount(BankingTransaction transaction, String minAmount, List<ConformanceError> errors) {

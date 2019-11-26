@@ -8,7 +8,6 @@ import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBa
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -33,7 +32,6 @@ import static org.junit.Assert.fail;
 
 public class BalancesAPISteps extends AccountsAPIStepsBase {
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private String requestUrl;
     private Response listBalancesBulkResponse;
     private Response listBalanceResponse;
@@ -96,7 +94,8 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
 
             try {
                 ResponseBankingAccountsBalanceList responseBankingAccountsBalancesList = objectMapper.readValue(json, ResponseBankingAccountsBalanceList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalancesList, "listBalancesBulk", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalancesList,
+                        "listBalancesBulk", statusCode));
 
                 ResponseBankingAccountsBalanceListData data = (ResponseBankingAccountsBalanceListData) getResponseData(responseBankingAccountsBalancesList);
                 return getBalances(data);

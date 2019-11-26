@@ -29,7 +29,7 @@ public class ListScheduledPaymentsTest extends ScheduledPaymentsAPITestBase {
         List<BankingScheduledPayment> scheduledPayments = steps.validateListScheduledPaymentsBulkResponse(productCategory, openStatus, isOwned, page, pageSize);
         if (scheduledPayments != null) {
             for (BankingScheduledPayment scheduledPayment : scheduledPayments) {
-                String accountId = ScheduledPaymentsAPISteps.getSchdeduledPaymentAccountId(scheduledPayment);
+                String accountId = ScheduledPaymentsAPISteps.getScheduledPaymentAccountId(scheduledPayment);
                 BankingAccountDetail accountDetail = getAccountDetail(accountId);
                 if (accountDetail != null) {
                     steps.validateReferencedByIdAccount(accountDetail, productCategory, openStatus, isOwned);

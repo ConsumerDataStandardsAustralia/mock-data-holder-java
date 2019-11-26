@@ -7,7 +7,6 @@ import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebi
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -32,7 +31,6 @@ import static org.junit.Assert.fail;
 
 public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private String requestUrl;
     private Response listDirectDebitsBulkResponse;
     private Response listDirectDebitsResponse;
@@ -95,7 +93,8 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
 
             try {
                 ResponseBankingDirectDebitAuthorisationList responseDirectDebitList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseDirectDebitList, "listDirectDebitsBulk", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseDirectDebitList,
+                        "listDirectDebitsBulk", statusCode));
 
                 ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseDirectDebitList);
                 return getDirectDebitList(data);
@@ -163,7 +162,8 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
 
             try {
                 ResponseBankingDirectDebitAuthorisationList responseBankingDirectDebitAuthorisationList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList, "listDirectDebits", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList,
+                        "listDirectDebits", statusCode));
 
                 ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseBankingDirectDebitAuthorisationList);
 

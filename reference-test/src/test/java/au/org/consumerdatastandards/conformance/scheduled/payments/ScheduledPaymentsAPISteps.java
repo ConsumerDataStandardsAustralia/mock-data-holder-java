@@ -8,7 +8,6 @@ import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledP
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -33,7 +32,6 @@ import static org.junit.Assert.fail;
 
 public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private String requestUrl;
     private Response listScheduledPaymentsBulkResponse;
     private Response listScheduledPaymentsResponse;
@@ -96,7 +94,8 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
 
             try {
                 ResponseBankingScheduledPaymentsList responseScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseScheduledPaymentsList, "listScheduledPaymentsBulk", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseScheduledPaymentsList,
+                        "listScheduledPaymentsBulk", statusCode));
 
                 ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseScheduledPaymentsList);
                 return getScheduledPaymentsList(data);
@@ -164,7 +163,8 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
 
             try {
                 ResponseBankingScheduledPaymentsList responseBankingScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
-                payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList, "listScheduledPayments", statusCode);
+                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList,
+                        "listScheduledPayments", statusCode));
 
                 ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseBankingScheduledPaymentsList);
 
@@ -186,7 +186,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         if (StringUtils.isNotBlank(accountId)) {
             List<BankingScheduledPayment> scheduledPayments = getScheduledPaymentsList(data);
             for (BankingScheduledPayment scheduledPayment : scheduledPayments) {
-                String accId = getSchdeduledPaymentAccountId(scheduledPayment);
+                String accId = getScheduledPaymentAccountId(scheduledPayment);
                 if (!accId.equals(accountId)) {
                     errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                             .dataJson(ConformanceUtil.toJson(scheduledPayment)).errorMessage(String.format(
@@ -196,7 +196,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         }
     }
 
-    static String getSchdeduledPaymentAccountId(BankingScheduledPayment scheduledPayment) {
+    static String getScheduledPaymentAccountId(BankingScheduledPayment scheduledPayment) {
         return getAccountId((BankingScheduledPaymentFrom) getField(scheduledPayment, "from"));
     }
 
@@ -269,7 +269,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         if (scheduledPayments != null) {
             List<String> idList = Arrays.asList(accountIds);
             for (BankingScheduledPayment scheduledPayment : scheduledPayments) {
-                String accountId = getSchdeduledPaymentAccountId(scheduledPayment);
+                String accountId = getScheduledPaymentAccountId(scheduledPayment);
                 if (!idList.contains(accountId)) {
                     conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                             .dataJson(ConformanceUtil.toJson(scheduledPayment)).errorMessage(String.format(
