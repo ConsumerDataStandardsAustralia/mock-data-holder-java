@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(SerenityParameterizedRunner.class)
-@UseTestDataFrom("testdata/banking-balance-api-params.csv")
+@UseTestDataFrom("testdata/banking-balance-accounts-api-params.csv")
 public class ListBalancesSpecificAccountsTest extends BalancesAPITestBase {
 
     private String accountIds;

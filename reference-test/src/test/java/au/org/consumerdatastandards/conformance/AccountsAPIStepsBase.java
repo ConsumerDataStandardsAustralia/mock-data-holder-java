@@ -4,7 +4,6 @@ import au.org.consumerdatastandards.api.banking.models.BankingAccount;
 import au.org.consumerdatastandards.api.banking.models.BankingAccountDetail;
 import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountById;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountList;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -30,10 +29,7 @@ import static org.junit.Assert.fail;
 
 public class AccountsAPIStepsBase extends APIStepsBase {
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
-    private Response listAccountsResponse;
     private String requestUrl;
-    private ResponseBankingAccountList responseBankingAccountList;
     private Response getAccountDetailResponse;
 
     @Step("Request /banking/accounts/{accountId}")

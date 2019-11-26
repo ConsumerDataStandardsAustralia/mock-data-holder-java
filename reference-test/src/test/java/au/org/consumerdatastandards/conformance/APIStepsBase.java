@@ -44,12 +44,12 @@ public class APIStepsBase {
     }
 
     protected void checkProtectedEndpointResponseHeaders(Response response, List<ConformanceError> conformanceErrors) {
-        String version = response.header(Header.FAPI_INTERACTION_ID.getKey());
-        if (StringUtils.isBlank(version)) {
+        String fapiInteractionId = response.header(Header.FAPI_INTERACTION_ID.getKey());
+        if (StringUtils.isBlank(fapiInteractionId)) {
             conformanceErrors.add(new ConformanceError().errorType(MISSING_HEADER)
                     .errorMessage("missing '" + Header.FAPI_INTERACTION_ID.getKey() + "' in response header"));
         } else {
-            ConformanceUtil.checkHeaderValue(version, Header.FAPI_INTERACTION_ID, conformanceErrors);
+            ConformanceUtil.checkHeaderValue(fapiInteractionId, Header.FAPI_INTERACTION_ID, conformanceErrors);
         }
     }
 
