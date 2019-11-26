@@ -50,6 +50,33 @@ public class Common {
         Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         root.setLevel(targetLevel);
     }
+
+    @ShellMethod("Setup client certificate to enable MTLS connection to the server")
+    public void setClientCert(@ShellOption("cert file path") String certFilePath,
+                                     @ShellOption("key file path") String keyFilePath,
+                                     @ShellOption(value = "enable MTLS or not", defaultValue = "true") boolean mtlsEnabled) {
+        apiClientOptions.setCertFilePath(certFilePath);
+        LOGGER.info("Client certificate file path is set to {}", certFilePath);
+        apiClientOptions.setKeyFilePath(keyFilePath);
+        LOGGER.info("Client key file path is set to {}", keyFilePath);
+        if (mtlsEnabled) {
+            enableMTLS();
+        } else {
+            disableMTLS();
+        }
+    }
+
+    @ShellMethod("Enable MTLS")
+    public void enableMTLS() {
+        apiClientOptions.setMtlsEnabled(true);
+        LOGGER.info("MTLS enabled");
+    }
+
+    @ShellMethod("Disable MTLS")
+    public void disableMTLS() {
+        apiClientOptions.setMtlsEnabled(false);
+        LOGGER.info("MTLS disabled");
+    }
     
     @ShellMethod("Retrieve current minimum log level")
     public void getLogLevel() {

@@ -16,6 +16,9 @@ public class ApiClientOptions {
     private boolean debugEnabled = false;
     private boolean verifyingSsl = true;
     private String accessToken;
+    private String certFilePath;
+    private String keyFilePath;
+    private boolean mtlsEnabled = false;
 
     public String getServerUrl() {
         return serverUrl;
@@ -71,5 +74,29 @@ public class ApiClientOptions {
 
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public String getCertFilePath() {
+        return certFilePath;
+    }
+
+    public void setCertFilePath(String certFilePath) {
+        this.certFilePath = certFilePath;
+    }
+
+    public String getKeyFilePath() {
+        return keyFilePath;
+    }
+
+    public void setKeyFilePath(String keyFilePath) {
+        this.keyFilePath = keyFilePath;
+    }
+
+    public boolean isMtlsEnabled() {
+        return mtlsEnabled;
+    }
+
+    public void setMtlsEnabled(boolean mtlsEnabled) {
+        this.mtlsEnabled = mtlsEnabled;
     }
 }

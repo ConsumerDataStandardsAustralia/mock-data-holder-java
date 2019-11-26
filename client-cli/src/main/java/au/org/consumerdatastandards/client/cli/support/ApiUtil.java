@@ -10,15 +10,36 @@ package au.org.consumerdatastandards.client.cli.support;
 import au.org.consumerdatastandards.client.ApiClient;
 import au.org.consumerdatastandards.client.ApiException;
 import ch.qos.logback.classic.Logger;
+import com.google.inject.CreationException;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
+import okhttp3.tls.HandshakeCertificates;
+import okhttp3.tls.HeldCertificate;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.LoggerFactory;
 
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.X509TrustManager;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.*;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,7 +71,20 @@ public class ApiUtil {
         if (StringUtils.isNotBlank(accessToken)) {
             apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
         }
-
+        if (clientOptions.isMtlsEnabled()) {
+            validateClientCertSettings(clientOptions);
+            String keyFilePath = clientOptions.getKeyFilePath();
+            String certFilePath = clientOptions.getCertFilePath();
+            try {
+                OkHttpClient httpClient = buildHttpClient(apiClient.getHttpClient(),
+                    new HeldCertificate(loadKeyPair(keyFilePath), loadCertificate(certFilePath)));
+                apiClient.setHttpClient(httpClient);
+            } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | CreationException | CertificateException e) {
+                throw new ApiException(e);
+            }
+        } else {
+            apiClient.setHttpClient(new ApiClient().getHttpClient());
+        }
         String proxy = clientOptions.getProxy();
         if (!StringUtils.isBlank(proxy)) {
             setProxy(apiClient, proxy);
@@ -60,7 +94,78 @@ public class ApiUtil {
         LOGGER.info("Debugging is set to {}", apiClient.isDebugging());
         apiClient.setVerifyingSsl(clientOptions.isVerifyingSsl());
         LOGGER.info("Verifying SSL is set to {}", apiClient.isVerifyingSsl());
+
         return apiClient;
+    }
+
+    private static X509Certificate loadCertificate(String certFilePath) throws CertificateException, FileNotFoundException {
+        CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+        return (X509Certificate) certificateFactory.generateCertificate(new FileInputStream(certFilePath));
+    }
+
+    private static KeyPair loadKeyPair(String keyFilePath)
+        throws IOException, ApiException, NoSuchAlgorithmException, InvalidKeySpecException {
+        Security.addProvider(new BouncyCastleProvider());
+        final String START_OF_BEGIN = "-----BEGIN ";
+        final String START_OF_END = "-----END ";
+        final String END_OF_BOTH = " PRIVATE KEY-----";
+        String content = new String(Files.readAllBytes(Paths.get(keyFilePath)));
+        String[] lines = content.split("\\R");
+        if(!lines[0].startsWith(START_OF_BEGIN) || !lines[0].endsWith(END_OF_BOTH)) {
+            throw new ApiException("Invalid key file content - expecting first line similar to\n" +
+                "-----BEGIN RSA PRIVATE KEY-----");
+        }
+        String algorithmName = lines[0].replace(START_OF_BEGIN, "").replace(END_OF_BOTH, "");
+        String lastLine = lines[lines.length - 1];
+        String encoded = content.replace(lines[0] + System.lineSeparator(), "").replace(lastLine, "");
+        byte[] pkcs8Encoded = Base64.decodeBase64(encoded);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pkcs8Encoded);
+        KeyFactory kf = KeyFactory.getInstance(algorithmName);
+        PrivateKey privateKey = kf.generatePrivate(keySpec);
+        if(privateKey instanceof RSAPrivateCrtKey) {
+            RSAPrivateCrtKey rsaPrivateKey = (RSAPrivateCrtKey)privateKey;
+            RSAPublicKeySpec publicKeySpec = new RSAPublicKeySpec(rsaPrivateKey.getModulus(), rsaPrivateKey.getPublicExponent());
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+            return new KeyPair(publicKey, privateKey);
+        } else {
+            throw new ApiException("Unsupported public key algorithm " + algorithmName);
+        }
+    }
+
+    private static OkHttpClient buildHttpClient(OkHttpClient httpClient,
+                                                HeldCertificate heldCertificate,
+                                                X509Certificate... intermediates) {
+        HandshakeCertificates.Builder builder = new HandshakeCertificates.Builder()
+            .addPlatformTrustedCertificates();
+
+        if (heldCertificate != null) {
+            builder.heldCertificate(heldCertificate, intermediates);
+        }
+
+        HandshakeCertificates handshakeCertificates = builder.build();
+        SSLSocketFactory sslSocketFactory = handshakeCertificates.sslSocketFactory();
+        X509TrustManager trustManager = handshakeCertificates.trustManager();
+        return httpClient.newBuilder().sslSocketFactory(sslSocketFactory, trustManager).build();
+    }
+
+    private static void validateClientCertSettings(ApiClientOptions clientOptions) throws ApiException {
+        String certFilePath = clientOptions.getCertFilePath();
+        String keyFilePath = clientOptions.getKeyFilePath();
+        if (StringUtils.isBlank(certFilePath)) {
+            throw new ApiException("Client certificate path is not set");
+        }
+        if (StringUtils.isBlank(keyFilePath)) {
+            throw new ApiException("Key file path is not set");
+        }
+        File certFile = new File(certFilePath);
+        File keyFile = new File(keyFilePath);
+        if (!certFile.exists()) {
+            throw new ApiException("Certificate file " + certFilePath + " cannot be found");
+        }
+        if (!keyFile.exists()) {
+            throw new ApiException("Key file " + keyFilePath + " cannot be found");
+        }
     }
 
     private static void setProxy(ApiClient apiClient, String proxy) throws ApiException {

@@ -993,7 +993,7 @@ public class ApiClient {
     private void applySslSettings() {
         try {
             TrustManager[] trustManagers = null;
-            HostnameVerifier hostnameVerifier = null;
+            HostnameVerifier hostnameVerifier;
             if (!verifyingSsl) {
                 trustManagers = new TrustManager[]{
                     new X509TrustManager() {
