@@ -119,26 +119,27 @@ public class ApiUtil {
         }
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pemObject.getContent());
         String algorithmName = type.replace(PRIVATE_KEY_TYPE_SUFFIX, "").trim();
-        if (StringUtils.isNotBlank(algorithmName)){
+        if (StringUtils.isNotBlank(algorithmName)) {
             KeyFactory kf = KeyFactory.getInstance(algorithmName);
             return kf.generatePrivate(keySpec);
         } else {
-             String[] algos = {"RSA", "DSA", "EC"};
-             for (String algo: algos) {
-                 PrivateKey key = tryGeneratingPrivateKey(keySpec, algo);
-                 if (key != null) return key;
-             }
-             throw new ApiException("Unsupported public key algorithm");
+            String[] algos = {"RSA", "DSA", "EC"};
+            StringBuilder sb = new StringBuilder();
+            for (String algo : algos) {
+                try{
+                   return generatePrivateKey(keySpec, algo);
+                } catch (InvalidKeySpecException e) {
+                    sb.append(e.getMessage()).append(System.lineSeparator());
+                }
+            }
+            throw new ApiException("Tried different algorithms but failed, see below:\n" + sb.toString());
         }
     }
 
-    private static PrivateKey tryGeneratingPrivateKey(KeySpec keySpec, String algorithmName) throws NoSuchAlgorithmException {
+    private static PrivateKey generatePrivateKey(KeySpec keySpec, String algorithmName)
+        throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory kf = KeyFactory.getInstance(algorithmName);
-        try {
-            return kf.generatePrivate(keySpec);
-        } catch (InvalidKeySpecException e) {
-            return null;
-        }
+        return kf.generatePrivate(keySpec);
     }
 
     private static OkHttpClient buildHttpClient(OkHttpClient httpClient,
