@@ -123,7 +123,7 @@ public class ApiUtil {
             KeyFactory kf = KeyFactory.getInstance(algorithmName);
             return kf.generatePrivate(keySpec);
         } else {
-            String[] algos = {"RSA", "DSA", "EC"};
+            String[] algos = {"RSA", "EC"};
             StringBuilder sb = new StringBuilder();
             for (String algo : algos) {
                 try{
