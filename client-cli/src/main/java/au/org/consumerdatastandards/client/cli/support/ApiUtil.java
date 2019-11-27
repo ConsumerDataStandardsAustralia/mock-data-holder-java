@@ -15,28 +15,25 @@ import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.tls.HandshakeCertificates;
 import okhttp3.tls.HeldCertificate;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.util.io.pem.PemObject;
+import org.bouncycastle.util.io.pem.PemReader;
 import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
 import java.util.List;
@@ -111,19 +108,36 @@ public class ApiUtil {
     private static PrivateKey loadPrivateKey(String keyFilePath)
         throws IOException, ApiException, NoSuchAlgorithmException, InvalidKeySpecException {
         Security.addProvider(new BouncyCastleProvider());
-        final String START_OF_BEGIN = "-----BEGIN ";
-        final String END_OF_BEGIN = " PRIVATE KEY-----";
-        String content = new String(Files.readAllBytes(Paths.get(keyFilePath)));
-        String[] lines = content.split("\\R");
-        if(!lines[0].startsWith(START_OF_BEGIN) || !lines[0].endsWith(END_OF_BEGIN)) {
+        FileReader reader = new FileReader(keyFilePath);
+        PemReader pemReader = new PemReader(reader);
+        PemObject pemObject = pemReader.readPemObject();
+        String type = pemObject.getType();
+        final String PRIVATE_KEY_TYPE_SUFFIX = "PRIVATE KEY";
+        if (!type.endsWith(PRIVATE_KEY_TYPE_SUFFIX)) {
             throw new ApiException("Invalid key file content - expecting first line similar to\n" +
                 "-----BEGIN RSA PRIVATE KEY-----");
         }
-        String algorithmName = lines[0].replace(START_OF_BEGIN, "").replace(END_OF_BEGIN, "");
-        String lastLine = lines[lines.length - 1];
-        String encoded = content.replace(lines[0] + "\n", "").replace(lastLine, "");
-        byte[] pkcs8Encoded = Base64.decodeBase64(encoded);
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pkcs8Encoded);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pemObject.getContent());
+        String algorithmName = type.replace(PRIVATE_KEY_TYPE_SUFFIX, "").trim();
+        if (StringUtils.isNotBlank(algorithmName)) {
+            KeyFactory kf = KeyFactory.getInstance(algorithmName);
+            return kf.generatePrivate(keySpec);
+        } else {
+            String[] algos = {"RSA", "EC"};
+            StringBuilder sb = new StringBuilder();
+            for (String algo : algos) {
+                try{
+                   return generatePrivateKey(keySpec, algo);
+                } catch (InvalidKeySpecException e) {
+                    sb.append(e.getMessage()).append(System.lineSeparator());
+                }
+            }
+            throw new ApiException("Tried different algorithms but failed, see below:\n" + sb.toString());
+        }
+    }
+
+    private static PrivateKey generatePrivateKey(KeySpec keySpec, String algorithmName)
+        throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory kf = KeyFactory.getInstance(algorithmName);
         return kf.generatePrivate(keySpec);
     }
