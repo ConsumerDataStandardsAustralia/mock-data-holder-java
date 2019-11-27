@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.conformance.customer;
 
 import au.org.consumerdatastandards.api.common.models.ResponseCommonCustomer;
+import au.org.consumerdatastandards.api.common.models.ResponseCommonCustomerDetail;
 import au.org.consumerdatastandards.conformance.APIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
@@ -23,6 +24,7 @@ public class CustomerAPISteps extends APIStepsBase {
 
     private String requestUrl;
     private Response getCustomerResponse;
+    private Response getCustomerDetailResponse;
 
     @Step("Request /common/customer")
     public void getCustomer() {
@@ -50,6 +52,43 @@ public class CustomerAPISteps extends APIStepsBase {
             ResponseCommonCustomer responseCommonCustomer = objectMapper.readValue(json, ResponseCommonCustomer.class);
             conformanceErrors.addAll(
                     payloadValidator.validateResponse(this.requestUrl, responseCommonCustomer, "getCustomer", statusCode)
+            );
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+
+        dumpConformanceErrors(conformanceErrors);
+
+        assertTrue("Conformance errors found in response payload"
+                + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+    }
+
+    @Step("Request /common/customer/detail")
+    public void getCustomerDetail() {
+        String url = getApiBasePath() + "/common/customer/detail";
+        requestUrl = url;
+        getCustomerDetailResponse = given().relaxedHTTPSValidation()
+                .header("Accept", "application/json")
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getCustomerDetail"))
+                .when().get(url).then().log().all().extract().response();
+    }
+
+    @Step("Validate /common/customer/detail response")
+    public void validateGetCustomerDetailResponse() {
+        int statusCode = getCustomerDetailResponse.statusCode();
+        assertEquals(ResponseCode.OK.getCode(), statusCode);
+        List<ConformanceError> conformanceErrors = new ArrayList<>();
+        checkResponseHeaders(getCustomerDetailResponse, conformanceErrors);
+        checkProtectedEndpointResponseHeaders(getCustomerDetailResponse, conformanceErrors);
+        checkJsonContentType(getCustomerDetailResponse.contentType(), conformanceErrors);
+
+        String json = getCustomerDetailResponse.getBody().asString();
+        ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+
+        try {
+            ResponseCommonCustomerDetail responseCommonCustomerDetail = objectMapper.readValue(json, ResponseCommonCustomerDetail.class);
+            conformanceErrors.addAll(
+                    payloadValidator.validateResponse(this.requestUrl, responseCommonCustomerDetail, "getCustomerDetail", statusCode)
             );
         } catch (IOException e) {
             fail(e.getMessage());
