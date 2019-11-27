@@ -36,10 +36,8 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.RSAPublicKeySpec;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,6 +57,7 @@ public class ApiUtil {
             throw new ApiException("Invalid Server URL, please double check it");
         }
         ApiClient apiClient = new ApiClient();
+        OkHttpClient originalHttpClient = apiClient.getHttpClient();
         apiClient.setBasePath(serverUrl);
         LOGGER.info("Server Base URL is set to {}", serverUrl);
         String userAgent = clientOptions.getUserAgent();
@@ -76,14 +75,20 @@ public class ApiUtil {
             String keyFilePath = clientOptions.getKeyFilePath();
             String certFilePath = clientOptions.getCertFilePath();
             try {
-                OkHttpClient httpClient = buildHttpClient(apiClient.getHttpClient(),
-                    new HeldCertificate(loadKeyPair(keyFilePath), loadCertificate(certFilePath)));
+                X509Certificate certificate = loadCertificate(certFilePath);
+                PublicKey publicKey = certificate.getPublicKey();
+                PrivateKey privateKey = loadPrivateKey(keyFilePath);
+                KeyPair keyPair = new KeyPair(publicKey, privateKey);
+                OkHttpClient httpClient = buildHttpClient(originalHttpClient,
+                    new HeldCertificate(keyPair, certificate));
                 apiClient.setHttpClient(httpClient);
             } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | CreationException | CertificateException e) {
                 throw new ApiException(e);
             }
+            LOGGER.info("Enabled MTLS");
         } else {
-            apiClient.setHttpClient(new ApiClient().getHttpClient());
+            apiClient.setHttpClient(originalHttpClient);
+            LOGGER.info("Disabled MTLS");
         }
         String proxy = clientOptions.getProxy();
         if (!StringUtils.isBlank(proxy)) {
@@ -103,34 +108,24 @@ public class ApiUtil {
         return (X509Certificate) certificateFactory.generateCertificate(new FileInputStream(certFilePath));
     }
 
-    private static KeyPair loadKeyPair(String keyFilePath)
+    private static PrivateKey loadPrivateKey(String keyFilePath)
         throws IOException, ApiException, NoSuchAlgorithmException, InvalidKeySpecException {
         Security.addProvider(new BouncyCastleProvider());
         final String START_OF_BEGIN = "-----BEGIN ";
-        final String START_OF_END = "-----END ";
-        final String END_OF_BOTH = " PRIVATE KEY-----";
+        final String END_OF_BEGIN = " PRIVATE KEY-----";
         String content = new String(Files.readAllBytes(Paths.get(keyFilePath)));
         String[] lines = content.split("\\R");
-        if(!lines[0].startsWith(START_OF_BEGIN) || !lines[0].endsWith(END_OF_BOTH)) {
+        if(!lines[0].startsWith(START_OF_BEGIN) || !lines[0].endsWith(END_OF_BEGIN)) {
             throw new ApiException("Invalid key file content - expecting first line similar to\n" +
                 "-----BEGIN RSA PRIVATE KEY-----");
         }
-        String algorithmName = lines[0].replace(START_OF_BEGIN, "").replace(END_OF_BOTH, "");
+        String algorithmName = lines[0].replace(START_OF_BEGIN, "").replace(END_OF_BEGIN, "");
         String lastLine = lines[lines.length - 1];
-        String encoded = content.replace(lines[0] + System.lineSeparator(), "").replace(lastLine, "");
+        String encoded = content.replace(lines[0] + "\n", "").replace(lastLine, "");
         byte[] pkcs8Encoded = Base64.decodeBase64(encoded);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pkcs8Encoded);
         KeyFactory kf = KeyFactory.getInstance(algorithmName);
-        PrivateKey privateKey = kf.generatePrivate(keySpec);
-        if(privateKey instanceof RSAPrivateCrtKey) {
-            RSAPrivateCrtKey rsaPrivateKey = (RSAPrivateCrtKey)privateKey;
-            RSAPublicKeySpec publicKeySpec = new RSAPublicKeySpec(rsaPrivateKey.getModulus(), rsaPrivateKey.getPublicExponent());
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
-            return new KeyPair(publicKey, privateKey);
-        } else {
-            throw new ApiException("Unsupported public key algorithm " + algorithmName);
-        }
+        return kf.generatePrivate(keySpec);
     }
 
     private static OkHttpClient buildHttpClient(OkHttpClient httpClient,
