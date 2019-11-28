@@ -25,8 +25,7 @@ public class ContextEventListener implements ApplicationListener<ContextRefreshe
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         try {
             LOG.info("Service setup in progress, performing boot time operations");
-            dataLoader.loadProducts("payloads");
-
+            dataLoader.loadAll();
         } catch (IOException e) {
             LOG.error("IOException received while performing ContextEventListener based startup execution");            
             throw new RuntimeException(e);
