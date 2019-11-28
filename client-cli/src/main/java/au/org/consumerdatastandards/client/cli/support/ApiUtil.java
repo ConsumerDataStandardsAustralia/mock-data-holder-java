@@ -76,8 +76,8 @@ public class ApiUtil {
                 PublicKey publicKey = certificate.getPublicKey();
                 PrivateKey privateKey = loadPrivateKey(keyFilePath);
                 KeyPair keyPair = new KeyPair(publicKey, privateKey);
-                OkHttpClient httpClient = buildHttpClient(originalHttpClient,
-                    new HeldCertificate(keyPair, certificate));
+                HeldCertificate heldCertificate = new HeldCertificate(keyPair, certificate);
+                OkHttpClient httpClient = buildHttpClient(originalHttpClient, heldCertificate);
                 apiClient.setHttpClient(httpClient);
             } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | CreationException | CertificateException e) {
                 throw new ApiException(e);
@@ -117,28 +117,17 @@ public class ApiUtil {
             throw new ApiException("Invalid key file content - expecting first line similar to\n" +
                 "-----BEGIN RSA PRIVATE KEY-----");
         }
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pemObject.getContent());
-        String algorithmName = type.replace(PRIVATE_KEY_TYPE_SUFFIX, "").trim();
-        if (StringUtils.isNotBlank(algorithmName)) {
-            KeyFactory kf = KeyFactory.getInstance(algorithmName);
-            return kf.generatePrivate(keySpec);
-        } else {
-            String[] algos = {"RSA", "EC"};
-            StringBuilder sb = new StringBuilder();
-            for (String algo : algos) {
-                try{
-                   return generatePrivateKey(keySpec, algo);
-                } catch (InvalidKeySpecException e) {
-                    sb.append(e.getMessage()).append(System.lineSeparator());
-                }
-            }
-            throw new ApiException("Tried different algorithms but failed, see below:\n" + sb.toString());
+        String algorithm = type.replace(PRIVATE_KEY_TYPE_SUFFIX, "").trim();
+        if (StringUtils.isNotBlank(algorithm) && !"RSA".equals(algorithm)) {
+            throw new ApiException("Invalid algorithm for MTLS: " + algorithm);
         }
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pemObject.getContent());
+        return generateRSAPrivateKey(keySpec);
     }
 
-    private static PrivateKey generatePrivateKey(KeySpec keySpec, String algorithmName)
+    private static PrivateKey generateRSAPrivateKey(KeySpec keySpec)
         throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyFactory kf = KeyFactory.getInstance(algorithmName);
+        KeyFactory kf = KeyFactory.getInstance("RSA");
         return kf.generatePrivate(keySpec);
     }
 

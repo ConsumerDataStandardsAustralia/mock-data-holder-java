@@ -11,7 +11,6 @@
     <description>CDS client side command line tool</description>
     <properties>
         <spring-shell.version>2.0.1.RELEASE</spring-shell.version>
-        <ascii-table.version>1.1.0</ascii-table.version>
         <bouncy-castle.version>1.64</bouncy-castle.version>
     </properties>
     <dependencies>
@@ -43,11 +42,6 @@
                     <artifactId>spring-beans</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.github.freva</groupId>
-            <artifactId>ascii-table</artifactId>
-            <version>${ascii-table.version}</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
