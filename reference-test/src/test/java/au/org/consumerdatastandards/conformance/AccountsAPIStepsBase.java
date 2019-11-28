@@ -36,7 +36,7 @@ public class AccountsAPIStepsBase extends APIStepsBase {
     public void getAccountDetail(String accountId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId;
         requestUrl = url;
-        getAccountDetailResponse = given().relaxedHTTPSValidation()
+        getAccountDetailResponse = given()
                 .header("Accept", "application/json")
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getAccountDetail"))
                 .when().get(url).then().log().body().extract().response();

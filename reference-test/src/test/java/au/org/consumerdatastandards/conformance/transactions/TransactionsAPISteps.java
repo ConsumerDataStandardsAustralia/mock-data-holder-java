@@ -45,7 +45,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
     @Step("Request /banking/accounts/{accountId}/transactions")
     void getTransactions(String accountId, String oldestTime, String newestTime, String minAmount, String maxAmount,
                       String text, Integer page, Integer pageSize) {
-        String url = getApiBasePath() + "/banking/accounts/{accountId}/transactions/" + accountId;
+        String url = getApiBasePath() + "/banking/accounts/" + accountId + "/transactions";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = given()
@@ -86,7 +86,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        getTransactionsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        getTransactionsResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/accounts/{accountId}/transactions response")
@@ -289,7 +289,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
     public void getTransactionDetail(String accountId, String transactionId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/transactions/" + transactionId;
         requestUrl = url;
-        getTransactionDetailResponse = given().relaxedHTTPSValidation()
+        getTransactionDetailResponse = given()
                 .header("Accept", "application/json")
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getTransactionDetail"))
                 .when().get(url).then().log().body().extract().response();

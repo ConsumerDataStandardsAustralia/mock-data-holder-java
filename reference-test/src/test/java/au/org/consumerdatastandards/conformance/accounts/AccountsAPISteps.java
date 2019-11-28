@@ -64,7 +64,7 @@ public class AccountsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listAccountsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listAccountsResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/accounts response")
