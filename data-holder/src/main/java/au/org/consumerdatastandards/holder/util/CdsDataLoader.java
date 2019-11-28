@@ -1,7 +1,23 @@
 package au.org.consumerdatastandards.holder.util;
 
-import au.org.consumerdatastandards.holder.model.*;
-import au.org.consumerdatastandards.holder.repository.*;
+import au.org.consumerdatastandards.holder.model.BankingAccountDetail;
+import au.org.consumerdatastandards.holder.model.BankingBalance;
+import au.org.consumerdatastandards.holder.model.BankingProductDetail;
+import au.org.consumerdatastandards.holder.model.BankingTransactionDetail;
+import au.org.consumerdatastandards.holder.model.CommonEmailAddress;
+import au.org.consumerdatastandards.holder.model.CommonOrganisationDetail;
+import au.org.consumerdatastandards.holder.model.CommonPersonDetail;
+import au.org.consumerdatastandards.holder.model.OrganisationUser;
+import au.org.consumerdatastandards.holder.model.PersonUser;
+import au.org.consumerdatastandards.holder.model.User;
+import au.org.consumerdatastandards.holder.repository.BankingAccountDetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingBalanceRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductDetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingTransactionDetailRepository;
+import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
+import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
+import au.org.consumerdatastandards.holder.repository.CommonPersonRepository;
+import au.org.consumerdatastandards.holder.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -22,6 +38,7 @@ import java.util.List;
 public class CdsDataLoader {
 
     private static final Logger LOGGER = LogManager.getLogger(CdsDataLoader.class);
+    private static final String DEFAULT_PASSWORD = "password";
 
     private BankingProductDetailRepository productDetailRepository;
     private BankingAccountDetailRepository accountDetailRepository;
@@ -35,7 +52,6 @@ public class CdsDataLoader {
     private ObjectMapper objectMapper;
     private int personUserIdSeq = 0;
     private int organisationUserIdSeq = 0;
-
 
     @Autowired
     public CdsDataLoader(BankingProductDetailRepository productDetailRepository,
@@ -95,7 +111,7 @@ public class CdsDataLoader {
         user.setEmail(user.getGivenName() + "." + user.getFamilyName() + "@test.org");
         user.setEmailVerified(true);
         user.setGender(User.Gender.female);
-        user.setPasswordHash(DigestUtils.sha256Hex("password"));
+        user.setPasswordHash(generateDefaultPasswordHash());
         user.setOrganisation(commonOrganisationRepository.findById(commonOrganisationDetail.getId()).orElse(null));
         user.setId("org" + organisationUserIdSeq++);
         userRepository.save(user);
@@ -114,9 +130,13 @@ public class CdsDataLoader {
         user.setEmailVerified(true);
         user.setUpdatedAt(new Date().getTime());
         user.setGender(User.Gender.female);
-        user.setPasswordHash(DigestUtils.sha256Hex("password"));
+        user.setPasswordHash(generateDefaultPasswordHash());
         user.setPerson(commonPersonRepository.findById(commonPersonDetail.getId()).orElse(null));
         user.setId("person" + personUserIdSeq++);
         userRepository.save(user);
+    }
+
+    private String generateDefaultPasswordHash() {
+        return DigestUtils.sha256Hex(DEFAULT_PASSWORD);
     }
 }
