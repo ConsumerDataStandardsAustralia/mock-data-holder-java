@@ -8,8 +8,8 @@ import java.util.Objects;
 public class ResponseCommonCustomerDetailData  {
 
     public enum CustomerUType {
-        ORGANISATION,
-        PERSON
+        organisation,
+        person
     }
     /**
      * Get customerUType

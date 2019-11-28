@@ -15,10 +15,10 @@ import java.util.Objects;
 public class BankingScheduledPaymentRecurrence {
 
     public enum RecurrenceUType {
-        EVENTBASED,
-        INTERVALSCHEDULE,
-        LASTWEEKDAY,
-        ONCEOFF
+        eventBased,
+        intervalSchedule,
+        lastWeekDay,
+        onceOff
     }
 
     private BankingScheduledPaymentRecurrenceEventBased eventBased;

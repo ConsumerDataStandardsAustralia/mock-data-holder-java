@@ -596,9 +596,9 @@ public class BankingAccountDetail {
     }
 
     public enum SpecificAccountUType {
-        CREDITCARD,
-        LOAN,
-        TERMDEPOSIT
+        creditCard,
+        loan,
+        termDeposit
     }
 }
 
