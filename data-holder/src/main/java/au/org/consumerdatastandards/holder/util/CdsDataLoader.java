@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class CdsDataLoader {
@@ -25,8 +28,13 @@ public class CdsDataLoader {
     private BankingBalanceRepository balanceRepository;
     private CommonPersonDetailRepository commonPersonDetailRepository;
     private BankingTransactionDetailRepository transactionDetailRepository;
+    private UserRepository userRepository;
+    private CommonPersonRepository commonPersonRepository;
+    private CommonOrganisationRepository commonOrganisationRepository;
 
     private ObjectMapper objectMapper;
+    private int personUserIdSeq = 0;
+    private int organisationUserIdSeq = 0;
 
 
     @Autowired
@@ -34,12 +42,18 @@ public class CdsDataLoader {
                          BankingAccountDetailRepository accountDetailRepository,
                          BankingBalanceRepository balanceRepository,
                          CommonPersonDetailRepository commonPersonDetailRepository,
-                         BankingTransactionDetailRepository transactionDetailRepository) {
+                         BankingTransactionDetailRepository transactionDetailRepository,
+                         UserRepository userRepository,
+                         CommonPersonRepository commonPersonRepository,
+                         CommonOrganisationRepository commonOrganisationRepository) {
         this.productDetailRepository = productDetailRepository;
         this.accountDetailRepository = accountDetailRepository;
         this.balanceRepository = balanceRepository;
         this.commonPersonDetailRepository = commonPersonDetailRepository;
         this.transactionDetailRepository = transactionDetailRepository;
+        this.userRepository = userRepository;
+        this.commonPersonRepository = commonPersonRepository;
+        this.commonOrganisationRepository = commonOrganisationRepository;
         this.objectMapper = new ObjectMapper()
             .registerModule(new ParameterNamesModule())
             .registerModule(new Jdk8Module())
@@ -63,7 +77,46 @@ public class CdsDataLoader {
             }
         } else {
             LOGGER.info("Loading data from {}", file.getAbsolutePath());
-            repository.save(objectMapper.readValue(file, dataType));
+            Object savedEntity = repository.save(objectMapper.readValue(file, dataType));
+            if(CommonPersonDetail.class.equals(dataType)) {
+                CommonPersonDetail commonPersonDetail = (CommonPersonDetail)savedEntity;
+                createPersonUser(commonPersonDetail);
+            } else if (CommonOrganisationDetail.class.equals(dataType)) {
+                CommonOrganisationDetail commonOrganisationDetail = (CommonOrganisationDetail)savedEntity;
+                createOrganisationUser(commonOrganisationDetail);
+            }
         }
+    }
+
+    private void createOrganisationUser(CommonOrganisationDetail commonOrganisationDetail) {
+        OrganisationUser user = new OrganisationUser();
+        user.setGivenName(commonOrganisationDetail.getAgentFirstName());
+        user.setFamilyName(commonOrganisationDetail.getAgentLastName());
+        user.setEmail(user.getGivenName() + "." + user.getFamilyName() + "@test.org");
+        user.setEmailVerified(true);
+        user.setGender(User.Gender.female);
+        user.setPasswordHash(DigestUtils.sha256Hex("password"));
+        user.setOrganisation(commonOrganisationRepository.findById(commonOrganisationDetail.getId()).orElse(null));
+        user.setId("org" + organisationUserIdSeq++);
+        userRepository.save(user);
+    }
+
+    private void createPersonUser(CommonPersonDetail commonPersonDetail) {
+        PersonUser user = new PersonUser();
+        user.setGivenName(commonPersonDetail.getFirstName());
+        user.setFamilyName(commonPersonDetail.getLastName());
+        List<CommonEmailAddress> emailAddresses = commonPersonDetail.getEmailAddresses();
+        if(emailAddresses != null && !emailAddresses.isEmpty()) {
+            user.setEmail(emailAddresses.get(0).getAddress());
+        } else {
+            user.setEmail(user.getGivenName() + "." + user.getFamilyName() + "@test.com");
+        }
+        user.setEmailVerified(true);
+        user.setUpdatedAt(new Date().getTime());
+        user.setGender(User.Gender.female);
+        user.setPasswordHash(DigestUtils.sha256Hex("password"));
+        user.setPerson(commonPersonRepository.findById(commonPersonDetail.getId()).orElse(null));
+        user.setId("person" + personUserIdSeq++);
+        userRepository.save(user);
     }
 }
