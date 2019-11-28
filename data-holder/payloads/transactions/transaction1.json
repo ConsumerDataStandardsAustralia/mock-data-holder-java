@@ -1,0 +1,13 @@
+{
+    "accountId": "E2F7E22E-8E24-413F-AB2A-229EA4CA9D77",
+    "transactionId": "8w7BqEDvKVhSIx4ybMucasC5AorfOP3iZoUZv7fzEgci4o7HVp0mXeOycV4UKbGO",
+    "isDetailAvailable": false,
+    "type": "TRANSFER_INCOMING",
+    "status": "POSTED",
+    "description": "PRINCIPAL PAID ON 0000000 TERM DEPOSIT 336632",
+    "postingDateTime": "2019-09-11T00:00:00Z",
+    "valueDateTime": "0001-01-05T00:00:00Z",
+    "amount": "25000.00",
+    "currency": "AUD",
+    "reference": "0000000"
+}
