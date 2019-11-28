@@ -188,11 +188,11 @@ public class BankingScheduledPaymentTo  {
     }
 
     public enum ToUType {
-        ACCOUNTID,
-        BILLER,
-        DOMESTIC,
-        INTERNATIONAL,
-        PAYEEID
+        accountId,
+        biller,
+        domestic,
+        international,
+        payeeId
     }
 }
 

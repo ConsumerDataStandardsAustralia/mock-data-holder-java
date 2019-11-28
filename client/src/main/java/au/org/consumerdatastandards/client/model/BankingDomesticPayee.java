@@ -12,9 +12,9 @@ import java.util.Objects;
 public class BankingDomesticPayee {
 
     public enum PayeeAccountUType {
-        ACCOUNT,
-        CARD,
-        PAYID
+        account,
+        card,
+        payId
     }
 
     private BankingDomesticPayeeAccount account;

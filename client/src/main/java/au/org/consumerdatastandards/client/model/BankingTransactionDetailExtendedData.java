@@ -12,11 +12,22 @@ import java.util.Objects;
 public class BankingTransactionDetailExtendedData {
 
     public enum ExtensionUType {
-        X2P101PAYLOAD
+        x2p101Payload
     }
 
     public enum Service {
-        X2P1_01
+        X2P1_01("X2P1.01");
+
+        private String value;
+
+        Service(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 
     private ExtensionUType extensionUType;

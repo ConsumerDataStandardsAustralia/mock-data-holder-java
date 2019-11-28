@@ -226,9 +226,9 @@ public class BankingPayeeDetail {
     }
 
     public enum PayeeUType {
-        BILLER,
-        DOMESTIC,
-        INTERNATIONAL
+        biller,
+        domestic,
+        international
     }
 }
 

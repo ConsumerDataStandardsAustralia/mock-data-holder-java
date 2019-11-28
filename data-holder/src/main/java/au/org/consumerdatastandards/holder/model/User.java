@@ -7,7 +7,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name="user_type")
 public class User {
 
-    enum Gender {
+    public enum Gender {
         female,
         male
     }
@@ -16,7 +16,7 @@ public class User {
     private String id;
 
     /**
-     * SHA3-256 hash
+     * SHA-256 hash
      */
     private String passwordHash;
 

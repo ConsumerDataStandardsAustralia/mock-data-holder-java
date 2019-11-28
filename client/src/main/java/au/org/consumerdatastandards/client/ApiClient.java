@@ -76,6 +76,7 @@ public class ApiClient {
         addDefaultHeader("x-min-v", "1");
         addDefaultHeader("x-fapi-customer-ip-address", getIpAddress());
         addDefaultHeader("x-fapi-interaction-id", UUID.randomUUID().toString());
+        addDefaultHeader("x-fapi-auth-date", OffsetDateTime.now().toString());
     }
 
     private String getIpAddress() {

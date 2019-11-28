@@ -142,9 +142,9 @@ public class BankingDomesticPayee  {
     }
 
     public enum PayeeAccountUType {
-        ACCOUNT,
-        CARD,
-        PAYID
+        account,
+        card,
+        payId
     }
 }
 

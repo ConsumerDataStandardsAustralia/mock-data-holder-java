@@ -12,8 +12,8 @@ import java.util.Objects;
 public class CommonPhysicalAddress {
 
     public enum AddressUType {
-        PAF,
-        SIMPLE
+        paf,
+        simple
     }
 
     private AddressUType addressUType;

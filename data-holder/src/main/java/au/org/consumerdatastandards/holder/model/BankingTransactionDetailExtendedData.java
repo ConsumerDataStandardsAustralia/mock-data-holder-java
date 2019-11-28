@@ -12,11 +12,24 @@ import java.util.Objects;
 public class BankingTransactionDetailExtendedData  {
 
     public enum ExtensionUType {
-        X2P101PAYLOAD
+        x2p101Payload
     }
-    /**
-     * Get extensionUType
-     */
+
+    public enum Service {
+        X2P1_01("X2P1.01");
+
+        private String value;
+
+        Service(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
     private ExtensionUType extensionUType;
 
     /**
@@ -29,17 +42,8 @@ public class BankingTransactionDetailExtendedData  {
      */
     private String payer;
 
-    public enum Service {
-        X2P1_01
-    }
-    /**
-     * Get service
-     */
     private Service service;
 
-    /**
-     * Get x2p101Payload
-     */
     @Embedded
     private BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload;
 
