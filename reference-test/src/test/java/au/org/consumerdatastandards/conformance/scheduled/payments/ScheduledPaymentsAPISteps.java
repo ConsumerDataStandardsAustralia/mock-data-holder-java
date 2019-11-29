@@ -42,8 +42,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/payments/scheduled";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listScheduledPaymentsBulk"));
         if (!StringUtils.isBlank(openStatus)) {
             given.queryParam("open-status", openStatus);
@@ -131,8 +130,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/direct-debits";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listScheduledPayments"));
         if (page != null) {
             given.queryParam("page", page);
@@ -217,8 +215,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/payments/scheduled";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listScheduledPaymentsSpecificAccounts"));
         if (page != null) {
             given.queryParam("page", page);

@@ -6,8 +6,8 @@ import au.org.consumerdatastandards.api.banking.models.BankingPayeeDetail;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeListData;
-import au.org.consumerdatastandards.conformance.APIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.ProtectedAPIStepsBase;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class PayeesAPISteps extends APIStepsBase {
+public class PayeesAPISteps extends ProtectedAPIStepsBase {
 
     private String requestUrl;
     private Response listPayeesResponse;
@@ -41,8 +41,7 @@ public class PayeesAPISteps extends APIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/direct-debits";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listPayees"));
         if (!StringUtils.isBlank(type)) {
             given.queryParam("type", type);
@@ -134,8 +133,7 @@ public class PayeesAPISteps extends APIStepsBase {
     public void getPayeeDetail(String payeeId) {
         String url = getApiBasePath() + "/banking/payees/" + payeeId;
         requestUrl = url;
-        getPayeeDetailResponse = given()
-                .header("Accept", "application/json")
+        getPayeeDetailResponse = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getPayeeDetail"))
                 .when().get(url).then().log().all().extract().response();
     }

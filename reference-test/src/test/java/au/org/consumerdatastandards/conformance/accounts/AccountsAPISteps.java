@@ -36,8 +36,7 @@ public class AccountsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listAccounts"));
         if (!StringUtils.isBlank(openStatus)) {
             given.queryParam("open-status", openStatus);

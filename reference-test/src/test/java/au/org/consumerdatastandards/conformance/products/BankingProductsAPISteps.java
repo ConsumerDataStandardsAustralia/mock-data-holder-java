@@ -50,8 +50,7 @@ public class BankingProductsAPISteps extends APIStepsBase {
         String url = getApiBasePath() + "/banking/products";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listProducts"));
         if (!StringUtils.isBlank(effective)) {
             given.queryParam("effective", effective);
@@ -303,8 +302,7 @@ public class BankingProductsAPISteps extends APIStepsBase {
     void getProductDetail(String productId) {
         String url = getApiBasePath() + "/banking/products/" + productId;
         requestUrl = url;
-        getProductDetailResponse = given()
-                .header("Accept", "application/json")
+        getProductDetailResponse = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getProductDetail"))
                 .when().get(url).then().log().body().extract().response();
     }
