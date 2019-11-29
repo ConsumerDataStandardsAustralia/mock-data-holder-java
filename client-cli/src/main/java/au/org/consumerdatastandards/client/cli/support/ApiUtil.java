@@ -124,13 +124,13 @@ public class ApiUtil {
         String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
-        Map o;
+        Map map;
         try {
-            o = (HashMap)objectMapper.readValue(json, typeRef);
+            map = objectMapper.readValue(json, typeRef);
         } catch (IOException e) {
             throw new ApiException(e);
         }
-        return o.get("sub").toString();
+        return map.get("sub").toString();
     }
 
 
