@@ -39,18 +39,20 @@ public class APIStepsBase {
         props = new Properties();
         props.load(APIStepsBase.class.getResourceAsStream("/ptt.properties"));
 
+        SSLConfig sslConfig = SSLConfig.sslConfig().allowAllHostnames();
+
         String keystorePath = props.getProperty("keystore.path");
         String truststorePath = props.getProperty("truststore.path");
         if (keystorePath != null || truststorePath != null) {
-            SSLConfig sslConfig = SSLConfig.sslConfig();
             if (keystorePath != null) {
                 sslConfig = sslConfig.keyStore(keystorePath, props.getProperty("keystore.password"));
             }
             if (truststorePath != null) {
                 sslConfig = sslConfig.trustStore(truststorePath, props.getProperty("truststore.password"));
             }
-            RestAssured.config().sslConfig(sslConfig);
         }
+
+        RestAssured.config().sslConfig(sslConfig);
     }
 
     public String getApiBasePath() {

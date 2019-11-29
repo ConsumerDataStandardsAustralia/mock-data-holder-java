@@ -16,19 +16,26 @@ import okhttp3.OkHttpClient;
 import okhttp3.tls.HandshakeCertificates;
 import okhttp3.tls.HeldCertificate;
 import org.apache.commons.lang3.StringUtils;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
-import java.security.*;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -107,7 +114,6 @@ public class ApiUtil {
 
     private static PrivateKey loadPrivateKey(String keyFilePath)
         throws IOException, ApiException, NoSuchAlgorithmException, InvalidKeySpecException {
-        Security.addProvider(new BouncyCastleProvider());
         FileReader reader = new FileReader(keyFilePath);
         PemReader pemReader = new PemReader(reader);
         PemObject pemObject = pemReader.readPemObject();
