@@ -70,7 +70,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listBalancesBulkResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listBalancesBulkResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/accounts/balances response")
@@ -130,7 +130,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
     public void listBalance(String accountId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/balance";
         requestUrl = url;
-        listBalanceResponse = given().relaxedHTTPSValidation()
+        listBalanceResponse = given()
                 .header("Accept", "application/json")
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalance"))
                 .when().get(url).then().log().all().extract().response();
@@ -183,7 +183,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
             given.queryParam("page-size", pageSize);
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
-        listBalancesSpecificAccountsResponse = given.relaxedHTTPSValidation().body(prepareRequestJson(accountIds))
+        listBalancesSpecificAccountsResponse = given.body(prepareRequestJson(accountIds))
                 .when().post(url).then().log().all().extract().response();
     }
 

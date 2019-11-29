@@ -61,6 +61,7 @@
         <validation-api.version>2.0.1.Final</validation-api.version>
         <commons-validator.version>1.6</commons-validator.version>
         <commons-codec.version>1.13</commons-codec.version>
+        <bouncy-castle.version>1.64</bouncy-castle.version>
     </properties>
 
     <modules>
@@ -332,6 +333,11 @@
                 <groupId>au.org.consumerdatastandards</groupId>
                 <artifactId>reference-test</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bouncy-castle.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>

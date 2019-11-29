@@ -70,7 +70,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listScheduledPaymentsBulkResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listScheduledPaymentsBulkResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/payments/scheduled response")
@@ -144,7 +144,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listScheduledPaymentsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listScheduledPaymentsResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/accounts/{accountId}/payments/scheduled response")
@@ -229,7 +229,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
             given.queryParam("page-size", pageSize);
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
-        listScheduledPaymentsSpecificAccountsResponse = given.relaxedHTTPSValidation().body(prepareRequestJson(accountIds))
+        listScheduledPaymentsSpecificAccountsResponse = given.body(prepareRequestJson(accountIds))
                 .when().post(url).then().log().all().extract().response();
     }
 

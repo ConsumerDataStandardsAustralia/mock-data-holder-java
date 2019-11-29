@@ -59,7 +59,7 @@ public class PayeesAPISteps extends APIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listPayeesResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listPayeesResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/payees response")
@@ -134,7 +134,7 @@ public class PayeesAPISteps extends APIStepsBase {
     public void getPayeeDetail(String payeeId) {
         String url = getApiBasePath() + "/banking/payees/" + payeeId;
         requestUrl = url;
-        getPayeeDetailResponse = given().relaxedHTTPSValidation()
+        getPayeeDetailResponse = given()
                 .header("Accept", "application/json")
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getPayeeDetail"))
                 .when().get(url).then().log().all().extract().response();

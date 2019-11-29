@@ -69,7 +69,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listDirectDebitsBulkResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listDirectDebitsBulkResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/accounts/direct-debits response")
@@ -143,7 +143,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
 
-        listDirectDebitsResponse = given.relaxedHTTPSValidation().when().get(url).then().log().all().extract().response();
+        listDirectDebitsResponse = given.when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/accounts/{accountId}/direct-debits response")
@@ -224,7 +224,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
             given.queryParam("page-size", pageSize);
             requestUrl += (paramAdded ? "&" : "?") + "page-size=" + pageSize;
         }
-        listDirectDebitsSpecificAccountsResponse = given.relaxedHTTPSValidation().body(prepareRequestJson(accountIds))
+        listDirectDebitsSpecificAccountsResponse = given.body(prepareRequestJson(accountIds))
                 .when().post(url).then().log().all().extract().response();
     }
 
