@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class AccountsAPIStepsBase extends APIStepsBase {
+public class AccountsAPIStepsBase extends ProtectedAPIStepsBase {
 
     private String requestUrl;
     private Response getAccountDetailResponse;
@@ -36,8 +36,7 @@ public class AccountsAPIStepsBase extends APIStepsBase {
     public void getAccountDetail(String accountId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId;
         requestUrl = url;
-        getAccountDetailResponse = given()
-                .header("Accept", "application/json")
+        getAccountDetailResponse = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getAccountDetail"))
                 .when().get(url).then().log().body().extract().response();
     }

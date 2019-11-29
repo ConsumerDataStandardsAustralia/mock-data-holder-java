@@ -2,8 +2,8 @@ package au.org.consumerdatastandards.conformance.customer;
 
 import au.org.consumerdatastandards.api.common.models.ResponseCommonCustomer;
 import au.org.consumerdatastandards.api.common.models.ResponseCommonCustomerDetail;
-import au.org.consumerdatastandards.conformance.APIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.ProtectedAPIStepsBase;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class CustomerAPISteps extends APIStepsBase {
+public class CustomerAPISteps extends ProtectedAPIStepsBase {
 
     private String requestUrl;
     private Response getCustomerResponse;
@@ -30,8 +30,7 @@ public class CustomerAPISteps extends APIStepsBase {
     public void getCustomer() {
         String url = getApiBasePath() + "/common/customer";
         requestUrl = url;
-        getCustomerResponse = given().relaxedHTTPSValidation()
-                .header("Accept", "application/json")
+        getCustomerResponse = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getCustomer"))
                 .when().get(url).then().log().all().extract().response();
     }
@@ -67,8 +66,7 @@ public class CustomerAPISteps extends APIStepsBase {
     public void getCustomerDetail() {
         String url = getApiBasePath() + "/common/customer/detail";
         requestUrl = url;
-        getCustomerDetailResponse = given().relaxedHTTPSValidation()
-                .header("Accept", "application/json")
+        getCustomerDetailResponse = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getCustomerDetail"))
                 .when().get(url).then().log().all().extract().response();
     }

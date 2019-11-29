@@ -42,8 +42,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/balances";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalancesBulk"));
         if (!StringUtils.isBlank(openStatus)) {
             given.queryParam("open-status", openStatus);
@@ -130,8 +129,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
     public void listBalance(String accountId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/balance";
         requestUrl = url;
-        listBalanceResponse = given()
-                .header("Accept", "application/json")
+        listBalanceResponse = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalance"))
                 .when().get(url).then().log().all().extract().response();
     }
@@ -171,8 +169,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/balances";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalancesSpecificAccounts"));
         if (page != null) {
             given.queryParam("page", page);

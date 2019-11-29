@@ -41,8 +41,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/direct-debits";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listDirectDebitsBulk"));
         if (!StringUtils.isBlank(openStatus)) {
             given.queryParam("open-status", openStatus);
@@ -130,8 +129,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/direct-debits";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listDirectDebits"));
         if (page != null) {
             given.queryParam("page", page);
@@ -212,8 +210,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/direct-debits";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listDirectDebitsSpecificAccounts"));
         if (page != null) {
             given.queryParam("page", page);

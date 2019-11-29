@@ -5,6 +5,7 @@ import au.org.consumerdatastandards.support.Header;
 import io.restassured.RestAssured;
 import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -28,6 +29,10 @@ public class APIStepsBase {
     protected Properties props;
 
     private String apiBasePath;
+
+    protected RequestSpecification buildHeaders(RequestSpecification given) {
+        return given.header("Accept", "application/json");
+    }
 
     @Step("Setup API base path to {0}")
     void setupApiBasePath(String apiBasePath) {

@@ -48,8 +48,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/transactions";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = given()
-                .header("Accept", "application/json")
+        RequestSpecification given = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getTransactions"));
         if (!StringUtils.isBlank(oldestTime)) {
             given.queryParam("oldest-time", oldestTime);
@@ -289,8 +288,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
     public void getTransactionDetail(String accountId, String transactionId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/transactions/" + transactionId;
         requestUrl = url;
-        getTransactionDetailResponse = given()
-                .header("Accept", "application/json")
+        getTransactionDetailResponse = buildHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getTransactionDetail"))
                 .when().get(url).then().log().body().extract().response();
     }
