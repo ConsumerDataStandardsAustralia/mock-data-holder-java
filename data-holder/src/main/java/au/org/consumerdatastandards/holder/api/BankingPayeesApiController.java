@@ -77,7 +77,7 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
         if (!ParamPayeeType.ALL.equals(type)) {
             payeeType = BankingPayee.Type.valueOf(type.name());
         }
-        Page<BankingPayee> payeePage = payeeService.getBankingPayees(payeeType, PageRequest.of(actualPage, actualPageSize));
+        Page<BankingPayee> payeePage = payeeService.getBankingPayees(payeeType, PageRequest.of(actualPage - 1, actualPageSize));
         listData.setPayees(payeePage.getContent());
         ResponseBankingPayeeList responseBankingPayeeList = new ResponseBankingPayeeList();
         responseBankingPayeeList.setData(listData);

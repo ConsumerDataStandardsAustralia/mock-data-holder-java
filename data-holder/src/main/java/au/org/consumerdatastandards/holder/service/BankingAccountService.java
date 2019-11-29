@@ -50,7 +50,7 @@ public class BankingAccountService {
 
     public Page<BankingAccount> findBankingAccountsLike(Boolean isOwned, BankingAccount bankingAccount, Pageable pageable) {
         LOGGER.debug("Retrieve {} accounts like BankingAccount specified as {} with Paging content specified as {}" ,
-            isOwned ? "owned" : "all", bankingAccount,  pageable);
+            isOwned != null && isOwned ? "owned" : "all", bankingAccount,  pageable);
         return bankingAccountRepository.findAll((Specification<BankingAccount>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             //TODO handle isOwned when we have security context implemented

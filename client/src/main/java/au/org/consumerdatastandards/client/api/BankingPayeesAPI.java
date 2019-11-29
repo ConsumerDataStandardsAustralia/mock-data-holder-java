@@ -18,7 +18,7 @@ import java.util.Map;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingPayeesAPI {
+public class BankingPayeesAPI extends ProtectedAPI {
 
     public enum ParamType {
         ALL,
@@ -28,24 +28,6 @@ public class BankingPayeesAPI {
     }
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingPayeesAPI.class);
-
-    private ApiClient apiClient;
-
-    public BankingPayeesAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingPayeesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
 
     /**
      * Build call for getPayeeDetail
@@ -74,6 +56,7 @@ public class BankingPayeesAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -179,12 +162,13 @@ public class BankingPayeesAPI {
             pageSize,
             type);
 
-        List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
+        List<Pair> queryParams = new ArrayList<>();
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         addQueryParam(queryParams, "type", type);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }

@@ -18,27 +18,9 @@ import java.util.Map;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingScheduledPaymentsAPI {
+public class BankingScheduledPaymentsAPI extends ProtectedAPI {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingScheduledPaymentsAPI.class);
-
-    private ApiClient apiClient;
-
-    public BankingScheduledPaymentsAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingScheduledPaymentsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
 
     /**
      * Build call for listScheduledPayments
@@ -73,6 +55,7 @@ public class BankingScheduledPaymentsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -189,11 +172,12 @@ public class BankingScheduledPaymentsAPI {
             page,
             pageSize);
 
-        List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
+        List<Pair> queryParams = new ArrayList<>();
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }

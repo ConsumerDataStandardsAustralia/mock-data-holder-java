@@ -53,7 +53,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingScheduledPaymentsListData listData = new ResponseBankingScheduledPaymentsListData();
         Page<BankingScheduledPayment> scheduledPaymentPage
-            = scheduledPaymentService.getBankingScheduledPayments(accountId, PageRequest.of(actualPage, actualPageSize));
+            = scheduledPaymentService.getBankingScheduledPayments(accountId, PageRequest.of(actualPage - 1, actualPageSize));
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 
@@ -78,7 +78,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
         ResponseBankingScheduledPaymentsListData listData = new ResponseBankingScheduledPaymentsListData();
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(BankingProductCategory.valueOf(productCategory.name()),
-            openStatus, isOwned, PageRequest.of(actualPage, actualPageSize));
+            openStatus, isOwned, PageRequest.of(actualPage - 1, actualPageSize));
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 
@@ -100,7 +100,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
         ResponseBankingScheduledPaymentsListData listData = new ResponseBankingScheduledPaymentsListData();
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(
-                accountIds.getData().getAccountIds(), PageRequest.of(actualPage, actualPageSize));
+                accountIds.getData().getAccountIds(), PageRequest.of(actualPage - 1, actualPageSize));
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 

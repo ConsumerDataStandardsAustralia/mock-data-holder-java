@@ -15,30 +15,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CommonCustomerAPI {
+public class CommonCustomerAPI extends ProtectedAPI {
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(CommonCustomerAPI.class);
-
-    private ApiClient apiClient;
-
-    public CommonCustomerAPI() {
-        this(new ApiClient());
-    }
-
-    public CommonCustomerAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommonCustomerAPI.class);
 
     /**
      * Build call for getCustomer
@@ -64,6 +47,7 @@ public class CommonCustomerAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -156,6 +140,7 @@ public class CommonCustomerAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }

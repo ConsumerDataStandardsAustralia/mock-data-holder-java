@@ -51,7 +51,7 @@ public class BankingScheduledPaymentService {
         Pageable pageable
     ) {
         LOGGER.debug("Retrieving {} banking scheduled payments by product category {}, open status {}",
-            isOwned ? "owned" : "all", productCategory, openStatus);
+            isOwned != null && isOwned ? "owned" : "all", productCategory, openStatus);
         return bankingScheduledPaymentRepository.findAll((Specification<BankingScheduledPayment>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(criteriaBuilder.equal(root.get("from").get("bankingAccount").get("productCategory"), productCategory));

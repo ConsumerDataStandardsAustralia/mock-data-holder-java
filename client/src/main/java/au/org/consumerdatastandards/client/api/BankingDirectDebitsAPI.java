@@ -18,27 +18,9 @@ import java.util.Map;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingDirectDebitsAPI {
+public class BankingDirectDebitsAPI extends ProtectedAPI {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingDirectDebitsAPI.class);
-
-    private ApiClient apiClient;
-
-    public BankingDirectDebitsAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingDirectDebitsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
 
     /**
      * Build call for listDirectDebits
@@ -73,6 +55,7 @@ public class BankingDirectDebitsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -194,6 +177,7 @@ public class BankingDirectDebitsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }

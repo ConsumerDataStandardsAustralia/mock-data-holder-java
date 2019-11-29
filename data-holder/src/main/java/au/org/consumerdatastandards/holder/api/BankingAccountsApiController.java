@@ -106,7 +106,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingTransaction> transactionPage = transactionService.findTransactions(
-            accountId, maxAmount, minAmount, newestTime, oldestTime, text, PageRequest.of(actualPage, actualPageSize));
+            accountId, maxAmount, minAmount, newestTime, oldestTime, text, PageRequest.of(actualPage - 1, actualPageSize));
         ResponseBankingTransactionListData listData = new ResponseBankingTransactionListData();
         listData.setTransactions(transactionPage.getContent());
         ResponseBankingTransactionList responseBankingTransactionList = new ResponseBankingTransactionList();
@@ -140,7 +140,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         if (productCategory != null ) {
             bankingAccount.setProductCategory(BankingProductCategory.valueOf(productCategory.name()));
         }
-        Page<BankingAccount> accountPage = accountService.findBankingAccountsLike(isOwned, bankingAccount, PageRequest.of(actualPage, actualPageSize));
+        Page<BankingAccount> accountPage = accountService.findBankingAccountsLike(isOwned, bankingAccount, PageRequest.of(actualPage - 1, actualPageSize));
         ResponseBankingAccountListData listData = new ResponseBankingAccountListData();
         listData.setAccounts(accountPage.getContent());
         ResponseBankingAccountList responseBankingAccountList = new ResponseBankingAccountList();
@@ -186,7 +186,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIds.getData().getAccountIds(),
-            PageRequest.of(actualPage, actualPageSize));
+            PageRequest.of(actualPage - 1, actualPageSize));
         ResponseBankingAccountsBalanceListData listData = new ResponseBankingAccountsBalanceListData();
         listData.setBalances(balancePage.getContent());
         ResponseBankingAccountsBalanceList responseBankingAccountsBalanceList = new ResponseBankingAccountsBalanceList();
