@@ -10,12 +10,15 @@ package au.org.consumerdatastandards.client.cli.support;
 import au.org.consumerdatastandards.client.ApiClient;
 import au.org.consumerdatastandards.client.ApiException;
 import ch.qos.logback.classic.Logger;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.CreationException;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.tls.HandshakeCertificates;
 import okhttp3.tls.HeldCertificate;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.net.util.Base64;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.slf4j.LoggerFactory;
@@ -31,6 +34,7 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -43,7 +47,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ApiUtil {
 
@@ -73,6 +79,7 @@ public class ApiUtil {
         String accessToken = clientOptions.getAccessToken();
         if (StringUtils.isNotBlank(accessToken)) {
             apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
+            apiClient.addDefaultHeader("x-cds-subject", getSub(accessToken));
         }
         if (clientOptions.isMtlsEnabled()) {
             validateClientCertSettings(clientOptions);
@@ -111,6 +118,21 @@ public class ApiUtil {
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         return (X509Certificate) certificateFactory.generateCertificate(new FileInputStream(certFilePath));
     }
+
+    private static String getSub(String accessToken) throws ApiException {
+        String body = accessToken.split("\\.")[1];
+        String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
+        Map map;
+        try {
+            map = objectMapper.readValue(json, typeRef);
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        return map.get("sub").toString();
+    }
+
 
     private static PrivateKey loadPrivateKey(String keyFilePath)
         throws IOException, ApiException, NoSuchAlgorithmException, InvalidKeySpecException {

@@ -57,7 +57,7 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingDirectDebitAuthorisationListData listData = new ResponseBankingDirectDebitAuthorisationListData();
         Page<BankingDirectDebit> directDebitPage =
-            directDebitService.getBankingDirectDebits(accountId, PageRequest.of(actualPage, actualPageSize));
+            directDebitService.getBankingDirectDebits(accountId, PageRequest.of(actualPage - 1, actualPageSize));
         return getResponse(headers, actualPage, actualPageSize, listData, directDebitPage);
     }
 
@@ -78,7 +78,7 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingDirectDebitAuthorisationListData listData = new ResponseBankingDirectDebitAuthorisationListData();
         Page<BankingDirectDebit> directDebitPage =
-            directDebitService.getBankingDirectDebits(accountIds.getData().getAccountIds(), PageRequest.of(actualPage, actualPageSize));
+            directDebitService.getBankingDirectDebits(accountIds.getData().getAccountIds(), PageRequest.of(actualPage - 1, actualPageSize));
         return getResponse(headers, actualPage, actualPageSize, listData, directDebitPage);
     }
 

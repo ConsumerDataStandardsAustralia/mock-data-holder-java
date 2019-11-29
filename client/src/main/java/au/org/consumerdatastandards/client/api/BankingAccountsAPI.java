@@ -19,27 +19,9 @@ import java.util.Map;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingAccountsAPI {
+public class BankingAccountsAPI extends ProtectedAPI {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingAccountsAPI.class);
-
-    private ApiClient apiClient;
-
-    public BankingAccountsAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingAccountsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
 
     /**
      * Build call for getAccountDetail
@@ -68,6 +50,7 @@ public class BankingAccountsAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -176,6 +159,7 @@ public class BankingAccountsAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -312,6 +296,7 @@ public class BankingAccountsAPI {
         addQueryParam(queryParams, "page-size", pageSize);
         addQueryParam(queryParams, "text", text);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -464,6 +449,7 @@ public class BankingAccountsAPI {
         addQueryParam(queryParams, "page-size", pageSize);
         addQueryParam(queryParams, "product-category", productCategory);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -584,6 +570,7 @@ public class BankingAccountsAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -695,6 +682,7 @@ public class BankingAccountsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
