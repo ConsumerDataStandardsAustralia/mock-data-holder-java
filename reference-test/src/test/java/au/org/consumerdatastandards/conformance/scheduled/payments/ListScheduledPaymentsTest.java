@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.conformance.scheduled.payments;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccountDetail;
 import au.org.consumerdatastandards.api.banking.models.BankingScheduledPayment;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.thucydides.junit.annotations.UseTestDataFrom;
@@ -30,7 +29,7 @@ public class ListScheduledPaymentsTest extends ScheduledPaymentsAPITestBase {
         if (scheduledPayments != null) {
             for (BankingScheduledPayment scheduledPayment : scheduledPayments) {
                 String accountId = ScheduledPaymentsAPISteps.getScheduledPaymentAccountId(scheduledPayment);
-                BankingAccountDetail accountDetail = getAccountDetail(accountId);
+                Object accountDetail = getAccountDetail(accountId);
                 if (accountDetail != null) {
                     steps.validateReferencedByIdAccount(accountDetail, productCategory, openStatus, isOwned);
                 }

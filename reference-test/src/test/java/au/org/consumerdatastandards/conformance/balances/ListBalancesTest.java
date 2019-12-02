@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.conformance.balances;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccountDetail;
 import au.org.consumerdatastandards.api.banking.models.BankingBalance;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
@@ -31,7 +30,7 @@ public class ListBalancesTest extends BalancesAPITestBase {
         if (balances != null) {
             for (BankingBalance balance : balances) {
                 String accountId = AccountsAPIStepsBase.getAccountId(balance);
-                BankingAccountDetail accountDetail = getAccountDetail(accountId);
+                Object accountDetail = getAccountDetail(accountId);
                 if (accountDetail != null) {
                     steps.validateReferencedByIdAccount(accountDetail, productCategory, openStatus, isOwned);
                 }
