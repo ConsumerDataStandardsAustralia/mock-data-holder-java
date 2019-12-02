@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.conformance.directdebits;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccountDetail;
 import au.org.consumerdatastandards.api.banking.models.BankingDirectDebit;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
@@ -31,7 +30,7 @@ public class ListDirectDebitsTest extends DirectDebitsAPITestBase {
         if (directDebits != null) {
             for (BankingDirectDebit directDebit : directDebits) {
                 String accountId = AccountsAPIStepsBase.getAccountId(directDebit);
-                BankingAccountDetail accountDetail = getAccountDetail(accountId);
+                Object accountDetail = getAccountDetail(accountId);
                 if (accountDetail != null) {
                     steps.validateReferencedByIdAccount(accountDetail, productCategory, openStatus, isOwned);
                 }

@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.conformance;
 
 import au.org.consumerdatastandards.api.banking.models.BankingAccount;
-import au.org.consumerdatastandards.api.banking.models.BankingAccountDetail;
 import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountById;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
@@ -42,7 +41,7 @@ public class AccountsAPIStepsBase extends ProtectedAPIStepsBase {
     }
 
     @Step("Validate /banking/accounts/{accountId} response")
-    public BankingAccountDetail validateGetAccountDetailResponse(String accountId) {
+    public Object validateGetAccountDetailResponse(String accountId) {
         int statusCode = getAccountDetailResponse.statusCode();
         if (accountId.matches(CustomDataType.ASCII.getPattern())) {
             assertEquals(ResponseCode.OK.getCode(), statusCode);
@@ -56,7 +55,7 @@ public class AccountsAPIStepsBase extends ProtectedAPIStepsBase {
                 Object responseBankingAccountById = objectMapper.readValue(json, expandedResponseClass);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountById,
                         "getAccountDetail", statusCode));
-                BankingAccountDetail responseData = (BankingAccountDetail) getResponseData(responseBankingAccountById);
+                Object responseData = getResponseData(responseBankingAccountById);
                 String id = getAccountId(responseData);
                 if (!id.equals(accountId)) {
                     conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
@@ -134,7 +133,7 @@ public class AccountsAPIStepsBase extends ProtectedAPIStepsBase {
     }
 
     @Step("Validate BankingAccountDetail productCategory, openStatus, isOwned")
-    public void validateReferencedByIdAccount(BankingAccountDetail accountDetail, String productCategory, String openStatus, Boolean isOwned) {
+    public void validateReferencedByIdAccount(Object accountDetail, String productCategory, String openStatus, Boolean isOwned) {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkProductCategory(accountDetail, productCategory, conformanceErrors);
         checkOpenStatus(accountDetail, openStatus, conformanceErrors);
