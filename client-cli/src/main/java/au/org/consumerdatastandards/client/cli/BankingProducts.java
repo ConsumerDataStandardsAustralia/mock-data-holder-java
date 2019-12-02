@@ -7,20 +7,24 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.api.*;
-import au.org.consumerdatastandards.client.cli.support.*;
-import au.org.consumerdatastandards.client.model.*;
-import au.org.consumerdatastandards.conformance.*;
-import au.org.consumerdatastandards.support.ResponseCode;
-import java.time.OffsetDateTime;
+import au.org.consumerdatastandards.client.api.BankingProductsAPI;
 import au.org.consumerdatastandards.client.api.BankingProductsAPI.ParamEffective;
+import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
+import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
+import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.PayloadValidator;
+import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @ShellComponent
@@ -28,9 +32,6 @@ import java.util.List;
 public class BankingProducts extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingProducts.class);
-
-    @Autowired
-    ApiClientOptions apiClientOptions;
 
     private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingProductsAPI api = new BankingProductsAPI();
@@ -42,11 +43,7 @@ public class BankingProducts extends ApiCliBase {
         LOGGER.info("Get product detail CLI initiated with productId: {}",
             productId);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingProductById response = api.getProductDetail(productId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -77,11 +74,7 @@ public class BankingProducts extends ApiCliBase {
             productCategory,
             updatedSince);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingProductList response = api.listProducts(brand, effective, page, pageSize, productCategory, updatedSince);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");

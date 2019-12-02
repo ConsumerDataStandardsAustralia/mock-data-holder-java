@@ -10,21 +10,15 @@ package au.org.consumerdatastandards.client.cli;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
-
 @ShellComponent
 @ShellCommandGroup("Common Functions")
-public class Common {
-    
-    @Autowired
-    ApiClientOptions apiClientOptions;
-    
+public class Common extends ApiCliBase {
+
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(Common.class);
 
     @ShellMethod("Set CDS server URL, e.g. http://data.holder/cds-au/v1")

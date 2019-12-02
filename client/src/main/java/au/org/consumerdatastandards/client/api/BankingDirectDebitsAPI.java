@@ -7,16 +7,23 @@
  */
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.*;
-import au.org.consumerdatastandards.client.model.*;
+import au.org.consumerdatastandards.client.ApiCallback;
+import au.org.consumerdatastandards.client.ApiException;
+import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.ResponseBankingDirectDebitAuthorisationList;
+import ch.qos.logback.classic.Logger;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BankingDirectDebitsAPI extends ProtectedAPI {
 
@@ -144,6 +151,143 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
         apiClient.executeAsync(call, returnType, _callback);
         return call;
     }
+
+    /**
+     * Build call for listDirectDebitsBulk
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * http.response.details
+    <table summary="Response Details" border="1">
+    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>N
+    <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+    </table>
+     */
+    public okhttp3.Call listDirectDebitsBulkCall(Boolean isOwned, ParamAccountOpenStatus openStatus, Integer page, Integer pageSize, ParamProductCategory productCategory, final ApiCallback _callback) throws ApiException {
+
+        Object postBody = null;
+
+        // create path and map variables
+        String path = "/banking/accounts/balances";
+
+        LOGGER.trace("Building Call for listDirectDebits with path: {}, is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}",
+            path,
+            isOwned,
+            openStatus,
+            page,
+            pageSize,
+            productCategory);
+
+        List<Pair> queryParams = new ArrayList<>();
+        List<Pair> collectionQueryParams = new ArrayList<>();
+        addQueryParam(queryParams, "is-owned", isOwned);
+        addQueryParam(queryParams, "open-status", openStatus);
+        addQueryParam(queryParams, "page", page);
+        addQueryParam(queryParams, "page-size", pageSize);
+        addQueryParam(queryParams, "product-category", productCategory);
+        Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);        String[] authNames = new String[] {  };
+        return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call listDirectDebitsBulkValidateBeforeCall(Boolean isOwned, ParamAccountOpenStatus openStatus, Integer page, Integer pageSize, ParamProductCategory productCategory, final ApiCallback _callback) throws ApiException {
+
+
+        return listDirectDebitsBulkCall(isOwned, openStatus, page, pageSize, productCategory, _callback);
+    }
+
+    /**
+     * Get Bulk Direct Debits
+     * Obtain direct debit authorisations for multiple, filtered accounts
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @return ResponseBankingDirectDebitAuthorisationList
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * http.response.details
+    <table summary="Response Details" border="1">
+    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+    <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+    <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+    </table>
+     */
+    public ResponseBankingDirectDebitAuthorisationList listDirectDebitsBulk(Boolean isOwned, ParamAccountOpenStatus openStatus, Integer page, Integer pageSize, ParamProductCategory productCategory) throws ApiException {
+
+        LOGGER.trace("listDirectDebits with is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}",
+            isOwned,
+            openStatus,
+            page,
+            pageSize,
+            productCategory);
+
+        ApiResponse<ResponseBankingDirectDebitAuthorisationList> resp = listDirectDebitsBulkWithHttpInfo(isOwned, openStatus, page, pageSize, productCategory);
+        return resp.getData();
+    }
+
+    /**
+     * Get Bulk Direct Debits
+     * Obtain direct debit authorisations for multiple, filtered accounts
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @return ApiResponse&lt;ResponseBankingDirectDebitAuthorisationList&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * http.response.details
+    <table summary="Response Details" border="1">
+    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+    <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+    <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+    </table>
+     */
+    public ApiResponse<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsBulkWithHttpInfo(Boolean isOwned, ParamAccountOpenStatus openStatus, Integer page, Integer pageSize, ParamProductCategory productCategory) throws ApiException {
+        okhttp3.Call call = listDirectDebitsBulkValidateBeforeCall(isOwned, openStatus, page, pageSize, productCategory, null);
+        Type returnType = new TypeToken<ResponseBankingDirectDebitAuthorisationList>(){}.getType();
+        return apiClient.execute(call, returnType);
+    }
+
+    /**
+     * Get Bulk Direct Debits (asynchronously)
+     * Obtain direct debit authorisations for multiple, filtered accounts
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * http.response.details
+    <table summary="Response Details" border="1">
+    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+    <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+    <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+    </table>
+     */
+    public okhttp3.Call listDirectDebitsBulkAsync(Boolean isOwned, ParamAccountOpenStatus openStatus, Integer page, Integer pageSize, ParamProductCategory productCategory, final ApiCallback<ResponseBankingDirectDebitAuthorisationList> _callback) throws ApiException {
+
+        LOGGER.trace("Asynchronously listDirectDebits with is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}",
+            isOwned,
+            openStatus,
+            page,
+            pageSize,
+            productCategory);
+
+        okhttp3.Call call = listDirectDebitsBulkValidateBeforeCall(isOwned, openStatus, page, pageSize, productCategory, _callback);
+        Type returnType = new TypeToken<ResponseBankingDirectDebitAuthorisationList>(){}.getType();
+        apiClient.executeAsync(call, returnType, _callback);
+        return call;
+    }
+    
     /**
      * Build call for listDirectDebitsSpecificAccounts
      * @param accountIds Array of specific accountIds to obtain authorisations for (optional)
@@ -161,7 +305,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
      */
     public okhttp3.Call listDirectDebitsSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
-        Object postBody = null;
+        Object postBody = accountIds;
 
         // create path and map variables
         String path = "/banking/accounts/direct-debits";

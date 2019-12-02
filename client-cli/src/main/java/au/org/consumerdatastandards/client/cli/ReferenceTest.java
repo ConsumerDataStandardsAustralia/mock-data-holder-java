@@ -7,7 +7,6 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.ConformanceModel;
 import au.org.consumerdatastandards.conformance.Payload;
@@ -15,7 +14,6 @@ import au.org.consumerdatastandards.conformance.PayloadValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -31,20 +29,16 @@ import java.util.TreeSet;
 
 @ShellComponent
 @ShellCommandGroup("Reference Testing")
-public class ReferenceTest {
+public class ReferenceTest extends ApiCliBase {
     
     private PayloadValidator payloadValidator = new PayloadValidator();
-    
-    @Autowired
-    ApiClientOptions apiClientOptions;
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ReferenceTest.class);
     
     @ShellMethod("Retrieve current conformance check status")
     public void payloadValidationStatus() {
         LOGGER.info("Automatic payload validation setting: {}", apiClientOptions.isValidationEnabled());
     }
-    
     
     @ShellMethod("Validate all Payloads Automatically")
     public void autoValidate(@ShellOption(help = "enable or disable") String enableValidation) throws IOException {
