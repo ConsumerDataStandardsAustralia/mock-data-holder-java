@@ -10,12 +10,12 @@ public class MetaPaginated {
         required = true
     )
     @CDSDataType(CustomDataType.NaturalNumber)
-    Integer totalRecords;
+    protected Integer totalRecords;
 
     @Property(
         description = "The total number of pages in the full set. See [pagination](#pagination).",
         required = true
     )
     @CDSDataType(CustomDataType.NaturalNumber)
-    Integer totalPages;
+    protected Integer totalPages;
 }
