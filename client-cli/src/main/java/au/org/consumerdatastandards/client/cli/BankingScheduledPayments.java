@@ -7,18 +7,21 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.api.*;
-import au.org.consumerdatastandards.client.cli.support.*;
-import au.org.consumerdatastandards.client.model.*;
-import au.org.consumerdatastandards.conformance.*;
+import au.org.consumerdatastandards.client.api.BankingScheduledPaymentsAPI;
+import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.ResponseBankingScheduledPaymentsList;
+import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+
 import java.util.List;
 
 @ShellComponent
@@ -26,9 +29,6 @@ import java.util.List;
 public class BankingScheduledPayments extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingScheduledPayments.class);
-
-    @Autowired
-    ApiClientOptions apiClientOptions;
 
     private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingScheduledPaymentsAPI api = new BankingScheduledPaymentsAPI();
@@ -44,11 +44,7 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingScheduledPaymentsList response = api.listScheduledPayments(accountId, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -73,11 +69,7 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingScheduledPaymentsList response = api.listScheduledPaymentsSpecificAccounts(accountIds, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");

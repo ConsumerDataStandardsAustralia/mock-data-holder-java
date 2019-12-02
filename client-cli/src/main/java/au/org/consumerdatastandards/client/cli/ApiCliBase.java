@@ -7,13 +7,18 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
 
 public class ApiCliBase {
+
+    @Autowired
+    protected ApiClientOptions apiClientOptions;
 
     protected void throwConformanceErrors(List<ConformanceError> conformanceErrors) throws Exception {
 

@@ -7,19 +7,30 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.api.*;
-import au.org.consumerdatastandards.client.cli.support.*;
-import au.org.consumerdatastandards.client.model.*;
-import au.org.consumerdatastandards.conformance.*;
+import au.org.consumerdatastandards.client.api.BankingAccountsAPI;
+import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.RequestAccountIdsData;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountById;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountList;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountsBalanceById;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountsBalanceList;
+import au.org.consumerdatastandards.client.model.ResponseBankingTransactionById;
+import au.org.consumerdatastandards.client.model.ResponseBankingTransactionList;
+import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.support.ResponseCode;
-import java.time.OffsetDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @ShellComponent
@@ -27,9 +38,6 @@ import java.util.List;
 public class BankingAccounts extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingAccounts.class);
-
-    @Autowired
-    ApiClientOptions apiClientOptions;
 
     private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingAccountsAPI api = new BankingAccountsAPI();
@@ -41,11 +49,7 @@ public class BankingAccounts extends ApiCliBase {
         LOGGER.info("Get account detail CLI initiated with accountId: {}",
             accountId);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingAccountById response = api.getAccountDetail(accountId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -68,11 +72,7 @@ public class BankingAccounts extends ApiCliBase {
             accountId,
             transactionId);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingTransactionById response = api.getTransactionDetail(accountId, transactionId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -107,11 +107,8 @@ public class BankingAccounts extends ApiCliBase {
             pageSize,
             text);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
         ResponseBankingTransactionList response = api.getTransactions(accountId, maxAmount, minAmount, newestTime, oldestTime, page, pageSize, text);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -140,11 +137,8 @@ public class BankingAccounts extends ApiCliBase {
             pageSize,
             productCategory);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
 
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
         ResponseBankingAccountList response = api.listAccounts(isOwned, openStatus, page, pageSize, productCategory);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -165,11 +159,7 @@ public class BankingAccounts extends ApiCliBase {
         LOGGER.info("List balance CLI initiated with accountId: {}",
             accountId);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingAccountsBalanceById response = api.listBalance(accountId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -183,9 +173,38 @@ public class BankingAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
+    @ShellMethod("Obtain balances for multiple, filtered accounts")
+    public String listBalancesBulk(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+                                   @ShellOption(defaultValue = ShellOption.NULL) Boolean isOwned,
+                                   @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
+                                   @ShellOption(defaultValue = ShellOption.NULL) Integer page,
+                                   @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
+                                   @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory) throws Exception {
+        LOGGER.info("List balances bulk CLI initiated with is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}",
+            isOwned,
+            openStatus,
+            page,
+            pageSize,
+            productCategory);
+
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        ResponseBankingAccountsBalanceList response =
+            api.listBalancesBulk(isOwned, openStatus, page, pageSize, productCategory);
+        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+            LOGGER.info("Payload validation is enabled");
+            okhttp3.Call call = api.listBalancesBulkCall(isOwned, openStatus, page, pageSize, productCategory, null);
+            List<ConformanceError> conformanceErrors = payloadValidator
+                .validateResponse(call.request().url().toString(), response, "listBalancesBulk", ResponseCode.OK);
+            if (!conformanceErrors.isEmpty()) {
+                throwConformanceErrors(conformanceErrors);
+            }
+        }
+        return JsonPrinter.toJson(response);
+    }
+
     @ShellMethod("List balances specific accounts")
     public String listBalancesSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) RequestAccountIds accountIds,
+        @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
@@ -194,15 +213,15 @@ public class BankingAccounts extends ApiCliBase {
             page,
             pageSize);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
-        ResponseBankingAccountsBalanceList response = api.listBalancesSpecificAccounts(accountIds, page, pageSize);
+        RequestAccountIdsData data = new RequestAccountIdsData();
+        data.setAccountIds(accountIds);
+        RequestAccountIds requestAccountIds = new RequestAccountIds();
+        requestAccountIds.setData(data);
+        ResponseBankingAccountsBalanceList response = api.listBalancesSpecificAccounts(requestAccountIds, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listBalancesSpecificAccountsCall(accountIds, page, pageSize, null);
+            okhttp3.Call call = api.listBalancesSpecificAccountsCall(requestAccountIds, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
                 .validateResponse(call.request().url().toString(), response, "listBalancesSpecificAccounts", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {

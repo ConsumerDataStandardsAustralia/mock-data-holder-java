@@ -7,18 +7,24 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.api.*;
-import au.org.consumerdatastandards.client.cli.support.*;
-import au.org.consumerdatastandards.client.model.*;
-import au.org.consumerdatastandards.conformance.*;
+import au.org.consumerdatastandards.client.api.BankingDirectDebitsAPI;
+import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.RequestAccountIdsData;
+import au.org.consumerdatastandards.client.model.ResponseBankingDirectDebitAuthorisationList;
+import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.PayloadValidator;
 import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+
 import java.util.List;
 
 @ShellComponent
@@ -26,9 +32,6 @@ import java.util.List;
 public class BankingDirectDebits extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingDirectDebits.class);
-
-    @Autowired
-    ApiClientOptions apiClientOptions;
 
     private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingDirectDebitsAPI api = new BankingDirectDebitsAPI();
@@ -44,11 +47,7 @@ public class BankingDirectDebits extends ApiCliBase {
             page,
             pageSize);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingDirectDebitAuthorisationList response = api.listDirectDebits(accountId, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -62,9 +61,38 @@ public class BankingDirectDebits extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
+    @ShellMethod("Obtain balances for multiple, filtered accounts")
+    public String listDirectDebitsBulk(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+                                   @ShellOption(defaultValue = ShellOption.NULL) Boolean isOwned,
+                                   @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
+                                   @ShellOption(defaultValue = ShellOption.NULL) Integer page,
+                                   @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
+                                   @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory) throws Exception {
+        LOGGER.info("List direct debits bulk CLI initiated with is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}",
+            isOwned,
+            openStatus,
+            page,
+            pageSize,
+            productCategory);
+
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        ResponseBankingDirectDebitAuthorisationList response =
+            api.listDirectDebitsBulk(isOwned, openStatus, page, pageSize, productCategory);
+        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+            LOGGER.info("Payload validation is enabled");
+            okhttp3.Call call = api.listDirectDebitsBulkCall(isOwned, openStatus, page, pageSize, productCategory, null);
+            List<ConformanceError> conformanceErrors = payloadValidator
+                .validateResponse(call.request().url().toString(), response, "listDirectDebitsBulk", ResponseCode.OK);
+            if (!conformanceErrors.isEmpty()) {
+                throwConformanceErrors(conformanceErrors);
+            }
+        }
+        return JsonPrinter.toJson(response);
+    }
+    
     @ShellMethod("List direct debits specific accounts")
     public String listDirectDebitsSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) RequestAccountIds accountIds,
+        @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
@@ -73,15 +101,15 @@ public class BankingDirectDebits extends ApiCliBase {
             page,
             pageSize);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
-        ResponseBankingDirectDebitAuthorisationList response = api.listDirectDebitsSpecificAccounts(accountIds, page, pageSize);
+        RequestAccountIdsData data = new RequestAccountIdsData();
+        data.setAccountIds(accountIds);
+        RequestAccountIds requestAccountIds = new RequestAccountIds();
+        requestAccountIds.setData(data);
+        ResponseBankingDirectDebitAuthorisationList response = api.listDirectDebitsSpecificAccounts(requestAccountIds, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listDirectDebitsSpecificAccountsCall(accountIds, page, pageSize, null);
+            okhttp3.Call call = api.listDirectDebitsSpecificAccountsCall(requestAccountIds, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
                 .validateResponse(call.request().url().toString(), response, "listDirectDebitsSpecificAccounts", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {

@@ -7,19 +7,22 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.api.*;
-import au.org.consumerdatastandards.client.cli.support.*;
-import au.org.consumerdatastandards.client.model.*;
-import au.org.consumerdatastandards.conformance.*;
-import au.org.consumerdatastandards.support.ResponseCode;
+import au.org.consumerdatastandards.client.api.BankingPayeesAPI;
 import au.org.consumerdatastandards.client.api.BankingPayeesAPI.ParamType;
+import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.ResponseBankingPayeeById;
+import au.org.consumerdatastandards.client.model.ResponseBankingPayeeList;
+import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.conformance.PayloadValidator;
+import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+
 import java.util.List;
 
 @ShellComponent
@@ -27,9 +30,6 @@ import java.util.List;
 public class BankingPayees extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingPayees.class);
-
-    @Autowired
-    ApiClientOptions apiClientOptions;
 
     private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingPayeesAPI api = new BankingPayeesAPI();
@@ -41,11 +41,7 @@ public class BankingPayees extends ApiCliBase {
         LOGGER.info("Get payee detail CLI initiated with payeeId: {}",
             payeeId);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingPayeeById response = api.getPayeeDetail(payeeId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -70,11 +66,7 @@ public class BankingPayees extends ApiCliBase {
             pageSize,
             type);
 
-        if (apiClientOptions.getUserAgent() != null) {
-            LOGGER.info("User agent specified as {}", apiClientOptions.getUserAgent());
-        }
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-
         ResponseBankingPayeeList response = api.listPayees(page, pageSize, type);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
