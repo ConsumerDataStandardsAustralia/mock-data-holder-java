@@ -31,10 +31,10 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call listScheduledPaymentsCall(String accountId, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
@@ -81,10 +81,10 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return ResponseBankingScheduledPaymentsList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ResponseBankingScheduledPaymentsList listScheduledPayments(String accountId, Integer page, Integer pageSize) throws ApiException {
 
@@ -106,10 +106,10 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return ApiResponse&lt;ResponseBankingScheduledPaymentsList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<ResponseBankingScheduledPaymentsList> listScheduledPaymentsWithHttpInfo(String accountId, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = listScheduledPaymentsValidateBeforeCall(accountId, page, pageSize, null);
@@ -127,10 +127,10 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call listScheduledPaymentsAsync(String accountId, Integer page, Integer pageSize, final ApiCallback<ResponseBankingScheduledPaymentsList> _callback) throws ApiException {
 
@@ -153,11 +153,11 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call listScheduledPaymentsSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
@@ -198,11 +198,11 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return ResponseBankingScheduledPaymentsList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     * </table>
      */
     public ResponseBankingScheduledPaymentsList listScheduledPaymentsSpecificAccounts(RequestAccountIds accountIds, Integer page, Integer pageSize) throws ApiException {
 
@@ -224,11 +224,11 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return ApiResponse&lt;ResponseBankingScheduledPaymentsList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<ResponseBankingScheduledPaymentsList> listScheduledPaymentsSpecificAccountsWithHttpInfo(RequestAccountIds accountIds, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = listScheduledPaymentsSpecificAccountsValidateBeforeCall(accountIds, page, pageSize, null);
@@ -246,11 +246,11 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-        <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call listScheduledPaymentsSpecificAccountsAsync(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback<ResponseBankingScheduledPaymentsList> _callback) throws ApiException {
 
