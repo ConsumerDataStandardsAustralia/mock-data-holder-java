@@ -15,7 +15,7 @@ public class GetScheduledPaymentsTest extends ScheduledPaymentsAPITestBase {
     private Integer pageSize;
 
     @Test
-    public void listDirectDebitsBulk() {
+    public void listScheduledPayments() {
         if (StringUtils.isBlank(steps.getApiBasePath())) {
             return;
         }

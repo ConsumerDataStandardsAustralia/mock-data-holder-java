@@ -127,7 +127,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
 
     @Step("Request /banking/accounts/{accountId}/payments/scheduled")
     public void listScheduledPayments(String accountId, Integer page, Integer pageSize) {
-        String url = getApiBasePath() + "/banking/accounts/" + accountId + "/direct-debits";
+        String url = getApiBasePath() + "/banking/accounts/" + accountId + "/payments/scheduled";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = buildHeaders(given())
