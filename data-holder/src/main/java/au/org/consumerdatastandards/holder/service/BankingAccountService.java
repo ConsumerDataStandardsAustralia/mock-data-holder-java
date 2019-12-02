@@ -3,6 +3,7 @@ package au.org.consumerdatastandards.holder.service;
 import au.org.consumerdatastandards.holder.model.BankingAccount;
 import au.org.consumerdatastandards.holder.model.BankingAccountDetail;
 import au.org.consumerdatastandards.holder.model.BankingBalance;
+import au.org.consumerdatastandards.holder.model.BankingProductCategory;
 import au.org.consumerdatastandards.holder.repository.BankingAccountDetailRepository;
 import au.org.consumerdatastandards.holder.repository.BankingAccountRepository;
 import au.org.consumerdatastandards.holder.repository.BankingBalanceRepository;
@@ -67,6 +68,24 @@ public class BankingAccountService {
     public BankingBalance getBankingBalance(String accountId) {
         LOGGER.debug("Retrieving banking balance for account id {}",  accountId);
         return bankingBalanceRepository.findByAccountId(accountId);
+    }
+
+    public Page<BankingBalance> getBankingBalances(Boolean isOwned,
+                                                   BankingProductCategory category,
+                                                   BankingAccount.OpenStatus openStatus,
+                                                   Pageable pageable) {
+        LOGGER.debug("Retrieving {} banking balance matching product category {} and open status {} with Paging content specified as {}",
+            isOwned != null && isOwned ? "owned" : "all", category, openStatus, pageable);
+        return bankingBalanceRepository.findAll((Specification<BankingBalance>) (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (category != null) {
+                predicates.add(criteriaBuilder.equal(root.get("bankingAccount").get("productCategory"), category));
+            }
+            if (openStatus != null) {
+                predicates.add(criteriaBuilder.equal(root.get("bankingAccount").get("openStatus"), openStatus));
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
     }
 
     public Page<BankingBalance> getBankingBalances(List<String> accountIds, Pageable pageable) {
