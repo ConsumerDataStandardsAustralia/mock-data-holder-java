@@ -25,7 +25,6 @@ public class BankingBalance  {
      */
     private String accountId;
 
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(updatable = false)
