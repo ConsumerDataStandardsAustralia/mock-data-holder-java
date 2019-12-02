@@ -210,7 +210,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/direct-debits";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = buildHeaders(given())
+        RequestSpecification given = buildJSONPostHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listDirectDebitsSpecificAccounts"));
         if (page != null) {
             given.queryParam("page", page);

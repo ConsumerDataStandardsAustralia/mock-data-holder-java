@@ -215,7 +215,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/payments/scheduled";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = buildHeaders(given())
+        RequestSpecification given = buildJSONPostHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listScheduledPaymentsSpecificAccounts"));
         if (page != null) {
             given.queryParam("page", page);

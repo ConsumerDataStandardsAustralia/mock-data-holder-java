@@ -23,6 +23,8 @@ import static au.org.consumerdatastandards.conformance.ConformanceError.Type.MIS
 
 public class APIStepsBase {
 
+    private static final String APPLICATION_JSON = "application/json";
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected PayloadValidator payloadValidator = new PayloadValidator();
@@ -31,7 +33,11 @@ public class APIStepsBase {
     private String apiBasePath;
 
     protected RequestSpecification buildHeaders(RequestSpecification given) {
-        return given.header("Accept", "application/json");
+        return given.header("Accept", APPLICATION_JSON);
+    }
+
+    protected RequestSpecification buildJSONPostHeaders(RequestSpecification given) {
+        return buildHeaders(given).header("Content-Type", APPLICATION_JSON);
     }
 
     @Step("Setup API base path to {0}")
@@ -92,7 +98,7 @@ public class APIStepsBase {
     }
 
     protected boolean isContentTypeValid(String contentType) {
-        return contentType != null && contentType.startsWith("application/json");
+        return contentType != null && contentType.startsWith(APPLICATION_JSON);
     }
 
     protected String buildConformanceErrorsDescription(List<ConformanceError> conformanceErrors) {

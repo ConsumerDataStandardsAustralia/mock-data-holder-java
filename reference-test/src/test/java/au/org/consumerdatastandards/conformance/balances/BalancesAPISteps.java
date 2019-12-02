@@ -169,7 +169,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
         String url = getApiBasePath() + "/banking/accounts/balances";
         requestUrl = url;
         boolean paramAdded = false;
-        RequestSpecification given = buildHeaders(given())
+        RequestSpecification given = buildJSONPostHeaders(given())
                 .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalancesSpecificAccounts"));
         if (page != null) {
             given.queryParam("page", page);
