@@ -1,6 +1,10 @@
 package au.org.consumerdatastandards.holder.api;
 
+import au.org.consumerdatastandards.holder.model.BankingAccount;
 import au.org.consumerdatastandards.holder.model.BankingDirectDebit;
+import au.org.consumerdatastandards.holder.model.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.holder.model.ParamProductCategory;
 import au.org.consumerdatastandards.holder.model.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.ResponseBankingDirectDebitAuthorisationList;
 import au.org.consumerdatastandards.holder.model.ResponseBankingDirectDebitAuthorisationListData;
@@ -16,6 +20,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,6 +64,38 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
         ResponseBankingDirectDebitAuthorisationListData listData = new ResponseBankingDirectDebitAuthorisationListData();
         Page<BankingDirectDebit> directDebitPage =
             directDebitService.getBankingDirectDebits(accountId, PageRequest.of(actualPage - 1, actualPageSize));
+        return getResponse(headers, actualPage, actualPageSize, listData, directDebitPage);
+    }
+
+    @Override
+    public ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsBulk(Boolean isOwned,
+                                                                                            ParamAccountOpenStatus paramOpenStatus,
+                                                                                            ParamProductCategory paramProductCategory,
+                                                                                            Integer page,
+                                                                                            Integer pageSize,
+                                                                                            String xCdsUserAgent,
+                                                                                            String xCdsSubject,
+                                                                                            OffsetDateTime xFapiAuthDate,
+                                                                                            String xFapiCustomerIpAddress,
+                                                                                            UUID xFapiInteractionId,
+                                                                                            Integer xMinV,
+                                                                                            Integer xV) {
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validatePageInputs(page, pageSize);
+        HttpHeaders headers = generateResponseHeaders(request);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        ResponseBankingDirectDebitAuthorisationListData listData = new ResponseBankingDirectDebitAuthorisationListData();
+        BankingAccount.OpenStatus openStatus = null;
+        if (paramOpenStatus != null && !ParamAccountOpenStatus.ALL.equals(paramOpenStatus)) {
+            openStatus = BankingAccount.OpenStatus.valueOf(paramOpenStatus.name());
+        }
+        BankingProductCategory productCategory = null;
+        if (paramProductCategory != null) {
+            productCategory = BankingProductCategory.valueOf(paramProductCategory.name());
+        }
+        Page<BankingDirectDebit> directDebitPage =
+            directDebitService.getBankingDirectDebits(isOwned, productCategory, openStatus, PageRequest.of(actualPage - 1, actualPageSize));
         return getResponse(headers, actualPage, actualPageSize, listData, directDebitPage);
     }
 
