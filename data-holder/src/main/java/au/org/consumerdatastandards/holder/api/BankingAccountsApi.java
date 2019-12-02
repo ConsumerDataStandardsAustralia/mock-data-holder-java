@@ -347,11 +347,6 @@ public interface BankingAccountsApi {
             code = 200,
             message = "Success",
             response = ResponseBankingAccountsBalanceList.class
-        ),
-        @ApiResponse(
-            code = 422,
-            message = "The request was well formed but was unable to be processed due to business logic specific to the request",
-            response = ResponseErrorList.class
         )
     })
     @RequestMapping(
