@@ -13,6 +13,7 @@ import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.client.model.ParamProductCategory;
 import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.RequestAccountIdsData;
 import au.org.consumerdatastandards.client.model.ResponseBankingAccountById;
 import au.org.consumerdatastandards.client.model.ResponseBankingAccountList;
 import au.org.consumerdatastandards.client.model.ResponseBankingAccountsBalanceById;
@@ -203,7 +204,7 @@ public class BankingAccounts extends ApiCliBase {
 
     @ShellMethod("List balances specific accounts")
     public String listBalancesSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) RequestAccountIds accountIds,
+        @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
@@ -213,10 +214,14 @@ public class BankingAccounts extends ApiCliBase {
             pageSize);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingAccountsBalanceList response = api.listBalancesSpecificAccounts(accountIds, page, pageSize);
+        RequestAccountIdsData data = new RequestAccountIdsData();
+        data.setAccountIds(accountIds);
+        RequestAccountIds requestAccountIds = new RequestAccountIds();
+        requestAccountIds.setData(data);
+        ResponseBankingAccountsBalanceList response = api.listBalancesSpecificAccounts(requestAccountIds, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listBalancesSpecificAccountsCall(accountIds, page, pageSize, null);
+            okhttp3.Call call = api.listBalancesSpecificAccountsCall(requestAccountIds, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
                 .validateResponse(call.request().url().toString(), response, "listBalancesSpecificAccounts", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
