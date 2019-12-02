@@ -11,9 +11,9 @@ import java.util.Objects;
 
 public class MetaPaginated {
 
-    private Integer totalPages;
+    protected Integer totalPages;
 
-    private Integer totalRecords;
+    protected Integer totalRecords;
 
     /**
      * The total number of pages in the full set. See [pagination](#pagination).

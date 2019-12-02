@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class TxMetaPaginated extends MetaPaginated {
 
-    private boolean isQueryParamUnsupported;
+    private Boolean isQueryParamUnsupported;
 
-    public boolean isQueryParamUnsupported() {
+    public Boolean getIsQueryParamUnsupported() {
         return isQueryParamUnsupported;
     }
 
-    public void setQueryParamUnsupported(boolean queryParamUnsupported) {
-        isQueryParamUnsupported = queryParamUnsupported;
+    public void setIsQueryParamUnsupported(boolean isQueryParamUnsupported) {
+        this.isQueryParamUnsupported = isQueryParamUnsupported;
     }
 
     @Override

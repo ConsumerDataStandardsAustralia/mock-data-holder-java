@@ -18,12 +18,12 @@ public class MetaPaginated  {
     /**
      * The total number of pages in the full set. See [pagination](#pagination).
      */
-    private Integer totalPages;
+    protected Integer totalPages;
 
     /**
      * The total number of records in the full set. See [pagination](#pagination).
      */
-    private Integer totalRecords;
+    protected Integer totalRecords;
 
     public MetaPaginated totalPages(Integer totalPages) {
         this.totalPages = totalPages;
