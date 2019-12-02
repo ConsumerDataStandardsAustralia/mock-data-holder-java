@@ -170,6 +170,36 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         return new ResponseEntity<>(responseBankingAccountsBalanceById, headers, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesBulk(Boolean isOwned,
+                                                                               ParamAccountOpenStatus paramOpenStatus,
+                                                                               ParamProductCategory paramProductCategory,
+                                                                               Integer page,
+                                                                               Integer pageSize,
+                                                                               String xCdsUserAgent,
+                                                                               String xCdsSubject,
+                                                                               OffsetDateTime xFapiAuthDate,
+                                                                               String xFapiCustomerIpAddress,
+                                                                               UUID xFapiInteractionId,
+                                                                               Integer xMinV, Integer xV) {
+        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validatePageInputs(page, pageSize);
+        HttpHeaders headers = generateResponseHeaders(request);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        BankingAccount.OpenStatus openStatus = null;
+        if (paramOpenStatus != null && !ParamAccountOpenStatus.ALL.equals(paramOpenStatus)) {
+            openStatus = BankingAccount.OpenStatus.valueOf(paramOpenStatus.name());
+        }
+        BankingProductCategory productCategory = null;
+        if (paramProductCategory != null) {
+            productCategory = BankingProductCategory.valueOf(paramProductCategory.name());
+        }
+        Page<BankingBalance> balancePage = accountService.getBankingBalances(isOwned, productCategory, openStatus,
+            PageRequest.of(actualPage - 1, actualPageSize));
+        return getBalanceListResponse(headers, actualPage, actualPageSize, balancePage);
+    }
+
     public ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesSpecificAccounts(RequestAccountIds accountIds,
                                                                                            Integer page,
                                                                                            Integer pageSize,
@@ -187,6 +217,13 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIds.getData().getAccountIds(),
             PageRequest.of(actualPage - 1, actualPageSize));
+        return getBalanceListResponse(headers, actualPage, actualPageSize, balancePage);
+    }
+
+    private ResponseEntity<ResponseBankingAccountsBalanceList> getBalanceListResponse(HttpHeaders headers,
+                                                                                      Integer actualPage,
+                                                                                      Integer actualPageSize,
+                                                                                      Page<BankingBalance> balancePage) {
         ResponseBankingAccountsBalanceListData listData = new ResponseBankingAccountsBalanceListData();
         listData.setBalances(balancePage.getContent());
         ResponseBankingAccountsBalanceList responseBankingAccountsBalanceList = new ResponseBankingAccountsBalanceList();

@@ -25,6 +25,11 @@ public class BankingBalance  {
      */
     private String accountId;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(updatable = false)
+    private BankingAccount bankingAccount;
+
     /**
      * Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent
      */
@@ -76,6 +81,14 @@ public class BankingBalance  {
     @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence")
     public String getAccountId() {
         return accountId;
+    }
+
+    public BankingAccount getBankingAccount() {
+        return bankingAccount;
+    }
+
+    public void setBankingAccount(BankingAccount bankingAccount) {
+        this.bankingAccount = bankingAccount;
     }
 
     public void setAccountId(String accountId) {
