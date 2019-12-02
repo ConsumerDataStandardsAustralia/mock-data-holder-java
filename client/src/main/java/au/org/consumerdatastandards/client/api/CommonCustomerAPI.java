@@ -29,10 +29,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCustomerCall(final ApiCallback _callback) throws ApiException {
 
@@ -65,10 +65,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return ResponseCommonCustomer
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ResponseCommonCustomer getCustomer() throws ApiException {
 
@@ -84,10 +84,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return ApiResponse&lt;ResponseCommonCustomer&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<ResponseCommonCustomer> getCustomerWithHttpInfo() throws ApiException {
         okhttp3.Call call = getCustomerValidateBeforeCall(null);
@@ -102,10 +102,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCustomerAsync(final ApiCallback<ResponseCommonCustomer> _callback) throws ApiException {
 
@@ -122,10 +122,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCustomerDetailCall(final ApiCallback _callback) throws ApiException {
 
@@ -158,10 +158,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return ResponseCommonCustomerDetail
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ResponseCommonCustomerDetail getCustomerDetail() throws ApiException {
 
@@ -177,10 +177,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return ApiResponse&lt;ResponseCommonCustomerDetail&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<ResponseCommonCustomerDetail> getCustomerDetailWithHttpInfo() throws ApiException {
         okhttp3.Call call = getCustomerDetailValidateBeforeCall(null);
@@ -195,10 +195,10 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getCustomerDetailAsync(final ApiCallback<ResponseCommonCustomerDetail> _callback) throws ApiException {
 

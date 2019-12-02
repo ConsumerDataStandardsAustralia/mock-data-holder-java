@@ -36,10 +36,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getPayeeDetailCall(String payeeId, final ApiCallback _callback) throws ApiException {
 
@@ -80,10 +80,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return ResponseBankingPayeeById
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ResponseBankingPayeeById getPayeeDetail(String payeeId) throws ApiException {
 
@@ -101,10 +101,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return ApiResponse&lt;ResponseBankingPayeeById&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<ResponseBankingPayeeById> getPayeeDetailWithHttpInfo(String payeeId) throws ApiException {
         okhttp3.Call call = getPayeeDetailValidateBeforeCall(payeeId, null);
@@ -120,10 +120,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call getPayeeDetailAsync(String payeeId, final ApiCallback<ResponseBankingPayeeById> _callback) throws ApiException {
 
@@ -144,10 +144,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call listPayeesCall(Integer page, Integer pageSize, ParamType type, final ApiCallback _callback) throws ApiException {
 
@@ -189,10 +189,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return ResponseBankingPayeeList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ResponseBankingPayeeList listPayees(Integer page, Integer pageSize, ParamType type) throws ApiException {
 
@@ -214,10 +214,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return ApiResponse&lt;ResponseBankingPayeeList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public ApiResponse<ResponseBankingPayeeList> listPayeesWithHttpInfo(Integer page, Integer pageSize, ParamType type) throws ApiException {
         okhttp3.Call call = listPayeesValidateBeforeCall(page, pageSize, type, null);
@@ -235,10 +235,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     </table>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     * </table>
      */
     public okhttp3.Call listPayeesAsync(Integer page, Integer pageSize, ParamType type, final ApiCallback<ResponseBankingPayeeList> _callback) throws ApiException {
 
