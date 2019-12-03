@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.conformance.balances;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccount;
 import au.org.consumerdatastandards.api.banking.models.BankingBalance;
+import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceById;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceList;
@@ -117,7 +117,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
         }
         if (!StringUtils.isBlank(openStatus)) {
             try {
-                BankingAccount.OpenStatus.valueOf(openStatus);
+                ParamAccountOpenStatus.valueOf(openStatus);
             } catch (IllegalArgumentException e) {
                 return false;
             }

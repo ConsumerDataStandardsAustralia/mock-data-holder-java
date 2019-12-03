@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.conformance.directdebits;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccount;
 import au.org.consumerdatastandards.api.banking.models.BankingDirectDebit;
+import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationListData;
@@ -116,7 +116,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         }
         if (!StringUtils.isBlank(openStatus)) {
             try {
-                BankingAccount.OpenStatus.valueOf(openStatus);
+                ParamAccountOpenStatus.valueOf(openStatus);
             } catch (IllegalArgumentException e) {
                 return false;
             }
