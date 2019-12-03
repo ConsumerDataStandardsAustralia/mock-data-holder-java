@@ -1,8 +1,8 @@
 package au.org.consumerdatastandards.conformance.scheduled.payments;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccount;
 import au.org.consumerdatastandards.api.banking.models.BankingScheduledPayment;
 import au.org.consumerdatastandards.api.banking.models.BankingScheduledPaymentFrom;
+import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsList;
 import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsListData;
@@ -117,7 +117,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         }
         if (!StringUtils.isBlank(openStatus)) {
             try {
-                BankingAccount.OpenStatus.valueOf(openStatus);
+                ParamAccountOpenStatus.valueOf(openStatus);
             } catch (IllegalArgumentException e) {
                 return false;
             }
