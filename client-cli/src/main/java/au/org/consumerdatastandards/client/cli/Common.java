@@ -41,14 +41,17 @@ public class Common extends ApiCliBase {
 
     @ShellMethod("Setup minimum log level, default is INFO")
     public void setLogLevel(@ShellOption Level targetLevel) {
-        Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+        Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         root.setLevel(targetLevel);
     }
 
-    @ShellMethod("Setup client certificate to enable MTLS connection to the server")
-    public void setClientCert(@ShellOption("cert file path") String certFilePath,
-                                     @ShellOption("key file path") String keyFilePath,
-                                     @ShellOption(value = "enable MTLS or not", defaultValue = "true") boolean mtlsEnabled) {
+    @ShellMethod("Setup client certificate and CA to enable MTLS connection to the server")
+    public void setupMTLS(@ShellOption("root CA file path") String rootCaPath,
+                          @ShellOption("client cert file path") String certFilePath,
+                          @ShellOption("client key file path") String keyFilePath,
+                          @ShellOption(value = "enable MTLS or not", defaultValue = "true") boolean mtlsEnabled) {
+        apiClientOptions.setRootCaFilePath(rootCaPath);
+        LOGGER.info("Root CA file path is set to {}", rootCaPath);
         apiClientOptions.setCertFilePath(certFilePath);
         LOGGER.info("Client certificate file path is set to {}", certFilePath);
         apiClientOptions.setKeyFilePath(keyFilePath);
@@ -71,37 +74,37 @@ public class Common extends ApiCliBase {
         apiClientOptions.setMtlsEnabled(false);
         LOGGER.info("MTLS disabled");
     }
-    
+
     @ShellMethod("Retrieve current minimum log level")
     public void getLogLevel() {
-        Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+        Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         Level currentLevel = root.getLevel();
         root.setLevel(Level.INFO);
         // Need to make sure we are at least at info or the message won't print
         LOGGER.info("Log level currently set to: {}", currentLevel);
         root.setLevel(currentLevel);
     }
-    
+
     @ShellMethod("Set browser user-agent")
     public void setUserAgent(@ShellOption String userAgent) {
         apiClientOptions.setUserAgent(userAgent);
     }
-    
+
     @ShellMethod("Get browser user-agent")
     public void getUserAgent() {
-        Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+        Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         root.setLevel(Level.INFO);
         LOGGER.info("User Agent currently set to: {}", apiClientOptions.getUserAgent());
     }
-    
+
     @ShellMethod("Enable client debug")
     public void enableClientDebug(@ShellOption(help = "true / false") String debugEnabled) {
         apiClientOptions.setDebugEnabled(Boolean.parseBoolean(debugEnabled));
     }
-    
+
     @ShellMethod("Client debug enabled")
     public void getClientDebug() {
-        Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+        Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         root.setLevel(Level.INFO);
         LOGGER.info("Client debug is currently set to: {}", apiClientOptions.isDebugEnabled());
     }
