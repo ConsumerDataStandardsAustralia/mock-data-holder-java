@@ -138,26 +138,28 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
     public void validateListBalanceResponse(String accountId) {
         int statusCode = listBalanceResponse.statusCode();
         if (accountId.matches(CustomDataType.ASCII.getPattern())) {
-            assertEquals(ResponseCode.OK.getCode(), statusCode);
-            List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(listBalanceResponse, conformanceErrors);
-            checkJsonContentType(listBalanceResponse.contentType(), conformanceErrors);
-            String json = listBalanceResponse.getBody().asString();
-            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
-            try {
-                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountsBalanceById.class);
-                Object responseBankingAccountsBalanceById = objectMapper.readValue(json, expandedResponseClass);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalanceById,
-                        "listBalance", statusCode));
-                Object data = getResponseData(responseBankingAccountsBalanceById);
-                checkAccountId(data, accountId, conformanceErrors);
+            assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
+            if (statusCode == ResponseCode.OK.getCode()) {
+                List<ConformanceError> conformanceErrors = new ArrayList<>();
+                checkResponseHeaders(listBalanceResponse, conformanceErrors);
+                checkJsonContentType(listBalanceResponse.contentType(), conformanceErrors);
+                String json = listBalanceResponse.getBody().asString();
+                ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+                try {
+                    Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountsBalanceById.class);
+                    Object responseBankingAccountsBalanceById = objectMapper.readValue(json, expandedResponseClass);
+                    conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalanceById,
+                            "listBalance", statusCode));
+                    Object data = getResponseData(responseBankingAccountsBalanceById);
+                    checkAccountId(data, accountId, conformanceErrors);
 
-                dumpConformanceErrors(conformanceErrors);
+                    dumpConformanceErrors(conformanceErrors);
 
-                assertTrue("Conformance errors found in response payload:"
-                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
-            } catch (IOException e) {
-                fail(e.getMessage());
+                    assertTrue("Conformance errors found in response payload:"
+                            + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+                } catch (IOException e) {
+                    fail(e.getMessage());
+                }
             }
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);

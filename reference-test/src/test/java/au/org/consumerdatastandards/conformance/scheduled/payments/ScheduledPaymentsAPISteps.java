@@ -150,31 +150,33 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
         boolean paramsValid = validateListScheduledPaymentsParams(accountId, page, pageSize);
         int statusCode = listScheduledPaymentsResponse.statusCode();
         if (paramsValid) {
-            assertEquals(ResponseCode.OK.getCode(), statusCode);
-            List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(listScheduledPaymentsResponse, conformanceErrors);
-            checkProtectedEndpointResponseHeaders(listScheduledPaymentsResponse, conformanceErrors);
-            checkJsonContentType(listScheduledPaymentsResponse.contentType(), conformanceErrors);
+            assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
+            if (statusCode == ResponseCode.OK.getCode()) {
+                List<ConformanceError> conformanceErrors = new ArrayList<>();
+                checkResponseHeaders(listScheduledPaymentsResponse, conformanceErrors);
+                checkProtectedEndpointResponseHeaders(listScheduledPaymentsResponse, conformanceErrors);
+                checkJsonContentType(listScheduledPaymentsResponse.contentType(), conformanceErrors);
 
-            String json = listScheduledPaymentsResponse.getBody().asString();
-            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+                String json = listScheduledPaymentsResponse.getBody().asString();
+                ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
 
-            try {
-                ResponseBankingScheduledPaymentsList responseBankingScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList,
-                        "listScheduledPayments", statusCode));
+                try {
+                    ResponseBankingScheduledPaymentsList responseBankingScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
+                    conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList,
+                            "listScheduledPayments", statusCode));
 
-                ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseBankingScheduledPaymentsList);
+                    ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseBankingScheduledPaymentsList);
 
-                checkScheduledPaymentsForAccountId(data, accountId, conformanceErrors);
-            } catch (IOException e) {
-                fail(e.getMessage());
+                    checkScheduledPaymentsForAccountId(data, accountId, conformanceErrors);
+                } catch (IOException e) {
+                    fail(e.getMessage());
+                }
+
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload"
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             }
-
-            dumpConformanceErrors(conformanceErrors);
-
-            assertTrue("Conformance errors found in response payload"
-                    + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
         }

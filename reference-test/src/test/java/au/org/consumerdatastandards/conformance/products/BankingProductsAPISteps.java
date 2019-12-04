@@ -313,32 +313,34 @@ public class BankingProductsAPISteps extends APIStepsBase {
         if (!productId.matches(CustomDataType.ASCII.getPattern())) {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
         } else {
-            assertEquals(ResponseCode.OK.getCode(), statusCode);
-            List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(getProductDetailResponse, conformanceErrors);
-            checkJsonContentType(getProductDetailResponse.contentType(), conformanceErrors);
-            String json = getProductDetailResponse.getBody().asString();
-            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
-            try {
-                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingProductById.class);
-                Object responseBankingProductById = objectMapper.readValue(json, expandedResponseClass);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingProductById,
-                        "getProductDetail", statusCode));
-                Object data = getBankingProductDetail(responseBankingProductById);
-                String id = getProductId(data);
-                if (!id.equals(productId)) {
-                    conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                            .dataJson(ConformanceUtil.toJson(responseBankingProductById)).errorMessage(String.format(
-                                    "Response productId %s does not match request productId %s", id, productId)));
+            assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
+            if (statusCode == ResponseCode.OK.getCode()) {
+                List<ConformanceError> conformanceErrors = new ArrayList<>();
+                checkResponseHeaders(getProductDetailResponse, conformanceErrors);
+                checkJsonContentType(getProductDetailResponse.contentType(), conformanceErrors);
+                String json = getProductDetailResponse.getBody().asString();
+                ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+                try {
+                    Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingProductById.class);
+                    Object responseBankingProductById = objectMapper.readValue(json, expandedResponseClass);
+                    conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingProductById,
+                            "getProductDetail", statusCode));
+                    Object data = getBankingProductDetail(responseBankingProductById);
+                    String id = getProductId(data);
+                    if (!id.equals(productId)) {
+                        conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                                .dataJson(ConformanceUtil.toJson(responseBankingProductById)).errorMessage(String.format(
+                                        "Response productId %s does not match request productId %s", id, productId)));
+                    }
+
+                    dumpConformanceErrors(conformanceErrors);
+
+                    String message = "Conformance errors found in response payload: "
+                            + buildConformanceErrorsDescription(conformanceErrors);
+                    assertTrue(message, conformanceErrors.isEmpty());
+                } catch (IOException e) {
+                    fail(e.getMessage());
                 }
-
-                dumpConformanceErrors(conformanceErrors);
-
-                String message = "Conformance errors found in response payload: "
-                        + buildConformanceErrorsDescription(conformanceErrors);
-                assertTrue(message, conformanceErrors.isEmpty());
-            } catch (IOException e) {
-                fail(e.getMessage());
             }
         }
     }

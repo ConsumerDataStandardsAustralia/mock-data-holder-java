@@ -38,7 +38,7 @@ public class PayeesAPISteps extends ProtectedAPIStepsBase {
 
     @Step("Request /banking/payees")
     public void listPayees(String type, Integer page, Integer pageSize) {
-        String url = getApiBasePath() + "/banking/accounts/direct-debits";
+        String url = getApiBasePath() + "/banking/payees";
         requestUrl = url;
         boolean paramAdded = false;
         RequestSpecification given = buildHeaders(given())
@@ -142,36 +142,38 @@ public class PayeesAPISteps extends ProtectedAPIStepsBase {
     public void validateGetPayeeDetailResponse(String payeeId) {
         int statusCode = getPayeeDetailResponse.statusCode();
         if (payeeId.matches(CustomDataType.ASCII.getPattern())) {
-            assertEquals(ResponseCode.OK.getCode(), statusCode);
-            List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(getPayeeDetailResponse, conformanceErrors);
-            checkProtectedEndpointResponseHeaders(getPayeeDetailResponse, conformanceErrors);
-            checkJsonContentType(getPayeeDetailResponse.contentType(), conformanceErrors);
+            assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
+            if (statusCode == ResponseCode.OK.getCode()) {
+                List<ConformanceError> conformanceErrors = new ArrayList<>();
+                checkResponseHeaders(getPayeeDetailResponse, conformanceErrors);
+                checkProtectedEndpointResponseHeaders(getPayeeDetailResponse, conformanceErrors);
+                checkJsonContentType(getPayeeDetailResponse.contentType(), conformanceErrors);
 
-            String json = getPayeeDetailResponse.getBody().asString();
-            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+                String json = getPayeeDetailResponse.getBody().asString();
+                ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
 
-            try {
-                ResponseBankingPayeeById responseBankingPayeeById = objectMapper.readValue(json, ResponseBankingPayeeById.class);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingPayeeById,
-                        "getPayeeDetail", statusCode));
+                try {
+                    ResponseBankingPayeeById responseBankingPayeeById = objectMapper.readValue(json, ResponseBankingPayeeById.class);
+                    conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingPayeeById,
+                            "getPayeeDetail", statusCode));
 
-                BankingPayeeDetail data = (BankingPayeeDetail) getResponseData(responseBankingPayeeById);
-                String bankingPayeeId = (String) getField(data, "payeeId");
-                if (!payeeId.equals(bankingPayeeId)) {
-                    conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                            .dataJson(ConformanceUtil.toJson(responseBankingPayeeById)).errorMessage(String.format(
-                                    "Response payeeId %s does not match request payeeId %s", bankingPayeeId, payeeId)));
+                    BankingPayeeDetail data = (BankingPayeeDetail) getResponseData(responseBankingPayeeById);
+                    String bankingPayeeId = (String) getField(data, "payeeId");
+                    if (!payeeId.equals(bankingPayeeId)) {
+                        conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                                .dataJson(ConformanceUtil.toJson(responseBankingPayeeById)).errorMessage(String.format(
+                                        "Response payeeId %s does not match request payeeId %s", bankingPayeeId, payeeId)));
+                    }
+
+                } catch (IOException e) {
+                    fail(e.getMessage());
                 }
 
-            } catch (IOException e) {
-                fail(e.getMessage());
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload"
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             }
-
-            dumpConformanceErrors(conformanceErrors);
-
-            assertTrue("Conformance errors found in response payload"
-                    + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
         }

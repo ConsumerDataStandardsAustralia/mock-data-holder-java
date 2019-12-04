@@ -94,38 +94,40 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
         boolean paramsValid = validateGetTransactionsParams(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
         int statusCode = getTransactionsResponse.statusCode();
         if (paramsValid) {
-            assertEquals(ResponseCode.OK.getCode(), statusCode);
-            List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(getTransactionsResponse, conformanceErrors);
-            checkProtectedEndpointResponseHeaders(getTransactionsResponse, conformanceErrors);
-            checkJsonContentType(getTransactionsResponse.contentType(), conformanceErrors);
-            String json = getTransactionsResponse.getBody().asString();
-            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
-            try {
-                responseBankingTransactionList = objectMapper.readValue(json, ResponseBankingTransactionList.class);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionList,
-                        "getTransactions", statusCode));
-                ResponseBankingTransactionListData data = (ResponseBankingTransactionListData) getResponseData(responseBankingTransactionList);
-                List<BankingTransaction> transactions = getTransactions(data);
-                if (transactions != null) {
-                    TxMetaPaginated meta = (TxMetaPaginated) getField(responseBankingTransactionList, "meta");
-                    Boolean isQueryParamUnsupported = (Boolean) getField(meta, "isQueryParamUnsupported");
-                    for (BankingTransaction transaction : transactions) {
-                        checkAccountId(transaction, accountId, conformanceErrors);
-                        checkOldestTime(transaction, oldestTime, conformanceErrors);
-                        checkNewestTime(transaction, newestTime, conformanceErrors);
-                        checkMinAmount(transaction, minAmount, conformanceErrors);
-                        checkMaxAmount(transaction, maxAmount, conformanceErrors);
-                        checkText(transaction, text, isQueryParamUnsupported, conformanceErrors);
+            assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
+            if (statusCode == ResponseCode.OK.getCode()) {
+                List<ConformanceError> conformanceErrors = new ArrayList<>();
+                checkResponseHeaders(getTransactionsResponse, conformanceErrors);
+                checkProtectedEndpointResponseHeaders(getTransactionsResponse, conformanceErrors);
+                checkJsonContentType(getTransactionsResponse.contentType(), conformanceErrors);
+                String json = getTransactionsResponse.getBody().asString();
+                ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+                try {
+                    responseBankingTransactionList = objectMapper.readValue(json, ResponseBankingTransactionList.class);
+                    conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionList,
+                            "getTransactions", statusCode));
+                    ResponseBankingTransactionListData data = (ResponseBankingTransactionListData) getResponseData(responseBankingTransactionList);
+                    List<BankingTransaction> transactions = getTransactions(data);
+                    if (transactions != null) {
+                        TxMetaPaginated meta = (TxMetaPaginated) getField(responseBankingTransactionList, "meta");
+                        Boolean isQueryParamUnsupported = (Boolean) getField(meta, "isQueryParamUnsupported");
+                        for (BankingTransaction transaction : transactions) {
+                            checkAccountId(transaction, accountId, conformanceErrors);
+                            checkOldestTime(transaction, oldestTime, conformanceErrors);
+                            checkNewestTime(transaction, newestTime, conformanceErrors);
+                            checkMinAmount(transaction, minAmount, conformanceErrors);
+                            checkMaxAmount(transaction, maxAmount, conformanceErrors);
+                            checkText(transaction, text, isQueryParamUnsupported, conformanceErrors);
+                        }
                     }
+
+                    dumpConformanceErrors(conformanceErrors);
+
+                    assertTrue("Conformance errors found in response payload:"
+                            + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+                } catch (IOException e) {
+                    fail(e.getMessage());
                 }
-
-                dumpConformanceErrors(conformanceErrors);
-
-                assertTrue("Conformance errors found in response payload:"
-                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
-            } catch (IOException e) {
-                fail(e.getMessage());
             }
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
