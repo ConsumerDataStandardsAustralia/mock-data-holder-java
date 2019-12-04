@@ -7,6 +7,8 @@
  */
 package au.org.consumerdatastandards.client.cli.support;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class ApiClientOptions {
 
     private String serverUrl;
@@ -16,10 +18,13 @@ public class ApiClientOptions {
     private boolean debugEnabled = false;
     private boolean verifyingSsl = true;
     private String accessToken;
+    private String refreshToken;
     private String certFilePath;
     private String keyFilePath;
     private String rootCaFilePath;
     private boolean mtlsEnabled = false;
+    @Value("${auth.server:}")
+    private String authServer;
 
     public String getServerUrl() {
         return serverUrl;
@@ -107,5 +112,21 @@ public class ApiClientOptions {
 
     public void setMtlsEnabled(boolean mtlsEnabled) {
         this.mtlsEnabled = mtlsEnabled;
+    }
+
+    public void setAuthServer(String authServer) {
+        this.authServer = authServer;
+    }
+
+    public String getAuthServer() {
+        return authServer;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
