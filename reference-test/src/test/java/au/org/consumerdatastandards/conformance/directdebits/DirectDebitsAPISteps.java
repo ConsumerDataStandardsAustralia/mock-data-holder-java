@@ -149,31 +149,33 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
         boolean paramsValid = validateListDirectDebitsParams(accountId, page, pageSize);
         int statusCode = listDirectDebitsResponse.statusCode();
         if (paramsValid) {
-            assertEquals(ResponseCode.OK.getCode(), statusCode);
-            List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(listDirectDebitsResponse, conformanceErrors);
-            checkProtectedEndpointResponseHeaders(listDirectDebitsResponse, conformanceErrors);
-            checkJsonContentType(listDirectDebitsResponse.contentType(), conformanceErrors);
+            assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
+            if (statusCode == ResponseCode.OK.getCode()) {
+                List<ConformanceError> conformanceErrors = new ArrayList<>();
+                checkResponseHeaders(listDirectDebitsResponse, conformanceErrors);
+                checkProtectedEndpointResponseHeaders(listDirectDebitsResponse, conformanceErrors);
+                checkJsonContentType(listDirectDebitsResponse.contentType(), conformanceErrors);
 
-            String json = listDirectDebitsResponse.getBody().asString();
-            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+                String json = listDirectDebitsResponse.getBody().asString();
+                ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
 
-            try {
-                ResponseBankingDirectDebitAuthorisationList responseBankingDirectDebitAuthorisationList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList,
-                        "listDirectDebits", statusCode));
+                try {
+                    ResponseBankingDirectDebitAuthorisationList responseBankingDirectDebitAuthorisationList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
+                    conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList,
+                            "listDirectDebits", statusCode));
 
-                ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseBankingDirectDebitAuthorisationList);
+                    ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseBankingDirectDebitAuthorisationList);
 
-                checkDirectDebitsForAccountId(data, accountId, conformanceErrors);
-            } catch (IOException e) {
-                fail(e.getMessage());
+                    checkDirectDebitsForAccountId(data, accountId, conformanceErrors);
+                } catch (IOException e) {
+                    fail(e.getMessage());
+                }
+
+                dumpConformanceErrors(conformanceErrors);
+
+                assertTrue("Conformance errors found in response payload"
+                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
             }
-
-            dumpConformanceErrors(conformanceErrors);
-
-            assertTrue("Conformance errors found in response payload"
-                    + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
         }

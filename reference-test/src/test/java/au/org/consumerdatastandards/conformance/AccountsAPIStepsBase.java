@@ -44,32 +44,34 @@ public class AccountsAPIStepsBase extends ProtectedAPIStepsBase {
     public Object validateGetAccountDetailResponse(String accountId) {
         int statusCode = getAccountDetailResponse.statusCode();
         if (accountId.matches(CustomDataType.ASCII.getPattern())) {
-            assertEquals(ResponseCode.OK.getCode(), statusCode);
-            List<ConformanceError> conformanceErrors = new ArrayList<>();
-            checkResponseHeaders(getAccountDetailResponse, conformanceErrors);
-            checkJsonContentType(getAccountDetailResponse.contentType(), conformanceErrors);
-            String json = getAccountDetailResponse.getBody().asString();
-            ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
-            try {
-                Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountById.class);
-                Object responseBankingAccountById = objectMapper.readValue(json, expandedResponseClass);
-                conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountById,
-                        "getAccountDetail", statusCode));
-                Object responseData = getResponseData(responseBankingAccountById);
-                String id = getAccountId(responseData);
-                if (!id.equals(accountId)) {
-                    conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
-                            .dataJson(ConformanceUtil.toJson(responseBankingAccountById)).errorMessage(String.format(
-                                    "Response accountId %s does not match request accountId %s", id, accountId)));
+            assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
+            if (statusCode == ResponseCode.OK.getCode()) {
+                List<ConformanceError> conformanceErrors = new ArrayList<>();
+                checkResponseHeaders(getAccountDetailResponse, conformanceErrors);
+                checkJsonContentType(getAccountDetailResponse.contentType(), conformanceErrors);
+                String json = getAccountDetailResponse.getBody().asString();
+                ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
+                try {
+                    Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountById.class);
+                    Object responseBankingAccountById = objectMapper.readValue(json, expandedResponseClass);
+                    conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountById,
+                            "getAccountDetail", statusCode));
+                    Object responseData = getResponseData(responseBankingAccountById);
+                    String id = getAccountId(responseData);
+                    if (!id.equals(accountId)) {
+                        conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                                .dataJson(ConformanceUtil.toJson(responseBankingAccountById)).errorMessage(String.format(
+                                        "Response accountId %s does not match request accountId %s", id, accountId)));
+                    }
+
+                    dumpConformanceErrors(conformanceErrors);
+
+                    assertTrue("Conformance errors found in response payload:"
+                            + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
+                    return responseData;
+                } catch (IOException e) {
+                    fail(e.getMessage());
                 }
-
-                dumpConformanceErrors(conformanceErrors);
-
-                assertTrue("Conformance errors found in response payload:"
-                        + buildConformanceErrorsDescription(conformanceErrors), conformanceErrors.isEmpty());
-                return responseData;
-            } catch (IOException e) {
-                fail(e.getMessage());
             }
         } else {
             assertEquals(ResponseCode.BAD_REQUEST.getCode(), statusCode);
