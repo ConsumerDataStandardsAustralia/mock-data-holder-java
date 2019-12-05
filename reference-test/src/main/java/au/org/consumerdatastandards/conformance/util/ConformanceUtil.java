@@ -156,7 +156,8 @@ public class ConformanceUtil {
             .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
             .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
             .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true)
-            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
     private static boolean isValueSpecified(Object relatedPropertyValue, String[] values) {
