@@ -78,8 +78,14 @@ public class ApiUtil {
 
         String accessToken = clientOptions.getAccessToken();
         if (StringUtils.isNotBlank(accessToken)) {
+            Map<String, Object> claims = parseClaims(accessToken);
+            Object exp = claims.get("exp");
+            if (((Integer) exp).longValue() * 1000 < System.currentTimeMillis() + 10000) {
+                accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(), originalHttpClient);
+                clientOptions.setAccessToken(accessToken);
+            }
             apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
-            apiClient.addDefaultHeader("x-cds-subject", getSub(accessToken));
+            apiClient.addDefaultHeader("x-cds-subject", claims.get("sub").toString());
         }
         if (clientOptions.isMtlsEnabled()) {
             validateClientCertSettings(clientOptions);
@@ -116,25 +122,27 @@ public class ApiUtil {
         return apiClient;
     }
 
+    private static String acquireNewAccessToken(String refreshToken, String authServer, OkHttpClient httpClient) {
+        // TODO implement me
+        return null;
+    }
+
     private static X509Certificate loadCertificate(String certFilePath) throws CertificateException, FileNotFoundException {
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         return (X509Certificate) certificateFactory.generateCertificate(new FileInputStream(certFilePath));
     }
 
-    private static String getSub(String accessToken) throws ApiException {
+    private static Map<String, Object> parseClaims(String accessToken) throws ApiException {
         String body = accessToken.split("\\.")[1];
         String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
-        Map map;
         try {
-            map = objectMapper.readValue(json, typeRef);
+            return objectMapper.readValue(json, typeRef);
         } catch (IOException e) {
             throw new ApiException(e);
         }
-        return map.get("sub").toString();
     }
-
 
     private static PrivateKey loadPrivateKey(String keyFilePath)
         throws IOException, ApiException, NoSuchAlgorithmException, InvalidKeySpecException {
