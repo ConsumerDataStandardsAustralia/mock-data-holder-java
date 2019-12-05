@@ -83,15 +83,17 @@ public class ApiUtil {
         }
         if (clientOptions.isMtlsEnabled()) {
             validateClientCertSettings(clientOptions);
-            String keyFilePath = clientOptions.getKeyFilePath();
-            String certFilePath = clientOptions.getCertFilePath();
+            String rootCaFilePath = clientOptions.getRootCaFilePath();
+            String clientKeyFilePath = clientOptions.getKeyFilePath();
+            String clientCertFilePath = clientOptions.getCertFilePath();
             try {
-                X509Certificate certificate = loadCertificate(certFilePath);
+                X509Certificate rootCaCertificate = loadCertificate(rootCaFilePath);
+                X509Certificate certificate = loadCertificate(clientCertFilePath);
                 PublicKey publicKey = certificate.getPublicKey();
-                PrivateKey privateKey = loadPrivateKey(keyFilePath);
+                PrivateKey privateKey = loadPrivateKey(clientKeyFilePath);
                 KeyPair keyPair = new KeyPair(publicKey, privateKey);
                 HeldCertificate heldCertificate = new HeldCertificate(keyPair, certificate);
-                OkHttpClient httpClient = buildHttpClient(originalHttpClient, heldCertificate);
+                OkHttpClient httpClient = buildHttpClient(originalHttpClient, rootCaCertificate, heldCertificate);
                 apiClient.setHttpClient(httpClient);
             } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | CreationException | CertificateException e) {
                 throw new ApiException(e);
@@ -160,10 +162,11 @@ public class ApiUtil {
     }
 
     private static OkHttpClient buildHttpClient(OkHttpClient httpClient,
+                                                X509Certificate rootCaCertificate,
                                                 HeldCertificate heldCertificate,
                                                 X509Certificate... intermediates) {
         HandshakeCertificates.Builder builder = new HandshakeCertificates.Builder()
-            .addPlatformTrustedCertificates();
+            .addPlatformTrustedCertificates().addTrustedCertificate(rootCaCertificate);
 
         if (heldCertificate != null) {
             builder.heldCertificate(heldCertificate, intermediates);
@@ -176,21 +179,29 @@ public class ApiUtil {
     }
 
     private static void validateClientCertSettings(ApiClientOptions clientOptions) throws ApiException {
+        String rootCaFilePath = clientOptions.getRootCaFilePath();
         String certFilePath = clientOptions.getCertFilePath();
         String keyFilePath = clientOptions.getKeyFilePath();
+        if (StringUtils.isBlank(rootCaFilePath)) {
+            throw new ApiException("Root CA path is not set");
+        }
         if (StringUtils.isBlank(certFilePath)) {
             throw new ApiException("Client certificate path is not set");
         }
         if (StringUtils.isBlank(keyFilePath)) {
-            throw new ApiException("Key file path is not set");
+            throw new ApiException("Client key file path is not set");
         }
+        File rootCaFile = new File(rootCaFilePath);
         File certFile = new File(certFilePath);
         File keyFile = new File(keyFilePath);
+        if (!rootCaFile.exists()) {
+            throw new ApiException("Root CA file " + rootCaFilePath + " cannot be found");
+        }
         if (!certFile.exists()) {
             throw new ApiException("Certificate file " + certFilePath + " cannot be found");
         }
         if (!keyFile.exists()) {
-            throw new ApiException("Key file " + keyFilePath + " cannot be found");
+            throw new ApiException("Client key file " + keyFilePath + " cannot be found");
         }
     }
 
