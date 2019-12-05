@@ -18,6 +18,7 @@ public class ApiClientOptions {
     private String accessToken;
     private String certFilePath;
     private String keyFilePath;
+    private String rootCaFilePath;
     private boolean mtlsEnabled = false;
 
     public String getServerUrl() {
@@ -90,6 +91,14 @@ public class ApiClientOptions {
 
     public void setKeyFilePath(String keyFilePath) {
         this.keyFilePath = keyFilePath;
+    }
+
+    public String getRootCaFilePath() {
+        return rootCaFilePath;
+    }
+
+    public void setRootCaFilePath(String rootCaFilePath) {
+        this.rootCaFilePath = rootCaFilePath;
     }
 
     public boolean isMtlsEnabled() {

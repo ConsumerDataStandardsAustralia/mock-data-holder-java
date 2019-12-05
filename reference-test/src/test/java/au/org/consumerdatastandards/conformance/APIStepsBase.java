@@ -9,12 +9,26 @@ import io.restassured.specification.RequestSpecification;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.List;
 import java.util.Properties;
 
@@ -46,24 +60,38 @@ public class APIStepsBase {
     }
 
     @Step("Setup PTT properties")
-    void setupPttProperties() throws IOException {
+    void setupPttProperties() throws IOException, KeyStoreException, CertificateException,
+        NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
+
         props = new Properties();
         props.load(APIStepsBase.class.getResourceAsStream("/ptt.properties"));
-
         SSLConfig sslConfig = SSLConfig.sslConfig().allowAllHostnames();
 
-        String keystorePath = props.getProperty("keystore.path");
-        String truststorePath = props.getProperty("truststore.path");
-        if (keystorePath != null || truststorePath != null) {
-            if (keystorePath != null) {
-                sslConfig = sslConfig.keyStore(keystorePath, props.getProperty("keystore.password"));
-            }
-            if (truststorePath != null) {
-                sslConfig = sslConfig.trustStore(truststorePath, props.getProperty("truststore.password"));
-            }
-        }
+        String keyStorePath = props.getProperty("keystore.path");
+        String trustStorePath = props.getProperty("truststore.path");
 
-        RestAssured.config().sslConfig(sslConfig);
+        if (keyStorePath != null && trustStorePath != null) {
+            KeyStore clientStore = KeyStore.getInstance("JKS");
+            String keyStorePassword = props.getProperty("keystore.password");
+            clientStore.load(new FileInputStream(keyStorePath), keyStorePassword.toCharArray());
+
+            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            kmf.init(clientStore, keyStorePassword.toCharArray());
+            KeyManager[] kms = kmf.getKeyManagers();
+
+            KeyStore trustStore = KeyStore.getInstance("JKS");
+            String trustStorePassword = props.getProperty("truststore.password");
+            trustStore.load(new FileInputStream(trustStorePath), trustStorePassword.toCharArray());
+
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            tmf.init(trustStore);
+            TrustManager[] tms = tmf.getTrustManagers();
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(kms, tms, new SecureRandom());
+            sslConfig = sslConfig.with().sslSocketFactory(new SSLSocketFactory(clientStore, keyStorePassword, trustStore));
+        }
+        RestAssured.config = RestAssured.config().sslConfig(sslConfig);
     }
 
     public String getApiBasePath() {
