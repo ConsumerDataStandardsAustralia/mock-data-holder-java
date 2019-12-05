@@ -1,9 +1,7 @@
 package au.org.consumerdatastandards.holder;
 
-import com.fasterxml.jackson.databind.Module;
-
 import au.org.consumerdatastandards.holder.util.SwaggerJacksonModuleRegistrar;
-
+import com.fasterxml.jackson.databind.Module;
 import org.h2.server.web.WebServlet;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 import org.springframework.boot.CommandLineRunner;
@@ -16,9 +14,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 
 /**
@@ -33,8 +28,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
     "au.org.consumerdatastandards.holder.service",
     "au.org.consumerdatastandards.holder.util",
 })
-@EnableWebSecurity
-public class HolderApplication extends WebSecurityConfigurerAdapter implements CommandLineRunner {
+public class HolderApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         new SpringApplication(HolderApplication.class).run(args);
@@ -45,11 +39,6 @@ public class HolderApplication extends WebSecurityConfigurerAdapter implements C
         if (arg0.length > 0 && arg0[0].equals("exitcode")) {
             throw new ExitException();
         }
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.anonymous().and().authorizeRequests().antMatchers("/").permitAll();
     }
 
     class ExitException extends RuntimeException implements ExitCodeGenerator {
