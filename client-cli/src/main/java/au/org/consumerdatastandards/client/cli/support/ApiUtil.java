@@ -12,9 +12,23 @@ import au.org.consumerdatastandards.client.ApiException;
 import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.inject.CreationException;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSObject;
+import com.nimbusds.jose.crypto.RSASSASigner;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import okhttp3.Credentials;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.tls.HandshakeCertificates;
 import okhttp3.tls.HeldCertificate;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +60,7 @@ import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +70,8 @@ public class ApiUtil {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ApiUtil.class);
     private static final List<String> VALID_PROXY_TYPES = Arrays.asList("HTTP:", "HTTPS:", "SOCKS:");
+
+    private static final JsonParser parser = new JsonParser();
 
     public static ApiClient createApiClient(ApiClientOptions clientOptions) throws ApiException {
         String serverUrl = clientOptions.getServerUrl();
@@ -81,7 +98,8 @@ public class ApiUtil {
             Map<String, Object> claims = parseClaims(accessToken);
             Object exp = claims.get("exp");
             if (((Integer) exp).longValue() * 1000 < System.currentTimeMillis() + 10000) {
-                accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(), originalHttpClient);
+                accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(),
+                        clientOptions.getClientId(), clientOptions.getJwksPath(), originalHttpClient);
                 clientOptions.setAccessToken(accessToken);
             }
             apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
@@ -122,9 +140,40 @@ public class ApiUtil {
         return apiClient;
     }
 
-    private static String acquireNewAccessToken(String refreshToken, String authServer, OkHttpClient httpClient) {
-        // TODO implement me
+    private static String acquireNewAccessToken(String refreshToken, String authServer, String clientId, String jwksPath, OkHttpClient httpClient) {
+        try {
+            JsonObject jsonObject = performDiscovery(httpClient, authServer + "/.well-known/openid-configuration");
+            String tokenEndpoint = jsonObject.get("token_endpoint").getAsString();
+            JWKSet jwkSet = JWKSet.load(new File(jwksPath));
+            RSAKey rsaKey = (RSAKey) jwkSet.getKeys().get(0);
+            JWTClaimsSet claims = new JWTClaimsSet.Builder()
+                    .subject(clientId)
+                    .issuer(clientId)
+                    .audience(tokenEndpoint)
+                    .build();
+            JWSObject signedJWT = new SignedJWT(new JWSHeader.Builder(JWSAlgorithm.RS256).keyID(rsaKey.getKeyID()).build(), claims);
+            RSASSASigner signer = new RSASSASigner(rsaKey);
+            signedJWT.sign(signer);
+            RequestBody postBody = new FormBody.Builder()
+                    .add("grant_type", "refresh_token")
+                    .add("client_id", clientId)
+                    .add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+                    .add("client_assertion", signedJWT.serialize())
+                    .add("refresh_token", refreshToken)
+                    .add("scope", "openid profile")
+                    .build();
+            Request req = new Request.Builder().url(tokenEndpoint).post(postBody).build();
+            httpClient.newCall(req).execute().body().string();
+        } catch (IOException | ParseException | JOSEException e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+
+    private static JsonObject performDiscovery(OkHttpClient httpClient, String discoveryUrl) throws IOException {
+        Request req = new Request.Builder().url(discoveryUrl).get().build();
+        String endpointsJson = httpClient.newCall(req).execute().body().string();
+        return parser.parse(endpointsJson).getAsJsonObject();
     }
 
     private static X509Certificate loadCertificate(String certFilePath) throws CertificateException, FileNotFoundException {

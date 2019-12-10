@@ -25,6 +25,10 @@ public class ApiClientOptions {
     private boolean mtlsEnabled = false;
     @Value("${auth.server:}")
     private String authServer;
+    @Value("${client.id:}")
+    private String clientId;
+    @Value("${jwks.path:}")
+    private String jwksPath;
 
     public String getServerUrl() {
         return serverUrl;
@@ -122,11 +126,27 @@ public class ApiClientOptions {
         return authServer;
     }
 
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
     public String getRefreshToken() {
         return refreshToken;
     }
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public String getJwksPath() {
+        return jwksPath;
+    }
+
+    public void setJwksPath(String jwksPath) {
+        this.jwksPath = jwksPath;
     }
 }
