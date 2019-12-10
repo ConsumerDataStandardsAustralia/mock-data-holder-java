@@ -71,5 +71,4 @@ public class HolderApplication implements CommandLineRunner {
     public SwaggerJacksonModuleRegistrar swaggerJacksonModuleRegistrar() {
         return new SwaggerJacksonModuleRegistrar();
     }    
-
 }
