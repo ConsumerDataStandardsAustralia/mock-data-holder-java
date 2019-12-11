@@ -62,9 +62,11 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class ApiUtil {
 
@@ -72,6 +74,7 @@ public class ApiUtil {
     private static final List<String> VALID_PROXY_TYPES = Arrays.asList("HTTP:", "HTTPS:", "SOCKS:");
 
     private static final JsonParser parser = new JsonParser();
+    private static final HashMap<String, JsonObject> discoveredConfigs = new HashMap<>();
 
     public static ApiClient createApiClient(ApiClientOptions clientOptions) throws ApiException {
         String serverUrl = clientOptions.getServerUrl();
@@ -140,9 +143,10 @@ public class ApiUtil {
         return apiClient;
     }
 
-    private static String acquireNewAccessToken(String refreshToken, String authServer, String clientId, String jwksPath, OkHttpClient httpClient) {
+    private static String acquireNewAccessToken(String refreshToken, String authServer, String clientId,
+            String jwksPath, OkHttpClient httpClient) throws ApiException {
         try {
-            JsonObject jsonObject = performDiscovery(httpClient, authServer + "/.well-known/openid-configuration");
+            JsonObject jsonObject = discoveredInfo(httpClient, authServer);
             String tokenEndpoint = jsonObject.get("token_endpoint").getAsString();
             JWKSet jwkSet = JWKSet.load(new File(jwksPath));
             RSAKey rsaKey = (RSAKey) jwkSet.getKeys().get(0);
@@ -150,6 +154,8 @@ public class ApiUtil {
                     .subject(clientId)
                     .issuer(clientId)
                     .audience(tokenEndpoint)
+                    .expirationTime(new Date(System.currentTimeMillis() + 5 * 60 * 1000)) // the assertion expires in 5 minutes
+                    .jwtID(UUID.randomUUID().toString())
                     .build();
             JWSObject signedJWT = new SignedJWT(new JWSHeader.Builder(JWSAlgorithm.RS256).keyID(rsaKey.getKeyID()).build(), claims);
             RSASSASigner signer = new RSASSASigner(rsaKey);
@@ -163,17 +169,22 @@ public class ApiUtil {
                     .add("scope", "openid profile")
                     .build();
             Request req = new Request.Builder().url(tokenEndpoint).post(postBody).build();
-            httpClient.newCall(req).execute().body().string();
+            String response = httpClient.newCall(req).execute().body().string();
+            return parser.parse(response).getAsJsonObject().get("access_token").getAsString();
         } catch (IOException | ParseException | JOSEException e) {
-            e.printStackTrace();
+            throw new ApiException(e);
         }
-        return null;
     }
 
-    private static JsonObject performDiscovery(OkHttpClient httpClient, String discoveryUrl) throws IOException {
-        Request req = new Request.Builder().url(discoveryUrl).get().build();
-        String endpointsJson = httpClient.newCall(req).execute().body().string();
-        return parser.parse(endpointsJson).getAsJsonObject();
+    private static JsonObject discoveredInfo(OkHttpClient httpClient, String authServer) throws IOException {
+        JsonObject config = discoveredConfigs.get(authServer);
+        if (config == null) {
+            Request req = new Request.Builder().url(authServer + "/.well-known/openid-configuration").get().build();
+            String endpointsJson = httpClient.newCall(req).execute().body().string();
+            config = parser.parse(endpointsJson).getAsJsonObject();
+            discoveredConfigs.put(authServer, config);
+        }
+        return config;
     }
 
     private static X509Certificate loadCertificate(String certFilePath) throws CertificateException, FileNotFoundException {
