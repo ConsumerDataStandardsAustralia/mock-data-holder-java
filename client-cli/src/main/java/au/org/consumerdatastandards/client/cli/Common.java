@@ -128,4 +128,29 @@ public class Common extends ApiCliBase {
     public void refreshToken(@ShellOption String refreshToken) {
         apiClientOptions.setRefreshToken(refreshToken);
     }
+
+    @ShellMethod("Get refresh token")
+    public String getRefreshToken() {
+        return apiClientOptions.getRefreshToken();
+    }
+
+    @ShellMethod("Set client ID registered on the Auth Server")
+    public void clientId(@ShellOption String clientId) {
+        apiClientOptions.setClientId(clientId);
+    }
+
+    @ShellMethod("Get client ID")
+    public String getClientId() {
+        return apiClientOptions.getClientId();
+    }
+
+    @ShellMethod("Set JWKS keystore file path")
+    public void jwksPath(@ShellOption String jwksPath) {
+        apiClientOptions.setJwksPath(jwksPath);
+    }
+
+    @ShellMethod("Get JWKS keystore file path")
+    public String getJwksPath() {
+        return apiClientOptions.getJwksPath();
+    }
 }

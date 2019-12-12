@@ -18,6 +18,7 @@ public class ApiClientOptions {
     private boolean debugEnabled = false;
     private boolean verifyingSsl = true;
     private String accessToken;
+    @Value("${refresh.token:}")
     private String refreshToken;
     private String certFilePath;
     private String keyFilePath;
