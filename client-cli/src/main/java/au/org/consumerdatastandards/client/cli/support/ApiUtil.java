@@ -97,13 +97,18 @@ public class ApiUtil {
         }
 
         String accessToken = clientOptions.getAccessToken();
-        if (StringUtils.isNotBlank(accessToken)) {
-            Map<String, Object> claims = parseClaims(accessToken);
-            Object exp = claims.get("exp");
-            if (((Integer) exp).longValue() * 1000 < System.currentTimeMillis() + 10000) {
+        if (StringUtils.isNotBlank(accessToken) || StringUtils.isNotBlank(clientOptions.getRefreshToken())) {
+            Integer exp = null;
+            Map<String, Object> claims = null;
+            if (StringUtils.isNotBlank(accessToken)) {
+                claims = parseClaims(accessToken);
+                exp = (Integer) claims.get("exp");
+            }
+            if (exp == null || exp.longValue() * 1000 < System.currentTimeMillis() + 10000) {
                 accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(),
                         clientOptions.getClientId(), clientOptions.getJwksPath(), originalHttpClient);
                 clientOptions.setAccessToken(accessToken);
+                claims = parseClaims(accessToken);
             }
             apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
             apiClient.addDefaultHeader("x-cds-subject", claims.get("sub").toString());

@@ -114,6 +114,11 @@ public class Common extends ApiCliBase {
         apiClientOptions.setAccessToken(jwt);
     }
 
+    @ShellMethod("Get currently set access token")
+    public String getAccessToken() {
+        return apiClientOptions.getAccessToken();
+    }
+
     @ShellMethod("Set the base URL of the OIDC Server")
     public void setAuthServer(@ShellOption String authServer) {
         apiClientOptions.setAuthServer(authServer);
