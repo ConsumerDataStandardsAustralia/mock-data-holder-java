@@ -114,7 +114,7 @@ public class Common extends ApiCliBase {
         apiClientOptions.setAccessToken(jwt);
     }
 
-    @ShellMethod("Get currently set access token")
+    @ShellMethod("Get currently set access token. The refresh token flow can update access token.")
     public String getAccessToken() {
         return apiClientOptions.getAccessToken();
     }
@@ -129,7 +129,7 @@ public class Common extends ApiCliBase {
         return apiClientOptions.getAuthServer();
     }
 
-    @ShellMethod("Set refresh token")
+    @ShellMethod("Set refresh token. The access token, if set and valid, takes precedence.")
     public void refreshToken(@ShellOption String refreshToken) {
         apiClientOptions.setRefreshToken(refreshToken);
     }

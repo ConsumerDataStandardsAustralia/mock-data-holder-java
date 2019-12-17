@@ -88,6 +88,11 @@ public class ApiUtil {
             throw new ApiException("Invalid Server URL, please double check it");
         }
         ApiClient apiClient = new ApiClient();
+        String proxy = clientOptions.getProxy();
+        if (!StringUtils.isBlank(proxy)) {
+            setProxy(apiClient, proxy);
+            LOGGER.info("Proxy is set to {}", proxy);
+        }
         OkHttpClient originalHttpClient = apiClient.getHttpClient();
         apiClient.setBasePath(serverUrl);
         LOGGER.info("Server Base URL is set to {}", serverUrl);
@@ -139,11 +144,6 @@ public class ApiUtil {
         } else {
             apiClient.setHttpClient(originalHttpClient);
             LOGGER.info("Disabled MTLS");
-        }
-        String proxy = clientOptions.getProxy();
-        if (!StringUtils.isBlank(proxy)) {
-            setProxy(apiClient, proxy);
-            LOGGER.info("Proxy is set to {}", proxy);
         }
         apiClient.setDebugging(clientOptions.isDebugEnabled());
         LOGGER.info("Debugging is set to {}", apiClient.isDebugging());
