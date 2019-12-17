@@ -11,17 +11,23 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class ApiClientOptions {
 
+    @Value("${server:}")
     private String serverUrl;
+    @Value("${proxy:}")
     private String proxy;
     private boolean validationEnabled = false;
     private String userAgent;
     private boolean debugEnabled = false;
     private boolean verifyingSsl = true;
+    @Value("${access.token:}")
     private String accessToken;
     @Value("${refresh.token:}")
     private String refreshToken;
+    @Value("${cert.path:}")
     private String certFilePath;
+    @Value("${key.path:}")
     private String keyFilePath;
+    @Value("${root.cert.path:}")
     private String rootCaFilePath;
     private boolean mtlsEnabled = false;
     @Value("${auth.server:}")

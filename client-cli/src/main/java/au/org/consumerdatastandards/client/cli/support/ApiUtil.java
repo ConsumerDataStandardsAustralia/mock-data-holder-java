@@ -12,6 +12,7 @@ import au.org.consumerdatastandards.client.ApiException;
 import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.CreationException;
@@ -101,8 +102,12 @@ public class ApiUtil {
             Integer exp = null;
             Map<String, Object> claims = null;
             if (StringUtils.isNotBlank(accessToken)) {
-                claims = parseClaims(accessToken);
-                exp = (Integer) claims.get("exp");
+                try {
+                    claims = parseClaims(accessToken);
+                    exp = (Integer) claims.get("exp");
+                } catch (ApiException e) {
+                    LOGGER.info("Invalid access token.");
+                }
             }
             if (exp == null || exp.longValue() * 1000 < System.currentTimeMillis() + 10000) {
                 accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(),
@@ -175,7 +180,12 @@ public class ApiUtil {
                     .build();
             Request req = new Request.Builder().url(tokenEndpoint).post(postBody).build();
             String response = httpClient.newCall(req).execute().body().string();
-            return parser.parse(response).getAsJsonObject().get("access_token").getAsString();
+            JsonObject responseObject = parser.parse(response).getAsJsonObject();
+            if (responseObject.has("error")) {
+                JsonElement msg = responseObject.get("error_description");
+                throw new ApiException((msg == null ? responseObject.get("error") : msg).getAsString());
+            }
+            return responseObject.get("access_token").getAsString();
         } catch (IOException | ParseException | JOSEException e) {
             throw new ApiException(e);
         }
@@ -198,12 +208,14 @@ public class ApiUtil {
     }
 
     private static Map<String, Object> parseClaims(String accessToken) throws ApiException {
-        String body = accessToken.split("\\.")[1];
-        String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
         try {
+            String body = accessToken.split("\\.")[1];
+            String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
+            ObjectMapper objectMapper = new ObjectMapper();
+            TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
             return objectMapper.readValue(json, typeRef);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ApiException("Invalid token structure. Not a JWT?");
         } catch (IOException e) {
             throw new ApiException(e);
         }
