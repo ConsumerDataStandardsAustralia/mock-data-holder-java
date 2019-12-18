@@ -64,11 +64,11 @@
             <artifactId>serenity-emailer</artifactId>
             <version>${serenity.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.http-client</groupId>
-            <artifactId>google-http-client</artifactId>
-            <version>${google-http-client.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.google.http-client</groupId>-->
+            <!--<artifactId>google-http-client</artifactId>-->
+            <!--<version>${google-http-client.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
