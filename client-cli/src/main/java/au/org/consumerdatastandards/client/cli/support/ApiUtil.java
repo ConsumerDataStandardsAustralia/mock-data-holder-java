@@ -12,9 +12,24 @@ import au.org.consumerdatastandards.client.ApiException;
 import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.inject.CreationException;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSObject;
+import com.nimbusds.jose.crypto.RSASSASigner;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import okhttp3.Credentials;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.tls.HandshakeCertificates;
 import okhttp3.tls.HeldCertificate;
 import org.apache.commons.lang3.StringUtils;
@@ -46,15 +61,22 @@ import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class ApiUtil {
 
+    private static final int EXPIRY_BUFFER = 10000;
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ApiUtil.class);
     private static final List<String> VALID_PROXY_TYPES = Arrays.asList("HTTP:", "HTTPS:", "SOCKS:");
+
+    private static final JsonParser parser = new JsonParser();
+    private static final HashMap<String, JsonObject> discoveredConfigs = new HashMap<>();
 
     public static ApiClient createApiClient(ApiClientOptions clientOptions) throws ApiException {
         String serverUrl = clientOptions.getServerUrl();
@@ -67,6 +89,11 @@ public class ApiUtil {
             throw new ApiException("Invalid Server URL, please double check it");
         }
         ApiClient apiClient = new ApiClient();
+        String proxy = clientOptions.getProxy();
+        if (!StringUtils.isBlank(proxy)) {
+            setProxy(apiClient, proxy);
+            LOGGER.info("Proxy is set to {}", proxy);
+        }
         OkHttpClient originalHttpClient = apiClient.getHttpClient();
         apiClient.setBasePath(serverUrl);
         LOGGER.info("Server Base URL is set to {}", serverUrl);
@@ -77,9 +104,25 @@ public class ApiUtil {
         }
 
         String accessToken = clientOptions.getAccessToken();
-        if (StringUtils.isNotBlank(accessToken)) {
+        if (StringUtils.isNotBlank(accessToken) || StringUtils.isNotBlank(clientOptions.getRefreshToken())) {
+            Integer exp = null;
+            Map<String, Object> claims = null;
+            if (StringUtils.isNotBlank(accessToken)) {
+                try {
+                    claims = parseClaims(accessToken);
+                    exp = (Integer) claims.get("exp");
+                } catch (ApiException e) {
+                    LOGGER.info("Invalid access token.");
+                }
+            }
+            if (exp == null || exp.longValue() * 1000 < System.currentTimeMillis() + EXPIRY_BUFFER) {
+                accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(),
+                        clientOptions.getClientId(), clientOptions.getJwksPath(), originalHttpClient);
+                clientOptions.setAccessToken(accessToken);
+                claims = parseClaims(accessToken);
+            }
             apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
-            apiClient.addDefaultHeader("x-cds-subject", getSub(accessToken));
+            apiClient.addDefaultHeader("x-cds-subject", claims.get("sub").toString());
         }
         if (clientOptions.isMtlsEnabled()) {
             validateClientCertSettings(clientOptions);
@@ -103,11 +146,6 @@ public class ApiUtil {
             apiClient.setHttpClient(originalHttpClient);
             LOGGER.info("Disabled MTLS");
         }
-        String proxy = clientOptions.getProxy();
-        if (!StringUtils.isBlank(proxy)) {
-            setProxy(apiClient, proxy);
-            LOGGER.info("Proxy is set to {}", proxy);
-        }
         apiClient.setDebugging(clientOptions.isDebugEnabled());
         LOGGER.info("Debugging is set to {}", apiClient.isDebugging());
         apiClient.setVerifyingSsl(clientOptions.isVerifyingSsl());
@@ -116,25 +154,73 @@ public class ApiUtil {
         return apiClient;
     }
 
+    private static String acquireNewAccessToken(String refreshToken, String authServer, String clientId,
+            String jwksPath, OkHttpClient httpClient) throws ApiException {
+        try {
+            JsonObject jsonObject = discoveredInfo(httpClient, authServer);
+            String tokenEndpoint = jsonObject.get("token_endpoint").getAsString();
+            JWKSet jwkSet = JWKSet.load(new File(jwksPath));
+            RSAKey rsaKey = (RSAKey) jwkSet.getKeys().get(0);
+            JWTClaimsSet claims = new JWTClaimsSet.Builder()
+                    .subject(clientId)
+                    .issuer(clientId)
+                    .audience(tokenEndpoint)
+                    .expirationTime(new Date(System.currentTimeMillis() + 5 * 60 * 1000)) // the assertion expires in 5 minutes
+                    .jwtID(UUID.randomUUID().toString())
+                    .build();
+            JWSObject signedJWT = new SignedJWT(new JWSHeader.Builder(JWSAlgorithm.RS256).keyID(rsaKey.getKeyID()).build(), claims);
+            RSASSASigner signer = new RSASSASigner(rsaKey);
+            signedJWT.sign(signer);
+            RequestBody postBody = new FormBody.Builder()
+                    .add("grant_type", "refresh_token")
+                    .add("client_id", clientId)
+                    .add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+                    .add("client_assertion", signedJWT.serialize())
+                    .add("refresh_token", refreshToken)
+                    .add("scope", "openid profile")
+                    .build();
+            Request req = new Request.Builder().url(tokenEndpoint).post(postBody).build();
+            String response = httpClient.newCall(req).execute().body().string();
+            JsonObject responseObject = parser.parse(response).getAsJsonObject();
+            if (responseObject.has("error")) {
+                JsonElement msg = responseObject.get("error_description");
+                throw new ApiException((msg == null ? responseObject.get("error") : msg).getAsString());
+            }
+            return responseObject.get("access_token").getAsString();
+        } catch (IOException | ParseException | JOSEException e) {
+            throw new ApiException(e);
+        }
+    }
+
+    private static JsonObject discoveredInfo(OkHttpClient httpClient, String authServer) throws IOException {
+        JsonObject config = discoveredConfigs.get(authServer);
+        if (config == null) {
+            Request req = new Request.Builder().url(authServer + "/.well-known/openid-configuration").get().build();
+            String endpointsJson = httpClient.newCall(req).execute().body().string();
+            config = parser.parse(endpointsJson).getAsJsonObject();
+            discoveredConfigs.put(authServer, config);
+        }
+        return config;
+    }
+
     private static X509Certificate loadCertificate(String certFilePath) throws CertificateException, FileNotFoundException {
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         return (X509Certificate) certificateFactory.generateCertificate(new FileInputStream(certFilePath));
     }
 
-    private static String getSub(String accessToken) throws ApiException {
-        String body = accessToken.split("\\.")[1];
-        String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
-        Map map;
+    private static Map<String, Object> parseClaims(String accessToken) throws ApiException {
         try {
-            map = objectMapper.readValue(json, typeRef);
+            String body = accessToken.split("\\.")[1];
+            String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
+            ObjectMapper objectMapper = new ObjectMapper();
+            TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
+            return objectMapper.readValue(json, typeRef);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ApiException("Invalid token structure. Not a JWT?");
         } catch (IOException e) {
             throw new ApiException(e);
         }
-        return map.get("sub").toString();
     }
-
 
     private static PrivateKey loadPrivateKey(String keyFilePath)
         throws IOException, ApiException, NoSuchAlgorithmException, InvalidKeySpecException {
