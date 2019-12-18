@@ -71,6 +71,7 @@ import java.util.UUID;
 
 public class ApiUtil {
 
+    private static final int EXPIRY_BUFFER = 10000;
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ApiUtil.class);
     private static final List<String> VALID_PROXY_TYPES = Arrays.asList("HTTP:", "HTTPS:", "SOCKS:");
 
@@ -114,7 +115,7 @@ public class ApiUtil {
                     LOGGER.info("Invalid access token.");
                 }
             }
-            if (exp == null || exp.longValue() * 1000 < System.currentTimeMillis() + 10000) {
+            if (exp == null || exp.longValue() * 1000 < System.currentTimeMillis() + EXPIRY_BUFFER) {
                 accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(),
                         clientOptions.getClientId(), clientOptions.getJwksPath(), originalHttpClient);
                 clientOptions.setAccessToken(accessToken);
