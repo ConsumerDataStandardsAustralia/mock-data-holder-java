@@ -5,6 +5,7 @@ import au.org.consumerdatastandards.holder.model.ResponseCommonCustomerDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,8 @@ public class CommonCustomerApiController implements CommonCustomerApi {
         return Optional.ofNullable(request);
     }
 
-    public ResponseEntity<ResponseCommonCustomer> getCustomer(String xCdsUserAgent,
+    public ResponseEntity<ResponseCommonCustomer> getCustomer(Jwt jwt,
+                                                              String xCdsUserAgent,
                                                               String xCdsSubject,
                                                               OffsetDateTime xFapiAuthDate,
                                                               String xFapiCustomerIpAddress,
@@ -41,7 +43,8 @@ public class CommonCustomerApiController implements CommonCustomerApi {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<ResponseCommonCustomerDetail> getCustomerDetail(String xCdsUserAgent,
+    public ResponseEntity<ResponseCommonCustomerDetail> getCustomerDetail(Jwt jwt,
+                                                                          String xCdsUserAgent,
                                                                           String xCdsSubject,
                                                                           OffsetDateTime xFapiAuthDate,
                                                                           String xFapiCustomerIpAddress,
