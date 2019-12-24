@@ -44,7 +44,7 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
             Map<String, String> config = discoveredInfo(authServer);
             boolean valid = StringUtils.isNotBlank(accessToken);
             if (valid) {
-                valid = checkTokenValidity(accessToken, authServer + config.get(INTROSPECTION_ENDPOINT));
+                valid = checkTokenValidity(accessToken, authServer, config.get(INTROSPECTION_ENDPOINT));
             }
             if (!valid && StringUtils.isNotBlank(props.getProperty("refresh.token"))) {
                 accessToken = acquireNewAccessToken(config.get(TOKEN_ENDPOINT));
@@ -59,36 +59,40 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
                 .header(Header.FAPI_AUTH_DATE.getKey(), OffsetDateTime.now().toString());
     }
 
-    private boolean checkTokenValidity(String accessToken, String introspectionEndpoint) {
+    private boolean checkTokenValidity(String accessToken, String authServer, String introspectionEndpoint) throws IOException, ParseException, JOSEException {
         // Assume the check is good for a minute since the last query
         if (lastChecked > 0 && System.currentTimeMillis() < lastChecked + 60 * 1000) {
             return active;
         }
         active = given()
                 .contentType("application/x-www-form-urlencoded")
-                .body("token=" + accessToken + "&token_type_hint=access_token")
+                .body("token=" + accessToken + "&token_type_hint=access_token&" + createAuthAssertionParamStr(authServer))
                 .when().post(introspectionEndpoint)
                 .then().log().all().contentType(ContentType.JSON).extract().path("active");
         lastChecked = System.currentTimeMillis();
         return active;
     }
 
-    private String acquireNewAccessToken(String tokenEndpoint) throws IOException, ParseException, JOSEException {
-        JWKSet jwkSet = JWKSet.load(new File(props.getProperty("jwks.path")));
-        RSAKey rsaKey = (RSAKey) jwkSet.getKeys().get(0);
+    private String createAuthAssertionParamStr(String aud) throws IOException, ParseException, JOSEException {
         String clientId = props.getProperty("client.id");
         JWTClaimsSet claims = new JWTClaimsSet.Builder()
                 .subject(clientId)
                 .issuer(clientId)
-                .audience(tokenEndpoint)
+                .audience(aud)
                 .expirationTime(new Date(System.currentTimeMillis() + 5 * 60 * 1000)) // the assertion expires in 5 minutes
                 .jwtID(UUID.randomUUID().toString())
                 .build();
+        JWKSet jwkSet = JWKSet.load(new File(props.getProperty("jwks.path")));
+        RSAKey rsaKey = (RSAKey) jwkSet.getKeys().get(0);
         JWSObject signedJWT = new SignedJWT(new JWSHeader.Builder(JWSAlgorithm.RS256).keyID(rsaKey.getKeyID()).build(), claims);
         RSASSASigner signer = new RSASSASigner(rsaKey);
         signedJWT.sign(signer);
-        String post = "grant_type=refresh_token&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_id=" + clientId
-                + "&client_assertion=" + signedJWT.serialize()
+        return "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_id=" + clientId
+                + "&client_assertion=" + signedJWT.serialize();
+    }
+
+    private String acquireNewAccessToken(String tokenEndpoint) throws IOException, ParseException, JOSEException {
+        String post = "grant_type=refresh_token&" + createAuthAssertionParamStr(tokenEndpoint)
                 + "&refresh_token=" + props.getProperty("refresh.token");
 
         ExtractableResponse<Response> tokenResponse = given()
@@ -108,7 +112,7 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
 
     private static Map<String, String> discoveredInfo(String authServer) {
         if (config == null) {
-            ExtractableResponse<Response> resp = given().when().get(authServer + "/.well-known/openid-configuration")
+            ExtractableResponse<Response> resp = given().when().get(authServer + ".well-known/openid-configuration")
                     .then().log().all().contentType(ContentType.JSON).extract();
             config = new HashMap<>();
             config.put(TOKEN_ENDPOINT, resp.path(TOKEN_ENDPOINT));
