@@ -51,7 +51,7 @@ public class APIStepsBase {
     }
 
     protected RequestSpecification buildJSONPostHeaders(RequestSpecification given) {
-        return buildHeaders(given).header("Content-Type", APPLICATION_JSON);
+        return buildHeaders(given).contentType(APPLICATION_JSON);
     }
 
     @Step("Setup API base path to {0}")

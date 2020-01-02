@@ -177,7 +177,6 @@ public class ApiUtil {
                     .add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
                     .add("client_assertion", signedJWT.serialize())
                     .add("refresh_token", refreshToken)
-                    .add("scope", "openid profile")
                     .build();
             Request req = new Request.Builder().url(tokenEndpoint).post(postBody).build();
             String response = httpClient.newCall(req).execute().body().string();

@@ -357,6 +357,11 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>8.2.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <profiles>

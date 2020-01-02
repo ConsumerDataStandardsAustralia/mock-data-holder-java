@@ -2,14 +2,18 @@ package au.org.consumerdatastandards.holder;
 
 import au.org.consumerdatastandards.holder.util.SwaggerJacksonModuleRegistrar;
 import com.fasterxml.jackson.databind.Module;
+import org.apache.catalina.connector.Connector;
 import org.h2.server.web.WebServlet;
 import org.openapitools.jackson.nullable.JsonNullableModule;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,6 +33,9 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
     "au.org.consumerdatastandards.holder.util",
 })
 public class HolderApplication implements CommandLineRunner {
+
+    @Value("${server.http.port:0}")
+    private int httpPort;
 
     public static void main(String[] args) {
         new SpringApplication(HolderApplication.class).run(args);
@@ -70,6 +77,15 @@ public class HolderApplication implements CommandLineRunner {
     @Bean
     public SwaggerJacksonModuleRegistrar swaggerJacksonModuleRegistrar() {
         return new SwaggerJacksonModuleRegistrar();
-    }    
+    }
 
+    @Bean
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustomizer() {
+        if (httpPort == 0) {
+            return null;
+        }
+        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
+        connector.setPort(httpPort);
+        return containerFactory -> containerFactory.addAdditionalTomcatConnectors(connector);
+    }
 }
