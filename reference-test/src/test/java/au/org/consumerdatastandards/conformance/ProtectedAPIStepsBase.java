@@ -31,12 +31,13 @@ import static org.junit.Assert.fail;
 public class ProtectedAPIStepsBase extends APIStepsBase {
 
     public static final String TOKEN_ENDPOINT = "token_endpoint";
+    public static final String ACCESS_TOKEN = "access.token";
 
     private static HashMap<String, String> config;
     private static long lastChecked;
 
     protected RequestSpecification buildHeaders(RequestSpecification given) {
-        String accessToken = props.getProperty("access.token");
+        String accessToken = props.getProperty(ACCESS_TOKEN);
         String authServer = props.getProperty("auth.server");
         String refreshToken = props.getProperty("refresh.token");
         // Assume the access token, if can be renewed, is good for at least 1 minute
@@ -44,8 +45,8 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
                 && (lastChecked == 0 || System.currentTimeMillis() > lastChecked + 60 * 1000)) {
             try {
                 Map<String, String> config = discoveredInfo(authServer);
-                accessToken = acquireNewAccessToken(config.get(TOKEN_ENDPOINT));
-                props.setProperty("access_token", accessToken);
+                accessToken = acquireNewAccessToken(config.get(TOKEN_ENDPOINT), refreshToken);
+                props.setProperty(ACCESS_TOKEN, accessToken);
             } catch (IOException | ParseException | JOSEException e) {
                 throw new RuntimeException(e);
             }
@@ -74,9 +75,9 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
                 + "&client_assertion=" + signedJWT.serialize();
     }
 
-    private String acquireNewAccessToken(String tokenEndpoint) throws IOException, ParseException, JOSEException {
+    private String acquireNewAccessToken(String tokenEndpoint, String refreshToken) throws IOException, ParseException, JOSEException {
         String post = "grant_type=refresh_token&" + createAuthAssertionParamStr(tokenEndpoint)
-                + "&refresh_token=" + props.getProperty("refresh.token");
+                + "&refresh_token=" + refreshToken;
 
         ExtractableResponse<Response> tokenResponse = given()
                 .contentType("application/x-www-form-urlencoded")
