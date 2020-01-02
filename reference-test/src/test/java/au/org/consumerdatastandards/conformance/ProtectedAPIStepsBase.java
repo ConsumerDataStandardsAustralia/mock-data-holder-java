@@ -39,19 +39,22 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
 
     protected RequestSpecification buildHeaders(RequestSpecification given) {
         String accessToken = props.getProperty("access.token");
-        try {
-            String authServer = props.getProperty("auth.server");
-            Map<String, String> config = discoveredInfo(authServer);
-            boolean valid = StringUtils.isNotBlank(accessToken);
-            if (valid) {
-                valid = checkTokenValidity(accessToken, authServer, config.get(INTROSPECTION_ENDPOINT));
+        String authServer = props.getProperty("auth.server");
+        String refreshToken = props.getProperty("refresh.token");
+        if (StringUtils.isNotBlank(authServer) && StringUtils.isNotBlank(refreshToken)) {
+            try {
+                Map<String, String> config = discoveredInfo(authServer);
+                boolean valid = StringUtils.isNotBlank(accessToken);
+                if (valid) {
+                    valid = checkTokenValidity(accessToken, authServer, config.get(INTROSPECTION_ENDPOINT));
+                }
+                if (!valid) {
+                    accessToken = acquireNewAccessToken(config.get(TOKEN_ENDPOINT));
+                    props.setProperty("access_token", accessToken);
+                }
+            } catch (IOException | ParseException | JOSEException e) {
+                throw new RuntimeException(e);
             }
-            if (!valid && StringUtils.isNotBlank(props.getProperty("refresh.token"))) {
-                accessToken = acquireNewAccessToken(config.get(TOKEN_ENDPOINT));
-                props.setProperty("access_token", accessToken);
-            }
-        } catch (IOException | ParseException | JOSEException e) {
-            throw new RuntimeException(e);
         }
 
         return super.buildHeaders(given)

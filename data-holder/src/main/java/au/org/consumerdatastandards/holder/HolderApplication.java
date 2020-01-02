@@ -34,7 +34,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 })
 public class HolderApplication implements CommandLineRunner {
 
-    @Value("${server.http.port}")
+    @Value("${server.http.port:0}")
     private int httpPort;
 
     public static void main(String[] args) {
@@ -81,6 +81,9 @@ public class HolderApplication implements CommandLineRunner {
 
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustomizer() {
+        if (httpPort == 0) {
+            return null;
+        }
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setPort(httpPort);
         return containerFactory -> containerFactory.addAdditionalTomcatConnectors(connector);
