@@ -30,28 +30,23 @@ import static org.junit.Assert.fail;
 
 public class ProtectedAPIStepsBase extends APIStepsBase {
 
-    public static final String INTROSPECTION_ENDPOINT = "introspection_endpoint";
     public static final String TOKEN_ENDPOINT = "token_endpoint";
+    public static final String ACCESS_TOKEN = "access.token";
 
     private static HashMap<String, String> config;
-    private long lastChecked;
-    private boolean active;
+    private static long lastChecked;
 
     protected RequestSpecification buildHeaders(RequestSpecification given) {
-        String accessToken = props.getProperty("access.token");
+        String accessToken = props.getProperty(ACCESS_TOKEN);
         String authServer = props.getProperty("auth.server");
         String refreshToken = props.getProperty("refresh.token");
-        if (StringUtils.isNotBlank(authServer) && StringUtils.isNotBlank(refreshToken)) {
+        // Assume the access token, if can be renewed, is good for at least 1 minute
+        if (StringUtils.isNotBlank(authServer) && StringUtils.isNotBlank(refreshToken)
+                && (lastChecked == 0 || System.currentTimeMillis() > lastChecked + 60 * 1000)) {
             try {
                 Map<String, String> config = discoveredInfo(authServer);
-                boolean valid = StringUtils.isNotBlank(accessToken);
-                if (valid) {
-                    valid = checkTokenValidity(accessToken, authServer, config.get(INTROSPECTION_ENDPOINT));
-                }
-                if (!valid) {
-                    accessToken = acquireNewAccessToken(config.get(TOKEN_ENDPOINT));
-                    props.setProperty("access_token", accessToken);
-                }
+                accessToken = acquireNewAccessToken(config.get(TOKEN_ENDPOINT), refreshToken);
+                props.setProperty(ACCESS_TOKEN, accessToken);
             } catch (IOException | ParseException | JOSEException e) {
                 throw new RuntimeException(e);
             }
@@ -60,20 +55,6 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
         return super.buildHeaders(given)
                 .header("Authorization", "Bearer " + accessToken)
                 .header(Header.FAPI_AUTH_DATE.getKey(), OffsetDateTime.now().toString());
-    }
-
-    private boolean checkTokenValidity(String accessToken, String authServer, String introspectionEndpoint) throws IOException, ParseException, JOSEException {
-        // Assume the check is good for a minute since the last query
-        if (lastChecked > 0 && System.currentTimeMillis() < lastChecked + 60 * 1000) {
-            return active;
-        }
-        active = given()
-                .contentType("application/x-www-form-urlencoded")
-                .body("token=" + accessToken + "&token_type_hint=access_token&" + createAuthAssertionParamStr(authServer))
-                .when().post(introspectionEndpoint)
-                .then().log().all().contentType(ContentType.JSON).extract().path("active");
-        lastChecked = System.currentTimeMillis();
-        return active;
     }
 
     private String createAuthAssertionParamStr(String aud) throws IOException, ParseException, JOSEException {
@@ -94,9 +75,9 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
                 + "&client_assertion=" + signedJWT.serialize();
     }
 
-    private String acquireNewAccessToken(String tokenEndpoint) throws IOException, ParseException, JOSEException {
+    private String acquireNewAccessToken(String tokenEndpoint, String refreshToken) throws IOException, ParseException, JOSEException {
         String post = "grant_type=refresh_token&" + createAuthAssertionParamStr(tokenEndpoint)
-                + "&refresh_token=" + props.getProperty("refresh.token");
+                + "&refresh_token=" + refreshToken;
 
         ExtractableResponse<Response> tokenResponse = given()
                 .contentType("application/x-www-form-urlencoded")
@@ -109,7 +90,6 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
             fail(msg == null ? error : msg);
         }
         lastChecked = System.currentTimeMillis();
-        active = true;
         return tokenResponse.path("access_token");
     }
 
@@ -119,7 +99,6 @@ public class ProtectedAPIStepsBase extends APIStepsBase {
                     .then().log().all().contentType(ContentType.JSON).extract();
             config = new HashMap<>();
             config.put(TOKEN_ENDPOINT, resp.path(TOKEN_ENDPOINT));
-            config.put(INTROSPECTION_ENDPOINT, resp.path(INTROSPECTION_ENDPOINT));
         }
         return config;
     }
