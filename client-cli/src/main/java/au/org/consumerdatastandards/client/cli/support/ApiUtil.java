@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,6 +49,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Proxy;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
@@ -68,17 +71,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.SynchronousQueue;
 
 public class ApiUtil {
 
     private static final int EXPIRY_BUFFER = 10000;
+    private static final long DEFAULT_ACCESS_TOKEN_VALIDITY = 60;
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ApiUtil.class);
     private static final List<String> VALID_PROXY_TYPES = Arrays.asList("HTTP:", "HTTPS:", "SOCKS:");
 
     private static final JsonParser parser = new JsonParser();
     private static final HashMap<String, JsonObject> discoveredConfigs = new HashMap<>();
 
+    public static final SynchronousQueue<Object> browserMutex = new SynchronousQueue<>();
+
+    private static long accessTokenExpiresAt;
+
     public static ApiClient createApiClient(ApiClientOptions clientOptions) throws ApiException {
+        return createApiClient(clientOptions, true);
+    }
+
+    public static ApiClient createApiClient(ApiClientOptions clientOptions, boolean authRequired) throws ApiException {
         String serverUrl = clientOptions.getServerUrl();
         if (StringUtils.isBlank(serverUrl)) {
             LOGGER.error("Server Base URL is currently unset, cannot proceed until it is specified using `server` command");
@@ -103,27 +116,24 @@ public class ApiUtil {
             LOGGER.info("User Agent is set to {}", userAgent);
         }
 
-        String accessToken = clientOptions.getAccessToken();
-        if (StringUtils.isNotBlank(accessToken) || StringUtils.isNotBlank(clientOptions.getRefreshToken())) {
-            Integer exp = null;
-            Map<String, Object> claims = null;
-            if (StringUtils.isNotBlank(accessToken)) {
+        if (authRequired) {
+            if ((accessTokenExpiresAt == 0 || accessTokenExpiresAt < System.currentTimeMillis() + EXPIRY_BUFFER)
+                    && StringUtils.isNotBlank(clientOptions.getRefreshToken())) {
+                renewTokens(clientOptions, originalHttpClient);
+            }
+            if (StringUtils.isBlank(clientOptions.getAccessToken())) {
                 try {
-                    claims = parseClaims(accessToken);
-                    exp = (Integer) claims.get("exp");
-                } catch (ApiException e) {
-                    LOGGER.info("Invalid access token.");
+                    launchBrowser("http://www.google.com"); // TODO replace with embedded endpoint
+                    browserMutex.take(); // Wait for the user to login and acquire the tokens
+                } catch (IOException | URISyntaxException e) {
+                    LOGGER.error("Could not launch a web browser: " + e.getMessage());
+                } catch (InterruptedException e) {
+                    LOGGER.warn("Auth sequence interrupted.");
                 }
             }
-            if (exp == null || exp.longValue() * 1000 < System.currentTimeMillis() + EXPIRY_BUFFER) {
-                accessToken = acquireNewAccessToken(clientOptions.getRefreshToken(), clientOptions.getAuthServer(),
-                        clientOptions.getClientId(), clientOptions.getJwksPath(), originalHttpClient);
-                clientOptions.setAccessToken(accessToken);
-                claims = parseClaims(accessToken);
-            }
-            apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
-            apiClient.addDefaultHeader("x-cds-subject", claims.get("sub").toString());
+            apiClient.addDefaultHeader("Authorization", "Bearer " + clientOptions.getAccessToken());
         }
+
         if (clientOptions.isMtlsEnabled()) {
             validateClientCertSettings(clientOptions);
             String rootCaFilePath = clientOptions.getRootCaFilePath();
@@ -154,16 +164,33 @@ public class ApiUtil {
         return apiClient;
     }
 
-    private static String acquireNewAccessToken(String refreshToken, String authServer, String clientId,
-            String jwksPath, OkHttpClient httpClient) throws ApiException {
+    private static void launchBrowser(String url) throws IOException, URISyntaxException {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            Desktop.getDesktop().browse(new URI(url));
+        } else {
+            Runtime rt = Runtime.getRuntime();
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win")) {
+                rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
+            } else if (os.contains("nix") || os.contains("nux")) {
+                rt.exec("xdg-open " + url);
+            } else if (os.contains("mac")) {
+                rt.exec("open " + url);
+            } else {
+                throw new IOException("Unsupported OS");
+            }
+        }
+    }
+
+    private static void renewTokens(ApiClientOptions clientOptions, OkHttpClient httpClient) throws ApiException {
         try {
-            JsonObject jsonObject = discoveredInfo(httpClient, authServer);
+            JsonObject jsonObject = discoveredInfo(httpClient, clientOptions.getAuthServer());
             String tokenEndpoint = jsonObject.get("token_endpoint").getAsString();
-            JWKSet jwkSet = JWKSet.load(new File(jwksPath));
+            JWKSet jwkSet = JWKSet.load(new File(clientOptions.getJwksPath()));
             RSAKey rsaKey = (RSAKey) jwkSet.getKeys().get(0);
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
-                    .subject(clientId)
-                    .issuer(clientId)
+                    .subject(clientOptions.getClientId())
+                    .issuer(clientOptions.getClientId())
                     .audience(tokenEndpoint)
                     .expirationTime(new Date(System.currentTimeMillis() + 5 * 60 * 1000)) // the assertion expires in 5 minutes
                     .jwtID(UUID.randomUUID().toString())
@@ -173,10 +200,10 @@ public class ApiUtil {
             signedJWT.sign(signer);
             RequestBody postBody = new FormBody.Builder()
                     .add("grant_type", "refresh_token")
-                    .add("client_id", clientId)
+                    .add("client_id", clientOptions.getClientId())
                     .add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
                     .add("client_assertion", signedJWT.serialize())
-                    .add("refresh_token", refreshToken)
+                    .add("refresh_token", clientOptions.getRefreshToken())
                     .build();
             Request req = new Request.Builder().url(tokenEndpoint).post(postBody).build();
             String response = httpClient.newCall(req).execute().body().string();
@@ -185,7 +212,13 @@ public class ApiUtil {
                 JsonElement msg = responseObject.get("error_description");
                 throw new ApiException((msg == null ? responseObject.get("error") : msg).getAsString());
             }
-            return responseObject.get("access_token").getAsString();
+            clientOptions.setAccessToken(responseObject.get("access_token").getAsString());
+            JsonElement expiresIn = responseObject.get("expires_in");
+            accessTokenExpiresAt = System.currentTimeMillis() + (expiresIn == null ? DEFAULT_ACCESS_TOKEN_VALIDITY : expiresIn.getAsLong()) * 1000;
+            JsonElement refreshToken = responseObject.get("refresh_token");
+            if (refreshToken != null) {
+                clientOptions.setRefreshToken(refreshToken.getAsString());
+            }
         } catch (IOException | ParseException | JOSEException e) {
             throw new ApiException(e);
         }
