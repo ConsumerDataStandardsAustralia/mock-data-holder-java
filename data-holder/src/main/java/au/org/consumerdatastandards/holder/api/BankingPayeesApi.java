@@ -5,6 +5,7 @@ import au.org.consumerdatastandards.holder.model.ResponseBankingPayeeList;
 import io.swagger.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -47,6 +48,7 @@ public interface BankingPayeesApi {
         value = "/banking/payees/{payeeId}",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:payees:read')")
     ResponseEntity<ResponseBankingPayeeById> getPayeeDetail(
         @ApiParam(
             value = "The ID used to locate the details of a particular payee",
@@ -101,6 +103,7 @@ public interface BankingPayeesApi {
         value = "/banking/payees",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:payees:read')")
     ResponseEntity<ResponseBankingPayeeList> listPayees(
         @ApiParam(
             value = "Page of results to request (standard pagination)",

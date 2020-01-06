@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -52,6 +53,7 @@ public interface BankingDirectDebitsApi {
         value = "/banking/accounts/{accountId}/direct-debits",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebits(
         @ApiParam(
             value = "ID of the account to get direct debit authorisations for.  Must have previously been returned by one of the account list end points.",
@@ -114,6 +116,7 @@ public interface BankingDirectDebitsApi {
         value = "/banking/accounts/direct-debits",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsBulk(
         @ApiParam(
             value = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts"
@@ -188,6 +191,7 @@ public interface BankingDirectDebitsApi {
         value = "/banking/accounts/direct-debits",
         method = RequestMethod.POST
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsSpecificAccounts(
         @ApiParam(
             value = "Array of specific accountIds to obtain authorisations for"

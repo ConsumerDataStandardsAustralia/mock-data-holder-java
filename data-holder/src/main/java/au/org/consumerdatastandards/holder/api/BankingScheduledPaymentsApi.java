@@ -4,6 +4,7 @@ import au.org.consumerdatastandards.holder.model.*;
 import io.swagger.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -39,6 +40,7 @@ public interface BankingScheduledPaymentsApi {
         value = "/banking/accounts/{accountId}/payments/scheduled",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingScheduledPaymentsList> listScheduledPayments(
         @ApiParam(
             value = "ID of the account to get scheduled payments for. Must have previously been returned by one of the account list end points. The account specified is the source account for the payment",
@@ -101,6 +103,7 @@ public interface BankingScheduledPaymentsApi {
         value = "/banking/payments/scheduled",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingScheduledPaymentsList> listScheduledPaymentsBulk(
         @ApiParam(
             value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned."
@@ -175,6 +178,7 @@ public interface BankingScheduledPaymentsApi {
         value = "/banking/payments/scheduled",
         method = RequestMethod.POST
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingScheduledPaymentsList> listScheduledPaymentsSpecificAccounts(
         @ApiParam(
             value = "Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned"

@@ -7,19 +7,35 @@
  */
 package au.org.consumerdatastandards.client.cli.support;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class ApiClientOptions {
 
+    @Value("${server:}")
     private String serverUrl;
+    @Value("${proxy:}")
     private String proxy;
     private boolean validationEnabled = false;
     private String userAgent;
     private boolean debugEnabled = false;
     private boolean verifyingSsl = true;
+    @Value("${access.token:}")
     private String accessToken;
+    @Value("${refresh.token:}")
+    private String refreshToken;
+    @Value("${cert.path:}")
     private String certFilePath;
+    @Value("${key.path:}")
     private String keyFilePath;
+    @Value("${root.cert.path:}")
     private String rootCaFilePath;
     private boolean mtlsEnabled = false;
+    @Value("${auth.server:}")
+    private String authServer;
+    @Value("${client.id:}")
+    private String clientId;
+    @Value("${jwks.path:}")
+    private String jwksPath;
 
     public String getServerUrl() {
         return serverUrl;
@@ -107,5 +123,37 @@ public class ApiClientOptions {
 
     public void setMtlsEnabled(boolean mtlsEnabled) {
         this.mtlsEnabled = mtlsEnabled;
+    }
+
+    public void setAuthServer(String authServer) {
+        this.authServer = authServer;
+    }
+
+    public String getAuthServer() {
+        return authServer;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public String getJwksPath() {
+        return jwksPath;
+    }
+
+    public void setJwksPath(String jwksPath) {
+        this.jwksPath = jwksPath;
     }
 }
