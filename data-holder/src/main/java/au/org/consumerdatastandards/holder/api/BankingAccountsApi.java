@@ -4,6 +4,7 @@ import au.org.consumerdatastandards.holder.model.*;
 import io.swagger.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -40,6 +41,7 @@ public interface BankingAccountsApi {
         value = "/banking/accounts/{accountId}",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:accounts.detail:read')")
     ResponseEntity<ResponseBankingAccountById> getAccountDetail(
         @ApiParam(
             value = "A tokenised identifier for the account which is unique but not shareable",
@@ -94,6 +96,7 @@ public interface BankingAccountsApi {
         value = "/banking/accounts/{accountId}/transactions/{transactionId}",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:transactions:read')")
     ResponseEntity<ResponseBankingTransactionById> getTransactionDetail(
         @ApiParam(
             value = "ID of the account to get transactions for.  Must have previously been returned by one of the account list end points",
@@ -153,6 +156,7 @@ public interface BankingAccountsApi {
         value = "/banking/accounts/{accountId}/transactions",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:transactions:read')")
     ResponseEntity<ResponseBankingTransactionList> getTransactions(
         @ApiParam(
             value = "ID of the account to get transactions for.  Must have previously been returned by one of the account list end points.",
@@ -230,6 +234,7 @@ public interface BankingAccountsApi {
         value = "/banking/accounts",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountList> listAccounts(
         @ApiParam(
             value = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts"
@@ -299,6 +304,7 @@ public interface BankingAccountsApi {
         value = "/banking/accounts/{accountId}/balance",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountsBalanceById> listBalance(
         @ApiParam(
             value = "ID of the specific account requested",
@@ -353,6 +359,7 @@ public interface BankingAccountsApi {
         value = "/banking/accounts/balances",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesBulk(
         @ApiParam(
             value = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts"
@@ -427,6 +434,7 @@ public interface BankingAccountsApi {
         value = "/banking/accounts/balances",
         method = RequestMethod.POST
     )
+    @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesSpecificAccounts(
         @ApiParam(
             value = "The list of account IDs to obtain balances for"

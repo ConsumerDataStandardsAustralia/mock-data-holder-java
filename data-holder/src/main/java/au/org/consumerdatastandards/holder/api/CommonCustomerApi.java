@@ -5,6 +5,9 @@ import au.org.consumerdatastandards.holder.model.ResponseCommonCustomerDetail;
 import io.swagger.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +44,9 @@ public interface CommonCustomerApi {
         value = "/common/customer",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_common:customer.basic:read')")
     ResponseEntity<ResponseCommonCustomer> getCustomer(
+        @AuthenticationPrincipal Jwt jwt,
         @ApiParam(
             value = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters."
         )
@@ -90,7 +95,9 @@ public interface CommonCustomerApi {
         value = "/common/customer/detail",
         method = RequestMethod.GET
     )
+    @PreAuthorize("hasAuthority('SCOPE_common:customer.detail:read')")
     ResponseEntity<ResponseCommonCustomerDetail> getCustomerDetail(
+        @AuthenticationPrincipal Jwt jwt,
         @ApiParam(
             value = "The customers original User Agent header if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls. Base64 encoded contents which may included additional parameters."
         )
