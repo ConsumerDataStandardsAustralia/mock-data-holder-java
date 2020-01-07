@@ -14,13 +14,14 @@ import org.jline.utils.AttributedStyle;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.shell.jline.PromptProvider;
 
 import java.security.Security;
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
-public class CdsClientShell {
+public class CdsClientShell extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         Security.addProvider(new BouncyCastleProvider());

@@ -123,7 +123,7 @@ public class ApiUtil {
             }
             if (StringUtils.isBlank(clientOptions.getAccessToken())) {
                 try {
-                    launchBrowser("http://www.google.com"); // TODO replace with embedded endpoint
+                    launchBrowser("http://localhost:8686/auth"); // TODO replace with embedded endpoint
                     browserMutex.take(); // Wait for the user to login and acquire the tokens
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("Could not launch a web browser: " + e.getMessage());
