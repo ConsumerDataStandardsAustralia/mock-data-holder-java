@@ -43,15 +43,6 @@
 	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
 
 	<context:component-scan base-package="au.org.consumerdatastandards.oidc.web.client" />
 
@@ -111,7 +102,7 @@
 		<property name="authRequestUrlBuilder" ref="cdsRequestUrlBuilder" />
 	</bean>
 
-	<bean id="dynamicOptionsService" class="au.org.consumerdatastandards.oidc.web.client.service.CDSDynamicOptionsService" />
+	<bean id="dynamicOptionsService" class="au.org.consumerdatastandards.client.cli.auth.service.CDSDynamicOptionsService" />
 
 	<!--
 	  -
@@ -124,7 +115,7 @@
 		look for an "identifier" parameter to do Webfinger discovery on that. Failing that, it will redirect to the login
 		page URL.
 	-->
-	<bean class="au.org.consumerdatastandards.oidc.web.client.service.SharingDurationHybridIssuerService" id="hybridIssuerService">
+	<bean class="au.org.consumerdatastandards.client.cli.auth.service.SharingDurationHybridIssuerService" id="hybridIssuerService">
 		<property name="loginPageUrl" value="login" />
 		<property name="forceHttps" value="false" /> <!-- this default property forces the webfinger issuer URL to be HTTPS, turn off for development work -->
 	</bean>
@@ -157,7 +148,7 @@
 			<map>
 				<entry key="http://localhost:8080/cds-openid-connect-server/">
 					<bean class="org.mitre.oauth2.model.RegisteredClient">
-						<property name="clientId" value="client" />
+						<property name="clientId" value="cli" />
 						<property name="clientSecret" value="secret" />
 						<property name="scope">
 							<set value-type="java.lang.String">
@@ -178,7 +169,7 @@
 						<property name="tokenEndpointAuthMethod" value="PRIVATE_KEY" />
 						<property name="redirectUris">
 							<set>
-								<value>http://localhost:8181/web-client/openid_connect_login</value>
+								<value>http://localhost:8686/openid_connect_login</value>
 							</set>
 						</property>
 					</bean>
@@ -202,7 +193,7 @@
 	<!--
 		Signed authorization request builder, puts all options as elements in a JWS-signed request object 
 	-->
-	<bean class="au.org.consumerdatastandards.oidc.web.client.service.CDSRequestBuilder" id="cdsRequestUrlBuilder">
+	<bean class="au.org.consumerdatastandards.client.cli.auth.service.CDSRequestBuilder" id="cdsRequestUrlBuilder">
 	  <property name="signingAndValidationService" ref="defaultSignerService" />
 	</bean>
 
