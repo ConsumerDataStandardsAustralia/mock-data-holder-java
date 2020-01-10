@@ -34,7 +34,7 @@ public class ApiClientOptions {
     private String authServer;
     @Value("${client.id:}")
     private String clientId;
-    @Value("${jwks.path:}")
+    @Value("${jwks.path:client-cli/keystore/keystore.jwks}")
     private String jwksPath;
 
     public String getServerUrl() {

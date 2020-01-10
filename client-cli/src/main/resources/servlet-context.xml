@@ -228,21 +228,9 @@
 		Replace this keystore's contents for a production deployment.
 	 -->
 	<bean id="defaultSignerService" class="org.mitre.jwt.signer.service.impl.DefaultJWTSigningAndValidationService">
-		<constructor-arg name="keyStore">
-			<bean id="defaultKeyStore" class="org.mitre.jose.keystore.JWKSetKeyStore">
-				<property name="location" value="classpath:keystore.jwks" />
-			</bean>
-		</constructor-arg>
+		<constructor-arg name="keyStore" ref="keyStore" />
 		<property name="defaultSignerKeyId" value="rsa1" />
  		<property name="defaultSigningAlgorithmName" value="RS256" />
 	</bean>
 
-	<!-- 
-		This service publishes the client's public key on a the endpoint "jwk" off the root of this client.
-	-->	
-	<bean id="clientKeyPublisher" class="org.mitre.openid.connect.client.keypublisher.ClientKeyPublisher">
- 		<property name="jwkPublishUrl" value="jwk" />
- 		<property name="signingAndValidationService" ref="defaultSignerService" />
- 	</bean>
- 		 
 </beans>
