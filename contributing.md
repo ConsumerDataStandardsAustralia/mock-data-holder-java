@@ -19,7 +19,9 @@ The source code for the tool can be found [here](https://github.com/ConsumerData
 The PTT has sample tests included, which demonstrate how more complex testing could be implemented.
 
 ### Get Product Detail Test
-This [test](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/reference-test/src/test/java/au/org/consumerdatastandards/conformance/GetProductDetailTest.java) lists all products and validates response payloads.
+This [test](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/reference-test/src/test/java/au/org/consumerdatastandards/conformance/products/GetProductDetailTest.java) lists all products and validates response payloads.
 
 ### List Products Test
-This [test](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/reference-test/src/test/java/au/org/consumerdatastandards/conformance/ListProductsTest.java) utilises a Serenity Parameterized Runner to read input parameters from the file `testdata/banking-products-api-params.csv` (found [here](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/tree/master/reference-test/src/test/resources/testdata) and iterates through each row in the file, making a request with the given parameters and validating the response.
+This [test](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/reference-test/src/test/java/au/org/consumerdatastandards/conformance/products/ListProductsTest.java) utilises a Serenity Parameterized Runner to read input parameters from the file `testdata/banking-products-api-params.csv` (found [here](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/tree/master/reference-test/src/test/resources/testdata)) and iterates through each row in the file, making a request with the given parameters and validating the response.
+
+More tests in [here](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/tree/master/reference-test/src/test/java/au/org/consumerdatastandards/conformance).
