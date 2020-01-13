@@ -158,6 +158,13 @@
 								<value>profile</value>
 								<value>phone</value>
 								<value>offline_access</value>
+								<value>bank:accounts.basic:read</value>
+								<value>bank:accounts.detail:read</value>
+								<value>bank:transactions:read</value>
+								<value>bank:regular_payments:read</value>
+								<value>bank:payees:read</value>
+								<value>common:customer.basic:read</value>
+								<value>common:customer.detail:read</value>
 							</set>
 						</property>
 						<property name="responseTypes">
