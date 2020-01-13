@@ -61,6 +61,11 @@ public class Auth extends ApiCliBase {
         apiClientOptions.setAccessToken(jwt);
     }
 
+    @ShellMethod("Unset access token")
+    public void unsetAccessToken() {
+        apiClientOptions.setAccessToken(null);
+    }
+
     @ShellMethod("Get currently set access token. The refresh token flow can update access token.")
     public String getAccessToken() {
         return apiClientOptions.getAccessToken();
@@ -79,6 +84,11 @@ public class Auth extends ApiCliBase {
     @ShellMethod("Set refresh token. The access token, if set and valid, takes precedence. (Property: refresh.token)")
     public void refreshToken(@ShellOption String refreshToken) {
         apiClientOptions.setRefreshToken(refreshToken);
+    }
+
+    @ShellMethod("Unset refresh token")
+    public void unsetRefreshToken() {
+        apiClientOptions.setRefreshToken(null);
     }
 
     @ShellMethod("Get refresh token")
