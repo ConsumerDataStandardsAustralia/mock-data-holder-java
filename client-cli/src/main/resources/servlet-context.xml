@@ -146,9 +146,9 @@
 	<bean class="org.mitre.openid.connect.client.service.impl.StaticClientConfigurationService" id="staticClientConfigurationService">
 		<property name="clients">
 			<map>
-				<entry key="http://localhost:8080/cds-openid-connect-server/">
+				<entry key="#{systemProperties['auth.server']}">
 					<bean class="org.mitre.oauth2.model.RegisteredClient">
-						<property name="clientId" value="cli" />
+						<property name="clientId" value="#{systemProperties['client.id']}" />
 						<property name="clientSecret" value="secret" />
 						<property name="scope">
 							<set value-type="java.lang.String">
