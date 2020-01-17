@@ -8,7 +8,10 @@
 package au.org.consumerdatastandards.client.cli;
 
 import ch.qos.logback.classic.Logger;
+import org.mitre.jose.keystore.JWKSetKeyStore;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -19,6 +22,9 @@ import org.springframework.shell.standard.ShellOption;
 public class Auth extends ApiCliBase {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(Auth.class);
+
+    @Autowired
+    JWKSetKeyStore jwksKeyStore;
 
     @ShellMethod("Set verifyingSsl, e.g. true, false")
     public void verifyingSsl(@ShellOption String verifyingSsl) {
@@ -109,6 +115,7 @@ public class Auth extends ApiCliBase {
     @ShellMethod("Set JWKS keystore file path (Property: jwks.path)")
     public void jwksPath(@ShellOption String jwksPath) {
         apiClientOptions.setJwksPath(jwksPath);
+        jwksKeyStore.setLocation(new FileSystemResource(jwksPath));
     }
 
     @ShellMethod("Get JWKS keystore file path")
