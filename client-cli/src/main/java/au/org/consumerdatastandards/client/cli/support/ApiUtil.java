@@ -177,7 +177,13 @@ public class ApiUtil {
             } else if (os.contains("mac")) {
                 rt.exec("open " + url);
             } else {
-                throw new IOException("Unsupported OS");
+                IOException ex = new IOException("Unsupported OS");
+                try {
+                    browserMutex.put(ex);
+                } catch (InterruptedException e) {
+                    // Safe to ignore
+                }
+                throw ex;
             }
         }
     }
