@@ -121,7 +121,7 @@ public class ApiUtil {
                     && StringUtils.isNotBlank(clientOptions.getRefreshToken())) {
                 renewTokens(clientOptions, originalHttpClient);
             }
-            if (StringUtils.isBlank(clientOptions.getAccessToken())) {
+            if (StringUtils.isBlank(clientOptions.getAccessToken()) && StringUtils.isNotBlank(clientOptions.getAuthServer())) {
                 try {
                     launchBrowser("http://localhost:8686/auth"); // TODO replace with embedded endpoint
                     browserMutex.take(); // Wait for the user to login and acquire the tokens
