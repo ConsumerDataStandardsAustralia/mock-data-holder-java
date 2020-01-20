@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.conformance.balances;
 
-import au.org.consumerdatastandards.api.banking.models.BankingBalance;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingBalance;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.thucydides.junit.annotations.UseTestDataFrom;

@@ -1,11 +1,11 @@
 package au.org.consumerdatastandards.conformance.balances;
 
-import au.org.consumerdatastandards.api.banking.models.BankingBalance;
-import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceById;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingBalance;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingAccountsBalanceById;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingAccountsBalanceList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingAccountsBalanceListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;

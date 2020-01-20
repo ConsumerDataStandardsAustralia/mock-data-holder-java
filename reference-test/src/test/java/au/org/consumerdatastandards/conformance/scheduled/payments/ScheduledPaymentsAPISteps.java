@@ -1,11 +1,11 @@
 package au.org.consumerdatastandards.conformance.scheduled.payments;
 
-import au.org.consumerdatastandards.api.banking.models.BankingScheduledPayment;
-import au.org.consumerdatastandards.api.banking.models.BankingScheduledPaymentFrom;
-import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingScheduledPayment;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingScheduledPaymentFrom;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingScheduledPaymentsList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingScheduledPaymentsListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;

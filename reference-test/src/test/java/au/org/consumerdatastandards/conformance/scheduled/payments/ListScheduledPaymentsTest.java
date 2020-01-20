@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.conformance.scheduled.payments;
 
-import au.org.consumerdatastandards.api.banking.models.BankingScheduledPayment;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingScheduledPayment;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.thucydides.junit.annotations.UseTestDataFrom;
 import org.apache.commons.lang3.StringUtils;

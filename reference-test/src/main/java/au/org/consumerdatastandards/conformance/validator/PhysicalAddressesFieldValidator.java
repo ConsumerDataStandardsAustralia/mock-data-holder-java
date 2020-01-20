@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.conformance.validator;
 
-import au.org.consumerdatastandards.api.common.models.CommonPhysicalAddressWithPurpose;
+import au.org.consumerdatastandards.api.v1_0_0.common.models.CommonPhysicalAddressWithPurpose;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.reflection.ReflectionUtil;

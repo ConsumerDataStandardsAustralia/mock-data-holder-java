@@ -1,11 +1,11 @@
 package au.org.consumerdatastandards.conformance.products;
 
-import au.org.consumerdatastandards.api.banking.models.BankingProduct;
-import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductById;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingProductListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingProduct;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingProductById;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingProductList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingProductListData;
 import au.org.consumerdatastandards.conformance.APIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static au.org.consumerdatastandards.api.banking.BankingProductsAPI.ParamEffective;
+import static au.org.consumerdatastandards.api.v1_0_0.banking.BankingProductsAPI.ParamEffective;
 import static au.org.consumerdatastandards.conformance.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 import static net.serenitybdd.rest.SerenityRest.given;
 import static org.junit.Assert.assertEquals;

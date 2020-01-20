@@ -30,7 +30,7 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
     };
 
 
-    private Swagger swagger;
+    protected Swagger swagger;
     private Map<String, String> refParameters = new HashMap<>();
     private Set<String> refModels = new HashSet<>();
     private Map<String, Set<String>> modelPackages = new HashMap<String, Set<String>>() {
@@ -861,5 +861,6 @@ public abstract class JavaCodegenBase extends AbstractJavaCodegen implements Cod
             return this.datatypeWithEnum.equals("Meta");
         }
     }
+
 
 }

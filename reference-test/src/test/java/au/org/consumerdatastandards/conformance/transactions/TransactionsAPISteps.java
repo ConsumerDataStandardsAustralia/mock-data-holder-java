@@ -1,10 +1,10 @@
 package au.org.consumerdatastandards.conformance.transactions;
 
-import au.org.consumerdatastandards.api.banking.models.BankingTransaction;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionById;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionListData;
-import au.org.consumerdatastandards.api.banking.models.TxMetaPaginated;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingTransaction;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingTransactionById;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingTransactionList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingTransactionListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.TxMetaPaginated;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;

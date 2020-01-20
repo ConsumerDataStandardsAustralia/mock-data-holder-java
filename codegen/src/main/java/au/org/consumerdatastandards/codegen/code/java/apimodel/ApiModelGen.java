@@ -5,6 +5,7 @@ import io.swagger.codegen.CodegenOperation;
 import io.swagger.codegen.CodegenResponse;
 import io.swagger.codegen.CodegenType;
 import io.swagger.codegen.mustache.UppercaseLambda;
+import io.swagger.models.Swagger;
 
 import java.io.File;
 import java.util.List;
@@ -44,12 +45,18 @@ public class ApiModelGen extends JavaCodegenBase {
         sourceFolder = "src/gen/java";
         embeddedTemplateDir = templateDir = "ApiModel";
         artifactId = "api-model";
-        apiPackage = "au.org.consumerdatastandards.api";
-        modelPackage = "au.org.consumerdatastandards.api.models";
         modelDocTemplateFiles.clear();
         apiDocTemplateFiles.clear();
         apiTestTemplateFiles.clear();
         additionalProperties.put("uppercase", new UppercaseLambda());
+    }
+
+    @Override
+    public void preprocessSwagger(Swagger swagger) {
+        super.preprocessSwagger(swagger);
+        String version = "v" + swagger.getInfo().getVersion().replace('.', '_');
+        apiPackage = "au.org.consumerdatastandards.api." + version;
+        modelPackage = String.format("au.org.consumerdatastandards.api.%s.models", version);
     }
 
     @Override

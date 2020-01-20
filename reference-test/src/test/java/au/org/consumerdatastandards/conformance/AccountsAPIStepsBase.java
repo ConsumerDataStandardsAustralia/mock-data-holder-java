@@ -1,8 +1,8 @@
 package au.org.consumerdatastandards.conformance;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccount;
-import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountById;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingAccount;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingAccountById;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;

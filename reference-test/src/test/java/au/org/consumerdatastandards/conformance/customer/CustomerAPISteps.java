@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.conformance.customer;
 
-import au.org.consumerdatastandards.api.common.models.ResponseCommonCustomer;
-import au.org.consumerdatastandards.api.common.models.ResponseCommonCustomerDetail;
+import au.org.consumerdatastandards.api.v1_0_0.common.models.ResponseCommonCustomer;
+import au.org.consumerdatastandards.api.v1_0_0.common.models.ResponseCommonCustomerDetail;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.ProtectedAPIStepsBase;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;

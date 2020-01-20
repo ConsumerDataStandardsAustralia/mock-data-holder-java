@@ -1,11 +1,11 @@
 package au.org.consumerdatastandards.conformance.payees;
 
-import au.org.consumerdatastandards.api.banking.BankingPayeesAPI;
-import au.org.consumerdatastandards.api.banking.models.BankingPayee;
-import au.org.consumerdatastandards.api.banking.models.BankingPayeeDetail;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeById;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingPayeeListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.BankingPayeesAPI;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingPayee;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingPayeeDetail;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingPayeeById;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingPayeeList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingPayeeListData;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.ProtectedAPIStepsBase;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
