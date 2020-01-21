@@ -1,9 +1,9 @@
 package au.org.consumerdatastandards.codegen.code.java.apimodel;
 
 import au.org.consumerdatastandards.codegen.code.java.JavaCodegenBase;
-import io.swagger.codegen.CodegenOperation;
 import io.swagger.codegen.CodegenResponse;
 import io.swagger.codegen.CodegenType;
+import io.swagger.codegen.SupportingFile;
 import io.swagger.codegen.mustache.UppercaseLambda;
 import io.swagger.models.Swagger;
 
@@ -57,6 +57,12 @@ public class ApiModelGen extends JavaCodegenBase {
         String version = "v" + swagger.getInfo().getVersion().replace('.', '_');
         apiPackage = "au.org.consumerdatastandards.api." + version;
         modelPackage = String.format("au.org.consumerdatastandards.api.%s.models", version);
+        String commonModelPackage = String.format("au.org.consumerdatastandards.api.%s.common.models", version);
+        additionalProperties.put("commonModelPackage", commonModelPackage);
+        final String commonModelFolder = (sourceFolder + '/' + commonModelPackage).replace(".", "/");
+        supportingFiles.add(new SupportingFile("BaseResponse.mustache", commonModelFolder, "BaseResponse.java"));
+        supportingFiles.add(new SupportingFile("PaginatedResponse.mustache", commonModelFolder, "PaginatedResponse.java"));
+        supportingFiles.add(new SupportingFile("Meta.mustache", commonModelFolder, "Meta.java"));
     }
 
     @Override
