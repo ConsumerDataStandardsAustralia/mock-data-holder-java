@@ -72,8 +72,7 @@ public class ApiControllerBase {
         }
     }
 
-    protected void validateHeaders(String xCdsUserAgent,
-                                   String xCdsSubject,
+    protected void validateHeaders(String xCdsClientHeaders,
                                    String xFapiCustomerIpAddress,
                                    Integer xMinV, Integer xV) {
         validateHeaders(xMinV, xV);
@@ -82,13 +81,13 @@ public class ApiControllerBase {
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {
                 throw new ValidationException("request header x-fapi-customer-ip-address is not valid IP address");
             }
-            if (StringUtils.isEmpty(xCdsUserAgent)) {
-                throw new ValidationException("request header x-cds-user-agent is not present");
-            } else if (!xCdsUserAgent.matches(BASE64_PATTERN)) {
-                throw new ValidationException("request header x-cds-user-agent is not Base64 encoded");
+            if (StringUtils.isEmpty(xCdsClientHeaders)) {
+                throw new ValidationException("request header x-cds-client-headers is not present");
+            } else if (!xCdsClientHeaders.matches(BASE64_PATTERN)) {
+                throw new ValidationException("request header x-cds-client-headers is not Base64 encoded");
             }
-            if (StringUtils.isEmpty(xCdsSubject)) {
-                throw new ValidationException("request header x-cds-subject is not present");
+            if (StringUtils.isEmpty(xCdsClientHeaders)) {
+                throw new ValidationException("request header x-cds-client-headers is not present");
             }
         }
     }

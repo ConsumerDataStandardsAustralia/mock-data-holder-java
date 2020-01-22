@@ -42,14 +42,13 @@ public class CommonCustomerApiController extends ApiControllerBase implements Co
     }
 
     public ResponseEntity<ResponseCommonCustomer> getCustomer(Jwt jwt,
-                                                              String xCdsUserAgent,
-                                                              String xCdsSubject,
+                                                              String xCdsClientHeaders,
                                                               OffsetDateTime xFapiAuthDate,
                                                               String xFapiCustomerIpAddress,
                                                               UUID xFapiInteractionId,
                                                               Integer xMinV,
                                                               Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         String sub = jwt.getClaim("sub");
         ResponseCommonCustomer responseCommonCustomer = new ResponseCommonCustomer();
@@ -70,14 +69,13 @@ public class CommonCustomerApiController extends ApiControllerBase implements Co
     }
 
     public ResponseEntity<ResponseCommonCustomerDetail> getCustomerDetail(Jwt jwt,
-                                                                          String xCdsUserAgent,
-                                                                          String xCdsSubject,
+                                                                          String xCdsClientHeaders,
                                                                           OffsetDateTime xFapiAuthDate,
                                                                           String xFapiCustomerIpAddress,
                                                                           UUID xFapiInteractionId,
                                                                           Integer xMinV,
                                                                           Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         String sub = jwt.getClaim("sub");
         ResponseCommonCustomerDetail responseCommonCustomerDetail = new ResponseCommonCustomerDetail();

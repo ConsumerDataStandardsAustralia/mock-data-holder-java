@@ -38,14 +38,13 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
     }
 
     public ResponseEntity<ResponseBankingPayeeById> getPayeeDetail(String payeeId,
-                                                                   String xCdsUserAgent,
-                                                                   String xCdsSubject,
+                                                                   String xCdsClientHeaders,
                                                                    OffsetDateTime xFapiAuthDate,
                                                                    String xFapiCustomerIpAddress,
                                                                    UUID xFapiInteractionId,
                                                                    Integer xMinV,
                                                                    Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingPayeeDetail payeeDetail = payeeService.getBankingPayeeDetail(payeeId);
         if (payeeDetail == null) {
@@ -60,14 +59,13 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
     public ResponseEntity<ResponseBankingPayeeList> listPayees(Integer page,
                                                                Integer pageSize,
                                                                ParamPayeeType type,
-                                                               String xCdsUserAgent,
-                                                               String xCdsSubject,
+                                                               String xCdsClientHeaders,
                                                                OffsetDateTime xFapiAuthDate,
                                                                String xFapiCustomerIpAddress,
                                                                UUID xFapiInteractionId,
                                                                Integer xMinV,
                                                                Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
