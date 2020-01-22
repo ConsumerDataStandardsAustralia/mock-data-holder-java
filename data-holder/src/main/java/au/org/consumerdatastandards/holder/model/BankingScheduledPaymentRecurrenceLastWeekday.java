@@ -12,6 +12,23 @@ import java.time.LocalDate;
 @Embeddable
 public class BankingScheduledPaymentRecurrenceLastWeekday  {
 
+    public enum LastWeekDay {
+        MON,
+        TUE,
+        WED,
+        THU,
+        FRI,
+        SAT,
+        SUN
+    }
+
+    public enum NonBusinessDayTreatment {
+        AFTER,
+        BEFORE,
+        ON,
+        ONLY
+    }
+
     /**
      * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
      */
@@ -26,12 +43,17 @@ public class BankingScheduledPaymentRecurrenceLastWeekday  {
     /**
      * The weekDay specified. The payment will occur on the last occurrence of this weekday in the interval. Value is constrained to 1 to 7 with 1 indicating Monday.
      */
-    private Integer lastWeekDay;
+    private LastWeekDay lastWeekDay;
 
     /**
      * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
      */
     private Integer paymentsRemaining;
+
+    /**
+     * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+     */
+    private NonBusinessDayTreatment nonBusinessDayTreatment = NonBusinessDayTreatment.ON;
 
     public BankingScheduledPaymentRecurrenceLastWeekday finalPaymentDate(LocalDate finalPaymentDate) {
         this.finalPaymentDate = finalPaymentDate;
@@ -59,19 +81,21 @@ public class BankingScheduledPaymentRecurrenceLastWeekday  {
     public void setInterval(String interval) {
         this.interval = interval;
     }
-    public BankingScheduledPaymentRecurrenceLastWeekday lastWeekDay(Integer lastWeekDay) {
+
+    public BankingScheduledPaymentRecurrenceLastWeekday lastWeekDay(LastWeekDay lastWeekDay) {
         this.lastWeekDay = lastWeekDay;
         return this;
     }
 
     @ApiModelProperty(required = true, value = "The weekDay specified. The payment will occur on the last occurrence of this weekday in the interval. Value is constrained to 1 to 7 with 1 indicating Monday.")
-    public Integer getLastWeekDay() {
+    public LastWeekDay getLastWeekDay() {
         return lastWeekDay;
     }
 
-    public void setLastWeekDay(Integer lastWeekDay) {
+    public void setLastWeekDay(LastWeekDay lastWeekDay) {
         this.lastWeekDay = lastWeekDay;
     }
+
     public BankingScheduledPaymentRecurrenceLastWeekday paymentsRemaining(Integer paymentsRemaining) {
         this.paymentsRemaining = paymentsRemaining;
         return this;
@@ -113,10 +137,10 @@ public class BankingScheduledPaymentRecurrenceLastWeekday  {
     @Override
     public String toString() {
         return "class BankingScheduledPaymentRecurrenceLastWeekday {\n" +
-            "   finalPaymentDate: " + toIndentedString(finalPaymentDate) + "\n" + 
-            "   interval: " + toIndentedString(interval) + "\n" + 
-            "   lastWeekDay: " + toIndentedString(lastWeekDay) + "\n" + 
-            "   paymentsRemaining: " + toIndentedString(paymentsRemaining) + "\n" + 
+            "   finalPaymentDate: " + toIndentedString(finalPaymentDate) + "\n" +
+            "   interval: " + toIndentedString(interval) + "\n" +
+            "   lastWeekDay: " + toIndentedString(lastWeekDay) + "\n" +
+            "   paymentsRemaining: " + toIndentedString(paymentsRemaining) + "\n" +
             "}";
     }
 
