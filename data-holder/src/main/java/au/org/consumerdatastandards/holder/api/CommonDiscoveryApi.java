@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.CommonDiscoveryStatus;
+import au.org.consumerdatastandards.holder.model.ResponseCommonDiscoveryStatus;
 import au.org.consumerdatastandards.holder.model.ResponseDiscoveryOutagesList;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -52,21 +52,21 @@ public interface CommonDiscoveryApi {
         value = "Get Status",
         nickname = "getStatus",
         notes = "Obtain a health check status for the implementation",
-        response = CommonDiscoveryStatus.class,
+        response = ResponseCommonDiscoveryStatus.class,
         tags = {"Discovery", "Common"}
     )
     @ApiResponses(value = {
         @ApiResponse(
             code = 200,
             message = "Success",
-            response = CommonDiscoveryStatus.class
+            response = ResponseCommonDiscoveryStatus.class
         )
     })
     @RequestMapping(
         value = "/discovery/status",
         method = RequestMethod.GET
     )
-    ResponseEntity<CommonDiscoveryStatus> getStatus(
+    ResponseEntity<ResponseCommonDiscoveryStatus> getStatus(
         @ApiParam(
             value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder should respond with a 406 Not Acceptable."
         )

@@ -5,21 +5,21 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 @ApiModel
-public class CommonDiscoveryStatus extends BaseResponse {
+public class ResponseCommonDiscoveryStatus extends BaseResponse {
 
-    private CommonDiscoveryStatusData data;
+    private ResponseCommonDiscoveryStatusData data;
 
-    public CommonDiscoveryStatus data(CommonDiscoveryStatusData data) {
+    public ResponseCommonDiscoveryStatus data(ResponseCommonDiscoveryStatusData data) {
         this.data = data;
         return this;
     }
 
     @ApiModelProperty(required = true)
-    public CommonDiscoveryStatusData getData() {
+    public ResponseCommonDiscoveryStatusData getData() {
         return data;
     }
 
-    public void setData(CommonDiscoveryStatusData data) {
+    public void setData(ResponseCommonDiscoveryStatusData data) {
         this.data = data;
     }
 
@@ -31,8 +31,8 @@ public class CommonDiscoveryStatus extends BaseResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CommonDiscoveryStatus commonDiscoveryStatus = (CommonDiscoveryStatus) o;
-        return Objects.equals(this.data, commonDiscoveryStatus.data) &&
+        ResponseCommonDiscoveryStatus responseCommonDiscoveryStatus = (ResponseCommonDiscoveryStatus) o;
+        return Objects.equals(this.data, responseCommonDiscoveryStatus.data) &&
             super.equals(o);
     }
 
@@ -45,10 +45,10 @@ public class CommonDiscoveryStatus extends BaseResponse {
 
     @Override
     public String toString() {
-        return "class CommonDiscoveryStatus {\n" +
-            "   data: " + toIndentedString(data) + "\n" + 
-            "   links: " + toIndentedString(getLinks()) + "\n" + 
-            "   meta: " + toIndentedString(getMeta()) + "\n" + 
+        return "class ResponseCommonDiscoveryStatus {\n" +
+            "   data: " + toIndentedString(data) + "\n" +
+            "   links: " + toIndentedString(getLinks()) + "\n" +
+            "   meta: " + toIndentedString(getMeta()) + "\n" +
             "}";
     }
 

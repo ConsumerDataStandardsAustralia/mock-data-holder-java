@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.time.OffsetDateTime;
 
 @ApiModel
-public class CommonDiscoveryStatusData  {
+public class ResponseCommonDiscoveryStatusData {
 
     /**
      * The date and time that the current outage was detected. Should only be present if the status property is PARTIAL_FAILURE or UNAVAILABLE
@@ -30,7 +30,7 @@ public class CommonDiscoveryStatusData  {
      */
     private OffsetDateTime updateTime;
 
-    public CommonDiscoveryStatusData detectionTime(OffsetDateTime detectionTime) {
+    public ResponseCommonDiscoveryStatusData detectionTime(OffsetDateTime detectionTime) {
         this.detectionTime = detectionTime;
         return this;
     }
@@ -43,7 +43,7 @@ public class CommonDiscoveryStatusData  {
     public void setDetectionTime(OffsetDateTime detectionTime) {
         this.detectionTime = detectionTime;
     }
-    public CommonDiscoveryStatusData expectedResolutionTime(OffsetDateTime expectedResolutionTime) {
+    public ResponseCommonDiscoveryStatusData expectedResolutionTime(OffsetDateTime expectedResolutionTime) {
         this.expectedResolutionTime = expectedResolutionTime;
         return this;
     }
@@ -56,7 +56,7 @@ public class CommonDiscoveryStatusData  {
     public void setExpectedResolutionTime(OffsetDateTime expectedResolutionTime) {
         this.expectedResolutionTime = expectedResolutionTime;
     }
-    public CommonDiscoveryStatusData explanation(String explanation) {
+    public ResponseCommonDiscoveryStatusData explanation(String explanation) {
         this.explanation = explanation;
         return this;
     }
@@ -69,7 +69,7 @@ public class CommonDiscoveryStatusData  {
     public void setExplanation(String explanation) {
         this.explanation = explanation;
     }
-    public CommonDiscoveryStatusData status(Status status) {
+    public ResponseCommonDiscoveryStatusData status(Status status) {
         this.status = status;
         return this;
     }
@@ -82,7 +82,7 @@ public class CommonDiscoveryStatusData  {
     public void setStatus(Status status) {
         this.status = status;
     }
-    public CommonDiscoveryStatusData updateTime(OffsetDateTime updateTime) {
+    public ResponseCommonDiscoveryStatusData updateTime(OffsetDateTime updateTime) {
         this.updateTime = updateTime;
         return this;
     }
@@ -104,12 +104,12 @@ public class CommonDiscoveryStatusData  {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CommonDiscoveryStatusData commonDiscoveryStatusData = (CommonDiscoveryStatusData) o;
-        return Objects.equals(this.detectionTime, commonDiscoveryStatusData.detectionTime) &&
-            Objects.equals(this.expectedResolutionTime, commonDiscoveryStatusData.expectedResolutionTime) &&
-            Objects.equals(this.explanation, commonDiscoveryStatusData.explanation) &&
-            Objects.equals(this.status, commonDiscoveryStatusData.status) &&
-            Objects.equals(this.updateTime, commonDiscoveryStatusData.updateTime);
+        ResponseCommonDiscoveryStatusData responseCommonDiscoveryStatusData = (ResponseCommonDiscoveryStatusData) o;
+        return Objects.equals(this.detectionTime, responseCommonDiscoveryStatusData.detectionTime) &&
+            Objects.equals(this.expectedResolutionTime, responseCommonDiscoveryStatusData.expectedResolutionTime) &&
+            Objects.equals(this.explanation, responseCommonDiscoveryStatusData.explanation) &&
+            Objects.equals(this.status, responseCommonDiscoveryStatusData.status) &&
+            Objects.equals(this.updateTime, responseCommonDiscoveryStatusData.updateTime);
     }
 
     @Override
@@ -125,11 +125,11 @@ public class CommonDiscoveryStatusData  {
     @Override
     public String toString() {
         return "class CommonDiscoveryStatusData {\n" +
-            "   detectionTime: " + toIndentedString(detectionTime) + "\n" + 
-            "   expectedResolutionTime: " + toIndentedString(expectedResolutionTime) + "\n" + 
-            "   explanation: " + toIndentedString(explanation) + "\n" + 
-            "   status: " + toIndentedString(status) + "\n" + 
-            "   updateTime: " + toIndentedString(updateTime) + "\n" + 
+            "   detectionTime: " + toIndentedString(detectionTime) + "\n" +
+            "   expectedResolutionTime: " + toIndentedString(expectedResolutionTime) + "\n" +
+            "   explanation: " + toIndentedString(explanation) + "\n" +
+            "   status: " + toIndentedString(status) + "\n" +
+            "   updateTime: " + toIndentedString(updateTime) + "\n" +
             "}";
     }
 

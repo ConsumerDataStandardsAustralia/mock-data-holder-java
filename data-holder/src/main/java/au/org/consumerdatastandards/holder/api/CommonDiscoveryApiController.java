@@ -47,13 +47,13 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
         return new ResponseEntity<>(responseDiscoveryOutagesList, generateResponseHeaders(request), HttpStatus.OK);
     }
 
-      public ResponseEntity<CommonDiscoveryStatus> getStatus(Integer xMinV, Integer xV) {
+      public ResponseEntity<ResponseCommonDiscoveryStatus> getStatus(Integer xMinV, Integer xV) {
         validateHeaders(xMinV, xV);
-        CommonDiscoveryStatusData data = new CommonDiscoveryStatusData();
-        data.setStatus(CommonDiscoveryStatusData.Status.OK);
-        CommonDiscoveryStatus commonDiscoveryStatus = new CommonDiscoveryStatus();
-        commonDiscoveryStatus.setData(data);
-        commonDiscoveryStatus.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(commonDiscoveryStatus, generateResponseHeaders(request), HttpStatus.OK);
+        ResponseCommonDiscoveryStatusData data = new ResponseCommonDiscoveryStatusData();
+        data.setStatus(ResponseCommonDiscoveryStatusData.Status.OK);
+        ResponseCommonDiscoveryStatus responseCommonDiscoveryStatus = new ResponseCommonDiscoveryStatus();
+        responseCommonDiscoveryStatus.setData(data);
+        responseCommonDiscoveryStatus.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
+        return new ResponseEntity<>(responseCommonDiscoveryStatus, generateResponseHeaders(request), HttpStatus.OK);
     }
 }
