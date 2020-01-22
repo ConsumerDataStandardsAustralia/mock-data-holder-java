@@ -4,6 +4,7 @@ import au.org.consumerdatastandards.codegen.code.java.JavaCodegenBase;
 import io.swagger.codegen.CodegenType;
 import io.swagger.codegen.SupportingFile;
 import io.swagger.codegen.languages.SpringCodegen;
+import io.swagger.models.Swagger;
 
 import java.io.File;
 
@@ -20,13 +21,19 @@ public class JavaServerGen extends JavaCodegenBase {
         outputFolder = "generated-code" + File.separator + "holder";
         embeddedTemplateDir = templateDir = "JavaServer";
         invokerPackage = DEFAULT_BASE_PACKAGE;
-        apiPackage = DEFAULT_BASE_PACKAGE + ".api";
-        modelPackage = DEFAULT_BASE_PACKAGE + ".model";
         artifactId = "data-holder";
 
         additionalProperties.put(SpringCodegen.CONFIG_PACKAGE, configPackage);
         additionalProperties.put(SpringCodegen.BASE_PACKAGE, invokerPackage);
         additionalProperties.put("jackson", "true");
+    }
+
+    @Override
+    public void preprocessSwagger(Swagger swagger) {
+        super.preprocessSwagger(swagger);
+        String versionSubPackage = ".v" + swagger.getInfo().getVersion().replace('.', '_');
+        apiPackage = DEFAULT_BASE_PACKAGE + versionSubPackage  + ".api";
+        modelPackage = DEFAULT_BASE_PACKAGE + versionSubPackage + ".model";
     }
 
     @Override
