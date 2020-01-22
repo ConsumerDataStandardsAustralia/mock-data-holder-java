@@ -272,7 +272,7 @@ public interface BankingAccountsApi {
 
     @ApiOperation(
         value = "Get Account Balance",
-        nickname = "listBalance",
+        nickname = "getBalance",
         notes = "Obtain the balance for a single specified account",
         response = ResponseBankingAccountsBalanceById.class,
         tags = {"Accounts", "Banking"}
@@ -289,7 +289,7 @@ public interface BankingAccountsApi {
         method = RequestMethod.GET
     )
     @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
-    ResponseEntity<ResponseBankingAccountsBalanceById> listBalance(
+    ResponseEntity<ResponseBankingAccountsBalanceById> getBalance(
         @ApiParam(
             value = "ID of the specific account requested",
             required = true

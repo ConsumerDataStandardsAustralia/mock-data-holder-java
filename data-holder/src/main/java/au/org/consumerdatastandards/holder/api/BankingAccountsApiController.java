@@ -146,13 +146,13 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         return new ResponseEntity<>(responseBankingAccountList, headers, HttpStatus.OK);
     }
 
-    public ResponseEntity<ResponseBankingAccountsBalanceById> listBalance(String accountId,
-                                                                          String xCdsClientHeaders,
-                                                                          OffsetDateTime xFapiAuthDate,
-                                                                          String xFapiCustomerIpAddress,
-                                                                          UUID xFapiInteractionId,
-                                                                          Integer xMinV,
-                                                                          Integer xV) {
+    public ResponseEntity<ResponseBankingAccountsBalanceById> getBalance(String accountId,
+                                                                         String xCdsClientHeaders,
+                                                                         OffsetDateTime xFapiAuthDate,
+                                                                         String xFapiCustomerIpAddress,
+                                                                         UUID xFapiInteractionId,
+                                                                         Integer xMinV,
+                                                                         Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingBalance balance = accountService.getBankingBalance(accountId);
