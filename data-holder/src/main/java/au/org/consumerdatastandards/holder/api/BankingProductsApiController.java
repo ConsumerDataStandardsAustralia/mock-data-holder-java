@@ -1,6 +1,15 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.*;
+import au.org.consumerdatastandards.holder.model.BankingProduct;
+import au.org.consumerdatastandards.holder.model.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.BankingProductDetail;
+import au.org.consumerdatastandards.holder.model.BankingProductDetailV1;
+import au.org.consumerdatastandards.holder.model.BankingProductV1;
+import au.org.consumerdatastandards.holder.model.Links;
+import au.org.consumerdatastandards.holder.model.ParamEffective;
+import au.org.consumerdatastandards.holder.model.ResponseBankingProductById;
+import au.org.consumerdatastandards.holder.model.ResponseBankingProductList;
+import au.org.consumerdatastandards.holder.model.ResponseBankingProductListData;
 import au.org.consumerdatastandards.holder.service.BankingProductService;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +23,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
@@ -44,7 +51,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
                                                                        Integer xV) {
         validateHeaders(xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
-        BankingProductDetail productDetail = service.getProductDetail(productId);
+        BankingProductDetail productDetail = service.getProductDetail(productId, getSupportedVersion(xMinV, xV));
         if (productDetail == null) {
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
         }
@@ -74,7 +81,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         validateHeaders(xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
-        BankingProduct bankingProduct = new BankingProduct();
+        BankingProduct bankingProduct = new BankingProductV1();
         bankingProduct.setLastUpdated(updatedSince);
         bankingProduct.setBrand(brand);
         if (productCategory != null) {
@@ -84,7 +91,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingProduct> productsPage = service.findProductsLike(effective, bankingProduct,
-            PageRequest.of(actualPage - 1, actualPageSize));
+            PageRequest.of(actualPage - 1, actualPageSize), getSupportedVersion(xMinV, xV));
 
         logger.info(
             "Returning basic product listing page {} of {} (page size of {}) using filters of effective {}, updated since {}, brand {}, product category of {}",
@@ -103,5 +110,10 @@ public class BankingProductsApiController extends ApiControllerBase implements B
 
         logger.debug("Product listing raw response payload is: {}", responseProductList);
         return new ResponseEntity<>(responseProductList, headers, HttpStatus.OK);
+    }
+
+    @Override
+    protected Integer getCurrentVersion() {
+        return 2;
     }
 }

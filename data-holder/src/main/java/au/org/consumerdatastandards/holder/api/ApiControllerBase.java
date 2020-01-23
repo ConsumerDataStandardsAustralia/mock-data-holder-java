@@ -34,14 +34,18 @@ public class ApiControllerBase {
         }
     }
 
-    private boolean hasSupportedVersion(Integer xMinV, Integer xV) {
-        if (xV != null && getCurrentVersion() > xV) {
-            return false;
-        }
-        return xMinV == null || getCurrentVersion() >= xMinV;
+    protected boolean hasSupportedVersion(Integer xMinV, Integer xV) {
+        if (xV == null) return false;
+        return (xMinV == null || getCurrentVersion() >= xMinV) && (xMinV != null || getCurrentVersion() >= xV);
     }
 
-    private Integer getCurrentVersion() {
+    protected Integer getSupportedVersion(Integer xMinV, Integer xV) {
+        validateHeaders(xMinV, xV);
+        if (xMinV == null) return xV;
+        return Math.min(xV, getCurrentVersion());
+    }
+
+    protected Integer getCurrentVersion() {
         return 1;
     }
 
