@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 {{#operations}}
@@ -20,7 +20,7 @@ public class {{classname}} {
 {{>modelInnerEnum}}
 {{/_enums}}
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger({{classname}}.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger({{classname}}.class);
 
     private ApiClient apiClient;
 
