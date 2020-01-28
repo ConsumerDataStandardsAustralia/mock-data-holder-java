@@ -12,17 +12,17 @@ import java.util.Objects;
 
 public class ResponseBankingProductListData {
 
-    private List<BankingProductV2> products;
+    private List<BankingProduct> products;
 
     /**
      * The list of products returned.  If the filter results in an empty set then this array may have no records
      * @return products
      */
-    public List<BankingProductV2> getProducts() {
+    public List<BankingProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(List<BankingProductV2> products) {
+    public void setProducts(List<BankingProduct> products) {
         this.products = products;
     }
 
@@ -47,7 +47,7 @@ public class ResponseBankingProductListData {
     @Override
     public String toString() {
         return "class ResponseBankingProductListData {\n" +
-            "   products: " + toIndentedString(products) + "\n" + 
+            "   products: " + toIndentedString(products) + "\n" +
             "}";
     }
 

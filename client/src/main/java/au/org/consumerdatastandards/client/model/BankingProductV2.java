@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class BankingProductV2 {
+public class BankingProductV2 implements BankingProduct {
 
     private String productId;
 

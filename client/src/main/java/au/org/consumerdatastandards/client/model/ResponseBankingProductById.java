@@ -48,9 +48,9 @@ public class ResponseBankingProductById extends BaseResponse {
     @Override
     public String toString() {
         return "class ResponseBankingProductById {\n" +
-            "   data: " + toIndentedString(data) + "\n" + 
-            "   links: " + toIndentedString(getLinks()) + "\n" + 
-            "   meta: " + toIndentedString(getMeta()) + "\n" + 
+            "   data: " + toIndentedString(data) + "\n" +
+            "   links: " + toIndentedString(getLinks()) + "\n" +
+            "   meta: " + toIndentedString(getMeta()) + "\n" +
             "}";
     }
 
