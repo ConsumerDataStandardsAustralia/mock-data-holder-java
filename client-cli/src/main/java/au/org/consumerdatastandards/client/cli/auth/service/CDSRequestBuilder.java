@@ -30,10 +30,10 @@ public class CDSRequestBuilder implements AuthRequestUrlBuilder {
         // create our signed JWT for the request object
         JWTClaimsSet.Builder claims = new JWTClaimsSet.Builder();
 
-        String sharingDurations = options.remove(SharingDurationHybridIssuerService.SHARING_DURATION);
-        if (sharingDurations != null) {
+        String sharingDuration = options.remove(SharingDurationHybridIssuerService.SHARING_DURATION);
+        if (sharingDuration != null) {
             HashMap<String, Object> objClaims = new HashMap<>();
-            objClaims.put("sharing_duration", sharingDurations);
+            objClaims.put("sharing_duration", sharingDuration);
             claims.claim("claims", objClaims);
         }
 

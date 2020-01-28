@@ -31,32 +31,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="">CDS OpenID Server: Web Client</a>
-			<div class="nav-collapse collapse" th:unless="${pageName == null}">
-				<ul class="nav">
-					<li><a href=".">Home</a></li>
-					<li><a href="user">User</a></li>
-					<li><a href="admin">Admin</a></li>
-					<li><a href="j_spring_security_logout">Logout</a></li>
-				</ul>
-				<ul class="nav pull-right">
-					<div sec:authorize="hasRole('ROLE_USER')">
-						<li class="dropdown">
-							<a id="userButton" class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-user icon-white"></i> <span></span> <span class="caret">shortName</span></a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="user" data-toggle="collapse" data-target=".nav-collapse">longName</a></li>
-								<li class="divider"></li>
-								<li><a href="j_spring_security_logout" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-remove"></i> Log out</a></li>
-							</ul>
-						</li>
-					</div>
-					<div sec:authorize="!hasRole('ROLE_USER')">
-						<li>
-							<a id="loginButton" href="login" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-lock icon-white"></i> Log in</a>
-						</li>
-					</div>
-				</ul>
-			</div><!--/.nav-collapse -->
+			<a class="brand" href="">CDS Client CLI</a>
 		</div>
 	</div>
 </div>

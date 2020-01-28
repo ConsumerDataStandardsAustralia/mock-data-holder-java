@@ -93,7 +93,7 @@
 	  - The authentication filter
 	  -	
 	  -->
-	<bean id="openIdConnectAuthenticationFilter" class="org.mitre.openid.connect.client.OIDCAuthenticationFilter">
+	<bean id="openIdConnectAuthenticationFilter" class="au.org.consumerdatastandards.client.cli.auth.UnblockingOIDCAuthenticationFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
 		<property name="issuerService" ref="hybridIssuerService" />
 		<property name="serverConfigurationService" ref="dynamicServerConfigurationService" />
