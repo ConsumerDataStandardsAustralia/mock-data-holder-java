@@ -12,27 +12,49 @@ import java.util.Objects;
 
 public class BankingTransaction {
 
+    public enum Type {
+        FEE,
+        INTEREST_CHARGED,
+        INTEREST_PAID,
+        TRANSFER_OUTGOING,
+        TRANSFER_INCOMING,
+        PAYMENT,
+        DIRECT_DEBIT,
+        OTHER
+    }
+
     public enum Status {
         PENDING,
         POSTED
     }
 
-    public enum Type {
-        DIRECT_DEBIT,
-        FEE,
-        INTEREST_CHARGED,
-        INTEREST_PAID,
-        OTHER,
-        PAYMENT,
-        TRANSFER_INCOMING,
-        TRANSFER_OUTGOING
-    }
-
     private String accountId;
+
+    private String transactionId;
+
+    private Boolean isDetailAvailable;
+
+    private Type type;
+
+    private Status status;
+
+    private String description;
+
+    private OffsetDateTime postingDateTime;
+
+    private OffsetDateTime valueDateTime;
+
+    private OffsetDateTime executionDateTime;
 
     private String amount;
 
-    private String apcaNumber;
+    private String currency;
+
+    private String reference;
+
+    private String merchantName;
+
+    private String merchantCategoryCode;
 
     private String billerCode;
 
@@ -40,29 +62,7 @@ public class BankingTransaction {
 
     private String crn;
 
-    private String currency;
-
-    private String description;
-
-    private OffsetDateTime executionDateTime;
-
-    private Boolean isDetailAvailable;
-
-    private String merchantCategoryCode;
-
-    private String merchantName;
-
-    private OffsetDateTime postingDateTime;
-
-    private String reference;
-
-    private Status status;
-
-    private String transactionId;
-
-    private Type type;
-
-    private OffsetDateTime valueDateTime;
+    private String apcaNumber;
 
     /**
      * ID of the account for which transactions are provided
@@ -74,6 +74,102 @@ public class BankingTransaction {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    /**
+     * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
+     * @return transactionId
+     */
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * True if extended information is available using the transaction detail end point. False if extended data is not available
+     * @return isDetailAvailable
+     */
+    public Boolean getIsDetailAvailable() {
+        return isDetailAvailable;
+    }
+
+    public void setIsDetailAvailable(Boolean isDetailAvailable) {
+        this.isDetailAvailable = isDetailAvailable;
+    }
+
+    /**
+     * The type of the transaction
+     * @return type
+     */
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    /**
+     * Status of the transaction whether pending or posted. Note that there is currently no provision in the standards to guarantee the ability to correlate a pending transaction with an associated posted transaction
+     * @return status
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    /**
+     * The transaction description as applied by the financial institution
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * The time the transaction was posted. This field is Mandatory if the transaction has status POSTED.  This is the time that appears on a standard statement
+     * @return postingDateTime
+     */
+    public OffsetDateTime getPostingDateTime() {
+        return postingDateTime;
+    }
+
+    public void setPostingDateTime(OffsetDateTime postingDateTime) {
+        this.postingDateTime = postingDateTime;
+    }
+
+    /**
+     * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry
+     * @return valueDateTime
+     */
+    public OffsetDateTime getValueDateTime() {
+        return valueDateTime;
+    }
+
+    public void setValueDateTime(OffsetDateTime valueDateTime) {
+        this.valueDateTime = valueDateTime;
+    }
+
+    /**
+     * The time the transaction was executed by the originating customer, if available
+     * @return executionDateTime
+     */
+    public OffsetDateTime getExecutionDateTime() {
+        return executionDateTime;
+    }
+
+    public void setExecutionDateTime(OffsetDateTime executionDateTime) {
+        this.executionDateTime = executionDateTime;
     }
 
     /**
@@ -89,15 +185,51 @@ public class BankingTransaction {
     }
 
     /**
-     * 6 Digit APCA number for the initiating institution
-     * @return apcaNumber
+     * The currency for the transaction amount. AUD assumed if not present
+     * @return currency
      */
-    public String getApcaNumber() {
-        return apcaNumber;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setApcaNumber(String apcaNumber) {
-        this.apcaNumber = apcaNumber;
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    /**
+     * The reference for the transaction provided by the originating institution. Empty string if no data provided
+     * @return reference
+     */
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    /**
+     * Name of the merchant for an outgoing payment to a merchant
+     * @return merchantName
+     */
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+    }
+
+    /**
+     * The merchant category code (or MCC) for an outgoing payment to a merchant
+     * @return merchantCategoryCode
+     */
+    public String getMerchantCategoryCode() {
+        return merchantCategoryCode;
+    }
+
+    public void setMerchantCategoryCode(String merchantCategoryCode) {
+        this.merchantCategoryCode = merchantCategoryCode;
     }
 
     /**
@@ -137,147 +269,15 @@ public class BankingTransaction {
     }
 
     /**
-     * The currency for the transaction amount. AUD assumed if not present
-     * @return currency
+     * 6 Digit APCA number for the initiating institution
+     * @return apcaNumber
      */
-    public String getCurrency() {
-        return currency;
+    public String getApcaNumber() {
+        return apcaNumber;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    /**
-     * The transaction description as applied by the financial institution
-     * @return description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * The time the transaction was executed by the originating customer, if available
-     * @return executionDateTime
-     */
-    public OffsetDateTime getExecutionDateTime() {
-        return executionDateTime;
-    }
-
-    public void setExecutionDateTime(OffsetDateTime executionDateTime) {
-        this.executionDateTime = executionDateTime;
-    }
-
-    /**
-     * True if extended information is available using the transaction detail end point. False if extended data is not available
-     * @return isDetailAvailable
-     */
-    public Boolean getIsDetailAvailable() {
-        return isDetailAvailable;
-    }
-
-    public void setIsDetailAvailable(Boolean isDetailAvailable) {
-        this.isDetailAvailable = isDetailAvailable;
-    }
-
-    /**
-     * The merchant category code (or MCC) for an outgoing payment to a merchant
-     * @return merchantCategoryCode
-     */
-    public String getMerchantCategoryCode() {
-        return merchantCategoryCode;
-    }
-
-    public void setMerchantCategoryCode(String merchantCategoryCode) {
-        this.merchantCategoryCode = merchantCategoryCode;
-    }
-
-    /**
-     * Name of the merchant for an outgoing payment to a merchant
-     * @return merchantName
-     */
-    public String getMerchantName() {
-        return merchantName;
-    }
-
-    public void setMerchantName(String merchantName) {
-        this.merchantName = merchantName;
-    }
-
-    /**
-     * The time the transaction was posted. This field is Mandatory if the transaction has status POSTED.  This is the time that appears on a standard statement
-     * @return postingDateTime
-     */
-    public OffsetDateTime getPostingDateTime() {
-        return postingDateTime;
-    }
-
-    public void setPostingDateTime(OffsetDateTime postingDateTime) {
-        this.postingDateTime = postingDateTime;
-    }
-
-    /**
-     * The reference for the transaction provided by the originating institution. Empty string if no data provided
-     * @return reference
-     */
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    /**
-     * Get status
-     * @return status
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    /**
-     * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
-     * @return transactionId
-     */
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    /**
-     * Get type
-     * @return type
-     */
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    /**
-     * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry
-     * @return valueDateTime
-     */
-    public OffsetDateTime getValueDateTime() {
-        return valueDateTime;
-    }
-
-    public void setValueDateTime(OffsetDateTime valueDateTime) {
-        this.valueDateTime = valueDateTime;
+    public void setApcaNumber(String apcaNumber) {
+        this.apcaNumber = apcaNumber;
     }
 
     @Override
@@ -290,69 +290,69 @@ public class BankingTransaction {
         }
         BankingTransaction bankingTransaction = (BankingTransaction) o;
         return Objects.equals(this.accountId, bankingTransaction.accountId) &&
+            Objects.equals(this.transactionId, bankingTransaction.transactionId) &&
+            Objects.equals(this.isDetailAvailable, bankingTransaction.isDetailAvailable) &&
+            Objects.equals(this.type, bankingTransaction.type) &&
+            Objects.equals(this.status, bankingTransaction.status) &&
+            Objects.equals(this.description, bankingTransaction.description) &&
+            Objects.equals(this.postingDateTime, bankingTransaction.postingDateTime) &&
+            Objects.equals(this.valueDateTime, bankingTransaction.valueDateTime) &&
+            Objects.equals(this.executionDateTime, bankingTransaction.executionDateTime) &&
             Objects.equals(this.amount, bankingTransaction.amount) &&
-            Objects.equals(this.apcaNumber, bankingTransaction.apcaNumber) &&
+            Objects.equals(this.currency, bankingTransaction.currency) &&
+            Objects.equals(this.reference, bankingTransaction.reference) &&
+            Objects.equals(this.merchantName, bankingTransaction.merchantName) &&
+            Objects.equals(this.merchantCategoryCode, bankingTransaction.merchantCategoryCode) &&
             Objects.equals(this.billerCode, bankingTransaction.billerCode) &&
             Objects.equals(this.billerName, bankingTransaction.billerName) &&
             Objects.equals(this.crn, bankingTransaction.crn) &&
-            Objects.equals(this.currency, bankingTransaction.currency) &&
-            Objects.equals(this.description, bankingTransaction.description) &&
-            Objects.equals(this.executionDateTime, bankingTransaction.executionDateTime) &&
-            Objects.equals(this.isDetailAvailable, bankingTransaction.isDetailAvailable) &&
-            Objects.equals(this.merchantCategoryCode, bankingTransaction.merchantCategoryCode) &&
-            Objects.equals(this.merchantName, bankingTransaction.merchantName) &&
-            Objects.equals(this.postingDateTime, bankingTransaction.postingDateTime) &&
-            Objects.equals(this.reference, bankingTransaction.reference) &&
-            Objects.equals(this.status, bankingTransaction.status) &&
-            Objects.equals(this.transactionId, bankingTransaction.transactionId) &&
-            Objects.equals(this.type, bankingTransaction.type) &&
-            Objects.equals(this.valueDateTime, bankingTransaction.valueDateTime);
+            Objects.equals(this.apcaNumber, bankingTransaction.apcaNumber);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             accountId,
+            transactionId,
+            isDetailAvailable,
+            type,
+            status,
+            description,
+            postingDateTime,
+            valueDateTime,
+            executionDateTime,
             amount,
-            apcaNumber,
+            currency,
+            reference,
+            merchantName,
+            merchantCategoryCode,
             billerCode,
             billerName,
             crn,
-            currency,
-            description,
-            executionDateTime,
-            isDetailAvailable,
-            merchantCategoryCode,
-            merchantName,
-            postingDateTime,
-            reference,
-            status,
-            transactionId,
-            type,
-            valueDateTime);
+            apcaNumber);
     }
 
     @Override
     public String toString() {
         return "class BankingTransaction {\n" +
             "   accountId: " + toIndentedString(accountId) + "\n" + 
+            "   transactionId: " + toIndentedString(transactionId) + "\n" + 
+            "   isDetailAvailable: " + toIndentedString(isDetailAvailable) + "\n" + 
+            "   type: " + toIndentedString(type) + "\n" + 
+            "   status: " + toIndentedString(status) + "\n" + 
+            "   description: " + toIndentedString(description) + "\n" + 
+            "   postingDateTime: " + toIndentedString(postingDateTime) + "\n" + 
+            "   valueDateTime: " + toIndentedString(valueDateTime) + "\n" + 
+            "   executionDateTime: " + toIndentedString(executionDateTime) + "\n" + 
             "   amount: " + toIndentedString(amount) + "\n" + 
-            "   apcaNumber: " + toIndentedString(apcaNumber) + "\n" + 
+            "   currency: " + toIndentedString(currency) + "\n" + 
+            "   reference: " + toIndentedString(reference) + "\n" + 
+            "   merchantName: " + toIndentedString(merchantName) + "\n" + 
+            "   merchantCategoryCode: " + toIndentedString(merchantCategoryCode) + "\n" + 
             "   billerCode: " + toIndentedString(billerCode) + "\n" + 
             "   billerName: " + toIndentedString(billerName) + "\n" + 
             "   crn: " + toIndentedString(crn) + "\n" + 
-            "   currency: " + toIndentedString(currency) + "\n" + 
-            "   description: " + toIndentedString(description) + "\n" + 
-            "   executionDateTime: " + toIndentedString(executionDateTime) + "\n" + 
-            "   isDetailAvailable: " + toIndentedString(isDetailAvailable) + "\n" + 
-            "   merchantCategoryCode: " + toIndentedString(merchantCategoryCode) + "\n" + 
-            "   merchantName: " + toIndentedString(merchantName) + "\n" + 
-            "   postingDateTime: " + toIndentedString(postingDateTime) + "\n" + 
-            "   reference: " + toIndentedString(reference) + "\n" + 
-            "   status: " + toIndentedString(status) + "\n" + 
-            "   transactionId: " + toIndentedString(transactionId) + "\n" + 
-            "   type: " + toIndentedString(type) + "\n" + 
-            "   valueDateTime: " + toIndentedString(valueDateTime) + "\n" + 
+            "   apcaNumber: " + toIndentedString(apcaNumber) + "\n" + 
             "}";
     }
 

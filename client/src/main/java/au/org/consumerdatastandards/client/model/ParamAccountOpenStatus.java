@@ -13,9 +13,9 @@ package au.org.consumerdatastandards.client.model;
  */
 public enum ParamAccountOpenStatus {
   
-    ALL,
+    OPEN,
   
     CLOSED,
   
-    OPEN
+    ALL
 }

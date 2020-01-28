@@ -13,11 +13,11 @@ public class Error {
 
     private String code;
 
+    private String title;
+
     private String detail;
 
     private Object meta;
-
-    private String title;
 
     /**
      * Must be one of the following: 0001 – Account not able to be found
@@ -29,6 +29,18 @@ public class Error {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    /**
+     * Must be one of the following: Invalid account
+     * @return title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
@@ -44,7 +56,7 @@ public class Error {
     }
 
     /**
-     * Get meta
+     * Optional additional data for specific error types
      * @return meta
      */
     public Object getMeta() {
@@ -53,18 +65,6 @@ public class Error {
 
     public void setMeta(Object meta) {
         this.meta = meta;
-    }
-
-    /**
-     * Must be one of the following: Invalid account
-     * @return title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @Override
@@ -77,27 +77,27 @@ public class Error {
         }
         Error responseErrorListErrors = (Error) o;
         return Objects.equals(this.code, responseErrorListErrors.code) &&
+            Objects.equals(this.title, responseErrorListErrors.title) &&
             Objects.equals(this.detail, responseErrorListErrors.detail) &&
-            Objects.equals(this.meta, responseErrorListErrors.meta) &&
-            Objects.equals(this.title, responseErrorListErrors.title);
+            Objects.equals(this.meta, responseErrorListErrors.meta);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             code,
+            title,
             detail,
-            meta,
-            title);
+            meta);
     }
 
     @Override
     public String toString() {
         return "class Error {\n" +
             "   code: " + toIndentedString(code) + "\n" + 
+            "   title: " + toIndentedString(title) + "\n" + 
             "   detail: " + toIndentedString(detail) + "\n" + 
             "   meta: " + toIndentedString(meta) + "\n" + 
-            "   title: " + toIndentedString(title) + "\n" + 
             "}";
     }
 

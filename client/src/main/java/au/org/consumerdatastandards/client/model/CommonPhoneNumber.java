@@ -12,27 +12,63 @@ import java.util.Objects;
 public class CommonPhoneNumber {
 
     public enum Purpose {
-        HOME,
-        INTERNATIONAL,
         MOBILE,
+        HOME,
+        WORK,
         OTHER,
-        UNSPECIFIED,
-        WORK
+        INTERNATIONAL,
+        UNSPECIFIED
     }
+
+    private Boolean isPreferred;
+
+    private Purpose purpose;
+
+    private String countryCode;
 
     private String areaCode;
 
-    private String countryCode;
+    private String number;
 
     private String extension;
 
     private String fullNumber;
 
-    private Boolean isPreferred;
+    /**
+     * May be true for one and only one entry to indicate the preferred phone number. Assumed to be &#39;false&#39; if not present
+     * @return isPreferred
+     */
+    public Boolean getIsPreferred() {
+        return isPreferred;
+    }
 
-    private String number;
+    public void setIsPreferred(Boolean isPreferred) {
+        this.isPreferred = isPreferred;
+    }
 
-    private Purpose purpose;
+    /**
+     * The purpose of the number as specified by the customer
+     * @return purpose
+     */
+    public Purpose getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(Purpose purpose) {
+        this.purpose = purpose;
+    }
+
+    /**
+     * If absent, assumed to be Australia (+61). The + should be included
+     * @return countryCode
+     */
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 
     /**
      * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
@@ -47,15 +83,15 @@ public class CommonPhoneNumber {
     }
 
     /**
-     * If absent, assumed to be Australia (+61). The + should be included
-     * @return countryCode
+     * The actual phone number, with leading zeros as appropriate
+     * @return number
      */
-    public String getCountryCode() {
-        return countryCode;
+    public String getNumber() {
+        return number;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     /**
@@ -82,42 +118,6 @@ public class CommonPhoneNumber {
         this.fullNumber = fullNumber;
     }
 
-    /**
-     * May be true for one and only one entry to indicate the preferred phone number. Assumed to be &#39;false&#39; if not present
-     * @return isPreferred
-     */
-    public Boolean getIsPreferred() {
-        return isPreferred;
-    }
-
-    public void setIsPreferred(Boolean isPreferred) {
-        this.isPreferred = isPreferred;
-    }
-
-    /**
-     * The actual phone number, with leading zeros as appropriate
-     * @return number
-     */
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    /**
-     * Get purpose
-     * @return purpose
-     */
-    public Purpose getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(Purpose purpose) {
-        this.purpose = purpose;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -127,37 +127,37 @@ public class CommonPhoneNumber {
             return false;
         }
         CommonPhoneNumber commonPhoneNumber = (CommonPhoneNumber) o;
-        return Objects.equals(this.areaCode, commonPhoneNumber.areaCode) &&
+        return Objects.equals(this.isPreferred, commonPhoneNumber.isPreferred) &&
+            Objects.equals(this.purpose, commonPhoneNumber.purpose) &&
             Objects.equals(this.countryCode, commonPhoneNumber.countryCode) &&
-            Objects.equals(this.extension, commonPhoneNumber.extension) &&
-            Objects.equals(this.fullNumber, commonPhoneNumber.fullNumber) &&
-            Objects.equals(this.isPreferred, commonPhoneNumber.isPreferred) &&
+            Objects.equals(this.areaCode, commonPhoneNumber.areaCode) &&
             Objects.equals(this.number, commonPhoneNumber.number) &&
-            Objects.equals(this.purpose, commonPhoneNumber.purpose);
+            Objects.equals(this.extension, commonPhoneNumber.extension) &&
+            Objects.equals(this.fullNumber, commonPhoneNumber.fullNumber);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            areaCode,
-            countryCode,
-            extension,
-            fullNumber,
             isPreferred,
+            purpose,
+            countryCode,
+            areaCode,
             number,
-            purpose);
+            extension,
+            fullNumber);
     }
 
     @Override
     public String toString() {
         return "class CommonPhoneNumber {\n" +
-            "   areaCode: " + toIndentedString(areaCode) + "\n" + 
+            "   isPreferred: " + toIndentedString(isPreferred) + "\n" + 
+            "   purpose: " + toIndentedString(purpose) + "\n" + 
             "   countryCode: " + toIndentedString(countryCode) + "\n" + 
+            "   areaCode: " + toIndentedString(areaCode) + "\n" + 
+            "   number: " + toIndentedString(number) + "\n" + 
             "   extension: " + toIndentedString(extension) + "\n" + 
             "   fullNumber: " + toIndentedString(fullNumber) + "\n" + 
-            "   isPreferred: " + toIndentedString(isPreferred) + "\n" + 
-            "   number: " + toIndentedString(number) + "\n" + 
-            "   purpose: " + toIndentedString(purpose) + "\n" + 
             "}";
     }
 

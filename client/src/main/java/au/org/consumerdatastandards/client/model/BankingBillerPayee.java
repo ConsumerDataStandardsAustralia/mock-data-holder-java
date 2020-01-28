@@ -13,9 +13,9 @@ public class BankingBillerPayee {
 
     private String billerCode;
 
-    private String billerName;
-
     private String crn;
+
+    private String billerName;
 
     /**
      * BPAY Biller Code of the Biller
@@ -30,18 +30,6 @@ public class BankingBillerPayee {
     }
 
     /**
-     * Name of the Biller
-     * @return billerName
-     */
-    public String getBillerName() {
-        return billerName;
-    }
-
-    public void setBillerName(String billerName) {
-        this.billerName = billerName;
-    }
-
-    /**
      * BPAY CRN of the Biller. If the contents of the CRN match the format of a Credit Card PAN then it should be masked using the rules applicable for the MaskedPANString common type
      * @return crn
      */
@@ -51,6 +39,18 @@ public class BankingBillerPayee {
 
     public void setCrn(String crn) {
         this.crn = crn;
+    }
+
+    /**
+     * Name of the Biller
+     * @return billerName
+     */
+    public String getBillerName() {
+        return billerName;
+    }
+
+    public void setBillerName(String billerName) {
+        this.billerName = billerName;
     }
 
     @Override
@@ -63,24 +63,24 @@ public class BankingBillerPayee {
         }
         BankingBillerPayee bankingBillerPayee = (BankingBillerPayee) o;
         return Objects.equals(this.billerCode, bankingBillerPayee.billerCode) &&
-            Objects.equals(this.billerName, bankingBillerPayee.billerName) &&
-            Objects.equals(this.crn, bankingBillerPayee.crn);
+            Objects.equals(this.crn, bankingBillerPayee.crn) &&
+            Objects.equals(this.billerName, bankingBillerPayee.billerName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             billerCode,
-            billerName,
-            crn);
+            crn,
+            billerName);
     }
 
     @Override
     public String toString() {
         return "class BankingBillerPayee {\n" +
             "   billerCode: " + toIndentedString(billerCode) + "\n" + 
-            "   billerName: " + toIndentedString(billerName) + "\n" + 
             "   crn: " + toIndentedString(crn) + "\n" + 
+            "   billerName: " + toIndentedString(billerName) + "\n" + 
             "}";
     }
 

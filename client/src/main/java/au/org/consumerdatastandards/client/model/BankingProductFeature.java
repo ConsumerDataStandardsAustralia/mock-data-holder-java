@@ -12,38 +12,62 @@ import java.util.Objects;
 public class BankingProductFeature {
 
     public enum FeatureType {
-        ADDITIONAL_CARDS,
-        BALANCE_TRANSFERS,
-        BILL_PAYMENT,
-        BONUS_REWARDS,
         CARD_ACCESS,
-        COMPLEMENTARY_PRODUCT_DISCOUNTS,
-        DIGITAL_BANKING,
-        DIGITAL_WALLET,
-        DONATE_INTEREST,
+        ADDITIONAL_CARDS,
+        UNLIMITED_TXNS,
         FREE_TXNS,
         FREE_TXNS_ALLOWANCE,
-        INSURANCE,
-        INTEREST_FREE,
-        INTEREST_FREE_TRANSFERS,
         LOYALTY_PROGRAM,
-        NOTIFICATIONS,
-        NPP_ENABLED,
-        NPP_PAYID,
         OFFSET,
-        OTHER,
         OVERDRAFT,
         REDRAW,
-        UNLIMITED_TXNS
+        INSURANCE,
+        BALANCE_TRANSFERS,
+        INTEREST_FREE,
+        INTEREST_FREE_TRANSFERS,
+        DIGITAL_WALLET,
+        DIGITAL_BANKING,
+        NPP_PAYID,
+        NPP_ENABLED,
+        DONATE_INTEREST,
+        BILL_PAYMENT,
+        COMPLEMENTARY_PRODUCT_DISCOUNTS,
+        BONUS_REWARDS,
+        NOTIFICATIONS,
+        OTHER
     }
+
+    private FeatureType featureType;
+
+    private String additionalValue;
 
     private String additionalInfo;
 
     private String additionalInfoUri;
 
-    private String additionalValue;
+    /**
+     * The type of feature described
+     * @return featureType
+     */
+    public FeatureType getFeatureType() {
+        return featureType;
+    }
 
-    private FeatureType featureType;
+    public void setFeatureType(FeatureType featureType) {
+        this.featureType = featureType;
+    }
+
+    /**
+     * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
+     * @return additionalValue
+     */
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
 
     /**
      * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
@@ -69,30 +93,6 @@ public class BankingProductFeature {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    /**
-     * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
-     * @return additionalValue
-     */
-    public String getAdditionalValue() {
-        return additionalValue;
-    }
-
-    public void setAdditionalValue(String additionalValue) {
-        this.additionalValue = additionalValue;
-    }
-
-    /**
-     * Get featureType
-     * @return featureType
-     */
-    public FeatureType getFeatureType() {
-        return featureType;
-    }
-
-    public void setFeatureType(FeatureType featureType) {
-        this.featureType = featureType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -102,28 +102,28 @@ public class BankingProductFeature {
             return false;
         }
         BankingProductFeature bankingProductFeature = (BankingProductFeature) o;
-        return Objects.equals(this.additionalInfo, bankingProductFeature.additionalInfo) &&
-            Objects.equals(this.additionalInfoUri, bankingProductFeature.additionalInfoUri) &&
+        return Objects.equals(this.featureType, bankingProductFeature.featureType) &&
             Objects.equals(this.additionalValue, bankingProductFeature.additionalValue) &&
-            Objects.equals(this.featureType, bankingProductFeature.featureType);
+            Objects.equals(this.additionalInfo, bankingProductFeature.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductFeature.additionalInfoUri);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            additionalInfo,
-            additionalInfoUri,
+            featureType,
             additionalValue,
-            featureType);
+            additionalInfo,
+            additionalInfoUri);
     }
 
     @Override
     public String toString() {
         return "class BankingProductFeature {\n" +
+            "   featureType: " + toIndentedString(featureType) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
             "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
             "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
-            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
-            "   featureType: " + toIndentedString(featureType) + "\n" + 
             "}";
     }
 

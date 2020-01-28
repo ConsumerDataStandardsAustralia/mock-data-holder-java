@@ -11,21 +11,9 @@ import java.util.Objects;
 
 public class MetaPaginated {
 
-    protected Integer totalPages;
+    private Integer totalRecords;
 
-    protected Integer totalRecords;
-
-    /**
-     * The total number of pages in the full set. See [pagination](#pagination).
-     * @return totalPages
-     */
-    public Integer getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
-    }
+    private Integer totalPages;
 
     /**
      * The total number of records in the full set. See [pagination](#pagination).
@@ -39,6 +27,18 @@ public class MetaPaginated {
         this.totalRecords = totalRecords;
     }
 
+    /**
+     * The total number of pages in the full set. See [pagination](#pagination).
+     * @return totalPages
+     */
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -48,32 +48,30 @@ public class MetaPaginated {
             return false;
         }
         MetaPaginated metaPaginated = (MetaPaginated) o;
-        return Objects.equals(this.totalPages, metaPaginated.totalPages) &&
-            Objects.equals(this.totalRecords, metaPaginated.totalRecords);
+        return Objects.equals(this.totalRecords, metaPaginated.totalRecords) &&
+            Objects.equals(this.totalPages, metaPaginated.totalPages);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            totalPages,
-            totalRecords);
+            totalRecords,
+            totalPages);
     }
 
     @Override
     public String toString() {
         return "class MetaPaginated {\n" +
-            "   totalPages: " + toIndentedString(totalPages) + "\n" + 
             "   totalRecords: " + toIndentedString(totalRecords) + "\n" + 
+            "   totalPages: " + toIndentedString(totalPages) + "\n" + 
             "}";
     }
 
     /**
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
-     * @param o any object
-     * @return null if o is null or o.toString()
      */
-    protected String toIndentedString(Object o) {
+    private String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

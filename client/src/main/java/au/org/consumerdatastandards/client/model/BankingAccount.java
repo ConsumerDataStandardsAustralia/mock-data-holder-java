@@ -13,8 +13,8 @@ import java.util.Objects;
 public class BankingAccount {
 
     public enum OpenStatus {
-        CLOSED,
-        OPEN
+        OPEN,
+        CLOSED
     }
 
     private String accountId;
@@ -23,13 +23,13 @@ public class BankingAccount {
 
     private String displayName;
 
+    private String nickname;
+
+    private OpenStatus openStatus = OpenStatus.OPEN;
+
     private Boolean isOwned = true;
 
     private String maskedNumber;
-
-    private String nickname;
-
-    private OpenStatus openStatus;
 
     private BankingProductCategory productCategory;
 
@@ -72,6 +72,30 @@ public class BankingAccount {
     }
 
     /**
+     * A customer supplied nick name for the account
+     * @return nickname
+     */
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    /**
+     * Open or closed status for the account. If not present then OPEN is assumed
+     * @return openStatus
+     */
+    public OpenStatus getOpenStatus() {
+        return openStatus;
+    }
+
+    public void setOpenStatus(OpenStatus openStatus) {
+        this.openStatus = openStatus;
+    }
+
+    /**
      * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then &#39;true&#39; is assumed
      * @return isOwned
      */
@@ -96,30 +120,6 @@ public class BankingAccount {
     }
 
     /**
-     * A customer supplied nick name for the account
-     * @return nickname
-     */
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    /**
-     * Get openStatus
-     * @return openStatus
-     */
-    public OpenStatus getOpenStatus() {
-        return openStatus;
-    }
-
-    public void setOpenStatus(OpenStatus openStatus) {
-        this.openStatus = openStatus;
-    }
-
-    /**
      * Get productCategory
      * @return productCategory
      */
@@ -132,7 +132,7 @@ public class BankingAccount {
     }
 
     /**
-     * The unique identifier of the account as defined by the account holder (akin to model number for the account)
+     * The unique identifier of the account as defined by the data holder (akin to model number for the account)
      * @return productName
      */
     public String getProductName() {
@@ -155,10 +155,10 @@ public class BankingAccount {
         return Objects.equals(this.accountId, bankingAccount.accountId) &&
             Objects.equals(this.creationDate, bankingAccount.creationDate) &&
             Objects.equals(this.displayName, bankingAccount.displayName) &&
-            Objects.equals(this.isOwned, bankingAccount.isOwned) &&
-            Objects.equals(this.maskedNumber, bankingAccount.maskedNumber) &&
             Objects.equals(this.nickname, bankingAccount.nickname) &&
             Objects.equals(this.openStatus, bankingAccount.openStatus) &&
+            Objects.equals(this.isOwned, bankingAccount.isOwned) &&
+            Objects.equals(this.maskedNumber, bankingAccount.maskedNumber) &&
             Objects.equals(this.productCategory, bankingAccount.productCategory) &&
             Objects.equals(this.productName, bankingAccount.productName);
     }
@@ -169,10 +169,10 @@ public class BankingAccount {
             accountId,
             creationDate,
             displayName,
-            isOwned,
-            maskedNumber,
             nickname,
             openStatus,
+            isOwned,
+            maskedNumber,
             productCategory,
             productName);
     }
@@ -183,10 +183,10 @@ public class BankingAccount {
             "   accountId: " + toIndentedString(accountId) + "\n" + 
             "   creationDate: " + toIndentedString(creationDate) + "\n" + 
             "   displayName: " + toIndentedString(displayName) + "\n" + 
-            "   isOwned: " + toIndentedString(isOwned) + "\n" + 
-            "   maskedNumber: " + toIndentedString(maskedNumber) + "\n" + 
             "   nickname: " + toIndentedString(nickname) + "\n" + 
             "   openStatus: " + toIndentedString(openStatus) + "\n" + 
+            "   isOwned: " + toIndentedString(isOwned) + "\n" + 
+            "   maskedNumber: " + toIndentedString(maskedNumber) + "\n" + 
             "   productCategory: " + toIndentedString(productCategory) + "\n" + 
             "   productName: " + toIndentedString(productName) + "\n" + 
             "}";

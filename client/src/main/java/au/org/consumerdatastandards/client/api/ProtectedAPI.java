@@ -26,7 +26,6 @@ public class ProtectedAPI {
     protected void addCdsProtectedApiHeaders(Map<String, String> headers) {
         headers.put("x-fapi-customer-ip-address", getIpAddress());
         headers.put("x-fapi-auth-date", OffsetDateTime.now().toString());
-        headers.put("x-cds-user-agent", Base64.getEncoder().encodeToString(apiClient.getUserAgent().getBytes()));
     }
 
     private String getIpAddress() {

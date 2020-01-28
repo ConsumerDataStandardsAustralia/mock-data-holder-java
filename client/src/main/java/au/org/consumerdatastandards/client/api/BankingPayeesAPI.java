@@ -18,16 +18,34 @@ import java.util.Map;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingPayeesAPI extends ProtectedAPI {
+public class BankingPayeesAPI {
 
     public enum ParamType {
-        ALL,
-        BILLER,
         DOMESTIC,
-        INTERNATIONAL
+        INTERNATIONAL,
+        BILLER,
+        ALL
     }
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingPayeesAPI.class);
+
+    private ApiClient apiClient;
+
+    public BankingPayeesAPI() {
+        this(new ApiClient());
+    }
+
+    public BankingPayeesAPI(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
+
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
     /**
      * Build call for getPayeeDetail
@@ -36,10 +54,10 @@ public class BankingPayeesAPI extends ProtectedAPI {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
     public okhttp3.Call getPayeeDetailCall(String payeeId, final ApiCallback _callback) throws ApiException {
 
@@ -56,7 +74,6 @@ public class BankingPayeesAPI extends ProtectedAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
-        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
@@ -75,15 +92,15 @@ public class BankingPayeesAPI extends ProtectedAPI {
 
     /**
      * Get Payee Detail
-     * Obtain detailed information on a single payee
+     * Obtain detailed information on a single payee.  Note that the payee sub-structure should be selected to represent the payment destination only rather than any known characteristics of the payment recipient
      * @param payeeId The ID used to locate the details of a particular payee (required)
      * @return ResponseBankingPayeeById
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
     public ResponseBankingPayeeById getPayeeDetail(String payeeId) throws ApiException {
 
@@ -96,15 +113,15 @@ public class BankingPayeesAPI extends ProtectedAPI {
 
     /**
      * Get Payee Detail
-     * Obtain detailed information on a single payee
+     * Obtain detailed information on a single payee.  Note that the payee sub-structure should be selected to represent the payment destination only rather than any known characteristics of the payment recipient
      * @param payeeId The ID used to locate the details of a particular payee (required)
      * @return ApiResponse&lt;ResponseBankingPayeeById&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
     public ApiResponse<ResponseBankingPayeeById> getPayeeDetailWithHttpInfo(String payeeId) throws ApiException {
         okhttp3.Call call = getPayeeDetailValidateBeforeCall(payeeId, null);
@@ -114,16 +131,16 @@ public class BankingPayeesAPI extends ProtectedAPI {
 
     /**
      * Get Payee Detail (asynchronously)
-     * Obtain detailed information on a single payee
+     * Obtain detailed information on a single payee.  Note that the payee sub-structure should be selected to represent the payment destination only rather than any known characteristics of the payment recipient
      * @param payeeId The ID used to locate the details of a particular payee (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
     public okhttp3.Call getPayeeDetailAsync(String payeeId, final ApiCallback<ResponseBankingPayeeById> _callback) throws ApiException {
 
@@ -137,90 +154,89 @@ public class BankingPayeesAPI extends ProtectedAPI {
     }
     /**
      * Build call for listPayees
+     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
-     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
-    public okhttp3.Call listPayeesCall(Integer page, Integer pageSize, ParamType type, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listPayeesCall(ParamType type, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
         // create path and map variables
         String path = "/banking/payees";
 
-        LOGGER.trace("Building Call for listPayees with path: {}, page: {}, page-size: {}, type: {}",
+        LOGGER.trace("Building Call for listPayees with path: {}, type: {}, page: {}, page-size: {}",
             path,
+            type,
             page,
-            pageSize,
-            type);
+            pageSize);
 
-        List<Pair> collectionQueryParams = new ArrayList<>();
         List<Pair> queryParams = new ArrayList<>();
+        List<Pair> collectionQueryParams = new ArrayList<>();
+        addQueryParam(queryParams, "type", type);
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
-        addQueryParam(queryParams, "type", type);
         Map<String, String> headerParams = new HashMap<>();
-        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listPayeesValidateBeforeCall(Integer page, Integer pageSize, ParamType type, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listPayeesValidateBeforeCall(ParamType type, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
         
 
-        return listPayeesCall(page, pageSize, type, _callback);
+        return listPayeesCall(type, page, pageSize, _callback);
     }
 
     /**
      * Get Payees
      * Obtain a list of pre-registered payees
+     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
-     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @return ResponseBankingPayeeList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
-    public ResponseBankingPayeeList listPayees(Integer page, Integer pageSize, ParamType type) throws ApiException {
+    public ResponseBankingPayeeList listPayees(ParamType type, Integer page, Integer pageSize) throws ApiException {
 
-        LOGGER.trace("listPayees with page: {}, page-size: {}, type: {}",
+        LOGGER.trace("listPayees with type: {}, page: {}, page-size: {}",
+            type,
             page,
-            pageSize,
-            type);
+            pageSize);
 
-        ApiResponse<ResponseBankingPayeeList> resp = listPayeesWithHttpInfo(page, pageSize, type);
+        ApiResponse<ResponseBankingPayeeList> resp = listPayeesWithHttpInfo(type, page, pageSize);
         return resp.getData();
     }
 
     /**
      * Get Payees
      * Obtain a list of pre-registered payees
+     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
-     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @return ApiResponse&lt;ResponseBankingPayeeList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
-    public ApiResponse<ResponseBankingPayeeList> listPayeesWithHttpInfo(Integer page, Integer pageSize, ParamType type) throws ApiException {
-        okhttp3.Call call = listPayeesValidateBeforeCall(page, pageSize, type, null);
+    public ApiResponse<ResponseBankingPayeeList> listPayeesWithHttpInfo(ParamType type, Integer page, Integer pageSize) throws ApiException {
+        okhttp3.Call call = listPayeesValidateBeforeCall(type, page, pageSize, null);
         Type returnType = new TypeToken<ResponseBankingPayeeList>(){}.getType();
         return apiClient.execute(call, returnType);
     }
@@ -228,26 +244,26 @@ public class BankingPayeesAPI extends ProtectedAPI {
     /**
      * Get Payees (asynchronously)
      * Obtain a list of pre-registered payees
+     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
-     * @param type Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL (optional, default to ALL)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     * </table>
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     </table>
      */
-    public okhttp3.Call listPayeesAsync(Integer page, Integer pageSize, ParamType type, final ApiCallback<ResponseBankingPayeeList> _callback) throws ApiException {
+    public okhttp3.Call listPayeesAsync(ParamType type, Integer page, Integer pageSize, final ApiCallback<ResponseBankingPayeeList> _callback) throws ApiException {
 
-        LOGGER.trace("Asynchronously listPayees with page: {}, page-size: {}, type: {}",
+        LOGGER.trace("Asynchronously listPayees with type: {}, page: {}, page-size: {}",
+            type,
             page,
-            pageSize,
-            type);
+            pageSize);
 
-        okhttp3.Call call = listPayeesValidateBeforeCall(page, pageSize, type, _callback);
+        okhttp3.Call call = listPayeesValidateBeforeCall(type, page, pageSize, _callback);
         Type returnType = new TypeToken<ResponseBankingPayeeList>(){}.getType();
         apiClient.executeAsync(call, returnType, _callback);
         return call;

@@ -17,13 +17,25 @@ public class BankingDomesticPayee {
         payId
     }
 
+    private PayeeAccountUType payeeAccountUType;
+
     private BankingDomesticPayeeAccount account;
 
     private BankingDomesticPayeeCard card;
 
     private BankingDomesticPayeePayId payId;
 
-    private PayeeAccountUType payeeAccountUType;
+    /**
+     * Type of account object included. Valid values are: **account** A standard Australian account defined by BSB/Account Number. **card** A credit or charge card to pay to (note that PANs are masked). **payId** A PayID recognised by NPP
+     * @return payeeAccountUType
+     */
+    public PayeeAccountUType getPayeeAccountUType() {
+        return payeeAccountUType;
+    }
+
+    public void setPayeeAccountUType(PayeeAccountUType payeeAccountUType) {
+        this.payeeAccountUType = payeeAccountUType;
+    }
 
     /**
      * Get account
@@ -61,18 +73,6 @@ public class BankingDomesticPayee {
         this.payId = payId;
     }
 
-    /**
-     * Get payeeAccountUType
-     * @return payeeAccountUType
-     */
-    public PayeeAccountUType getPayeeAccountUType() {
-        return payeeAccountUType;
-    }
-
-    public void setPayeeAccountUType(PayeeAccountUType payeeAccountUType) {
-        this.payeeAccountUType = payeeAccountUType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -82,28 +82,28 @@ public class BankingDomesticPayee {
             return false;
         }
         BankingDomesticPayee bankingDomesticPayee = (BankingDomesticPayee) o;
-        return Objects.equals(this.account, bankingDomesticPayee.account) &&
+        return Objects.equals(this.payeeAccountUType, bankingDomesticPayee.payeeAccountUType) &&
+            Objects.equals(this.account, bankingDomesticPayee.account) &&
             Objects.equals(this.card, bankingDomesticPayee.card) &&
-            Objects.equals(this.payId, bankingDomesticPayee.payId) &&
-            Objects.equals(this.payeeAccountUType, bankingDomesticPayee.payeeAccountUType);
+            Objects.equals(this.payId, bankingDomesticPayee.payId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            payeeAccountUType,
             account,
             card,
-            payId,
-            payeeAccountUType);
+            payId);
     }
 
     @Override
     public String toString() {
         return "class BankingDomesticPayee {\n" +
-            "   account: " + toIndentedString(account) + "\n" + 
-            "   card: " + toIndentedString(card) + "\n" + 
-            "   payId: " + toIndentedString(payId) + "\n" + 
-            "   payeeAccountUType: " + toIndentedString(payeeAccountUType) + "\n" + 
+            "   payeeAccountUType: " + toIndentedString(payeeAccountUType) + "\n" +
+            "   account: " + toIndentedString(account) + "\n" +
+            "   card: " + toIndentedString(card) + "\n" +
+            "   payId: " + toIndentedString(payId) + "\n" +
             "}";
     }
 

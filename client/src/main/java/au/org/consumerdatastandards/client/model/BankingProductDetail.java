@@ -10,19 +10,19 @@ package au.org.consumerdatastandards.client.model;
 import java.util.List;
 import java.util.Objects;
 
-public class BankingProductDetail extends BankingProduct {
+public class BankingProductDetail extends BankingProductV2 {
 
     private List<BankingProductBundle> bundles;
 
-    private List<BankingProductConstraint> constraints;
+    private List<BankingProductFeature> features;
 
-    private List<BankingProductDepositRate> depositRates;
+    private List<BankingProductConstraint> constraints;
 
     private List<BankingProductEligibility> eligibility;
 
-    private List<BankingProductFeature> features;
-
     private List<BankingProductFee> fees;
+
+    private List<BankingProductDepositRate> depositRates;
 
     private List<BankingProductLendingRate> lendingRates;
 
@@ -39,6 +39,18 @@ public class BankingProductDetail extends BankingProduct {
     }
 
     /**
+     * Array of features available for the product
+     * @return features
+     */
+    public List<BankingProductFeature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<BankingProductFeature> features) {
+        this.features = features;
+    }
+
+    /**
      * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
      * @return constraints
      */
@@ -48,18 +60,6 @@ public class BankingProductDetail extends BankingProduct {
 
     public void setConstraints(List<BankingProductConstraint> constraints) {
         this.constraints = constraints;
-    }
-
-    /**
-     * Interest rates available for deposits
-     * @return depositRates
-     */
-    public List<BankingProductDepositRate> getDepositRates() {
-        return depositRates;
-    }
-
-    public void setDepositRates(List<BankingProductDepositRate> depositRates) {
-        this.depositRates = depositRates;
     }
 
     /**
@@ -75,18 +75,6 @@ public class BankingProductDetail extends BankingProduct {
     }
 
     /**
-     * Array of features available for the product
-     * @return features
-     */
-    public List<BankingProductFeature> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(List<BankingProductFeature> features) {
-        this.features = features;
-    }
-
-    /**
      * Fees applicable for the product
      * @return fees
      */
@@ -96,6 +84,18 @@ public class BankingProductDetail extends BankingProduct {
 
     public void setFees(List<BankingProductFee> fees) {
         this.fees = fees;
+    }
+
+    /**
+     * Interest rates available for deposits
+     * @return depositRates
+     */
+    public List<BankingProductDepositRate> getDepositRates() {
+        return depositRates;
+    }
+
+    public void setDepositRates(List<BankingProductDepositRate> depositRates) {
+        this.depositRates = depositRates;
     }
 
     /**
@@ -120,11 +120,11 @@ public class BankingProductDetail extends BankingProduct {
         }
         BankingProductDetail bankingProductDetail = (BankingProductDetail) o;
         return Objects.equals(this.bundles, bankingProductDetail.bundles) &&
-            Objects.equals(this.constraints, bankingProductDetail.constraints) &&
-            Objects.equals(this.depositRates, bankingProductDetail.depositRates) &&
-            Objects.equals(this.eligibility, bankingProductDetail.eligibility) &&
             Objects.equals(this.features, bankingProductDetail.features) &&
+            Objects.equals(this.constraints, bankingProductDetail.constraints) &&
+            Objects.equals(this.eligibility, bankingProductDetail.eligibility) &&
             Objects.equals(this.fees, bankingProductDetail.fees) &&
+            Objects.equals(this.depositRates, bankingProductDetail.depositRates) &&
             Objects.equals(this.lendingRates, bankingProductDetail.lendingRates) &&
             super.equals(o);
     }
@@ -133,11 +133,11 @@ public class BankingProductDetail extends BankingProduct {
     public int hashCode() {
         return Objects.hash(
             bundles,
-            constraints,
-            depositRates,
-            eligibility,
             features,
+            constraints,
+            eligibility,
             fees,
+            depositRates,
             lendingRates,
             super.hashCode());
     }
@@ -145,24 +145,25 @@ public class BankingProductDetail extends BankingProduct {
     @Override
     public String toString() {
         return "class BankingProductDetail {\n" +
-            "   additionalInformation: " + toIndentedString(getAdditionalInformation()) + "\n" + 
-            "   applicationUri: " + toIndentedString(getApplicationUri()) + "\n" + 
-            "   brand: " + toIndentedString(getBrand()) + "\n" + 
-            "   brandName: " + toIndentedString(getBrandName()) + "\n" + 
-            "   description: " + toIndentedString(getDescription()) + "\n" + 
+            "   productId: " + toIndentedString(getProductId()) + "\n" + 
             "   effectiveFrom: " + toIndentedString(getEffectiveFrom()) + "\n" + 
             "   effectiveTo: " + toIndentedString(getEffectiveTo()) + "\n" + 
-            "   isTailored: " + toIndentedString(getIsTailored()) + "\n" + 
             "   lastUpdated: " + toIndentedString(getLastUpdated()) + "\n" + 
-            "   name: " + toIndentedString(getName()) + "\n" + 
             "   productCategory: " + toIndentedString(getProductCategory()) + "\n" + 
-            "   productId: " + toIndentedString(getProductId()) + "\n" + 
+            "   name: " + toIndentedString(getName()) + "\n" + 
+            "   description: " + toIndentedString(getDescription()) + "\n" + 
+            "   brand: " + toIndentedString(getBrand()) + "\n" + 
+            "   brandName: " + toIndentedString(getBrandName()) + "\n" + 
+            "   applicationUri: " + toIndentedString(getApplicationUri()) + "\n" + 
+            "   isTailored: " + toIndentedString(getIsTailored()) + "\n" + 
+            "   additionalInformation: " + toIndentedString(getAdditionalInformation()) + "\n" + 
+            "   cardArt: " + toIndentedString(getCardArt()) + "\n" + 
             "   bundles: " + toIndentedString(bundles) + "\n" + 
-            "   constraints: " + toIndentedString(constraints) + "\n" + 
-            "   depositRates: " + toIndentedString(depositRates) + "\n" + 
-            "   eligibility: " + toIndentedString(eligibility) + "\n" + 
             "   features: " + toIndentedString(features) + "\n" + 
+            "   constraints: " + toIndentedString(constraints) + "\n" + 
+            "   eligibility: " + toIndentedString(eligibility) + "\n" + 
             "   fees: " + toIndentedString(fees) + "\n" + 
+            "   depositRates: " + toIndentedString(depositRates) + "\n" + 
             "   lendingRates: " + toIndentedString(lendingRates) + "\n" + 
             "}";
     }

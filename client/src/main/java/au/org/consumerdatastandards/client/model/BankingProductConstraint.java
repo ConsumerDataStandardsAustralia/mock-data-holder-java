@@ -12,20 +12,44 @@ import java.util.Objects;
 public class BankingProductConstraint {
 
     public enum ConstraintType {
-        MAX_BALANCE,
-        MAX_LIMIT,
         MIN_BALANCE,
-        MIN_LIMIT,
-        OPENING_BALANCE
+        MAX_BALANCE,
+        OPENING_BALANCE,
+        MAX_LIMIT,
+        MIN_LIMIT
     }
+
+    private ConstraintType constraintType;
+
+    private String additionalValue;
 
     private String additionalInfo;
 
     private String additionalInfoUri;
 
-    private String additionalValue;
+    /**
+     * The type of constraint described.  See the next section for an overview of valid values and their meaning
+     * @return constraintType
+     */
+    public ConstraintType getConstraintType() {
+        return constraintType;
+    }
 
-    private ConstraintType constraintType;
+    public void setConstraintType(ConstraintType constraintType) {
+        this.constraintType = constraintType;
+    }
+
+    /**
+     * Generic field containing additional information relevant to the [constraintType](#tocSproductconstrainttypedoc) specified.  Whether mandatory or not is dependent on the value of [constraintType](#tocSproductconstrainttypedoc)
+     * @return additionalValue
+     */
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
 
     /**
      * Display text providing more information the constraint
@@ -51,30 +75,6 @@ public class BankingProductConstraint {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    /**
-     * Generic field containing additional information relevant to the [constraintType](#tocSproductconstrainttypedoc) specified.  Whether mandatory or not is dependent on the value of [constraintType](#tocSproductconstrainttypedoc)
-     * @return additionalValue
-     */
-    public String getAdditionalValue() {
-        return additionalValue;
-    }
-
-    public void setAdditionalValue(String additionalValue) {
-        this.additionalValue = additionalValue;
-    }
-
-    /**
-     * Get constraintType
-     * @return constraintType
-     */
-    public ConstraintType getConstraintType() {
-        return constraintType;
-    }
-
-    public void setConstraintType(ConstraintType constraintType) {
-        this.constraintType = constraintType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -84,28 +84,28 @@ public class BankingProductConstraint {
             return false;
         }
         BankingProductConstraint bankingProductConstraint = (BankingProductConstraint) o;
-        return Objects.equals(this.additionalInfo, bankingProductConstraint.additionalInfo) &&
-            Objects.equals(this.additionalInfoUri, bankingProductConstraint.additionalInfoUri) &&
+        return Objects.equals(this.constraintType, bankingProductConstraint.constraintType) &&
             Objects.equals(this.additionalValue, bankingProductConstraint.additionalValue) &&
-            Objects.equals(this.constraintType, bankingProductConstraint.constraintType);
+            Objects.equals(this.additionalInfo, bankingProductConstraint.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductConstraint.additionalInfoUri);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            additionalInfo,
-            additionalInfoUri,
+            constraintType,
             additionalValue,
-            constraintType);
+            additionalInfo,
+            additionalInfoUri);
     }
 
     @Override
     public String toString() {
         return "class BankingProductConstraint {\n" +
+            "   constraintType: " + toIndentedString(constraintType) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
             "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
             "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
-            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
-            "   constraintType: " + toIndentedString(constraintType) + "\n" + 
             "}";
     }
 

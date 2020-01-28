@@ -12,7 +12,7 @@ import java.util.Objects;
 public class BankingTransactionDetailExtendedData {
 
     public enum ExtensionUType {
-        x2p101Payload
+        X2P101PAYLOAD
     }
 
     public enum Service {
@@ -36,20 +36,20 @@ public class BankingTransactionDetailExtendedData {
 
     private String payer;
 
-    private Service service;
-
     private BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload;
 
+    private Service service;
+
     /**
-     * Get extensionUType
-     * @return extensionUType
+     * Label of the originating payer. Mandatory for inbound payment
+     * @return payer
      */
-    public ExtensionUType getExtensionUType() {
-        return extensionUType;
+    public String getPayer() {
+        return payer;
     }
 
-    public void setExtensionUType(ExtensionUType extensionUType) {
-        this.extensionUType = extensionUType;
+    public void setPayer(String payer) {
+        this.payer = payer;
     }
 
     /**
@@ -65,27 +65,15 @@ public class BankingTransactionDetailExtendedData {
     }
 
     /**
-     * Label of the originating payer. Mandatory for inbound payment
-     * @return payer
+     * Optional extended data provided specific to transaction originated via NPP
+     * @return extensionUType
      */
-    public String getPayer() {
-        return payer;
+    public ExtensionUType getExtensionUType() {
+        return extensionUType;
     }
 
-    public void setPayer(String payer) {
-        this.payer = payer;
-    }
-
-    /**
-     * Get service
-     * @return service
-     */
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
+    public void setExtensionUType(ExtensionUType extensionUType) {
+        this.extensionUType = extensionUType;
     }
 
     /**
@@ -100,6 +88,18 @@ public class BankingTransactionDetailExtendedData {
         this.x2p101Payload = x2p101Payload;
     }
 
+    /**
+     * Identifier of the applicable overlay service. Valid values are: X2P1.01
+     * @return service
+     */
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -109,31 +109,31 @@ public class BankingTransactionDetailExtendedData {
             return false;
         }
         BankingTransactionDetailExtendedData bankingTransactionDetailExtendedData = (BankingTransactionDetailExtendedData) o;
-        return Objects.equals(this.extensionUType, bankingTransactionDetailExtendedData.extensionUType) &&
+        return Objects.equals(this.payer, bankingTransactionDetailExtendedData.payer) &&
             Objects.equals(this.payee, bankingTransactionDetailExtendedData.payee) &&
-            Objects.equals(this.payer, bankingTransactionDetailExtendedData.payer) &&
-            Objects.equals(this.service, bankingTransactionDetailExtendedData.service) &&
-            Objects.equals(this.x2p101Payload, bankingTransactionDetailExtendedData.x2p101Payload);
+            Objects.equals(this.extensionUType, bankingTransactionDetailExtendedData.extensionUType) &&
+            Objects.equals(this.x2p101Payload, bankingTransactionDetailExtendedData.x2p101Payload) &&
+            Objects.equals(this.service, bankingTransactionDetailExtendedData.service);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            extensionUType,
-            payee,
             payer,
-            service,
-            x2p101Payload);
+            payee,
+            extensionUType,
+            x2p101Payload,
+            service);
     }
 
     @Override
     public String toString() {
         return "class BankingTransactionDetailExtendedData {\n" +
-            "   extensionUType: " + toIndentedString(extensionUType) + "\n" + 
-            "   payee: " + toIndentedString(payee) + "\n" + 
-            "   payer: " + toIndentedString(payer) + "\n" + 
-            "   service: " + toIndentedString(service) + "\n" + 
-            "   x2p101Payload: " + toIndentedString(x2p101Payload) + "\n" + 
+            "   payer: " + toIndentedString(payer) + "\n" +
+            "   payee: " + toIndentedString(payee) + "\n" +
+            "   extensionUType: " + toIndentedString(extensionUType) + "\n" +
+            "   x2p101Payload: " + toIndentedString(x2p101Payload) + "\n" +
+            "   service: " + toIndentedString(service) + "\n" +
             "}";
     }
 

@@ -9,19 +9,19 @@ package au.org.consumerdatastandards.client.model;
 
 import java.util.Objects;
 
-public class CommonDiscoveryStatus extends BaseResponse {
+public class ResponseCommonDiscoveryStatus extends BaseResponse {
 
-    private CommonDiscoveryStatusData data;
+    private ResponseCommonDiscoveryStatusData data;
 
     /**
      * Get data
      * @return data
      */
-    public CommonDiscoveryStatusData getData() {
+    public ResponseCommonDiscoveryStatusData getData() {
         return data;
     }
 
-    public void setData(CommonDiscoveryStatusData data) {
+    public void setData(ResponseCommonDiscoveryStatusData data) {
         this.data = data;
     }
 
@@ -33,8 +33,8 @@ public class CommonDiscoveryStatus extends BaseResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CommonDiscoveryStatus commonDiscoveryStatus = (CommonDiscoveryStatus) o;
-        return Objects.equals(this.data, commonDiscoveryStatus.data) &&
+        ResponseCommonDiscoveryStatus responseCommonDiscoveryStatus = (ResponseCommonDiscoveryStatus) o;
+        return Objects.equals(this.data, responseCommonDiscoveryStatus.data) &&
             super.equals(o);
     }
 
@@ -47,7 +47,7 @@ public class CommonDiscoveryStatus extends BaseResponse {
 
     @Override
     public String toString() {
-        return "class CommonDiscoveryStatus {\n" +
+        return "class ResponseCommonDiscoveryStatus {\n" +
             "   data: " + toIndentedString(data) + "\n" + 
             "   links: " + toIndentedString(getLinks()) + "\n" + 
             "   meta: " + toIndentedString(getMeta()) + "\n" + 

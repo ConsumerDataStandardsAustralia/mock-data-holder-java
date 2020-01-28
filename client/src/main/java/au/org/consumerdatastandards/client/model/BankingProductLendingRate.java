@@ -12,44 +12,140 @@ import java.util.Objects;
 
 public class BankingProductLendingRate {
 
-    public enum InterestPaymentDue {
-        ADVANCE,
-        ARREARS
-    }
-
     public enum LendingRateType {
-        BUNDLE_DISCOUNT_FIXED,
-        BUNDLE_DISCOUNT_VARIABLE,
-        CASH_ADVANCE,
-        DISCOUNT,
         FIXED,
-        FLOATING,
+        VARIABLE,
         INTRODUCTORY,
-        MARKET_LINKED,
+        DISCOUNT,
         PENALTY,
+        FLOATING,
+        MARKET_LINKED,
+        CASH_ADVANCE,
         PURCHASE,
-        VARIABLE
+        BUNDLE_DISCOUNT_FIXED,
+        BUNDLE_DISCOUNT_VARIABLE
     }
 
-    private String additionalInfo;
-
-    private String additionalInfoUri;
-
-    private String additionalValue;
-
-    private String applicationFrequency;
-
-    private String calculationFrequency;
-
-    private String comparisonRate;
-
-    private InterestPaymentDue interestPaymentDue;
+    public enum InterestPaymentDue {
+        ARREARS,
+        ADVANCE
+    }
 
     private LendingRateType lendingRateType;
 
     private String rate;
 
+    private String comparisonRate;
+
+    private String calculationFrequency;
+
+    private String applicationFrequency;
+
+    private InterestPaymentDue interestPaymentDue;
+
     private List<BankingProductRateTier> tiers;
+
+    private String additionalValue;
+
+    private String additionalInfo;
+
+    private String additionalInfoUri;
+
+    /**
+     * The type of rate (fixed, variable, etc). See the next section for an overview of valid values and their meaning
+     * @return lendingRateType
+     */
+    public LendingRateType getLendingRateType() {
+        return lendingRateType;
+    }
+
+    public void setLendingRateType(LendingRateType lendingRateType) {
+        this.lendingRateType = lendingRateType;
+    }
+
+    /**
+     * The rate to be applied
+     * @return rate
+     */
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    /**
+     * A comparison rate equivalent for this rate
+     * @return comparisonRate
+     */
+    public String getComparisonRate() {
+        return comparisonRate;
+    }
+
+    public void setComparisonRate(String comparisonRate) {
+        this.comparisonRate = comparisonRate;
+    }
+
+    /**
+     * The period after which the rate is applied to the balance to calculate the amount due for the period. Calculation of the amount is often daily (as balances may change) but accumulated until the total amount is &#39;applied&#39; to the account (see applicationFrequency). Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * @return calculationFrequency
+     */
+    public String getCalculationFrequency() {
+        return calculationFrequency;
+    }
+
+    public void setCalculationFrequency(String calculationFrequency) {
+        this.calculationFrequency = calculationFrequency;
+    }
+
+    /**
+     * The period after which the calculated amount(s) (see calculationFrequency) are &#39;applied&#39; (i.e. debited or credited) to the account. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * @return applicationFrequency
+     */
+    public String getApplicationFrequency() {
+        return applicationFrequency;
+    }
+
+    public void setApplicationFrequency(String applicationFrequency) {
+        this.applicationFrequency = applicationFrequency;
+    }
+
+    /**
+     * When loan payments are due to be paid within each period. The investment benefit of earlier payments affect the rate that can be offered
+     * @return interestPaymentDue
+     */
+    public InterestPaymentDue getInterestPaymentDue() {
+        return interestPaymentDue;
+    }
+
+    public void setInterestPaymentDue(InterestPaymentDue interestPaymentDue) {
+        this.interestPaymentDue = interestPaymentDue;
+    }
+
+    /**
+     * Rate tiers applicable for this rate
+     * @return tiers
+     */
+    public List<BankingProductRateTier> getTiers() {
+        return tiers;
+    }
+
+    public void setTiers(List<BankingProductRateTier> tiers) {
+        this.tiers = tiers;
+    }
+
+    /**
+     * Generic field containing additional information relevant to the [lendingRateType](#tocSproductlendingratetypedoc) specified. Whether mandatory or not is dependent on the value of [lendingRateType](#tocSproductlendingratetypedoc)
+     * @return additionalValue
+     */
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
 
     /**
      * Display text providing more information on the rate.
@@ -75,102 +171,6 @@ public class BankingProductLendingRate {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    /**
-     * Generic field containing additional information relevant to the [lendingRateType](#tocSproductlendingratetypedoc) specified. Whether mandatory or not is dependent on the value of [lendingRateType](#tocSproductlendingratetypedoc)
-     * @return additionalValue
-     */
-    public String getAdditionalValue() {
-        return additionalValue;
-    }
-
-    public void setAdditionalValue(String additionalValue) {
-        this.additionalValue = additionalValue;
-    }
-
-    /**
-     * The period after which the calculated amount(s) (see calculationFrequency) are &#39;applied&#39; (i.e. debited or credited) to the account. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
-     * @return applicationFrequency
-     */
-    public String getApplicationFrequency() {
-        return applicationFrequency;
-    }
-
-    public void setApplicationFrequency(String applicationFrequency) {
-        this.applicationFrequency = applicationFrequency;
-    }
-
-    /**
-     * The period after which the rate is applied to the balance to calculate the amount due for the period. Calculation of the amount is often daily (as balances may change) but accumulated until the total amount is &#39;applied&#39; to the account (see applicationFrequency). Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
-     * @return calculationFrequency
-     */
-    public String getCalculationFrequency() {
-        return calculationFrequency;
-    }
-
-    public void setCalculationFrequency(String calculationFrequency) {
-        this.calculationFrequency = calculationFrequency;
-    }
-
-    /**
-     * A comparison rate equivalent for this rate
-     * @return comparisonRate
-     */
-    public String getComparisonRate() {
-        return comparisonRate;
-    }
-
-    public void setComparisonRate(String comparisonRate) {
-        this.comparisonRate = comparisonRate;
-    }
-
-    /**
-     * Get interestPaymentDue
-     * @return interestPaymentDue
-     */
-    public InterestPaymentDue getInterestPaymentDue() {
-        return interestPaymentDue;
-    }
-
-    public void setInterestPaymentDue(InterestPaymentDue interestPaymentDue) {
-        this.interestPaymentDue = interestPaymentDue;
-    }
-
-    /**
-     * Get lendingRateType
-     * @return lendingRateType
-     */
-    public LendingRateType getLendingRateType() {
-        return lendingRateType;
-    }
-
-    public void setLendingRateType(LendingRateType lendingRateType) {
-        this.lendingRateType = lendingRateType;
-    }
-
-    /**
-     * The rate to be applied
-     * @return rate
-     */
-    public String getRate() {
-        return rate;
-    }
-
-    public void setRate(String rate) {
-        this.rate = rate;
-    }
-
-    /**
-     * Rate tiers applicable for this rate
-     * @return tiers
-     */
-    public List<BankingProductRateTier> getTiers() {
-        return tiers;
-    }
-
-    public void setTiers(List<BankingProductRateTier> tiers) {
-        this.tiers = tiers;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -180,46 +180,46 @@ public class BankingProductLendingRate {
             return false;
         }
         BankingProductLendingRate bankingProductLendingRate = (BankingProductLendingRate) o;
-        return Objects.equals(this.additionalInfo, bankingProductLendingRate.additionalInfo) &&
-            Objects.equals(this.additionalInfoUri, bankingProductLendingRate.additionalInfoUri) &&
-            Objects.equals(this.additionalValue, bankingProductLendingRate.additionalValue) &&
-            Objects.equals(this.applicationFrequency, bankingProductLendingRate.applicationFrequency) &&
-            Objects.equals(this.calculationFrequency, bankingProductLendingRate.calculationFrequency) &&
-            Objects.equals(this.comparisonRate, bankingProductLendingRate.comparisonRate) &&
-            Objects.equals(this.interestPaymentDue, bankingProductLendingRate.interestPaymentDue) &&
-            Objects.equals(this.lendingRateType, bankingProductLendingRate.lendingRateType) &&
+        return Objects.equals(this.lendingRateType, bankingProductLendingRate.lendingRateType) &&
             Objects.equals(this.rate, bankingProductLendingRate.rate) &&
-            Objects.equals(this.tiers, bankingProductLendingRate.tiers);
+            Objects.equals(this.comparisonRate, bankingProductLendingRate.comparisonRate) &&
+            Objects.equals(this.calculationFrequency, bankingProductLendingRate.calculationFrequency) &&
+            Objects.equals(this.applicationFrequency, bankingProductLendingRate.applicationFrequency) &&
+            Objects.equals(this.interestPaymentDue, bankingProductLendingRate.interestPaymentDue) &&
+            Objects.equals(this.tiers, bankingProductLendingRate.tiers) &&
+            Objects.equals(this.additionalValue, bankingProductLendingRate.additionalValue) &&
+            Objects.equals(this.additionalInfo, bankingProductLendingRate.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductLendingRate.additionalInfoUri);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            additionalInfo,
-            additionalInfoUri,
-            additionalValue,
-            applicationFrequency,
-            calculationFrequency,
-            comparisonRate,
-            interestPaymentDue,
             lendingRateType,
             rate,
-            tiers);
+            comparisonRate,
+            calculationFrequency,
+            applicationFrequency,
+            interestPaymentDue,
+            tiers,
+            additionalValue,
+            additionalInfo,
+            additionalInfoUri);
     }
 
     @Override
     public String toString() {
         return "class BankingProductLendingRate {\n" +
-            "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
-            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
-            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
-            "   applicationFrequency: " + toIndentedString(applicationFrequency) + "\n" + 
-            "   calculationFrequency: " + toIndentedString(calculationFrequency) + "\n" + 
-            "   comparisonRate: " + toIndentedString(comparisonRate) + "\n" + 
-            "   interestPaymentDue: " + toIndentedString(interestPaymentDue) + "\n" + 
             "   lendingRateType: " + toIndentedString(lendingRateType) + "\n" + 
             "   rate: " + toIndentedString(rate) + "\n" + 
+            "   comparisonRate: " + toIndentedString(comparisonRate) + "\n" + 
+            "   calculationFrequency: " + toIndentedString(calculationFrequency) + "\n" + 
+            "   applicationFrequency: " + toIndentedString(applicationFrequency) + "\n" + 
+            "   interestPaymentDue: " + toIndentedString(interestPaymentDue) + "\n" + 
             "   tiers: " + toIndentedString(tiers) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
+            "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
+            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
             "}";
     }
 

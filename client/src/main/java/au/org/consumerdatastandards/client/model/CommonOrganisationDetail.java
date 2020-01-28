@@ -49,20 +49,20 @@ public class CommonOrganisationDetail extends CommonOrganisation {
     @Override
     public String toString() {
         return "class CommonOrganisationDetail {\n" +
-            "   abn: " + toIndentedString(getAbn()) + "\n" + 
-            "   acn: " + toIndentedString(getAcn()) + "\n" + 
+            "   lastUpdateTime: " + toIndentedString(getLastUpdateTime()) + "\n" + 
             "   agentFirstName: " + toIndentedString(getAgentFirstName()) + "\n" + 
             "   agentLastName: " + toIndentedString(getAgentLastName()) + "\n" + 
             "   agentRole: " + toIndentedString(getAgentRole()) + "\n" + 
             "   businessName: " + toIndentedString(getBusinessName()) + "\n" + 
-            "   establishmentDate: " + toIndentedString(getEstablishmentDate()) + "\n" + 
-            "   industryCode: " + toIndentedString(getIndustryCode()) + "\n" + 
-            "   isACNCRegistered: " + toIndentedString(getIsACNCRegistered()) + "\n" + 
-            "   lastUpdateTime: " + toIndentedString(getLastUpdateTime()) + "\n" + 
             "   legalName: " + toIndentedString(getLegalName()) + "\n" + 
+            "   shortName: " + toIndentedString(getShortName()) + "\n" + 
+            "   abn: " + toIndentedString(getAbn()) + "\n" + 
+            "   acn: " + toIndentedString(getAcn()) + "\n" + 
+            "   isACNCRegistered: " + toIndentedString(getIsACNCRegistered()) + "\n" + 
+            "   industryCode: " + toIndentedString(getIndustryCode()) + "\n" + 
             "   organisationType: " + toIndentedString(getOrganisationType()) + "\n" + 
             "   registeredCountry: " + toIndentedString(getRegisteredCountry()) + "\n" + 
-            "   shortName: " + toIndentedString(getShortName()) + "\n" + 
+            "   establishmentDate: " + toIndentedString(getEstablishmentDate()) + "\n" + 
             "   physicalAddresses: " + toIndentedString(physicalAddresses) + "\n" + 
             "}";
     }

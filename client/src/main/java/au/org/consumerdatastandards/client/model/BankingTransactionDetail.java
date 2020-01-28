@@ -49,23 +49,23 @@ public class BankingTransactionDetail extends BankingTransaction {
     public String toString() {
         return "class BankingTransactionDetail {\n" +
             "   accountId: " + toIndentedString(getAccountId()) + "\n" + 
+            "   transactionId: " + toIndentedString(getTransactionId()) + "\n" + 
+            "   isDetailAvailable: " + toIndentedString(getIsDetailAvailable()) + "\n" + 
+            "   type: " + toIndentedString(getType()) + "\n" + 
+            "   status: " + toIndentedString(getStatus()) + "\n" + 
+            "   description: " + toIndentedString(getDescription()) + "\n" + 
+            "   postingDateTime: " + toIndentedString(getPostingDateTime()) + "\n" + 
+            "   valueDateTime: " + toIndentedString(getValueDateTime()) + "\n" + 
+            "   executionDateTime: " + toIndentedString(getExecutionDateTime()) + "\n" + 
             "   amount: " + toIndentedString(getAmount()) + "\n" + 
-            "   apcaNumber: " + toIndentedString(getApcaNumber()) + "\n" + 
+            "   currency: " + toIndentedString(getCurrency()) + "\n" + 
+            "   reference: " + toIndentedString(getReference()) + "\n" + 
+            "   merchantName: " + toIndentedString(getMerchantName()) + "\n" + 
+            "   merchantCategoryCode: " + toIndentedString(getMerchantCategoryCode()) + "\n" + 
             "   billerCode: " + toIndentedString(getBillerCode()) + "\n" + 
             "   billerName: " + toIndentedString(getBillerName()) + "\n" + 
             "   crn: " + toIndentedString(getCrn()) + "\n" + 
-            "   currency: " + toIndentedString(getCurrency()) + "\n" + 
-            "   description: " + toIndentedString(getDescription()) + "\n" + 
-            "   executionDateTime: " + toIndentedString(getExecutionDateTime()) + "\n" + 
-            "   isDetailAvailable: " + toIndentedString(getIsDetailAvailable()) + "\n" + 
-            "   merchantCategoryCode: " + toIndentedString(getMerchantCategoryCode()) + "\n" + 
-            "   merchantName: " + toIndentedString(getMerchantName()) + "\n" + 
-            "   postingDateTime: " + toIndentedString(getPostingDateTime()) + "\n" + 
-            "   reference: " + toIndentedString(getReference()) + "\n" + 
-            "   status: " + toIndentedString(getStatus()) + "\n" + 
-            "   transactionId: " + toIndentedString(getTransactionId()) + "\n" + 
-            "   type: " + toIndentedString(getType()) + "\n" + 
-            "   valueDateTime: " + toIndentedString(getValueDateTime()) + "\n" + 
+            "   apcaNumber: " + toIndentedString(getApcaNumber()) + "\n" + 
             "   extendedData: " + toIndentedString(extendedData) + "\n" + 
             "}";
     }

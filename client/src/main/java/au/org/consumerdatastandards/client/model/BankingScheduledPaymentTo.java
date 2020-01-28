@@ -21,17 +21,29 @@ public class BankingScheduledPaymentTo {
         payeeId
     }
 
+    private ToUType toUType;
+
     private String accountId;
-
-    private BankingBillerPayee biller;
-
-    private BankingDomesticPayee domestic;
-
-    private BankingInternationalPayee international;
 
     private String payeeId;
 
-    private ToUType toUType;
+    private BankingDomesticPayee domestic;
+
+    private BankingBillerPayee biller;
+
+    private BankingInternationalPayee international;
+
+    /**
+     * The type of object provided that specifies the destination of the funds for the payment.
+     * @return toUType
+     */
+    public ToUType getToUType() {
+        return toUType;
+    }
+
+    public void setToUType(ToUType toUType) {
+        this.toUType = toUType;
+    }
 
     /**
      * Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent
@@ -43,42 +55,6 @@ public class BankingScheduledPaymentTo {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
-    }
-
-    /**
-     * Get biller
-     * @return biller
-     */
-    public BankingBillerPayee getBiller() {
-        return biller;
-    }
-
-    public void setBiller(BankingBillerPayee biller) {
-        this.biller = biller;
-    }
-
-    /**
-     * Get domestic
-     * @return domestic
-     */
-    public BankingDomesticPayee getDomestic() {
-        return domestic;
-    }
-
-    public void setDomestic(BankingDomesticPayee domestic) {
-        this.domestic = domestic;
-    }
-
-    /**
-     * Get international
-     * @return international
-     */
-    public BankingInternationalPayee getInternational() {
-        return international;
-    }
-
-    public void setInternational(BankingInternationalPayee international) {
-        this.international = international;
     }
 
     /**
@@ -94,15 +70,39 @@ public class BankingScheduledPaymentTo {
     }
 
     /**
-     * Get toUType
-     * @return toUType
+     * Get domestic
+     * @return domestic
      */
-    public ToUType getToUType() {
-        return toUType;
+    public BankingDomesticPayee getDomestic() {
+        return domestic;
     }
 
-    public void setToUType(ToUType toUType) {
-        this.toUType = toUType;
+    public void setDomestic(BankingDomesticPayee domestic) {
+        this.domestic = domestic;
+    }
+
+    /**
+     * Get biller
+     * @return biller
+     */
+    public BankingBillerPayee getBiller() {
+        return biller;
+    }
+
+    public void setBiller(BankingBillerPayee biller) {
+        this.biller = biller;
+    }
+
+    /**
+     * Get international
+     * @return international
+     */
+    public BankingInternationalPayee getInternational() {
+        return international;
+    }
+
+    public void setInternational(BankingInternationalPayee international) {
+        this.international = international;
     }
 
     @Override
@@ -114,34 +114,34 @@ public class BankingScheduledPaymentTo {
             return false;
         }
         BankingScheduledPaymentTo bankingScheduledPaymentTo = (BankingScheduledPaymentTo) o;
-        return Objects.equals(this.accountId, bankingScheduledPaymentTo.accountId) &&
-            Objects.equals(this.biller, bankingScheduledPaymentTo.biller) &&
-            Objects.equals(this.domestic, bankingScheduledPaymentTo.domestic) &&
-            Objects.equals(this.international, bankingScheduledPaymentTo.international) &&
+        return Objects.equals(this.toUType, bankingScheduledPaymentTo.toUType) &&
+            Objects.equals(this.accountId, bankingScheduledPaymentTo.accountId) &&
             Objects.equals(this.payeeId, bankingScheduledPaymentTo.payeeId) &&
-            Objects.equals(this.toUType, bankingScheduledPaymentTo.toUType);
+            Objects.equals(this.domestic, bankingScheduledPaymentTo.domestic) &&
+            Objects.equals(this.biller, bankingScheduledPaymentTo.biller) &&
+            Objects.equals(this.international, bankingScheduledPaymentTo.international);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            toUType,
             accountId,
-            biller,
-            domestic,
-            international,
             payeeId,
-            toUType);
+            domestic,
+            biller,
+            international);
     }
 
     @Override
     public String toString() {
         return "class BankingScheduledPaymentTo {\n" +
-            "   accountId: " + toIndentedString(accountId) + "\n" + 
-            "   biller: " + toIndentedString(biller) + "\n" + 
-            "   domestic: " + toIndentedString(domestic) + "\n" + 
-            "   international: " + toIndentedString(international) + "\n" + 
-            "   payeeId: " + toIndentedString(payeeId) + "\n" + 
-            "   toUType: " + toIndentedString(toUType) + "\n" + 
+            "   toUType: " + toIndentedString(toUType) + "\n" +
+            "   accountId: " + toIndentedString(accountId) + "\n" +
+            "   payeeId: " + toIndentedString(payeeId) + "\n" +
+            "   domestic: " + toIndentedString(domestic) + "\n" +
+            "   biller: " + toIndentedString(biller) + "\n" +
+            "   international: " + toIndentedString(international) + "\n" +
             "}";
     }
 

@@ -11,15 +11,39 @@ import java.util.Objects;
 
 public class BankingAuthorisedEntity {
 
+    private String description;
+
+    private String financialInstitution;
+
     private String abn;
 
     private String acn;
 
     private String arbn;
 
-    private String description;
+    /**
+     * Description of the authorised entity derived from previously executed direct debits
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
 
-    private String financialInstitution;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme
+     * @return financialInstitution
+     */
+    public String getFinancialInstitution() {
+        return financialInstitution;
+    }
+
+    public void setFinancialInstitution(String financialInstitution) {
+        this.financialInstitution = financialInstitution;
+    }
 
     /**
      * Australian Business Number for the authorised entity
@@ -57,30 +81,6 @@ public class BankingAuthorisedEntity {
         this.arbn = arbn;
     }
 
-    /**
-     * Description of the authorised entity derived from previously executed direct debits
-     * @return description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme
-     * @return financialInstitution
-     */
-    public String getFinancialInstitution() {
-        return financialInstitution;
-    }
-
-    public void setFinancialInstitution(String financialInstitution) {
-        this.financialInstitution = financialInstitution;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -90,31 +90,31 @@ public class BankingAuthorisedEntity {
             return false;
         }
         BankingAuthorisedEntity bankingAuthorisedEntity = (BankingAuthorisedEntity) o;
-        return Objects.equals(this.abn, bankingAuthorisedEntity.abn) &&
+        return Objects.equals(this.description, bankingAuthorisedEntity.description) &&
+            Objects.equals(this.financialInstitution, bankingAuthorisedEntity.financialInstitution) &&
+            Objects.equals(this.abn, bankingAuthorisedEntity.abn) &&
             Objects.equals(this.acn, bankingAuthorisedEntity.acn) &&
-            Objects.equals(this.arbn, bankingAuthorisedEntity.arbn) &&
-            Objects.equals(this.description, bankingAuthorisedEntity.description) &&
-            Objects.equals(this.financialInstitution, bankingAuthorisedEntity.financialInstitution);
+            Objects.equals(this.arbn, bankingAuthorisedEntity.arbn);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            description,
+            financialInstitution,
             abn,
             acn,
-            arbn,
-            description,
-            financialInstitution);
+            arbn);
     }
 
     @Override
     public String toString() {
         return "class BankingAuthorisedEntity {\n" +
+            "   description: " + toIndentedString(description) + "\n" + 
+            "   financialInstitution: " + toIndentedString(financialInstitution) + "\n" + 
             "   abn: " + toIndentedString(abn) + "\n" + 
             "   acn: " + toIndentedString(acn) + "\n" + 
             "   arbn: " + toIndentedString(arbn) + "\n" + 
-            "   description: " + toIndentedString(description) + "\n" + 
-            "   financialInstitution: " + toIndentedString(financialInstitution) + "\n" + 
             "}";
     }
 

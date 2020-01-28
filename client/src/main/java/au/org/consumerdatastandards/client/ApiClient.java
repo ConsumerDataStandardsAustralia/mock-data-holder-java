@@ -68,7 +68,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("CDS Client/1.0.0/java");
+        setUserAgent("CDS Client/1.1.1/java");
 
         addDefaultHeader("Accept", "application/json");
         addDefaultHeader("Content-Type", "application/json");
@@ -240,10 +240,6 @@ public class ApiClient {
     public ApiClient setUserAgent(String userAgent) {
         addDefaultHeader("User-Agent", userAgent);
         return this;
-    }
-
-    public String getUserAgent() {
-        return defaultHeaderMap.get("User-Agent");
     }
 
     /**
@@ -983,7 +979,7 @@ public class ApiClient {
     private void applySslSettings() {
         try {
             TrustManager[] trustManagers = null;
-            HostnameVerifier hostnameVerifier;
+            HostnameVerifier hostnameVerifier = null;
             if (!verifyingSsl) {
                 trustManagers = new TrustManager[]{
                     new X509TrustManager() {

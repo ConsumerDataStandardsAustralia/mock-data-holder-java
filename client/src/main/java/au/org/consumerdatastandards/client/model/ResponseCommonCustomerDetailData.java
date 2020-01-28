@@ -18,12 +18,12 @@ public class ResponseCommonCustomerDetailData {
 
     private CustomerUType customerUType;
 
-    private CommonOrganisationDetail organisation;
-
     private CommonPersonDetail person;
 
+    private CommonOrganisationDetail organisation;
+
     /**
-     * Get customerUType
+     * The type of customer object that is present
      * @return customerUType
      */
     public CustomerUType getCustomerUType() {
@@ -32,18 +32,6 @@ public class ResponseCommonCustomerDetailData {
 
     public void setCustomerUType(CustomerUType customerUType) {
         this.customerUType = customerUType;
-    }
-
-    /**
-     * Get organisation
-     * @return organisation
-     */
-    public CommonOrganisationDetail getOrganisation() {
-        return organisation;
-    }
-
-    public void setOrganisation(CommonOrganisationDetail organisation) {
-        this.organisation = organisation;
     }
 
     /**
@@ -58,6 +46,18 @@ public class ResponseCommonCustomerDetailData {
         this.person = person;
     }
 
+    /**
+     * Get organisation
+     * @return organisation
+     */
+    public CommonOrganisationDetail getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(CommonOrganisationDetail organisation) {
+        this.organisation = organisation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -68,24 +68,24 @@ public class ResponseCommonCustomerDetailData {
         }
         ResponseCommonCustomerDetailData responseCommonCustomerDetailData = (ResponseCommonCustomerDetailData) o;
         return Objects.equals(this.customerUType, responseCommonCustomerDetailData.customerUType) &&
-            Objects.equals(this.organisation, responseCommonCustomerDetailData.organisation) &&
-            Objects.equals(this.person, responseCommonCustomerDetailData.person);
+            Objects.equals(this.person, responseCommonCustomerDetailData.person) &&
+            Objects.equals(this.organisation, responseCommonCustomerDetailData.organisation);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             customerUType,
-            organisation,
-            person);
+            person,
+            organisation);
     }
 
     @Override
     public String toString() {
         return "class ResponseCommonCustomerDetailData {\n" +
-            "   customerUType: " + toIndentedString(customerUType) + "\n" + 
-            "   organisation: " + toIndentedString(organisation) + "\n" + 
-            "   person: " + toIndentedString(person) + "\n" + 
+            "   customerUType: " + toIndentedString(customerUType) + "\n" +
+            "   person: " + toIndentedString(person) + "\n" +
+            "   organisation: " + toIndentedString(organisation) + "\n" +
             "}";
     }
 

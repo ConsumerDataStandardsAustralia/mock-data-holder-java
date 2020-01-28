@@ -11,11 +11,23 @@ import java.util.Objects;
 
 public class BankingInternationalPayeeBeneficiaryDetails {
 
+    private String name;
+
     private String country;
 
     private String message;
 
-    private String name;
+    /**
+     * Name of the beneficiary
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
@@ -41,18 +53,6 @@ public class BankingInternationalPayeeBeneficiaryDetails {
         this.message = message;
     }
 
-    /**
-     * Name of the beneficiary
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -62,25 +62,25 @@ public class BankingInternationalPayeeBeneficiaryDetails {
             return false;
         }
         BankingInternationalPayeeBeneficiaryDetails bankingInternationalPayeeBeneficiaryDetails = (BankingInternationalPayeeBeneficiaryDetails) o;
-        return Objects.equals(this.country, bankingInternationalPayeeBeneficiaryDetails.country) &&
-            Objects.equals(this.message, bankingInternationalPayeeBeneficiaryDetails.message) &&
-            Objects.equals(this.name, bankingInternationalPayeeBeneficiaryDetails.name);
+        return Objects.equals(this.name, bankingInternationalPayeeBeneficiaryDetails.name) &&
+            Objects.equals(this.country, bankingInternationalPayeeBeneficiaryDetails.country) &&
+            Objects.equals(this.message, bankingInternationalPayeeBeneficiaryDetails.message);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            name,
             country,
-            message,
-            name);
+            message);
     }
 
     @Override
     public String toString() {
         return "class BankingInternationalPayeeBeneficiaryDetails {\n" +
+            "   name: " + toIndentedString(name) + "\n" + 
             "   country: " + toIndentedString(country) + "\n" + 
             "   message: " + toIndentedString(message) + "\n" + 
-            "   name: " + toIndentedString(name) + "\n" + 
             "}";
     }
 

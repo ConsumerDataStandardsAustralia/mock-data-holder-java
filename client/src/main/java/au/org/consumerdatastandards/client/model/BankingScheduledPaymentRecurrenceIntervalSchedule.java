@@ -24,11 +24,11 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule {
 
     private LocalDate finalPaymentDate;
 
-    private List<BankingScheduledPaymentInterval> intervals;
-
-    private NonBusinessDayTreatment nonBusinessDayTreatment;
-
     private Integer paymentsRemaining;
+
+    private NonBusinessDayTreatment nonBusinessDayTreatment = NonBusinessDayTreatment.ON;
+
+    private List<BankingScheduledPaymentInterval> intervals;
 
     /**
      * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
@@ -43,19 +43,19 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule {
     }
 
     /**
-     * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
-     * @return intervals
+     * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely
+     * @return paymentsRemaining
      */
-    public List<BankingScheduledPaymentInterval> getIntervals() {
-        return intervals;
+    public Integer getPaymentsRemaining() {
+        return paymentsRemaining;
     }
 
-    public void setIntervals(List<BankingScheduledPaymentInterval> intervals) {
-        this.intervals = intervals;
+    public void setPaymentsRemaining(Integer paymentsRemaining) {
+        this.paymentsRemaining = paymentsRemaining;
     }
 
     /**
-     * Get nonBusinessDayTreatment
+     * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.&lt;br/&gt;**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.&lt;br/&gt;**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.&lt;br/&gt;**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.&lt;br/&gt;**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
      * @return nonBusinessDayTreatment
      */
     public NonBusinessDayTreatment getNonBusinessDayTreatment() {
@@ -67,15 +67,15 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule {
     }
 
     /**
-     * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely
-     * @return paymentsRemaining
+     * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
+     * @return intervals
      */
-    public Integer getPaymentsRemaining() {
-        return paymentsRemaining;
+    public List<BankingScheduledPaymentInterval> getIntervals() {
+        return intervals;
     }
 
-    public void setPaymentsRemaining(Integer paymentsRemaining) {
-        this.paymentsRemaining = paymentsRemaining;
+    public void setIntervals(List<BankingScheduledPaymentInterval> intervals) {
+        this.intervals = intervals;
     }
 
     @Override
@@ -88,27 +88,27 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule {
         }
         BankingScheduledPaymentRecurrenceIntervalSchedule bankingScheduledPaymentRecurrenceIntervalSchedule = (BankingScheduledPaymentRecurrenceIntervalSchedule) o;
         return Objects.equals(this.finalPaymentDate, bankingScheduledPaymentRecurrenceIntervalSchedule.finalPaymentDate) &&
-            Objects.equals(this.intervals, bankingScheduledPaymentRecurrenceIntervalSchedule.intervals) &&
+            Objects.equals(this.paymentsRemaining, bankingScheduledPaymentRecurrenceIntervalSchedule.paymentsRemaining) &&
             Objects.equals(this.nonBusinessDayTreatment, bankingScheduledPaymentRecurrenceIntervalSchedule.nonBusinessDayTreatment) &&
-            Objects.equals(this.paymentsRemaining, bankingScheduledPaymentRecurrenceIntervalSchedule.paymentsRemaining);
+            Objects.equals(this.intervals, bankingScheduledPaymentRecurrenceIntervalSchedule.intervals);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             finalPaymentDate,
-            intervals,
+            paymentsRemaining,
             nonBusinessDayTreatment,
-            paymentsRemaining);
+            intervals);
     }
 
     @Override
     public String toString() {
         return "class BankingScheduledPaymentRecurrenceIntervalSchedule {\n" +
             "   finalPaymentDate: " + toIndentedString(finalPaymentDate) + "\n" + 
-            "   intervals: " + toIndentedString(intervals) + "\n" + 
-            "   nonBusinessDayTreatment: " + toIndentedString(nonBusinessDayTreatment) + "\n" + 
             "   paymentsRemaining: " + toIndentedString(paymentsRemaining) + "\n" + 
+            "   nonBusinessDayTreatment: " + toIndentedString(nonBusinessDayTreatment) + "\n" + 
+            "   intervals: " + toIndentedString(intervals) + "\n" + 
             "}";
     }
 

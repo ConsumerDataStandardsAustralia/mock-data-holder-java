@@ -10,24 +10,48 @@ package au.org.consumerdatastandards.client.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-public class CommonDiscoveryStatusData {
+public class ResponseCommonDiscoveryStatusData {
 
     public enum Status {
         OK,
         PARTIAL_FAILURE,
-        SCHEDULED_OUTAGE,
-        UNAVAILABLE
+        UNAVAILABLE,
+        SCHEDULED_OUTAGE
     }
+
+    private Status status;
+
+    private String explanation;
 
     private OffsetDateTime detectionTime;
 
     private OffsetDateTime expectedResolutionTime;
 
-    private String explanation;
-
-    private Status status;
-
     private OffsetDateTime updateTime;
+
+    /**
+     * Enumeration with values. OK (implementation is fully functional). PARTIAL_FAILURE (one or more end points are unexpectedly unavailable). UNAVAILABLE (the full implementation is unexpectedly unavailable). SCHEDULED_OUTAGE (an advertised outage is in effect)
+     * @return status
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    /**
+     * Provides an explanation of the current outage that can be displayed to an end customer. Mandatory if the status property is any value other than OK
+     * @return explanation
+     */
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
 
     /**
      * The date and time that the current outage was detected. Should only be present if the status property is PARTIAL_FAILURE or UNAVAILABLE
@@ -54,30 +78,6 @@ public class CommonDiscoveryStatusData {
     }
 
     /**
-     * Provides an explanation of the current outage that can be displayed to an end customer. Mandatory if the status property is any value other than OK
-     * @return explanation
-     */
-    public String getExplanation() {
-        return explanation;
-    }
-
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
-
-    /**
-     * Get status
-     * @return status
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    /**
      * The date and time that this status was last updated by the Data Holder.
      * @return updateTime
      */
@@ -97,31 +97,31 @@ public class CommonDiscoveryStatusData {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CommonDiscoveryStatusData commonDiscoveryStatusData = (CommonDiscoveryStatusData) o;
-        return Objects.equals(this.detectionTime, commonDiscoveryStatusData.detectionTime) &&
-            Objects.equals(this.expectedResolutionTime, commonDiscoveryStatusData.expectedResolutionTime) &&
-            Objects.equals(this.explanation, commonDiscoveryStatusData.explanation) &&
-            Objects.equals(this.status, commonDiscoveryStatusData.status) &&
-            Objects.equals(this.updateTime, commonDiscoveryStatusData.updateTime);
+        ResponseCommonDiscoveryStatusData responseCommonDiscoveryStatusData = (ResponseCommonDiscoveryStatusData) o;
+        return Objects.equals(this.status, responseCommonDiscoveryStatusData.status) &&
+            Objects.equals(this.explanation, responseCommonDiscoveryStatusData.explanation) &&
+            Objects.equals(this.detectionTime, responseCommonDiscoveryStatusData.detectionTime) &&
+            Objects.equals(this.expectedResolutionTime, responseCommonDiscoveryStatusData.expectedResolutionTime) &&
+            Objects.equals(this.updateTime, responseCommonDiscoveryStatusData.updateTime);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            status,
+            explanation,
             detectionTime,
             expectedResolutionTime,
-            explanation,
-            status,
             updateTime);
     }
 
     @Override
     public String toString() {
-        return "class CommonDiscoveryStatusData {\n" +
+        return "class ResponseCommonDiscoveryStatusData {\n" +
+            "   status: " + toIndentedString(status) + "\n" + 
+            "   explanation: " + toIndentedString(explanation) + "\n" + 
             "   detectionTime: " + toIndentedString(detectionTime) + "\n" + 
             "   expectedResolutionTime: " + toIndentedString(expectedResolutionTime) + "\n" + 
-            "   explanation: " + toIndentedString(explanation) + "\n" + 
-            "   status: " + toIndentedString(status) + "\n" + 
             "   updateTime: " + toIndentedString(updateTime) + "\n" + 
             "}";
     }
