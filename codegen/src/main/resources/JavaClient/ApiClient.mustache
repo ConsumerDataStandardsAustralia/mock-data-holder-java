@@ -62,27 +62,13 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("CDS Client/1.0.0/java");
+        setUserAgent("CDS Client/1.1.1/java");
 
         addDefaultHeader("Accept", "application/json");
         addDefaultHeader("Content-Type", "application/json");
         addDefaultHeader("x-v", "1");
         addDefaultHeader("x-min-v", "1");
-        addDefaultHeader("x-fapi-customer-ip-address", getIpAddress());
         addDefaultHeader("x-fapi-interaction-id", UUID.randomUUID().toString());
-    }
-
-    private String getIpAddress() {
-      String ipAddress = "unknown";
-      try {
-        final DatagramSocket socket = new DatagramSocket();
-        socket.connect(InetAddress.getByName("203.98.87.18"), 53); // ns1.internet.net.au.
-        ipAddress = socket.getLocalAddress().getHostAddress();
-        socket.disconnect();
-      } catch (SocketException | UnknownHostException e) {
-        // ignored
-      }
-      return ipAddress;
     }
 
     /**
