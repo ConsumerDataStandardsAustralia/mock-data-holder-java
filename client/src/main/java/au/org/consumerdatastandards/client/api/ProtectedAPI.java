@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.time.OffsetDateTime;
-import java.util.Base64;
 import java.util.Map;
 
 public class ProtectedAPI {

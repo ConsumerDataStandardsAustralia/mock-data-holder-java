@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommonDiscoveryAPI {
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(CommonDiscoveryAPI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommonDiscoveryAPI.class);
 
     private ApiClient apiClient;
 
@@ -70,7 +70,7 @@ public class CommonDiscoveryAPI {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getOutagesValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        
+
 
         return getOutagesCall(_callback);
     }
@@ -162,7 +162,7 @@ public class CommonDiscoveryAPI {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getStatusValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        
+
 
         return getStatusCall(_callback);
     }

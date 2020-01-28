@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingPayeesAPI {
+public class BankingPayeesAPI extends ProtectedAPI {
 
     public enum ParamType {
         DOMESTIC,
@@ -27,25 +27,7 @@ public class BankingPayeesAPI {
         ALL
     }
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingPayeesAPI.class);
-
-    private ApiClient apiClient;
-
-    public BankingPayeesAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingPayeesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(BankingPayeesAPI.class);
 
     /**
      * Build call for getPayeeDetail
@@ -74,18 +56,17 @@ public class BankingPayeesAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getPayeeDetailValidateBeforeCall(String payeeId, final ApiCallback _callback) throws ApiException {
-        
         // verify the required parameter 'payeeId' is set
         if (payeeId == null) {
             throw new ApiException("Missing the required parameter 'payeeId' when calling getPayeeDetail(Async)");
         }
-        
 
         return getPayeeDetailCall(payeeId, _callback);
     }
@@ -185,13 +166,14 @@ public class BankingPayeesAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listPayeesValidateBeforeCall(ParamType type, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
 
         return listPayeesCall(type, page, pageSize, _callback);
     }

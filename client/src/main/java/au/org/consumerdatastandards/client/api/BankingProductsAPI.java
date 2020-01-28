@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BankingProductsAPI {
@@ -26,7 +26,7 @@ public class BankingProductsAPI {
         ALL
     }
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingProductsAPI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BankingProductsAPI.class);
 
     private ApiClient apiClient;
 
@@ -79,12 +79,12 @@ public class BankingProductsAPI {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getProductDetailValidateBeforeCall(String productId, final ApiCallback _callback) throws ApiException {
-        
+
         // verify the required parameter 'productId' is set
         if (productId == null) {
             throw new ApiException("Missing the required parameter 'productId' when calling getProductDetail(Async)");
         }
-        
+
 
         return getProductDetailCall(productId, _callback);
     }
@@ -199,7 +199,7 @@ public class BankingProductsAPI {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listProductsValidateBeforeCall(ParamEffective effective, String updatedSince, String brand, ParamProductCategory productCategory, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
 
         return listProductsCall(effective, updatedSince, brand, productCategory, page, pageSize, _callback);
     }

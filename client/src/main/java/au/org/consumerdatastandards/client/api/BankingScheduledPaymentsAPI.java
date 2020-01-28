@@ -15,30 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingScheduledPaymentsAPI {
+public class BankingScheduledPaymentsAPI extends ProtectedAPI {
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingScheduledPaymentsAPI.class);
-
-    private ApiClient apiClient;
-
-    public BankingScheduledPaymentsAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingScheduledPaymentsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(BankingScheduledPaymentsAPI.class);
 
     /**
      * Build call for listScheduledPayments
@@ -73,18 +55,19 @@ public class BankingScheduledPaymentsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listScheduledPaymentsValidateBeforeCall(String accountId, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
         // verify the required parameter 'accountId' is set
         if (accountId == null) {
             throw new ApiException("Missing the required parameter 'accountId' when calling listScheduledPayments(Async)");
         }
-        
+
 
         return listScheduledPaymentsCall(accountId, page, pageSize, _callback);
     }
@@ -200,13 +183,14 @@ public class BankingScheduledPaymentsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listScheduledPaymentsBulkValidateBeforeCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
 
         return listScheduledPaymentsBulkCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
     }
@@ -326,18 +310,19 @@ public class BankingScheduledPaymentsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listScheduledPaymentsSpecificAccountsValidateBeforeCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
         // verify the required parameter 'accountIds' is set
         if (accountIds == null) {
             throw new ApiException("Missing the required parameter 'accountIds' when calling listScheduledPaymentsSpecificAccounts(Async)");
         }
-        
+
 
         return listScheduledPaymentsSpecificAccountsCall(accountIds, page, pageSize, _callback);
     }

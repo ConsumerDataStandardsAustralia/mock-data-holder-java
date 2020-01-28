@@ -15,30 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BankingDirectDebitsAPI {
+public class BankingDirectDebitsAPI extends ProtectedAPI {
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingDirectDebitsAPI.class);
-
-    private ApiClient apiClient;
-
-    public BankingDirectDebitsAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingDirectDebitsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(BankingDirectDebitsAPI.class);
 
     /**
      * Build call for listDirectDebits
@@ -73,18 +55,19 @@ public class BankingDirectDebitsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listDirectDebitsValidateBeforeCall(String accountId, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
         // verify the required parameter 'accountId' is set
         if (accountId == null) {
             throw new ApiException("Missing the required parameter 'accountId' when calling listDirectDebits(Async)");
         }
-        
+
 
         return listDirectDebitsCall(accountId, page, pageSize, _callback);
     }
@@ -200,13 +183,14 @@ public class BankingDirectDebitsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listDirectDebitsBulkValidateBeforeCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
 
         return listDirectDebitsBulkCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
     }
@@ -326,18 +310,19 @@ public class BankingDirectDebitsAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listDirectDebitsSpecificAccountsValidateBeforeCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
         // verify the required parameter 'accountIds' is set
         if (accountIds == null) {
             throw new ApiException("Missing the required parameter 'accountIds' when calling listDirectDebitsSpecificAccounts(Async)");
         }
-        
+
 
         return listDirectDebitsSpecificAccountsCall(accountIds, page, pageSize, _callback);
     }
