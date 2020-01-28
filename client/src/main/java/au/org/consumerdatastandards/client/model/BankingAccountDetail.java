@@ -13,9 +13,9 @@ import java.util.Objects;
 public class BankingAccountDetail extends BankingAccount {
 
     public enum SpecificAccountUType {
+        termDeposit,
         creditCard,
-        loan,
-        termDeposit
+        loan
     }
 
     private String bsb;

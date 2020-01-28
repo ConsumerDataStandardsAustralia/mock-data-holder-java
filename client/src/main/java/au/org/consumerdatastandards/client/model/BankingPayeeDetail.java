@@ -12,8 +12,8 @@ import java.util.Objects;
 public class BankingPayeeDetail extends BankingPayee {
 
     public enum PayeeUType {
-        biller,
         domestic,
+        biller,
         international
     }
 

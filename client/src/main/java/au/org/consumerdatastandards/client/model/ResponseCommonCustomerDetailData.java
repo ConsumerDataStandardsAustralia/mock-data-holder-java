@@ -12,8 +12,8 @@ import java.util.Objects;
 public class ResponseCommonCustomerDetailData {
 
     public enum CustomerUType {
-        organisation,
-        person
+        PERSON,
+        ORGANISATION
     }
 
     private CustomerUType customerUType;
@@ -83,9 +83,9 @@ public class ResponseCommonCustomerDetailData {
     @Override
     public String toString() {
         return "class ResponseCommonCustomerDetailData {\n" +
-            "   customerUType: " + toIndentedString(customerUType) + "\n" +
-            "   person: " + toIndentedString(person) + "\n" +
-            "   organisation: " + toIndentedString(organisation) + "\n" +
+            "   customerUType: " + toIndentedString(customerUType) + "\n" + 
+            "   person: " + toIndentedString(person) + "\n" + 
+            "   organisation: " + toIndentedString(organisation) + "\n" + 
             "}";
     }
 

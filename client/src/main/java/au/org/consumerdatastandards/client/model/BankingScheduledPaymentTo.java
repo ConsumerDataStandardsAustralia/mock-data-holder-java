@@ -15,10 +15,10 @@ public class BankingScheduledPaymentTo {
 
     public enum ToUType {
         accountId,
-        biller,
+        payeeId,
         domestic,
-        international,
-        payeeId
+        biller,
+        international
     }
 
     private ToUType toUType;

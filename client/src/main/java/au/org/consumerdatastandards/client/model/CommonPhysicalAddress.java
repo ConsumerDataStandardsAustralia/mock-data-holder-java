@@ -12,8 +12,8 @@ import java.util.Objects;
 public class CommonPhysicalAddress {
 
     public enum AddressUType {
-        paf,
-        simple
+        SIMPLE,
+        PAF
     }
 
     private AddressUType addressUType;
@@ -83,9 +83,9 @@ public class CommonPhysicalAddress {
     @Override
     public String toString() {
         return "class CommonPhysicalAddress {\n" +
-            "   addressUType: " + toIndentedString(addressUType) + "\n" +
-            "   simple: " + toIndentedString(simple) + "\n" +
-            "   paf: " + toIndentedString(paf) + "\n" +
+            "   addressUType: " + toIndentedString(addressUType) + "\n" + 
+            "   simple: " + toIndentedString(simple) + "\n" + 
+            "   paf: " + toIndentedString(paf) + "\n" + 
             "}";
     }
 
