@@ -10,7 +10,7 @@ package au.org.consumerdatastandards.client.model;
 import java.util.List;
 import java.util.Objects;
 
-public class BankingProductV2Detail extends BankingProductV2 {
+public class BankingProductV2Detail extends BankingProductV2 implements BankingProductDetail {
 
     private List<BankingProductBundle> bundles;
 

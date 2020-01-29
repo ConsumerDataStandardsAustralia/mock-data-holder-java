@@ -67,10 +67,10 @@ public class BankingPayees extends ApiCliBase {
             type);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingPayeeList response = api.listPayees(page, pageSize, type);
+        ResponseBankingPayeeList response = api.listPayees(type, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listPayeesCall(page, pageSize, type, null);
+            okhttp3.Call call = api.listPayeesCall(type, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
                 .validateResponse(call.request().url().toString(), response, "listPayees", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {

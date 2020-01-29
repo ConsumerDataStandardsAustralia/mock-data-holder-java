@@ -9,19 +9,19 @@ package au.org.consumerdatastandards.client.model;
 
 import java.util.Objects;
 
-public class ResponseBankingProductList extends PaginatedResponse {
+public class ResponseBankingProductList<T extends BankingProduct> extends PaginatedResponse {
 
-    private ResponseBankingProductListData data;
+    private ResponseBankingProductListData<T> data;
 
     /**
      * Get data
      * @return data
      */
-    public ResponseBankingProductListData getData() {
+    public ResponseBankingProductListData<T> getData() {
         return data;
     }
 
-    public void setData(ResponseBankingProductListData data) {
+    public void setData(ResponseBankingProductListData<T> data) {
         this.data = data;
     }
 
@@ -48,9 +48,9 @@ public class ResponseBankingProductList extends PaginatedResponse {
     @Override
     public String toString() {
         return "class ResponseBankingProductList {\n" +
-            "   data: " + toIndentedString(data) + "\n" + 
-            "   links: " + toIndentedString(getLinks()) + "\n" + 
-            "   meta: " + toIndentedString(getMeta()) + "\n" + 
+            "   data: " + toIndentedString(data) + "\n" +
+            "   links: " + toIndentedString(getLinks()) + "\n" +
+            "   meta: " + toIndentedString(getMeta()) + "\n" +
             "}";
     }
 

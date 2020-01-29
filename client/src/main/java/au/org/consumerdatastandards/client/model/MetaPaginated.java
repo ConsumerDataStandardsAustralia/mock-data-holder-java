@@ -62,8 +62,8 @@ public class MetaPaginated {
     @Override
     public String toString() {
         return "class MetaPaginated {\n" +
-            "   totalRecords: " + toIndentedString(totalRecords) + "\n" + 
-            "   totalPages: " + toIndentedString(totalPages) + "\n" + 
+            "   totalRecords: " + toIndentedString(totalRecords) + "\n" +
+            "   totalPages: " + toIndentedString(totalPages) + "\n" +
             "}";
     }
 
@@ -71,7 +71,7 @@ public class MetaPaginated {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(Object o) {
+    protected String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

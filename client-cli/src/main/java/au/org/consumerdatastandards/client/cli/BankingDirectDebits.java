@@ -77,10 +77,10 @@ public class BankingDirectDebits extends ApiCliBase {
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
         ResponseBankingDirectDebitAuthorisationList response =
-            api.listDirectDebitsBulk(isOwned, openStatus, page, pageSize, productCategory);
+            api.listDirectDebitsBulk(productCategory, openStatus, isOwned, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listDirectDebitsBulkCall(isOwned, openStatus, page, pageSize, productCategory, null);
+            okhttp3.Call call = api.listDirectDebitsBulkCall(productCategory, openStatus, isOwned, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
                 .validateResponse(call.request().url().toString(), response, "listDirectDebitsBulk", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
@@ -89,7 +89,7 @@ public class BankingDirectDebits extends ApiCliBase {
         }
         return JsonPrinter.toJson(response);
     }
-    
+
     @ShellMethod("List direct debits specific accounts")
     public String listDirectDebitsSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,

@@ -11,6 +11,7 @@ import au.org.consumerdatastandards.client.*;
 import au.org.consumerdatastandards.client.model.*;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -372,7 +373,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
      * </table>
      */
-    public okhttp3.Call getTransactionsCall(String accountId, String oldestTime, String newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getTransactionsCall(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -407,7 +408,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTransactionsValidateBeforeCall(String accountId, String oldestTime, String newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getTransactionsValidateBeforeCall(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         // verify the required parameter 'accountId' is set
         if (accountId == null) {
@@ -437,7 +438,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
      * </table>
      */
-    public ResponseBankingTransactionList getTransactions(String accountId, String oldestTime, String newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
+    public ResponseBankingTransactionList getTransactions(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
 
         LOGGER.trace("getTransactions with accountId: {}, oldest-time: {}, newest-time: {}, min-amount: {}, max-amount: {}, text: {}, page: {}, page-size: {}",
             accountId,
@@ -472,7 +473,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingTransactionList> getTransactionsWithHttpInfo(String accountId, String oldestTime, String newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
+    public ApiResponse<ResponseBankingTransactionList> getTransactionsWithHttpInfo(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = getTransactionsValidateBeforeCall(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize, null);
         Type returnType = new TypeToken<ResponseBankingTransactionList>(){}.getType();
         return apiClient.execute(call, returnType);
@@ -498,7 +499,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
      * </table>
      */
-    public okhttp3.Call getTransactionsAsync(String accountId, String oldestTime, String newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback<ResponseBankingTransactionList> _callback) throws ApiException {
+    public okhttp3.Call getTransactionsAsync(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback<ResponseBankingTransactionList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously getTransactions with accountId: {}, oldest-time: {}, newest-time: {}, min-amount: {}, max-amount: {}, text: {}, page: {}, page-size: {}",
             accountId,

@@ -38,16 +38,17 @@ public class BankingProducts extends ApiCliBase {
 
     @ShellMethod("Get product detail")
     public String getProductDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) String productId) throws Exception {
+        @ShellOption(defaultValue = ShellOption.NULL) String productId,
+        @ShellOption(defaultValue = "1") Integer version) throws Exception {
 
-        LOGGER.info("Get product detail CLI initiated with productId: {}",
-            productId);
+        LOGGER.info("Get product detail CLI initiated with productId: {}, version: {}",
+            productId, version);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingProductById response = api.getProductDetail(productId);
+        ResponseBankingProductById response = api.getProductDetail(productId, version);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.getProductDetailCall(productId, null);
+            okhttp3.Call call = api.getProductDetailCall(productId, version, null);
             List<ConformanceError> conformanceErrors = payloadValidator
                 .validateResponse(call.request().url().toString(), response, "getProductDetail", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
@@ -64,21 +65,23 @@ public class BankingProducts extends ApiCliBase {
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
         @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory,
-        @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince) throws Exception {
+        @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince,
+        @ShellOption(defaultValue = "1") Integer version) throws Exception {
 
-        LOGGER.info("List products CLI initiated with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}",
+        LOGGER.info("List products CLI initiated with brand: {}, effective: {}, page: {}, page-size: {}, product-category: {}, updated-since: {}, version: {}",
             brand,
             effective,
             page,
             pageSize,
             productCategory,
-            updatedSince);
+            updatedSince,
+            version);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingProductList response = api.listProducts(brand, effective, page, pageSize, productCategory, updatedSince);
+        ResponseBankingProductList response = api.listProducts(effective, updatedSince, brand, productCategory, version, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listProductsCall(brand, effective, page, pageSize, productCategory, updatedSince, null);
+            okhttp3.Call call = api.listProductsCall(effective, updatedSince, brand, productCategory, version, page, pageSize, null);
             List<ConformanceError> conformanceErrors = payloadValidator
                 .validateResponse(call.request().url().toString(), response, "listProducts", ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {

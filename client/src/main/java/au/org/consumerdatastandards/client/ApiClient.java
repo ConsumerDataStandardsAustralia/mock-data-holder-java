@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client;
 
+import au.org.consumerdatastandards.client.api.ReturnTypeResolver;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -73,7 +74,6 @@ public class ApiClient {
         addDefaultHeader("Accept", "application/json");
         addDefaultHeader("Content-Type", "application/json");
         addDefaultHeader("x-v", "1");
-        addDefaultHeader("x-min-v", "1");
         addDefaultHeader("x-fapi-interaction-id", UUID.randomUUID().toString());
     }
 
@@ -691,11 +691,15 @@ public class ApiClient {
     public <T> ApiResponse<T> execute(Call call, Type returnType) throws ApiException {
         try {
             Response response = call.execute();
-            T data = handleResponse(response, returnType);
-            return new ApiResponse<>(response.code(), response.headers().toMultimap(), data);
+            return handle(response, returnType);
         } catch (IOException e) {
             throw new ApiException(e);
         }
+    }
+
+    public <T> ApiResponse<T> handle(Response response, Type returnType) throws ApiException {
+        T data = handleResponse(response, returnType);
+        return new ApiResponse<>(response.code(), response.headers().toMultimap(), data);
     }
 
     /**
@@ -731,6 +735,28 @@ public class ApiClient {
                     T result;
                     try {
                         result = handleResponse(response, returnType);
+                    } catch (ApiException e) {
+                        callback.onFailure(e, response.code(), response.headers().toMultimap());
+                        return;
+                    }
+                    callback.onSuccess(result, response.code(), response.headers().toMultimap());
+                }
+            });
+    }
+
+    public <T> void executeAsync(Call call, final ApiCallback<T> callback, ReturnTypeResolver returnTypeResolver) {
+        call.enqueue(
+            new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    callback.onFailure(new ApiException(e), 0, null);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) {
+                    T result;
+                    try {
+                        result = handleResponse(response, returnTypeResolver.resolve(response));
                     } catch (ApiException e) {
                         callback.onFailure(e, response.code(), response.headers().toMultimap());
                         return;
