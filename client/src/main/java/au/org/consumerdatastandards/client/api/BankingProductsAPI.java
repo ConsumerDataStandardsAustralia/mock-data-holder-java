@@ -109,8 +109,7 @@ public class BankingProductsAPI {
             throw new ApiException("Missing the required parameter 'productId' when calling getProductDetail(Async)");
         }
 
-
-        return getProductDetailCall(productId, _callback);
+        return getProductDetailCall(productId, version, _callback);
     }
 
     /**

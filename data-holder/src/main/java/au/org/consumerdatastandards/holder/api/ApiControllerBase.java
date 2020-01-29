@@ -18,6 +18,7 @@ import java.util.UUID;
 public class ApiControllerBase {
 
     private final static String V = "x-v";
+    private final static String MIN_V = "x-min-v";
     private final static String CORRELATION_ID = "x-Correlation-Id";
     private final static String FAPI_INTERACTION_ID = "x-fapi-interaction-id";
     private final static String BASE64_PATTERN = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
@@ -52,7 +53,13 @@ public class ApiControllerBase {
     protected HttpHeaders generateResponseHeaders(NativeWebRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("content-type", "application/json");
-        responseHeaders.set(V, getCurrentVersion().toString());
+        Integer xMinV = null;
+        String minV = request.getHeader(MIN_V);
+        if (StringUtils.hasText(minV)) {
+            xMinV = Integer.parseInt(minV);
+        }
+        Integer xV = Integer.parseInt(request.getHeader(V));
+        responseHeaders.set(V, "" + getSupportedVersion(xMinV, xV));
         String correlationId = request.getHeader(CORRELATION_ID);
         if (!StringUtils.isEmpty(correlationId)) {
             responseHeaders.set(CORRELATION_ID, correlationId);
