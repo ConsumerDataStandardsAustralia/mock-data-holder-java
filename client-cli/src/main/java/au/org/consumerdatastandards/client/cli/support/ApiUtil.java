@@ -10,8 +10,6 @@ package au.org.consumerdatastandards.client.cli.support;
 import au.org.consumerdatastandards.client.ApiClient;
 import au.org.consumerdatastandards.client.ApiException;
 import ch.qos.logback.classic.Logger;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -33,7 +31,6 @@ import okhttp3.RequestBody;
 import okhttp3.tls.HandshakeCertificates;
 import okhttp3.tls.HeldCertificate;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.net.util.Base64;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.slf4j.LoggerFactory;
@@ -52,7 +49,6 @@ import java.net.Proxy;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -69,7 +65,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.SynchronousQueue;
 
@@ -85,7 +80,7 @@ public class ApiUtil {
 
     public static final SynchronousQueue<Object> browserMutex = new SynchronousQueue<>();
 
-    private static long accessTokenExpiresAt;
+    public static long accessTokenExpiresAt;
 
     public static ApiClient createApiClient(ApiClientOptions clientOptions) throws ApiException {
         return createApiClient(clientOptions, true);
@@ -123,7 +118,7 @@ public class ApiUtil {
             }
             if (StringUtils.isBlank(clientOptions.getAccessToken()) && StringUtils.isNotBlank(clientOptions.getAuthServer())) {
                 try {
-                    launchBrowser("http://localhost:8686/auth"); // TODO replace with embedded endpoint
+                    launchBrowser("http://localhost:8686/auth");
                     browserMutex.take(); // Wait for the user to login and acquire the tokens
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("Could not launch a web browser: " + e.getMessage());
@@ -233,7 +228,8 @@ public class ApiUtil {
     private static JsonObject discoveredInfo(OkHttpClient httpClient, String authServer) throws IOException {
         JsonObject config = discoveredConfigs.get(authServer);
         if (config == null) {
-            Request req = new Request.Builder().url(authServer + "/.well-known/openid-configuration").get().build();
+            Request req = new Request.Builder().url(authServer + (authServer.endsWith("/") ? "" : "/") +
+                    ".well-known/openid-configuration").get().build();
             String endpointsJson = httpClient.newCall(req).execute().body().string();
             config = parser.parse(endpointsJson).getAsJsonObject();
             discoveredConfigs.put(authServer, config);
@@ -244,20 +240,6 @@ public class ApiUtil {
     private static X509Certificate loadCertificate(String certFilePath) throws CertificateException, FileNotFoundException {
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         return (X509Certificate) certificateFactory.generateCertificate(new FileInputStream(certFilePath));
-    }
-
-    private static Map<String, Object> parseClaims(String accessToken) throws ApiException {
-        try {
-            String body = accessToken.split("\\.")[1];
-            String json = new String(Base64.decodeBase64(body), StandardCharsets.UTF_8);
-            ObjectMapper objectMapper = new ObjectMapper();
-            TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
-            return objectMapper.readValue(json, typeRef);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ApiException("Invalid token structure. Not a JWT?");
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
     }
 
     private static PrivateKey loadPrivateKey(String keyFilePath)

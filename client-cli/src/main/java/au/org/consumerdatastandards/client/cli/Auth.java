@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import ch.qos.logback.classic.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.mitre.jose.keystore.JWKSetKeyStore;
@@ -93,6 +94,7 @@ public class Auth extends ApiCliBase {
 
     @ShellMethod("Unset access token")
     public void unsetAccessToken() {
+        ApiUtil.accessTokenExpiresAt = 0;
         apiClientOptions.setAccessToken(null);
     }
 
