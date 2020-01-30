@@ -3,13 +3,13 @@ package au.org.consumerdatastandards.holder.service;
 import au.org.consumerdatastandards.holder.api.VersionNotSupportedException;
 import au.org.consumerdatastandards.holder.model.BankingProduct;
 import au.org.consumerdatastandards.holder.model.BankingProductDetail;
-import au.org.consumerdatastandards.holder.model.BankingProductDetailV1;
-import au.org.consumerdatastandards.holder.model.BankingProductDetailV2;
+import au.org.consumerdatastandards.holder.model.BankingProductV1Detail;
+import au.org.consumerdatastandards.holder.model.BankingProductV2Detail;
 import au.org.consumerdatastandards.holder.model.BankingProductV1;
 import au.org.consumerdatastandards.holder.model.BankingProductV2;
 import au.org.consumerdatastandards.holder.model.ParamEffective;
-import au.org.consumerdatastandards.holder.repository.BankingProductDetailV1Repository;
-import au.org.consumerdatastandards.holder.repository.BankingProductDetailV2Repository;
+import au.org.consumerdatastandards.holder.repository.BankingProductV1DetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductV2DetailRepository;
 import au.org.consumerdatastandards.holder.repository.BankingProductV1Repository;
 import au.org.consumerdatastandards.holder.repository.BankingProductV2Repository;
 import org.apache.logging.log4j.LogManager;
@@ -37,14 +37,14 @@ public class BankingProductService {
 
     private final BankingProductV1Repository productsV1Repository;
     private final BankingProductV2Repository productsV2Repository;
-    private final BankingProductDetailV1Repository productDetailV1Repository;
-    private final BankingProductDetailV2Repository productDetailV2Repository;
+    private final BankingProductV1DetailRepository productDetailV1Repository;
+    private final BankingProductV2DetailRepository productDetailV2Repository;
 
     @Autowired
     public BankingProductService(BankingProductV1Repository productsV1Repository,
                                  BankingProductV2Repository productsV2Repository,
-                                 BankingProductDetailV1Repository productDetailV1Repository,
-                                 BankingProductDetailV2Repository productDetailV2Repository) {
+                                 BankingProductV1DetailRepository productDetailV1Repository,
+                                 BankingProductV2DetailRepository productDetailV2Repository) {
         this.productsV1Repository = productsV1Repository;
         this.productsV2Repository = productsV2Repository;
         this.productDetailV1Repository = productDetailV1Repository;
@@ -107,13 +107,13 @@ public class BankingProductService {
         }
     }
 
-    private BankingProductDetailV1 getProductDetailV1(String productId) {
-        Optional<BankingProductDetailV1> byId = productDetailV1Repository.findById(productId);
+    private BankingProductV1Detail getProductDetailV1(String productId) {
+        Optional<BankingProductV1Detail> byId = productDetailV1Repository.findById(productId);
         return byId.orElse(null);
     }
 
-    private BankingProductDetailV2 getProductDetailV2(String productId) {
-        Optional<BankingProductDetailV2> byId = productDetailV2Repository.findById(productId);
+    private BankingProductV2Detail getProductDetailV2(String productId) {
+        Optional<BankingProductV2Detail> byId = productDetailV2Repository.findById(productId);
         return byId.orElse(null);
     }
 

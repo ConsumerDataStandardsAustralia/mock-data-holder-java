@@ -3,15 +3,7 @@ package au.org.consumerdatastandards.holder.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -19,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "BankingProduct")
-public class BankingProductDetailV2 implements BankingProductDetail {
+public class BankingProductV1Detail implements BankingProductDetail {
 
     /**
      * A provider specific unique identifier for this product. This
@@ -103,13 +95,6 @@ public class BankingProductDetailV2 implements BankingProductDetail {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-        name = "product_cardarts",
-        joinColumns = @JoinColumn(name = "product_id"),
-        inverseJoinColumns = @JoinColumn(name = "cardart_id"))
-    private List<BankingProductV2CardArt> cardArt;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
         name = "product_bundles",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "bundle_id"))
@@ -164,95 +149,117 @@ public class BankingProductDetailV2 implements BankingProductDetail {
     @Valid
     private List<BankingProductLendingRate> lendingRates = null;
 
+    @Override
     public String getProductId() {
         return productId;
     }
 
+    @Override
     public void setProductId(String productId) {
         this.productId = productId;
     }
 
+    @Override
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
     }
 
+    @Override
     public void setEffectiveFrom(OffsetDateTime effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
     }
 
+    @Override
     public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
     }
 
+    @Override
     public void setEffectiveTo(OffsetDateTime effectiveTo) {
         this.effectiveTo = effectiveTo;
     }
 
+    @Override
     public OffsetDateTime getLastUpdated() {
         return lastUpdated;
     }
 
+    @Override
     public void setLastUpdated(OffsetDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
+    @Override
     public BankingProductCategory getProductCategory() {
         return productCategory;
     }
 
+    @Override
     public void setProductCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public String getBrand() {
         return brand;
     }
 
+    @Override
     public void setBrand(String brand) {
         this.brand = brand;
     }
 
+    @Override
     public String getBrandName() {
         return brandName;
     }
 
+    @Override
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
 
+    @Override
     public String getApplicationUri() {
         return applicationUri;
     }
 
+    @Override
     public void setApplicationUri(String applicationUri) {
         this.applicationUri = applicationUri;
     }
 
+    @Override
     public Boolean getIsTailored() {
         return isTailored;
     }
 
+    @Override
     public void setIsTailored(Boolean tailored) {
         isTailored = tailored;
     }
 
-    public BankingProductDetailV2 additionalInformation(BankingProductAdditionalInformation additionalInformation) {
+    public BankingProductV1Detail additionalInformation(BankingProductAdditionalInformation additionalInformation) {
         this.additionalInformation = additionalInformation;
         return this;
     }
@@ -263,83 +270,77 @@ public class BankingProductDetailV2 implements BankingProductDetail {
      * @return additionalInformation
      */
     @Valid
+    @Override
     public BankingProductAdditionalInformation getAdditionalInformation() {
         return additionalInformation;
     }
 
+    @Override
     public void setAdditionalInformation(BankingProductAdditionalInformation additionalInformation) {
         this.additionalInformation = additionalInformation;
     }
 
-    public List<BankingProductV2CardArt> getCardArt() {
-        return cardArt;
-    }
-
-    public void setCardArt(List<BankingProductV2CardArt> cardArt) {
-        this.cardArt = cardArt;
-    }
-
-    public BankingProductDetailV2 applicationUri(String applicationUri) {
+    public BankingProductV1Detail applicationUri(String applicationUri) {
         this.applicationUri = applicationUri;
         return this;
     }
 
-    public BankingProductDetailV2 brand(String brand) {
+    public BankingProductV1Detail brand(String brand) {
         this.brand = brand;
         return this;
     }
 
-    public BankingProductDetailV2 brandName(String brandName) {
+    public BankingProductV1Detail brandName(String brandName) {
         this.brandName = brandName;
         return this;
     }
 
-    public BankingProductDetailV2 description(String description) {
+    public BankingProductV1Detail description(String description) {
         this.description = description;
         return this;
     }
 
-    public BankingProductDetailV2 effectiveFrom(OffsetDateTime effectiveFrom) {
+    public BankingProductV1Detail effectiveFrom(OffsetDateTime effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
         return this;
     }
 
-    public BankingProductDetailV2 effectiveTo(OffsetDateTime effectiveTo) {
+    public BankingProductV1Detail effectiveTo(OffsetDateTime effectiveTo) {
         this.effectiveTo = effectiveTo;
         return this;
     }
 
-    public BankingProductDetailV2 isTailored(Boolean isTailored) {
+    public BankingProductV1Detail isTailored(Boolean isTailored) {
         this.isTailored = isTailored;
         return this;
     }
 
-    public BankingProductDetailV2 lastUpdated(OffsetDateTime lastUpdated) {
+    public BankingProductV1Detail lastUpdated(OffsetDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
         return this;
     }
 
-    public BankingProductDetailV2 name(String name) {
+    public BankingProductV1Detail name(String name) {
         this.name = name;
         return this;
     }
 
-    public BankingProductDetailV2 productCategory(BankingProductCategory productCategory) {
+    public BankingProductV1Detail productCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
         return this;
     }
 
-    public BankingProductDetailV2 productId(String productId) {
+    public BankingProductV1Detail productId(String productId) {
         this.productId = productId;
         return this;
     }
 
-    public BankingProductDetailV2 bundles(List<BankingProductBundle> bundles) {
+    public BankingProductV1Detail bundles(List<BankingProductBundle> bundles) {
         this.bundles = bundles;
         return this;
     }
 
-    public BankingProductDetailV2 addBundlesItem(BankingProductBundle bundlesItem) {
+    public BankingProductV1Detail addBundlesItem(BankingProductBundle bundlesItem) {
         if (this.bundles == null) {
             this.bundles = new ArrayList<>();
         }
@@ -361,12 +362,12 @@ public class BankingProductDetailV2 implements BankingProductDetail {
         this.bundles = bundles;
     }
 
-    public BankingProductDetailV2 constraints(List<BankingProductConstraint> constraints) {
+    public BankingProductV1Detail constraints(List<BankingProductConstraint> constraints) {
         this.constraints = constraints;
         return this;
     }
 
-    public BankingProductDetailV2 addConstraintsItem(BankingProductConstraint constraintsItem) {
+    public BankingProductV1Detail addConstraintsItem(BankingProductConstraint constraintsItem) {
         if (this.constraints == null) {
             this.constraints = new ArrayList<>();
         }
@@ -388,12 +389,12 @@ public class BankingProductDetailV2 implements BankingProductDetail {
         this.constraints = constraints;
     }
 
-    public BankingProductDetailV2 depositRates(List<BankingProductDepositRate> depositRates) {
+    public BankingProductV1Detail depositRates(List<BankingProductDepositRate> depositRates) {
         this.depositRates = depositRates;
         return this;
     }
 
-    public BankingProductDetailV2 addDepositRatesItem(BankingProductDepositRate depositRatesItem) {
+    public BankingProductV1Detail addDepositRatesItem(BankingProductDepositRate depositRatesItem) {
         if (this.depositRates == null) {
             this.depositRates = new ArrayList<>();
         }
@@ -415,12 +416,12 @@ public class BankingProductDetailV2 implements BankingProductDetail {
         this.depositRates = depositRates;
     }
 
-    public BankingProductDetailV2 eligibility(List<BankingProductEligibility> eligibility) {
+    public BankingProductV1Detail eligibility(List<BankingProductEligibility> eligibility) {
         this.eligibility = eligibility;
         return this;
     }
 
-    public BankingProductDetailV2 addEligibilityItem(BankingProductEligibility eligibilityItem) {
+    public BankingProductV1Detail addEligibilityItem(BankingProductEligibility eligibilityItem) {
         if (this.eligibility == null) {
             this.eligibility = new ArrayList<>();
         }
@@ -442,12 +443,12 @@ public class BankingProductDetailV2 implements BankingProductDetail {
         this.eligibility = eligibility;
     }
 
-    public BankingProductDetailV2 features(List<BankingProductFeature> features) {
+    public BankingProductV1Detail features(List<BankingProductFeature> features) {
         this.features = features;
         return this;
     }
 
-    public BankingProductDetailV2 addFeaturesItem(BankingProductFeature featuresItem) {
+    public BankingProductV1Detail addFeaturesItem(BankingProductFeature featuresItem) {
         if (this.features == null) {
             this.features = new ArrayList<>();
         }
@@ -469,12 +470,12 @@ public class BankingProductDetailV2 implements BankingProductDetail {
         this.features = features;
     }
 
-    public BankingProductDetailV2 fees(List<BankingProductFee> fees) {
+    public BankingProductV1Detail fees(List<BankingProductFee> fees) {
         this.fees = fees;
         return this;
     }
 
-    public BankingProductDetailV2 addFeesItem(BankingProductFee feesItem) {
+    public BankingProductV1Detail addFeesItem(BankingProductFee feesItem) {
         if (this.fees == null) {
             this.fees = new ArrayList<>();
         }
@@ -496,12 +497,12 @@ public class BankingProductDetailV2 implements BankingProductDetail {
         this.fees = fees;
     }
 
-    public BankingProductDetailV2 lendingRates(List<BankingProductLendingRate> lendingRates) {
+    public BankingProductV1Detail lendingRates(List<BankingProductLendingRate> lendingRates) {
         this.lendingRates = lendingRates;
         return this;
     }
 
-    public BankingProductDetailV2 addLendingRatesItem(BankingProductLendingRate lendingRatesItem) {
+    public BankingProductV1Detail addLendingRatesItem(BankingProductLendingRate lendingRatesItem) {
         if (this.lendingRates == null) {
             this.lendingRates = new ArrayList<>();
         }
@@ -536,7 +537,6 @@ public class BankingProductDetailV2 implements BankingProductDetail {
             ", effectiveTo=" + effectiveTo +
             ", isTailored=" + isTailored +
             ", lastUpdated=" + lastUpdated +
-            ", cardArt=" + cardArt +
             ", name='" + name + '\'' +
             ", productCategory=" + productCategory +
             ", bundles=" + bundles +

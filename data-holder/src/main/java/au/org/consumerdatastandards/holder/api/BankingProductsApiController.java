@@ -3,7 +3,6 @@ package au.org.consumerdatastandards.holder.api;
 import au.org.consumerdatastandards.holder.model.BankingProduct;
 import au.org.consumerdatastandards.holder.model.BankingProductCategory;
 import au.org.consumerdatastandards.holder.model.BankingProductDetail;
-import au.org.consumerdatastandards.holder.model.BankingProductDetailV1;
 import au.org.consumerdatastandards.holder.model.BankingProductV1;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.ParamEffective;
