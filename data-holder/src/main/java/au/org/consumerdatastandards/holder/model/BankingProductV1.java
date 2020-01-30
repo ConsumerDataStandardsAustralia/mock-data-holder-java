@@ -104,98 +104,122 @@ public class BankingProductV1 implements BankingProduct {
     @OneToOne(cascade = CascadeType.ALL)
     private BankingProductAdditionalInformation additionalInformation;
 
+    @Override
     public String getProductId() {
         return productId;
     }
 
+    @Override
     public void setProductId(String productId) {
         this.productId = productId;
     }
 
+    @Override
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
     }
 
+    @Override
     public void setEffectiveFrom(OffsetDateTime effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
     }
 
+    @Override
     public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
     }
 
+    @Override
     public void setEffectiveTo(OffsetDateTime effectiveTo) {
         this.effectiveTo = effectiveTo;
     }
 
+    @Override
     public OffsetDateTime getLastUpdated() {
         return lastUpdated;
     }
 
+    @Override
     public void setLastUpdated(OffsetDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
+    @Override
     public BankingProductCategory getProductCategory() {
         return productCategory;
     }
 
+    @Override
     public void setProductCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public String getBrand() {
         return brand;
     }
 
+    @Override
     public void setBrand(String brand) {
         this.brand = brand;
     }
 
+    @Override
     public String getBrandName() {
         return brandName;
     }
 
+    @Override
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
 
+    @Override
     public String getApplicationUri() {
         return applicationUri;
     }
 
+    @Override
     public void setApplicationUri(String applicationUri) {
         this.applicationUri = applicationUri;
     }
 
+    @Override
     public Boolean getIsTailored() {
         return isTailored;
     }
 
+    @Override
     public void setIsTailored(Boolean isTailored) {
         this.isTailored = isTailored;
     }
 
+    @Override
     public BankingProductAdditionalInformation getAdditionalInformation() {
         return additionalInformation;
     }
 
+    @Override
     public void setAdditionalInformation(BankingProductAdditionalInformation additionalInformation) {
         this.additionalInformation = additionalInformation;
     }

@@ -43,10 +43,12 @@ public class BankingProductV2 implements BankingProduct {
      * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
      * @return productId
      */
+    @Override
     public String getProductId() {
         return productId;
     }
 
+    @Override
     public void setProductId(String productId) {
         this.productId = productId;
     }
@@ -55,10 +57,12 @@ public class BankingProductV2 implements BankingProduct {
      * The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate
      * @return effectiveFrom
      */
+    @Override
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
     }
 
+    @Override
     public void setEffectiveFrom(OffsetDateTime effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
     }
@@ -67,10 +71,12 @@ public class BankingProductV2 implements BankingProduct {
      * The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products
      * @return effectiveTo
      */
+    @Override
     public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
     }
 
+    @Override
     public void setEffectiveTo(OffsetDateTime effectiveTo) {
         this.effectiveTo = effectiveTo;
     }
@@ -79,10 +85,12 @@ public class BankingProductV2 implements BankingProduct {
      * The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)
      * @return lastUpdated
      */
+    @Override
     public OffsetDateTime getLastUpdated() {
         return lastUpdated;
     }
 
+    @Override
     public void setLastUpdated(OffsetDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
@@ -91,10 +99,12 @@ public class BankingProductV2 implements BankingProduct {
      * Get productCategory
      * @return productCategory
      */
+    @Override
     public BankingProductCategory getProductCategory() {
         return productCategory;
     }
 
+    @Override
     public void setProductCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
     }
@@ -103,10 +113,12 @@ public class BankingProductV2 implements BankingProduct {
      * The display name of the product
      * @return name
      */
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -115,10 +127,12 @@ public class BankingProductV2 implements BankingProduct {
      * A description of the product
      * @return description
      */
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
@@ -127,10 +141,12 @@ public class BankingProductV2 implements BankingProduct {
      * A label of the brand for the product. Able to be used for filtering. For data holders with single brands this value is still required
      * @return brand
      */
+    @Override
     public String getBrand() {
         return brand;
     }
 
+    @Override
     public void setBrand(String brand) {
         this.brand = brand;
     }
@@ -139,10 +155,12 @@ public class BankingProductV2 implements BankingProduct {
      * An optional display name of the brand
      * @return brandName
      */
+    @Override
     public String getBrandName() {
         return brandName;
     }
 
+    @Override
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
@@ -151,10 +169,12 @@ public class BankingProductV2 implements BankingProduct {
      * A link to an application web page where this product can be applied for.
      * @return applicationUri
      */
+    @Override
     public String getApplicationUri() {
         return applicationUri;
     }
 
+    @Override
     public void setApplicationUri(String applicationUri) {
         this.applicationUri = applicationUri;
     }
@@ -163,10 +183,12 @@ public class BankingProductV2 implements BankingProduct {
      * Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable
      * @return isTailored
      */
+    @Override
     public Boolean getIsTailored() {
         return isTailored;
     }
 
+    @Override
     public void setIsTailored(Boolean isTailored) {
         this.isTailored = isTailored;
     }
@@ -175,10 +197,12 @@ public class BankingProductV2 implements BankingProduct {
      * Get additionalInformation
      * @return additionalInformation
      */
+    @Override
     public BankingProductAdditionalInformation getAdditionalInformation() {
         return additionalInformation;
     }
 
+    @Override
     public void setAdditionalInformation(BankingProductAdditionalInformation additionalInformation) {
         this.additionalInformation = additionalInformation;
     }
