@@ -29,10 +29,19 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public okhttp3.Call getCustomerCall(final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
@@ -65,10 +74,19 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public ResponseCommonCustomer getCustomer() throws ApiException {
 
         LOGGER.trace("getCustomer");
@@ -84,10 +102,19 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public ApiResponse<ResponseCommonCustomer> getCustomerWithHttpInfo() throws ApiException {
         okhttp3.Call call = getCustomerValidateBeforeCall(null);
         Type returnType = new TypeToken<ResponseCommonCustomer>(){}.getType();
@@ -102,10 +129,20 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+
+*/
     public okhttp3.Call getCustomerAsync(final ApiCallback<ResponseCommonCustomer> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously getCustomer");
@@ -122,10 +159,18 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
-     */
+*/
     public okhttp3.Call getCustomerDetailCall(final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
@@ -158,10 +203,18 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
-     */
+*/
     public ResponseCommonCustomerDetail getCustomerDetail() throws ApiException {
 
         LOGGER.trace("getCustomerDetail");
@@ -177,10 +230,18 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
-     */
+*/
     public ApiResponse<ResponseCommonCustomerDetail> getCustomerDetailWithHttpInfo() throws ApiException {
         okhttp3.Call call = getCustomerDetailValidateBeforeCall(null);
         Type returnType = new TypeToken<ResponseCommonCustomerDetail>(){}.getType();
@@ -195,8 +256,16 @@ public class CommonCustomerAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call getCustomerDetailAsync(final ApiCallback<ResponseCommonCustomerDetail> _callback) throws ApiException {

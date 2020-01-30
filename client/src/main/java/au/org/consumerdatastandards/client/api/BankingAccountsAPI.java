@@ -31,8 +31,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call getAccountDetailCall(String accountId, final ApiCallback _callback) throws ApiException {
@@ -75,8 +83,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingAccountById getAccountDetail(String accountId) throws ApiException {
@@ -96,8 +112,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingAccountById> getAccountDetailWithHttpInfo(String accountId) throws ApiException {
@@ -115,8 +139,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call getAccountDetailAsync(String accountId, final ApiCallback<ResponseBankingAccountById> _callback) throws ApiException {
@@ -137,8 +169,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call getBalanceCall(String accountId, final ApiCallback _callback) throws ApiException {
@@ -181,8 +221,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingAccountsBalanceById getBalance(String accountId) throws ApiException {
@@ -202,10 +250,18 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
-     */
+*/
     public ApiResponse<ResponseBankingAccountsBalanceById> getBalanceWithHttpInfo(String accountId) throws ApiException {
         okhttp3.Call call = getBalanceValidateBeforeCall(accountId, null);
         Type returnType = new TypeToken<ResponseBankingAccountsBalanceById>(){}.getType();
@@ -221,8 +277,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call getBalanceAsync(String accountId, final ApiCallback<ResponseBankingAccountsBalanceById> _callback) throws ApiException {
@@ -244,8 +308,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call getTransactionDetailCall(String accountId, String transactionId, final ApiCallback _callback) throws ApiException {
@@ -296,8 +368,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingTransactionById getTransactionDetail(String accountId, String transactionId) throws ApiException {
@@ -319,8 +399,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingTransactionById> getTransactionDetailWithHttpInfo(String accountId, String transactionId) throws ApiException {
@@ -339,8 +427,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call getTransactionDetailAsync(String accountId, String transactionId, final ApiCallback<ResponseBankingTransactionById> _callback) throws ApiException {
@@ -369,8 +465,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call getTransactionsCall(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
@@ -434,8 +538,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingTransactionList getTransactions(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
@@ -469,8 +581,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingTransactionList> getTransactionsWithHttpInfo(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
@@ -495,8 +615,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call getTransactionsAsync(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount, String maxAmount, String text, Integer page, Integer pageSize, final ApiCallback<ResponseBankingTransactionList> _callback) throws ApiException {
@@ -528,8 +656,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call listAccountsCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
@@ -579,8 +715,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingAccountList listAccounts(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
@@ -608,8 +752,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingAccountList> listAccountsWithHttpInfo(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
@@ -631,8 +783,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call listAccountsAsync(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountList> _callback) throws ApiException {
@@ -661,8 +821,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call listBalancesBulkCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
@@ -712,8 +880,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingAccountsBalanceList listBalancesBulk(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
@@ -741,8 +917,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingAccountsBalanceList> listBalancesBulkWithHttpInfo(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
@@ -764,8 +948,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call listBalancesBulkAsync(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountsBalanceList> _callback) throws ApiException {
@@ -792,9 +984,21 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
-     *   <tr><td> 422 </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 422 </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call listBalancesSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
@@ -842,9 +1046,21 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
-     *   <tr><td> 422 </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 422 </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingAccountsBalanceList listBalancesSpecificAccounts(RequestAccountIds accountIds, Integer page, Integer pageSize) throws ApiException {
@@ -868,9 +1084,21 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
-     *   <tr><td> 422 </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 422 </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingAccountsBalanceList> listBalancesSpecificAccountsWithHttpInfo(RequestAccountIds accountIds, Integer page, Integer pageSize) throws ApiException {
@@ -890,9 +1118,21 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
-     *    <tr><td> 422 </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 422 </td>
+     *        <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *        <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call listBalancesSpecificAccountsAsync(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountsBalanceList> _callback) throws ApiException {

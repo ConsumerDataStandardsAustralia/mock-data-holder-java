@@ -47,10 +47,19 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public okhttp3.Call getOutagesCall(final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
@@ -82,10 +91,19 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public ResponseDiscoveryOutagesList getOutages() throws ApiException {
 
         LOGGER.trace("getOutages");
@@ -101,10 +119,19 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public ApiResponse<ResponseDiscoveryOutagesList> getOutagesWithHttpInfo() throws ApiException {
         okhttp3.Call call = getOutagesValidateBeforeCall(null);
         Type returnType = new TypeToken<ResponseDiscoveryOutagesList>(){}.getType();
@@ -119,10 +146,20 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+
+*/
     public okhttp3.Call getOutagesAsync(final ApiCallback<ResponseDiscoveryOutagesList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously getOutages");
@@ -139,10 +176,19 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public okhttp3.Call getStatusCall(final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
@@ -174,10 +220,19 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public ResponseCommonDiscoveryStatus getStatus() throws ApiException {
 
         LOGGER.trace("getStatus");
@@ -193,10 +248,19 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
-     */
+
+*/
     public ApiResponse<ResponseCommonDiscoveryStatus> getStatusWithHttpInfo() throws ApiException {
         okhttp3.Call call = getStatusValidateBeforeCall(null);
         Type returnType = new TypeToken<ResponseCommonDiscoveryStatus>(){}.getType();
@@ -211,8 +275,16 @@ public class CommonDiscoveryAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *    <tr><td> 200 </td><td> Success </td><td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call getStatusAsync(final ApiCallback<ResponseCommonDiscoveryStatus> _callback) throws ApiException {
