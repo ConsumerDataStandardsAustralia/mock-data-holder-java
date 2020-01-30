@@ -7,7 +7,9 @@
  */
 package au.org.consumerdatastandards.client.cli.support;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 
 public class ApiClientOptions {
 
@@ -36,6 +38,8 @@ public class ApiClientOptions {
     private String clientId;
     @Value("${jwks.path:keystore/keystore.jwks}")
     private String jwksPath;
+    @Autowired
+    Environment environment;
 
     public String getServerUrl() {
         return serverUrl;
@@ -155,5 +159,9 @@ public class ApiClientOptions {
 
     public void setJwksPath(String jwksPath) {
         this.jwksPath = jwksPath;
+    }
+
+    public String getWebPort() {
+        return environment.getProperty("local.server.port");
     }
 }

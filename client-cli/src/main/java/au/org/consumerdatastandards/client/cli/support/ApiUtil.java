@@ -118,7 +118,7 @@ public class ApiUtil {
             }
             if (StringUtils.isBlank(clientOptions.getAccessToken()) && StringUtils.isNotBlank(clientOptions.getAuthServer())) {
                 try {
-                    launchBrowser("http://localhost:8686/auth");
+                    launchBrowser("http://localhost:" + clientOptions.getWebPort() + "/auth");
                     browserMutex.take(); // Wait for the user to login and acquire the tokens
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("Could not launch a web browser: " + e.getMessage());
