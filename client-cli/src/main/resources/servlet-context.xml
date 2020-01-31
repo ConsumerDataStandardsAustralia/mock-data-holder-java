@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017 The MIT Internet Trust Consortium
+   
+    Portions copyright 2011-2013 The MITRE Corporation
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+      http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<mvc:interceptors>
+		<!-- Inject the UserInfo into the current context -->
+		<bean id="userInfoInterceptor" class="org.mitre.openid.connect.web.UserInfoInterceptor" />
+	</mvc:interceptors>
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+
+	<context:component-scan base-package="au.org.consumerdatastandards.oidc.web.client" />
+
+	<security:global-method-security pre-post-annotations="enabled" proxy-target-class="true" authentication-manager-ref="authenticationManager"/>
+
+	<security:http auto-config="false" use-expressions="true"
+		disable-url-rewriting="true" entry-point-ref="authenticationEntryPoint"
+		pattern="/**">
+
+		<security:custom-filter before="PRE_AUTH_FILTER" ref="openIdConnectAuthenticationFilter" />
+
+		<security:logout logout-url="/j_spring_security_logout" logout-success-url="/" />
+
+	</security:http>
+
+	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<constructor-arg name="loginFormUrl" value="/openid_connect_login" />
+	</bean>
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="openIdConnectAuthenticationProvider" />
+	</security:authentication-manager>
+
+	<bean id="openIdConnectAuthenticationProvider" class="org.mitre.openid.connect.client.OIDCAuthenticationProvider">
+		<property name="authoritiesMapper">
+			<bean class="org.mitre.openid.connect.client.NamedAdminAuthoritiesMapper">
+				<property name="admins" ref="namedAdmins" />
+			</bean>
+		</property>
+	</bean>
+
+	<util:set id="namedAdmins" value-type="org.mitre.openid.connect.client.SubjectIssuerGrantedAuthority">
+		<!-- 
+			This is an example of how to set up a user as an administrator: they'll be given ROLE_ADMIN in addition to ROLE_USER.
+			Note that having an administrator role on the IdP doesn't grant administrator access on this client.
+			
+			These are values from the demo "cds-openid-connect-server" project of MITREid Connect.
+		-->
+		<bean class="org.mitre.openid.connect.client.SubjectIssuerGrantedAuthority">
+			<constructor-arg name="subject" value="90342.ASDFJWFA" />
+			<constructor-arg name="issuer" value="http://localhost:8080/cds-openid-connect-server/" />
+		</bean>
+	</util:set>
+
+
+	<!-- 
+	  -
+	  - The authentication filter
+	  -	
+	  -->
+	<bean id="openIdConnectAuthenticationFilter" class="au.org.consumerdatastandards.client.cli.auth.UnblockingOIDCAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="issuerService" ref="hybridIssuerService" />
+		<property name="serverConfigurationService" ref="dynamicServerConfigurationService" />
+		<property name="clientConfigurationService" ref="staticClientConfigurationService" />
+		<property name="authRequestOptionsService" ref="dynamicOptionsService" />
+		<property name="authRequestUrlBuilder" ref="cdsRequestUrlBuilder" />
+	</bean>
+
+	<bean id="dynamicOptionsService" class="au.org.consumerdatastandards.client.cli.auth.service.CDSDynamicOptionsService" />
+
+	<!--
+	  -
+	  -	Issuer Services: Determine which identity provider issuer is used.
+	  -	
+	  -->
+
+	<!--
+		Hybrid issuer service. If an issuer is passed in directly with the "iss" parameter, it will use that. If not, it will
+		look for an "identifier" parameter to do Webfinger discovery on that. Failing that, it will redirect to the login
+		page URL.
+	-->
+	<bean class="au.org.consumerdatastandards.client.cli.auth.service.SharingDurationHybridIssuerService" id="hybridIssuerService">
+		<property name="loginPageUrl" value="login" />
+		<property name="forceHttps" value="false" /> <!-- this default property forces the webfinger issuer URL to be HTTPS, turn off for development work -->
+	</bean>
+
+
+	<!--
+	  -
+	  - Server configuration: determines the parameters and URLs of the server to talk to.	  
+	  - 
+	  -->
+
+	<!--
+		Dynamic server configuration, fetches the server's information using OIDC Discovery.
+	-->
+	<bean class="org.mitre.openid.connect.client.service.impl.DynamicServerConfigurationService" id="dynamicServerConfigurationService" />
+
+
+	<!-- 
+	  -
+	  -	Client Configuration: Determine which client identifier and credentials are used.
+	  -
+	  -->
+
+	<!--
+		Static Client Configuration. Configures a client statically by storing configuration on a per-issuer basis.
+	-->
+
+	<bean class="org.mitre.openid.connect.client.service.impl.StaticClientConfigurationService" id="staticClientConfigurationService">
+		<property name="clients">
+			<map>
+				<entry key="#{systemProperties['auth.server']}">
+					<bean class="org.mitre.oauth2.model.RegisteredClient">
+						<property name="clientId" value="#{systemProperties['client.id']}" />
+						<property name="clientSecret" value="secret" />
+						<property name="scope">
+							<set value-type="java.lang.String">
+								<value>openid</value>
+								<value>email</value>
+								<value>address</value>
+								<value>profile</value>
+								<value>phone</value>
+								<value>offline_access</value>
+								<value>bank:accounts.basic:read</value>
+								<value>bank:accounts.detail:read</value>
+								<value>bank:transactions:read</value>
+								<value>bank:regular_payments:read</value>
+								<value>bank:payees:read</value>
+								<value>common:customer.basic:read</value>
+								<value>common:customer.detail:read</value>
+							</set>
+						</property>
+						<property name="responseTypes">
+							<set value-type="java.lang.String">
+								<value>code</value>
+								<value>id_token</value>
+							</set>
+						</property>
+						<property name="tokenEndpointAuthMethod" value="PRIVATE_KEY" />
+						<property name="redirectUris">
+							<set>
+								<value>http://localhost:8686/openid_connect_login</value>
+							</set>
+						</property>
+					</bean>
+				</entry>
+			</map>
+  		</property>
+	</bean>
+
+
+	<!--
+	  -
+	  - Authorization URL Builders: create the URL to redirect the user to for authorization.
+	  - 
+	  -->
+
+	<!--	
+		Plain authorization request builder, puts all options as query parameters on the GET request
+	-->
+	<bean class="org.mitre.openid.connect.client.service.impl.PlainAuthRequestUrlBuilder" id="plainAuthRequestUrlBuilder" />
+	
+	<!--
+		Signed authorization request builder, puts all options as elements in a JWS-signed request object 
+	-->
+	<bean class="au.org.consumerdatastandards.client.cli.auth.service.CDSRequestBuilder" id="cdsRequestUrlBuilder">
+	  <property name="signingAndValidationService" ref="defaultSignerService" />
+	</bean>
+
+	<!-- 
+		Encrypted authorization request builder, puts all the options as elements in a JWE-encrypted request object
+	-->
+	<bean class="org.mitre.openid.connect.client.service.impl.EncryptedAuthRequestUrlBuilder" id="encryptedAuthRequestUrlBuilder">
+	  <property name="encrypterService" ref="validatorCache" />
+	    <property name="alg">
+	      <util:constant static-field="com.nimbusds.jose.JWEAlgorithm.RSA1_5"/>
+	    </property>
+	    <property name="enc">
+	      <util:constant static-field="com.nimbusds.jose.EncryptionMethod.A128GCM"/>
+	    </property>
+	</bean>
+
+
+	<!-- 
+	 - 
+	 - Utility beans for the above classes
+	 -
+	 -->
+
+	<!-- 
+		This service fetches and caches JWK sets from URLs.
+	-->
+	
+	<bean id="validatorCache" class="org.mitre.jwt.signer.service.impl.JWKSetCacheService" />
+	
+	<!-- 
+		This service sets up a bunch of signers and validators based on our own keys.
+		Replace this keystore's contents for a production deployment.
+	 -->
+	<bean id="defaultSignerService" class="org.mitre.jwt.signer.service.impl.DefaultJWTSigningAndValidationService">
+		<constructor-arg name="keyStore" ref="keyStore" />
+		<property name="defaultSignerKeyId" value="rsa1" />
+ 		<property name="defaultSigningAlgorithmName" value="RS256" />
+	</bean>
+
+</beans>
