@@ -7,13 +7,17 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
 import au.org.consumerdatastandards.conformance.ConformanceError;
+import au.org.consumerdatastandards.support.Header;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Map;
 
 public class ApiCliBase {
 
@@ -30,5 +34,17 @@ public class ApiCliBase {
         }
         pw.println("Found a total of " + conformanceErrors.size() + " conformance errors");
         throw new Exception(pw.toString());
+    }
+
+    protected int getEndpointVersion(ApiResponse response) {
+        Map headers = response.getHeaders();
+        List<String> values = (List<String>) headers.get(Header.VERSION.getKey());
+        if (values != null && !values.isEmpty()) {
+            String version = values.get(0);
+            if(StringUtils.isNumeric(version)) {
+                return Integer.parseInt(version);
+            }
+        }
+        return 1;
     }
 }

@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 public class APIModel extends ModelBase {
 
-    final private String version = "1.0.0";
+    private String version;
 
     private Set<SectionModel> sectionModels = new TreeSet<>();
 
@@ -20,5 +20,9 @@ public class APIModel extends ModelBase {
 
     public String getVersion() {
         return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

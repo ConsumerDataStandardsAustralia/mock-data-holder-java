@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.api.BankingAccountsAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
@@ -50,12 +51,14 @@ public class BankingAccounts extends ApiCliBase {
             accountId);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingAccountById response = api.getAccountDetail(accountId);
+        ApiResponse<ResponseBankingAccountById> response = api.getAccountDetailWithHttpInfo(accountId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getAccountDetailCall(accountId, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getAccountDetail", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getAccountDetail", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -73,12 +76,14 @@ public class BankingAccounts extends ApiCliBase {
             transactionId);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingTransactionById response = api.getTransactionDetail(accountId, transactionId);
+        ApiResponse<ResponseBankingTransactionById> response = api.getTransactionDetailWithHttpInfo(accountId, transactionId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getTransactionDetailCall(accountId, transactionId, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getTransactionDetail", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getTransactionDetail", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -109,12 +114,15 @@ public class BankingAccounts extends ApiCliBase {
 
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingTransactionList response = api.getTransactions(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
+        ApiResponse<ResponseBankingTransactionList> response =
+            api.getTransactionsWithHttpInfo(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getTransactionsCall(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getTransactions", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getTransactions", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -139,12 +147,14 @@ public class BankingAccounts extends ApiCliBase {
 
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingAccountList response = api.listAccounts(productCategory, openStatus, isOwned, page, pageSize);
+        ApiResponse<ResponseBankingAccountList> response = api.listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listAccountsCall(productCategory, openStatus, isOwned, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listAccounts", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "listAccounts", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -152,20 +162,22 @@ public class BankingAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("List balance")
-    public String listBalance(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
+    @ShellMethod("Get balance")
+    public String getBalance(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+                             @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
 
         LOGGER.info("List balance CLI initiated with accountId: {}",
             accountId);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingAccountsBalanceById response = api.getBalance(accountId);
+        ApiResponse<ResponseBankingAccountsBalanceById> response = api.getBalanceWithHttpInfo(accountId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getBalanceCall(accountId, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listBalance", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getBalance", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -188,13 +200,15 @@ public class BankingAccounts extends ApiCliBase {
             productCategory);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingAccountsBalanceList response =
-            api.listBalancesBulk(productCategory, openStatus, isOwned, page, pageSize);
+        ApiResponse<ResponseBankingAccountsBalanceList> response =
+            api.listBalancesBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listBalancesBulkCall(productCategory, openStatus, isOwned, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listBalancesBulk", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "listBalancesBulk", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -218,12 +232,14 @@ public class BankingAccounts extends ApiCliBase {
         data.setAccountIds(accountIds);
         RequestAccountIds requestAccountIds = new RequestAccountIds();
         requestAccountIds.setData(data);
-        ResponseBankingAccountsBalanceList response = api.listBalancesSpecificAccounts(requestAccountIds, page, pageSize);
+        ApiResponse<ResponseBankingAccountsBalanceList> response = api.listBalancesSpecificAccountsWithHttpInfo(requestAccountIds, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listBalancesSpecificAccountsCall(requestAccountIds, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listBalancesSpecificAccounts", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "listBalancesSpecificAccounts", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

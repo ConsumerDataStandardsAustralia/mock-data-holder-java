@@ -156,4 +156,12 @@ public class APIStepsBase {
             logger.error(error.getDescription());
         }
     }
+
+    protected int getEndpointVersion(Response response) {
+        String versionHeader = response.header(Header.VERSION.getKey());
+        if (StringUtils.isNumeric(versionHeader)) {
+            return Integer.parseInt(versionHeader);
+        }
+        return 1;
+    }
 }

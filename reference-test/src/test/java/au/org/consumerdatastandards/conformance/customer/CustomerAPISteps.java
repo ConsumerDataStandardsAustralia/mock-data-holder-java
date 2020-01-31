@@ -50,7 +50,8 @@ public class CustomerAPISteps extends ProtectedAPIStepsBase {
         try {
             ResponseCommonCustomer responseCommonCustomer = objectMapper.readValue(json, ResponseCommonCustomer.class);
             conformanceErrors.addAll(
-                    payloadValidator.validateResponse(this.requestUrl, responseCommonCustomer, "getCustomer", statusCode)
+                    payloadValidator.validateResponse(this.requestUrl, responseCommonCustomer,
+                        "getCustomer", getEndpointVersion(getCustomerResponse), statusCode)
             );
         } catch (IOException e) {
             fail(e.getMessage());
@@ -86,7 +87,8 @@ public class CustomerAPISteps extends ProtectedAPIStepsBase {
         try {
             ResponseCommonCustomerDetail responseCommonCustomerDetail = objectMapper.readValue(json, ResponseCommonCustomerDetail.class);
             conformanceErrors.addAll(
-                    payloadValidator.validateResponse(this.requestUrl, responseCommonCustomerDetail, "getCustomerDetail", statusCode)
+                    payloadValidator.validateResponse(this.requestUrl, responseCommonCustomerDetail,
+                        "getCustomerDetail", getEndpointVersion(getCustomerDetailResponse), statusCode)
             );
         } catch (IOException e) {
             fail(e.getMessage());

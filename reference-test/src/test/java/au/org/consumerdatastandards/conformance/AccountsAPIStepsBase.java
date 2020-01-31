@@ -55,7 +55,7 @@ public class AccountsAPIStepsBase extends ProtectedAPIStepsBase {
                     Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountById.class);
                     Object responseBankingAccountById = objectMapper.readValue(json, expandedResponseClass);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountById,
-                            "getAccountDetail", statusCode));
+                            "getAccountDetail", getEndpointVersion(getAccountDetailResponse), statusCode));
                     Object responseData = getResponseData(responseBankingAccountById);
                     String id = getAccountId(responseData);
                     if (!id.equals(accountId)) {

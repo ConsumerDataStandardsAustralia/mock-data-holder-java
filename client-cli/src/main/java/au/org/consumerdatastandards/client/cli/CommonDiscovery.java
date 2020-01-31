@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.api.CommonDiscoveryAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
@@ -39,12 +40,14 @@ public class CommonDiscovery extends ApiCliBase {
         LOGGER.info("Get outages CLI initiated");
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseDiscoveryOutagesList response = api.getOutages();
+        ApiResponse<ResponseDiscoveryOutagesList> response = api.getOutagesWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getOutagesCall(null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getOutages", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getOutages", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -58,12 +61,14 @@ public class CommonDiscovery extends ApiCliBase {
         LOGGER.info("Get status CLI initiated");
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseCommonDiscoveryStatus response = api.getStatus();
+        ApiResponse<ResponseCommonDiscoveryStatus> response = api.getStatusWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getStatusCall(null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getStatus", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getStatus", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

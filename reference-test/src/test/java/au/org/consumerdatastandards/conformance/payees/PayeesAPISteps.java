@@ -83,7 +83,7 @@ public class PayeesAPISteps extends ProtectedAPIStepsBase {
             try {
                 ResponseBankingPayeeList responseBankingPayeeList = objectMapper.readValue(json, ResponseBankingPayeeList.class);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingPayeeList,
-                        "listPayees", statusCode));
+                        "listPayees", getEndpointVersion(listPayeesResponse), statusCode));
 
                 ResponseBankingPayeeListData data = (ResponseBankingPayeeListData) getResponseData(responseBankingPayeeList);
                 List<BankingPayee> payees = getBankingPayeeList(data);
@@ -155,7 +155,7 @@ public class PayeesAPISteps extends ProtectedAPIStepsBase {
                 try {
                     ResponseBankingPayeeById responseBankingPayeeById = objectMapper.readValue(json, ResponseBankingPayeeById.class);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingPayeeById,
-                            "getPayeeDetail", statusCode));
+                            "getPayeeDetail", getEndpointVersion(getPayeeDetailResponse), statusCode));
 
                     BankingPayeeDetail data = (BankingPayeeDetail) getResponseData(responseBankingPayeeById);
                     String bankingPayeeId = (String) getField(data, "payeeId");

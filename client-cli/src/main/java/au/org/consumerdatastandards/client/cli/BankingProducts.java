@@ -49,8 +49,9 @@ public class BankingProducts extends ApiCliBase {
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getProductDetailCall(productId, version, null);
+            String requestUrl = call.request().url().toString();
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getProductDetail", ResponseCode.OK);
+                .validateResponse(requestUrl, response, "getProductDetail", version, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -82,8 +83,9 @@ public class BankingProducts extends ApiCliBase {
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listProductsCall(effective, updatedSince, brand, productCategory, version, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listProducts", ResponseCode.OK);
+                .validateResponse(requestUrl, response, "listProducts", version, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

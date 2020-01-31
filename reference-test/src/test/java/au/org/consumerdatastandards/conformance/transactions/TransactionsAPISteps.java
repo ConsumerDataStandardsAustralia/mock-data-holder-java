@@ -105,7 +105,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
                 try {
                     responseBankingTransactionList = objectMapper.readValue(json, ResponseBankingTransactionList.class);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionList,
-                            "getTransactions", statusCode));
+                            "getTransactions",getEndpointVersion(getTransactionsResponse), statusCode));
                     ResponseBankingTransactionListData data = (ResponseBankingTransactionListData) getResponseData(responseBankingTransactionList);
                     List<BankingTransaction> transactions = getTransactions(data);
                     if (transactions != null) {
@@ -308,7 +308,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
                 Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingTransactionById.class);
                 Object responseBankingTransactionById = objectMapper.readValue(json, expandedResponseClass);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionById,
-                        "getTransactionDetail", statusCode));
+                        "getTransactionDetail", getEndpointVersion(getTransactionDetailResponse), statusCode));
                 Object data = getResponseData(responseBankingTransactionById);
                 checkAccountId(data, accountId, conformanceErrors);
                 checkTransactionId(data, transactionId, conformanceErrors);

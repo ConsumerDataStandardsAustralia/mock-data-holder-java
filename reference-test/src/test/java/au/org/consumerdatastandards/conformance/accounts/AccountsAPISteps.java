@@ -82,7 +82,7 @@ public class AccountsAPISteps extends AccountsAPIStepsBase {
             try {
                 responseBankingAccountList = objectMapper.readValue(json, ResponseBankingAccountList.class);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountList,
-                        "listAccounts", statusCode));
+                        "listAccounts", getEndpointVersion(listAccountsResponse), statusCode));
                 ResponseBankingAccountListData data = (ResponseBankingAccountListData) getResponseData(responseBankingAccountList);
                 List<BankingAccount> accounts = getAccounts(data);
                 if (accounts != null) {

@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.api.CommonCustomerAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
@@ -39,12 +40,14 @@ public class CommonCustomer extends ApiCliBase {
         LOGGER.info("Get customer CLI initiated");
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseCommonCustomer response = api.getCustomer();
+        ApiResponse<ResponseCommonCustomer> response = api.getCustomerWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getCustomerCall(null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getCustomer", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getCustomer", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -58,12 +61,14 @@ public class CommonCustomer extends ApiCliBase {
         LOGGER.info("Get customer detail CLI initiated");
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseCommonCustomerDetail response = api.getCustomerDetail();
+        ApiResponse<ResponseCommonCustomerDetail> response = api.getCustomerDetailWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getCustomerDetailCall(null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getCustomerDetail", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getCustomerDetail", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

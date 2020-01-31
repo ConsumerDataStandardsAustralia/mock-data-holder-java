@@ -8,17 +8,17 @@ import org.junit.runner.RunWith;
 
 @RunWith(SerenityParameterizedRunner.class)
 @UseTestDataFrom("testdata/banking-balance-api-params.csv")
-public class ListBalanceTest extends BalancesAPITestBase {
+public class GetBalanceTest extends BalancesAPITestBase {
 
     private String accountId;
 
     @Test
-    public void listBalance() {
+    public void getBalance() {
         if (StringUtils.isBlank(steps.getApiBasePath())) {
             return;
         }
-        steps.listBalance(accountId);
-        steps.validateListBalanceResponse(accountId);
+        steps.getBalance(accountId);
+        steps.validateGetBalanceResponse(accountId);
     }
 
     public void setAccountId(String accountId) {

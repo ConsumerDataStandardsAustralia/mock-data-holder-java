@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.api.BankingScheduledPaymentsAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
@@ -45,12 +46,14 @@ public class BankingScheduledPayments extends ApiCliBase {
             pageSize);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingScheduledPaymentsList response = api.listScheduledPayments(accountId, page, pageSize);
+        ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsWithHttpInfo(accountId, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsCall(accountId, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listScheduledPayments", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "listScheduledPayments", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -70,12 +73,14 @@ public class BankingScheduledPayments extends ApiCliBase {
             pageSize);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingScheduledPaymentsList response = api.listScheduledPaymentsSpecificAccounts(accountIds, page, pageSize);
+        ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsSpecificAccountsWithHttpInfo(accountIds, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsSpecificAccountsCall(accountIds, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listScheduledPaymentsSpecificAccounts", ResponseCode.OK);
+                .validateResponse(requestUrl, response, "listScheduledPaymentsSpecificAccounts", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

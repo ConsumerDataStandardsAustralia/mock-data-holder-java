@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.api.BankingPayeesAPI;
 import au.org.consumerdatastandards.client.api.BankingPayeesAPI.ParamType;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
@@ -42,12 +43,14 @@ public class BankingPayees extends ApiCliBase {
             payeeId);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingPayeeById response = api.getPayeeDetail(payeeId);
+        ApiResponse<ResponseBankingPayeeById> response = api.getPayeeDetailWithHttpInfo(payeeId);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getPayeeDetailCall(payeeId, null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getPayeeDetail", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getPayeeDetail", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -67,12 +70,13 @@ public class BankingPayees extends ApiCliBase {
             type);
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
-        ResponseBankingPayeeList response = api.listPayees(type, page, pageSize);
+        ApiResponse<ResponseBankingPayeeList> response = api.listPayeesWithHttpInfo(type, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listPayeesCall(type, page, pageSize, null);
+            String requestUrl = call.request().url().toString();
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "listPayees", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "listPayees", getEndpointVersion(response), ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

@@ -47,7 +47,7 @@ public interface BankingProductsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-version", value = "1")
+        @CustomAttribute(name = "x-version", value = "2")
     })
     ResponseBankingProductById getProductDetail(
         @Param(
@@ -95,7 +95,7 @@ public interface BankingProductsAPI  {
         }
     )
     @CustomAttributes({
-        @CustomAttribute(name = "x-version", value = "1")
+        @CustomAttribute(name = "x-version", value = "2")
     })
     ResponseBankingProductList listProducts(
         @Param(
