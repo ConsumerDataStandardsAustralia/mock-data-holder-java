@@ -97,9 +97,6 @@ public class ApiControllerBase {
             } else if (!xCdsClientHeaders.matches(BASE64_PATTERN)) {
                 throw new ValidationException("request header x-cds-client-headers is not Base64 encoded");
             }
-            if (StringUtils.isEmpty(xCdsClientHeaders)) {
-                throw new ValidationException("request header x-cds-client-headers is not present");
-            }
         }
     }
 

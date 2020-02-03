@@ -42,10 +42,10 @@ Auth- and security-related Functions
 
 BankingAccounts
         get-account-detail: Get account detail
+        get-balance: Get balance
         get-transaction-detail: Get transaction detail
         get-transactions: Get transactions
         list-accounts: List accounts
-        list-balance: List balance
         list-balances-bulk: Obtain balances for multiple, filtered accounts
         list-balances-specific-accounts: List balances specific accounts
 
@@ -82,7 +82,7 @@ Common Functions
         proxy: Set proxy, e.g. http://http-proxy:8080, https://https-proxy:8443, socks://socks-proxy:5050, none (Property: proxy)
         server: Set CDS server URL, e.g. http://data.holder/cds-au/v1 (Property: server)
         set-log-level: Setup minimum log level, default is INFO
-        set-user-agent: Set browser user-agent
+        set-user-agent: Set browser user-agent. Sent in User-Agent and x-cds-client-headers HTTP headers. Default is Client CLI (Property: user.agent)
 
 CommonCustomer
         get-customer: Get customer
