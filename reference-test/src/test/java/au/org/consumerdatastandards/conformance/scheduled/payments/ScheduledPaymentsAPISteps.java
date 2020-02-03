@@ -1,11 +1,11 @@
 package au.org.consumerdatastandards.conformance.scheduled.payments;
 
-import au.org.consumerdatastandards.api.banking.models.BankingScheduledPayment;
-import au.org.consumerdatastandards.api.banking.models.BankingScheduledPaymentFrom;
-import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingScheduledPaymentsListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingScheduledPayment;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingScheduledPaymentFrom;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingScheduledPaymentsList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingScheduledPaymentsListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
@@ -94,7 +94,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
             try {
                 ResponseBankingScheduledPaymentsList responseScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseScheduledPaymentsList,
-                        "listScheduledPaymentsBulk", statusCode));
+                        "listScheduledPaymentsBulk", getEndpointVersion(listScheduledPaymentsBulkResponse), statusCode));
 
                 ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseScheduledPaymentsList);
                 return getScheduledPaymentsList(data);
@@ -163,7 +163,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
                 try {
                     ResponseBankingScheduledPaymentsList responseBankingScheduledPaymentsList = objectMapper.readValue(json, ResponseBankingScheduledPaymentsList.class);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList,
-                            "listScheduledPayments", statusCode));
+                            "listScheduledPayments", getEndpointVersion(listScheduledPaymentsResponse), statusCode));
 
                     ResponseBankingScheduledPaymentsListData data = (ResponseBankingScheduledPaymentsListData) getResponseData(responseBankingScheduledPaymentsList);
 
@@ -247,7 +247,7 @@ public class ScheduledPaymentsAPISteps extends AccountsAPIStepsBase {
                 Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingScheduledPaymentsList.class);
                 Object responseBankingScheduledPaymentsList = objectMapper.readValue(json, expandedResponseClass);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingScheduledPaymentsList,
-                        "listScheduledPaymentsSpecificAccounts", statusCode));
+                        "listScheduledPaymentsSpecificAccounts", getEndpointVersion(listScheduledPaymentsSpecificAccountsResponse), statusCode));
                 Object data = getResponseData(responseBankingScheduledPaymentsList);
                 checkAccountIds(data, accountIds, conformanceErrors);
 

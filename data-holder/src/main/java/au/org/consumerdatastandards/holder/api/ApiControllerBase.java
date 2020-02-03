@@ -18,6 +18,7 @@ import java.util.UUID;
 public class ApiControllerBase {
 
     private final static String V = "x-v";
+    private final static String MIN_V = "x-min-v";
     private final static String CORRELATION_ID = "x-Correlation-Id";
     private final static String FAPI_INTERACTION_ID = "x-fapi-interaction-id";
     private final static String BASE64_PATTERN = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
@@ -34,21 +35,31 @@ public class ApiControllerBase {
         }
     }
 
-    private boolean hasSupportedVersion(Integer xMinV, Integer xV) {
-        if (xV != null && getCurrentVersion() > xV) {
-            return false;
-        }
-        return xMinV == null || getCurrentVersion() >= xMinV;
+    protected boolean hasSupportedVersion(Integer xMinV, Integer xV) {
+        if (xV == null) return false;
+        return (xMinV == null || getCurrentVersion() >= xMinV) && (xMinV != null || getCurrentVersion() >= xV);
     }
 
-    private Integer getCurrentVersion() {
+    protected Integer getSupportedVersion(Integer xMinV, Integer xV) {
+        validateHeaders(xMinV, xV);
+        if (xMinV == null) return xV;
+        return Math.min(xV, getCurrentVersion());
+    }
+
+    protected Integer getCurrentVersion() {
         return 1;
     }
 
     protected HttpHeaders generateResponseHeaders(NativeWebRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("content-type", "application/json");
-        responseHeaders.set(V, getCurrentVersion().toString());
+        Integer xMinV = null;
+        String minV = request.getHeader(MIN_V);
+        if (StringUtils.hasText(minV)) {
+            xMinV = Integer.parseInt(minV);
+        }
+        Integer xV = Integer.parseInt(request.getHeader(V));
+        responseHeaders.set(V, "" + getSupportedVersion(xMinV, xV));
         String correlationId = request.getHeader(CORRELATION_ID);
         if (!StringUtils.isEmpty(correlationId)) {
             responseHeaders.set(CORRELATION_ID, correlationId);
@@ -72,8 +83,7 @@ public class ApiControllerBase {
         }
     }
 
-    protected void validateHeaders(String xCdsUserAgent,
-                                   String xCdsSubject,
+    protected void validateHeaders(String xCdsClientHeaders,
                                    String xFapiCustomerIpAddress,
                                    Integer xMinV, Integer xV) {
         validateHeaders(xMinV, xV);
@@ -82,10 +92,10 @@ public class ApiControllerBase {
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {
                 throw new ValidationException("request header x-fapi-customer-ip-address is not valid IP address");
             }
-            if (StringUtils.isEmpty(xCdsUserAgent)) {
-                throw new ValidationException("request header x-cds-user-agent is not present");
-            } else if (!xCdsUserAgent.matches(BASE64_PATTERN)) {
-                throw new ValidationException("request header x-cds-user-agent is not Base64 encoded");
+            if (StringUtils.isEmpty(xCdsClientHeaders)) {
+                throw new ValidationException("request header x-cds-client-headers is not present");
+            } else if (!xCdsClientHeaders.matches(BASE64_PATTERN)) {
+                throw new ValidationException("request header x-cds-client-headers is not Base64 encoded");
             }
         }
     }

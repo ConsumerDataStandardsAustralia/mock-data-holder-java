@@ -19,15 +19,17 @@ import java.util.*;
 
 public class ModelConformanceConverter {
 
-    public static ConformanceModel convert(APIModel apiModel) {
+    public static ConformanceModel convert(List<APIModel> apiModels) {
         ConformanceModel conformanceModel = new ConformanceModel();
         Map<String, String> endpointVersionMap = new HashMap<>();
-        Map<String, Map<ResponseCode, EndpointResponse>> responseMap = new HashMap<>();
+        Map<String, List<Map<ResponseCode, EndpointResponse>>> responseMap = new HashMap<>();
         Map<Class<?>, Payload> payloadMap = new HashMap<>();
         Set<Class<?>> processedClasses = new HashSet<>();
-        for (SectionModel sectionModel : apiModel.getSectionModels()) {
-            for (EndpointModel endpointModel : sectionModel.getEndpointModels()) {
-                add(endpointModel, endpointVersionMap, responseMap, payloadMap, processedClasses);
+        for (APIModel apiModel : apiModels) {
+            for (SectionModel sectionModel : apiModel.getSectionModels()) {
+                for (EndpointModel endpointModel : sectionModel.getEndpointModels()) {
+                    add(endpointModel, endpointVersionMap, responseMap, payloadMap, processedClasses);
+                }
             }
         }
         conformanceModel.setEndpointVersionMap(endpointVersionMap);
@@ -38,7 +40,7 @@ public class ModelConformanceConverter {
 
     private static void add(EndpointModel endpointModel,
                             Map<String, String> endpointVersionMap,
-                            Map<String, Map<ResponseCode, EndpointResponse>> responseMap,
+                            Map<String, List<Map<ResponseCode, EndpointResponse>>> responseMap,
                             Map<Class<?>, Payload> payloadMap,
                             Set<Class<?>> processedClasses) {
         Set<ParamModel> bodyParams = endpointModel.getBodyParams();
@@ -46,12 +48,27 @@ public class ModelConformanceConverter {
             processBodyParams(endpointModel, bodyParams, payloadMap, processedClasses);
         }
         String operationId = endpointModel.getEndpoint().operationId();
-        endpointVersionMap.put(operationId, endpointModel.getCustomAttributeValue(Extension.VERSION.getKey()));
+        String version = endpointModel.getCustomAttributeValue(Extension.VERSION.getKey());
+        endpointVersionMap.put(operationId, version);
         for (EndpointResponse response : endpointModel.getEndpoint().responses()) {
-            responseMap.computeIfAbsent(operationId, k -> new HashMap<>());
-            responseMap.get(operationId).put(response.responseCode(), response);
+            responseMap.computeIfAbsent(operationId, k -> new ArrayList<>());
+            int versionNumber = Integer.parseInt(version);
+            List<Map<ResponseCode, EndpointResponse>> versions = responseMap.get(operationId);
+            if (versions.size() < versionNumber) {
+                versions.add(new HashMap<>());
+            }
+            Map<ResponseCode, EndpointResponse> responseCodeEndpointResponseMap = versions.get(versionNumber - 1);
+            ResponseCode responseCode = response.responseCode();
+            EndpointResponse loadedResponse = responseCodeEndpointResponseMap.get(responseCode);
+            if ( loadedResponse == null || isFirstNewer(response, loadedResponse)) { // only add newest response for the same version and same code
+                responseCodeEndpointResponseMap.put(responseCode, response);
+            }
             processResponseBody(endpointModel, response, payloadMap, processedClasses);
         }
+    }
+
+    private static boolean isFirstNewer(EndpointResponse endpointResponse1, EndpointResponse endpointResponse2) {
+        return endpointResponse1.content().getName().compareTo(endpointResponse2.content().getName()) > 0;
     }
 
     private static void processBodyParams(EndpointModel endpointModel,

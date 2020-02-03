@@ -49,7 +49,7 @@ public class Common extends ApiCliBase {
         root.setLevel(currentLevel);
     }
 
-    @ShellMethod("Set browser user-agent")
+    @ShellMethod("Set browser user-agent. Sent in User-Agent and x-cds-client-headers HTTP headers. Default is Client CLI (Property: user.agent)")
     public void setUserAgent(@ShellOption String userAgent) {
         apiClientOptions.setUserAgent(userAgent);
     }

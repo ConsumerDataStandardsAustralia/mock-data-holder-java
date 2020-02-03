@@ -12,17 +12,17 @@ import java.util.Objects;
 public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
 
     public enum Purpose {
-        MAIL,
-        OTHER,
-        PHYSICAL,
         REGISTERED,
-        WORK
+        MAIL,
+        PHYSICAL,
+        WORK,
+        OTHER
     }
 
     private Purpose purpose;
 
     /**
-     * Get purpose
+     * Enumeration of values indicating the purpose of the physical address
      * @return purpose
      */
     public Purpose getPurpose() {
@@ -57,8 +57,8 @@ public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
     public String toString() {
         return "class CommonPhysicalAddressWithPurpose {\n" +
             "   addressUType: " + toIndentedString(getAddressUType()) + "\n" + 
-            "   paf: " + toIndentedString(getPaf()) + "\n" + 
             "   simple: " + toIndentedString(getSimple()) + "\n" + 
+            "   paf: " + toIndentedString(getPaf()) + "\n" + 
             "   purpose: " + toIndentedString(purpose) + "\n" + 
             "}";
     }

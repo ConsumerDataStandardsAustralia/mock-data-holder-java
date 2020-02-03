@@ -9,7 +9,11 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 public class ModelBuilder {
 
@@ -24,17 +28,26 @@ public class ModelBuilder {
         this.options = options;
     }
 
-    public APIModel build() {
-        APIModel apiModel = new APIModel();
+    public List<APIModel> build() {
+        Map<String, APIModel> apiModelMap = new TreeMap<>();
         Reflections reflections = new Reflections(BASE_PACKAGE);
         Set<Class<?>> sectionClasses = reflections.getTypesAnnotatedWith(Section.class);
         for (Class<?> sectionClass : sectionClasses) {
+            String version = getVersion(sectionClass.getName());
+            apiModelMap.computeIfAbsent(version, k -> new APIModel());
+            APIModel apiModel = apiModelMap.get(version);
             Section section = sectionClass.getAnnotation(Section.class);
             if (options == null || options.isSectionIncluded(section.name())) {
                 apiModel.add(buildSectionModel(section, sectionClass));
             }
         }
-        return apiModel;
+        return new ArrayList<>(apiModelMap.values());
+    }
+
+    private String getVersion(String className) {
+        return className.replace(BASE_PACKAGE, "").split("\\.")[1]
+            .replace("v", "")
+            .replace('_', '.');
     }
 
     private SectionModel buildSectionModel(Section section, Class<?> sectionClass) {
@@ -47,7 +60,7 @@ public class ModelBuilder {
         return sectionModel;
     }
 
-    private EndpointModel buildEndpointModel(Method method) {        
+    private EndpointModel buildEndpointModel(Method method) {
         Endpoint endpoint = method.getAnnotation(Endpoint.class);
         EndpointModel endpointModel = new EndpointModel(endpoint);
         CustomAttributesUtil.addCustomAttributes(method, endpointModel);

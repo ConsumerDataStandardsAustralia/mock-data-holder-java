@@ -11,23 +11,35 @@ import java.util.Objects;
 
 public class BankingInternationalPayeeBankDetails {
 
+    private String country;
+
     private String accountNumber;
 
     private BankingInternationalPayeeBankDetailsBankAddress bankAddress;
 
     private String beneficiaryBankBIC;
 
-    private String chipNumber;
-
-    private String country;
-
     private String fedWireNumber;
 
-    private String legalEntityIdentifier;
+    private String sortCode;
+
+    private String chipNumber;
 
     private String routingNumber;
 
-    private String sortCode;
+    private String legalEntityIdentifier;
+
+    /**
+     * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+     * @return country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     /**
      * Account Targeted for payment
@@ -66,30 +78,6 @@ public class BankingInternationalPayeeBankDetails {
     }
 
     /**
-     * Number for the Clearing House Interbank Payments System
-     * @return chipNumber
-     */
-    public String getChipNumber() {
-        return chipNumber;
-    }
-
-    public void setChipNumber(String chipNumber) {
-        this.chipNumber = chipNumber;
-    }
-
-    /**
-     * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
-     * @return country
-     */
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    /**
      * Number for Fedwire payment (Federal Reserve Wire Network)
      * @return fedWireNumber
      */
@@ -102,15 +90,27 @@ public class BankingInternationalPayeeBankDetails {
     }
 
     /**
-     * The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)
-     * @return legalEntityIdentifier
+     * Sort code used for account identification in some jurisdictions
+     * @return sortCode
      */
-    public String getLegalEntityIdentifier() {
-        return legalEntityIdentifier;
+    public String getSortCode() {
+        return sortCode;
     }
 
-    public void setLegalEntityIdentifier(String legalEntityIdentifier) {
-        this.legalEntityIdentifier = legalEntityIdentifier;
+    public void setSortCode(String sortCode) {
+        this.sortCode = sortCode;
+    }
+
+    /**
+     * Number for the Clearing House Interbank Payments System
+     * @return chipNumber
+     */
+    public String getChipNumber() {
+        return chipNumber;
+    }
+
+    public void setChipNumber(String chipNumber) {
+        this.chipNumber = chipNumber;
     }
 
     /**
@@ -126,15 +126,15 @@ public class BankingInternationalPayeeBankDetails {
     }
 
     /**
-     * Sort code used for account identification in some jurisdictions
-     * @return sortCode
+     * The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)
+     * @return legalEntityIdentifier
      */
-    public String getSortCode() {
-        return sortCode;
+    public String getLegalEntityIdentifier() {
+        return legalEntityIdentifier;
     }
 
-    public void setSortCode(String sortCode) {
-        this.sortCode = sortCode;
+    public void setLegalEntityIdentifier(String legalEntityIdentifier) {
+        this.legalEntityIdentifier = legalEntityIdentifier;
     }
 
     @Override
@@ -146,43 +146,43 @@ public class BankingInternationalPayeeBankDetails {
             return false;
         }
         BankingInternationalPayeeBankDetails bankingInternationalPayeeBankDetails = (BankingInternationalPayeeBankDetails) o;
-        return Objects.equals(this.accountNumber, bankingInternationalPayeeBankDetails.accountNumber) &&
+        return Objects.equals(this.country, bankingInternationalPayeeBankDetails.country) &&
+            Objects.equals(this.accountNumber, bankingInternationalPayeeBankDetails.accountNumber) &&
             Objects.equals(this.bankAddress, bankingInternationalPayeeBankDetails.bankAddress) &&
             Objects.equals(this.beneficiaryBankBIC, bankingInternationalPayeeBankDetails.beneficiaryBankBIC) &&
-            Objects.equals(this.chipNumber, bankingInternationalPayeeBankDetails.chipNumber) &&
-            Objects.equals(this.country, bankingInternationalPayeeBankDetails.country) &&
             Objects.equals(this.fedWireNumber, bankingInternationalPayeeBankDetails.fedWireNumber) &&
-            Objects.equals(this.legalEntityIdentifier, bankingInternationalPayeeBankDetails.legalEntityIdentifier) &&
+            Objects.equals(this.sortCode, bankingInternationalPayeeBankDetails.sortCode) &&
+            Objects.equals(this.chipNumber, bankingInternationalPayeeBankDetails.chipNumber) &&
             Objects.equals(this.routingNumber, bankingInternationalPayeeBankDetails.routingNumber) &&
-            Objects.equals(this.sortCode, bankingInternationalPayeeBankDetails.sortCode);
+            Objects.equals(this.legalEntityIdentifier, bankingInternationalPayeeBankDetails.legalEntityIdentifier);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            country,
             accountNumber,
             bankAddress,
             beneficiaryBankBIC,
-            chipNumber,
-            country,
             fedWireNumber,
-            legalEntityIdentifier,
+            sortCode,
+            chipNumber,
             routingNumber,
-            sortCode);
+            legalEntityIdentifier);
     }
 
     @Override
     public String toString() {
         return "class BankingInternationalPayeeBankDetails {\n" +
+            "   country: " + toIndentedString(country) + "\n" + 
             "   accountNumber: " + toIndentedString(accountNumber) + "\n" + 
             "   bankAddress: " + toIndentedString(bankAddress) + "\n" + 
             "   beneficiaryBankBIC: " + toIndentedString(beneficiaryBankBIC) + "\n" + 
-            "   chipNumber: " + toIndentedString(chipNumber) + "\n" + 
-            "   country: " + toIndentedString(country) + "\n" + 
             "   fedWireNumber: " + toIndentedString(fedWireNumber) + "\n" + 
-            "   legalEntityIdentifier: " + toIndentedString(legalEntityIdentifier) + "\n" + 
-            "   routingNumber: " + toIndentedString(routingNumber) + "\n" + 
             "   sortCode: " + toIndentedString(sortCode) + "\n" + 
+            "   chipNumber: " + toIndentedString(chipNumber) + "\n" + 
+            "   routingNumber: " + toIndentedString(routingNumber) + "\n" + 
+            "   legalEntityIdentifier: " + toIndentedString(legalEntityIdentifier) + "\n" + 
             "}";
     }
 

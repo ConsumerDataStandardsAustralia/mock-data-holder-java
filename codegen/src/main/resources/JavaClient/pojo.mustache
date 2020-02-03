@@ -71,7 +71,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
     @Override
     public String toString() {
         return "class {{classname}} {\n" +{{#vars}}
-            "   {{name}}: " + toIndentedString({{^isInherited}}{{name}}{{/isInherited}}{{#isInherited}}{{getter}}(){{/isInherited}}) + "\n" + {{/vars}}
+            "   {{name}}: " + toIndentedString({{^isInherited}}{{name}}{{/isInherited}}{{#isInherited}}{{getter}}(){{/isInherited}}) + "\n" +{{/vars}}
             "}";
     }{{#hasVars}}
 

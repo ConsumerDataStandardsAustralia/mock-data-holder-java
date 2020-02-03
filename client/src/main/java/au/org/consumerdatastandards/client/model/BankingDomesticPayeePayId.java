@@ -12,29 +12,17 @@ import java.util.Objects;
 public class BankingDomesticPayeePayId {
 
     public enum Type {
-        ABN,
         EMAIL,
-        ORG_IDENTIFIER,
-        TELEPHONE
+        TELEPHONE,
+        ABN,
+        ORG_IDENTIFIER
     }
-
-    private String identifier;
 
     private String name;
 
+    private String identifier;
+
     private Type type;
-
-    /**
-     * The identifier of the PayID (dependent on type)
-     * @return identifier
-     */
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
 
     /**
      * The name assigned to the PayID by the owner of the PayID
@@ -49,7 +37,19 @@ public class BankingDomesticPayeePayId {
     }
 
     /**
-     * Get type
+     * The identifier of the PayID (dependent on type)
+     * @return identifier
+     */
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    /**
+     * The type of the PayID
      * @return type
      */
     public Type getType() {
@@ -69,24 +69,24 @@ public class BankingDomesticPayeePayId {
             return false;
         }
         BankingDomesticPayeePayId bankingDomesticPayeePayId = (BankingDomesticPayeePayId) o;
-        return Objects.equals(this.identifier, bankingDomesticPayeePayId.identifier) &&
-            Objects.equals(this.name, bankingDomesticPayeePayId.name) &&
+        return Objects.equals(this.name, bankingDomesticPayeePayId.name) &&
+            Objects.equals(this.identifier, bankingDomesticPayeePayId.identifier) &&
             Objects.equals(this.type, bankingDomesticPayeePayId.type);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            identifier,
             name,
+            identifier,
             type);
     }
 
     @Override
     public String toString() {
         return "class BankingDomesticPayeePayId {\n" +
-            "   identifier: " + toIndentedString(identifier) + "\n" + 
             "   name: " + toIndentedString(name) + "\n" + 
+            "   identifier: " + toIndentedString(identifier) + "\n" + 
             "   type: " + toIndentedString(type) + "\n" + 
             "}";
     }

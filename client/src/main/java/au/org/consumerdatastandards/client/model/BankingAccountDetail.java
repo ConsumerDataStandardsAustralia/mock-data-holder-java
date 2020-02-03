@@ -13,62 +13,38 @@ import java.util.Objects;
 public class BankingAccountDetail extends BankingAccount {
 
     public enum SpecificAccountUType {
+        termDeposit,
         creditCard,
-        loan,
-        termDeposit
+        loan
     }
-
-    private String accountNumber;
-
-    private List<CommonPhysicalAddress> addresses;
 
     private String bsb;
 
+    private String accountNumber;
+
     private String bundleName;
+
+    private SpecificAccountUType specificAccountUType;
+
+    private List<BankingTermDepositAccount> termDeposit;
 
     private BankingCreditCardAccount creditCard;
 
+    private BankingLoanAccount loan;
+
     private String depositRate;
 
+    private String lendingRate;
+
     private List<BankingProductDepositRate> depositRates;
+
+    private List<BankingProductLendingRate> lendingRates;
 
     private List<Object> features;
 
     private List<BankingProductFee> fees;
 
-    private String lendingRate;
-
-    private List<BankingProductLendingRate> lendingRates;
-
-    private BankingLoanAccount loan;
-
-    private SpecificAccountUType specificAccountUType;
-
-    private BankingTermDepositAccount termDeposit;
-
-    /**
-     * The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
-     * @return accountNumber
-     */
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    /**
-     * The addresses for the account to be used for correspondence
-     * @return addresses
-     */
-    public List<CommonPhysicalAddress> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<CommonPhysicalAddress> addresses) {
-        this.addresses = addresses;
-    }
+    private List<CommonPhysicalAddress> addresses;
 
     /**
      * The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
@@ -80,6 +56,18 @@ public class BankingAccountDetail extends BankingAccount {
 
     public void setBsb(String bsb) {
         this.bsb = bsb;
+    }
+
+    /**
+     * The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
+     * @return accountNumber
+     */
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     /**
@@ -95,6 +83,30 @@ public class BankingAccountDetail extends BankingAccount {
     }
 
     /**
+     * The type of structure to present account specific fields.
+     * @return specificAccountUType
+     */
+    public SpecificAccountUType getSpecificAccountUType() {
+        return specificAccountUType;
+    }
+
+    public void setSpecificAccountUType(SpecificAccountUType specificAccountUType) {
+        this.specificAccountUType = specificAccountUType;
+    }
+
+    /**
+     * Get termDeposit
+     * @return termDeposit
+     */
+    public List<BankingTermDepositAccount> getTermDeposit() {
+        return termDeposit;
+    }
+
+    public void setTermDeposit(List<BankingTermDepositAccount> termDeposit) {
+        this.termDeposit = termDeposit;
+    }
+
+    /**
      * Get creditCard
      * @return creditCard
      */
@@ -104,6 +116,18 @@ public class BankingAccountDetail extends BankingAccount {
 
     public void setCreditCard(BankingCreditCardAccount creditCard) {
         this.creditCard = creditCard;
+    }
+
+    /**
+     * Get loan
+     * @return loan
+     */
+    public BankingLoanAccount getLoan() {
+        return loan;
+    }
+
+    public void setLoan(BankingLoanAccount loan) {
+        this.loan = loan;
     }
 
     /**
@@ -119,6 +143,18 @@ public class BankingAccountDetail extends BankingAccount {
     }
 
     /**
+     * The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call
+     * @return lendingRate
+     */
+    public String getLendingRate() {
+        return lendingRate;
+    }
+
+    public void setLendingRate(String lendingRate) {
+        this.lendingRate = lendingRate;
+    }
+
+    /**
      * Fully described deposit rates for this account based on the equivalent structure in Product Reference
      * @return depositRates
      */
@@ -128,6 +164,18 @@ public class BankingAccountDetail extends BankingAccount {
 
     public void setDepositRates(List<BankingProductDepositRate> depositRates) {
         this.depositRates = depositRates;
+    }
+
+    /**
+     * Fully described deposit rates for this account based on the equivalent structure in Product Reference
+     * @return lendingRates
+     */
+    public List<BankingProductLendingRate> getLendingRates() {
+        return lendingRates;
+    }
+
+    public void setLendingRates(List<BankingProductLendingRate> lendingRates) {
+        this.lendingRates = lendingRates;
     }
 
     /**
@@ -155,63 +203,15 @@ public class BankingAccountDetail extends BankingAccount {
     }
 
     /**
-     * The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call
-     * @return lendingRate
+     * The addresses for the account to be used for correspondence
+     * @return addresses
      */
-    public String getLendingRate() {
-        return lendingRate;
+    public List<CommonPhysicalAddress> getAddresses() {
+        return addresses;
     }
 
-    public void setLendingRate(String lendingRate) {
-        this.lendingRate = lendingRate;
-    }
-
-    /**
-     * Fully described deposit rates for this account based on the equivalent structure in Product Reference
-     * @return lendingRates
-     */
-    public List<BankingProductLendingRate> getLendingRates() {
-        return lendingRates;
-    }
-
-    public void setLendingRates(List<BankingProductLendingRate> lendingRates) {
-        this.lendingRates = lendingRates;
-    }
-
-    /**
-     * Get loan
-     * @return loan
-     */
-    public BankingLoanAccount getLoan() {
-        return loan;
-    }
-
-    public void setLoan(BankingLoanAccount loan) {
-        this.loan = loan;
-    }
-
-    /**
-     * Get specificAccountUType
-     * @return specificAccountUType
-     */
-    public SpecificAccountUType getSpecificAccountUType() {
-        return specificAccountUType;
-    }
-
-    public void setSpecificAccountUType(SpecificAccountUType specificAccountUType) {
-        this.specificAccountUType = specificAccountUType;
-    }
-
-    /**
-     * Get termDeposit
-     * @return termDeposit
-     */
-    public BankingTermDepositAccount getTermDeposit() {
-        return termDeposit;
-    }
-
-    public void setTermDeposit(BankingTermDepositAccount termDeposit) {
-        this.termDeposit = termDeposit;
+    public void setAddresses(List<CommonPhysicalAddress> addresses) {
+        this.addresses = addresses;
     }
 
     @Override
@@ -223,69 +223,69 @@ public class BankingAccountDetail extends BankingAccount {
             return false;
         }
         BankingAccountDetail bankingAccountDetail = (BankingAccountDetail) o;
-        return Objects.equals(this.accountNumber, bankingAccountDetail.accountNumber) &&
-            Objects.equals(this.addresses, bankingAccountDetail.addresses) &&
-            Objects.equals(this.bsb, bankingAccountDetail.bsb) &&
+        return Objects.equals(this.bsb, bankingAccountDetail.bsb) &&
+            Objects.equals(this.accountNumber, bankingAccountDetail.accountNumber) &&
             Objects.equals(this.bundleName, bankingAccountDetail.bundleName) &&
-            Objects.equals(this.creditCard, bankingAccountDetail.creditCard) &&
-            Objects.equals(this.depositRate, bankingAccountDetail.depositRate) &&
-            Objects.equals(this.depositRates, bankingAccountDetail.depositRates) &&
-            Objects.equals(this.features, bankingAccountDetail.features) &&
-            Objects.equals(this.fees, bankingAccountDetail.fees) &&
-            Objects.equals(this.lendingRate, bankingAccountDetail.lendingRate) &&
-            Objects.equals(this.lendingRates, bankingAccountDetail.lendingRates) &&
-            Objects.equals(this.loan, bankingAccountDetail.loan) &&
             Objects.equals(this.specificAccountUType, bankingAccountDetail.specificAccountUType) &&
             Objects.equals(this.termDeposit, bankingAccountDetail.termDeposit) &&
+            Objects.equals(this.creditCard, bankingAccountDetail.creditCard) &&
+            Objects.equals(this.loan, bankingAccountDetail.loan) &&
+            Objects.equals(this.depositRate, bankingAccountDetail.depositRate) &&
+            Objects.equals(this.lendingRate, bankingAccountDetail.lendingRate) &&
+            Objects.equals(this.depositRates, bankingAccountDetail.depositRates) &&
+            Objects.equals(this.lendingRates, bankingAccountDetail.lendingRates) &&
+            Objects.equals(this.features, bankingAccountDetail.features) &&
+            Objects.equals(this.fees, bankingAccountDetail.fees) &&
+            Objects.equals(this.addresses, bankingAccountDetail.addresses) &&
             super.equals(o);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountNumber,
-            addresses,
             bsb,
+            accountNumber,
             bundleName,
-            creditCard,
-            depositRate,
-            depositRates,
-            features,
-            fees,
-            lendingRate,
-            lendingRates,
-            loan,
             specificAccountUType,
             termDeposit,
+            creditCard,
+            loan,
+            depositRate,
+            lendingRate,
+            depositRates,
+            lendingRates,
+            features,
+            fees,
+            addresses,
             super.hashCode());
     }
 
     @Override
     public String toString() {
         return "class BankingAccountDetail {\n" +
-            "   accountId: " + toIndentedString(getAccountId()) + "\n" + 
-            "   creationDate: " + toIndentedString(getCreationDate()) + "\n" + 
-            "   displayName: " + toIndentedString(getDisplayName()) + "\n" + 
-            "   isOwned: " + toIndentedString(getIsOwned()) + "\n" + 
-            "   maskedNumber: " + toIndentedString(getMaskedNumber()) + "\n" + 
-            "   nickname: " + toIndentedString(getNickname()) + "\n" + 
-            "   openStatus: " + toIndentedString(getOpenStatus()) + "\n" + 
-            "   productCategory: " + toIndentedString(getProductCategory()) + "\n" + 
-            "   productName: " + toIndentedString(getProductName()) + "\n" + 
-            "   accountNumber: " + toIndentedString(accountNumber) + "\n" + 
-            "   addresses: " + toIndentedString(addresses) + "\n" + 
-            "   bsb: " + toIndentedString(bsb) + "\n" + 
-            "   bundleName: " + toIndentedString(bundleName) + "\n" + 
-            "   creditCard: " + toIndentedString(creditCard) + "\n" + 
-            "   depositRate: " + toIndentedString(depositRate) + "\n" + 
-            "   depositRates: " + toIndentedString(depositRates) + "\n" + 
-            "   features: " + toIndentedString(features) + "\n" + 
-            "   fees: " + toIndentedString(fees) + "\n" + 
-            "   lendingRate: " + toIndentedString(lendingRate) + "\n" + 
-            "   lendingRates: " + toIndentedString(lendingRates) + "\n" + 
-            "   loan: " + toIndentedString(loan) + "\n" + 
-            "   specificAccountUType: " + toIndentedString(specificAccountUType) + "\n" + 
-            "   termDeposit: " + toIndentedString(termDeposit) + "\n" + 
+            "   accountId: " + toIndentedString(getAccountId()) + "\n" +
+            "   creationDate: " + toIndentedString(getCreationDate()) + "\n" +
+            "   displayName: " + toIndentedString(getDisplayName()) + "\n" +
+            "   nickname: " + toIndentedString(getNickname()) + "\n" +
+            "   openStatus: " + toIndentedString(getOpenStatus()) + "\n" +
+            "   isOwned: " + toIndentedString(getIsOwned()) + "\n" +
+            "   maskedNumber: " + toIndentedString(getMaskedNumber()) + "\n" +
+            "   productCategory: " + toIndentedString(getProductCategory()) + "\n" +
+            "   productName: " + toIndentedString(getProductName()) + "\n" +
+            "   bsb: " + toIndentedString(bsb) + "\n" +
+            "   accountNumber: " + toIndentedString(accountNumber) + "\n" +
+            "   bundleName: " + toIndentedString(bundleName) + "\n" +
+            "   specificAccountUType: " + toIndentedString(specificAccountUType) + "\n" +
+            "   termDeposit: " + toIndentedString(termDeposit) + "\n" +
+            "   creditCard: " + toIndentedString(creditCard) + "\n" +
+            "   loan: " + toIndentedString(loan) + "\n" +
+            "   depositRate: " + toIndentedString(depositRate) + "\n" +
+            "   lendingRate: " + toIndentedString(lendingRate) + "\n" +
+            "   depositRates: " + toIndentedString(depositRates) + "\n" +
+            "   lendingRates: " + toIndentedString(lendingRates) + "\n" +
+            "   features: " + toIndentedString(features) + "\n" +
+            "   fees: " + toIndentedString(fees) + "\n" +
+            "   addresses: " + toIndentedString(addresses) + "\n" +
             "}";
     }
 

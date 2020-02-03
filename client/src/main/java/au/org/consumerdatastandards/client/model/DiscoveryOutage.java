@@ -12,16 +12,28 @@ import java.util.Objects;
 
 public class DiscoveryOutage {
 
-    private String duration;
+    private OffsetDateTime outageTime;
 
-    private String explanation;
+    private String duration;
 
     private Boolean isPartial;
 
-    private OffsetDateTime outageTime;
+    private String explanation;
 
     /**
-     * Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
+     * Date and time that the outage is scheduled to begin
+     * @return outageTime
+     */
+    public OffsetDateTime getOutageTime() {
+        return outageTime;
+    }
+
+    public void setOutageTime(OffsetDateTime outageTime) {
+        this.outageTime = outageTime;
+    }
+
+    /**
+     * Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
      * @return duration
      */
     public String getDuration() {
@@ -30,18 +42,6 @@ public class DiscoveryOutage {
 
     public void setDuration(String duration) {
         this.duration = duration;
-    }
-
-    /**
-     * Provides an explanation of the current outage that can be displayed to an end customer
-     * @return explanation
-     */
-    public String getExplanation() {
-        return explanation;
-    }
-
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
     }
 
     /**
@@ -57,15 +57,15 @@ public class DiscoveryOutage {
     }
 
     /**
-     * Date and time that the outage is scheduled to begin
-     * @return outageTime
+     * Provides an explanation of the current outage that can be displayed to an end customer
+     * @return explanation
      */
-    public OffsetDateTime getOutageTime() {
-        return outageTime;
+    public String getExplanation() {
+        return explanation;
     }
 
-    public void setOutageTime(OffsetDateTime outageTime) {
-        this.outageTime = outageTime;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     @Override
@@ -77,28 +77,28 @@ public class DiscoveryOutage {
             return false;
         }
         DiscoveryOutage discoveryOutage = (DiscoveryOutage) o;
-        return Objects.equals(this.duration, discoveryOutage.duration) &&
-            Objects.equals(this.explanation, discoveryOutage.explanation) &&
+        return Objects.equals(this.outageTime, discoveryOutage.outageTime) &&
+            Objects.equals(this.duration, discoveryOutage.duration) &&
             Objects.equals(this.isPartial, discoveryOutage.isPartial) &&
-            Objects.equals(this.outageTime, discoveryOutage.outageTime);
+            Objects.equals(this.explanation, discoveryOutage.explanation);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            outageTime,
             duration,
-            explanation,
             isPartial,
-            outageTime);
+            explanation);
     }
 
     @Override
     public String toString() {
         return "class DiscoveryOutage {\n" +
-            "   duration: " + toIndentedString(duration) + "\n" + 
-            "   explanation: " + toIndentedString(explanation) + "\n" + 
-            "   isPartial: " + toIndentedString(isPartial) + "\n" + 
             "   outageTime: " + toIndentedString(outageTime) + "\n" + 
+            "   duration: " + toIndentedString(duration) + "\n" + 
+            "   isPartial: " + toIndentedString(isPartial) + "\n" + 
+            "   explanation: " + toIndentedString(explanation) + "\n" + 
             "}";
     }
 

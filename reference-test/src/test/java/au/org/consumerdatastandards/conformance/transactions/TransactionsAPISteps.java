@@ -1,10 +1,10 @@
 package au.org.consumerdatastandards.conformance.transactions;
 
-import au.org.consumerdatastandards.api.banking.models.BankingTransaction;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionById;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingTransactionListData;
-import au.org.consumerdatastandards.api.banking.models.TxMetaPaginated;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingTransaction;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingTransactionById;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingTransactionList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingTransactionListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.TxMetaPaginated;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
@@ -105,7 +105,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
                 try {
                     responseBankingTransactionList = objectMapper.readValue(json, ResponseBankingTransactionList.class);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionList,
-                            "getTransactions", statusCode));
+                            "getTransactions",getEndpointVersion(getTransactionsResponse), statusCode));
                     ResponseBankingTransactionListData data = (ResponseBankingTransactionListData) getResponseData(responseBankingTransactionList);
                     List<BankingTransaction> transactions = getTransactions(data);
                     if (transactions != null) {
@@ -308,7 +308,7 @@ public class TransactionsAPISteps extends AccountsAPIStepsBase {
                 Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingTransactionById.class);
                 Object responseBankingTransactionById = objectMapper.readValue(json, expandedResponseClass);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingTransactionById,
-                        "getTransactionDetail", statusCode));
+                        "getTransactionDetail", getEndpointVersion(getTransactionDetailResponse), statusCode));
                 Object data = getResponseData(responseBankingTransactionById);
                 checkAccountId(data, accountId, conformanceErrors);
                 checkTransactionId(data, transactionId, conformanceErrors);

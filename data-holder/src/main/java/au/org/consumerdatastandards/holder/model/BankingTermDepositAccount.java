@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 import java.time.LocalDate;
 
@@ -22,6 +23,10 @@ public class BankingTermDepositAccount  {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @JsonIgnore
     private String id;
+
+    @JsonIgnore
+    @ManyToOne
+    private BankingAccountDetail bankingAccountDetail;
 
     /**
      * The lodgement date of the original deposit
@@ -49,6 +54,14 @@ public class BankingTermDepositAccount  {
 
     private MaturityInstructions maturityInstructions;
 
+    public BankingAccountDetail getBankingAccountDetail() {
+        return bankingAccountDetail;
+    }
+
+    public void setBankingAccountDetail(BankingAccountDetail bankingAccountDetail) {
+        this.bankingAccountDetail = bankingAccountDetail;
+    }
+
     public BankingTermDepositAccount lodgementDate(LocalDate lodgementDate) {
         this.lodgementDate = lodgementDate;
         return this;
@@ -62,6 +75,7 @@ public class BankingTermDepositAccount  {
     public void setLodgementDate(LocalDate lodgementDate) {
         this.lodgementDate = lodgementDate;
     }
+
     public BankingTermDepositAccount maturityAmount(String maturityAmount) {
         this.maturityAmount = maturityAmount;
         return this;
@@ -125,6 +139,7 @@ public class BankingTermDepositAccount  {
         }
         BankingTermDepositAccount bankingTermDepositAccount = (BankingTermDepositAccount) o;
         return Objects.equals(this.id, bankingTermDepositAccount.id) &&
+            Objects.equals(this.bankingAccountDetail, bankingTermDepositAccount.bankingAccountDetail) &&
             Objects.equals(this.lodgementDate, bankingTermDepositAccount.lodgementDate) &&
             Objects.equals(this.maturityAmount, bankingTermDepositAccount.maturityAmount) &&
             Objects.equals(this.maturityCurrency, bankingTermDepositAccount.maturityCurrency) &&
@@ -136,6 +151,7 @@ public class BankingTermDepositAccount  {
     public int hashCode() {
         return Objects.hash(
             id,
+            bankingAccountDetail,
             lodgementDate,
             maturityAmount,
             maturityCurrency,
@@ -147,11 +163,12 @@ public class BankingTermDepositAccount  {
     public String toString() {
         return "class BankingTermDepositAccount {\n" +
             "   id: " + toIndentedString(id) + "\n" +
+            "   bankingAccountDetail: " + toIndentedString(bankingAccountDetail) + "\n" +
             "   lodgementDate: " + toIndentedString(lodgementDate) + "\n" +
             "   maturityAmount: " + toIndentedString(maturityAmount) + "\n" +
-            "   maturityCurrency: " + toIndentedString(maturityCurrency) + "\n" + 
-            "   maturityDate: " + toIndentedString(maturityDate) + "\n" + 
-            "   maturityInstructions: " + toIndentedString(maturityInstructions) + "\n" + 
+            "   maturityCurrency: " + toIndentedString(maturityCurrency) + "\n" +
+            "   maturityDate: " + toIndentedString(maturityDate) + "\n" +
+            "   maturityInstructions: " + toIndentedString(maturityInstructions) + "\n" +
             "}";
     }
 

@@ -13,9 +13,9 @@ public class BankingDomesticPayeeAccount {
 
     private String accountName;
 
-    private String accountNumber;
-
     private String bsb;
+
+    private String accountNumber;
 
     /**
      * Name of the account to pay to
@@ -30,18 +30,6 @@ public class BankingDomesticPayeeAccount {
     }
 
     /**
-     * Number of the account to pay to
-     * @return accountNumber
-     */
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    /**
      * BSB of the account to pay to
      * @return bsb
      */
@@ -51,6 +39,18 @@ public class BankingDomesticPayeeAccount {
 
     public void setBsb(String bsb) {
         this.bsb = bsb;
+    }
+
+    /**
+     * Number of the account to pay to
+     * @return accountNumber
+     */
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     @Override
@@ -63,24 +63,24 @@ public class BankingDomesticPayeeAccount {
         }
         BankingDomesticPayeeAccount bankingDomesticPayeeAccount = (BankingDomesticPayeeAccount) o;
         return Objects.equals(this.accountName, bankingDomesticPayeeAccount.accountName) &&
-            Objects.equals(this.accountNumber, bankingDomesticPayeeAccount.accountNumber) &&
-            Objects.equals(this.bsb, bankingDomesticPayeeAccount.bsb);
+            Objects.equals(this.bsb, bankingDomesticPayeeAccount.bsb) &&
+            Objects.equals(this.accountNumber, bankingDomesticPayeeAccount.accountNumber);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             accountName,
-            accountNumber,
-            bsb);
+            bsb,
+            accountNumber);
     }
 
     @Override
     public String toString() {
         return "class BankingDomesticPayeeAccount {\n" +
             "   accountName: " + toIndentedString(accountName) + "\n" + 
-            "   accountNumber: " + toIndentedString(accountNumber) + "\n" + 
             "   bsb: " + toIndentedString(bsb) + "\n" + 
+            "   accountNumber: " + toIndentedString(accountNumber) + "\n" + 
             "}";
     }
 

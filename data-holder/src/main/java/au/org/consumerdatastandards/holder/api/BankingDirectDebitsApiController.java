@@ -49,14 +49,13 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
     public ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebits(String accountId,
                                                                                         Integer page,
                                                                                         Integer pageSize,
-                                                                                        String xCdsUserAgent,
-                                                                                        String xCdsSubject,
+                                                                                        String xCdsClientHeaders,
                                                                                         OffsetDateTime xFapiAuthDate,
                                                                                         String xFapiCustomerIpAddress,
                                                                                         UUID xFapiInteractionId,
                                                                                         Integer xMinV,
                                                                                         Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
@@ -73,14 +72,13 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
                                                                                             ParamProductCategory paramProductCategory,
                                                                                             Integer page,
                                                                                             Integer pageSize,
-                                                                                            String xCdsUserAgent,
-                                                                                            String xCdsSubject,
+                                                                                            String xCdsClientHeaders,
                                                                                             OffsetDateTime xFapiAuthDate,
                                                                                             String xFapiCustomerIpAddress,
                                                                                             UUID xFapiInteractionId,
                                                                                             Integer xMinV,
                                                                                             Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
@@ -102,14 +100,13 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
     public ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsSpecificAccounts(RequestAccountIds accountIds,
                                                                                                         Integer page,
                                                                                                         Integer pageSize,
-                                                                                                        String xCdsUserAgent,
-                                                                                                        String xCdsSubject,
+                                                                                                        String xCdsClientHeaders,
                                                                                                         OffsetDateTime xFapiAuthDate,
                                                                                                         String xFapiCustomerIpAddress,
                                                                                                         UUID xFapiInteractionId,
                                                                                                         Integer xMinV,
                                                                                                         Integer xV) {
-        validateHeaders(xCdsUserAgent, xCdsSubject, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 {{#operations}}
@@ -20,7 +20,7 @@ public class {{classname}} {
 {{>modelInnerEnum}}
 {{/_enums}}
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger({{classname}}.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger({{classname}}.class);
 
     private ApiClient apiClient;
 
@@ -49,12 +49,12 @@ public class {{classname}} {
      * @throws ApiException If fail to serialize the request body object
      {{#responses.0}}
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         {{#responses}}
-        <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
+     *   <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
         {{/responses}}
-     </table>
+     * </table>
      {{/responses.0}}
      {{#isDeprecated}}
      * @deprecated
@@ -112,12 +112,12 @@ public class {{classname}} {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      {{#responses.0}}
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         {{#responses}}
-        <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
+     *   <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
         {{/responses}}
-     </table>
+     * </table>
      {{/responses.0}}
      {{#isDeprecated}}
      * @deprecated
@@ -147,12 +147,12 @@ public class {{classname}} {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      {{#responses.0}}
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <table summary="Response Details" border="1">
+     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         {{#responses}}
-        <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
+     *   <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
         {{/responses}}
-     </table>
+     * </table>
      {{/responses.0}}
      {{#isDeprecated}}
      * @deprecated
@@ -180,12 +180,12 @@ public class {{classname}} {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      {{#responses.0}}
      * http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <table summary="Response Details" border="1">
+     *    <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         {{#responses}}
-        <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
+     *    <tr><td> {{code}} </td><td> {{message}} </td><td> {{#headers}} * {{baseName}} - {{description}} <br> {{/headers}}{{^headers.0}} - {{/headers.0}} </td></tr>
         {{/responses}}
-     </table>
+     * </table>
      {{/responses.0}}
      {{#isDeprecated}}
      * @deprecated

@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.time.OffsetDateTime;
-import java.util.Base64;
 import java.util.Map;
 
 public class ProtectedAPI {
@@ -26,7 +25,6 @@ public class ProtectedAPI {
     protected void addCdsProtectedApiHeaders(Map<String, String> headers) {
         headers.put("x-fapi-customer-ip-address", getIpAddress());
         headers.put("x-fapi-auth-date", OffsetDateTime.now().toString());
-        headers.put("x-cds-user-agent", Base64.getEncoder().encodeToString(apiClient.getUserAgent().getBytes()));
     }
 
     private String getIpAddress() {

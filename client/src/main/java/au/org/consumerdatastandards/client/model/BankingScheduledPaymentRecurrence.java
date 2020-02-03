@@ -15,34 +15,58 @@ import java.util.Objects;
 public class BankingScheduledPaymentRecurrence {
 
     public enum RecurrenceUType {
-        eventBased,
+        onceOff,
         intervalSchedule,
         lastWeekDay,
-        onceOff
+        eventBased
     }
 
-    private BankingScheduledPaymentRecurrenceEventBased eventBased;
+    private LocalDate nextPaymentDate;
+
+    private RecurrenceUType recurrenceUType;
+
+    private BankingScheduledPaymentRecurrenceOnceOff onceOff;
 
     private BankingScheduledPaymentRecurrenceIntervalSchedule intervalSchedule;
 
     private BankingScheduledPaymentRecurrenceLastWeekday lastWeekDay;
 
-    private LocalDate nextPaymentDate;
-
-    private BankingScheduledPaymentRecurrenceOnceOff onceOff;
-
-    private RecurrenceUType recurrenceUType;
+    private BankingScheduledPaymentRecurrenceEventBased eventBased;
 
     /**
-     * Get eventBased
-     * @return eventBased
+     * The date of the next payment under the recurrence schedule
+     * @return nextPaymentDate
      */
-    public BankingScheduledPaymentRecurrenceEventBased getEventBased() {
-        return eventBased;
+    public LocalDate getNextPaymentDate() {
+        return nextPaymentDate;
     }
 
-    public void setEventBased(BankingScheduledPaymentRecurrenceEventBased eventBased) {
-        this.eventBased = eventBased;
+    public void setNextPaymentDate(LocalDate nextPaymentDate) {
+        this.nextPaymentDate = nextPaymentDate;
+    }
+
+    /**
+     * The type of recurrence used to define the schedule
+     * @return recurrenceUType
+     */
+    public RecurrenceUType getRecurrenceUType() {
+        return recurrenceUType;
+    }
+
+    public void setRecurrenceUType(RecurrenceUType recurrenceUType) {
+        this.recurrenceUType = recurrenceUType;
+    }
+
+    /**
+     * Get onceOff
+     * @return onceOff
+     */
+    public BankingScheduledPaymentRecurrenceOnceOff getOnceOff() {
+        return onceOff;
+    }
+
+    public void setOnceOff(BankingScheduledPaymentRecurrenceOnceOff onceOff) {
+        this.onceOff = onceOff;
     }
 
     /**
@@ -70,39 +94,15 @@ public class BankingScheduledPaymentRecurrence {
     }
 
     /**
-     * The date of the next payment under the recurrence schedule
-     * @return nextPaymentDate
+     * Get eventBased
+     * @return eventBased
      */
-    public LocalDate getNextPaymentDate() {
-        return nextPaymentDate;
+    public BankingScheduledPaymentRecurrenceEventBased getEventBased() {
+        return eventBased;
     }
 
-    public void setNextPaymentDate(LocalDate nextPaymentDate) {
-        this.nextPaymentDate = nextPaymentDate;
-    }
-
-    /**
-     * Get onceOff
-     * @return onceOff
-     */
-    public BankingScheduledPaymentRecurrenceOnceOff getOnceOff() {
-        return onceOff;
-    }
-
-    public void setOnceOff(BankingScheduledPaymentRecurrenceOnceOff onceOff) {
-        this.onceOff = onceOff;
-    }
-
-    /**
-     * Get recurrenceUType
-     * @return recurrenceUType
-     */
-    public RecurrenceUType getRecurrenceUType() {
-        return recurrenceUType;
-    }
-
-    public void setRecurrenceUType(RecurrenceUType recurrenceUType) {
-        this.recurrenceUType = recurrenceUType;
+    public void setEventBased(BankingScheduledPaymentRecurrenceEventBased eventBased) {
+        this.eventBased = eventBased;
     }
 
     @Override
@@ -114,34 +114,34 @@ public class BankingScheduledPaymentRecurrence {
             return false;
         }
         BankingScheduledPaymentRecurrence bankingScheduledPaymentRecurrence = (BankingScheduledPaymentRecurrence) o;
-        return Objects.equals(this.eventBased, bankingScheduledPaymentRecurrence.eventBased) &&
+        return Objects.equals(this.nextPaymentDate, bankingScheduledPaymentRecurrence.nextPaymentDate) &&
+            Objects.equals(this.recurrenceUType, bankingScheduledPaymentRecurrence.recurrenceUType) &&
+            Objects.equals(this.onceOff, bankingScheduledPaymentRecurrence.onceOff) &&
             Objects.equals(this.intervalSchedule, bankingScheduledPaymentRecurrence.intervalSchedule) &&
             Objects.equals(this.lastWeekDay, bankingScheduledPaymentRecurrence.lastWeekDay) &&
-            Objects.equals(this.nextPaymentDate, bankingScheduledPaymentRecurrence.nextPaymentDate) &&
-            Objects.equals(this.onceOff, bankingScheduledPaymentRecurrence.onceOff) &&
-            Objects.equals(this.recurrenceUType, bankingScheduledPaymentRecurrence.recurrenceUType);
+            Objects.equals(this.eventBased, bankingScheduledPaymentRecurrence.eventBased);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            eventBased,
+            nextPaymentDate,
+            recurrenceUType,
+            onceOff,
             intervalSchedule,
             lastWeekDay,
-            nextPaymentDate,
-            onceOff,
-            recurrenceUType);
+            eventBased);
     }
 
     @Override
     public String toString() {
         return "class BankingScheduledPaymentRecurrence {\n" +
-            "   eventBased: " + toIndentedString(eventBased) + "\n" + 
-            "   intervalSchedule: " + toIndentedString(intervalSchedule) + "\n" + 
-            "   lastWeekDay: " + toIndentedString(lastWeekDay) + "\n" + 
-            "   nextPaymentDate: " + toIndentedString(nextPaymentDate) + "\n" + 
-            "   onceOff: " + toIndentedString(onceOff) + "\n" + 
-            "   recurrenceUType: " + toIndentedString(recurrenceUType) + "\n" + 
+            "   nextPaymentDate: " + toIndentedString(nextPaymentDate) + "\n" +
+            "   recurrenceUType: " + toIndentedString(recurrenceUType) + "\n" +
+            "   onceOff: " + toIndentedString(onceOff) + "\n" +
+            "   intervalSchedule: " + toIndentedString(intervalSchedule) + "\n" +
+            "   lastWeekDay: " + toIndentedString(lastWeekDay) + "\n" +
+            "   eventBased: " + toIndentedString(eventBased) + "\n" +
             "}";
     }
 

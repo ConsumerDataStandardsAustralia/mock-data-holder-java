@@ -14,15 +14,15 @@ public class BankingBalance {
 
     private String accountId;
 
-    private String amortisedLimit;
+    private String currentBalance;
 
     private String availableBalance;
 
     private String creditLimit;
 
-    private String currency;
+    private String amortisedLimit;
 
-    private String currentBalance;
+    private String currency;
 
     private List<BankingBalancePurse> purses;
 
@@ -39,15 +39,15 @@ public class BankingBalance {
     }
 
     /**
-     * Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent
-     * @return amortisedLimit
+     * The balance of the account at this time. Should align to the balance available via other channels such as Internet Banking. Assumed to be negative if the customer has money owing
+     * @return currentBalance
      */
-    public String getAmortisedLimit() {
-        return amortisedLimit;
+    public String getCurrentBalance() {
+        return currentBalance;
     }
 
-    public void setAmortisedLimit(String amortisedLimit) {
-        this.amortisedLimit = amortisedLimit;
+    public void setCurrentBalance(String currentBalance) {
+        this.currentBalance = currentBalance;
     }
 
     /**
@@ -75,6 +75,18 @@ public class BankingBalance {
     }
 
     /**
+     * Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent
+     * @return amortisedLimit
+     */
+    public String getAmortisedLimit() {
+        return amortisedLimit;
+    }
+
+    public void setAmortisedLimit(String amortisedLimit) {
+        this.amortisedLimit = amortisedLimit;
+    }
+
+    /**
      * The currency for the balance amounts. If absent assumed to be AUD
      * @return currency
      */
@@ -84,18 +96,6 @@ public class BankingBalance {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    /**
-     * The balance of the account at this time. Should align to the balance available via other channels such as Internet Banking. Assumed to be negative if the customer has money owing
-     * @return currentBalance
-     */
-    public String getCurrentBalance() {
-        return currentBalance;
-    }
-
-    public void setCurrentBalance(String currentBalance) {
-        this.currentBalance = currentBalance;
     }
 
     /**
@@ -120,11 +120,11 @@ public class BankingBalance {
         }
         BankingBalance bankingBalance = (BankingBalance) o;
         return Objects.equals(this.accountId, bankingBalance.accountId) &&
-            Objects.equals(this.amortisedLimit, bankingBalance.amortisedLimit) &&
+            Objects.equals(this.currentBalance, bankingBalance.currentBalance) &&
             Objects.equals(this.availableBalance, bankingBalance.availableBalance) &&
             Objects.equals(this.creditLimit, bankingBalance.creditLimit) &&
+            Objects.equals(this.amortisedLimit, bankingBalance.amortisedLimit) &&
             Objects.equals(this.currency, bankingBalance.currency) &&
-            Objects.equals(this.currentBalance, bankingBalance.currentBalance) &&
             Objects.equals(this.purses, bankingBalance.purses);
     }
 
@@ -132,11 +132,11 @@ public class BankingBalance {
     public int hashCode() {
         return Objects.hash(
             accountId,
-            amortisedLimit,
+            currentBalance,
             availableBalance,
             creditLimit,
+            amortisedLimit,
             currency,
-            currentBalance,
             purses);
     }
 
@@ -144,11 +144,11 @@ public class BankingBalance {
     public String toString() {
         return "class BankingBalance {\n" +
             "   accountId: " + toIndentedString(accountId) + "\n" + 
-            "   amortisedLimit: " + toIndentedString(amortisedLimit) + "\n" + 
+            "   currentBalance: " + toIndentedString(currentBalance) + "\n" + 
             "   availableBalance: " + toIndentedString(availableBalance) + "\n" + 
             "   creditLimit: " + toIndentedString(creditLimit) + "\n" + 
+            "   amortisedLimit: " + toIndentedString(amortisedLimit) + "\n" + 
             "   currency: " + toIndentedString(currency) + "\n" + 
-            "   currentBalance: " + toIndentedString(currentBalance) + "\n" + 
             "   purses: " + toIndentedString(purses) + "\n" + 
             "}";
     }

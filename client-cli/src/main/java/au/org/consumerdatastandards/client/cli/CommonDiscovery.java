@@ -7,10 +7,11 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.api.CommonDiscoveryAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
-import au.org.consumerdatastandards.client.model.CommonDiscoveryStatus;
+import au.org.consumerdatastandards.client.model.ResponseCommonDiscoveryStatus;
 import au.org.consumerdatastandards.client.model.ResponseDiscoveryOutagesList;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.PayloadValidator;
@@ -39,12 +40,14 @@ public class CommonDiscovery extends ApiCliBase {
         LOGGER.info("Get outages CLI initiated");
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
-        ResponseDiscoveryOutagesList response = api.getOutages();
+        ApiResponse<ResponseDiscoveryOutagesList> response = api.getOutagesWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getOutagesCall(null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getOutages", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getOutages", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -58,12 +61,14 @@ public class CommonDiscovery extends ApiCliBase {
         LOGGER.info("Get status CLI initiated");
 
         api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
-        CommonDiscoveryStatus response = api.getStatus();
+        ApiResponse<ResponseCommonDiscoveryStatus> response = api.getStatusWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getStatusCall(null);
+            String requestUrl = call.request().url().toString();
+            int endpointVersion = getEndpointVersion(response);
             List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(call.request().url().toString(), response, "getStatus", ResponseCode.OK);
+                .validateResponse(requestUrl, response.getData(), "getStatus", endpointVersion, ResponseCode.OK);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

@@ -10,19 +10,19 @@ package au.org.consumerdatastandards.client.model;
 import java.util.List;
 import java.util.Objects;
 
-public class ResponseBankingProductListData {
+public class ResponseBankingProductListData<T extends BankingProduct> {
 
-    private List<BankingProduct> products;
+    private List<T> products;
 
     /**
      * The list of products returned.  If the filter results in an empty set then this array may have no records
      * @return products
      */
-    public List<BankingProduct> getProducts() {
+    public List<T> getProducts() {
         return products;
     }
 
-    public void setProducts(List<BankingProduct> products) {
+    public void setProducts(List<T> products) {
         this.products = products;
     }
 
@@ -47,7 +47,7 @@ public class ResponseBankingProductListData {
     @Override
     public String toString() {
         return "class ResponseBankingProductListData {\n" +
-            "   products: " + toIndentedString(products) + "\n" + 
+            "   products: " + toIndentedString(products) + "\n" +
             "}";
     }
 

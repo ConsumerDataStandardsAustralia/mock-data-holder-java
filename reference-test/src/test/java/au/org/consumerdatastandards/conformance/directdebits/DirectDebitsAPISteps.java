@@ -1,10 +1,10 @@
 package au.org.consumerdatastandards.conformance.directdebits;
 
-import au.org.consumerdatastandards.api.banking.models.BankingDirectDebit;
-import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingDirectDebitAuthorisationListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingDirectDebit;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingDirectDebitAuthorisationList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingDirectDebitAuthorisationListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
@@ -93,7 +93,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
             try {
                 ResponseBankingDirectDebitAuthorisationList responseDirectDebitList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseDirectDebitList,
-                        "listDirectDebitsBulk", statusCode));
+                        "listDirectDebitsBulk", getEndpointVersion(listDirectDebitsBulkResponse), statusCode));
 
                 ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseDirectDebitList);
                 return getDirectDebitList(data);
@@ -162,7 +162,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
                 try {
                     ResponseBankingDirectDebitAuthorisationList responseBankingDirectDebitAuthorisationList = objectMapper.readValue(json, ResponseBankingDirectDebitAuthorisationList.class);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList,
-                            "listDirectDebits", statusCode));
+                            "listDirectDebits", getEndpointVersion(listDirectDebitsResponse), statusCode));
 
                     ResponseBankingDirectDebitAuthorisationListData data = (ResponseBankingDirectDebitAuthorisationListData) getResponseData(responseBankingDirectDebitAuthorisationList);
 
@@ -242,7 +242,7 @@ public class DirectDebitsAPISteps extends AccountsAPIStepsBase {
                 Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingDirectDebitAuthorisationList.class);
                 Object responseBankingDirectDebitAuthorisationList = objectMapper.readValue(json, expandedResponseClass);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingDirectDebitAuthorisationList,
-                        "listDirectDebitsSpecificAccounts", statusCode));
+                        "listDirectDebitsSpecificAccounts", getEndpointVersion(listDirectDebitsSpecificAccountsResponse), statusCode));
                 Object data = getResponseData(responseBankingDirectDebitAuthorisationList);
                 checkAccountIds(data, accountIds, conformanceErrors);
 

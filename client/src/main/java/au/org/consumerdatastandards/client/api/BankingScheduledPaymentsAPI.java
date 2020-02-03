@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BankingScheduledPaymentsAPI extends ProtectedAPI {
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BankingScheduledPaymentsAPI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BankingScheduledPaymentsAPI.class);
 
     /**
      * Build call for listScheduledPayments
@@ -32,8 +32,16 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call listScheduledPaymentsCall(String accountId, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
@@ -62,12 +70,12 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listScheduledPaymentsValidateBeforeCall(String accountId, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
         // verify the required parameter 'accountId' is set
         if (accountId == null) {
             throw new ApiException("Missing the required parameter 'accountId' when calling listScheduledPayments(Async)");
         }
-        
+
 
         return listScheduledPaymentsCall(accountId, page, pageSize, _callback);
     }
@@ -82,8 +90,16 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public ResponseBankingScheduledPaymentsList listScheduledPayments(String accountId, Integer page, Integer pageSize) throws ApiException {
@@ -107,8 +123,16 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingScheduledPaymentsList> listScheduledPaymentsWithHttpInfo(String accountId, Integer page, Integer pageSize) throws ApiException {
@@ -128,8 +152,16 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call listScheduledPaymentsAsync(String accountId, Integer page, Integer pageSize, final ApiCallback<ResponseBankingScheduledPaymentsList> _callback) throws ApiException {
@@ -145,8 +177,10 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
         return call;
     }
     /**
-     * Build call for listScheduledPaymentsSpecificAccounts
-     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (optional)
+     * Build call for listScheduledPaymentsBulk
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @param _callback Callback for upload/download progress
@@ -154,9 +188,184 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @throws ApiException If fail to serialize the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
+     * </table>
+     */
+    public okhttp3.Call listScheduledPaymentsBulkCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+
+        Object postBody = null;
+
+        // create path and map variables
+        String path = "/banking/payments/scheduled";
+
+        LOGGER.trace("Building Call for listScheduledPaymentsBulk with path: {}, product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
+            path,
+            productCategory,
+            openStatus,
+            isOwned,
+            page,
+            pageSize);
+
+        List<Pair> queryParams = new ArrayList<>();
+        List<Pair> collectionQueryParams = new ArrayList<>();
+        addQueryParam(queryParams, "product-category", productCategory);
+        addQueryParam(queryParams, "open-status", openStatus);
+        addQueryParam(queryParams, "is-owned", isOwned);
+        addQueryParam(queryParams, "page", page);
+        addQueryParam(queryParams, "page-size", pageSize);
+        Map<String, String> headerParams = new HashMap<>();
+        addCdsProtectedApiHeaders(headerParams);
+        String[] authNames = new String[] {  };
+        return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call listScheduledPaymentsBulkValidateBeforeCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+
+
+        return listScheduledPaymentsBulkCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
+    }
+
+    /**
+     * Get Scheduled Payments Bulk
+     * Obtain scheduled payments for multiple, filtered accounts that are the source of funds for the payments
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @return ResponseBankingScheduledPaymentsList
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * http.response.details
+     * <table summary="Response Details" border="1">
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
+     * </table>
+     */
+    public ResponseBankingScheduledPaymentsList listScheduledPaymentsBulk(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+
+        LOGGER.trace("listScheduledPaymentsBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
+            productCategory,
+            openStatus,
+            isOwned,
+            page,
+            pageSize);
+
+        ApiResponse<ResponseBankingScheduledPaymentsList> resp = listScheduledPaymentsBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
+        return resp.getData();
+    }
+
+    /**
+     * Get Scheduled Payments Bulk
+     * Obtain scheduled payments for multiple, filtered accounts that are the source of funds for the payments
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @return ApiResponse&lt;ResponseBankingScheduledPaymentsList&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * http.response.details
+     * <table summary="Response Details" border="1">
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
+     * </table>
+     */
+    public ApiResponse<ResponseBankingScheduledPaymentsList> listScheduledPaymentsBulkWithHttpInfo(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+        okhttp3.Call call = listScheduledPaymentsBulkValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, null);
+        Type returnType = new TypeToken<ResponseBankingScheduledPaymentsList>(){}.getType();
+        return apiClient.execute(call, returnType);
+    }
+
+    /**
+     * Get Scheduled Payments Bulk (asynchronously)
+     * Obtain scheduled payments for multiple, filtered accounts that are the source of funds for the payments
+     * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
+     * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * http.response.details
+     * <table summary="Response Details" border="1">
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
+     * </table>
+     */
+    public okhttp3.Call listScheduledPaymentsBulkAsync(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingScheduledPaymentsList> _callback) throws ApiException {
+
+        LOGGER.trace("Asynchronously listScheduledPaymentsBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
+            productCategory,
+            openStatus,
+            isOwned,
+            page,
+            pageSize);
+
+        okhttp3.Call call = listScheduledPaymentsBulkValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
+        Type returnType = new TypeToken<ResponseBankingScheduledPaymentsList>(){}.getType();
+        apiClient.executeAsync(call, returnType, _callback);
+        return call;
+    }
+    /**
+     * Build call for listScheduledPaymentsSpecificAccounts
+     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (required)
+     * @param page Page of results to request (standard pagination) (optional, default to 1)
+     * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * http.response.details
+     * <table summary="Response Details" border="1">
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 422 </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public okhttp3.Call listScheduledPaymentsSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
@@ -172,8 +381,8 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
             page,
             pageSize);
 
-        List<Pair> collectionQueryParams = new ArrayList<>();
         List<Pair> queryParams = new ArrayList<>();
+        List<Pair> collectionQueryParams = new ArrayList<>();
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
@@ -184,7 +393,12 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listScheduledPaymentsSpecificAccountsValidateBeforeCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-        
+
+        // verify the required parameter 'accountIds' is set
+        if (accountIds == null) {
+            throw new ApiException("Missing the required parameter 'accountIds' when calling listScheduledPaymentsSpecificAccounts(Async)");
+        }
+
 
         return listScheduledPaymentsSpecificAccountsCall(accountIds, page, pageSize, _callback);
     }
@@ -192,16 +406,28 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
     /**
      * Get Scheduled Payments For Specific Accounts
      * Obtain scheduled payments for a specified list of accounts
-     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (optional)
+     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (required)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @return ResponseBankingScheduledPaymentsList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 422 </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ResponseBankingScheduledPaymentsList listScheduledPaymentsSpecificAccounts(RequestAccountIds accountIds, Integer page, Integer pageSize) throws ApiException {
@@ -218,16 +444,28 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
     /**
      * Get Scheduled Payments For Specific Accounts
      * Obtain scheduled payments for a specified list of accounts
-     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (optional)
+     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (required)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @return ApiResponse&lt;ResponseBankingScheduledPaymentsList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     *   <tr>
+     *       <td> Status Code </td>
+     *       <td> Description </td>
+     *       <td> Response Headers </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 200 </td>
+     *       <td> Success </td>
+     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
+     *   <tr>
+     *       <td> 422 </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *   </tr>
      * </table>
      */
     public ApiResponse<ResponseBankingScheduledPaymentsList> listScheduledPaymentsSpecificAccountsWithHttpInfo(RequestAccountIds accountIds, Integer page, Integer pageSize) throws ApiException {
@@ -239,7 +477,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
     /**
      * Get Scheduled Payments For Specific Accounts (asynchronously)
      * Obtain scheduled payments for a specified list of accounts
-     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (optional)
+     * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (required)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @param _callback The callback to be executed when the API call finishes
@@ -247,9 +485,21 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * http.response.details
      * <table summary="Response Details" border="1">
-     *   <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     *   <tr><td> ResponseCode.OK </td><td> Success </td><td>  -  </td></tr>
-     *   <tr><td> ResponseCode.UNPROCESSABLE_ENTITY </td><td> The request was well formed but was unable to be processed due to business logic specific to the request </td><td>  -  </td></tr>
+     *    <tr>
+     *        <td> Status Code </td>
+     *        <td> Description </td>
+     *        <td> Response Headers </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 200 </td>
+     *        <td> Success </td>
+     *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
+     *    <tr>
+     *        <td> 422 </td>
+     *        <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *        <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *    </tr>
      * </table>
      */
     public okhttp3.Call listScheduledPaymentsSpecificAccountsAsync(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback<ResponseBankingScheduledPaymentsList> _callback) throws ApiException {

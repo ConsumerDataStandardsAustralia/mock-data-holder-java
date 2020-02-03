@@ -12,18 +12,18 @@ import java.util.Objects;
 public class CommonPhysicalAddress {
 
     public enum AddressUType {
-        paf,
-        simple
+        SIMPLE,
+        PAF
     }
 
     private AddressUType addressUType;
 
-    private CommonPAFAddress paf;
-
     private CommonSimpleAddress simple;
 
+    private CommonPAFAddress paf;
+
     /**
-     * Get addressUType
+     * The type of address object present
      * @return addressUType
      */
     public AddressUType getAddressUType() {
@@ -32,18 +32,6 @@ public class CommonPhysicalAddress {
 
     public void setAddressUType(AddressUType addressUType) {
         this.addressUType = addressUType;
-    }
-
-    /**
-     * Get paf
-     * @return paf
-     */
-    public CommonPAFAddress getPaf() {
-        return paf;
-    }
-
-    public void setPaf(CommonPAFAddress paf) {
-        this.paf = paf;
     }
 
     /**
@@ -58,6 +46,18 @@ public class CommonPhysicalAddress {
         this.simple = simple;
     }
 
+    /**
+     * Get paf
+     * @return paf
+     */
+    public CommonPAFAddress getPaf() {
+        return paf;
+    }
+
+    public void setPaf(CommonPAFAddress paf) {
+        this.paf = paf;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -68,24 +68,24 @@ public class CommonPhysicalAddress {
         }
         CommonPhysicalAddress commonPhysicalAddress = (CommonPhysicalAddress) o;
         return Objects.equals(this.addressUType, commonPhysicalAddress.addressUType) &&
-            Objects.equals(this.paf, commonPhysicalAddress.paf) &&
-            Objects.equals(this.simple, commonPhysicalAddress.simple);
+            Objects.equals(this.simple, commonPhysicalAddress.simple) &&
+            Objects.equals(this.paf, commonPhysicalAddress.paf);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
             addressUType,
-            paf,
-            simple);
+            simple,
+            paf);
     }
 
     @Override
     public String toString() {
         return "class CommonPhysicalAddress {\n" +
             "   addressUType: " + toIndentedString(addressUType) + "\n" + 
-            "   paf: " + toIndentedString(paf) + "\n" + 
             "   simple: " + toIndentedString(simple) + "\n" + 
+            "   paf: " + toIndentedString(paf) + "\n" + 
             "}";
     }
 

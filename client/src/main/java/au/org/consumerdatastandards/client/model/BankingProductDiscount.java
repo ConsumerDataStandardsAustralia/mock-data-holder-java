@@ -15,79 +15,55 @@ public class BankingProductDiscount {
     public enum DiscountType {
         BALANCE,
         DEPOSITS,
-        ELIGIBILITY_ONLY,
+        PAYMENTS,
         FEE_CAP,
-        PAYMENTS
+        ELIGIBILITY_ONLY
     }
-
-    private String accruedRate;
-
-    private String additionalInfo;
-
-    private String additionalInfoUri;
-
-    private String additionalValue;
-
-    private String amount;
-
-    private String balanceRate;
 
     private String description;
 
     private DiscountType discountType;
 
-    private List<BankingProductDiscountEligibility> eligibility;
+    private String amount;
 
-    private String feeRate;
+    private String balanceRate;
 
     private String transactionRate;
 
-    /**
-     * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
-     * @return accruedRate
-     */
-    public String getAccruedRate() {
-        return accruedRate;
-    }
+    private String accruedRate;
 
-    public void setAccruedRate(String accruedRate) {
-        this.accruedRate = accruedRate;
-    }
+    private String feeRate;
 
-    /**
-     * Display text providing more information on the discount
-     * @return additionalInfo
-     */
-    public String getAdditionalInfo() {
-        return additionalInfo;
-    }
+    private String additionalValue;
 
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
+    private String additionalInfo;
+
+    private String additionalInfoUri;
+
+    private List<BankingProductDiscountEligibility> eligibility;
 
     /**
-     * Link to a web page with more information on this discount
-     * @return additionalInfoUri
+     * Description of the discount
+     * @return description
      */
-    public String getAdditionalInfoUri() {
-        return additionalInfoUri;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAdditionalInfoUri(String additionalInfoUri) {
-        this.additionalInfoUri = additionalInfoUri;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
-     * Generic field containing additional information relevant to the [discountType](#tocSproductdiscounttypedoc) specified. Whether mandatory or not is dependent on the value of [discountType](#tocSproductdiscounttypedoc)
-     * @return additionalValue
+     * The type of discount. See the next section for an overview of valid values and their meaning
+     * @return discountType
      */
-    public String getAdditionalValue() {
-        return additionalValue;
+    public DiscountType getDiscountType() {
+        return discountType;
     }
 
-    public void setAdditionalValue(String additionalValue) {
-        this.additionalValue = additionalValue;
+    public void setDiscountType(DiscountType discountType) {
+        this.discountType = discountType;
     }
 
     /**
@@ -115,39 +91,27 @@ public class BankingProductDiscount {
     }
 
     /**
-     * Description of the discount
-     * @return description
+     * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory
+     * @return transactionRate
      */
-    public String getDescription() {
-        return description;
+    public String getTransactionRate() {
+        return transactionRate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTransactionRate(String transactionRate) {
+        this.transactionRate = transactionRate;
     }
 
     /**
-     * Get discountType
-     * @return discountType
+     * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
+     * @return accruedRate
      */
-    public DiscountType getDiscountType() {
-        return discountType;
+    public String getAccruedRate() {
+        return accruedRate;
     }
 
-    public void setDiscountType(DiscountType discountType) {
-        this.discountType = discountType;
-    }
-
-    /**
-     * Eligibility constraints that apply to this discount
-     * @return eligibility
-     */
-    public List<BankingProductDiscountEligibility> getEligibility() {
-        return eligibility;
-    }
-
-    public void setEligibility(List<BankingProductDiscountEligibility> eligibility) {
-        this.eligibility = eligibility;
+    public void setAccruedRate(String accruedRate) {
+        this.accruedRate = accruedRate;
     }
 
     /**
@@ -163,15 +127,51 @@ public class BankingProductDiscount {
     }
 
     /**
-     * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory
-     * @return transactionRate
+     * Generic field containing additional information relevant to the [discountType](#tocSproductdiscounttypedoc) specified. Whether mandatory or not is dependent on the value of [discountType](#tocSproductdiscounttypedoc)
+     * @return additionalValue
      */
-    public String getTransactionRate() {
-        return transactionRate;
+    public String getAdditionalValue() {
+        return additionalValue;
     }
 
-    public void setTransactionRate(String transactionRate) {
-        this.transactionRate = transactionRate;
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
+
+    /**
+     * Display text providing more information on the discount
+     * @return additionalInfo
+     */
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    /**
+     * Link to a web page with more information on this discount
+     * @return additionalInfoUri
+     */
+    public String getAdditionalInfoUri() {
+        return additionalInfoUri;
+    }
+
+    public void setAdditionalInfoUri(String additionalInfoUri) {
+        this.additionalInfoUri = additionalInfoUri;
+    }
+
+    /**
+     * Eligibility constraints that apply to this discount
+     * @return eligibility
+     */
+    public List<BankingProductDiscountEligibility> getEligibility() {
+        return eligibility;
+    }
+
+    public void setEligibility(List<BankingProductDiscountEligibility> eligibility) {
+        this.eligibility = eligibility;
     }
 
     @Override
@@ -183,49 +183,49 @@ public class BankingProductDiscount {
             return false;
         }
         BankingProductDiscount bankingProductDiscount = (BankingProductDiscount) o;
-        return Objects.equals(this.accruedRate, bankingProductDiscount.accruedRate) &&
-            Objects.equals(this.additionalInfo, bankingProductDiscount.additionalInfo) &&
-            Objects.equals(this.additionalInfoUri, bankingProductDiscount.additionalInfoUri) &&
-            Objects.equals(this.additionalValue, bankingProductDiscount.additionalValue) &&
+        return Objects.equals(this.description, bankingProductDiscount.description) &&
+            Objects.equals(this.discountType, bankingProductDiscount.discountType) &&
             Objects.equals(this.amount, bankingProductDiscount.amount) &&
             Objects.equals(this.balanceRate, bankingProductDiscount.balanceRate) &&
-            Objects.equals(this.description, bankingProductDiscount.description) &&
-            Objects.equals(this.discountType, bankingProductDiscount.discountType) &&
-            Objects.equals(this.eligibility, bankingProductDiscount.eligibility) &&
+            Objects.equals(this.transactionRate, bankingProductDiscount.transactionRate) &&
+            Objects.equals(this.accruedRate, bankingProductDiscount.accruedRate) &&
             Objects.equals(this.feeRate, bankingProductDiscount.feeRate) &&
-            Objects.equals(this.transactionRate, bankingProductDiscount.transactionRate);
+            Objects.equals(this.additionalValue, bankingProductDiscount.additionalValue) &&
+            Objects.equals(this.additionalInfo, bankingProductDiscount.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductDiscount.additionalInfoUri) &&
+            Objects.equals(this.eligibility, bankingProductDiscount.eligibility);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            accruedRate,
-            additionalInfo,
-            additionalInfoUri,
-            additionalValue,
-            amount,
-            balanceRate,
             description,
             discountType,
-            eligibility,
+            amount,
+            balanceRate,
+            transactionRate,
+            accruedRate,
             feeRate,
-            transactionRate);
+            additionalValue,
+            additionalInfo,
+            additionalInfoUri,
+            eligibility);
     }
 
     @Override
     public String toString() {
         return "class BankingProductDiscount {\n" +
-            "   accruedRate: " + toIndentedString(accruedRate) + "\n" + 
-            "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
-            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
-            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
-            "   amount: " + toIndentedString(amount) + "\n" + 
-            "   balanceRate: " + toIndentedString(balanceRate) + "\n" + 
             "   description: " + toIndentedString(description) + "\n" + 
             "   discountType: " + toIndentedString(discountType) + "\n" + 
-            "   eligibility: " + toIndentedString(eligibility) + "\n" + 
-            "   feeRate: " + toIndentedString(feeRate) + "\n" + 
+            "   amount: " + toIndentedString(amount) + "\n" + 
+            "   balanceRate: " + toIndentedString(balanceRate) + "\n" + 
             "   transactionRate: " + toIndentedString(transactionRate) + "\n" + 
+            "   accruedRate: " + toIndentedString(accruedRate) + "\n" + 
+            "   feeRate: " + toIndentedString(feeRate) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
+            "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
+            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
+            "   eligibility: " + toIndentedString(eligibility) + "\n" + 
             "}";
     }
 

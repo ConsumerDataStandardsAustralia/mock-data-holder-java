@@ -11,21 +11,9 @@ import java.util.Objects;
 
 public class BankingInternationalPayee {
 
-    private BankingInternationalPayeeBankDetails bankDetails;
-
     private BankingInternationalPayeeBeneficiaryDetails beneficiaryDetails;
 
-    /**
-     * Get bankDetails
-     * @return bankDetails
-     */
-    public BankingInternationalPayeeBankDetails getBankDetails() {
-        return bankDetails;
-    }
-
-    public void setBankDetails(BankingInternationalPayeeBankDetails bankDetails) {
-        this.bankDetails = bankDetails;
-    }
+    private BankingInternationalPayeeBankDetails bankDetails;
 
     /**
      * Get beneficiaryDetails
@@ -39,6 +27,18 @@ public class BankingInternationalPayee {
         this.beneficiaryDetails = beneficiaryDetails;
     }
 
+    /**
+     * Get bankDetails
+     * @return bankDetails
+     */
+    public BankingInternationalPayeeBankDetails getBankDetails() {
+        return bankDetails;
+    }
+
+    public void setBankDetails(BankingInternationalPayeeBankDetails bankDetails) {
+        this.bankDetails = bankDetails;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -48,22 +48,22 @@ public class BankingInternationalPayee {
             return false;
         }
         BankingInternationalPayee bankingInternationalPayee = (BankingInternationalPayee) o;
-        return Objects.equals(this.bankDetails, bankingInternationalPayee.bankDetails) &&
-            Objects.equals(this.beneficiaryDetails, bankingInternationalPayee.beneficiaryDetails);
+        return Objects.equals(this.beneficiaryDetails, bankingInternationalPayee.beneficiaryDetails) &&
+            Objects.equals(this.bankDetails, bankingInternationalPayee.bankDetails);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            bankDetails,
-            beneficiaryDetails);
+            beneficiaryDetails,
+            bankDetails);
     }
 
     @Override
     public String toString() {
         return "class BankingInternationalPayee {\n" +
-            "   bankDetails: " + toIndentedString(bankDetails) + "\n" + 
             "   beneficiaryDetails: " + toIndentedString(beneficiaryDetails) + "\n" + 
+            "   bankDetails: " + toIndentedString(bankDetails) + "\n" + 
             "}";
     }
 

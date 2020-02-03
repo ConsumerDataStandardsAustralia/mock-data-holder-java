@@ -13,29 +13,53 @@ public class BankingProductEligibility {
 
     public enum EligibilityType {
         BUSINESS,
-        EMPLOYMENT_STATUS,
-        MAX_AGE,
+        PENSION_RECIPIENT,
         MIN_AGE,
+        MAX_AGE,
         MIN_INCOME,
         MIN_TURNOVER,
-        NATURAL_PERSON,
-        OTHER,
-        PENSION_RECIPIENT,
-        RESIDENCY_STATUS,
         STAFF,
-        STUDENT
+        STUDENT,
+        EMPLOYMENT_STATUS,
+        RESIDENCY_STATUS,
+        NATURAL_PERSON,
+        OTHER
     }
+
+    private EligibilityType eligibilityType;
+
+    private String additionalValue;
 
     private String additionalInfo;
 
     private String additionalInfoUri;
 
-    private String additionalValue;
+    /**
+     * The type of eligibility criteria described.  See the next section for an overview of valid values and their meaning
+     * @return eligibilityType
+     */
+    public EligibilityType getEligibilityType() {
+        return eligibilityType;
+    }
 
-    private EligibilityType eligibilityType;
+    public void setEligibilityType(EligibilityType eligibilityType) {
+        this.eligibilityType = eligibilityType;
+    }
 
     /**
-     * Display text providing more information on the eligibility criteria. Mandatory if the [eligibilityType](#tocSproducteligibilitytypedoc) field is set to OTHER
+     * Generic field containing additional information relevant to the [eligibilityType](#tocSproducteligibilitytypedoc) specified. Whether mandatory or not is dependent on the value of [eligibilityType](#tocSproducteligibilitytypedoc)
+     * @return additionalValue
+     */
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
+
+    /**
+     * Display text providing more information on the [eligibility](#tocSproducteligibilitytypedoc) criteria. Mandatory if the field is set to OTHER
      * @return additionalInfo
      */
     public String getAdditionalInfo() {
@@ -58,30 +82,6 @@ public class BankingProductEligibility {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    /**
-     * Generic field containing additional information relevant to the [eligibilityType](#tocSproducteligibilitytypedoc) specified.  Whether mandatory or not is dependent on the value of [eligibilityType](#tocSproducteligibilitytypedoc)
-     * @return additionalValue
-     */
-    public String getAdditionalValue() {
-        return additionalValue;
-    }
-
-    public void setAdditionalValue(String additionalValue) {
-        this.additionalValue = additionalValue;
-    }
-
-    /**
-     * Get eligibilityType
-     * @return eligibilityType
-     */
-    public EligibilityType getEligibilityType() {
-        return eligibilityType;
-    }
-
-    public void setEligibilityType(EligibilityType eligibilityType) {
-        this.eligibilityType = eligibilityType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -91,28 +91,28 @@ public class BankingProductEligibility {
             return false;
         }
         BankingProductEligibility bankingProductEligibility = (BankingProductEligibility) o;
-        return Objects.equals(this.additionalInfo, bankingProductEligibility.additionalInfo) &&
-            Objects.equals(this.additionalInfoUri, bankingProductEligibility.additionalInfoUri) &&
+        return Objects.equals(this.eligibilityType, bankingProductEligibility.eligibilityType) &&
             Objects.equals(this.additionalValue, bankingProductEligibility.additionalValue) &&
-            Objects.equals(this.eligibilityType, bankingProductEligibility.eligibilityType);
+            Objects.equals(this.additionalInfo, bankingProductEligibility.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductEligibility.additionalInfoUri);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            additionalInfo,
-            additionalInfoUri,
+            eligibilityType,
             additionalValue,
-            eligibilityType);
+            additionalInfo,
+            additionalInfoUri);
     }
 
     @Override
     public String toString() {
         return "class BankingProductEligibility {\n" +
+            "   eligibilityType: " + toIndentedString(eligibilityType) + "\n" + 
+            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
             "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
             "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
-            "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
-            "   eligibilityType: " + toIndentedString(eligibilityType) + "\n" + 
             "}";
     }
 

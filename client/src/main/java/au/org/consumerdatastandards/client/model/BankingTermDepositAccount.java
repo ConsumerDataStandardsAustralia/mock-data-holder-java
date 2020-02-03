@@ -13,17 +13,17 @@ import java.util.Objects;
 public class BankingTermDepositAccount {
 
     public enum MaturityInstructions {
-        PAID_OUT_AT_MATURITY,
-        ROLLED_OVER
+        ROLLED_OVER,
+        PAID_OUT_AT_MATURITY
     }
 
     private LocalDate lodgementDate;
 
+    private LocalDate maturityDate;
+
     private String maturityAmount;
 
     private String maturityCurrency;
-
-    private LocalDate maturityDate;
 
     private MaturityInstructions maturityInstructions;
 
@@ -37,6 +37,18 @@ public class BankingTermDepositAccount {
 
     public void setLodgementDate(LocalDate lodgementDate) {
         this.lodgementDate = lodgementDate;
+    }
+
+    /**
+     * Maturity date for the term deposit
+     * @return maturityDate
+     */
+    public LocalDate getMaturityDate() {
+        return maturityDate;
+    }
+
+    public void setMaturityDate(LocalDate maturityDate) {
+        this.maturityDate = maturityDate;
     }
 
     /**
@@ -64,19 +76,7 @@ public class BankingTermDepositAccount {
     }
 
     /**
-     * Maturity date for the term deposit
-     * @return maturityDate
-     */
-    public LocalDate getMaturityDate() {
-        return maturityDate;
-    }
-
-    public void setMaturityDate(LocalDate maturityDate) {
-        this.maturityDate = maturityDate;
-    }
-
-    /**
-     * Get maturityInstructions
+     * Current instructions on action to be taken at maturity
      * @return maturityInstructions
      */
     public MaturityInstructions getMaturityInstructions() {
@@ -97,9 +97,9 @@ public class BankingTermDepositAccount {
         }
         BankingTermDepositAccount bankingTermDepositAccount = (BankingTermDepositAccount) o;
         return Objects.equals(this.lodgementDate, bankingTermDepositAccount.lodgementDate) &&
+            Objects.equals(this.maturityDate, bankingTermDepositAccount.maturityDate) &&
             Objects.equals(this.maturityAmount, bankingTermDepositAccount.maturityAmount) &&
             Objects.equals(this.maturityCurrency, bankingTermDepositAccount.maturityCurrency) &&
-            Objects.equals(this.maturityDate, bankingTermDepositAccount.maturityDate) &&
             Objects.equals(this.maturityInstructions, bankingTermDepositAccount.maturityInstructions);
     }
 
@@ -107,9 +107,9 @@ public class BankingTermDepositAccount {
     public int hashCode() {
         return Objects.hash(
             lodgementDate,
+            maturityDate,
             maturityAmount,
             maturityCurrency,
-            maturityDate,
             maturityInstructions);
     }
 
@@ -117,9 +117,9 @@ public class BankingTermDepositAccount {
     public String toString() {
         return "class BankingTermDepositAccount {\n" +
             "   lodgementDate: " + toIndentedString(lodgementDate) + "\n" + 
+            "   maturityDate: " + toIndentedString(maturityDate) + "\n" + 
             "   maturityAmount: " + toIndentedString(maturityAmount) + "\n" + 
             "   maturityCurrency: " + toIndentedString(maturityCurrency) + "\n" + 
-            "   maturityDate: " + toIndentedString(maturityDate) + "\n" + 
             "   maturityInstructions: " + toIndentedString(maturityInstructions) + "\n" + 
             "}";
     }

@@ -4,13 +4,14 @@ import au.org.consumerdatastandards.support.EndpointResponse;
 import au.org.consumerdatastandards.support.ResponseCode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class ConformanceModel {
 
     private Map<String, String> endpointVersionMap;
-    private Map<String, Map<ResponseCode, EndpointResponse>> responseMap;
+    private Map<String, List<Map<ResponseCode, EndpointResponse>>> responseMap;
     private Map<Class<?>, Payload> payloadMap;
     private Map<String, Class<?>> modelMap;
 
@@ -22,7 +23,7 @@ public class ConformanceModel {
         this.endpointVersionMap = endpointVersionMap;
     }
 
-    public void setResponseMap(Map<String, Map<ResponseCode, EndpointResponse>> responseMap) {
+    public void setResponseMap(Map<String, List<Map<ResponseCode, EndpointResponse>>> responseMap) {
         this.responseMap = responseMap;
     }
 
@@ -34,8 +35,8 @@ public class ConformanceModel {
         }
     }
 
-    public EndpointResponse getResponse(String operationId, ResponseCode responseCode) {
-        return responseMap.get(operationId).get(responseCode);
+    public EndpointResponse getResponse(String operationId, int version, ResponseCode responseCode) {
+        return responseMap.get(operationId).get(version - 1).get(responseCode);
     }
 
     public Payload getPayload(Class<?> clazz) {

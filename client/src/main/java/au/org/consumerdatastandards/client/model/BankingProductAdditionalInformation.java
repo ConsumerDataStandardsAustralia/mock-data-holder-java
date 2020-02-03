@@ -13,26 +13,38 @@ import java.util.Objects;
  */
 public class BankingProductAdditionalInformation {
 
-    private String bundleUri;
+    private String overviewUri;
+
+    private String termsUri;
 
     private String eligibilityUri;
 
     private String feesAndPricingUri;
 
-    private String overviewUri;
-
-    private String termsUri;
+    private String bundleUri;
 
     /**
-     * Description of a bundle that this product can be part of
-     * @return bundleUri
+     * General overview of the product
+     * @return overviewUri
      */
-    public String getBundleUri() {
-        return bundleUri;
+    public String getOverviewUri() {
+        return overviewUri;
     }
 
-    public void setBundleUri(String bundleUri) {
-        this.bundleUri = bundleUri;
+    public void setOverviewUri(String overviewUri) {
+        this.overviewUri = overviewUri;
+    }
+
+    /**
+     * Terms and conditions for the product
+     * @return termsUri
+     */
+    public String getTermsUri() {
+        return termsUri;
+    }
+
+    public void setTermsUri(String termsUri) {
+        this.termsUri = termsUri;
     }
 
     /**
@@ -60,27 +72,15 @@ public class BankingProductAdditionalInformation {
     }
 
     /**
-     * General overview of the product
-     * @return overviewUri
+     * Description of a bundle that this product can be part of
+     * @return bundleUri
      */
-    public String getOverviewUri() {
-        return overviewUri;
+    public String getBundleUri() {
+        return bundleUri;
     }
 
-    public void setOverviewUri(String overviewUri) {
-        this.overviewUri = overviewUri;
-    }
-
-    /**
-     * Terms and conditions for the product
-     * @return termsUri
-     */
-    public String getTermsUri() {
-        return termsUri;
-    }
-
-    public void setTermsUri(String termsUri) {
-        this.termsUri = termsUri;
+    public void setBundleUri(String bundleUri) {
+        this.bundleUri = bundleUri;
     }
 
     @Override
@@ -92,31 +92,31 @@ public class BankingProductAdditionalInformation {
             return false;
         }
         BankingProductAdditionalInformation bankingProductAdditionalInformation = (BankingProductAdditionalInformation) o;
-        return Objects.equals(this.bundleUri, bankingProductAdditionalInformation.bundleUri) &&
+        return Objects.equals(this.overviewUri, bankingProductAdditionalInformation.overviewUri) &&
+            Objects.equals(this.termsUri, bankingProductAdditionalInformation.termsUri) &&
             Objects.equals(this.eligibilityUri, bankingProductAdditionalInformation.eligibilityUri) &&
             Objects.equals(this.feesAndPricingUri, bankingProductAdditionalInformation.feesAndPricingUri) &&
-            Objects.equals(this.overviewUri, bankingProductAdditionalInformation.overviewUri) &&
-            Objects.equals(this.termsUri, bankingProductAdditionalInformation.termsUri);
+            Objects.equals(this.bundleUri, bankingProductAdditionalInformation.bundleUri);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            bundleUri,
+            overviewUri,
+            termsUri,
             eligibilityUri,
             feesAndPricingUri,
-            overviewUri,
-            termsUri);
+            bundleUri);
     }
 
     @Override
     public String toString() {
         return "class BankingProductAdditionalInformation {\n" +
-            "   bundleUri: " + toIndentedString(bundleUri) + "\n" + 
-            "   eligibilityUri: " + toIndentedString(eligibilityUri) + "\n" + 
-            "   feesAndPricingUri: " + toIndentedString(feesAndPricingUri) + "\n" + 
-            "   overviewUri: " + toIndentedString(overviewUri) + "\n" + 
-            "   termsUri: " + toIndentedString(termsUri) + "\n" + 
+            "   overviewUri: " + toIndentedString(overviewUri) + "\n" +
+            "   termsUri: " + toIndentedString(termsUri) + "\n" +
+            "   eligibilityUri: " + toIndentedString(eligibilityUri) + "\n" +
+            "   feesAndPricingUri: " + toIndentedString(feesAndPricingUri) + "\n" +
+            "   bundleUri: " + toIndentedString(bundleUri) + "\n" +
             "}";
     }
 

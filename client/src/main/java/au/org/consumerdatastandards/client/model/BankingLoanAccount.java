@@ -18,154 +18,46 @@ public class BankingLoanAccount {
         PRINCIPAL_AND_INTEREST
     }
 
-    private LocalDate loanEndDate;
-
-    private String maxRedraw;
-
-    private String maxRedrawCurrency;
-
-    private String minInstalmentAmount;
-
-    private String minInstalmentCurrency;
-
-    private String minRedraw;
-
-    private String minRedrawCurrency;
-
-    private LocalDate nextInstalmentDate;
-
-    private Boolean offsetAccountEnabled;
-
-    private List<String> offsetAccountIds;
+    private LocalDate originalStartDate;
 
     private String originalLoanAmount;
 
     private String originalLoanCurrency;
 
-    private LocalDate originalStartDate;
+    private LocalDate loanEndDate;
+
+    private LocalDate nextInstalmentDate;
+
+    private String minInstalmentAmount;
+
+    private String minInstalmentCurrency;
+
+    private String maxRedraw;
+
+    private String maxRedrawCurrency;
+
+    private String minRedraw;
+
+    private String minRedrawCurrency;
+
+    private Boolean offsetAccountEnabled;
+
+    private List<String> offsetAccountIds;
+
+    private RepaymentType repaymentType = RepaymentType.PRINCIPAL_AND_INTEREST;
 
     private String repaymentFrequency;
 
-    private RepaymentType repaymentType;
-
     /**
-     * Date that the loan is due to be repaid in full
-     * @return loanEndDate
+     * Optional original start date for the loan
+     * @return originalStartDate
      */
-    public LocalDate getLoanEndDate() {
-        return loanEndDate;
+    public LocalDate getOriginalStartDate() {
+        return originalStartDate;
     }
 
-    public void setLoanEndDate(LocalDate loanEndDate) {
-        this.loanEndDate = loanEndDate;
-    }
-
-    /**
-     * Maximum amount of funds that can be redrawn. If not present redraw is not available even if the feature exists for the account
-     * @return maxRedraw
-     */
-    public String getMaxRedraw() {
-        return maxRedraw;
-    }
-
-    public void setMaxRedraw(String maxRedraw) {
-        this.maxRedraw = maxRedraw;
-    }
-
-    /**
-     * If absent assumes AUD
-     * @return maxRedrawCurrency
-     */
-    public String getMaxRedrawCurrency() {
-        return maxRedrawCurrency;
-    }
-
-    public void setMaxRedrawCurrency(String maxRedrawCurrency) {
-        this.maxRedrawCurrency = maxRedrawCurrency;
-    }
-
-    /**
-     * Minimum amount of next instalment
-     * @return minInstalmentAmount
-     */
-    public String getMinInstalmentAmount() {
-        return minInstalmentAmount;
-    }
-
-    public void setMinInstalmentAmount(String minInstalmentAmount) {
-        this.minInstalmentAmount = minInstalmentAmount;
-    }
-
-    /**
-     * If absent assumes AUD
-     * @return minInstalmentCurrency
-     */
-    public String getMinInstalmentCurrency() {
-        return minInstalmentCurrency;
-    }
-
-    public void setMinInstalmentCurrency(String minInstalmentCurrency) {
-        this.minInstalmentCurrency = minInstalmentCurrency;
-    }
-
-    /**
-     * Minimum redraw amount
-     * @return minRedraw
-     */
-    public String getMinRedraw() {
-        return minRedraw;
-    }
-
-    public void setMinRedraw(String minRedraw) {
-        this.minRedraw = minRedraw;
-    }
-
-    /**
-     * If absent assumes AUD
-     * @return minRedrawCurrency
-     */
-    public String getMinRedrawCurrency() {
-        return minRedrawCurrency;
-    }
-
-    public void setMinRedrawCurrency(String minRedrawCurrency) {
-        this.minRedrawCurrency = minRedrawCurrency;
-    }
-
-    /**
-     * Next date that an instalment is required
-     * @return nextInstalmentDate
-     */
-    public LocalDate getNextInstalmentDate() {
-        return nextInstalmentDate;
-    }
-
-    public void setNextInstalmentDate(LocalDate nextInstalmentDate) {
-        this.nextInstalmentDate = nextInstalmentDate;
-    }
-
-    /**
-     * Set to true if one or more offset accounts are configured for this loan account
-     * @return offsetAccountEnabled
-     */
-    public Boolean getOffsetAccountEnabled() {
-        return offsetAccountEnabled;
-    }
-
-    public void setOffsetAccountEnabled(Boolean offsetAccountEnabled) {
-        this.offsetAccountEnabled = offsetAccountEnabled;
-    }
-
-    /**
-     * The accountIDs of the configured offset accounts attached to this loan. Only offset accounts that can be accessed under the current authorisation should be included. It is expected behaviour that offsetAccountEnabled is set to true but the offsetAccountIds field is absent or empty. This represents a situation where an offset account exists but details can not be accessed under the current authorisation
-     * @return offsetAccountIds
-     */
-    public List<String> getOffsetAccountIds() {
-        return offsetAccountIds;
-    }
-
-    public void setOffsetAccountIds(List<String> offsetAccountIds) {
-        this.offsetAccountIds = offsetAccountIds;
+    public void setOriginalStartDate(LocalDate originalStartDate) {
+        this.originalStartDate = originalStartDate;
     }
 
     /**
@@ -193,31 +85,127 @@ public class BankingLoanAccount {
     }
 
     /**
-     * Optional original start date for the loan
-     * @return originalStartDate
+     * Date that the loan is due to be repaid in full
+     * @return loanEndDate
      */
-    public LocalDate getOriginalStartDate() {
-        return originalStartDate;
+    public LocalDate getLoanEndDate() {
+        return loanEndDate;
     }
 
-    public void setOriginalStartDate(LocalDate originalStartDate) {
-        this.originalStartDate = originalStartDate;
+    public void setLoanEndDate(LocalDate loanEndDate) {
+        this.loanEndDate = loanEndDate;
     }
 
     /**
-     * The expected or required repayment frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
-     * @return repaymentFrequency
+     * Next date that an instalment is required
+     * @return nextInstalmentDate
      */
-    public String getRepaymentFrequency() {
-        return repaymentFrequency;
+    public LocalDate getNextInstalmentDate() {
+        return nextInstalmentDate;
     }
 
-    public void setRepaymentFrequency(String repaymentFrequency) {
-        this.repaymentFrequency = repaymentFrequency;
+    public void setNextInstalmentDate(LocalDate nextInstalmentDate) {
+        this.nextInstalmentDate = nextInstalmentDate;
     }
 
     /**
-     * Get repaymentType
+     * Minimum amount of next instalment
+     * @return minInstalmentAmount
+     */
+    public String getMinInstalmentAmount() {
+        return minInstalmentAmount;
+    }
+
+    public void setMinInstalmentAmount(String minInstalmentAmount) {
+        this.minInstalmentAmount = minInstalmentAmount;
+    }
+
+    /**
+     * If absent assumes AUD
+     * @return minInstalmentCurrency
+     */
+    public String getMinInstalmentCurrency() {
+        return minInstalmentCurrency;
+    }
+
+    public void setMinInstalmentCurrency(String minInstalmentCurrency) {
+        this.minInstalmentCurrency = minInstalmentCurrency;
+    }
+
+    /**
+     * Maximum amount of funds that can be redrawn. If not present redraw is not available even if the feature exists for the account
+     * @return maxRedraw
+     */
+    public String getMaxRedraw() {
+        return maxRedraw;
+    }
+
+    public void setMaxRedraw(String maxRedraw) {
+        this.maxRedraw = maxRedraw;
+    }
+
+    /**
+     * If absent assumes AUD
+     * @return maxRedrawCurrency
+     */
+    public String getMaxRedrawCurrency() {
+        return maxRedrawCurrency;
+    }
+
+    public void setMaxRedrawCurrency(String maxRedrawCurrency) {
+        this.maxRedrawCurrency = maxRedrawCurrency;
+    }
+
+    /**
+     * Minimum redraw amount
+     * @return minRedraw
+     */
+    public String getMinRedraw() {
+        return minRedraw;
+    }
+
+    public void setMinRedraw(String minRedraw) {
+        this.minRedraw = minRedraw;
+    }
+
+    /**
+     * If absent assumes AUD
+     * @return minRedrawCurrency
+     */
+    public String getMinRedrawCurrency() {
+        return minRedrawCurrency;
+    }
+
+    public void setMinRedrawCurrency(String minRedrawCurrency) {
+        this.minRedrawCurrency = minRedrawCurrency;
+    }
+
+    /**
+     * Set to true if one or more offset accounts are configured for this loan account
+     * @return offsetAccountEnabled
+     */
+    public Boolean getOffsetAccountEnabled() {
+        return offsetAccountEnabled;
+    }
+
+    public void setOffsetAccountEnabled(Boolean offsetAccountEnabled) {
+        this.offsetAccountEnabled = offsetAccountEnabled;
+    }
+
+    /**
+     * The accountIDs of the configured offset accounts attached to this loan. Only offset accounts that can be accessed under the current authorisation should be included. It is expected behaviour that offsetAccountEnabled is set to true but the offsetAccountIds field is absent or empty. This represents a situation where an offset account exists but details can not be accessed under the current authorisation
+     * @return offsetAccountIds
+     */
+    public List<String> getOffsetAccountIds() {
+        return offsetAccountIds;
+    }
+
+    public void setOffsetAccountIds(List<String> offsetAccountIds) {
+        this.offsetAccountIds = offsetAccountIds;
+    }
+
+    /**
+     * Options in place for repayments. If absent defaults to PRINCIPAL_AND_INTEREST
      * @return repaymentType
      */
     public RepaymentType getRepaymentType() {
@@ -226,6 +214,18 @@ public class BankingLoanAccount {
 
     public void setRepaymentType(RepaymentType repaymentType) {
         this.repaymentType = repaymentType;
+    }
+
+    /**
+     * The expected or required repayment frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * @return repaymentFrequency
+     */
+    public String getRepaymentFrequency() {
+        return repaymentFrequency;
+    }
+
+    public void setRepaymentFrequency(String repaymentFrequency) {
+        this.repaymentFrequency = repaymentFrequency;
     }
 
     @Override
@@ -237,61 +237,61 @@ public class BankingLoanAccount {
             return false;
         }
         BankingLoanAccount bankingLoanAccount = (BankingLoanAccount) o;
-        return Objects.equals(this.loanEndDate, bankingLoanAccount.loanEndDate) &&
-            Objects.equals(this.maxRedraw, bankingLoanAccount.maxRedraw) &&
-            Objects.equals(this.maxRedrawCurrency, bankingLoanAccount.maxRedrawCurrency) &&
-            Objects.equals(this.minInstalmentAmount, bankingLoanAccount.minInstalmentAmount) &&
-            Objects.equals(this.minInstalmentCurrency, bankingLoanAccount.minInstalmentCurrency) &&
-            Objects.equals(this.minRedraw, bankingLoanAccount.minRedraw) &&
-            Objects.equals(this.minRedrawCurrency, bankingLoanAccount.minRedrawCurrency) &&
-            Objects.equals(this.nextInstalmentDate, bankingLoanAccount.nextInstalmentDate) &&
-            Objects.equals(this.offsetAccountEnabled, bankingLoanAccount.offsetAccountEnabled) &&
-            Objects.equals(this.offsetAccountIds, bankingLoanAccount.offsetAccountIds) &&
+        return Objects.equals(this.originalStartDate, bankingLoanAccount.originalStartDate) &&
             Objects.equals(this.originalLoanAmount, bankingLoanAccount.originalLoanAmount) &&
             Objects.equals(this.originalLoanCurrency, bankingLoanAccount.originalLoanCurrency) &&
-            Objects.equals(this.originalStartDate, bankingLoanAccount.originalStartDate) &&
-            Objects.equals(this.repaymentFrequency, bankingLoanAccount.repaymentFrequency) &&
-            Objects.equals(this.repaymentType, bankingLoanAccount.repaymentType);
+            Objects.equals(this.loanEndDate, bankingLoanAccount.loanEndDate) &&
+            Objects.equals(this.nextInstalmentDate, bankingLoanAccount.nextInstalmentDate) &&
+            Objects.equals(this.minInstalmentAmount, bankingLoanAccount.minInstalmentAmount) &&
+            Objects.equals(this.minInstalmentCurrency, bankingLoanAccount.minInstalmentCurrency) &&
+            Objects.equals(this.maxRedraw, bankingLoanAccount.maxRedraw) &&
+            Objects.equals(this.maxRedrawCurrency, bankingLoanAccount.maxRedrawCurrency) &&
+            Objects.equals(this.minRedraw, bankingLoanAccount.minRedraw) &&
+            Objects.equals(this.minRedrawCurrency, bankingLoanAccount.minRedrawCurrency) &&
+            Objects.equals(this.offsetAccountEnabled, bankingLoanAccount.offsetAccountEnabled) &&
+            Objects.equals(this.offsetAccountIds, bankingLoanAccount.offsetAccountIds) &&
+            Objects.equals(this.repaymentType, bankingLoanAccount.repaymentType) &&
+            Objects.equals(this.repaymentFrequency, bankingLoanAccount.repaymentFrequency);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            loanEndDate,
-            maxRedraw,
-            maxRedrawCurrency,
-            minInstalmentAmount,
-            minInstalmentCurrency,
-            minRedraw,
-            minRedrawCurrency,
-            nextInstalmentDate,
-            offsetAccountEnabled,
-            offsetAccountIds,
+            originalStartDate,
             originalLoanAmount,
             originalLoanCurrency,
-            originalStartDate,
-            repaymentFrequency,
-            repaymentType);
+            loanEndDate,
+            nextInstalmentDate,
+            minInstalmentAmount,
+            minInstalmentCurrency,
+            maxRedraw,
+            maxRedrawCurrency,
+            minRedraw,
+            minRedrawCurrency,
+            offsetAccountEnabled,
+            offsetAccountIds,
+            repaymentType,
+            repaymentFrequency);
     }
 
     @Override
     public String toString() {
         return "class BankingLoanAccount {\n" +
-            "   loanEndDate: " + toIndentedString(loanEndDate) + "\n" + 
-            "   maxRedraw: " + toIndentedString(maxRedraw) + "\n" + 
-            "   maxRedrawCurrency: " + toIndentedString(maxRedrawCurrency) + "\n" + 
-            "   minInstalmentAmount: " + toIndentedString(minInstalmentAmount) + "\n" + 
-            "   minInstalmentCurrency: " + toIndentedString(minInstalmentCurrency) + "\n" + 
-            "   minRedraw: " + toIndentedString(minRedraw) + "\n" + 
-            "   minRedrawCurrency: " + toIndentedString(minRedrawCurrency) + "\n" + 
-            "   nextInstalmentDate: " + toIndentedString(nextInstalmentDate) + "\n" + 
-            "   offsetAccountEnabled: " + toIndentedString(offsetAccountEnabled) + "\n" + 
-            "   offsetAccountIds: " + toIndentedString(offsetAccountIds) + "\n" + 
+            "   originalStartDate: " + toIndentedString(originalStartDate) + "\n" + 
             "   originalLoanAmount: " + toIndentedString(originalLoanAmount) + "\n" + 
             "   originalLoanCurrency: " + toIndentedString(originalLoanCurrency) + "\n" + 
-            "   originalStartDate: " + toIndentedString(originalStartDate) + "\n" + 
-            "   repaymentFrequency: " + toIndentedString(repaymentFrequency) + "\n" + 
+            "   loanEndDate: " + toIndentedString(loanEndDate) + "\n" + 
+            "   nextInstalmentDate: " + toIndentedString(nextInstalmentDate) + "\n" + 
+            "   minInstalmentAmount: " + toIndentedString(minInstalmentAmount) + "\n" + 
+            "   minInstalmentCurrency: " + toIndentedString(minInstalmentCurrency) + "\n" + 
+            "   maxRedraw: " + toIndentedString(maxRedraw) + "\n" + 
+            "   maxRedrawCurrency: " + toIndentedString(maxRedrawCurrency) + "\n" + 
+            "   minRedraw: " + toIndentedString(minRedraw) + "\n" + 
+            "   minRedrawCurrency: " + toIndentedString(minRedrawCurrency) + "\n" + 
+            "   offsetAccountEnabled: " + toIndentedString(offsetAccountEnabled) + "\n" + 
+            "   offsetAccountIds: " + toIndentedString(offsetAccountIds) + "\n" + 
             "   repaymentType: " + toIndentedString(repaymentType) + "\n" + 
+            "   repaymentFrequency: " + toIndentedString(repaymentFrequency) + "\n" + 
             "}";
     }
 

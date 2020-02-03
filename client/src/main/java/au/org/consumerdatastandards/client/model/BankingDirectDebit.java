@@ -16,9 +16,9 @@ public class BankingDirectDebit {
 
     private BankingAuthorisedEntity authorisedEntity;
 
-    private String lastDebitAmount;
-
     private OffsetDateTime lastDebitDateTime;
+
+    private String lastDebitAmount;
 
     /**
      * A unique ID of the account adhering to the standards for ID permanence.
@@ -45,18 +45,6 @@ public class BankingDirectDebit {
     }
 
     /**
-     * The amount of the last debit executed under this authorisation
-     * @return lastDebitAmount
-     */
-    public String getLastDebitAmount() {
-        return lastDebitAmount;
-    }
-
-    public void setLastDebitAmount(String lastDebitAmount) {
-        this.lastDebitAmount = lastDebitAmount;
-    }
-
-    /**
      * The date and time of the last debit executed under this authorisation
      * @return lastDebitDateTime
      */
@@ -66,6 +54,18 @@ public class BankingDirectDebit {
 
     public void setLastDebitDateTime(OffsetDateTime lastDebitDateTime) {
         this.lastDebitDateTime = lastDebitDateTime;
+    }
+
+    /**
+     * The amount of the last debit executed under this authorisation
+     * @return lastDebitAmount
+     */
+    public String getLastDebitAmount() {
+        return lastDebitAmount;
+    }
+
+    public void setLastDebitAmount(String lastDebitAmount) {
+        this.lastDebitAmount = lastDebitAmount;
     }
 
     @Override
@@ -79,8 +79,8 @@ public class BankingDirectDebit {
         BankingDirectDebit bankingDirectDebit = (BankingDirectDebit) o;
         return Objects.equals(this.accountId, bankingDirectDebit.accountId) &&
             Objects.equals(this.authorisedEntity, bankingDirectDebit.authorisedEntity) &&
-            Objects.equals(this.lastDebitAmount, bankingDirectDebit.lastDebitAmount) &&
-            Objects.equals(this.lastDebitDateTime, bankingDirectDebit.lastDebitDateTime);
+            Objects.equals(this.lastDebitDateTime, bankingDirectDebit.lastDebitDateTime) &&
+            Objects.equals(this.lastDebitAmount, bankingDirectDebit.lastDebitAmount);
     }
 
     @Override
@@ -88,8 +88,8 @@ public class BankingDirectDebit {
         return Objects.hash(
             accountId,
             authorisedEntity,
-            lastDebitAmount,
-            lastDebitDateTime);
+            lastDebitDateTime,
+            lastDebitAmount);
     }
 
     @Override
@@ -97,8 +97,8 @@ public class BankingDirectDebit {
         return "class BankingDirectDebit {\n" +
             "   accountId: " + toIndentedString(accountId) + "\n" + 
             "   authorisedEntity: " + toIndentedString(authorisedEntity) + "\n" + 
-            "   lastDebitAmount: " + toIndentedString(lastDebitAmount) + "\n" + 
             "   lastDebitDateTime: " + toIndentedString(lastDebitDateTime) + "\n" + 
+            "   lastDebitAmount: " + toIndentedString(lastDebitAmount) + "\n" + 
             "}";
     }
 

@@ -2,7 +2,7 @@ package au.org.consumerdatastandards.holder.util;
 
 import au.org.consumerdatastandards.holder.model.BankingAccountDetail;
 import au.org.consumerdatastandards.holder.model.BankingBalance;
-import au.org.consumerdatastandards.holder.model.BankingProductDetail;
+import au.org.consumerdatastandards.holder.model.BankingProductV2Detail;
 import au.org.consumerdatastandards.holder.model.BankingTransactionDetail;
 import au.org.consumerdatastandards.holder.model.CommonEmailAddress;
 import au.org.consumerdatastandards.holder.model.CommonOrganisationDetail;
@@ -12,7 +12,7 @@ import au.org.consumerdatastandards.holder.model.PersonUser;
 import au.org.consumerdatastandards.holder.model.User;
 import au.org.consumerdatastandards.holder.repository.BankingAccountDetailRepository;
 import au.org.consumerdatastandards.holder.repository.BankingBalanceRepository;
-import au.org.consumerdatastandards.holder.repository.BankingProductDetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductV2DetailRepository;
 import au.org.consumerdatastandards.holder.repository.BankingTransactionDetailRepository;
 import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
@@ -40,7 +40,7 @@ public class CdsDataLoader {
     private static final Logger LOGGER = LogManager.getLogger(CdsDataLoader.class);
     private static final String DEFAULT_PASSWORD = "password";
 
-    private BankingProductDetailRepository productDetailRepository;
+    private BankingProductV2DetailRepository productDetailRepository;
     private BankingAccountDetailRepository accountDetailRepository;
     private BankingBalanceRepository balanceRepository;
     private CommonPersonDetailRepository commonPersonDetailRepository;
@@ -54,7 +54,7 @@ public class CdsDataLoader {
     private int organisationUserIdSeq = 0;
 
     @Autowired
-    public CdsDataLoader(BankingProductDetailRepository productDetailRepository,
+    public CdsDataLoader(BankingProductV2DetailRepository productDetailRepository,
                          BankingAccountDetailRepository accountDetailRepository,
                          BankingBalanceRepository balanceRepository,
                          CommonPersonDetailRepository commonPersonDetailRepository,
@@ -80,7 +80,7 @@ public class CdsDataLoader {
         load("payloads/accounts", accountDetailRepository, BankingAccountDetail.class);
         load("payloads/balances", balanceRepository, BankingBalance.class);
         load("payloads/persons", commonPersonDetailRepository, CommonPersonDetail.class);
-        load("payloads/products", productDetailRepository, BankingProductDetail.class);
+        load("payloads/products", productDetailRepository, BankingProductV2Detail.class);
         load("payloads/transactions", transactionDetailRepository, BankingTransactionDetail.class);
     }
 

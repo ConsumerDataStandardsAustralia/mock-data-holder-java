@@ -35,14 +35,14 @@ public interface {{classname}}  {
     {{returnType}} {{operationId}}({{^hasParams}});{{/hasParams}}{{#hasParams}}{{#allParams}}
         @Param(
             name = "{{baseName}}",
-            description = "{{description}}",
+            description = "{{{description}}}",
             in = {{#isHeaderParam}}ParamLocation.HEADER{{/isHeaderParam}}{{#isPathParam}}ParamLocation.PATH{{/isPathParam}}{{#isQueryParam}}ParamLocation.QUERY{{/isQueryParam}}{{#isBodyParam}}ParamLocation.BODY{{/isBodyParam}}{{#defaultValue}},
             defaultValue = "{{{defaultValue}}}"{{/defaultValue}}{{#isRequired}},
             required = true{{/isRequired}}{{#isReference}},
             reference = "{{referenceName}}"{{/isReference}}
         ){{#isCdsType}}
         {{cdsTypeAnnotation}}{{/isCdsType}}
-        {{#isEnum}}{{datatypeWithEnum}}{{/isEnum}}{{^isEnum}}{{dataType}}{{/isEnum}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}
+        {{#isEnum}}{{datatypeWithEnum}}{{/isEnum}}{{^isEnum}}{{dataType}}{{/isEnum}} {{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}}
     );{{/hasParams}}
 {{/operation}}
 {{/operations}}

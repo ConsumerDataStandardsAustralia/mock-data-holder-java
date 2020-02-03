@@ -11,21 +11,9 @@ import java.util.Objects;
 
 public class BankingInternationalPayeeBankDetailsBankAddress {
 
-    private String address;
-
     private String name;
 
-    /**
-     * Address of the recipient Bank
-     * @return address
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    private String address;
 
     /**
      * Name of the recipient Bank
@@ -39,6 +27,18 @@ public class BankingInternationalPayeeBankDetailsBankAddress {
         this.name = name;
     }
 
+    /**
+     * Address of the recipient Bank
+     * @return address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -48,22 +48,22 @@ public class BankingInternationalPayeeBankDetailsBankAddress {
             return false;
         }
         BankingInternationalPayeeBankDetailsBankAddress bankingInternationalPayeeBankDetailsBankAddress = (BankingInternationalPayeeBankDetailsBankAddress) o;
-        return Objects.equals(this.address, bankingInternationalPayeeBankDetailsBankAddress.address) &&
-            Objects.equals(this.name, bankingInternationalPayeeBankDetailsBankAddress.name);
+        return Objects.equals(this.name, bankingInternationalPayeeBankDetailsBankAddress.name) &&
+            Objects.equals(this.address, bankingInternationalPayeeBankDetailsBankAddress.address);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            address,
-            name);
+            name,
+            address);
     }
 
     @Override
     public String toString() {
         return "class BankingInternationalPayeeBankDetailsBankAddress {\n" +
-            "   address: " + toIndentedString(address) + "\n" + 
             "   name: " + toIndentedString(name) + "\n" + 
+            "   address: " + toIndentedString(address) + "\n" + 
             "}";
     }
 

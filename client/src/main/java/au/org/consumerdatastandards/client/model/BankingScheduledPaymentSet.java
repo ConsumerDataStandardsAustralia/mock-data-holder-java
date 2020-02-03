@@ -13,16 +13,40 @@ import java.util.Objects;
  */
 public class BankingScheduledPaymentSet {
 
+    private BankingScheduledPaymentTo to;
+
+    private Boolean isAmountCalculated;
+
     private String amount;
 
     private String currency;
 
-    private Boolean isAmountCalculated;
+    /**
+     * Get to
+     * @return to
+     */
+    public BankingScheduledPaymentTo getTo() {
+        return to;
+    }
 
-    private BankingScheduledPaymentTo to;
+    public void setTo(BankingScheduledPaymentTo to) {
+        this.to = to;
+    }
 
     /**
      * Flag indicating whether the amount of the payment is calculated based on the context of the event. For instance a payment to reduce the balance of a credit card to zero. If absent then false is assumed
+     * @return isAmountCalculated
+     */
+    public Boolean getIsAmountCalculated() {
+        return isAmountCalculated;
+    }
+
+    public void setIsAmountCalculated(Boolean isAmountCalculated) {
+        this.isAmountCalculated = isAmountCalculated;
+    }
+
+    /**
+     * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
      * @return amount
      */
     public String getAmount() {
@@ -45,30 +69,6 @@ public class BankingScheduledPaymentSet {
         this.currency = currency;
     }
 
-    /**
-     * Flag indicating whether the amount of the payment is calculated based on the context of the event. For instance a payment to reduce the balance of a credit card to zero. If absent then false is assumed
-     * @return isAmountCalculated
-     */
-    public Boolean getIsAmountCalculated() {
-        return isAmountCalculated;
-    }
-
-    public void setIsAmountCalculated(Boolean isAmountCalculated) {
-        this.isAmountCalculated = isAmountCalculated;
-    }
-
-    /**
-     * Get to
-     * @return to
-     */
-    public BankingScheduledPaymentTo getTo() {
-        return to;
-    }
-
-    public void setTo(BankingScheduledPaymentTo to) {
-        this.to = to;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,28 +78,28 @@ public class BankingScheduledPaymentSet {
             return false;
         }
         BankingScheduledPaymentSet bankingScheduledPaymentSet = (BankingScheduledPaymentSet) o;
-        return Objects.equals(this.amount, bankingScheduledPaymentSet.amount) &&
-            Objects.equals(this.currency, bankingScheduledPaymentSet.currency) &&
+        return Objects.equals(this.to, bankingScheduledPaymentSet.to) &&
             Objects.equals(this.isAmountCalculated, bankingScheduledPaymentSet.isAmountCalculated) &&
-            Objects.equals(this.to, bankingScheduledPaymentSet.to);
+            Objects.equals(this.amount, bankingScheduledPaymentSet.amount) &&
+            Objects.equals(this.currency, bankingScheduledPaymentSet.currency);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            amount,
-            currency,
+            to,
             isAmountCalculated,
-            to);
+            amount,
+            currency);
     }
 
     @Override
     public String toString() {
         return "class BankingScheduledPaymentSet {\n" +
+            "   to: " + toIndentedString(to) + "\n" + 
+            "   isAmountCalculated: " + toIndentedString(isAmountCalculated) + "\n" + 
             "   amount: " + toIndentedString(amount) + "\n" + 
             "   currency: " + toIndentedString(currency) + "\n" + 
-            "   isAmountCalculated: " + toIndentedString(isAmountCalculated) + "\n" + 
-            "   to: " + toIndentedString(to) + "\n" + 
             "}";
     }
 

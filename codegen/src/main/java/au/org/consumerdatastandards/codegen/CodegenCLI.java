@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.ServiceLoader.load;
@@ -31,12 +32,13 @@ public class CodegenCLI {
         commander.parse(args);
 
         ModelBuilder modelBuilder = new ModelBuilder(options);
-        APIModel apiModel = modelBuilder.build();
+        List<APIModel> apiModels = modelBuilder.build();
+        APIModel latestModel = apiModels.get(apiModels.size() - 1);
         boolean listing = false;
         if (options.isListSections()) {
             listing = true;
             JCommander.getConsole().println("Sections:");
-            for (SectionModel sectionModel : apiModel.getSectionModels()) {
+            for (SectionModel sectionModel : latestModel.getSectionModels()) {
                 JCommander.getConsole().println(" - " + sectionModel.getName());
             }
         }
@@ -55,7 +57,7 @@ public class CodegenCLI {
             }
         }
         if (!listing) {
-            AbstractGenerator<?> generator = getGenerator(options.getGeneratorName(), apiModel);
+            AbstractGenerator<?> generator = getGenerator(options.getGeneratorName(), latestModel);
             try {
                 generator.populateOptions(args);
                 if (options.isHelp()) {

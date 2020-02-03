@@ -126,9 +126,9 @@ public class PayloadValidator {
         }
     }
 
-    public List<ConformanceError> validateResponse(String requestUrl, Object response, String operationId, ResponseCode responseCode) {
+    public List<ConformanceError> validateResponse(String requestUrl, Object response, String operationId, int version, ResponseCode responseCode) {
         List<ConformanceError> errors = new ArrayList<>();
-        EndpointResponse endpointResponse = conformanceModel.getResponse(operationId, responseCode);
+        EndpointResponse endpointResponse = conformanceModel.getResponse(operationId, version, responseCode);
         if (endpointResponse == null) {
             return Collections.singletonList(new ConformanceError().errorMessage(
                 String.format("No response model found for operation %s with response code %s", operationId, responseCode)));
@@ -139,14 +139,14 @@ public class PayloadValidator {
         return errors;
     }
 
-    public List<ConformanceError> validateResponse(String requestUrl, Object response, String operationId, int httpResponseCode) {
+    public List<ConformanceError> validateResponse(String requestUrl, Object response, String operationId, int version, int httpResponseCode) {
         ResponseCode responseCode = ResponseCode.fromCode(httpResponseCode);
         if (responseCode == null) {
             return Collections.singletonList(new ConformanceError().errorMessage(
                 String.format("No response defined with code %d", httpResponseCode)
             ));
         }
-        return validateResponse(requestUrl, response, operationId, responseCode);
+        return validateResponse(requestUrl, response, operationId, version, responseCode);
     }
 
     private List<ConformanceError> checkMetaAndLinks(String requestUrl, Object response) {

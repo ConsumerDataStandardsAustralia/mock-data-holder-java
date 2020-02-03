@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.conformance.validator;
 
-import au.org.consumerdatastandards.api.common.models.CommonOrganisationDetail;
-import au.org.consumerdatastandards.api.common.models.CommonPersonDetail;
+import au.org.consumerdatastandards.api.v1_0_0.common.models.CommonOrganisationDetail;
+import au.org.consumerdatastandards.api.v1_0_0.common.models.CommonPersonDetail;
 
 import java.util.HashMap;
 import java.util.Map;

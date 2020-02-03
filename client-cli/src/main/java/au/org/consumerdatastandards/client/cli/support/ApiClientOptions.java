@@ -18,6 +18,7 @@ public class ApiClientOptions {
     @Value("${proxy:}")
     private String proxy;
     private boolean validationEnabled = false;
+    @Value("${user.agent:Client CLI}")
     private String userAgent;
     private boolean debugEnabled = false;
     private boolean verifyingSsl = true;

@@ -12,29 +12,17 @@ import java.util.Objects;
 public class CommonEmailAddress {
 
     public enum Purpose {
+        WORK,
         HOME,
         OTHER,
-        UNSPECIFIED,
-        WORK
+        UNSPECIFIED
     }
-
-    private String address;
 
     private Boolean isPreferred;
 
     private Purpose purpose;
 
-    /**
-     * A correctly formatted email address, as defined by the addr_spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)
-     * @return address
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    private String address;
 
     /**
      * May be true for one and only one email record in the collection. Denotes the default email address
@@ -49,7 +37,7 @@ public class CommonEmailAddress {
     }
 
     /**
-     * Get purpose
+     * The purpose for the email, as specified by the customer (Enumeration)
      * @return purpose
      */
     public Purpose getPurpose() {
@@ -58,6 +46,18 @@ public class CommonEmailAddress {
 
     public void setPurpose(Purpose purpose) {
         this.purpose = purpose;
+    }
+
+    /**
+     * A correctly formatted email address, as defined by the addr_spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)
+     * @return address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -69,25 +69,25 @@ public class CommonEmailAddress {
             return false;
         }
         CommonEmailAddress commonEmailAddress = (CommonEmailAddress) o;
-        return Objects.equals(this.address, commonEmailAddress.address) &&
-            Objects.equals(this.isPreferred, commonEmailAddress.isPreferred) &&
-            Objects.equals(this.purpose, commonEmailAddress.purpose);
+        return Objects.equals(this.isPreferred, commonEmailAddress.isPreferred) &&
+            Objects.equals(this.purpose, commonEmailAddress.purpose) &&
+            Objects.equals(this.address, commonEmailAddress.address);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            address,
             isPreferred,
-            purpose);
+            purpose,
+            address);
     }
 
     @Override
     public String toString() {
         return "class CommonEmailAddress {\n" +
-            "   address: " + toIndentedString(address) + "\n" + 
             "   isPreferred: " + toIndentedString(isPreferred) + "\n" + 
             "   purpose: " + toIndentedString(purpose) + "\n" + 
+            "   address: " + toIndentedString(address) + "\n" + 
             "}";
     }
 

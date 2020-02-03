@@ -12,29 +12,29 @@ import java.util.Objects;
 public class BankingPayeeDetail extends BankingPayee {
 
     public enum PayeeUType {
-        biller,
         domestic,
+        biller,
         international
     }
 
-    private BankingBillerPayee biller;
+    private PayeeUType payeeUType;
 
     private BankingDomesticPayee domestic;
 
+    private BankingBillerPayee biller;
+
     private BankingInternationalPayee international;
 
-    private PayeeUType payeeUType;
-
     /**
-     * Get biller
-     * @return biller
+     * Type of object included that describes the payee in detail
+     * @return payeeUType
      */
-    public BankingBillerPayee getBiller() {
-        return biller;
+    public PayeeUType getPayeeUType() {
+        return payeeUType;
     }
 
-    public void setBiller(BankingBillerPayee biller) {
-        this.biller = biller;
+    public void setPayeeUType(PayeeUType payeeUType) {
+        this.payeeUType = payeeUType;
     }
 
     /**
@@ -50,6 +50,18 @@ public class BankingPayeeDetail extends BankingPayee {
     }
 
     /**
+     * Get biller
+     * @return biller
+     */
+    public BankingBillerPayee getBiller() {
+        return biller;
+    }
+
+    public void setBiller(BankingBillerPayee biller) {
+        this.biller = biller;
+    }
+
+    /**
      * Get international
      * @return international
      */
@@ -61,18 +73,6 @@ public class BankingPayeeDetail extends BankingPayee {
         this.international = international;
     }
 
-    /**
-     * Get payeeUType
-     * @return payeeUType
-     */
-    public PayeeUType getPayeeUType() {
-        return payeeUType;
-    }
-
-    public void setPayeeUType(PayeeUType payeeUType) {
-        this.payeeUType = payeeUType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -82,35 +82,35 @@ public class BankingPayeeDetail extends BankingPayee {
             return false;
         }
         BankingPayeeDetail bankingPayeeDetail = (BankingPayeeDetail) o;
-        return Objects.equals(this.biller, bankingPayeeDetail.biller) &&
+        return Objects.equals(this.payeeUType, bankingPayeeDetail.payeeUType) &&
             Objects.equals(this.domestic, bankingPayeeDetail.domestic) &&
+            Objects.equals(this.biller, bankingPayeeDetail.biller) &&
             Objects.equals(this.international, bankingPayeeDetail.international) &&
-            Objects.equals(this.payeeUType, bankingPayeeDetail.payeeUType) &&
             super.equals(o);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            biller,
-            domestic,
-            international,
             payeeUType,
+            domestic,
+            biller,
+            international,
             super.hashCode());
     }
 
     @Override
     public String toString() {
         return "class BankingPayeeDetail {\n" +
-            "   creationDate: " + toIndentedString(getCreationDate()) + "\n" + 
-            "   description: " + toIndentedString(getDescription()) + "\n" + 
-            "   nickname: " + toIndentedString(getNickname()) + "\n" + 
-            "   payeeId: " + toIndentedString(getPayeeId()) + "\n" + 
-            "   type: " + toIndentedString(getType()) + "\n" + 
-            "   biller: " + toIndentedString(biller) + "\n" + 
-            "   domestic: " + toIndentedString(domestic) + "\n" + 
-            "   international: " + toIndentedString(international) + "\n" + 
-            "   payeeUType: " + toIndentedString(payeeUType) + "\n" + 
+            "   payeeId: " + toIndentedString(getPayeeId()) + "\n" +
+            "   nickname: " + toIndentedString(getNickname()) + "\n" +
+            "   description: " + toIndentedString(getDescription()) + "\n" +
+            "   type: " + toIndentedString(getType()) + "\n" +
+            "   creationDate: " + toIndentedString(getCreationDate()) + "\n" +
+            "   payeeUType: " + toIndentedString(payeeUType) + "\n" +
+            "   domestic: " + toIndentedString(domestic) + "\n" +
+            "   biller: " + toIndentedString(biller) + "\n" +
+            "   international: " + toIndentedString(international) + "\n" +
             "}";
     }
 

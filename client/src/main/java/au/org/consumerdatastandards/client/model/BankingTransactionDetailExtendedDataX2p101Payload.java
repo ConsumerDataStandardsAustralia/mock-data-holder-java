@@ -11,23 +11,11 @@ import java.util.Objects;
 
 public class BankingTransactionDetailExtendedDataX2p101Payload {
 
-    private String endToEndId;
-
     private String extendedDescription;
 
+    private String endToEndId;
+
     private String purposeCode;
-
-    /**
-     * An end to end ID for the payment created at initiation
-     * @return endToEndId
-     */
-    public String getEndToEndId() {
-        return endToEndId;
-    }
-
-    public void setEndToEndId(String endToEndId) {
-        this.endToEndId = endToEndId;
-    }
 
     /**
      * An extended string description. Only present if specified by the extensionUType field
@@ -39,6 +27,18 @@ public class BankingTransactionDetailExtendedDataX2p101Payload {
 
     public void setExtendedDescription(String extendedDescription) {
         this.extendedDescription = extendedDescription;
+    }
+
+    /**
+     * An end to end ID for the payment created at initiation
+     * @return endToEndId
+     */
+    public String getEndToEndId() {
+        return endToEndId;
+    }
+
+    public void setEndToEndId(String endToEndId) {
+        this.endToEndId = endToEndId;
     }
 
     /**
@@ -62,24 +62,24 @@ public class BankingTransactionDetailExtendedDataX2p101Payload {
             return false;
         }
         BankingTransactionDetailExtendedDataX2p101Payload bankingTransactionDetailExtendedDataX2p101Payload = (BankingTransactionDetailExtendedDataX2p101Payload) o;
-        return Objects.equals(this.endToEndId, bankingTransactionDetailExtendedDataX2p101Payload.endToEndId) &&
-            Objects.equals(this.extendedDescription, bankingTransactionDetailExtendedDataX2p101Payload.extendedDescription) &&
+        return Objects.equals(this.extendedDescription, bankingTransactionDetailExtendedDataX2p101Payload.extendedDescription) &&
+            Objects.equals(this.endToEndId, bankingTransactionDetailExtendedDataX2p101Payload.endToEndId) &&
             Objects.equals(this.purposeCode, bankingTransactionDetailExtendedDataX2p101Payload.purposeCode);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            endToEndId,
             extendedDescription,
+            endToEndId,
             purposeCode);
     }
 
     @Override
     public String toString() {
         return "class BankingTransactionDetailExtendedDataX2p101Payload {\n" +
-            "   endToEndId: " + toIndentedString(endToEndId) + "\n" + 
             "   extendedDescription: " + toIndentedString(extendedDescription) + "\n" + 
+            "   endToEndId: " + toIndentedString(endToEndId) + "\n" + 
             "   purposeCode: " + toIndentedString(purposeCode) + "\n" + 
             "}";
     }

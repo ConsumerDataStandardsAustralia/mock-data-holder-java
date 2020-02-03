@@ -62,6 +62,7 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -108,6 +109,7 @@ public class ApiUtil {
         String userAgent = clientOptions.getUserAgent();
         if (!StringUtils.isBlank(userAgent)) {
             apiClient.setUserAgent(userAgent);
+            apiClient.addDefaultHeader("x-cds-client-headers", Base64.getEncoder().encodeToString(("User-Agent: " + userAgent).getBytes()));
             LOGGER.info("User Agent is set to {}", userAgent);
         }
 

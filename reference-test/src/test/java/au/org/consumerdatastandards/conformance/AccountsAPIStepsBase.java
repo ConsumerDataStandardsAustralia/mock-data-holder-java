@@ -1,8 +1,8 @@
 package au.org.consumerdatastandards.conformance;
 
-import au.org.consumerdatastandards.api.banking.models.BankingAccount;
-import au.org.consumerdatastandards.api.banking.models.BankingProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountById;
+import au.org.consumerdatastandards.api.v1_1_1.banking.models.BankingAccount;
+import au.org.consumerdatastandards.api.v1_1_1.banking.models.BankingProductCategory;
+import au.org.consumerdatastandards.api.v1_1_1.banking.models.ResponseBankingAccountById;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
 import au.org.consumerdatastandards.support.Header;
 import au.org.consumerdatastandards.support.ResponseCode;
@@ -55,7 +55,7 @@ public class AccountsAPIStepsBase extends ProtectedAPIStepsBase {
                     Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountById.class);
                     Object responseBankingAccountById = objectMapper.readValue(json, expandedResponseClass);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountById,
-                            "getAccountDetail", statusCode));
+                            "getAccountDetail", getEndpointVersion(getAccountDetailResponse), statusCode));
                     Object responseData = getResponseData(responseBankingAccountById);
                     String id = getAccountId(responseData);
                     if (!id.equals(accountId)) {

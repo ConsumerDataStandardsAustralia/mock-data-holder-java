@@ -12,23 +12,11 @@ import java.util.Objects;
 
 public class CommonPersonDetail extends CommonPerson {
 
-    private List<CommonEmailAddress> emailAddresses;
-
     private List<CommonPhoneNumber> phoneNumbers;
 
+    private List<CommonEmailAddress> emailAddresses;
+
     private List<CommonPhysicalAddressWithPurpose> physicalAddresses;
-
-    /**
-     * May be empty
-     * @return emailAddresses
-     */
-    public List<CommonEmailAddress> getEmailAddresses() {
-        return emailAddresses;
-    }
-
-    public void setEmailAddresses(List<CommonEmailAddress> emailAddresses) {
-        this.emailAddresses = emailAddresses;
-    }
 
     /**
      * Array is mandatory but may be empty if no phone numbers are held
@@ -40,6 +28,18 @@ public class CommonPersonDetail extends CommonPerson {
 
     public void setPhoneNumbers(List<CommonPhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
+    }
+
+    /**
+     * May be empty
+     * @return emailAddresses
+     */
+    public List<CommonEmailAddress> getEmailAddresses() {
+        return emailAddresses;
+    }
+
+    public void setEmailAddresses(List<CommonEmailAddress> emailAddresses) {
+        this.emailAddresses = emailAddresses;
     }
 
     /**
@@ -63,8 +63,8 @@ public class CommonPersonDetail extends CommonPerson {
             return false;
         }
         CommonPersonDetail commonPersonDetail = (CommonPersonDetail) o;
-        return Objects.equals(this.emailAddresses, commonPersonDetail.emailAddresses) &&
-            Objects.equals(this.phoneNumbers, commonPersonDetail.phoneNumbers) &&
+        return Objects.equals(this.phoneNumbers, commonPersonDetail.phoneNumbers) &&
+            Objects.equals(this.emailAddresses, commonPersonDetail.emailAddresses) &&
             Objects.equals(this.physicalAddresses, commonPersonDetail.physicalAddresses) &&
             super.equals(o);
     }
@@ -72,8 +72,8 @@ public class CommonPersonDetail extends CommonPerson {
     @Override
     public int hashCode() {
         return Objects.hash(
-            emailAddresses,
             phoneNumbers,
+            emailAddresses,
             physicalAddresses,
             super.hashCode());
     }
@@ -81,15 +81,15 @@ public class CommonPersonDetail extends CommonPerson {
     @Override
     public String toString() {
         return "class CommonPersonDetail {\n" +
+            "   lastUpdateTime: " + toIndentedString(getLastUpdateTime()) + "\n" + 
             "   firstName: " + toIndentedString(getFirstName()) + "\n" + 
             "   lastName: " + toIndentedString(getLastName()) + "\n" + 
-            "   lastUpdateTime: " + toIndentedString(getLastUpdateTime()) + "\n" + 
             "   middleNames: " + toIndentedString(getMiddleNames()) + "\n" + 
-            "   occupationCode: " + toIndentedString(getOccupationCode()) + "\n" + 
             "   prefix: " + toIndentedString(getPrefix()) + "\n" + 
             "   suffix: " + toIndentedString(getSuffix()) + "\n" + 
-            "   emailAddresses: " + toIndentedString(emailAddresses) + "\n" + 
+            "   occupationCode: " + toIndentedString(getOccupationCode()) + "\n" + 
             "   phoneNumbers: " + toIndentedString(phoneNumbers) + "\n" + 
+            "   emailAddresses: " + toIndentedString(emailAddresses) + "\n" + 
             "   physicalAddresses: " + toIndentedString(physicalAddresses) + "\n" + 
             "}";
     }

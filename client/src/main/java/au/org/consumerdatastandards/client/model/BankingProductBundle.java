@@ -12,15 +12,39 @@ import java.util.Objects;
 
 public class BankingProductBundle {
 
+    private String name;
+
+    private String description;
+
     private String additionalInfo;
 
     private String additionalInfoUri;
 
-    private String description;
-
-    private String name;
-
     private List<String> productIds;
+
+    /**
+     * Name of the bundle
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Description of the bundle
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     /**
      * Display text providing more information on the bundle
@@ -47,30 +71,6 @@ public class BankingProductBundle {
     }
 
     /**
-     * Description of the bundle
-     * @return description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Name of the bundle
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Array of product IDs for products included in the bundle that are available via the product end points.  Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference end points
      * @return productIds
      */
@@ -91,30 +91,30 @@ public class BankingProductBundle {
             return false;
         }
         BankingProductBundle bankingProductBundle = (BankingProductBundle) o;
-        return Objects.equals(this.additionalInfo, bankingProductBundle.additionalInfo) &&
-            Objects.equals(this.additionalInfoUri, bankingProductBundle.additionalInfoUri) &&
+        return Objects.equals(this.name, bankingProductBundle.name) &&
             Objects.equals(this.description, bankingProductBundle.description) &&
-            Objects.equals(this.name, bankingProductBundle.name) &&
+            Objects.equals(this.additionalInfo, bankingProductBundle.additionalInfo) &&
+            Objects.equals(this.additionalInfoUri, bankingProductBundle.additionalInfoUri) &&
             Objects.equals(this.productIds, bankingProductBundle.productIds);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            name,
+            description,
             additionalInfo,
             additionalInfoUri,
-            description,
-            name,
             productIds);
     }
 
     @Override
     public String toString() {
         return "class BankingProductBundle {\n" +
+            "   name: " + toIndentedString(name) + "\n" + 
+            "   description: " + toIndentedString(description) + "\n" + 
             "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
             "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
-            "   description: " + toIndentedString(description) + "\n" + 
-            "   name: " + toIndentedString(name) + "\n" + 
             "   productIds: " + toIndentedString(productIds) + "\n" + 
             "}";
     }

@@ -21,7 +21,7 @@ public class {{classname}}{{#isPaginatedResponse}} extends PaginatedResponse{{/i
         required = true{{/required}}
     ){{/isSimple}}{{#isCdsType}}
     {{cdsTypeAnnotation}}{{/isCdsType}}
-    {{{datatypeWithEnum}}} {{baseName}}{{#isDefaultValueVisible}} = {{defaultValue}}{{/isDefaultValueVisible}};
+    {{{datatypeWithEnum}}} {{baseName}}{{#isDefaultValueVisible}} = {{{defaultValue}}}{{/isDefaultValueVisible}};
     {{/isInherited}}
 {{/vars}}
 }{{/model}}{{/models}}

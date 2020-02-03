@@ -11,21 +11,33 @@ import java.util.Objects;
 
 public class CommonSimpleAddress {
 
+    private String mailingName;
+
     private String addressLine1;
 
     private String addressLine2;
 
     private String addressLine3;
 
+    private String postcode;
+
     private String city;
+
+    private String state;
 
     private String country = "AUS";
 
-    private String mailingName;
+    /**
+     * Name of the individual or business formatted for inclusion in an address used for physical mail
+     * @return mailingName
+     */
+    public String getMailingName() {
+        return mailingName;
+    }
 
-    private String postcode;
-
-    private String state;
+    public void setMailingName(String mailingName) {
+        this.mailingName = mailingName;
+    }
 
     /**
      * First line of the standard address object
@@ -64,42 +76,6 @@ public class CommonSimpleAddress {
     }
 
     /**
-     * Name of the city or locality
-     * @return city
-     */
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
-     * @return country
-     */
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    /**
-     * Name of the individual or business formatted for inclusion in an address used for physical mail
-     * @return mailingName
-     */
-    public String getMailingName() {
-        return mailingName;
-    }
-
-    public void setMailingName(String mailingName) {
-        this.mailingName = mailingName;
-    }
-
-    /**
      * Mandatory for Australian addresses
      * @return postcode
      */
@@ -109,6 +85,18 @@ public class CommonSimpleAddress {
 
     public void setPostcode(String postcode) {
         this.postcode = postcode;
+    }
+
+    /**
+     * Name of the city or locality
+     * @return city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     /**
@@ -123,6 +111,18 @@ public class CommonSimpleAddress {
         this.state = state;
     }
 
+    /**
+     * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
+     * @return country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -132,40 +132,40 @@ public class CommonSimpleAddress {
             return false;
         }
         CommonSimpleAddress commonSimpleAddress = (CommonSimpleAddress) o;
-        return Objects.equals(this.addressLine1, commonSimpleAddress.addressLine1) &&
+        return Objects.equals(this.mailingName, commonSimpleAddress.mailingName) &&
+            Objects.equals(this.addressLine1, commonSimpleAddress.addressLine1) &&
             Objects.equals(this.addressLine2, commonSimpleAddress.addressLine2) &&
             Objects.equals(this.addressLine3, commonSimpleAddress.addressLine3) &&
-            Objects.equals(this.city, commonSimpleAddress.city) &&
-            Objects.equals(this.country, commonSimpleAddress.country) &&
-            Objects.equals(this.mailingName, commonSimpleAddress.mailingName) &&
             Objects.equals(this.postcode, commonSimpleAddress.postcode) &&
-            Objects.equals(this.state, commonSimpleAddress.state);
+            Objects.equals(this.city, commonSimpleAddress.city) &&
+            Objects.equals(this.state, commonSimpleAddress.state) &&
+            Objects.equals(this.country, commonSimpleAddress.country);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
+            mailingName,
             addressLine1,
             addressLine2,
             addressLine3,
-            city,
-            country,
-            mailingName,
             postcode,
-            state);
+            city,
+            state,
+            country);
     }
 
     @Override
     public String toString() {
         return "class CommonSimpleAddress {\n" +
+            "   mailingName: " + toIndentedString(mailingName) + "\n" + 
             "   addressLine1: " + toIndentedString(addressLine1) + "\n" + 
             "   addressLine2: " + toIndentedString(addressLine2) + "\n" + 
             "   addressLine3: " + toIndentedString(addressLine3) + "\n" + 
-            "   city: " + toIndentedString(city) + "\n" + 
-            "   country: " + toIndentedString(country) + "\n" + 
-            "   mailingName: " + toIndentedString(mailingName) + "\n" + 
             "   postcode: " + toIndentedString(postcode) + "\n" + 
+            "   city: " + toIndentedString(city) + "\n" + 
             "   state: " + toIndentedString(state) + "\n" + 
+            "   country: " + toIndentedString(country) + "\n" + 
             "}";
     }
 

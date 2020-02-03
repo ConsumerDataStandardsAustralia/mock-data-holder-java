@@ -14,36 +14,36 @@ public class BankingScheduledPayment {
 
     public enum Status {
         ACTIVE,
-        INACTIVE,
-        SKIP
+        SKIP,
+        INACTIVE
     }
 
-    private BankingScheduledPaymentFrom from;
+    private String scheduledPaymentId;
 
     private String nickname;
 
+    private String payerReference;
+
     private String payeeReference;
 
-    private String payerReference;
+    private Status status;
+
+    private BankingScheduledPaymentFrom from;
 
     private List<BankingScheduledPaymentSet> paymentSet;
 
     private BankingScheduledPaymentRecurrence recurrence;
 
-    private String scheduledPaymentId;
-
-    private Status status;
-
     /**
-     * Get from
-     * @return from
+     * A unique ID of the scheduled payment adhering to the standards for ID permanence
+     * @return scheduledPaymentId
      */
-    public BankingScheduledPaymentFrom getFrom() {
-        return from;
+    public String getScheduledPaymentId() {
+        return scheduledPaymentId;
     }
 
-    public void setFrom(BankingScheduledPaymentFrom from) {
-        this.from = from;
+    public void setScheduledPaymentId(String scheduledPaymentId) {
+        this.scheduledPaymentId = scheduledPaymentId;
     }
 
     /**
@@ -59,6 +59,18 @@ public class BankingScheduledPayment {
     }
 
     /**
+     * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
+     * @return payerReference
+     */
+    public String getPayerReference() {
+        return payerReference;
+    }
+
+    public void setPayerReference(String payerReference) {
+        this.payerReference = payerReference;
+    }
+
+    /**
      * The reference for the transaction that will be provided by the originating institution. Empty string if no data provided
      * @return payeeReference
      */
@@ -71,15 +83,27 @@ public class BankingScheduledPayment {
     }
 
     /**
-     * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
-     * @return payerReference
+     * Indicates whether the schedule is currently active. The value SKIP is equivalent to ACTIVE except that the customer has requested the next normal occurrence to be skipped.
+     * @return status
      */
-    public String getPayerReference() {
-        return payerReference;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setPayerReference(String payerReference) {
-        this.payerReference = payerReference;
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    /**
+     * Get from
+     * @return from
+     */
+    public BankingScheduledPaymentFrom getFrom() {
+        return from;
+    }
+
+    public void setFrom(BankingScheduledPaymentFrom from) {
+        this.from = from;
     }
 
     /**
@@ -106,30 +130,6 @@ public class BankingScheduledPayment {
         this.recurrence = recurrence;
     }
 
-    /**
-     * A unique ID of the scheduled payment adhering to the standards for ID permanence
-     * @return scheduledPaymentId
-     */
-    public String getScheduledPaymentId() {
-        return scheduledPaymentId;
-    }
-
-    public void setScheduledPaymentId(String scheduledPaymentId) {
-        this.scheduledPaymentId = scheduledPaymentId;
-    }
-
-    /**
-     * Get status
-     * @return status
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -139,40 +139,40 @@ public class BankingScheduledPayment {
             return false;
         }
         BankingScheduledPayment bankingScheduledPayment = (BankingScheduledPayment) o;
-        return Objects.equals(this.from, bankingScheduledPayment.from) &&
+        return Objects.equals(this.scheduledPaymentId, bankingScheduledPayment.scheduledPaymentId) &&
             Objects.equals(this.nickname, bankingScheduledPayment.nickname) &&
-            Objects.equals(this.payeeReference, bankingScheduledPayment.payeeReference) &&
             Objects.equals(this.payerReference, bankingScheduledPayment.payerReference) &&
+            Objects.equals(this.payeeReference, bankingScheduledPayment.payeeReference) &&
+            Objects.equals(this.status, bankingScheduledPayment.status) &&
+            Objects.equals(this.from, bankingScheduledPayment.from) &&
             Objects.equals(this.paymentSet, bankingScheduledPayment.paymentSet) &&
-            Objects.equals(this.recurrence, bankingScheduledPayment.recurrence) &&
-            Objects.equals(this.scheduledPaymentId, bankingScheduledPayment.scheduledPaymentId) &&
-            Objects.equals(this.status, bankingScheduledPayment.status);
+            Objects.equals(this.recurrence, bankingScheduledPayment.recurrence);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            from,
-            nickname,
-            payeeReference,
-            payerReference,
-            paymentSet,
-            recurrence,
             scheduledPaymentId,
-            status);
+            nickname,
+            payerReference,
+            payeeReference,
+            status,
+            from,
+            paymentSet,
+            recurrence);
     }
 
     @Override
     public String toString() {
         return "class BankingScheduledPayment {\n" +
-            "   from: " + toIndentedString(from) + "\n" + 
+            "   scheduledPaymentId: " + toIndentedString(scheduledPaymentId) + "\n" + 
             "   nickname: " + toIndentedString(nickname) + "\n" + 
-            "   payeeReference: " + toIndentedString(payeeReference) + "\n" + 
             "   payerReference: " + toIndentedString(payerReference) + "\n" + 
+            "   payeeReference: " + toIndentedString(payeeReference) + "\n" + 
+            "   status: " + toIndentedString(status) + "\n" + 
+            "   from: " + toIndentedString(from) + "\n" + 
             "   paymentSet: " + toIndentedString(paymentSet) + "\n" + 
             "   recurrence: " + toIndentedString(recurrence) + "\n" + 
-            "   scheduledPaymentId: " + toIndentedString(scheduledPaymentId) + "\n" + 
-            "   status: " + toIndentedString(status) + "\n" + 
             "}";
     }
 

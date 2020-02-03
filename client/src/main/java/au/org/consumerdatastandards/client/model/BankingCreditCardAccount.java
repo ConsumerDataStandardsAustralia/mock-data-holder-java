@@ -14,9 +14,9 @@ public class BankingCreditCardAccount {
 
     private String minPaymentAmount;
 
-    private String paymentCurrency;
-
     private String paymentDueAmount;
+
+    private String paymentCurrency;
 
     private LocalDate paymentDueDate;
 
@@ -33,18 +33,6 @@ public class BankingCreditCardAccount {
     }
 
     /**
-     * If absent assumes AUD
-     * @return paymentCurrency
-     */
-    public String getPaymentCurrency() {
-        return paymentCurrency;
-    }
-
-    public void setPaymentCurrency(String paymentCurrency) {
-        this.paymentCurrency = paymentCurrency;
-    }
-
-    /**
      * The amount due for the next card payment
      * @return paymentDueAmount
      */
@@ -54,6 +42,18 @@ public class BankingCreditCardAccount {
 
     public void setPaymentDueAmount(String paymentDueAmount) {
         this.paymentDueAmount = paymentDueAmount;
+    }
+
+    /**
+     * If absent assumes AUD
+     * @return paymentCurrency
+     */
+    public String getPaymentCurrency() {
+        return paymentCurrency;
+    }
+
+    public void setPaymentCurrency(String paymentCurrency) {
+        this.paymentCurrency = paymentCurrency;
     }
 
     /**
@@ -78,8 +78,8 @@ public class BankingCreditCardAccount {
         }
         BankingCreditCardAccount bankingCreditCardAccount = (BankingCreditCardAccount) o;
         return Objects.equals(this.minPaymentAmount, bankingCreditCardAccount.minPaymentAmount) &&
-            Objects.equals(this.paymentCurrency, bankingCreditCardAccount.paymentCurrency) &&
             Objects.equals(this.paymentDueAmount, bankingCreditCardAccount.paymentDueAmount) &&
+            Objects.equals(this.paymentCurrency, bankingCreditCardAccount.paymentCurrency) &&
             Objects.equals(this.paymentDueDate, bankingCreditCardAccount.paymentDueDate);
     }
 
@@ -87,8 +87,8 @@ public class BankingCreditCardAccount {
     public int hashCode() {
         return Objects.hash(
             minPaymentAmount,
-            paymentCurrency,
             paymentDueAmount,
+            paymentCurrency,
             paymentDueDate);
     }
 
@@ -96,8 +96,8 @@ public class BankingCreditCardAccount {
     public String toString() {
         return "class BankingCreditCardAccount {\n" +
             "   minPaymentAmount: " + toIndentedString(minPaymentAmount) + "\n" + 
-            "   paymentCurrency: " + toIndentedString(paymentCurrency) + "\n" + 
             "   paymentDueAmount: " + toIndentedString(paymentDueAmount) + "\n" + 
+            "   paymentCurrency: " + toIndentedString(paymentCurrency) + "\n" + 
             "   paymentDueDate: " + toIndentedString(paymentDueDate) + "\n" + 
             "}";
     }

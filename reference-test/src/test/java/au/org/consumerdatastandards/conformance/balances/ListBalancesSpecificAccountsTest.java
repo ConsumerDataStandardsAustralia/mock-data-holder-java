@@ -16,7 +16,7 @@ public class ListBalancesSpecificAccountsTest extends BalancesAPITestBase {
     private Integer pageSize;
 
     @Test
-    public void listBalance() throws JsonProcessingException {
+    public void listBalancesSpecificAccounts() throws JsonProcessingException {
         if (StringUtils.isBlank(steps.getApiBasePath())) {
             return;
         }

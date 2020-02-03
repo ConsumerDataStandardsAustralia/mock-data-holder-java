@@ -1,11 +1,11 @@
 package au.org.consumerdatastandards.conformance.balances;
 
-import au.org.consumerdatastandards.api.banking.models.BankingBalance;
-import au.org.consumerdatastandards.api.banking.models.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.api.banking.models.ParamProductCategory;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceById;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceList;
-import au.org.consumerdatastandards.api.banking.models.ResponseBankingAccountsBalanceListData;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.BankingBalance;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ParamProductCategory;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingAccountsBalanceById;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingAccountsBalanceList;
+import au.org.consumerdatastandards.api.v1_0_0.banking.models.ResponseBankingAccountsBalanceListData;
 import au.org.consumerdatastandards.conformance.AccountsAPIStepsBase;
 import au.org.consumerdatastandards.conformance.ConformanceError;
 import au.org.consumerdatastandards.conformance.util.ConformanceUtil;
@@ -34,7 +34,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
 
     private String requestUrl;
     private Response listBalancesBulkResponse;
-    private Response listBalanceResponse;
+    private Response getBalanceResponse;
     private Response listBalancesSpecificAccountsResponse;
 
     @Step("Request /banking/accounts/balances")
@@ -94,7 +94,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
             try {
                 ResponseBankingAccountsBalanceList responseBankingAccountsBalancesList = objectMapper.readValue(json, ResponseBankingAccountsBalanceList.class);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalancesList,
-                        "listBalancesBulk", statusCode));
+                        "listBalancesBulk", getEndpointVersion(listBalancesBulkResponse), statusCode));
 
                 ResponseBankingAccountsBalanceListData data = (ResponseBankingAccountsBalanceListData) getResponseData(responseBankingAccountsBalancesList);
                 return getBalances(data);
@@ -126,30 +126,30 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
     }
 
     @Step("Request /banking/accounts/{accountId}/balance")
-    public void listBalance(String accountId) {
+    public void getBalance(String accountId) {
         String url = getApiBasePath() + "/banking/accounts/" + accountId + "/balance";
         requestUrl = url;
-        listBalanceResponse = buildHeaders(given())
-                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("listBalance"))
+        getBalanceResponse = buildHeaders(given())
+                .header(Header.VERSION.getKey(), payloadValidator.getEndpointVersion("getBalance"))
                 .when().get(url).then().log().all().extract().response();
     }
 
     @Step("Validate /banking/accounts/{accountId}/balance response")
-    public void validateListBalanceResponse(String accountId) {
-        int statusCode = listBalanceResponse.statusCode();
+    public void validateGetBalanceResponse(String accountId) {
+        int statusCode = getBalanceResponse.statusCode();
         if (accountId.matches(CustomDataType.ASCII.getPattern())) {
             assertTrue(statusCode == ResponseCode.OK.getCode() || statusCode == ResponseCode.NOT_FOUND.getCode());
             if (statusCode == ResponseCode.OK.getCode()) {
                 List<ConformanceError> conformanceErrors = new ArrayList<>();
-                checkResponseHeaders(listBalanceResponse, conformanceErrors);
-                checkJsonContentType(listBalanceResponse.contentType(), conformanceErrors);
-                String json = listBalanceResponse.getBody().asString();
+                checkResponseHeaders(getBalanceResponse, conformanceErrors);
+                checkJsonContentType(getBalanceResponse.contentType(), conformanceErrors);
+                String json = getBalanceResponse.getBody().asString();
                 ObjectMapper objectMapper = ConformanceUtil.createObjectMapper();
                 try {
                     Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountsBalanceById.class);
                     Object responseBankingAccountsBalanceById = objectMapper.readValue(json, expandedResponseClass);
                     conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalanceById,
-                            "listBalance", statusCode));
+                            "getBalance", getEndpointVersion(getBalanceResponse), statusCode));
                     Object data = getResponseData(responseBankingAccountsBalanceById);
                     checkAccountId(data, accountId, conformanceErrors);
 
@@ -201,7 +201,7 @@ public class BalancesAPISteps extends AccountsAPIStepsBase {
                 Class<?> expandedResponseClass = ConformanceUtil.expandModel(ResponseBankingAccountsBalanceList.class);
                 Object responseBankingAccountsBalanceList = objectMapper.readValue(json, expandedResponseClass);
                 conformanceErrors.addAll(payloadValidator.validateResponse(this.requestUrl, responseBankingAccountsBalanceList,
-                        "listBalancesSpecificAccounts", statusCode));
+                        "listBalancesSpecificAccounts", getEndpointVersion(listBalancesSpecificAccountsResponse), statusCode));
                 Object data = getResponseData(responseBankingAccountsBalanceList);
                 checkAccountIds(data, accountIds, conformanceErrors);
 
