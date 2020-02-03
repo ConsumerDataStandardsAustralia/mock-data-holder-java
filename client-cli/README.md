@@ -9,7 +9,7 @@ CDS Client (Data Recipient) CLI
 
 ### Get started
 
-Open a terminal and execute command
+Open a terminal, cd to the `java-artefacts/client-cli` directory and execute command
 
     mvn spring-boot:run
 
@@ -36,6 +36,8 @@ Auth- and security-related Functions
         jwks-path: Set JWKS keystore file path (Property: jwks.path)
         refresh-token: Set refresh token. The access token, if set and valid, takes precedence. (Property: refresh.token)
         setup-mtls: Setup client certificate and CA to enable MTLS connection to the server
+        unset-access-token: Unset access token
+        unset-refresh-token: Unset refresh token
         verifying-ssl: Set verifyingSsl, e.g. true, false
 
 BankingAccounts

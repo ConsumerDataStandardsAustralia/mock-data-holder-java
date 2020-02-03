@@ -39,7 +39,7 @@ public class CommonDiscovery extends ApiCliBase {
 
         LOGGER.info("Get outages CLI initiated");
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
         ApiResponse<ResponseDiscoveryOutagesList> response = api.getOutagesWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -60,7 +60,7 @@ public class CommonDiscovery extends ApiCliBase {
 
         LOGGER.info("Get status CLI initiated");
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
         ApiResponse<ResponseCommonDiscoveryStatus> response = api.getStatusWithHttpInfo();
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");

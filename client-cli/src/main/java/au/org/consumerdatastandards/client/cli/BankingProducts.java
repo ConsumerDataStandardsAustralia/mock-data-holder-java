@@ -44,7 +44,7 @@ public class BankingProducts extends ApiCliBase {
         LOGGER.info("Get product detail CLI initiated with productId: {}, version: {}",
             productId, version);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
         ResponseBankingProductById response = api.getProductDetail(productId, version);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
@@ -78,7 +78,7 @@ public class BankingProducts extends ApiCliBase {
             updatedSince,
             version);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
         ResponseBankingProductList response = api.listProducts(effective, updatedSince, brand, productCategory, version, page, pageSize);
         if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
             LOGGER.info("Payload validation is enabled");
