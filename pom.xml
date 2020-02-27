@@ -65,13 +65,10 @@
     </properties>
 
     <modules>
-        <module>api-model</module>
-        <module>reflection</module>
-        <module>codegen</module>
         <module>client</module>
         <module>client-cli</module>
-        <module>reference-test</module>
         <module>data-holder</module>
+        <module>integration-test</module>
     </modules>
 
     <distributionManagement>

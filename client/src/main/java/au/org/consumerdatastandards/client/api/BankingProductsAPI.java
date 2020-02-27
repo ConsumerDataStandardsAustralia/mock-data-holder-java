@@ -7,9 +7,22 @@
  */
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.*;
-import au.org.consumerdatastandards.client.model.*;
+import au.org.consumerdatastandards.client.ApiCallback;
+import au.org.consumerdatastandards.client.ApiClient;
+import au.org.consumerdatastandards.client.ApiException;
+import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.BankingProductV1;
+import au.org.consumerdatastandards.client.model.BankingProductV1Detail;
+import au.org.consumerdatastandards.client.model.BankingProductV2;
+import au.org.consumerdatastandards.client.model.BankingProductV2Detail;
+import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
+import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
 import com.google.gson.reflect.TypeToken;
+import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -18,10 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BankingProductsAPI {
 
@@ -580,6 +589,9 @@ public class BankingProductsAPI {
     private class ListProductsReturnTypeResolver implements ReturnTypeResolver {
         @Override
         public Type resolve(Response response) {
+            if (!response.isSuccessful()) {
+                return null;
+            }
             String version = response.header("x-v");
             Integer versionNumber = Integer.parseInt(version);
             switch (versionNumber) {
