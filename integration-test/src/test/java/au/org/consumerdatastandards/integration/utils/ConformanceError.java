@@ -2,15 +2,13 @@ package au.org.consumerdatastandards.integration.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.lang.reflect.Field;
-
 public class ConformanceError {
 
     private String dataJson;
 
     private Type errorType;
 
-    private Field errorField;
+    private String errorField;
 
     private String message;
 
@@ -24,7 +22,7 @@ public class ConformanceError {
         return this;
     }
 
-    public ConformanceError errorField(Field errorField) {
+    public ConformanceError errorField(String errorField) {
         this.errorField = errorField;
         return this;
     }
@@ -38,10 +36,10 @@ public class ConformanceError {
         switch (errorType) {
             case MISSING_VALUE:
                 return String.format("Required field '%s' has null value in\n%s",
-                        errorField.getName(), dataJson);
+                        errorField, dataJson);
             case MISSING_PROPERTY:
                 return String.format("Required field '%s' is missing in\n%s",
-                        errorField.getName(), dataJson);
+                        errorField, dataJson);
             case BROKEN_CONSTRAINT:
             case REDUNDANT_VALUE:
                 return String.format("%s. See below:\n%s", message, dataJson);
@@ -52,7 +50,6 @@ public class ConformanceError {
     }
 
     public enum Type {
-
         MISSING_HEADER,
         INCORRECT_HEADER_VALUE,
         MISSING_PROPERTY,

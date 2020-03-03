@@ -11,7 +11,7 @@ import au.org.consumerdatastandards.client.api.BankingProductsAPI;
 import au.org.consumerdatastandards.client.api.BankingProductsAPI.ParamEffective;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
-import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
 import au.org.consumerdatastandards.conformance.ConformanceError;
@@ -65,7 +65,7 @@ public class BankingProducts extends ApiCliBase {
         @ShellOption(defaultValue = ShellOption.NULL) ParamEffective effective,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
-        @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory,
+        @ShellOption(defaultValue = ShellOption.NULL) BankingProductCategory productCategory,
         @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime updatedSince,
         @ShellOption(defaultValue = "1") Integer version) throws Exception {
 

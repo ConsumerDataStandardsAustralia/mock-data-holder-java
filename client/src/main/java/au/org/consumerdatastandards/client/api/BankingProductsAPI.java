@@ -12,11 +12,12 @@ import au.org.consumerdatastandards.client.ApiClient;
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.BankingProduct;
 import au.org.consumerdatastandards.client.model.BankingProductV1;
 import au.org.consumerdatastandards.client.model.BankingProductV1Detail;
 import au.org.consumerdatastandards.client.model.BankingProductV2;
 import au.org.consumerdatastandards.client.model.BankingProductV2Detail;
-import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
 import com.google.gson.reflect.TypeToken;
@@ -331,7 +332,7 @@ public class BankingProductsAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listProductsCall(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer version, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listProductsCall(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer version, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -362,7 +363,7 @@ public class BankingProductsAPI {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listProductsValidateBeforeCall(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer version, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listProductsValidateBeforeCall(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer version, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
 
         return listProductsCall(effective, updatedSince, brand, productCategory, version, page, pageSize, _callback);
@@ -394,7 +395,7 @@ public class BankingProductsAPI {
      *    </tr>
      * </table>
      */
-    public ResponseBankingProductList listProducts(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer version, Integer page, Integer pageSize) throws ApiException {
+    public <T extends BankingProduct> ResponseBankingProductList<T> listProducts(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer version, Integer page, Integer pageSize) throws ApiException {
 
         LOGGER.trace("listProducts with effective: {}, updated-since: {}, brand: {}, product-category: {}, page: {}, page-size: {}, version: {}",
             effective,
@@ -405,7 +406,7 @@ public class BankingProductsAPI {
             pageSize,
             version);
 
-        ApiResponse<ResponseBankingProductList> resp = listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, version,  page, pageSize);
+        ApiResponse<ResponseBankingProductList<T>> resp = listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, version,  page, pageSize);
         return resp.getData();
     }
 
@@ -434,7 +435,7 @@ public class BankingProductsAPI {
      *    </tr>
      * </table>
      */
-    public ResponseBankingProductList listProducts(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer page, Integer pageSize) throws ApiException {
+    public ResponseBankingProductList listProducts(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer page, Integer pageSize) throws ApiException {
 
         return listProducts(effective, updatedSince, brand, productCategory, 1, page, pageSize);
     }
@@ -465,7 +466,7 @@ public class BankingProductsAPI {
      *    </tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingProductList> listProductsWithHttpInfo(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer page, Integer pageSize) throws ApiException {
+    public <T extends BankingProduct> ApiResponse<ResponseBankingProductList<T>> listProductsWithHttpInfo(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer page, Integer pageSize) throws ApiException {
         return listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, 1, page, pageSize);
     }
 
@@ -495,7 +496,7 @@ public class BankingProductsAPI {
      *    </tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingProductList> listProductsWithHttpInfo(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer version, Integer page, Integer pageSize) throws ApiException {
+    public <T extends BankingProduct> ApiResponse<ResponseBankingProductList<T>> listProductsWithHttpInfo(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer version, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = listProductsValidateBeforeCall(effective, updatedSince, brand, productCategory, version, page, pageSize, null);
         try {
             Response response = call.execute();
@@ -532,7 +533,7 @@ public class BankingProductsAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listProductsAsync(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer page, Integer pageSize, final ApiCallback<ResponseBankingProductList> _callback) throws ApiException {
+    public okhttp3.Call listProductsAsync(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer page, Integer pageSize, final ApiCallback<ResponseBankingProductList> _callback) throws ApiException {
 
         return listProductsAsync(effective, updatedSince, brand, productCategory, 1, page, pageSize, _callback);
     }
@@ -564,7 +565,7 @@ public class BankingProductsAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listProductsAsync(ParamEffective effective, OffsetDateTime updatedSince, String brand, ParamProductCategory productCategory, Integer version, Integer page, Integer pageSize, final ApiCallback<ResponseBankingProductList> _callback) throws ApiException {
+    public okhttp3.Call listProductsAsync(ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, Integer version, Integer page, Integer pageSize, final ApiCallback<ResponseBankingProductList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously listProducts with effective: {}, updated-since: {}, brand: {}, product-category: {}, page: {}, page-size: {}",
             effective,

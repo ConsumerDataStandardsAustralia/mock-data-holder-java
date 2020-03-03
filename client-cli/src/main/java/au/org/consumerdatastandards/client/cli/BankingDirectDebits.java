@@ -12,7 +12,7 @@ import au.org.consumerdatastandards.client.api.BankingDirectDebitsAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.client.model.ParamProductCategory;
+import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.RequestAccountIds;
 import au.org.consumerdatastandards.client.model.RequestAccountIdsData;
 import au.org.consumerdatastandards.client.model.ResponseBankingDirectDebitAuthorisationList;
@@ -70,7 +70,7 @@ public class BankingDirectDebits extends ApiCliBase {
                                    @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
                                    @ShellOption(defaultValue = ShellOption.NULL) Integer page,
                                    @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
-                                   @ShellOption(defaultValue = ShellOption.NULL) ParamProductCategory productCategory) throws Exception {
+                                   @ShellOption(defaultValue = ShellOption.NULL) BankingProductCategory productCategory) throws Exception {
         LOGGER.info("List direct debits bulk CLI initiated with is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}",
             isOwned,
             openStatus,
