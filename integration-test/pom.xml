@@ -12,7 +12,6 @@
     <artifactId>integration-test</artifactId>
 
     <properties>
-        <junit.version>5.5.0</junit.version>
         <failsafe.plugin.version>3.0.0-M4</failsafe.plugin.version>
         <skip.unit.tests>false</skip.unit.tests>
     </properties>
@@ -31,13 +30,11 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

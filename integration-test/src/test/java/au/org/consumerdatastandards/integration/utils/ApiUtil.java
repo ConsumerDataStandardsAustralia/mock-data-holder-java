@@ -2,9 +2,9 @@ package au.org.consumerdatastandards.integration.utils;
 
 import au.org.consumerdatastandards.client.ApiClient;
 import au.org.consumerdatastandards.client.ApiException;
-import ch.qos.logback.classic.Logger;
 import okhttp3.OkHttpClient;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.Base64;
 
 public class ApiUtil {
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ApiUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApiUtil.class);
 
     public static ApiClient createApiClient(String serverUrl) throws ApiException {
         return createApiClient(serverUrl, true);

@@ -9,9 +9,9 @@ import au.org.consumerdatastandards.client.model.BankingProductV1;
 import au.org.consumerdatastandards.client.model.BankingProductV2;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
 import au.org.consumerdatastandards.integration.utils.ApiUtil;
-import au.org.consumerdatastandards.integration.utils.ConformanceError;
-import au.org.consumerdatastandards.integration.utils.CustomDataType;
-import au.org.consumerdatastandards.integration.utils.Header;
+import au.org.consumerdatastandards.client.ConformanceError;
+import au.org.consumerdatastandards.client.CustomDataType;
+import au.org.consumerdatastandards.client.Header;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static au.org.consumerdatastandards.integration.utils.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
-import static au.org.consumerdatastandards.integration.utils.ConformanceError.Type.MISSING_HEADER;
+import static au.org.consumerdatastandards.client.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
+import static au.org.consumerdatastandards.client.ConformanceError.Type.MISSING_HEADER;
 
 public class ListProductsIT {
     private static final String APPLICATION_JSON = "application/json";

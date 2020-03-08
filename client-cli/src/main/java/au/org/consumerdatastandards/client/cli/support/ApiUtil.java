@@ -13,7 +13,6 @@ import ch.qos.logback.classic.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.inject.CreationException;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -37,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -145,7 +144,7 @@ public class ApiUtil {
                 HeldCertificate heldCertificate = new HeldCertificate(keyPair, certificate);
                 OkHttpClient httpClient = buildHttpClient(originalHttpClient, rootCaCertificate, heldCertificate);
                 apiClient.setHttpClient(httpClient);
-            } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | CreationException | CertificateException e) {
+            } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | CertificateException e) {
                 throw new ApiException(e);
             }
             LOGGER.info("Enabled MTLS");

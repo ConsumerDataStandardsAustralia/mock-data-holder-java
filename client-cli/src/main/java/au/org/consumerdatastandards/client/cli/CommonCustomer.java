@@ -8,14 +8,12 @@
 package au.org.consumerdatastandards.client.cli;
 
 import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.CommonCustomerAPI;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.ResponseCommonCustomer;
 import au.org.consumerdatastandards.client.model.ResponseCommonCustomerDetail;
-import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
-import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;
@@ -31,7 +29,6 @@ public class CommonCustomer extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonCustomer.class);
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private final CommonCustomerAPI api = new CommonCustomerAPI();
 
     @ShellMethod("Get customer")
@@ -45,9 +42,7 @@ public class CommonCustomer extends ApiCliBase {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getCustomerCall(null);
             String requestUrl = call.request().url().toString();
-            int endpointVersion = getEndpointVersion(response);
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response.getData(), "getCustomer", endpointVersion, ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -66,9 +61,7 @@ public class CommonCustomer extends ApiCliBase {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getCustomerDetailCall(null);
             String requestUrl = call.request().url().toString();
-            int endpointVersion = getEndpointVersion(response);
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response.getData(), "getCustomerDetail", endpointVersion, ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

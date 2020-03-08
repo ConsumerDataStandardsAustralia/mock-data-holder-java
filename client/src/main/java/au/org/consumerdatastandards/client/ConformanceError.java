@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.integration.utils;
+package au.org.consumerdatastandards.client;
 
 import org.apache.commons.lang3.StringUtils;
 

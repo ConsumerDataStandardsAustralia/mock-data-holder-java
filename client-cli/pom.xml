@@ -62,10 +62,6 @@
             <artifactId>client</artifactId>
         </dependency>
         <dependency>
-            <groupId>au.org.consumerdatastandards</groupId>
-            <artifactId>reference-test</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.shell</groupId>
             <artifactId>spring-shell-core</artifactId>
             <version>${spring-shell.version}</version>

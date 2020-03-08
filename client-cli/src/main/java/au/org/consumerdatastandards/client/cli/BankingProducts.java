@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingProductsAPI;
 import au.org.consumerdatastandards.client.api.BankingProductsAPI.ParamEffective;
 import au.org.consumerdatastandards.client.cli.support.ApiUtil;
@@ -14,9 +15,6 @@ import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
-import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
-import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;
@@ -33,7 +31,6 @@ public class BankingProducts extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingProducts.class);
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingProductsAPI api = new BankingProductsAPI();
 
     @ShellMethod("Get product detail")
@@ -50,8 +47,7 @@ public class BankingProducts extends ApiCliBase {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getProductDetailCall(productId, version, null);
             String requestUrl = call.request().url().toString();
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response, "getProductDetail", version, ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -84,8 +80,7 @@ public class BankingProducts extends ApiCliBase {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listProductsCall(effective, updatedSince, brand, productCategory, version, page, pageSize, null);
             String requestUrl = call.request().url().toString();
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response, "listProducts", version, ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

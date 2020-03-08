@@ -7,11 +7,6 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.ConformanceModel;
-import au.org.consumerdatastandards.conformance.Payload;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;
@@ -23,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -31,7 +25,7 @@ import java.util.TreeSet;
 @ShellCommandGroup("Reference Testing")
 public class ReferenceTest extends ApiCliBase {
     
-    private PayloadValidator payloadValidator = new PayloadValidator();
+//    private PayloadValidator payloadValidator = new PayloadValidator();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReferenceTest.class);
     
@@ -64,16 +58,16 @@ public class ReferenceTest extends ApiCliBase {
                 }
             }
         } else {
-            List<ConformanceError> payloadErrors = StringUtils.isBlank(model) ?
-                payloadValidator.validateFile(file) : payloadValidator.validateFile(file, model);
-            if(!payloadErrors.isEmpty()) {
-                LOGGER.error("Encountered errors while validating: {}",file.getAbsolutePath());
-                for(int i = 0; i < payloadErrors.size(); i++ ) {
-                    LOGGER.error("\n{}. {}", i + 1, payloadErrors.get(i).getDescription());
-                }
-            } else {
-                LOGGER.info("Validation of {} successful", file.getAbsolutePath());
-            }
+//            List<ConformanceError> payloadErrors = StringUtils.isBlank(model) ?
+//                payloadValidator.validateFile(file) : payloadValidator.validateFile(file, model);
+//            if(!payloadErrors.isEmpty()) {
+//                LOGGER.error("Encountered errors while validating: {}",file.getAbsolutePath());
+//                for(int i = 0; i < payloadErrors.size(); i++ ) {
+//                    LOGGER.error("\n{}. {}", i + 1, payloadErrors.get(i).getDescription());
+//                }
+//            } else {
+//                LOGGER.info("Validation of {} successful", file.getAbsolutePath());
+//            }
         }
     }
 
@@ -82,13 +76,13 @@ public class ReferenceTest extends ApiCliBase {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         Set<String> topLevelModels = new TreeSet<>();
-        ConformanceModel conformanceModel = payloadValidator.getConformanceModel();
-        for (Class<?> payloadModel : conformanceModel.getPayloadModels()) {
-            Payload.Type payloadType = conformanceModel.getPayload(payloadModel).getPayloadType();
-            if (Payload.Type.RESPONSE_BODY.equals(payloadType)) {
-                topLevelModels.add(payloadModel.getSimpleName());
-            }
-        }
+//        ConformanceModel conformanceModel = payloadValidator.getConformanceModel();
+//        for (Class<?> payloadModel : conformanceModel.getPayloadModels()) {
+//            Payload.Type payloadType = conformanceModel.getPayload(payloadModel).getPayloadType();
+//            if (Payload.Type.RESPONSE_BODY.equals(payloadType)) {
+//                topLevelModels.add(payloadModel.getSimpleName());
+//            }
+//        }
         for (String topLevelModel : topLevelModels) {
             pw.println(topLevelModel);
         }

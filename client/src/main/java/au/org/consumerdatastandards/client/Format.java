@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.integration.utils;
+package au.org.consumerdatastandards.client;
 
 public enum Format {
 

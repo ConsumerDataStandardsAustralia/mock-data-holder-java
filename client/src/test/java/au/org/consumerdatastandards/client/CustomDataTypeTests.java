@@ -1,6 +1,5 @@
-package au.org.consumerdatastandards.integration.utils;
+package au.org.consumerdatastandards.client;
 
-import au.org.consumerdatastandards.integration.utils.CustomDataType;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
