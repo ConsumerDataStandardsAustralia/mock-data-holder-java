@@ -55,7 +55,6 @@
         <jackson.version>2.10.1</jackson.version>
         <junit.version>5.5.0</junit.version>
         <jacoco.version>0.8.4</jacoco.version>
-        <reflections.version>0.9.11</reflections.version>
         <swagger-core.version>1.5.24</swagger-core.version>
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
