@@ -56,17 +56,13 @@ public class ApiClient {
     private HttpLoggingInterceptor loggingInterceptor;
 
     public ApiClient() {
-        init();
-    }
-
-    private void init() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(getProgressInterceptor());
         httpClient = builder.build();
 
         verifyingSsl = true;
 
-        json = new JSON();
+        json = new JSON(false);
 
         // Set default User-Agent.
         setUserAgent("CDS Client/1.1.1/java");

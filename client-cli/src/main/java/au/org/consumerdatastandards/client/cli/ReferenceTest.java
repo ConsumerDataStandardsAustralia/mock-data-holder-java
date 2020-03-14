@@ -116,7 +116,6 @@ import org.springframework.shell.standard.ShellOption;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
@@ -237,9 +236,10 @@ public class ReferenceTest extends ApiCliBase {
     }
     
     @ShellMethod("Validate all Payloads Automatically")
-    public void autoValidate(@ShellOption(help = "enable or disable") String enableValidation) throws IOException {
-        Boolean validateEnable = Boolean.parseBoolean(enableValidation);
-        apiClientOptions.setValidationEnabled(validateEnable);
+    public void autoValidate(@ShellOption(help = "true or false", defaultValue = ShellOption.NULL) String enableValidation) {
+        if (enableValidation != null) {
+            apiClientOptions.setValidationEnabled(Boolean.parseBoolean(enableValidation));
+        }
         payloadValidationStatus();
     }
 

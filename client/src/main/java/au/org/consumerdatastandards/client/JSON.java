@@ -68,10 +68,6 @@ public class JSON {
         return clazz;
     }
 
-    public JSON() {
-        this(false);
-    }
-
     public JSON(boolean validating) {
 
         GsonBuilder builder = createGson()

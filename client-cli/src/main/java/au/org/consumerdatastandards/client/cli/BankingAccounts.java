@@ -41,15 +41,15 @@ public class BankingAccounts extends ApiCliBase {
     private final BankingAccountsAPI api = new BankingAccountsAPI();
 
     @ShellMethod("Get account detail")
-    public String getAccountDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String getAccountDetail(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
 
         LOGGER.info("Get account detail CLI initiated with accountId: {}",
             accountId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingAccountById> response = api.getAccountDetailWithHttpInfo(accountId);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getAccountDetailCall(accountId, null);
             String requestUrl = call.request().url().toString();
@@ -62,7 +62,7 @@ public class BankingAccounts extends ApiCliBase {
     }
 
     @ShellMethod("Get transaction detail")
-    public String getTransactionDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String getTransactionDetail(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String accountId,
         @ShellOption(defaultValue = ShellOption.NULL) String transactionId) throws Exception {
 
@@ -70,9 +70,9 @@ public class BankingAccounts extends ApiCliBase {
             accountId,
             transactionId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingTransactionById> response = api.getTransactionDetailWithHttpInfo(accountId, transactionId);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getTransactionDetailCall(accountId, transactionId, null);
             String requestUrl = call.request().url().toString();
@@ -85,7 +85,7 @@ public class BankingAccounts extends ApiCliBase {
     }
 
     @ShellMethod("Get transactions")
-    public String getTransactions(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String getTransactions(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String accountId,
         @ShellOption(defaultValue = ShellOption.NULL) String maxAmount,
         @ShellOption(defaultValue = ShellOption.NULL) String minAmount,
@@ -106,10 +106,10 @@ public class BankingAccounts extends ApiCliBase {
             text);
 
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingTransactionList> response =
             api.getTransactionsWithHttpInfo(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getTransactionsCall(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -122,7 +122,7 @@ public class BankingAccounts extends ApiCliBase {
     }
 
     @ShellMethod("List accounts")
-    public String listAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listAccounts(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) Boolean isOwned,
         @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
@@ -137,9 +137,9 @@ public class BankingAccounts extends ApiCliBase {
             productCategory);
 
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingAccountList> response = api.listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listAccountsCall(productCategory, openStatus, isOwned, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -152,15 +152,15 @@ public class BankingAccounts extends ApiCliBase {
     }
 
     @ShellMethod("Get balance")
-    public String getBalance(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String getBalance(@ShellOption(defaultValue = "false") boolean check,
                              @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
 
         LOGGER.info("List balance CLI initiated with accountId: {}",
             accountId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingAccountsBalanceById> response = api.getBalanceWithHttpInfo(accountId);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getBalanceCall(accountId, null);
             String requestUrl = call.request().url().toString();
@@ -173,7 +173,7 @@ public class BankingAccounts extends ApiCliBase {
     }
 
     @ShellMethod("Obtain balances for multiple, filtered accounts")
-    public String listBalancesBulk(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listBalancesBulk(@ShellOption(defaultValue = "false") boolean check,
                                    @ShellOption(defaultValue = ShellOption.NULL) Boolean isOwned,
                                    @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
                                    @ShellOption(defaultValue = ShellOption.NULL) Integer page,
@@ -186,10 +186,10 @@ public class BankingAccounts extends ApiCliBase {
             pageSize,
             productCategory);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingAccountsBalanceList> response =
             api.listBalancesBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listBalancesBulkCall(productCategory, openStatus, isOwned, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -202,7 +202,7 @@ public class BankingAccounts extends ApiCliBase {
     }
 
     @ShellMethod("List balances specific accounts")
-    public String listBalancesSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listBalancesSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -212,13 +212,13 @@ public class BankingAccounts extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         RequestAccountIdsData data = new RequestAccountIdsData();
         data.setAccountIds(accountIds);
         RequestAccountIds requestAccountIds = new RequestAccountIds();
         requestAccountIds.setData(data);
         ApiResponse<ResponseBankingAccountsBalanceList> response = api.listBalancesSpecificAccountsWithHttpInfo(requestAccountIds, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listBalancesSpecificAccountsCall(requestAccountIds, page, pageSize, null);
             String requestUrl = call.request().url().toString();

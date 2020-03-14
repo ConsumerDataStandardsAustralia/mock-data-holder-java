@@ -32,13 +32,13 @@ public class CommonDiscovery extends ApiCliBase {
     private final CommonDiscoveryAPI api = new CommonDiscoveryAPI();
 
     @ShellMethod("Get outages")
-    public String getOutages(@ShellOption(defaultValue = ShellOption.NULL) Boolean check) throws Exception {
+    public String getOutages(@ShellOption(defaultValue = "false") boolean check) throws Exception {
 
         LOGGER.info("Get outages CLI initiated");
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false, check));
         ApiResponse<ResponseDiscoveryOutagesList> response = api.getOutagesWithHttpInfo();
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getOutagesCall(null);
             String requestUrl = call.request().url().toString();
@@ -51,13 +51,13 @@ public class CommonDiscovery extends ApiCliBase {
     }
 
     @ShellMethod("Get status")
-    public String getStatus(@ShellOption(defaultValue = ShellOption.NULL) Boolean check) throws Exception {
+    public String getStatus(@ShellOption(defaultValue = "false") boolean check) throws Exception {
 
         LOGGER.info("Get status CLI initiated");
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false, check));
         ApiResponse<ResponseCommonDiscoveryStatus> response = api.getStatusWithHttpInfo();
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getStatusCall(null);
             String requestUrl = call.request().url().toString();

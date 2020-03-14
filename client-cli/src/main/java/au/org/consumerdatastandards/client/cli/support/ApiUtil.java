@@ -82,11 +82,7 @@ public class ApiUtil {
 
     public static long accessTokenExpiresAt;
 
-    public static ApiClient createApiClient(ApiClientOptions clientOptions) throws ApiException {
-        return createApiClient(clientOptions, true);
-    }
-
-    public static ApiClient createApiClient(ApiClientOptions clientOptions, boolean authRequired) throws ApiException {
+    public static ApiClient createApiClient(ApiClientOptions clientOptions, boolean authRequired, boolean validate) throws ApiException {
         String serverUrl = clientOptions.getServerUrl();
         if (StringUtils.isBlank(serverUrl)) {
             LOGGER.error("Server Base URL is currently unset, cannot proceed until it is specified using `server` command");

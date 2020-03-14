@@ -33,15 +33,15 @@ public class BankingPayees extends ApiCliBase {
     private final BankingPayeesAPI api = new BankingPayeesAPI();
 
     @ShellMethod("Get payee detail")
-    public String getPayeeDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String getPayeeDetail(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String payeeId) throws Exception {
 
         LOGGER.info("Get payee detail CLI initiated with payeeId: {}",
             payeeId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingPayeeById> response = api.getPayeeDetailWithHttpInfo(payeeId);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getPayeeDetailCall(payeeId, null);
             String requestUrl = call.request().url().toString();
@@ -54,7 +54,7 @@ public class BankingPayees extends ApiCliBase {
     }
 
     @ShellMethod("List payees")
-    public String listPayees(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listPayees(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
         @ShellOption(defaultValue = ShellOption.NULL) ParamType type) throws Exception {
@@ -64,9 +64,9 @@ public class BankingPayees extends ApiCliBase {
             pageSize,
             type);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingPayeeList> response = api.listPayeesWithHttpInfo(type, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listPayeesCall(type, page, pageSize, null);
             String requestUrl = call.request().url().toString();

@@ -34,16 +34,16 @@ public class BankingProducts extends ApiCliBase {
     private final BankingProductsAPI api = new BankingProductsAPI();
 
     @ShellMethod("Get product detail")
-    public String getProductDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String getProductDetail(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String productId,
         @ShellOption(defaultValue = "1") Integer version) throws Exception {
 
         LOGGER.info("Get product detail CLI initiated with productId: {}, version: {}",
             productId, version);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false, check));
         ResponseBankingProductById response = api.getProductDetail(productId, version);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getProductDetailCall(productId, version, null);
             String requestUrl = call.request().url().toString();
@@ -56,7 +56,7 @@ public class BankingProducts extends ApiCliBase {
     }
 
     @ShellMethod("List products")
-    public String listProducts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listProducts(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String brand,
         @ShellOption(defaultValue = ShellOption.NULL) ParamEffective effective,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
@@ -74,9 +74,9 @@ public class BankingProducts extends ApiCliBase {
             updatedSince,
             version);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, false, check));
         ResponseBankingProductList response = api.listProducts(effective, updatedSince, brand, productCategory, version, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listProductsCall(effective, updatedSince, brand, productCategory, version, page, pageSize, null);
             String requestUrl = call.request().url().toString();

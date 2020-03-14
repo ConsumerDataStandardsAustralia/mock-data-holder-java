@@ -35,7 +35,7 @@ public class BankingDirectDebits extends ApiCliBase {
     private final BankingDirectDebitsAPI api = new BankingDirectDebitsAPI();
 
     @ShellMethod("List direct debits")
-    public String listDirectDebits(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listDirectDebits(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String accountId,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -45,9 +45,9 @@ public class BankingDirectDebits extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> response = api.listDirectDebitsWithHttpInfo(accountId, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listDirectDebitsCall(accountId, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -60,7 +60,7 @@ public class BankingDirectDebits extends ApiCliBase {
     }
 
     @ShellMethod("Obtain balances for multiple, filtered accounts")
-    public String listDirectDebitsBulk(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listDirectDebitsBulk(@ShellOption(defaultValue = "false") boolean check,
                                    @ShellOption(defaultValue = ShellOption.NULL) Boolean isOwned,
                                    @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
                                    @ShellOption(defaultValue = ShellOption.NULL) Integer page,
@@ -73,10 +73,10 @@ public class BankingDirectDebits extends ApiCliBase {
             pageSize,
             productCategory);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> response =
             api.listDirectDebitsBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listDirectDebitsBulkCall(productCategory, openStatus, isOwned, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -89,7 +89,7 @@ public class BankingDirectDebits extends ApiCliBase {
     }
 
     @ShellMethod("List direct debits specific accounts")
-    public String listDirectDebitsSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listDirectDebitsSpecificAccounts(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -99,14 +99,14 @@ public class BankingDirectDebits extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         RequestAccountIdsData data = new RequestAccountIdsData();
         data.setAccountIds(accountIds);
         RequestAccountIds requestAccountIds = new RequestAccountIds();
         requestAccountIds.setData(data);
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> response =
             api.listDirectDebitsSpecificAccountsWithHttpInfo(requestAccountIds, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listDirectDebitsSpecificAccountsCall(requestAccountIds, page, pageSize, null);
             String requestUrl = call.request().url().toString();

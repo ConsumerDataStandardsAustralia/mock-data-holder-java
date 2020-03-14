@@ -117,7 +117,7 @@ public class ApiControllerBase {
         }
 
         if (page.hasNext()) {
-            linkData.setPrev(WebUtil.getPaginatedLink(request, actualPage + 1, actualPageSize));
+            linkData.setNext(WebUtil.getPaginatedLink(request, actualPage + 1, actualPageSize));
         }
         return linkData;
     }

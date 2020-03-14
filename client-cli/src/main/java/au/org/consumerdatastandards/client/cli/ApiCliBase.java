@@ -49,7 +49,7 @@ public class ApiCliBase {
             pw.println("Conformance Error: " + conformanceError.getDescription());
         }
         pw.println("Found a total of " + conformanceErrors.size() + " conformance errors");
-        throw new Exception(pw.toString());
+        throw new Exception(sw.toString());
     }
 
     protected int getEndpointVersion(ApiResponse response) {

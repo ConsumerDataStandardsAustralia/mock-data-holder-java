@@ -45,14 +45,6 @@ public class BankingProductsAPI {
 
     private ApiClient apiClient;
 
-    public BankingProductsAPI() {
-        this(new ApiClient());
-    }
-
-    public BankingProductsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
     public ApiClient getApiClient() {
         return apiClient;
     }

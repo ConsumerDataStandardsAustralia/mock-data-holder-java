@@ -32,7 +32,7 @@ public class BankingScheduledPayments extends ApiCliBase {
     private final BankingScheduledPaymentsAPI api = new BankingScheduledPaymentsAPI();
 
     @ShellMethod("List scheduled payments")
-    public String listScheduledPayments(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listScheduledPayments(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String accountId,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -42,9 +42,9 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsWithHttpInfo(accountId, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsCall(accountId, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -57,7 +57,7 @@ public class BankingScheduledPayments extends ApiCliBase {
     }
 
     @ShellMethod("List scheduled payments specific accounts")
-    public String listScheduledPaymentsSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listScheduledPaymentsSpecificAccounts(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) RequestAccountIds accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -67,9 +67,9 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
         ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsSpecificAccountsWithHttpInfo(accountIds, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (apiClientOptions.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsSpecificAccountsCall(accountIds, page, pageSize, null);
             String requestUrl = call.request().url().toString();
