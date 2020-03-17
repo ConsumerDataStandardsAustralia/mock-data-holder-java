@@ -10,7 +10,6 @@ package au.org.consumerdatastandards.client.cli;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.CommonCustomerAPI;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.ResponseCommonCustomer;
 import au.org.consumerdatastandards.client.model.ResponseCommonCustomerDetail;
@@ -36,9 +35,9 @@ public class CommonCustomer extends ApiCliBase {
 
         LOGGER.info("Get customer CLI initiated");
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseCommonCustomer> response = api.getCustomerWithHttpInfo();
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getCustomerCall(null);
             String requestUrl = call.request().url().toString();
@@ -55,9 +54,9 @@ public class CommonCustomer extends ApiCliBase {
 
         LOGGER.info("Get customer detail CLI initiated");
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseCommonCustomerDetail> response = api.getCustomerDetailWithHttpInfo();
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getCustomerDetailCall(null);
             String requestUrl = call.request().url().toString();

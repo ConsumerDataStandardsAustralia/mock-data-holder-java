@@ -7,9 +7,11 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiClientOptions;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -17,7 +19,10 @@ import org.springframework.shell.standard.ShellOption;
 
 @ShellComponent
 @ShellCommandGroup("Common Functions")
-public class Common extends ApiCliBase {
+public class Common {
+
+    @Autowired
+    private ApiClientOptions apiClientOptions;
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(Common.class);
 

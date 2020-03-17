@@ -7,16 +7,21 @@
  */
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.*;
-import au.org.consumerdatastandards.client.model.*;
+import au.org.consumerdatastandards.client.ApiCallback;
+import au.org.consumerdatastandards.client.ApiException;
+import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.ResponseCommonCustomer;
+import au.org.consumerdatastandards.client.model.ResponseCommonCustomerDetail;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CommonCustomerAPI extends ProtectedAPI {
 
@@ -40,8 +45,7 @@ public class CommonCustomerAPI extends ProtectedAPI {
      *        <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  </td>
      *    </tr>
      * </table>
-
-*/
+     */
     public okhttp3.Call getCustomerCall(final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;

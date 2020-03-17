@@ -11,7 +11,6 @@ import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingPayeesAPI;
 import au.org.consumerdatastandards.client.api.BankingPayeesAPI.ParamType;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.client.model.ResponseBankingPayeeList;
@@ -39,9 +38,9 @@ public class BankingPayees extends ApiCliBase {
         LOGGER.info("Get payee detail CLI initiated with payeeId: {}",
             payeeId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingPayeeById> response = api.getPayeeDetailWithHttpInfo(payeeId);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getPayeeDetailCall(payeeId, null);
             String requestUrl = call.request().url().toString();
@@ -64,9 +63,9 @@ public class BankingPayees extends ApiCliBase {
             pageSize,
             type);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingPayeeList> response = api.listPayeesWithHttpInfo(type, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listPayeesCall(type, page, pageSize, null);
             String requestUrl = call.request().url().toString();

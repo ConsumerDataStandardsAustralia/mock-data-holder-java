@@ -7,6 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiClientOptions;
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.JSON;
 import au.org.consumerdatastandards.client.model.BankingAccountDetail;
@@ -108,6 +109,7 @@ import au.org.consumerdatastandards.client.model.ResponseDiscoveryOutagesListDat
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -229,6 +231,9 @@ public class ReferenceTest extends ApiCliBase {
             new TypeToken<ResponseDiscoveryOutagesList>() {}.getType(),
             new TypeToken<ResponseDiscoveryOutagesListData>() {}.getType()
     };
+
+    @Autowired
+    private ApiClientOptions apiClientOptions;
 
     @ShellMethod("Retrieve current conformance check status")
     public void payloadValidationStatus() {

@@ -7,30 +7,28 @@
  */
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.*;
-import au.org.consumerdatastandards.client.model.*;
+import au.org.consumerdatastandards.client.ApiCallback;
+import au.org.consumerdatastandards.client.ApiClient;
+import au.org.consumerdatastandards.client.ApiException;
+import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.ResponseCommonDiscoveryStatus;
+import au.org.consumerdatastandards.client.model.ResponseDiscoveryOutagesList;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CommonDiscoveryAPI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonDiscoveryAPI.class);
 
     private ApiClient apiClient;
-
-    public CommonDiscoveryAPI() {
-        this(new ApiClient());
-    }
-
-    public CommonDiscoveryAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
 
     public ApiClient getApiClient() {
         return apiClient;

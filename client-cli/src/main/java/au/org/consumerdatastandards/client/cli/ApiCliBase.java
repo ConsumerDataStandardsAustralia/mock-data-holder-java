@@ -10,7 +10,8 @@ package au.org.consumerdatastandards.client.cli;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.Header;
-import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
+import au.org.consumerdatastandards.client.cli.support.ClientCLIFactory;
+import au.org.consumerdatastandards.client.cli.support.ClientCLIOptions;
 import au.org.consumerdatastandards.client.model.BaseResponse;
 import au.org.consumerdatastandards.client.model.Links;
 import au.org.consumerdatastandards.client.model.LinksPaginated;
@@ -38,8 +39,12 @@ import java.util.Map;
 
 public class ApiCliBase {
 
+    protected ClientCLIFactory clientFactory;
+
     @Autowired
-    protected ApiClientOptions apiClientOptions;
+    private void setApiClientOptions(ClientCLIOptions apiClientOptions) {
+        clientFactory = new ClientCLIFactory(apiClientOptions);
+    }
 
     protected void throwConformanceErrors(List<ConformanceError> conformanceErrors) throws Exception {
         StringWriter sw = new StringWriter();

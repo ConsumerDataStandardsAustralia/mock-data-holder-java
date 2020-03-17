@@ -10,7 +10,6 @@ package au.org.consumerdatastandards.client.cli;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingScheduledPaymentsAPI;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.RequestAccountIds;
 import au.org.consumerdatastandards.client.model.ResponseBankingScheduledPaymentsList;
@@ -42,9 +41,9 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsWithHttpInfo(accountId, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsCall(accountId, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -67,9 +66,9 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsSpecificAccountsWithHttpInfo(accountIds, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsSpecificAccountsCall(accountIds, page, pageSize, null);
             String requestUrl = call.request().url().toString();

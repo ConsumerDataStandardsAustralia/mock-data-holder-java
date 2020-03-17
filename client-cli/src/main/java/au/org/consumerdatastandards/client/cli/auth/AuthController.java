@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.client.cli.auth;
 
-import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.ApiClientOptions;
+import au.org.consumerdatastandards.client.cli.support.ClientCLIFactory;
 import org.mitre.openid.connect.model.OIDCAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +20,7 @@ public class AuthController {
         OIDCAuthenticationToken auth = (OIDCAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         clientOptions.setAccessToken(auth.getAccessTokenValue());
         clientOptions.setRefreshToken(auth.getRefreshTokenValue());
-        ApiUtil.browserMutex.put(this);
+        ClientCLIFactory.browserMutex.put(this);
         return "auth";
     }
 }

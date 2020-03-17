@@ -10,7 +10,6 @@ package au.org.consumerdatastandards.client.cli;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingDirectDebitsAPI;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
@@ -45,9 +44,9 @@ public class BankingDirectDebits extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> response = api.listDirectDebitsWithHttpInfo(accountId, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listDirectDebitsCall(accountId, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -73,10 +72,10 @@ public class BankingDirectDebits extends ApiCliBase {
             pageSize,
             productCategory);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> response =
             api.listDirectDebitsBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listDirectDebitsBulkCall(productCategory, openStatus, isOwned, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -99,14 +98,14 @@ public class BankingDirectDebits extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         RequestAccountIdsData data = new RequestAccountIdsData();
         data.setAccountIds(accountIds);
         RequestAccountIds requestAccountIds = new RequestAccountIds();
         requestAccountIds.setData(data);
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> response =
             api.listDirectDebitsSpecificAccountsWithHttpInfo(requestAccountIds, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listDirectDebitsSpecificAccountsCall(requestAccountIds, page, pageSize, null);
             String requestUrl = call.request().url().toString();

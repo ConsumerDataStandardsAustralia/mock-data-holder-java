@@ -10,7 +10,6 @@ package au.org.consumerdatastandards.client.cli;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingAccountsAPI;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
@@ -47,9 +46,9 @@ public class BankingAccounts extends ApiCliBase {
         LOGGER.info("Get account detail CLI initiated with accountId: {}",
             accountId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingAccountById> response = api.getAccountDetailWithHttpInfo(accountId);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getAccountDetailCall(accountId, null);
             String requestUrl = call.request().url().toString();
@@ -70,9 +69,9 @@ public class BankingAccounts extends ApiCliBase {
             accountId,
             transactionId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingTransactionById> response = api.getTransactionDetailWithHttpInfo(accountId, transactionId);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getTransactionDetailCall(accountId, transactionId, null);
             String requestUrl = call.request().url().toString();
@@ -106,10 +105,10 @@ public class BankingAccounts extends ApiCliBase {
             text);
 
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingTransactionList> response =
             api.getTransactionsWithHttpInfo(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getTransactionsCall(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -137,9 +136,9 @@ public class BankingAccounts extends ApiCliBase {
             productCategory);
 
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingAccountList> response = api.listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listAccountsCall(productCategory, openStatus, isOwned, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -158,9 +157,9 @@ public class BankingAccounts extends ApiCliBase {
         LOGGER.info("List balance CLI initiated with accountId: {}",
             accountId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingAccountsBalanceById> response = api.getBalanceWithHttpInfo(accountId);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getBalanceCall(accountId, null);
             String requestUrl = call.request().url().toString();
@@ -186,10 +185,10 @@ public class BankingAccounts extends ApiCliBase {
             pageSize,
             productCategory);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingAccountsBalanceList> response =
             api.listBalancesBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listBalancesBulkCall(productCategory, openStatus, isOwned, page, pageSize, null);
             String requestUrl = call.request().url().toString();
@@ -212,13 +211,13 @@ public class BankingAccounts extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions, true, check));
+        api.setApiClient(clientFactory.create(true, check));
         RequestAccountIdsData data = new RequestAccountIdsData();
         data.setAccountIds(accountIds);
         RequestAccountIds requestAccountIds = new RequestAccountIds();
         requestAccountIds.setData(data);
         ApiResponse<ResponseBankingAccountsBalanceList> response = api.listBalancesSpecificAccountsWithHttpInfo(requestAccountIds, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || check) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listBalancesSpecificAccountsCall(requestAccountIds, page, pageSize, null);
             String requestUrl = call.request().url().toString();
