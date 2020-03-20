@@ -9,6 +9,7 @@ import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.BankingProductV1;
 import au.org.consumerdatastandards.client.model.BankingProductV2;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
+import au.org.consumerdatastandards.integration.ITBase;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
@@ -44,6 +45,12 @@ public class ListProductsIT extends ITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
+        List<BankingProductV1> prods = resp.getData().getData().getProducts();
+        if (prods != null) {
+            for (BankingProductV1 bankingProduct : prods) {
+                checkProducts(bankingProduct, effective, updatedSince, brand, productCategory, conformanceErrors);
+            }
+        }
 
         dumpConformanceErrors(conformanceErrors);
 
@@ -65,17 +72,26 @@ public class ListProductsIT extends ITBase {
 
         ApiResponse<ResponseBankingProductList<BankingProductV2>> resp = api.listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, 2,  page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
-        List<ConformanceError> errors = new ArrayList<>();
-        checkResponseHeaders(resp.getHeaders(), errors);
+        List<ConformanceError> conformanceErrors = new ArrayList<>();
+        checkResponseHeaders(resp.getHeaders(), conformanceErrors);
         List<BankingProductV2> prods = resp.getData().getData().getProducts();
         if (prods != null) {
             for (BankingProductV2 bankingProduct : prods) {
-                checkEffectiveDate(bankingProduct, effective, errors);
-                checkUpdatedSince(bankingProduct, updatedSince, errors);
-                checkBrand(bankingProduct, brand, errors);
-                checkProductCategory(bankingProduct, productCategory, errors);
+                checkProducts(bankingProduct, effective, updatedSince, brand, productCategory, conformanceErrors);
             }
         }
+
+        dumpConformanceErrors(conformanceErrors);
+
+        Assertions.assertTrue(conformanceErrors.isEmpty(),
+                "Conformance errors found in response payload: " + buildConformanceErrorsDescription(conformanceErrors));
+    }
+
+    private void checkProducts(BankingProduct bankingProduct, BankingProductsAPI.ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, List<ConformanceError> errors) {
+        checkEffectiveDate(bankingProduct, effective, errors);
+        checkUpdatedSince(bankingProduct, updatedSince, errors);
+        checkBrand(bankingProduct, brand, errors);
+        checkProductCategory(bankingProduct, productCategory, errors);
     }
 
     private void checkEffectiveDate(BankingProduct bankingProduct, BankingProductsAPI.ParamEffective effective, List<ConformanceError> errors) {

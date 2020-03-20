@@ -7,6 +7,7 @@ import au.org.consumerdatastandards.client.api.BankingProductsAPI;
 import au.org.consumerdatastandards.client.model.BankingProduct;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
+import au.org.consumerdatastandards.integration.ITBase;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

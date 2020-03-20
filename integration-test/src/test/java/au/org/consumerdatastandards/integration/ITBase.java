@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.integration.products;
+package au.org.consumerdatastandards.integration;
 
 import au.org.consumerdatastandards.client.ApiClientFactory;
 import au.org.consumerdatastandards.client.ConformanceError;
