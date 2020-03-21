@@ -40,6 +40,8 @@ public class ListAccountsIT extends ITBase {
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
         for (BankingAccount account : resp.getData().getData().getAccounts()) {
             checkProductCategory(account.getProductCategory(), productCategory, conformanceErrors);
+            checkOwned(account.getIsOwned(), isOwned, conformanceErrors);
+            checkOpenStatus(account.getOpenStatus(), openStatus, conformanceErrors);
         }
 
         dumpConformanceErrors(conformanceErrors);
@@ -55,6 +57,28 @@ public class ListAccountsIT extends ITBase {
                         .errorMessage(String.format(
                                 "BankingAccount productCategory %s does not match productCategory query %s",
                                 respProductCategory, productCategory)));
+            }
+        }
+    }
+
+    private void checkOwned(Boolean accountOwned, Boolean isOwned, List<ConformanceError> errors) {
+        if (isOwned != null) {
+            if (!isOwned.equals(accountOwned)) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorMessage(String.format(
+                                "BankingAccount isOwned %b does not match isOwned query %b",
+                                accountOwned, isOwned)));
+            }
+        }
+    }
+
+    private void checkOpenStatus(BankingAccount.OpenStatus accountOpenStatus, ParamAccountOpenStatus openStatus, List<ConformanceError> errors) {
+        if (openStatus != null && openStatus != ParamAccountOpenStatus.ALL) {
+            if (accountOpenStatus == null || !accountOpenStatus.name().equals(openStatus.name())) {
+                errors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
+                        .errorMessage(String.format(
+                                "BankingAccount openStatus %s does not match openStatus query %s",
+                                (accountOpenStatus == null ? null : accountOpenStatus.name()), openStatus)));
             }
         }
     }
