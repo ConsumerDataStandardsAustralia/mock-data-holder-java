@@ -32,7 +32,7 @@ public class ListAccountsIT extends ITBase {
             "BUSINESS_LOANS,ALL,,,"
     })
     public void listAccounts(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
-        api.setApiClient(clientFactory.create(false, false));
+        api.setApiClient(clientFactory.create(true, false));
 
         ApiResponse<ResponseBankingAccountList> resp = api.listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
