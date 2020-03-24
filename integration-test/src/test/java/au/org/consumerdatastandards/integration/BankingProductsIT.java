@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.integration.products;
+package au.org.consumerdatastandards.integration;
 
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
@@ -8,26 +8,29 @@ import au.org.consumerdatastandards.client.model.BankingProduct;
 import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.BankingProductV1;
 import au.org.consumerdatastandards.client.model.BankingProductV2;
+import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
-import au.org.consumerdatastandards.integration.ITBase;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static au.org.consumerdatastandards.client.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 
-public class ListProductsIT extends ITBase {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+public class BankingProductsIT extends ITBase {
     private final BankingProductsAPI api = new BankingProductsAPI();
+
+    public BankingProductsIT() throws ApiException, IOException {
+        super();
+        api.setApiClient(clientFactory.create(false, false));
+    }
 
     @ParameterizedTest
     @CsvSource({
@@ -39,8 +42,6 @@ public class ListProductsIT extends ITBase {
     })
     public void listProductsV1(BankingProductsAPI.ParamEffective effective, OffsetDateTime updatedSince, String brand,
                              BankingProductCategory productCategory, Integer page, Integer pageSize) throws ApiException {
-        api.setApiClient(clientFactory.create(false, false));
-
         ApiResponse<ResponseBankingProductList<BankingProductV1>> resp = api.listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, 1,  page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
@@ -68,8 +69,6 @@ public class ListProductsIT extends ITBase {
     })
     public void listProductsV2(BankingProductsAPI.ParamEffective effective, OffsetDateTime updatedSince, String brand,
                              BankingProductCategory productCategory, Integer page, Integer pageSize) throws ApiException {
-        api.setApiClient(clientFactory.create(false, false));
-
         ApiResponse<ResponseBankingProductList<BankingProductV2>> resp = api.listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, 2,  page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
@@ -79,6 +78,25 @@ public class ListProductsIT extends ITBase {
             for (BankingProductV2 bankingProduct : prods) {
                 checkProducts(bankingProduct, effective, updatedSince, brand, productCategory, conformanceErrors);
             }
+        }
+
+        dumpConformanceErrors(conformanceErrors);
+
+        Assertions.assertTrue(conformanceErrors.isEmpty(),
+                "Conformance errors found in response payload: " + buildConformanceErrorsDescription(conformanceErrors));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    public void getProductDetail(Integer version) throws ApiException {
+        List<ConformanceError> conformanceErrors = new ArrayList<>();
+
+        ResponseBankingProductList<BankingProduct> prods = api.listProducts(null, null, null, null, version, null, 50);
+        for (BankingProduct prod : prods.getData().getProducts()) {
+            ApiResponse<ResponseBankingProductById> resp = api.getProductDetailWithHttpInfo(prod.getProductId(), version);
+            Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+            checkResponseHeaders(resp.getHeaders(), conformanceErrors);
+            Assertions.assertEquals(prod.getProductId(), resp.getData().getData().getProductId());
         }
 
         dumpConformanceErrors(conformanceErrors);

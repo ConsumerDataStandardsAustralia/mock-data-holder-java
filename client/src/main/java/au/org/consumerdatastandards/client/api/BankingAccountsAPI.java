@@ -986,6 +986,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
         apiClient.executeAsync(call, returnType, _callback);
         return call;
     }
+
     /**
      * Build call for listBalancesSpecificAccounts
      * @param accountIds The list of account IDs to obtain balances for (required)
@@ -1014,9 +1015,6 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * </table>
      */
     public okhttp3.Call listBalancesSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-
-        Object postBody = null;
-
         // create path and map variables
         String path = "/banking/accounts/balances";
 
@@ -1033,7 +1031,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
-        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, accountIds, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")

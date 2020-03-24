@@ -29,12 +29,8 @@ public abstract class ITBase {
 
     protected ApiClientFactory clientFactory;
 
-    public ITBase() {
-        try {
-            clientFactory = new ApiClientFactory(new ITClientOptions());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public ITBase() throws IOException {
+        clientFactory = new ApiClientFactory(new ITClientOptions());
     }
 
     protected String buildConformanceErrorsDescription(List<ConformanceError> conformanceErrors) {

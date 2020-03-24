@@ -8,7 +8,6 @@
 package au.org.consumerdatastandards.integration.utils;
 
 import au.org.consumerdatastandards.client.ApiClientOptions;
-import au.org.consumerdatastandards.integration.products.ListProductsIT;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -34,7 +33,7 @@ public class ITClientOptions implements ApiClientOptions {
     private Properties props = new Properties();
 
     public ITClientOptions() throws IOException {
-        props.load(ListProductsIT.class.getResourceAsStream("/it.properties"));
+        props.load(ITClientOptions.class.getResourceAsStream("/it.properties"));
     }
     @Override
     public String getServerUrl() {
