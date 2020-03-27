@@ -56,7 +56,7 @@ public class BankingProductsIT extends ITBase {
         dumpConformanceErrors(conformanceErrors);
 
         Assertions.assertTrue(conformanceErrors.isEmpty(),
-                "Conformance errors found in response payload: " + buildConformanceErrorsDescription(conformanceErrors));
+                CONFORMANCE_ERRORS_FOUND + buildConformanceErrorsDescription(conformanceErrors));
     }
 
     @ParameterizedTest
@@ -83,7 +83,7 @@ public class BankingProductsIT extends ITBase {
         dumpConformanceErrors(conformanceErrors);
 
         Assertions.assertTrue(conformanceErrors.isEmpty(),
-                "Conformance errors found in response payload: " + buildConformanceErrorsDescription(conformanceErrors));
+                CONFORMANCE_ERRORS_FOUND + buildConformanceErrorsDescription(conformanceErrors));
     }
 
     @ParameterizedTest
@@ -102,7 +102,7 @@ public class BankingProductsIT extends ITBase {
         dumpConformanceErrors(conformanceErrors);
 
         Assertions.assertTrue(conformanceErrors.isEmpty(),
-                "Conformance errors found in response payload: " + buildConformanceErrorsDescription(conformanceErrors));
+                CONFORMANCE_ERRORS_FOUND + buildConformanceErrorsDescription(conformanceErrors));
     }
 
     private void checkProducts(BankingProduct bankingProduct, BankingProductsAPI.ParamEffective effective, OffsetDateTime updatedSince, String brand, BankingProductCategory productCategory, List<ConformanceError> errors) {

@@ -23,6 +23,8 @@ import static au.org.consumerdatastandards.client.ConformanceError.Type.DATA_NOT
 import static au.org.consumerdatastandards.client.ConformanceError.Type.MISSING_HEADER;
 
 public abstract class ITBase {
+    protected static final String CONFORMANCE_ERRORS_FOUND = "Conformance errors found in response payload: ";
+
     private static final String APPLICATION_JSON = "application/json";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -63,7 +65,7 @@ public abstract class ITBase {
     }
 
     protected boolean isContentTypeValid(String contentType) {
-        return contentType != null && contentType.startsWith(APPLICATION_JSON);
+        return contentType.startsWith(APPLICATION_JSON);
     }
 
     private String retrieveHeader(List<String> headerPack) {
