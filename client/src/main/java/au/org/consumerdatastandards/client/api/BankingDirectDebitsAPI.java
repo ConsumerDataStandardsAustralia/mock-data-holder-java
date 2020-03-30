@@ -377,8 +377,6 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
      */
     public okhttp3.Call listDirectDebitsSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
-        Object postBody = null;
-
         // create path and map variables
         String path = "/banking/accounts/direct-debits";
 
@@ -395,7 +393,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
-        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, accountIds, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")

@@ -68,7 +68,7 @@ public abstract class ITBase {
         return contentType.startsWith(APPLICATION_JSON);
     }
 
-    private String retrieveHeader(List<String> headerPack) {
+    protected String retrieveHeader(List<String> headerPack) {
         if (headerPack == null || headerPack.isEmpty()) {
             return null;
         }
