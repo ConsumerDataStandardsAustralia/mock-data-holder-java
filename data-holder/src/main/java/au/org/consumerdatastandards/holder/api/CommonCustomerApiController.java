@@ -2,6 +2,9 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.CommonPerson;
 import au.org.consumerdatastandards.holder.model.CommonPersonDetail;
+import au.org.consumerdatastandards.holder.model.CommonPhysicalAddress;
+import au.org.consumerdatastandards.holder.model.CommonPhysicalAddressWithPurpose;
+import au.org.consumerdatastandards.holder.model.CommonSimpleAddress;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.ResponseCommonCustomer;
 import au.org.consumerdatastandards.holder.model.ResponseCommonCustomerData;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.time.OffsetDateTime;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
@@ -87,6 +89,12 @@ public class CommonCustomerApiController extends ApiControllerBase implements Co
         person.setLastName("Smith");
         person.setMiddleNames(Collections.singletonList(""));
         person.setPrefix("Ms.");
+        person.setPhoneNumbers(Collections.emptyList());
+        person.setEmailAddresses(Collections.emptyList());
+        person.setPhysicalAddresses(Collections.singletonList(new CommonPhysicalAddressWithPurpose()
+                .addressUType(CommonPhysicalAddress.AddressUType.simple)
+                .simple(new CommonSimpleAddress().addressLine1("1 One St").city("Sydney").state("NSW").postcode("2000"))
+                .purpose(CommonPhysicalAddressWithPurpose.Purpose.PHYSICAL)));
         data.setPerson(person);
         responseCommonCustomerDetail.setData(data);
         responseCommonCustomerDetail.setLinks(new Links());

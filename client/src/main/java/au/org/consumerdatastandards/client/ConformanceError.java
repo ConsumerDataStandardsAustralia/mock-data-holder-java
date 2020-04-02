@@ -38,11 +38,10 @@ public class ConformanceError {
                 return String.format("Required field '%s' has null value in\n%s",
                         errorField, dataJson);
             case MISSING_PROPERTY:
-                return String.format("Required field '%s' is missing in\n%s",
-                        errorField, dataJson);
+                return String.format("Required field '%s' is missing in response", errorField);
             case BROKEN_CONSTRAINT:
             case REDUNDANT_VALUE:
-                return String.format("%s. See below:\n%s", message, dataJson);
+                return String.format("%s.", message);
             default:
                 if (!StringUtils.isBlank(message)) return message;
                 else return "Unknown error";
