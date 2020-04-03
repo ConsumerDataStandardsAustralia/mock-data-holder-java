@@ -377,8 +377,6 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      */
     public okhttp3.Call listScheduledPaymentsSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
-        Object postBody = null;
-
         // create path and map variables
         String path = "/banking/payments/scheduled";
 
@@ -395,7 +393,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
-        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, accountIds, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
