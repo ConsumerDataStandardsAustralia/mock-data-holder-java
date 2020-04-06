@@ -13,11 +13,22 @@ To run the artefacts, you need to install
 * Java 8
 * Maven 3
 
+## How to Build
+
+Navigate to the project folder and execute
+
+    mvn install
+
+or, if you want to skip the Docker image build step:
+
+    mvn install -Ddockerfile.skip=true
+
 ## Unit tests
 
-To run unit tests of all modules, navigate to the project folder and execute
+The Maven `install` command runs unit tests as a part of the build.
+You can re-run the tests any time with:
 
-```mvn test``` 
+    mvn test
 
 ## Rules of engagement
 
