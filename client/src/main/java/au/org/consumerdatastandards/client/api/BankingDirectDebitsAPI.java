@@ -7,16 +7,23 @@
  */
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.*;
-import au.org.consumerdatastandards.client.model.*;
+import au.org.consumerdatastandards.client.ApiCallback;
+import au.org.consumerdatastandards.client.ApiException;
+import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.BankingProductCategory;
+import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.ResponseBankingDirectDebitAuthorisationList;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BankingDirectDebitsAPI extends ProtectedAPI {
 
@@ -200,7 +207,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
 */
-    public okhttp3.Call listDirectDebitsBulkCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listDirectDebitsBulkCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -229,7 +236,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listDirectDebitsBulkValidateBeforeCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listDirectDebitsBulkValidateBeforeCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
 
         return listDirectDebitsBulkCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
@@ -259,7 +266,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
 */
-    public ResponseBankingDirectDebitAuthorisationList listDirectDebitsBulk(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ResponseBankingDirectDebitAuthorisationList listDirectDebitsBulk(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
 
         LOGGER.trace("listDirectDebitsBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -296,7 +303,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
 */
-    public ApiResponse<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsBulkWithHttpInfo(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ApiResponse<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsBulkWithHttpInfo(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = listDirectDebitsBulkValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, null);
         Type returnType = new TypeToken<ResponseBankingDirectDebitAuthorisationList>(){}.getType();
         return apiClient.execute(call, returnType);
@@ -327,7 +334,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listDirectDebitsBulkAsync(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingDirectDebitAuthorisationList> _callback) throws ApiException {
+    public okhttp3.Call listDirectDebitsBulkAsync(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingDirectDebitAuthorisationList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously listDirectDebitsBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -370,8 +377,6 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
      */
     public okhttp3.Call listDirectDebitsSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
-        Object postBody = null;
-
         // create path and map variables
         String path = "/banking/accounts/direct-debits";
 
@@ -388,7 +393,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
-        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, accountIds, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")

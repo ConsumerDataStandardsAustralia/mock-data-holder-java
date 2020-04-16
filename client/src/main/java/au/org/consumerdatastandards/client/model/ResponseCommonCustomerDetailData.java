@@ -12,8 +12,8 @@ import java.util.Objects;
 public class ResponseCommonCustomerDetailData {
 
     public enum CustomerUType {
-        PERSON,
-        ORGANISATION
+        person,
+        organisation
     }
 
     private CustomerUType customerUType;

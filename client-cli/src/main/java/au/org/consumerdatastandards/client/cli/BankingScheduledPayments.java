@@ -8,14 +8,11 @@
 package au.org.consumerdatastandards.client.cli;
 
 import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingScheduledPaymentsAPI;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.RequestAccountIds;
 import au.org.consumerdatastandards.client.model.ResponseBankingScheduledPaymentsList;
-import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
-import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;
@@ -31,11 +28,10 @@ public class BankingScheduledPayments extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingScheduledPayments.class);
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingScheduledPaymentsAPI api = new BankingScheduledPaymentsAPI();
 
     @ShellMethod("List scheduled payments")
-    public String listScheduledPayments(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listScheduledPayments(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String accountId,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -45,15 +41,13 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsWithHttpInfo(accountId, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsCall(accountId, page, pageSize, null);
             String requestUrl = call.request().url().toString();
-            int endpointVersion = getEndpointVersion(response);
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response.getData(), "listScheduledPayments", endpointVersion, ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -62,7 +56,7 @@ public class BankingScheduledPayments extends ApiCliBase {
     }
 
     @ShellMethod("List scheduled payments specific accounts")
-    public String listScheduledPaymentsSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listScheduledPaymentsSpecificAccounts(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) RequestAccountIds accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -72,15 +66,13 @@ public class BankingScheduledPayments extends ApiCliBase {
             page,
             pageSize);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingScheduledPaymentsList> response = api.listScheduledPaymentsSpecificAccountsWithHttpInfo(accountIds, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listScheduledPaymentsSpecificAccountsCall(accountIds, page, pageSize, null);
             String requestUrl = call.request().url().toString();
-            int endpointVersion = getEndpointVersion(response);
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response, "listScheduledPaymentsSpecificAccounts", endpointVersion, ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

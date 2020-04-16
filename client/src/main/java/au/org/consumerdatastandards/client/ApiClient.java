@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
 public class ApiClient {
 
     private static final String DEFAULT_BASE_PATH = "http://localhost:8080/cds-au/v1";
+
     private String basePath = DEFAULT_BASE_PATH;
     private boolean debugging = false;
     final private Map<String, String> defaultHeaderMap = new HashMap<>();
@@ -55,21 +56,17 @@ public class ApiClient {
 
     private HttpLoggingInterceptor loggingInterceptor;
 
-    public ApiClient() {
-        init();
-    }
-
-    private void init() {
+    public ApiClient(boolean validating) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addNetworkInterceptor(getProgressInterceptor());
         httpClient = builder.build();
 
         verifyingSsl = true;
 
-        json = new JSON();
+        json = new JSON(validating);
 
         // Set default User-Agent.
-        setUserAgent("CDS Client/1.1.1/java");
+        setUserAgent("CDS Client/1.2.0/java");
 
         addDefaultHeader("Accept", "application/json");
         addDefaultHeader("Content-Type", "application/json");

@@ -7,7 +7,7 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.cli.support.ApiClientOptions;
+import au.org.consumerdatastandards.client.cli.support.ClientCLIOptions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;
@@ -34,7 +34,7 @@ public class CdsClientShell extends SpringBootServletInitializer {
     }
     
     @Bean
-    public ApiClientOptions apiClientOptions() {
-        return new ApiClientOptions();
+    public ClientCLIOptions apiClientOptions() {
+        return new ClientCLIOptions();
     }
 }

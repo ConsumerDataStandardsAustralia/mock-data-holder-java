@@ -7,16 +7,23 @@
  */
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.*;
-import au.org.consumerdatastandards.client.model.*;
+import au.org.consumerdatastandards.client.ApiCallback;
+import au.org.consumerdatastandards.client.ApiException;
+import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.BankingProductCategory;
+import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.ResponseBankingScheduledPaymentsList;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BankingScheduledPaymentsAPI extends ProtectedAPI {
 
@@ -200,7 +207,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listScheduledPaymentsBulkCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listScheduledPaymentsBulkCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -229,7 +236,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listScheduledPaymentsBulkValidateBeforeCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listScheduledPaymentsBulkValidateBeforeCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
 
         return listScheduledPaymentsBulkCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
@@ -259,7 +266,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public ResponseBankingScheduledPaymentsList listScheduledPaymentsBulk(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ResponseBankingScheduledPaymentsList listScheduledPaymentsBulk(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
 
         LOGGER.trace("listScheduledPaymentsBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -296,7 +303,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingScheduledPaymentsList> listScheduledPaymentsBulkWithHttpInfo(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ApiResponse<ResponseBankingScheduledPaymentsList> listScheduledPaymentsBulkWithHttpInfo(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = listScheduledPaymentsBulkValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, null);
         Type returnType = new TypeToken<ResponseBankingScheduledPaymentsList>(){}.getType();
         return apiClient.execute(call, returnType);
@@ -327,7 +334,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listScheduledPaymentsBulkAsync(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingScheduledPaymentsList> _callback) throws ApiException {
+    public okhttp3.Call listScheduledPaymentsBulkAsync(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingScheduledPaymentsList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously listScheduledPaymentsBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -370,8 +377,6 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      */
     public okhttp3.Call listScheduledPaymentsSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
-        Object postBody = null;
-
         // create path and map variables
         String path = "/banking/payments/scheduled";
 
@@ -388,7 +393,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
-        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, accountIds, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")

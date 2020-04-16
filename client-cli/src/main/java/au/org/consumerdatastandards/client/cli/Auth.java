@@ -7,7 +7,8 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.ApiClientFactory;
+import au.org.consumerdatastandards.client.ApiClientOptions;
 import ch.qos.logback.classic.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.mitre.jose.keystore.JWKSetKeyStore;
@@ -27,9 +28,12 @@ import java.util.Map;
 
 @ShellComponent
 @ShellCommandGroup("Auth- and security-related Functions")
-public class Auth extends ApiCliBase {
+public class Auth {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(Auth.class);
+
+    @Autowired
+    private ApiClientOptions apiClientOptions;
 
     @Autowired
     StaticClientConfigurationService clientConfig;
@@ -94,7 +98,7 @@ public class Auth extends ApiCliBase {
 
     @ShellMethod("Unset access token")
     public void unsetAccessToken() {
-        ApiUtil.accessTokenExpiresAt = 0;
+        ApiClientFactory.accessTokenExpiresAt = 0;
         apiClientOptions.setAccessToken(null);
     }
 

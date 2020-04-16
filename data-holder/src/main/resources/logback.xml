@@ -1,7 +1,7 @@
 <configuration>
 
     <property name="LOG_FILE"
-        value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/cds-codegen.log}" />
+        value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/cds-data-holder.log}" />
 
     <appender name="CONSOLE"
         class="ch.qos.logback.core.ConsoleAppender">

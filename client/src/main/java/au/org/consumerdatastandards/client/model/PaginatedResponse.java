@@ -13,7 +13,7 @@ public class PaginatedResponse {
 
   protected LinksPaginated links;
 
-  protected MetaPaginated meta;
+  protected TxMetaPaginated meta;
 
   /**
    * The links attribute contains a Links object with links to
@@ -36,11 +36,11 @@ public class PaginatedResponse {
    * complementary to the workings of the API.
    * @return meta
    */
-  public MetaPaginated getMeta() {
+  public TxMetaPaginated getMeta() {
     return meta;
   }
 
-  public void setMeta(MetaPaginated meta) {
+  public void setMeta(TxMetaPaginated meta) {
     this.meta = meta;
   }
 

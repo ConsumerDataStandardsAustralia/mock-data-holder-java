@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.client.cli.auth;
 
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
+import au.org.consumerdatastandards.client.cli.support.ClientCLIFactory;
 import org.mitre.openid.connect.client.OIDCAuthenticationFilter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -17,7 +17,7 @@ public class UnblockingOIDCAuthenticationFilter extends OIDCAuthenticationFilter
             return super.attemptAuthentication(request, response);
         } catch (Exception e) {
             try {
-                ApiUtil.browserMutex.put(e);
+                ClientCLIFactory.browserMutex.put(e);
             } catch (InterruptedException ex) {
                 // Safe to ignore
             }

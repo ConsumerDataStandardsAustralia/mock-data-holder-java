@@ -7,17 +7,29 @@
  */
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.*;
-import au.org.consumerdatastandards.client.model.*;
+import au.org.consumerdatastandards.client.ApiCallback;
+import au.org.consumerdatastandards.client.ApiException;
+import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.Pair;
+import au.org.consumerdatastandards.client.model.BankingProductCategory;
+import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountById;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountList;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountsBalanceById;
+import au.org.consumerdatastandards.client.model.ResponseBankingAccountsBalanceList;
+import au.org.consumerdatastandards.client.model.ResponseBankingTransactionById;
+import au.org.consumerdatastandards.client.model.ResponseBankingTransactionList;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BankingAccountsAPI extends ProtectedAPI {
 
@@ -668,7 +680,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public okhttp3.Call listAccountsCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listAccountsCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -697,7 +709,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listAccountsValidateBeforeCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listAccountsValidateBeforeCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
 
         return listAccountsCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
@@ -727,7 +739,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ResponseBankingAccountList listAccounts(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ResponseBankingAccountList listAccounts(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
 
         LOGGER.trace("listAccounts with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -764,7 +776,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingAccountList> listAccountsWithHttpInfo(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ApiResponse<ResponseBankingAccountList> listAccountsWithHttpInfo(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = listAccountsValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, null);
         Type returnType = new TypeToken<ResponseBankingAccountList>(){}.getType();
         return apiClient.execute(call, returnType);
@@ -795,7 +807,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listAccountsAsync(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountList> _callback) throws ApiException {
+    public okhttp3.Call listAccountsAsync(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously listAccounts with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -833,7 +845,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public okhttp3.Call listBalancesBulkCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listBalancesBulkCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -862,7 +874,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listBalancesBulkValidateBeforeCall(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listBalancesBulkValidateBeforeCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
 
         return listBalancesBulkCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
@@ -892,7 +904,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ResponseBankingAccountsBalanceList listBalancesBulk(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ResponseBankingAccountsBalanceList listBalancesBulk(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
 
         LOGGER.trace("listBalancesBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -929,7 +941,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingAccountsBalanceList> listBalancesBulkWithHttpInfo(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public ApiResponse<ResponseBankingAccountsBalanceList> listBalancesBulkWithHttpInfo(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
         okhttp3.Call call = listBalancesBulkValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, null);
         Type returnType = new TypeToken<ResponseBankingAccountsBalanceList>(){}.getType();
         return apiClient.execute(call, returnType);
@@ -960,7 +972,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listBalancesBulkAsync(ParamProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountsBalanceList> _callback) throws ApiException {
+    public okhttp3.Call listBalancesBulkAsync(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountsBalanceList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously listBalancesBulk with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -974,6 +986,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
         apiClient.executeAsync(call, returnType, _callback);
         return call;
     }
+
     /**
      * Build call for listBalancesSpecificAccounts
      * @param accountIds The list of account IDs to obtain balances for (required)
@@ -1002,9 +1015,6 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * </table>
      */
     public okhttp3.Call listBalancesSpecificAccountsCall(RequestAccountIds accountIds, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
-
-        Object postBody = null;
-
         // create path and map variables
         String path = "/banking/accounts/balances";
 
@@ -1021,7 +1031,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
-        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
+        return apiClient.buildCall(path, "POST", queryParams, collectionQueryParams, accountIds, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")

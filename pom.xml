@@ -55,7 +55,6 @@
         <jackson.version>2.10.1</jackson.version>
         <junit.version>5.5.0</junit.version>
         <jacoco.version>0.8.4</jacoco.version>
-        <reflections.version>0.9.11</reflections.version>
         <swagger-core.version>1.5.24</swagger-core.version>
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
@@ -65,13 +64,10 @@
     </properties>
 
     <modules>
-        <module>api-model</module>
-        <module>reflection</module>
-        <module>codegen</module>
         <module>client</module>
         <module>client-cli</module>
-        <module>reference-test</module>
         <module>data-holder</module>
+        <module>integration-test</module>
     </modules>
 
     <distributionManagement>
@@ -275,11 +271,6 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>${reflections.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.maven.scm</groupId>
                 <artifactId>maven-scm-provider-gitexe</artifactId>
                 <version>${maven-scm-provider-gitext.version}</version>
@@ -311,27 +302,7 @@
             </dependency>
             <dependency>
                 <groupId>au.org.consumerdatastandards</groupId>
-                <artifactId>api-model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>au.org.consumerdatastandards</groupId>
                 <artifactId>client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>au.org.consumerdatastandards</groupId>
-                <artifactId>codegen</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>au.org.consumerdatastandards</groupId>
-                <artifactId>reflection</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>au.org.consumerdatastandards</groupId>
-                <artifactId>reference-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -364,6 +335,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <profiles>
         <profile>
             <id>release</id>

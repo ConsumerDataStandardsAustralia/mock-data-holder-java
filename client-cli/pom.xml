@@ -62,10 +62,6 @@
             <artifactId>client</artifactId>
         </dependency>
         <dependency>
-            <groupId>au.org.consumerdatastandards</groupId>
-            <artifactId>reference-test</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.shell</groupId>
             <artifactId>spring-shell-core</artifactId>
             <version>${spring-shell.version}</version>
@@ -84,10 +80,6 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.nimbusds</groupId>
-            <artifactId>nimbus-jose-jwt</artifactId>
         </dependency>
     </dependencies>
     <build>

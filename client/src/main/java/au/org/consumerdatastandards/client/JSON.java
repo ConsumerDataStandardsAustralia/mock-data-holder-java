@@ -7,15 +7,26 @@
  */
 package au.org.consumerdatastandards.client;
 
-import com.google.gson.*;
+import au.org.consumerdatastandards.client.model.MetaPaginated;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import com.google.gson.internal.bind.util.ISO8601Utils;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import io.gsonfire.GsonFireBuilder;
 import okio.ByteString;
+
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,6 +35,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -56,15 +68,18 @@ public class JSON {
         return clazz;
     }
 
-    public JSON() {
-        ByteArrayAdapter byteArrayAdapter = new ByteArrayAdapter();
-        gson = createGson()
-            .registerTypeAdapter(Date.class, dateTypeAdapter)
-            .registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
-            .registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter)
-            .registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
-            .registerTypeAdapter(byte[].class, byteArrayAdapter)
-            .create();
+    public JSON(boolean validating) {
+
+        GsonBuilder builder = createGson()
+                .registerTypeAdapter(Date.class, dateTypeAdapter)
+                .registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
+                .registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter)
+                .registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
+                .registerTypeAdapter(byte[].class, new ByteArrayAdapter());
+        if (validating) {
+            builder.registerTypeAdapterFactory(new ValidatorAdapterFactory());
+        }
+        gson = builder.create();
     }
 
     /**
@@ -113,22 +128,32 @@ public class JSON {
     @SuppressWarnings("unchecked")
     public <T> T deserialize(String body, Type returnType) {
         try {
-            if (isLenientOnJson) {
-                JsonReader jsonReader = new JsonReader(new StringReader(body));
-                // see https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/stream/JsonReader.html#setLenient(boolean)
-                jsonReader.setLenient(true);
-                return gson.fromJson(jsonReader, returnType);
-            } else {
-                return gson.fromJson(body, returnType);
-            }
+            return deserialize(new StringReader(body), returnType);
         } catch (JsonParseException e) {
-            // Fallback processing when failed to parse JSON form response body:
-            // return the response body string directly for the String return type;
             if (returnType.equals(String.class)) {
                 return (T) body;
             } else {
                 throw (e);
             }
+        }
+    }
+
+    /**
+     * Deserialize the given JSON string to Java object.
+     *
+     * @param <T>        Type
+     * @param body       The Reader of a JSON stream
+     * @param returnType The type to deserialize into
+     * @return The deserialized Java object
+     */
+    public <T> T deserialize(Reader body, Type returnType) {
+        if (isLenientOnJson) {
+            JsonReader jsonReader = new JsonReader(body);
+            // see https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/stream/JsonReader.html#setLenient(boolean)
+            jsonReader.setLenient(true);
+            return gson.fromJson(jsonReader, returnType);
+        } else {
+            return gson.fromJson(body, returnType);
         }
     }
 
@@ -364,5 +389,47 @@ public class JSON {
     public JSON setSqlDateFormat(DateFormat dateFormat) {
         sqlDateTypeAdapter.setFormat(dateFormat);
         return this;
+    }
+}
+
+class ValidatorAdapterFactory implements TypeAdapterFactory {
+
+    @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+        // If the type adapter is a reflective type adapter, we want to modify the implementation using reflection. The
+        // trick is to replace the Map object used to lookup the property name. Instead of returning null if the
+        // property is not found, we throw a Json exception to terminate the deserialization.
+        TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
+
+        // Check if the type adapter is a reflective, cause this solution only work for reflection.
+        // We also don't need to augment the adapter for the "rubber" type MetaPaginated and its descendants
+        if (delegate instanceof ReflectiveTypeAdapterFactory.Adapter && type.getType() instanceof Class &&
+                !MetaPaginated.class.isAssignableFrom((Class)type.getType())) {
+            try {
+                // Get reference to the existing boundFields.
+                Field f = delegate.getClass().getDeclaredField("boundFields");
+                f.setAccessible(true);
+                Map boundFields = (Map) f.get(delegate);
+
+                // Then replace it with our implementation throwing exception if the value is null.
+                boundFields = new LinkedHashMap(boundFields) {
+                    @Override
+                    public Object get(Object key) {
+                        Object value = super.get(key);
+                        if (value == null) {
+                            throw new JsonParseException("Unexpected property: " + key);
+                        }
+                        return value;
+                    }
+                };
+                // Finally, push our custom map back using reflection.
+                f.set(delegate, boundFields);
+            } catch (Exception e) {
+                // Should never happen if the implementation doesn't change.
+                throw new IllegalStateException(e);
+            }
+        }
+        return delegate;
     }
 }

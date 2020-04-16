@@ -9,9 +9,7 @@ package au.org.consumerdatastandards.client.model;
 
 import java.util.Objects;
 
-public class LinksPaginated {
-
-    private String self;
+public class LinksPaginated extends Links {
 
     private String first;
 
@@ -20,18 +18,6 @@ public class LinksPaginated {
     private String next;
 
     private String last;
-
-    /**
-     * Fully qualified link that generated the current response document
-     * @return self
-     */
-    public String getSelf() {
-        return self;
-    }
-
-    public void setSelf(String self) {
-        this.self = self;
-    }
 
     /**
      * URI to the first page of this set. Mandatory if this response is not the first page
@@ -90,7 +76,7 @@ public class LinksPaginated {
             return false;
         }
         LinksPaginated linksPaginated = (LinksPaginated) o;
-        return Objects.equals(this.self, linksPaginated.self) &&
+        return Objects.equals(this.getSelf(), linksPaginated.getSelf()) &&
             Objects.equals(this.first, linksPaginated.first) &&
             Objects.equals(this.prev, linksPaginated.prev) &&
             Objects.equals(this.next, linksPaginated.next) &&
@@ -100,7 +86,7 @@ public class LinksPaginated {
     @Override
     public int hashCode() {
         return Objects.hash(
-            self,
+            getSelf(),
             first,
             prev,
             next,
@@ -110,7 +96,7 @@ public class LinksPaginated {
     @Override
     public String toString() {
         return "class LinksPaginated {\n" +
-            "   self: " + toIndentedString(self) + "\n" + 
+            "   self: " + toIndentedString(getSelf()) + "\n" +
             "   first: " + toIndentedString(first) + "\n" + 
             "   prev: " + toIndentedString(prev) + "\n" + 
             "   next: " + toIndentedString(next) + "\n" + 

@@ -19,6 +19,29 @@ or
 
 When you see `cds-shell:>`, type `help` and you'll see something like this 
 
+### Docker
+
+Run the image from DockerHub:
+
+    docker run -p 8686:8686 -it consumerdatastandardsaustralia/client-cli:x.x.x
+
+or, if you want to point to your own keystore:
+
+    docker run -p 8686:8686 -it -v /your/local/path/to/java-artefacts/client-cli/keystore:/keystore consumerdatastandardsaustralia/client-cli:x.x.x
+    
+Where `x.x.x` is the version, say, `1.2.0`
+
+### Command Reference
+
+The following is the output of the `help` command.
+For more information execute
+
+    help <command>
+    
+For instance:
+
+    help list-products
+
 <pre>
 AVAILABLE COMMANDS
 
@@ -100,4 +123,8 @@ Reference Testing
 </pre>
 
 The properties associated with select commands can be set in the command line, e.g. -Dproperty.name=property_value
-or in the application.properties file before launching the application.
+or in the application.properties file before launching the application with `mvn spring-boot:run` or with `java`.
+
+Example:
+
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.2.0.jar

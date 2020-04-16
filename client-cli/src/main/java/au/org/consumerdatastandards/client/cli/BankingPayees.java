@@ -8,15 +8,12 @@
 package au.org.consumerdatastandards.client.cli;
 
 import au.org.consumerdatastandards.client.ApiResponse;
+import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingPayeesAPI;
 import au.org.consumerdatastandards.client.api.BankingPayeesAPI.ParamType;
-import au.org.consumerdatastandards.client.cli.support.ApiUtil;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.client.model.ResponseBankingPayeeList;
-import au.org.consumerdatastandards.conformance.ConformanceError;
-import au.org.consumerdatastandards.conformance.PayloadValidator;
-import au.org.consumerdatastandards.support.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;
@@ -32,25 +29,22 @@ public class BankingPayees extends ApiCliBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingPayees.class);
 
-    private PayloadValidator payloadValidator = new PayloadValidator();
     private final BankingPayeesAPI api = new BankingPayeesAPI();
 
     @ShellMethod("Get payee detail")
-    public String getPayeeDetail(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String getPayeeDetail(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) String payeeId) throws Exception {
 
         LOGGER.info("Get payee detail CLI initiated with payeeId: {}",
             payeeId);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingPayeeById> response = api.getPayeeDetailWithHttpInfo(payeeId);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getPayeeDetailCall(payeeId, null);
             String requestUrl = call.request().url().toString();
-            int endpointVersion = getEndpointVersion(response);
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response.getData(), "getPayeeDetail", endpointVersion, ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }
@@ -59,7 +53,7 @@ public class BankingPayees extends ApiCliBase {
     }
 
     @ShellMethod("List payees")
-    public String listPayees(@ShellOption(defaultValue = ShellOption.NULL) Boolean check,
+    public String listPayees(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
         @ShellOption(defaultValue = ShellOption.NULL) ParamType type) throws Exception {
@@ -69,14 +63,13 @@ public class BankingPayees extends ApiCliBase {
             pageSize,
             type);
 
-        api.setApiClient(ApiUtil.createApiClient(apiClientOptions));
+        api.setApiClient(clientFactory.create(true, check));
         ApiResponse<ResponseBankingPayeeList> response = api.listPayeesWithHttpInfo(type, page, pageSize);
-        if (apiClientOptions.isValidationEnabled() || (check != null && check)) {
+        if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listPayeesCall(type, page, pageSize, null);
             String requestUrl = call.request().url().toString();
-            List<ConformanceError> conformanceErrors = payloadValidator
-                .validateResponse(requestUrl, response.getData(), "listPayees", getEndpointVersion(response), ResponseCode.OK);
+            List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
                 throwConformanceErrors(conformanceErrors);
             }

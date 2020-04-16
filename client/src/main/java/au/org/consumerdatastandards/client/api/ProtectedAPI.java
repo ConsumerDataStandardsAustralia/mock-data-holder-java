@@ -14,14 +14,6 @@ public class ProtectedAPI {
 
     protected ApiClient apiClient;
 
-    public ProtectedAPI() {
-        this(new ApiClient());
-    }
-
-    public ProtectedAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
     protected void addCdsProtectedApiHeaders(Map<String, String> headers) {
         headers.put("x-fapi-customer-ip-address", getIpAddress());
         headers.put("x-fapi-auth-date", OffsetDateTime.now().toString());
