@@ -31,6 +31,10 @@ or, if you want to point to your own keystore:
     
 Where `x.x.x` is the version, say, `1.2.0`
 
+Run locally-built image:
+
+    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.3.0-SNAPSHOT
+
 ### Command Reference
 
 The following is the output of the `help` command.
@@ -128,3 +132,7 @@ or in the application.properties file before launching the application with `mvn
 Example:
 
     java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.2.0.jar
+
+or
+
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.0-SNAPSHOT.jar
