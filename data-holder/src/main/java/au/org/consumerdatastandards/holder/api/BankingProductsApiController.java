@@ -3,7 +3,7 @@ package au.org.consumerdatastandards.holder.api;
 import au.org.consumerdatastandards.holder.model.BankingProduct;
 import au.org.consumerdatastandards.holder.model.BankingProductCategory;
 import au.org.consumerdatastandards.holder.model.BankingProductDetail;
-import au.org.consumerdatastandards.holder.model.BankingProductV1;
+import au.org.consumerdatastandards.holder.model.BankingProductV2;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.ParamEffective;
 import au.org.consumerdatastandards.holder.model.ResponseBankingProductById;
@@ -80,7 +80,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         validateHeaders(xMinV, xV);
         validatePageInputs(page, pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
-        BankingProduct bankingProduct = new BankingProductV1();
+        BankingProduct bankingProduct = new BankingProductV2();
         bankingProduct.setLastUpdated(updatedSince);
         bankingProduct.setBrand(brand);
         if (productCategory != null) {

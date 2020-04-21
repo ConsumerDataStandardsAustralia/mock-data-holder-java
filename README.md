@@ -30,6 +30,13 @@ You can re-run the tests any time with:
 
     mvn test
 
+## Included Modules
+
+- [client](client/README.md) - Java library, reference Implementation of CDS client (Data Recipient). Used by client-cli and integration-test
+- [client-cli](client-cli/README.md) - Command Line Interface tool to access Data Holder endpoints.
+- [integration-test](integration-test/README.md) - Integration tests to run against Data Holder endpoints.
+- [data-holder](data-holder/README.md) - Reference Implementation of CDS server (Data Holder).
+
 ## Rules of engagement
 
 CDS Engineering team welcome everyone contribute to the open source project by raising issues and contributing code through pull requests.

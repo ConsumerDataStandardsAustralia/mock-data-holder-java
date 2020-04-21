@@ -116,8 +116,7 @@ public class CdsDataLoader {
         }
     }
 
-    private void assignAccountToBalance(BankingBalance obj) {
-        BankingBalance balance = obj;
+    private void assignAccountToBalance(BankingBalance balance) {
         Optional<BankingAccount> account = accountRepository.findById(balance.getAccountId());
         if (account.isPresent()) {
             balance.setBankingAccount(account.get());

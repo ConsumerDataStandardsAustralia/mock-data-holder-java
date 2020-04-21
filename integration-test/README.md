@@ -17,6 +17,10 @@ The keystore format is the standard Java JKS key store file containing the MTLS 
 
 #### Running tests
 
+Make sure the [data-holder](../data-holder/README.md) is started and is available at the URL configured in `src/test/resources/it.properties` ("server")
+
+Use Maven to run the tests - in the `integration-test` directory:
+
     mvn verify
 
 The tests are provided under the MIT license.
