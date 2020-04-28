@@ -55,7 +55,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule {
     }
 
     /**
-     * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+     * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
      * @return nonBusinessDayTreatment
      */
     public NonBusinessDayTreatment getNonBusinessDayTreatment() {
