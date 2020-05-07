@@ -87,7 +87,7 @@ public class BankingProductsIT extends ITBase {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {1, 2, 3})
     public void getProductDetail(Integer version) throws ApiException {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
 

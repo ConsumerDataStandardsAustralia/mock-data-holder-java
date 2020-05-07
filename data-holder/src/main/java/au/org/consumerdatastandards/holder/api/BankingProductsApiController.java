@@ -113,6 +113,6 @@ public class BankingProductsApiController extends ApiControllerBase implements B
 
     @Override
     protected Integer getCurrentVersion() {
-        return 2;
+        return 3;
     }
 }
