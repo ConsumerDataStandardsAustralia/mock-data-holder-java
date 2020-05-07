@@ -18,11 +18,15 @@ To run the artefacts, you need to install
 
 Navigate to the project folder and execute
 
-    mvn install
+    mvn install --projects !integration-test
 
 or, if you want to skip the Docker image build step:
 
-    mvn install -Ddockerfile.skip=true
+    mvn install -Ddockerfile.skip=true --projects !integration-test
+
+The `--projects !integration-test` parameter skips running of the integration tests.
+You can ommit this parameter if you've built the current version of the project once before and
+the `data-holder` is running, so the tests can be run agains it.
 
 ## Unit tests
 
