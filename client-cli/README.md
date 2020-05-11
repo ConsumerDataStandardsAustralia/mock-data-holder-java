@@ -29,11 +29,11 @@ or, if you want to point to your own keystore:
 
     docker run -p 8686:8686 -it -v /your/local/path/to/java-artefacts/client-cli/keystore:/keystore consumerdatastandardsaustralia/client-cli:x.x.x
     
-Where `x.x.x` is the version, say, `1.2.0`
+Where `x.x.x` is the version, say, `1.3.0`
 
 Run locally-built image:
 
-    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.3.0-SNAPSHOT
+    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.3.1-SNAPSHOT
 
 ### Command Reference
 
@@ -131,8 +131,8 @@ or in the application.properties file before launching the application with `mvn
 
 Example:
 
-    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.2.0.jar
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.0.jar
 
 or
 
-    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.0-SNAPSHOT.jar
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.1-SNAPSHOT.jar

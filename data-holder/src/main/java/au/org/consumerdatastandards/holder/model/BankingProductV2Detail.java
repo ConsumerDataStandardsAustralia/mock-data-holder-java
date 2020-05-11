@@ -130,7 +130,7 @@ public class BankingProductV2Detail implements BankingProductDetail {
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "deposit_rate_id"))
     @Valid
-    private List<BankingProductDepositRate> depositRates = null;
+    private List<BankingProductDepositRateV1> depositRates = null;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -162,7 +162,7 @@ public class BankingProductV2Detail implements BankingProductDetail {
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "lending_rate_id"))
     @Valid
-    private List<BankingProductLendingRate> lendingRates = null;
+    private List<BankingProductLendingRateV1> lendingRates = null;
 
     @Override
     public String getProductId() {
@@ -412,12 +412,12 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.constraints = constraints;
     }
 
-    public BankingProductV2Detail depositRates(List<BankingProductDepositRate> depositRates) {
+    public BankingProductV2Detail depositRates(List<BankingProductDepositRateV1> depositRates) {
         this.depositRates = depositRates;
         return this;
     }
 
-    public BankingProductV2Detail addDepositRatesItem(BankingProductDepositRate depositRatesItem) {
+    public BankingProductV2Detail addDepositRatesItem(BankingProductDepositRateV1 depositRatesItem) {
         if (this.depositRates == null) {
             this.depositRates = new ArrayList<>();
         }
@@ -431,11 +431,11 @@ public class BankingProductV2Detail implements BankingProductDetail {
      * @return depositRates
      */
     @Valid
-    public List<BankingProductDepositRate> getDepositRates() {
+    public List<BankingProductDepositRateV1> getDepositRates() {
         return depositRates;
     }
 
-    public void setDepositRates(List<BankingProductDepositRate> depositRates) {
+    public void setDepositRates(List<BankingProductDepositRateV1> depositRates) {
         this.depositRates = depositRates;
     }
 
@@ -520,12 +520,12 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.fees = fees;
     }
 
-    public BankingProductV2Detail lendingRates(List<BankingProductLendingRate> lendingRates) {
+    public BankingProductV2Detail lendingRates(List<BankingProductLendingRateV1> lendingRates) {
         this.lendingRates = lendingRates;
         return this;
     }
 
-    public BankingProductV2Detail addLendingRatesItem(BankingProductLendingRate lendingRatesItem) {
+    public BankingProductV2Detail addLendingRatesItem(BankingProductLendingRateV1 lendingRatesItem) {
         if (this.lendingRates == null) {
             this.lendingRates = new ArrayList<>();
         }
@@ -539,11 +539,11 @@ public class BankingProductV2Detail implements BankingProductDetail {
      * @return lendingRates
      */
     @Valid
-    public List<BankingProductLendingRate> getLendingRates() {
+    public List<BankingProductLendingRateV1> getLendingRates() {
         return lendingRates;
     }
 
-    public void setLendingRates(List<BankingProductLendingRate> lendingRates) {
+    public void setLendingRates(List<BankingProductLendingRateV1> lendingRates) {
         this.lendingRates = lendingRates;
     }
 

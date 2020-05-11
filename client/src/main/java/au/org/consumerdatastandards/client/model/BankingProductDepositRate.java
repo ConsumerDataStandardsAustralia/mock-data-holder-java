@@ -10,7 +10,7 @@ package au.org.consumerdatastandards.client.model;
 import java.util.List;
 import java.util.Objects;
 
-public class BankingProductDepositRate {
+public class BankingProductDepositRate<T extends BankingProductRateTier> {
 
     public enum DepositRateType {
         FIXED,
@@ -30,7 +30,7 @@ public class BankingProductDepositRate {
 
     private String applicationFrequency;
 
-    private List<BankingProductRateTier> tiers;
+    private List<T> tiers;
 
     private String additionalValue;
 
@@ -90,11 +90,11 @@ public class BankingProductDepositRate {
      * Rate tiers applicable for this rate
      * @return tiers
      */
-    public List<BankingProductRateTier> getTiers() {
+    public List<T> getTiers() {
         return tiers;
     }
 
-    public void setTiers(List<BankingProductRateTier> tiers) {
+    public void setTiers(List<T> tiers) {
         this.tiers = tiers;
     }
 
@@ -142,7 +142,7 @@ public class BankingProductDepositRate {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingProductDepositRate bankingProductDepositRate = (BankingProductDepositRate) o;
+        BankingProductDepositRate<T> bankingProductDepositRate = (BankingProductDepositRate<T>) o;
         return Objects.equals(this.depositRateType, bankingProductDepositRate.depositRateType) &&
             Objects.equals(this.rate, bankingProductDepositRate.rate) &&
             Objects.equals(this.calculationFrequency, bankingProductDepositRate.calculationFrequency) &&

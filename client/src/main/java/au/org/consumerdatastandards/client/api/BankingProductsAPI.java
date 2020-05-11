@@ -13,11 +13,12 @@ import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.Pair;
 import au.org.consumerdatastandards.client.model.BankingProduct;
+import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.BankingProductV1;
 import au.org.consumerdatastandards.client.model.BankingProductV1Detail;
 import au.org.consumerdatastandards.client.model.BankingProductV2;
 import au.org.consumerdatastandards.client.model.BankingProductV2Detail;
-import au.org.consumerdatastandards.client.model.BankingProductCategory;
+import au.org.consumerdatastandards.client.model.BankingProductV3Detail;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
 import com.google.gson.reflect.TypeToken;
@@ -593,6 +594,7 @@ public class BankingProductsAPI {
             Integer versionNumber = Integer.parseInt(version);
             switch (versionNumber) {
                 case 2:
+                case 3:
                     return new TypeToken<ResponseBankingProductList<BankingProductV2>>(){}.getType();
                 default:
                     return new TypeToken<ResponseBankingProductList<BankingProductV1>>(){}.getType();
@@ -608,6 +610,8 @@ public class BankingProductsAPI {
             switch (versionNumber) {
                 case 2:
                     return new TypeToken<ResponseBankingProductById<BankingProductV2Detail>>(){}.getType();
+                case 3:
+                    return new TypeToken<ResponseBankingProductById<BankingProductV3Detail>>(){}.getType();
                 default:
                     return new TypeToken<ResponseBankingProductById<BankingProductV1Detail>>(){}.getType();
             }

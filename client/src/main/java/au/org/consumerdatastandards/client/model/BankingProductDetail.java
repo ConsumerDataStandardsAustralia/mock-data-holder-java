@@ -22,12 +22,4 @@ public interface BankingProductDetail extends BankingProduct {
     List<BankingProductFee> getFees();
 
     void setFees(List<BankingProductFee> fees);
-
-    List<BankingProductDepositRate> getDepositRates();
-
-    void setDepositRates(List<BankingProductDepositRate> depositRates);
-
-    List<BankingProductLendingRate> getLendingRates();
-
-    void setLendingRates(List<BankingProductLendingRate> lendingRates);
 }
