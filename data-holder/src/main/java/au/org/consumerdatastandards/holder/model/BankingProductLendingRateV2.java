@@ -17,6 +17,10 @@ public class BankingProductLendingRateV2 extends BankingProductLendingRate {
     @Valid
     private List<BankingProductRateTierV2> tiers = null;
 
+    private RepaymentType repaymentType;
+
+    private LoanPurpose loanPurpose;
+
     public List<BankingProductRateTierV2> getTiers() {
         return tiers;
     }
@@ -25,9 +29,37 @@ public class BankingProductLendingRateV2 extends BankingProductLendingRate {
         this.tiers = tiers;
     }
 
+    public RepaymentType getRepaymentType() {
+        return repaymentType;
+    }
+
+    public void setRepaymentType(RepaymentType repaymentType) {
+        this.repaymentType = repaymentType;
+    }
+
+    public LoanPurpose getLoanPurpose() {
+        return loanPurpose;
+    }
+
+    public void setLoanPurpose(LoanPurpose loanPurpose) {
+        this.loanPurpose = loanPurpose;
+    }
+
     @Override
     protected void stringProperties(StringBuilder sb) {
         super.stringProperties(sb);
-        sb.append(", tiers=").append(tiers);
+        sb.append(", tiers=").append(tiers)
+                .append(", repaymentType=").append(repaymentType)
+                .append(", repaymentType=").append(repaymentType);
+    }
+
+    public enum RepaymentType {
+        INTEREST_ONLY,
+        PRINCIPAL_AND_INTEREST
+    }
+
+    public enum LoanPurpose {
+        OWNER_OCCUPIED,
+        INVESTMENT
     }
 }

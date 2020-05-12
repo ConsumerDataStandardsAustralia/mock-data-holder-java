@@ -183,7 +183,7 @@ public abstract class BankingProductLendingRate {
 
     protected void stringProperties(StringBuilder sb) {
         sb.append("lendingRateId='").append(lendingRateId).append('\'')
-                .append("lendingRateType=").append(lendingRateType)
+                .append(", lendingRateType=").append(lendingRateType)
                 .append(", rate=").append(rate)
                 .append(", comparisonRate=").append(comparisonRate)
                 .append(", calculationFrequency='").append(calculationFrequency).append('\'')

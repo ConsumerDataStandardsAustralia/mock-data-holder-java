@@ -12,6 +12,10 @@ public class BankingProductRateTierV2 extends BankingProductRateTier {
 
     private String additionalInfoUri;
 
+    /**
+     * Display text providing more information on the rate tier.
+     * @return additionalInfo
+     */
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -20,6 +24,10 @@ public class BankingProductRateTierV2 extends BankingProductRateTier {
         this.additionalInfo = additionalInfo;
     }
 
+    /**
+     * Link to a web page with more information on this rate tier.
+     * @return additionalInfoUri
+     */
     public String getAdditionalInfoUri() {
         return additionalInfoUri;
     }

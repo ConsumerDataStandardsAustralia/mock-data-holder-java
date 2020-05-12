@@ -31,6 +31,16 @@ public class BankingProductLendingRate<T extends BankingProductRateTier> {
         ADVANCE
     }
 
+    public enum RepaymentType {
+        INTEREST_ONLY,
+        PRINCIPAL_AND_INTEREST
+    }
+
+    public enum LoanPurpose {
+        OWNER_OCCUPIED,
+        INVESTMENT
+    }
+
     private LendingRateType lendingRateType;
 
     private String rate;
@@ -42,6 +52,10 @@ public class BankingProductLendingRate<T extends BankingProductRateTier> {
     private String applicationFrequency;
 
     private InterestPaymentDue interestPaymentDue;
+
+    private RepaymentType repaymentType;
+
+    private LoanPurpose loanPurpose;
 
     private List<T> tiers;
 
@@ -124,6 +138,30 @@ public class BankingProductLendingRate<T extends BankingProductRateTier> {
     }
 
     /**
+     * Options in place for repayments. If absent, the lending rate is applicable to all repayment types
+     * @return repaymentType
+     */
+    public RepaymentType getRepaymentType() {
+        return repaymentType;
+    }
+
+    public void setRepaymentType(RepaymentType repaymentType) {
+        this.repaymentType = repaymentType;
+    }
+
+    /**
+     * The reason for taking out the loan. If absent, the lending rate is applicable to all loan purposes
+     * @return loanPurpose
+     */
+    public LoanPurpose getLoanPurpose() {
+        return loanPurpose;
+    }
+
+    public void setLoanPurpose(LoanPurpose loanPurpose) {
+        this.loanPurpose = loanPurpose;
+    }
+
+    /**
      * Rate tiers applicable for this rate
      * @return tiers
      */
@@ -187,6 +225,8 @@ public class BankingProductLendingRate<T extends BankingProductRateTier> {
             Objects.equals(this.applicationFrequency, bankingProductLendingRate.applicationFrequency) &&
             Objects.equals(this.interestPaymentDue, bankingProductLendingRate.interestPaymentDue) &&
             Objects.equals(this.tiers, bankingProductLendingRate.tiers) &&
+            Objects.equals(this.repaymentType, bankingProductLendingRate.repaymentType) &&
+            Objects.equals(this.loanPurpose, bankingProductLendingRate.loanPurpose) &&
             Objects.equals(this.additionalValue, bankingProductLendingRate.additionalValue) &&
             Objects.equals(this.additionalInfo, bankingProductLendingRate.additionalInfo) &&
             Objects.equals(this.additionalInfoUri, bankingProductLendingRate.additionalInfoUri);
@@ -201,6 +241,8 @@ public class BankingProductLendingRate<T extends BankingProductRateTier> {
             calculationFrequency,
             applicationFrequency,
             interestPaymentDue,
+            repaymentType,
+            loanPurpose,
             tiers,
             additionalValue,
             additionalInfo,
@@ -216,7 +258,9 @@ public class BankingProductLendingRate<T extends BankingProductRateTier> {
             "   calculationFrequency: " + toIndentedString(calculationFrequency) + "\n" + 
             "   applicationFrequency: " + toIndentedString(applicationFrequency) + "\n" + 
             "   interestPaymentDue: " + toIndentedString(interestPaymentDue) + "\n" + 
-            "   tiers: " + toIndentedString(tiers) + "\n" + 
+            "   repaymentType: " + toIndentedString(repaymentType) + "\n" +
+            "   loanPurpose: " + toIndentedString(loanPurpose) + "\n" +
+            "   tiers: " + toIndentedString(tiers) + "\n" +
             "   additionalValue: " + toIndentedString(additionalValue) + "\n" + 
             "   additionalInfo: " + toIndentedString(additionalInfo) + "\n" + 
             "   additionalInfoUri: " + toIndentedString(additionalInfoUri) + "\n" + 
