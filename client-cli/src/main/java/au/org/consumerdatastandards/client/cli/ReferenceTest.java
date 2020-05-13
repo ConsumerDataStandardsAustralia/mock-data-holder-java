@@ -40,8 +40,9 @@ import au.org.consumerdatastandards.client.model.BankingProductFeature;
 import au.org.consumerdatastandards.client.model.BankingProductFee;
 import au.org.consumerdatastandards.client.model.BankingProductLendingRate;
 import au.org.consumerdatastandards.client.model.BankingProductRateCondition;
-import au.org.consumerdatastandards.client.model.BankingProductRateTier;
 import au.org.consumerdatastandards.client.model.BankingProductRateTierSubTier;
+import au.org.consumerdatastandards.client.model.BankingProductRateTierV1;
+import au.org.consumerdatastandards.client.model.BankingProductRateTierV2;
 import au.org.consumerdatastandards.client.model.BankingProductV1;
 import au.org.consumerdatastandards.client.model.BankingProductV1Detail;
 import au.org.consumerdatastandards.client.model.BankingProductV2;
@@ -153,15 +154,18 @@ public class ReferenceTest extends ApiCliBase {
             new TypeToken<BankingProductBundle>() {}.getType(),
             new TypeToken<BankingProductCategory>() {}.getType(),
             new TypeToken<BankingProductConstraint>() {}.getType(),
-            new TypeToken<BankingProductDepositRate>() {}.getType(),
+            new TypeToken<BankingProductDepositRate<BankingProductRateTierV1>>() {}.getType(),
+            new TypeToken<BankingProductDepositRate<BankingProductRateTierV2>>() {}.getType(),
             new TypeToken<BankingProductDiscount>() {}.getType(),
             new TypeToken<BankingProductDiscountEligibility>() {}.getType(),
             new TypeToken<BankingProductEligibility>() {}.getType(),
             new TypeToken<BankingProductFeature>() {}.getType(),
             new TypeToken<BankingProductFee>() {}.getType(),
-            new TypeToken<BankingProductLendingRate>() {}.getType(),
+            new TypeToken<BankingProductLendingRate<BankingProductRateTierV1>>() {}.getType(),
+            new TypeToken<BankingProductLendingRate<BankingProductRateTierV2>>() {}.getType(),
             new TypeToken<BankingProductRateCondition>() {}.getType(),
-            new TypeToken<BankingProductRateTier>() {}.getType(),
+            new TypeToken<BankingProductRateTierV1>() {}.getType(),
+            new TypeToken<BankingProductRateTierV2>() {}.getType(),
             new TypeToken<BankingProductRateTierSubTier>() {}.getType(),
             new TypeToken<BankingProductV1>() {}.getType(),
             new TypeToken<BankingProductV1Detail>() {}.getType(),
