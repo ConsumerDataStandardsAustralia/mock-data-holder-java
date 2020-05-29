@@ -143,7 +143,8 @@ public class BankingAccountsIT extends ProtectedITBase {
 
     @ParameterizedTest
     @CsvSource({
-            "1234567,,,,,,,"
+            "1234567,,,,,,,",
+            "3F7C0D90-05CE-4225-8211-3B4F16AEAEB9,,,,,,,"
     })
     public void getTransactions(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount,
                                 String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
@@ -154,8 +155,11 @@ public class BankingAccountsIT extends ProtectedITBase {
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
         for (BankingTransaction tx : resp.getData().getData().getTransactions()) {
             checkAccountId(tx.getAccountId(), accountId, conformanceErrors);
-            checkOldestTime(tx.getExecutionDateTime(), oldestTime, newestTime, conformanceErrors);
-            checkNewestTime(tx.getExecutionDateTime(), newestTime, conformanceErrors);
+            OffsetDateTime execTime = tx.getExecutionDateTime();
+            if (execTime != null) {
+                checkOldestTime(execTime, oldestTime, newestTime, conformanceErrors);
+                checkNewestTime(execTime, newestTime, conformanceErrors);
+            }
             checkMinAmount(tx.getAmount(), minAmount, conformanceErrors);
             checkMaxAmount(tx.getAmount(), maxAmount, conformanceErrors);
             checkText(tx.getDescription(), tx.getReference(), text, resp.getData().getMeta().isQueryParamUnsupported(), conformanceErrors);
