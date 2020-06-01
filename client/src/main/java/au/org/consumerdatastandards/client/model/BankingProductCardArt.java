@@ -9,7 +9,7 @@ package au.org.consumerdatastandards.client.model;
 
 import java.util.Objects;
 
-public class BankingProductV2CardArt {
+public class BankingProductCardArt {
 
     private String title;
 
@@ -28,7 +28,8 @@ public class BankingProductV2CardArt {
     }
 
     /**
-     * Link to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels
+     * URI reference to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels.
+     * The URI reference may be a link or url-encoded data URI [RFC 2397](https://tools.ietf.org/html/rfc2397)
      * @return imageUri
      */
     public String getImageUri() {
@@ -47,9 +48,8 @@ public class BankingProductV2CardArt {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingProductV2CardArt bankingProductV2CardArt = (BankingProductV2CardArt) o;
-        return Objects.equals(this.title, bankingProductV2CardArt.title) &&
-            Objects.equals(this.imageUri, bankingProductV2CardArt.imageUri);
+        BankingProductCardArt cardArt = (BankingProductCardArt) o;
+        return Objects.equals(this.title, cardArt.title) && Objects.equals(this.imageUri, cardArt.imageUri);
     }
 
     @Override

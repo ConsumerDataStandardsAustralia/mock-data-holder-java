@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Defines the criteria and conditions for which a rate applies
  */
-public class BankingProductRateTierV2 extends BankingProductRateTier {
+public class BankingProductRateTierV3 extends BankingProductRateTier {
 
     private String additionalInfo;
 
@@ -39,8 +39,8 @@ public class BankingProductRateTierV2 extends BankingProductRateTier {
     @Override
     public boolean equals(Object o) {
         return super.equals(o) &&
-                Objects.equals(this.additionalInfo, ((BankingProductRateTierV2)o).additionalInfo) &&
-                Objects.equals(this.additionalInfoUri, ((BankingProductRateTierV2)o).additionalInfoUri);
+                Objects.equals(this.additionalInfo, ((BankingProductRateTierV3)o).additionalInfo) &&
+                Objects.equals(this.additionalInfoUri, ((BankingProductRateTierV3)o).additionalInfoUri);
     }
 
     @Override

@@ -370,7 +370,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *   </tr>
      *   <tr>
      *       <td> 422 </td>
-     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request. For this API a 422 response must be given if any of the account IDs provided are invalid for the consent context </td>
      *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
      *   </tr>
      * </table>
@@ -430,7 +430,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *   </tr>
      *   <tr>
      *       <td> 422 </td>
-     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request. For this API a 422 response must be given if any of the account IDs provided are invalid for the consent context </td>
      *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
      *   </tr>
      * </table>
@@ -468,7 +468,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *   </tr>
      *   <tr>
      *       <td> 422 </td>
-     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *       <td> The request was well formed but was unable to be processed due to business logic specific to the request. For this API a 422 response must be given if any of the account IDs provided are invalid for the consent context </td>
      *       <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
      *   </tr>
      * </table>
@@ -502,7 +502,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      *    </tr>
      *    <tr>
      *        <td> 422 </td>
-     *        <td> The request was well formed but was unable to be processed due to business logic specific to the request </td>
+     *        <td> The request was well formed but was unable to be processed due to business logic specific to the request. For this API a 422 response must be given if any of the account IDs provided are invalid for the consent context </td>
      *        <td>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
      *    </tr>
      * </table>
