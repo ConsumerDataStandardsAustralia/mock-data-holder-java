@@ -1,5 +1,5 @@
 FROM openjdk:8-jre
-MAINTAINER Data61 <cdr-data61@csiro.au>
+LABEL maintainer="Data Standards Body <technical@consumerdatastandards.gov.au>"
 
 EXPOSE 8383/tcp
 
