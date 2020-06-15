@@ -11,33 +11,33 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "BankingProductRateTier")
-public class BankingProductRateTierV2 extends BankingProductRateTier {
+public class BankingProductRateTierV3 extends BankingProductRateTier {
 
     @ManyToOne
     @JsonIgnore
-    private BankingProductDepositRateV2 depositRate;
+    private BankingProductDepositRateV3 depositRate;
 
     @ManyToOne
     @JsonIgnore
-    private BankingProductLendingRateV2 lendingRate;
+    private BankingProductLendingRateV3 lendingRate;
 
     private String additionalInfo;
 
     private String additionalInfoUri;
 
-    public BankingProductDepositRateV2 getDepositRate() {
+    public BankingProductDepositRateV3 getDepositRate() {
         return depositRate;
     }
 
-    public void setDepositRate(BankingProductDepositRateV2 depositRate) {
+    public void setDepositRate(BankingProductDepositRateV3 depositRate) {
         this.depositRate = depositRate;
     }
 
-    public BankingProductLendingRateV2 getLendingRate() {
+    public BankingProductLendingRateV3 getLendingRate() {
         return lendingRate;
     }
 
-    public void setLendingRate(BankingProductLendingRateV2 lendingRate) {
+    public void setLendingRate(BankingProductLendingRateV3 lendingRate) {
         this.lendingRate = lendingRate;
     }
 

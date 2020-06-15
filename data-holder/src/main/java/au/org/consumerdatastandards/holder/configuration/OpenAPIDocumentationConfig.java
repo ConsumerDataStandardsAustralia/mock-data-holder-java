@@ -29,7 +29,7 @@ public class OpenAPIDocumentationConfig {
             .licenseUrl("https://opensource.org/licenses/MIT")
             .termsOfServiceUrl("")
             .version("1")
-            .contact(new Contact("Data61","https://consumerdatastandards.org.au", "cdr-data61@csiro.au"))
+            .contact(new Contact("Data Standards Body","https://consumerdatastandards.gov.au", "technical@consumerdatastandards.gov.au"))
             .build();
     }
 

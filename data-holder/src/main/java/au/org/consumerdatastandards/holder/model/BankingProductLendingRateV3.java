@@ -8,24 +8,24 @@ import java.util.List;
 
 @Entity
 @Table(name = "BankingProductLendingRate")
-public class BankingProductLendingRateV2 extends BankingProductLendingRate {
+public class BankingProductLendingRateV3 extends BankingProductLendingRate {
 
     /**
      * Rate tiers applicable for this rate
      */
     @OneToMany(mappedBy = "lendingRate")
     @Valid
-    private List<BankingProductRateTierV2> tiers = null;
+    private List<BankingProductRateTierV3> tiers = null;
 
     private RepaymentType repaymentType;
 
     private LoanPurpose loanPurpose;
 
-    public List<BankingProductRateTierV2> getTiers() {
+    public List<BankingProductRateTierV3> getTiers() {
         return tiers;
     }
 
-    public void setTiers(List<BankingProductRateTierV2> tiers) {
+    public void setTiers(List<BankingProductRateTierV3> tiers) {
         this.tiers = tiers;
     }
 

@@ -20,9 +20,9 @@
     <developers>
         <developer>
             <name>Consumer Data Standards Australia</name>
-            <email>cdr-data61@csiro.au</email>
-            <organization>Data61</organization>
-            <organizationUrl>https://data61.csiro.au/</organizationUrl>
+            <email>technical@consumerdatastandards.gov.au</email>
+            <organization>Data Standards Body</organization>
+            <organizationUrl>https://consumerdatastandards.gov.au</organizationUrl>
         </developer>
     </developers>
 

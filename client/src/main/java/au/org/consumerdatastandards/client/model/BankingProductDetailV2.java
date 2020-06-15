@@ -3,7 +3,7 @@ package au.org.consumerdatastandards.client.model;
 import java.util.List;
 import java.util.Objects;
 
-public class BankingProductV1Detail extends BankingProductV1 implements BankingProductDetail {
+public class BankingProductDetailV2 extends BankingProductV2 implements BankingProductDetail {
 
     private List<BankingProductBundle> bundles;
 
@@ -23,12 +23,10 @@ public class BankingProductV1Detail extends BankingProductV1 implements BankingP
      * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
      * @return bundles
      */
-    @Override
     public List<BankingProductBundle> getBundles() {
         return bundles;
     }
 
-    @Override
     public void setBundles(List<BankingProductBundle> bundles) {
         this.bundles = bundles;
     }
@@ -37,12 +35,10 @@ public class BankingProductV1Detail extends BankingProductV1 implements BankingP
      * Array of features available for the product
      * @return features
      */
-    @Override
     public List<BankingProductFeature> getFeatures() {
         return features;
     }
 
-    @Override
     public void setFeatures(List<BankingProductFeature> features) {
         this.features = features;
     }
@@ -51,12 +47,10 @@ public class BankingProductV1Detail extends BankingProductV1 implements BankingP
      * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
      * @return constraints
      */
-    @Override
     public List<BankingProductConstraint> getConstraints() {
         return constraints;
     }
 
-    @Override
     public void setConstraints(List<BankingProductConstraint> constraints) {
         this.constraints = constraints;
     }
@@ -65,12 +59,10 @@ public class BankingProductV1Detail extends BankingProductV1 implements BankingP
      * Eligibility criteria for the product
      * @return eligibility
      */
-    @Override
     public List<BankingProductEligibility> getEligibility() {
         return eligibility;
     }
 
-    @Override
     public void setEligibility(List<BankingProductEligibility> eligibility) {
         this.eligibility = eligibility;
     }
@@ -79,12 +71,10 @@ public class BankingProductV1Detail extends BankingProductV1 implements BankingP
      * Fees applicable for the product
      * @return fees
      */
-    @Override
     public List<BankingProductFee> getFees() {
         return fees;
     }
 
-    @Override
     public void setFees(List<BankingProductFee> fees) {
         this.fees = fees;
     }
@@ -121,7 +111,7 @@ public class BankingProductV1Detail extends BankingProductV1 implements BankingP
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingProductV1Detail bankingProductDetail = (BankingProductV1Detail) o;
+        BankingProductDetailV2 bankingProductDetail = (BankingProductDetailV2) o;
         return Objects.equals(this.bundles, bankingProductDetail.bundles) &&
             Objects.equals(this.features, bankingProductDetail.features) &&
             Objects.equals(this.constraints, bankingProductDetail.constraints) &&
@@ -160,6 +150,7 @@ public class BankingProductV1Detail extends BankingProductV1 implements BankingP
             "   applicationUri: " + toIndentedString(getApplicationUri()) + "\n" +
             "   isTailored: " + toIndentedString(getIsTailored()) + "\n" +
             "   additionalInformation: " + toIndentedString(getAdditionalInformation()) + "\n" +
+            "   cardArt: " + toIndentedString(getCardArt()) + "\n" +
             "   bundles: " + toIndentedString(bundles) + "\n" +
             "   features: " + toIndentedString(features) + "\n" +
             "   constraints: " + toIndentedString(constraints) + "\n" +

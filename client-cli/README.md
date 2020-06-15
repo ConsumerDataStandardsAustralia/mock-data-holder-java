@@ -131,8 +131,8 @@ or in the application.properties file before launching the application with `mvn
 
 Example:
 
-    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.0.jar
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.1.jar
 
 or
 
-    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.1-SNAPSHOT.jar
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.3.2-SNAPSHOT.jar

@@ -3,7 +3,7 @@ package au.org.consumerdatastandards.client.model;
 import java.util.List;
 import java.util.Objects;
 
-public class BankingProductV3Detail extends BankingProductV2 implements BankingProductDetail {
+public class BankingProductDetailV3 extends BankingProductV2 implements BankingProductDetail {
 
     private List<BankingProductBundle> bundles;
 
@@ -15,9 +15,9 @@ public class BankingProductV3Detail extends BankingProductV2 implements BankingP
 
     private List<BankingProductFee> fees;
 
-    private List<BankingProductDepositRate<BankingProductRateTierV2>> depositRates;
+    private List<BankingProductDepositRate<BankingProductRateTierV3>> depositRates;
 
-    private List<BankingProductLendingRate<BankingProductRateTierV2>> lendingRates;
+    private List<BankingProductLendingRate<BankingProductRateTierV3>> lendingRates;
 
     /**
      * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
@@ -83,11 +83,11 @@ public class BankingProductV3Detail extends BankingProductV2 implements BankingP
      * Interest rates available for deposits
      * @return depositRates
      */
-    public List<BankingProductDepositRate<BankingProductRateTierV2>> getDepositRates() {
+    public List<BankingProductDepositRate<BankingProductRateTierV3>> getDepositRates() {
         return depositRates;
     }
 
-    public void setDepositRates(List<BankingProductDepositRate<BankingProductRateTierV2>> depositRates) {
+    public void setDepositRates(List<BankingProductDepositRate<BankingProductRateTierV3>> depositRates) {
         this.depositRates = depositRates;
     }
 
@@ -95,11 +95,11 @@ public class BankingProductV3Detail extends BankingProductV2 implements BankingP
      * Interest rates charged against lending balances
      * @return lendingRates
      */
-    public List<BankingProductLendingRate<BankingProductRateTierV2>> getLendingRates() {
+    public List<BankingProductLendingRate<BankingProductRateTierV3>> getLendingRates() {
         return lendingRates;
     }
 
-    public void setLendingRates(List<BankingProductLendingRate<BankingProductRateTierV2>> lendingRates) {
+    public void setLendingRates(List<BankingProductLendingRate<BankingProductRateTierV3>> lendingRates) {
         this.lendingRates = lendingRates;
     }
 
@@ -111,7 +111,7 @@ public class BankingProductV3Detail extends BankingProductV2 implements BankingP
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingProductV3Detail bankingProductDetail = (BankingProductV3Detail) o;
+        BankingProductDetailV3 bankingProductDetail = (BankingProductDetailV3) o;
         return Objects.equals(this.bundles, bankingProductDetail.bundles) &&
             Objects.equals(this.features, bankingProductDetail.features) &&
             Objects.equals(this.constraints, bankingProductDetail.constraints) &&

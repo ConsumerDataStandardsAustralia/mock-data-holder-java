@@ -20,7 +20,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(VersionNotSupportedException.class)
     @SuppressWarnings("unused")
-    public final ResponseEntity<Object> handleVersionNotSupportedException(ValidationException ex, WebRequest request) {
+    public final ResponseEntity<Object> handleVersionNotSupportedException(VersionNotSupportedException ex, WebRequest request) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
     }
 }

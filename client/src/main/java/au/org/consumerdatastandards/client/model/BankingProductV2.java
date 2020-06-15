@@ -6,17 +6,17 @@ import java.util.Objects;
 
 public class BankingProductV2 extends BankingProductV1 {
 
-    private List<BankingProductV2CardArt> cardArt;
+    private List<BankingProductCardArt> cardArt;
 
     /**
      * An array of card art images
      * @return cardArt
      */
-    public List<BankingProductV2CardArt> getCardArt() {
+    public List<BankingProductCardArt> getCardArt() {
         return cardArt;
     }
 
-    public void setCardArt(List<BankingProductV2CardArt> cardArt) {
+    public void setCardArt(List<BankingProductCardArt> cardArt) {
         this.cardArt = cardArt;
     }
 
