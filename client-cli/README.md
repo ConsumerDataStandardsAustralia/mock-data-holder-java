@@ -95,7 +95,6 @@ BankingScheduledPayments
 
 Built-In Commands
         clear: Clear the shell screen.
-        exit, quit: Exit the shell.
         help: Display help about available commands.
         history: Display or save the history of previously run commands
         script: Read and execute commands from a file.
@@ -118,6 +117,9 @@ CommonCustomer
 CommonDiscovery
         get-outages: Get outages
         get-status: Get status
+
+Exit Command
+        exit, quit: Exit Client CLI.
 
 Reference Testing
         auto-validate: Validate all Payloads Automatically
