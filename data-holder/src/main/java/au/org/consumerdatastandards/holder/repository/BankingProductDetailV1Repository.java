@@ -5,4 +5,4 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BankingProductV1DetailRepository extends CrudRepository<BankingProductV1Detail, String> { }
+public interface BankingProductDetailV1Repository extends CrudRepository<BankingProductV1Detail, String> { }

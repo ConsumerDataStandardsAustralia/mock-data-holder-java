@@ -37,37 +37,39 @@ public class BankingProductFee {
     private FeeType feeType;
 
     /**
-     * The amount charged for the fee. One of amount, balanceRate,
-     * transactionRate and accruedRate is mandatory
+     * The amount charged for the fee.
+     * One of amount, balanceRate, transactionRate and accruedRate
+     * is mandatory unless the feeType VARIABLE is supplied
      */
     private BigDecimal amount;
 
     /**
      * A fee rate calculated based on a proportion of the balance.
      * One of amount, balanceRate, transactionRate and accruedRate
-     * is mandatory
+     * is mandatory unless the feeType VARIABLE is supplied
      */
     private BigDecimal balanceRate;
 
     /**
-     * A fee rate calculated based on a proportion of a
-     * transaction. One of amount, balanceRate, transactionRate and
-     * accruedRate is mandatory
+     * A fee rate calculated based on a proportion of a transaction.
+     * One of amount, balanceRate, transactionRate and accruedRate
+     * is mandatory unless the feeType VARIABLE is supplied
      */
     private BigDecimal transactionRate;
 
     /**
      * A fee rate calculated based on a proportion of the
-     * calculated interest accrued on the account. One of amount,
-     * balanceRate, transactionRate and accruedRate is mandatory
+     * calculated interest accrued on the account.
+     * One of amount, balanceRate, transactionRate and accruedRate
+     * is mandatory unless the feeType VARIABLE is supplied
      */
     private BigDecimal accruedRate;
 
     /**
      * The indicative frequency with which the fee is calculated on
      * the account. Only applies if balanceRate or accruedRate is
-     * also present. Formatted according to [ISO 8601
-     * Durations](https:*en.wikipedia.org/wiki/ISO_8601#Durations)
+     * also present. Formatted according to
+     * <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 Durations</a>
      */
     private String accrualFrequency;
 
@@ -245,12 +247,14 @@ public class BankingProductFee {
 
     public enum FeeType {
         PERIODIC,
-        TRANSACTION, WITHDRAWAL,
+        TRANSACTION,
+        WITHDRAWAL,
         DEPOSIT,
         PAYMENT,
         PURCHASE,
         EVENT,
         UPFRONT,
-        EXIT
+        EXIT,
+        VARIABLE
     }
 }

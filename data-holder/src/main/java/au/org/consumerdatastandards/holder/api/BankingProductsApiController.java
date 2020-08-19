@@ -14,6 +14,7 @@ import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,7 +93,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingProduct> productsPage = service.findProductsLike(effective, bankingProduct,
-            PageRequest.of(actualPage - 1, actualPageSize), getSupportedVersion(xMinV, xV));
+            PageRequest.of(actualPage - 1, actualPageSize, Sort.by(Sort.Direction.DESC, "lastUpdated")), getSupportedVersion(xMinV, xV));
 
         logger.info(
             "Returning basic product listing page {} of {} (page size of {}) using filters of effective {}, updated since {}, brand {}, product category of {}",

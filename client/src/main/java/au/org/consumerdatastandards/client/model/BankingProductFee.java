@@ -21,7 +21,8 @@ public class BankingProductFee {
         PURCHASE,
         EVENT,
         UPFRONT,
-        EXIT
+        EXIT,
+        VARIABLE
     }
 
     private String name;
