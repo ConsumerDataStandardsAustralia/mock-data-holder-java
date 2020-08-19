@@ -4,11 +4,11 @@ import au.org.consumerdatastandards.holder.api.VersionNotSupportedException;
 import au.org.consumerdatastandards.holder.model.BankingProduct;
 import au.org.consumerdatastandards.holder.model.BankingProductDetail;
 import au.org.consumerdatastandards.holder.model.ParamEffective;
-import au.org.consumerdatastandards.holder.repository.BankingProductV1DetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.BankingProductV1Repository;
-import au.org.consumerdatastandards.holder.repository.BankingProductV2DetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.BankingProductV2Repository;
-import au.org.consumerdatastandards.holder.repository.BankingProductV3DetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductDetailV3Repository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +33,18 @@ public class BankingProductService {
 
     private final BankingProductV1Repository productsV1Repository;
     private final BankingProductV2Repository productsV2Repository;
-    private final BankingProductV2Repository productsV3Repository;
-    private final BankingProductV1DetailRepository productDetailV1Repository;
-    private final BankingProductV2DetailRepository productDetailV2Repository;
-    private final BankingProductV3DetailRepository productDetailV3Repository;
+    private final BankingProductDetailV1Repository productDetailV1Repository;
+    private final BankingProductDetailV2Repository productDetailV2Repository;
+    private final BankingProductDetailV3Repository productDetailV3Repository;
 
     @Autowired
     public BankingProductService(BankingProductV1Repository productsV1Repository,
                                  BankingProductV2Repository productsV2Repository,
-                                 BankingProductV2Repository productsV3Repository, BankingProductV1DetailRepository productDetailV1Repository,
-                                 BankingProductV2DetailRepository productDetailV2Repository,
-                                 BankingProductV3DetailRepository productDetailV3Repository) {
+                                 BankingProductDetailV1Repository productDetailV1Repository,
+                                 BankingProductDetailV2Repository productDetailV2Repository,
+                                 BankingProductDetailV3Repository productDetailV3Repository) {
         this.productsV1Repository = productsV1Repository;
         this.productsV2Repository = productsV2Repository;
-        this.productsV3Repository = productsV3Repository;
         this.productDetailV1Repository = productDetailV1Repository;
         this.productDetailV2Repository = productDetailV2Repository;
         this.productDetailV3Repository = productDetailV3Repository;
@@ -58,9 +56,8 @@ public class BankingProductService {
             case 1:
                 return productsV1Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(productV1 -> productV1);
             case 2:
-                return productsV2Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(productV2 -> productV2);
             case 3:
-                return productsV3Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(productV3 -> productV3);
+                return productsV2Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(product -> product);
             default:
                 throw new VersionNotSupportedException("Unsupported version " + version);
         }

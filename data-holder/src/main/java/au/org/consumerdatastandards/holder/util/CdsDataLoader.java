@@ -14,7 +14,7 @@ import au.org.consumerdatastandards.holder.model.User;
 import au.org.consumerdatastandards.holder.repository.BankingAccountDetailRepository;
 import au.org.consumerdatastandards.holder.repository.BankingAccountRepository;
 import au.org.consumerdatastandards.holder.repository.BankingBalanceRepository;
-import au.org.consumerdatastandards.holder.repository.BankingProductV2DetailRepository;
+import au.org.consumerdatastandards.holder.repository.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.BankingTransactionDetailRepository;
 import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
@@ -43,7 +43,7 @@ public class CdsDataLoader {
     private static final Logger LOGGER = LogManager.getLogger(CdsDataLoader.class);
     private static final String DEFAULT_PASSWORD = "password";
 
-    private BankingProductV2DetailRepository productDetailRepository;
+    private BankingProductDetailV2Repository productDetailRepository;
     private BankingAccountDetailRepository accountDetailRepository;
     private BankingAccountRepository accountRepository;
     private BankingBalanceRepository balanceRepository;
@@ -58,7 +58,7 @@ public class CdsDataLoader {
     private int organisationUserIdSeq = 0;
 
     @Autowired
-    public CdsDataLoader(BankingProductV2DetailRepository productDetailRepository,
+    public CdsDataLoader(BankingProductDetailV2Repository productDetailRepository,
                          BankingAccountDetailRepository accountDetailRepository,
                          BankingAccountRepository accountRepository,
                          BankingBalanceRepository balanceRepository,
