@@ -15,9 +15,9 @@ public class BankingProductDiscount {
     public enum DiscountType {
         BALANCE,
         DEPOSITS,
-        PAYMENTS,
+        ELIGIBILITY_ONLY,
         FEE_CAP,
-        ELIGIBILITY_ONLY
+        PAYMENTS
     }
 
     private String description;
@@ -67,7 +67,8 @@ public class BankingProductDiscount {
     }
 
     /**
-     * Value of the discount. When following properties include one of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory
+     * Dollar value of the discount.
+     * One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory.
      * @return amount
      */
     public String getAmount() {
@@ -163,7 +164,8 @@ public class BankingProductDiscount {
     }
 
     /**
-     * Eligibility constraints that apply to this discount
+     * Eligibility constraints that apply to this discount.
+     * Mandatory if discountType is ELIGIBILITY_ONLY.
      * @return eligibility
      */
     public List<BankingProductDiscountEligibility> getEligibility() {

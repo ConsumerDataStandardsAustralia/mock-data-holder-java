@@ -14,8 +14,8 @@ public class BankingScheduledPayment {
 
     public enum Status {
         ACTIVE,
-        SKIP,
-        INACTIVE
+        INACTIVE,
+        SKIP
     }
 
     private String scheduledPaymentId;

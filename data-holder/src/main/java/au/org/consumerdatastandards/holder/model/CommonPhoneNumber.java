@@ -216,12 +216,12 @@ public class CommonPhoneNumber  {
     }
 
     public enum Purpose {
+        MOBILE,
         HOME,
         INTERNATIONAL,
-        MOBILE,
+        WORK,
         OTHER,
-        UNSPECIFIED,
-        WORK
+        UNSPECIFIED
     }
 }
 

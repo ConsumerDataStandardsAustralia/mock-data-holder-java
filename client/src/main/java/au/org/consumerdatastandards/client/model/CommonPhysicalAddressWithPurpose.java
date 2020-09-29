@@ -12,9 +12,9 @@ import java.util.Objects;
 public class CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
 
     public enum Purpose {
-        REGISTERED,
         MAIL,
         PHYSICAL,
+        REGISTERED,
         WORK,
         OTHER
     }

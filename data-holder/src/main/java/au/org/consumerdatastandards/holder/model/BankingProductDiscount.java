@@ -39,7 +39,8 @@ public class BankingProductDiscount {
     private DiscountType discountType;
 
     /**
-     * Value of the discount
+     * Dollar value of the discount.
+     * One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory.
      */
     private BigDecimal amount;
 
@@ -105,7 +106,8 @@ public class BankingProductDiscount {
     private URI additionalInfoUri;
 
     /**
-     * Eligibility constraints that apply to this discount
+     * Eligibility constraints that apply to this discount.
+     * Mandatory if discountType is ELIGIBILITY_ONLY.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -245,8 +247,8 @@ public class BankingProductDiscount {
     public enum DiscountType {
         BALANCE,
         DEPOSITS,
-        PAYMENTS,
+        ELIGIBILITY_ONLY,
         FEE_CAP,
-        ELIGIBILITY_ONLY
+        PAYMENTS
     }
 }

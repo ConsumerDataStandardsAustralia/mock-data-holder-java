@@ -151,14 +151,14 @@ public abstract class BankingProductRateTier {
     }
 
     public enum RateApplicationMethod {
-        WHOLE_BALANCE,
-        PER_TIER
+        PER_TIER,
+        WHOLE_BALANCE
     }
 
     public enum UnitOfMeasure {
         DOLLAR,
         PERCENT,
-        MONTH,
-        DAY;
+        DAY,
+        MONTH
     }
 }

@@ -447,10 +447,10 @@ public class BankingTransaction  {
         FEE,
         INTEREST_CHARGED,
         INTEREST_PAID,
-        OTHER,
         PAYMENT,
         TRANSFER_INCOMING,
-        TRANSFER_OUTGOING
+        TRANSFER_OUTGOING,
+        OTHER
     }
 
     public enum Status {

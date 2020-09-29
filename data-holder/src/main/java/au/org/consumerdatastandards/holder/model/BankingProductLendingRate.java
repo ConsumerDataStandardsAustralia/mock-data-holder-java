@@ -195,21 +195,21 @@ public abstract class BankingProductLendingRate {
     }
 
     public enum InterestPaymentDue {
-        IN_ARREARS,
-        IN_ADVANCE
+        IN_ADVANCE,
+        IN_ARREARS
     }
 
     public enum LendingRateType {
-        FIXED,
-        VARIABLE,
-        INTRODUCTORY,
-        DISCOUNT,
-        PENALTY,
-        FLOATING,
-        MARKET_LINKED,
-        CASH_ADVANCE,
-        PURCHASE,
         BUNDLE_DISCOUNT_FIXED,
-        BUNDLE_DISCOUNT_VARIABLE
+        BUNDLE_DISCOUNT_VARIABLE,
+        CASH_ADVANCE,
+        DISCOUNT,
+        FLOATING,
+        INTRODUCTORY,
+        MARKET_LINKED,
+        PENALTY,
+        PURCHASE,
+        VARIABLE,
+        FIXED
     }
 }

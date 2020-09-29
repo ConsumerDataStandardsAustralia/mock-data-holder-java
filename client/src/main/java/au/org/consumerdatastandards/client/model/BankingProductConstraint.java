@@ -13,10 +13,10 @@ public class BankingProductConstraint {
 
     public enum ConstraintType {
         MIN_BALANCE,
+        MIN_LIMIT,
         MAX_BALANCE,
-        OPENING_BALANCE,
         MAX_LIMIT,
-        MIN_LIMIT
+        OPENING_BALANCE
     }
 
     private ConstraintType constraintType;
