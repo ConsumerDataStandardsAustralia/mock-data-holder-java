@@ -246,15 +246,15 @@ public class BankingProductFee {
     }
 
     public enum FeeType {
-        PERIODIC,
-        TRANSACTION,
-        WITHDRAWAL,
         DEPOSIT,
-        PAYMENT,
-        PURCHASE,
         EVENT,
-        UPFRONT,
         EXIT,
-        VARIABLE
+        PAYMENT,
+        PERIODIC,
+        PURCHASE,
+        TRANSACTION,
+        UPFRONT,
+        VARIABLE,
+        WITHDRAWAL
     }
 }

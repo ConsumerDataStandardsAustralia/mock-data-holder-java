@@ -165,12 +165,12 @@ public class BankingProductDepositRate {
     }
 
     public enum DepositRateType {
-        FIXED,
         BONUS,
         BUNDLE_BONUS,
-        VARIABLE,
-        INTRODUCTORY,
+        FIXED,
         FLOATING,
-        MARKET_LINKED
+        INTRODUCTORY,
+        MARKET_LINKED,
+        VARIABLE
     }
 }

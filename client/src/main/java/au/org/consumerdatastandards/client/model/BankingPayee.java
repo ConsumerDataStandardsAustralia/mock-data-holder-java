@@ -13,9 +13,9 @@ import java.util.Objects;
 public class BankingPayee {
 
     public enum Type {
+        BILLER,
         DOMESTIC,
-        INTERNATIONAL,
-        BILLER
+        INTERNATIONAL
     }
 
     private String payeeId;
@@ -41,7 +41,9 @@ public class BankingPayee {
     }
 
     /**
-     * The short display name of the payee as provided by the customer
+     * The short display name of the payee as provided by the customer.
+     * Where a customer has not provided a nickname, a display name derived by the bank for the payee consistent
+     * with existing digital banking channels
      * @return nickname
      */
     public String getNickname() {

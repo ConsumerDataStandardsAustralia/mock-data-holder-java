@@ -60,9 +60,18 @@ public class CommonOrganisation  {
     private LocalDate establishmentDate;
 
     /**
-     * [ANZSIC (2006)](http://www.abs.gov.au/anzsic) code for the organisation.
+     * A valid <a href="http://www.abs.gov.au/anzsic">ANZSIC</a> code for the organisation.
+     * If the industry code held by the data holder is not one of the supported
+     * <a href="http://www.abs.gov.au/anzsic">ANZSIC</a> versions, then it must not be supplied.
      */
     private String industryCode;
+
+    /**
+     * The applicable <a href="http://www.abs.gov.au/ANZSIC">ANZSIC</a> release version of the industry code provided.
+     * Should only be supplied if industryCode is also supplied. If industryCode is supplied but industryCodeVersion
+     * is absent, default is ANZSIC_1292.0_2006_V2.0
+     */
+    private IndustryCodeVersion industryCodeVersion;
 
     /**
      * True if registered with the ACNC.  False if not. Absent or null if not confirmed.
@@ -198,7 +207,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "[ANZSIC (2006)](http://www.abs.gov.au/anzsic) code for the organisation.")
+    @ApiModelProperty(value = "A valid [ANZSIC](http://www.abs.gov.au/anzsic) code for the organisation. If the industry code held by the data holder is not one of the supported [ANZSIC](http://www.abs.gov.au/anzsic) versions, then it must not be supplied.")
     public String getIndustryCode() {
         return industryCode;
     }
@@ -206,6 +215,16 @@ public class CommonOrganisation  {
     public void setIndustryCode(String industryCode) {
         this.industryCode = industryCode;
     }
+
+    @ApiModelProperty(value = "The applicable [ANZSIC](http://www.abs.gov.au/ANZSIC) release version of the industry code provided. Should only be supplied if industryCode is also supplied. If industryCode is supplied but industryCodeVersion is absent, default is ANZSIC_1292.0_2006_V2.0")
+    public IndustryCodeVersion getIndustryCodeVersion() {
+        return industryCodeVersion;
+    }
+
+    public void setIndustryCodeVersion(IndustryCodeVersion industryCodeVersion) {
+        this.industryCodeVersion = industryCodeVersion;
+    }
+
     public CommonOrganisation isACNCRegistered(Boolean isACNCRegistered) {
         this.isACNCRegistered = isACNCRegistered;
         return this;
@@ -303,6 +322,7 @@ public class CommonOrganisation  {
             Objects.equals(this.businessName, commonOrganisation.businessName) &&
             Objects.equals(this.establishmentDate, commonOrganisation.establishmentDate) &&
             Objects.equals(this.industryCode, commonOrganisation.industryCode) &&
+            Objects.equals(this.industryCodeVersion, commonOrganisation.industryCodeVersion) &&
             Objects.equals(this.isACNCRegistered, commonOrganisation.isACNCRegistered) &&
             Objects.equals(this.lastUpdateTime, commonOrganisation.lastUpdateTime) &&
             Objects.equals(this.legalName, commonOrganisation.legalName) &&
@@ -323,6 +343,7 @@ public class CommonOrganisation  {
             businessName,
             establishmentDate,
             industryCode,
+            industryCodeVersion,
             isACNCRegistered,
             lastUpdateTime,
             legalName,
@@ -342,8 +363,9 @@ public class CommonOrganisation  {
             "   agentRole: " + toIndentedString(agentRole) + "\n" + 
             "   businessName: " + toIndentedString(businessName) + "\n" + 
             "   establishmentDate: " + toIndentedString(establishmentDate) + "\n" + 
-            "   industryCode: " + toIndentedString(industryCode) + "\n" + 
-            "   isACNCRegistered: " + toIndentedString(isACNCRegistered) + "\n" + 
+            "   industryCode: " + toIndentedString(industryCode) + "\n" +
+            "   industryCodeVersion: " + toIndentedString(industryCodeVersion) + "\n" +
+            "   isACNCRegistered: " + toIndentedString(isACNCRegistered) + "\n" +
             "   lastUpdateTime: " + toIndentedString(lastUpdateTime) + "\n" + 
             "   legalName: " + toIndentedString(legalName) + "\n" + 
             "   organisationType: " + toIndentedString(organisationType) + "\n" + 
@@ -366,10 +388,25 @@ public class CommonOrganisation  {
     public enum OrganisationType {
         COMPANY,
         GOVERNMENT_ENTITY,
-        OTHER,
         PARTNERSHIP,
         SOLE_TRADER,
-        TRUST
+        TRUST,
+        OTHER
+    }
+
+    public enum IndustryCodeVersion {
+        ANZSIC_1292_0_2006_V2_0("ANZSIC_1292.0_2006_V2.0"),
+        ANZSIC_1292_0_2006_V1_0("ANZSIC_1292.0_2006_V1.0");
+
+        private final String value;
+
+        IndustryCodeVersion(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 }
-

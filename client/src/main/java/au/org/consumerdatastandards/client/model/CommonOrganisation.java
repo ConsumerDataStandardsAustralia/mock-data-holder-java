@@ -14,12 +14,28 @@ import java.util.Objects;
 public class CommonOrganisation {
 
     public enum OrganisationType {
-        SOLE_TRADER,
         COMPANY,
-        PARTNERSHIP,
-        TRUST,
         GOVERNMENT_ENTITY,
+        PARTNERSHIP,
+        SOLE_TRADER,
+        TRUST,
         OTHER
+    }
+
+    public enum IndustryCodeVersion {
+        ANZSIC_1292_0_2006_V2_0("ANZSIC_1292.0_2006_V2.0"),
+        ANZSIC_1292_0_2006_V1_0("ANZSIC_1292.0_2006_V1.0");
+
+        private final String value;
+
+        IndustryCodeVersion(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 
     private OffsetDateTime lastUpdateTime;
@@ -43,6 +59,8 @@ public class CommonOrganisation {
     private Boolean isACNCRegistered;
 
     private String industryCode;
+
+    private IndustryCodeVersion industryCodeVersion;
 
     private OrganisationType organisationType;
 
@@ -171,7 +189,9 @@ public class CommonOrganisation {
     }
 
     /**
-     * [ANZSIC (2006)](http://www.abs.gov.au/anzsic) code for the organisation.
+     * A valid <a href="http://www.abs.gov.au/anzsic">ANZSIC</a> code for the organisation.
+     * If the industry code held by the data holder is not one of the supported
+     * <a href="http://www.abs.gov.au/anzsic">ANZSIC</a> versions, then it must not be supplied.
      * @return industryCode
      */
     public String getIndustryCode() {
@@ -180,6 +200,20 @@ public class CommonOrganisation {
 
     public void setIndustryCode(String industryCode) {
         this.industryCode = industryCode;
+    }
+
+    /**
+     * The applicable <a href="http://www.abs.gov.au/ANZSIC">ANZSIC</a> release version of the industry code provided.
+     * Should only be supplied if industryCode is also supplied. If industryCode is supplied but industryCodeVersion
+     * is absent, default is ANZSIC_1292.0_2006_V2.0
+     * @return industryCodeVersion
+     */
+    public IndustryCodeVersion getIndustryCodeVersion() {
+        return industryCodeVersion;
+    }
+
+    public void setIndustryCodeVersion(IndustryCodeVersion industryCodeVersion) {
+        this.industryCodeVersion = industryCodeVersion;
     }
 
     /**
@@ -238,6 +272,7 @@ public class CommonOrganisation {
             Objects.equals(this.acn, commonOrganisation.acn) &&
             Objects.equals(this.isACNCRegistered, commonOrganisation.isACNCRegistered) &&
             Objects.equals(this.industryCode, commonOrganisation.industryCode) &&
+            Objects.equals(this.industryCodeVersion, commonOrganisation.industryCodeVersion) &&
             Objects.equals(this.organisationType, commonOrganisation.organisationType) &&
             Objects.equals(this.registeredCountry, commonOrganisation.registeredCountry) &&
             Objects.equals(this.establishmentDate, commonOrganisation.establishmentDate);
@@ -257,6 +292,7 @@ public class CommonOrganisation {
             acn,
             isACNCRegistered,
             industryCode,
+            industryCodeVersion,
             organisationType,
             registeredCountry,
             establishmentDate);
@@ -276,7 +312,8 @@ public class CommonOrganisation {
             "   acn: " + toIndentedString(acn) + "\n" + 
             "   isACNCRegistered: " + toIndentedString(isACNCRegistered) + "\n" + 
             "   industryCode: " + toIndentedString(industryCode) + "\n" + 
-            "   organisationType: " + toIndentedString(organisationType) + "\n" + 
+            "   industryCodeVersion: " + toIndentedString(industryCodeVersion) + "\n" +
+            "   organisationType: " + toIndentedString(organisationType) + "\n" +
             "   registeredCountry: " + toIndentedString(registeredCountry) + "\n" + 
             "   establishmentDate: " + toIndentedString(establishmentDate) + "\n" + 
             "}";

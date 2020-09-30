@@ -20,10 +20,10 @@ import java.util.UUID;
 public interface BankingPayeesApi {
 
     public enum ParamPayeeType {
-        ALL,
         BILLER,
         DOMESTIC,
-        INTERNATIONAL
+        INTERNATIONAL,
+        ALL
     }
 
     default Optional<NativeWebRequest> getRequest() {

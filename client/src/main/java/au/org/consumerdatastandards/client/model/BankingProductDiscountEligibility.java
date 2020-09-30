@@ -13,17 +13,17 @@ public class BankingProductDiscountEligibility {
 
     public enum DiscountEligibilityType {
         BUSINESS,
-        PENSION_RECIPIENT,
-        MIN_AGE,
+        EMPLOYMENT_STATUS,
+        INTRODUCTORY,
         MAX_AGE,
+        MIN_AGE,
         MIN_INCOME,
         MIN_TURNOVER,
+        NATURAL_PERSON,
+        PENSION_RECIPIENT,
+        RESIDENCY_STATUS,
         STAFF,
         STUDENT,
-        EMPLOYMENT_STATUS,
-        RESIDENCY_STATUS,
-        NATURAL_PERSON,
-        INTRODUCTORY,
         OTHER
     }
 
@@ -60,7 +60,8 @@ public class BankingProductDiscountEligibility {
     }
 
     /**
-     * Display text providing more information on this eligibility constraint
+     * Display text providing more information on this eligibility constraint.
+     * Whether mandatory or not is dependent on the value of discountEligibilityType
      * @return additionalInfo
      */
     public String getAdditionalInfo() {

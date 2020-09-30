@@ -132,10 +132,10 @@ public class CommonPhysicalAddressWithPurpose {
 
     public enum Purpose {
         MAIL,
-        OTHER,
         PHYSICAL,
         REGISTERED,
-        WORK
+        WORK,
+        OTHER
     }
 }
 

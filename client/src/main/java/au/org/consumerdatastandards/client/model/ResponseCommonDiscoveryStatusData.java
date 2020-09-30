@@ -15,8 +15,8 @@ public class ResponseCommonDiscoveryStatusData {
     public enum Status {
         OK,
         PARTIAL_FAILURE,
-        UNAVAILABLE,
-        SCHEDULED_OUTAGE
+        SCHEDULED_OUTAGE,
+        UNAVAILABLE
     }
 
     private Status status;

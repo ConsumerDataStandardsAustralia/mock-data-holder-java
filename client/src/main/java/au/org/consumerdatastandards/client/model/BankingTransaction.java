@@ -13,13 +13,13 @@ import java.util.Objects;
 public class BankingTransaction {
 
     public enum Type {
+        DIRECT_DEBIT,
         FEE,
         INTEREST_CHARGED,
         INTEREST_PAID,
+        PAYMENT,
         TRANSFER_OUTGOING,
         TRANSFER_INCOMING,
-        PAYMENT,
-        DIRECT_DEBIT,
         OTHER
     }
 

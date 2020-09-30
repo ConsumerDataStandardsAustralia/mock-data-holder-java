@@ -13,16 +13,16 @@ package au.org.consumerdatastandards.holder.model;
 * [here](#product-categories) for more details
 */
 public enum BankingProductCategory {
-    TRANS_AND_SAVINGS_ACCOUNTS,
-    TERM_DEPOSITS,
-    TRAVEL_CARDS,
+    BUSINESS_LOANS,
+    CRED_AND_CHRG_CARDS,
+    LEASES,
+    MARGIN_LOANS,
+    OVERDRAFTS,
+    PERS_LOANS,
     REGULATED_TRUST_ACCOUNTS,
     RESIDENTIAL_MORTGAGES,
-    CRED_AND_CHRG_CARDS,
-    PERS_LOANS,
-    MARGIN_LOANS,
-    LEASES,
+    TERM_DEPOSITS,
     TRADE_FINANCE,
-    OVERDRAFTS,
-    BUSINESS_LOANS
+    TRAVEL_CARDS,
+    TRANS_AND_SAVINGS_ACCOUNTS
 }

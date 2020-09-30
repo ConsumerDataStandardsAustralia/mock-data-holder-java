@@ -12,10 +12,10 @@ import java.util.Objects;
 public class BankingDomesticPayeePayId {
 
     public enum Type {
-        EMAIL,
-        TELEPHONE,
         ABN,
-        ORG_IDENTIFIER
+        EMAIL,
+        ORG_IDENTIFIER,
+        TELEPHONE
     }
 
     private String name;

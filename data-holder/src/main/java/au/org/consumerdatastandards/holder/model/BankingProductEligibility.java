@@ -121,16 +121,16 @@ public class BankingProductEligibility {
 
     public enum EligibilityType {
         BUSINESS,
-        PENSION_RECIPIENT,
-        MIN_AGE,
+        EMPLOYMENT_STATUS,
         MAX_AGE,
+        MIN_AGE,
         MIN_INCOME,
         MIN_TURNOVER,
+        NATURAL_PERSON,
+        PENSION_RECIPIENT,
+        RESIDENCY_STATUS,
         STAFF,
         STUDENT,
-        EMPLOYMENT_STATUS,
-        RESIDENCY_STATUS,
-        NATURAL_PERSON,
         OTHER
     }
 }

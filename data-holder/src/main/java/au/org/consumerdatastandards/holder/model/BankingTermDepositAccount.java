@@ -184,8 +184,9 @@ public class BankingTermDepositAccount  {
     }
 
     public enum MaturityInstructions {
+        ROLLED_OVER,
         PAID_OUT_AT_MATURITY,
-        ROLLED_OVER
+        HOLD_ON_MATURITY
     }
 }
 

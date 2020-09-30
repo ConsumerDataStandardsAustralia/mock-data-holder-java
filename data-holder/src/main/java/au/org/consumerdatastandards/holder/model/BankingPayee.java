@@ -1,18 +1,15 @@
 package au.org.consumerdatastandards.holder.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @ApiModel
 @Entity
@@ -38,7 +35,9 @@ public class BankingPayee  {
     private String description;
 
     /**
-     * The short display name of the payee as provided by the customer
+     * The short display name of the payee as provided by the customer.
+     * Where a customer has not provided a nickname, a display name derived by the bank for the payee consistent
+     * with existing digital banking channels
      */
     private String nickname;
 

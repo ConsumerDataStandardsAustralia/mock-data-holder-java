@@ -14,9 +14,9 @@ public class CommonPhoneNumber {
     public enum Purpose {
         MOBILE,
         HOME,
+        INTERNATIONAL,
         WORK,
         OTHER,
-        INTERNATIONAL,
         UNSPECIFIED
     }
 

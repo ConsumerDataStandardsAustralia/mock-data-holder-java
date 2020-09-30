@@ -15,6 +15,24 @@ import java.util.List;
 @Table(name = "CommonPerson")
 public class CommonPerson  {
 
+    public enum OccupationCodeVersion {
+        ANZSCO_1220_0_2013_V1_3("ANZSCO_1220.0_2013_V1.3"),
+        ANZSCO_1220_0_2013_V1_2("ANZSCO_1220.0_2013_V1.2"),
+        ANZSCO_1220_0_2006_V1_1("ANZSCO_1220.0_2006_V1.1"),
+        ANZSCO_1220_0_2006_V1_0("ANZSCO_1220.0_2006_V1.0");
+
+        private final String value;
+
+        OccupationCodeVersion(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
@@ -43,9 +61,18 @@ public class CommonPerson  {
     private List<String> middleNames;
 
     /**
-     * Value is a valid [ANZCO v1.2](http://www.abs.gov.au/ANZSCO) Standard Occupation classification.
+     * Value is a valid <a href="http://www.abs.gov.au/ANZSCO">ANZCO v1.2</a> Standard Occupation classification code.
+     * If the occupation code held by the data holder is not one of the supported
+     * <a href="http://www.abs.gov.au/ANZSCO">ANZCO</a> versions, then it must not be supplied.
      */
     private String occupationCode;
+
+    /**
+     * The applicable <a href="http://www.abs.gov.au/ANZSCO">ANZCO</a> release version of the occupation code provided.
+     * Mandatory if an occupationCode is supplied.
+     * If occupationCode is supplied but occupationCodeVersion is absent, default is ANZSCO_1220.0_2013_V1.2
+     */
+    private OccupationCodeVersion occupationCodeVersion;
 
     /**
      * Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
@@ -140,6 +167,14 @@ public class CommonPerson  {
         this.occupationCode = occupationCode;
     }
 
+    public OccupationCodeVersion getOccupationCodeVersion() {
+        return occupationCodeVersion;
+    }
+
+    public void setOccupationCodeVersion(OccupationCodeVersion occupationCodeVersion) {
+        this.occupationCodeVersion = occupationCodeVersion;
+    }
+
     public CommonPerson prefix(String prefix) {
         this.prefix = prefix;
         return this;
@@ -183,6 +218,7 @@ public class CommonPerson  {
             Objects.equals(this.lastUpdateTime, commonPerson.lastUpdateTime) &&
             Objects.equals(this.middleNames, commonPerson.middleNames) &&
             Objects.equals(this.occupationCode, commonPerson.occupationCode) &&
+            Objects.equals(this.occupationCodeVersion, commonPerson.occupationCodeVersion) &&
             Objects.equals(this.prefix, commonPerson.prefix) &&
             Objects.equals(this.suffix, commonPerson.suffix);
     }
@@ -196,6 +232,7 @@ public class CommonPerson  {
             lastUpdateTime,
             middleNames,
             occupationCode,
+            occupationCodeVersion,
             prefix,
             suffix);
     }
@@ -209,7 +246,8 @@ public class CommonPerson  {
             "   lastUpdateTime: " + toIndentedString(lastUpdateTime) + "\n" + 
             "   middleNames: " + toIndentedString(middleNames) + "\n" + 
             "   occupationCode: " + toIndentedString(occupationCode) + "\n" + 
-            "   prefix: " + toIndentedString(prefix) + "\n" + 
+            "   occupationCodeVersion: " + toIndentedString(occupationCodeVersion) + "\n" +
+            "   prefix: " + toIndentedString(prefix) + "\n" +
             "   suffix: " + toIndentedString(suffix) + "\n" + 
             "}";
     }
