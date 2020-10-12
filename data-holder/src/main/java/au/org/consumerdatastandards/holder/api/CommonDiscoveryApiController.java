@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +59,7 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
         validateHeaders(xMinV, xV);
         ResponseCommonDiscoveryStatusData data = new ResponseCommonDiscoveryStatusData();
         data.setStatus(ResponseCommonDiscoveryStatusData.Status.OK);
+        data.setUpdateTime(OffsetDateTime.now());
         ResponseCommonDiscoveryStatus responseCommonDiscoveryStatus = new ResponseCommonDiscoveryStatus();
         responseCommonDiscoveryStatus.setData(data);
         responseCommonDiscoveryStatus.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
