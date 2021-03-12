@@ -21,12 +21,12 @@ public class BankingScheduledPayment  {
     private BankingScheduledPaymentFrom from;
 
     /**
-     * The short display name of the payee as provided by the customer
+     * The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels
      */
     private String nickname;
 
     /**
-     * The reference for the transaction that will be provided by the originating institution. Empty string if no data provided
+     * The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided
      */
     private String payeeReference;
 
@@ -60,12 +60,13 @@ public class BankingScheduledPayment  {
     public void setFrom(BankingScheduledPaymentFrom from) {
         this.from = from;
     }
+
     public BankingScheduledPayment nickname(String nickname) {
         this.nickname = nickname;
         return this;
     }
 
-    @ApiModelProperty(value = "The short display name of the payee as provided by the customer")
+    @ApiModelProperty(value = "The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels")
     public String getNickname() {
         return nickname;
     }
@@ -73,12 +74,13 @@ public class BankingScheduledPayment  {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
     public BankingScheduledPayment payeeReference(String payeeReference) {
         this.payeeReference = payeeReference;
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The reference for the transaction that will be provided by the originating institution. Empty string if no data provided")
+    @ApiModelProperty(required = true, value = "The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided")
     public String getPayeeReference() {
         return payeeReference;
     }
@@ -86,6 +88,7 @@ public class BankingScheduledPayment  {
     public void setPayeeReference(String payeeReference) {
         this.payeeReference = payeeReference;
     }
+
     public BankingScheduledPayment payerReference(String payerReference) {
         this.payerReference = payerReference;
         return this;
@@ -99,6 +102,7 @@ public class BankingScheduledPayment  {
     public void setPayerReference(String payerReference) {
         this.payerReference = payerReference;
     }
+
     public BankingScheduledPayment paymentSet(List<BankingScheduledPaymentSet> paymentSet) {
         this.paymentSet = paymentSet;
         return this;
@@ -117,6 +121,7 @@ public class BankingScheduledPayment  {
     public void setPaymentSet(List<BankingScheduledPaymentSet> paymentSet) {
         this.paymentSet = paymentSet;
     }
+
     public BankingScheduledPayment recurrence(BankingScheduledPaymentRecurrence recurrence) {
         this.recurrence = recurrence;
         return this;
@@ -130,6 +135,7 @@ public class BankingScheduledPayment  {
     public void setRecurrence(BankingScheduledPaymentRecurrence recurrence) {
         this.recurrence = recurrence;
     }
+
     public BankingScheduledPayment scheduledPaymentId(String scheduledPaymentId) {
         this.scheduledPaymentId = scheduledPaymentId;
         return this;
@@ -143,6 +149,7 @@ public class BankingScheduledPayment  {
     public void setScheduledPaymentId(String scheduledPaymentId) {
         this.scheduledPaymentId = scheduledPaymentId;
     }
+
     public BankingScheduledPayment status(Status status) {
         this.status = status;
         return this;
