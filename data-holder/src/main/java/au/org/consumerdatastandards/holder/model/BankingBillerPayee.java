@@ -31,7 +31,7 @@ public class BankingBillerPayee  {
     private String billerName;
 
     /**
-     * BPAY CRN of the Biller. If the contents of the CRN match the format of a Credit Card PAN then it should be masked using the rules applicable for the MaskedPANString common type
+     * BPAY CRN of the Biller (if available).<br>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
      */
     private String crn;
 
@@ -74,7 +74,7 @@ public class BankingBillerPayee  {
         return this;
     }
 
-    @ApiModelProperty(value = "BPAY CRN of the Biller. If the contents of the CRN match the format of a Credit Card PAN then it should be masked using the rules applicable for the MaskedPANString common type")
+    @ApiModelProperty(value = "BPAY CRN of the Biller (if available).<br>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.")
     public String getCrn() {
         return crn;
     }

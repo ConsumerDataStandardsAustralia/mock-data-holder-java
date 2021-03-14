@@ -42,6 +42,16 @@ public class BankingScheduledPaymentTo  {
 
     private ToUType toUType;
 
+    /**
+     * The short display name of the payee as provided by the customer unless toUType is set to payeeId. Where a customer has not provided a nickname, a display name derived by the bank for payee should be provided that is consistent with existing digital banking channels
+     */
+    private String nickname;
+
+    /**
+     * The reference for the transaction, if applicable, that will be provided by the originating institution for the specific payment. If not empty, it overrides the value provided at the BankingScheduledPayment level.
+     */
+    private String payeeReference;
+
     public String getId() {
         return id;
     }
@@ -124,6 +134,24 @@ public class BankingScheduledPaymentTo  {
         return this;
     }
 
+    @ApiModelProperty(value = "The short display name of the payee as provided by the customer unless toUType is set to payeeId. Where a customer has not provided a nickname, a display name derived by the bank for payee should be provided that is consistent with existing digital banking channels")
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    @ApiModelProperty(required = true, value = "The reference for the transaction, if applicable, that will be provided by the originating institution for the specific payment. If not empty, it overrides the value provided at the BankingScheduledPayment level.")
+    public String getPayeeReference() {
+        return payeeReference;
+    }
+
+    public void setPayeeReference(String payeeReference) {
+        this.payeeReference = payeeReference;
+    }
+
     @ApiModelProperty(required = true)
     public ToUType getToUType() {
         return toUType;
@@ -148,6 +176,8 @@ public class BankingScheduledPaymentTo  {
             Objects.equals(this.domestic, bankingScheduledPaymentTo.domestic) &&
             Objects.equals(this.international, bankingScheduledPaymentTo.international) &&
             Objects.equals(this.payeeId, bankingScheduledPaymentTo.payeeId) &&
+            Objects.equals(this.nickname, bankingScheduledPaymentTo.nickname) &&
+            Objects.equals(this.payeeReference, bankingScheduledPaymentTo.payeeReference) &&
             Objects.equals(this.toUType, bankingScheduledPaymentTo.toUType);
     }
 
@@ -160,6 +190,8 @@ public class BankingScheduledPaymentTo  {
             domestic,
             international,
             payeeId,
+            nickname,
+            payeeReference,
             toUType);
     }
 
@@ -171,8 +203,10 @@ public class BankingScheduledPaymentTo  {
             "   biller: " + toIndentedString(biller) + "\n" +
             "   domestic: " + toIndentedString(domestic) + "\n" + 
             "   international: " + toIndentedString(international) + "\n" + 
-            "   payeeId: " + toIndentedString(payeeId) + "\n" + 
-            "   toUType: " + toIndentedString(toUType) + "\n" + 
+            "   payeeId: " + toIndentedString(payeeId) + "\n" +
+            "   nickname: " + toIndentedString(nickname) + "\n" +
+            "   payeeReference: " + toIndentedString(payeeReference) + "\n" +
+            "   toUType: " + toIndentedString(toUType) + "\n" +
             "}";
     }
 
