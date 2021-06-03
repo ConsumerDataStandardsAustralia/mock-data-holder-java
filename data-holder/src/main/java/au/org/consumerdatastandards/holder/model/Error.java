@@ -8,22 +8,22 @@ import java.util.Objects;
 public class Error  {
 
     /**
-     * Must be one of the following: 0001 – Account not able to be found
+     * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
      */
     private String code;
 
     /**
-     * ID of the account not found
+     * A human-readable explanation specific to this occurrence of the problem.
      */
     private String detail;
 
     /**
-     * Get meta
+     * Additional data for customised error codes
      */
-    private Object meta;
+    private MetaError meta;
 
     /**
-     * Must be one of the following: Invalid account
+     * A short, human-readable summary of the problem that MUST NOT change from occurrence to occurrence of the problem represented by the error code.
      */
     private String title;
 
@@ -32,7 +32,7 @@ public class Error  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Must be one of the following: 0001 – Account not able to be found")
+    @ApiModelProperty(required = true, value = "The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN")
     public String getCode() {
         return code;
     }
@@ -40,12 +40,13 @@ public class Error  {
     public void setCode(String code) {
         this.code = code;
     }
+
     public Error detail(String detail) {
         this.detail = detail;
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "ID of the account not found")
+    @ApiModelProperty(required = true, value = "A human-readable explanation specific to this occurrence of the problem")
     public String getDetail() {
         return detail;
     }
@@ -53,25 +54,27 @@ public class Error  {
     public void setDetail(String detail) {
         this.detail = detail;
     }
-    public Error meta(Object meta) {
+
+    public Error meta(MetaError meta) {
         this.meta = meta;
         return this;
     }
 
-    @ApiModelProperty
-    public Object getMeta() {
+    @ApiModelProperty(value = "Additional data for customised error codes")
+    public MetaError getMeta() {
         return meta;
     }
 
-    public void setMeta(Object meta) {
+    public void setMeta(MetaError meta) {
         this.meta = meta;
     }
+
     public Error title(String title) {
         this.title = title;
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Must be one of the following: Invalid account")
+    @ApiModelProperty(required = true, value = "A short, human-readable summary of the problem that MUST NOT change from occurrence to occurrence of the problem represented by the error code")
     public String getTitle() {
         return title;
     }
@@ -125,4 +128,3 @@ public class Error  {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
