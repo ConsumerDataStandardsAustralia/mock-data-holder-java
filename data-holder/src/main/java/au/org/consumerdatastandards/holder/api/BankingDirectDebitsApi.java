@@ -4,7 +4,7 @@ import au.org.consumerdatastandards.holder.model.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.ParamProductCategory;
 import au.org.consumerdatastandards.holder.model.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.ResponseBankingDirectDebitAuthorisationList;
-import au.org.consumerdatastandards.holder.model.ResponseErrorList;
+import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -47,6 +47,26 @@ public interface BankingDirectDebitsApi {
             code = 200,
             message = "Success",
             response = ResponseBankingDirectDebitAuthorisationList.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 404,
+            message = "Invalid Banking Account / Unavailable Banking Account",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 422,
+            message = "Invalid Page",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(
@@ -106,6 +126,21 @@ public interface BankingDirectDebitsApi {
             code = 200,
             message = "Success",
             response = ResponseBankingDirectDebitAuthorisationList.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 422,
+            message = "Invalid Page",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(
@@ -174,9 +209,19 @@ public interface BankingDirectDebitsApi {
             response = ResponseBankingDirectDebitAuthorisationList.class
         ),
         @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
             code = 422,
-            message = "The request was well formed but was unable to be processed due to business logic specific to the request. For this API a 422 response must be given if any of the account IDs provided are invalid for the consent context",
-            response = ResponseErrorList.class
+            message = "Invalid Banking Account / Unavailable Banking Account / Invalid Page",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(

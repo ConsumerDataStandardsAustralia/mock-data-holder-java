@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 @ApiModel
-public class Error  {
+public class ErrorV2 {
 
     /**
      * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
@@ -27,7 +27,7 @@ public class Error  {
      */
     private String title;
 
-    public Error code(String code) {
+    public ErrorV2 code(String code) {
         this.code = code;
         return this;
     }
@@ -41,7 +41,7 @@ public class Error  {
         this.code = code;
     }
 
-    public Error detail(String detail) {
+    public ErrorV2 detail(String detail) {
         this.detail = detail;
         return this;
     }
@@ -55,7 +55,7 @@ public class Error  {
         this.detail = detail;
     }
 
-    public Error meta(MetaError meta) {
+    public ErrorV2 meta(MetaError meta) {
         this.meta = meta;
         return this;
     }
@@ -69,7 +69,7 @@ public class Error  {
         this.meta = meta;
     }
 
-    public Error title(String title) {
+    public ErrorV2 title(String title) {
         this.title = title;
         return this;
     }
@@ -91,7 +91,7 @@ public class Error  {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Error responseErrorListErrors = (Error) o;
+        ErrorV2 responseErrorListErrors = (ErrorV2) o;
         return Objects.equals(this.code, responseErrorListErrors.code) &&
             Objects.equals(this.detail, responseErrorListErrors.detail) &&
             Objects.equals(this.meta, responseErrorListErrors.meta) &&

@@ -2,7 +2,12 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.ResponseCommonCustomer;
 import au.org.consumerdatastandards.holder.model.ResponseCommonCustomerDetail;
-import io.swagger.annotations.*;
+import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +43,16 @@ public interface CommonCustomerApi {
             code = 200,
             message = "Success",
             response = ResponseCommonCustomer.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(
@@ -85,6 +100,16 @@ public interface CommonCustomerApi {
             code = 200,
             message = "Success",
             response = ResponseCommonCustomerDetail.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(

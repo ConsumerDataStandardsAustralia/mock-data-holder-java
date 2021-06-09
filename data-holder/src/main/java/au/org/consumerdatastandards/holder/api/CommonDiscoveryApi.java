@@ -2,7 +2,12 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.ResponseCommonDiscoveryStatus;
 import au.org.consumerdatastandards.holder.model.ResponseDiscoveryOutagesList;
-import io.swagger.annotations.*;
+import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +36,16 @@ public interface CommonDiscoveryApi {
             code = 200,
             message = "Success",
             response = ResponseDiscoveryOutagesList.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(
@@ -60,6 +75,16 @@ public interface CommonDiscoveryApi {
             code = 200,
             message = "Success",
             response = ResponseCommonDiscoveryStatus.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(
