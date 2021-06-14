@@ -98,12 +98,13 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           Integer xMinV,
                                                                           Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageInputs(page, pageSize);
+        validatePageSize(pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingTransaction> transactionPage = transactionService.findTransactions(
             accountId, maxAmount, minAmount, newestTime, oldestTime, text, PageRequest.of(actualPage - 1, actualPageSize));
+        validatePageRange(actualPage, transactionPage.getTotalPages());
         ResponseBankingTransactionListData listData = new ResponseBankingTransactionListData();
         listData.setTransactions(transactionPage.getContent());
         ResponseBankingTransactionList responseBankingTransactionList = new ResponseBankingTransactionList();
@@ -125,7 +126,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                    Integer xMinV,
                                                                    Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageInputs(page, pageSize);
+        validatePageSize(pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -137,6 +138,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
             bankingAccount.setProductCategory(BankingProductCategory.valueOf(productCategory.name()));
         }
         Page<BankingAccount> accountPage = accountService.findBankingAccountsLike(isOwned, bankingAccount, PageRequest.of(actualPage - 1, actualPageSize));
+        validatePageRange(actualPage, accountPage.getTotalPages());
         ResponseBankingAccountListData listData = new ResponseBankingAccountListData();
         listData.setAccounts(accountPage.getContent());
         ResponseBankingAccountList responseBankingAccountList = new ResponseBankingAccountList();
@@ -176,7 +178,7 @@ String xCdsClientHeaders,OffsetDateTime xFapiAuthDate,
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV, Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageInputs(page, pageSize);
+        validatePageSize(pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -190,6 +192,7 @@ String xCdsClientHeaders,OffsetDateTime xFapiAuthDate,
         }
         Page<BankingBalance> balancePage = accountService.getBankingBalances(isOwned, productCategory, openStatus,
             PageRequest.of(actualPage - 1, actualPageSize));
+        validatePageRange(actualPage, balancePage.getTotalPages());
         return getBalanceListResponse(headers, actualPage, actualPageSize, balancePage);
     }
 
@@ -202,12 +205,13 @@ String xCdsClientHeaders,OffsetDateTime xFapiAuthDate,
                                                                                            Integer xMinV,
                                                                                            Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageInputs(page, pageSize);
+        validatePageSize(pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIds.getData().getAccountIds(),
             PageRequest.of(actualPage - 1, actualPageSize));
+        validatePageRange(actualPage, balancePage.getTotalPages());
         return getBalanceListResponse(headers, actualPage, actualPageSize, balancePage);
     }
 

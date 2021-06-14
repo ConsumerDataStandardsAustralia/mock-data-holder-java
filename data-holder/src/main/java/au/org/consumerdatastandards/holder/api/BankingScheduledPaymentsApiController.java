@@ -46,13 +46,14 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                       Integer xMinV,
                                                                                       Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageInputs(page, pageSize);
+        validatePageSize(pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingScheduledPaymentsListData listData = new ResponseBankingScheduledPaymentsListData();
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(accountId, PageRequest.of(actualPage - 1, actualPageSize));
+        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages());
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 
@@ -69,7 +70,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                           Integer xMinV,
                                                                                           Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageInputs(page, pageSize);
+        validatePageSize(pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -77,6 +78,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(BankingProductCategory.valueOf(productCategory.name()),
             openStatus, isOwned, PageRequest.of(actualPage - 1, actualPageSize));
+        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages());
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 
@@ -90,7 +92,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                                       Integer xMinV,
                                                                                                       Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageInputs(page, pageSize);
+        validatePageSize(pageSize);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -98,6 +100,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(
                 accountIds.getData().getAccountIds(), PageRequest.of(actualPage - 1, actualPageSize));
+        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages());
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 

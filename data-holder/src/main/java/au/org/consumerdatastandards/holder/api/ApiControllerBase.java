@@ -1,7 +1,9 @@
 package au.org.consumerdatastandards.holder.api;
 
+import au.org.consumerdatastandards.holder.model.ErrorV2;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
+import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
 import au.org.consumerdatastandards.holder.model.TxMetaPaginated;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.apache.commons.validator.routines.InetAddressValidator;
@@ -9,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import javax.validation.ValidationException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 public class ApiControllerBase {
@@ -29,9 +33,30 @@ public class ApiControllerBase {
         return page != null && page > 0 ? page : defaultValue;
     }
 
-    protected void validatePageInputs(Integer page, Integer pageSize) {
-        if (page != null && page < 1 || pageSize != null && pageSize < 1) {
-            throw new ValidationException("Invalid page or page-size");
+    protected void validatePageRange(Integer page, int totalPages) {
+        if (page != null && page > totalPages) {
+            ResponseErrorListV2 errors = new ResponseErrorListV2();
+            ErrorV2 error = new ErrorV2();
+            error.setTitle("Invalid Page");
+            error.setCode("urn:au-cds:error:cds-all:Field/InvalidPage");
+            error.setDetail(String.valueOf(totalPages));
+            errors.setErrors(Collections.singletonList(error));
+            throw new CDSException(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    protected void validatePageSize(Integer pageSize) {
+        if (pageSize != null && pageSize > 1000) {
+            ResponseErrorListV2 errors = new ResponseErrorListV2();
+            ErrorV2 error = new ErrorV2();
+            error.setTitle("Invalid Page Size");
+            error.setCode("urn:au-cds:error:cds-all:Field/InvalidPageSize");
+            String message = String.format(
+                    "Invalid page size requested: %d. Page size has to be between 1 and 1000",
+                    pageSize);
+            error.setDetail(message);
+            errors.setErrors(Collections.singletonList(error));
+            throw new CDSException(errors, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
@@ -41,13 +66,12 @@ public class ApiControllerBase {
     }
 
     protected Integer getSupportedVersion(Integer xMinV, Integer xV) {
-        validateHeaders(xMinV, xV);
         if (xMinV == null) return xV;
         return Math.min(xV, getCurrentVersion());
     }
 
     protected Integer getCurrentVersion() {
-        return 1;
+        return 3;
     }
 
     protected HttpHeaders generateResponseHeaders(NativeWebRequest request) {
@@ -74,28 +98,52 @@ public class ApiControllerBase {
     }
 
 
-    protected void validateHeaders(Integer xMinV, Integer xV) {
+    protected void validateSupportedVersion(Integer xMinV, Integer xV) {
         if (!hasSupportedVersion(xMinV, xV)) {
             String message = String.format(
                 "Unsupported version requested, minimum version specified is %d, maximum version specified is %d, current version is %d",
                 xMinV, xV, getCurrentVersion());
-            throw new VersionNotSupportedException(message);
+            ResponseErrorListV2 errors = new ResponseErrorListV2();
+            ErrorV2 error = new ErrorV2();
+            error.setTitle("Unsupported Version");
+            error.setCode("urn:au-cds:error:cds-all:Header/UnsupportedVersion");
+            error.setDetail(message);
+            errors.setErrors(Collections.singletonList(error));
+            throw new CDSException(errors, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
     protected void validateHeaders(String xCdsClientHeaders,
                                    String xFapiCustomerIpAddress,
                                    Integer xMinV, Integer xV) {
-        validateHeaders(xMinV, xV);
+        validateSupportedVersion(xMinV, xV);
         if (StringUtils.hasText(xFapiCustomerIpAddress)) {
+            ArrayList<ErrorV2> errorList = new ArrayList<>();
             InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {
-                throw new ValidationException("request header x-fapi-customer-ip-address is not valid IP address");
+                ErrorV2 error = new ErrorV2();
+                error.setTitle("Invalid Header");
+                error.setCode("urn:au-cds:error:cds-all:Header/Invalid");
+                error.setDetail("x-fapi-customer-ip-address: request header value is not a valid IP address");
+                errorList.add(error);
             }
             if (StringUtils.isEmpty(xCdsClientHeaders)) {
-                throw new ValidationException("request header x-cds-client-headers is not present");
+                ErrorV2 error = new ErrorV2();
+                error.setTitle("Missing Required Header");
+                error.setCode("urn:au-cds:error:cds-all:Header/Missing");
+                error.setDetail("x-cds-client-headers: request header is not present");
+                errorList.add(error);
             } else if (!xCdsClientHeaders.matches(BASE64_PATTERN)) {
-                throw new ValidationException("request header x-cds-client-headers is not Base64 encoded");
+                ErrorV2 error = new ErrorV2();
+                error.setTitle("Invalid Header");
+                error.setCode("urn:au-cds:error:cds-all:Header/Invalid");
+                error.setDetail("x-cds-client-headers: request header value is not Base64 encoded");
+                errorList.add(error);
+            }
+            if (!errorList.isEmpty()) {
+                ResponseErrorListV2 errors = new ResponseErrorListV2();
+                errors.setErrors(errorList);
+                throw new CDSException(errors, HttpStatus.BAD_REQUEST);
             }
         }
     }
