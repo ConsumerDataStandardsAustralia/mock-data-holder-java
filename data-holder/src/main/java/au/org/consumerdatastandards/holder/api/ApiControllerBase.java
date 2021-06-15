@@ -34,7 +34,7 @@ public class ApiControllerBase {
     }
 
     protected void validatePageRange(Integer page, int totalPages) {
-        if (page != null && page > totalPages) {
+        if (totalPages > 0 && page != null && page > totalPages) {
             ResponseErrorListV2 errors = new ResponseErrorListV2();
             ErrorV2 error = new ErrorV2();
             error.setTitle("Invalid Page");
