@@ -29,11 +29,11 @@ or, if you want to point to your own keystore:
 
     docker run -p 8686:8686 -it -v /your/local/path/to/java-artefacts/client-cli/keystore:/keystore consumerdatastandardsaustralia/client-cli:x.x.x
     
-Where `x.x.x` is the version, say, `1.9.0`
+Where `x.x.x` is the version, say, `1.10.0`
 
 Run locally-built image:
 
-    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.9.1-SNAPSHOT
+    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.10.1-SNAPSHOT
 
 ### Command Reference
 

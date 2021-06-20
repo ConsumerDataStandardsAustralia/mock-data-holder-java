@@ -34,6 +34,26 @@ public interface BankingScheduledPaymentsApi {
             code = 200,
             message = "Success",
             response = ResponseBankingScheduledPaymentsList.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 404,
+            message = "Invalid Banking Account / Unavailable Banking Account",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 422,
+            message = "Invalid Page",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(
@@ -94,6 +114,21 @@ public interface BankingScheduledPaymentsApi {
             message = "Success",
             response = ResponseBankingScheduledPaymentsList.class
         ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 422,
+            message = "Invalid Page",
+            response = ResponseErrorListV2.class
+        )
     })
     @RequestMapping(
         value = "/banking/payments/scheduled",
@@ -161,9 +196,19 @@ public interface BankingScheduledPaymentsApi {
             response = ResponseBankingScheduledPaymentsList.class
         ),
         @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
             code = 422,
-            message = "The request was well formed but was unable to be processed due to business logic specific to the request. For this API a 422 response must be given if any of the account IDs provided are invalid for the consent context",
-            response = ResponseErrorList.class
+            message = "Invalid Banking Account / Unavailable Banking Account / Invalid Page",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(

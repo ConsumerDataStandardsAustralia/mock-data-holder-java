@@ -1,14 +1,13 @@
 package au.org.consumerdatastandards.holder.service;
 
-import au.org.consumerdatastandards.holder.api.VersionNotSupportedException;
 import au.org.consumerdatastandards.holder.model.BankingProduct;
 import au.org.consumerdatastandards.holder.model.BankingProductDetail;
 import au.org.consumerdatastandards.holder.model.ParamEffective;
 import au.org.consumerdatastandards.holder.repository.BankingProductDetailV1Repository;
-import au.org.consumerdatastandards.holder.repository.BankingProductV1Repository;
 import au.org.consumerdatastandards.holder.repository.BankingProductDetailV2Repository;
-import au.org.consumerdatastandards.holder.repository.BankingProductV2Repository;
 import au.org.consumerdatastandards.holder.repository.BankingProductDetailV3Repository;
+import au.org.consumerdatastandards.holder.repository.BankingProductV1Repository;
+import au.org.consumerdatastandards.holder.repository.BankingProductV2Repository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,27 +52,23 @@ public class BankingProductService {
     public Page<BankingProduct> findProductsLike(ParamEffective effective, BankingProduct bankingProduct, Pageable pageable, Integer version) {
         LOGGER.debug("Retrieve products matching inputs of effective {}, BankingProduct specified as {} with Paging content specified as {}" ,  effective,  bankingProduct,  pageable);
         switch (version) {
-            case 1:
-                return productsV1Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(productV1 -> productV1);
             case 2:
             case 3:
-                return productsV2Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(product -> product);
+               return productsV2Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(product -> product);
             default:
-                throw new VersionNotSupportedException("Unsupported version " + version);
+                return productsV1Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(productV1 -> productV1);
         }
     }
 
     public BankingProductDetail getProductDetail(String productId, Integer version) {
         LOGGER.debug("Retrieving product detail by id {}",  productId);
         switch (version) {
-            case 1:
-                return productDetailV1Repository.findById(productId).orElse(null);
             case 2:
                 return productDetailV2Repository.findById(productId).orElse(null);
             case 3:
                 return productDetailV3Repository.findById(productId).orElse(null);
             default:
-                throw new VersionNotSupportedException("Unsupported version " + version);
+                return productDetailV1Repository.findById(productId).orElse(null);
         }
     }
 }

@@ -2,11 +2,20 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.holder.model.ResponseBankingPayeeList;
-import io.swagger.annotations.*;
+import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.constraints.Min;
@@ -42,6 +51,26 @@ public interface BankingPayeesApi {
             code = 200,
             message = "Success",
             response = ResponseBankingPayeeById.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 404,
+            message = "Invalid Resource / Unavailable Resource",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 422,
+            message = "Invalid Page",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(
@@ -93,6 +122,21 @@ public interface BankingPayeesApi {
             code = 200,
             message = "Success",
             response = ResponseBankingPayeeList.class
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 406,
+            message = "Unsupported Version",
+            response = ResponseErrorListV2.class
+        ),
+        @ApiResponse(
+            code = 422,
+            message = "Invalid Page",
+            response = ResponseErrorListV2.class
         )
     })
     @RequestMapping(

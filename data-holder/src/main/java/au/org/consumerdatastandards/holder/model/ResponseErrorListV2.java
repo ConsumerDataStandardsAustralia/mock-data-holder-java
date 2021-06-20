@@ -6,30 +6,30 @@ import java.util.Objects;
 import java.util.List;
 
 @ApiModel
-public class ResponseErrorList  {
+public class ResponseErrorListV2 {
 
     /**
      * Get errors
      */
-    
-    private List<Error> errors;
 
-    public ResponseErrorList errors(List<Error> errors) {
+    private List<ErrorV2> errors;
+
+    public ResponseErrorListV2 errors(List<ErrorV2> errors) {
         this.errors = errors;
         return this;
     }
 
-    public ResponseErrorList addItem(Error errorsItem) {
+    public ResponseErrorListV2 addItem(ErrorV2 errorsItem) {
         this.errors.add(errorsItem);
         return this;
     }
 
     @ApiModelProperty(required = true)
-    public List<Error> getErrors() {
+    public List<ErrorV2> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<Error> errors) {
+    public void setErrors(List<ErrorV2> errors) {
         this.errors = errors;
     }
 
@@ -41,7 +41,7 @@ public class ResponseErrorList  {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ResponseErrorList responseErrorList = (ResponseErrorList) o;
+        ResponseErrorListV2 responseErrorList = (ResponseErrorListV2) o;
         return Objects.equals(this.errors, responseErrorList.errors);
     }
 
