@@ -17,6 +17,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -206,13 +208,27 @@ String xCdsClientHeaders,OffsetDateTime xFapiAuthDate,
                                                                                            Integer xV) {
         validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
         validatePageSize(pageSize);
+        List<String> accountIdList = accountIds.getData().getAccountIds();
+        validateAccountExistence(accountIdList);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
-        Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIds.getData().getAccountIds(),
+        Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIdList,
             PageRequest.of(actualPage - 1, actualPageSize));
         validatePageRange(actualPage, balancePage.getTotalPages());
         return getBalanceListResponse(headers, actualPage, actualPageSize, balancePage);
+    }
+
+    private void validateAccountExistence(List<String> accountIds) {
+        ArrayList<ErrorV2> errorList = new ArrayList<>();
+        for (String accountId : accountIds) {
+            if (!accountService.checkAccountExistence(accountId)) {
+                errorList.add(createError("Unavailable Banking Account", "urn:au-cds:error:cds-banking:Authorisation/UnavailableBankingAccount", accountId));
+            }
+        }
+        if (!errorList.isEmpty()) {
+            throwCDSUnprocessableErrors(errorList);
+        }
     }
 
     private ResponseEntity<ResponseBankingAccountsBalanceList> getBalanceListResponse(HttpHeaders headers,

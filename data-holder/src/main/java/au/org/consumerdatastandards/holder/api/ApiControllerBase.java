@@ -17,6 +17,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class ApiControllerBase {
@@ -33,15 +34,28 @@ public class ApiControllerBase {
         return page != null && page > 0 ? page : defaultValue;
     }
 
+    protected void throwCDSUnprocessableErrors(List<ErrorV2> errorList) {
+        throwCDSErrors(errorList, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    protected void throwCDSErrors(List<ErrorV2> errorList, HttpStatus httpStatus) {
+        ResponseErrorListV2 errors = new ResponseErrorListV2();
+        errors.setErrors(errorList);
+        throw new CDSException(errors, httpStatus);
+    }
+
+    protected ErrorV2 createError(String title, String code, String detail) {
+        ErrorV2 error = new ErrorV2();
+        error.setTitle(title);
+        error.setCode(code);
+        error.setDetail(detail);
+        return error;
+    }
+
     protected void validatePageRange(Integer page, int totalPages) {
         if (totalPages > 0 && page != null && page > totalPages) {
-            ResponseErrorListV2 errors = new ResponseErrorListV2();
-            ErrorV2 error = new ErrorV2();
-            error.setTitle("Invalid Page");
-            error.setCode("urn:au-cds:error:cds-all:Field/InvalidPage");
-            error.setDetail(String.valueOf(totalPages));
-            errors.setErrors(Collections.singletonList(error));
-            throw new CDSException(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+            throwCDSUnprocessableErrors(Collections.singletonList(
+                    createError("Invalid Page", "urn:au-cds:error:cds-all:Field/InvalidPage", String.valueOf(totalPages))));
         }
     }
 
@@ -103,13 +117,8 @@ public class ApiControllerBase {
             String message = String.format(
                 "Unsupported version requested, minimum version specified is %d, maximum version specified is %d, current version is %d",
                 xMinV, xV, getCurrentVersion());
-            ResponseErrorListV2 errors = new ResponseErrorListV2();
-            ErrorV2 error = new ErrorV2();
-            error.setTitle("Unsupported Version");
-            error.setCode("urn:au-cds:error:cds-all:Header/UnsupportedVersion");
-            error.setDetail(message);
-            errors.setErrors(Collections.singletonList(error));
-            throw new CDSException(errors, HttpStatus.NOT_ACCEPTABLE);
+            ErrorV2 error = createError("Unsupported Version", "urn:au-cds:error:cds-all:Header/UnsupportedVersion", message);
+            throwCDSErrors(Collections.singletonList(error), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
@@ -121,29 +130,15 @@ public class ApiControllerBase {
             ArrayList<ErrorV2> errorList = new ArrayList<>();
             InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {
-                ErrorV2 error = new ErrorV2();
-                error.setTitle("Invalid Header");
-                error.setCode("urn:au-cds:error:cds-all:Header/Invalid");
-                error.setDetail("x-fapi-customer-ip-address: request header value is not a valid IP address");
-                errorList.add(error);
+                errorList.add(createError("Invalid Header", "urn:au-cds:error:cds-all:Header/Invalid", "x-fapi-customer-ip-address: request header value is not a valid IP address"));
             }
             if (StringUtils.isEmpty(xCdsClientHeaders)) {
-                ErrorV2 error = new ErrorV2();
-                error.setTitle("Missing Required Header");
-                error.setCode("urn:au-cds:error:cds-all:Header/Missing");
-                error.setDetail("x-cds-client-headers: request header is not present");
-                errorList.add(error);
+                errorList.add(createError("Missing Required Header", "urn:au-cds:error:cds-all:Header/Missing", "x-cds-client-headers: request header is not present"));
             } else if (!xCdsClientHeaders.matches(BASE64_PATTERN)) {
-                ErrorV2 error = new ErrorV2();
-                error.setTitle("Invalid Header");
-                error.setCode("urn:au-cds:error:cds-all:Header/Invalid");
-                error.setDetail("x-cds-client-headers: request header value is not Base64 encoded");
-                errorList.add(error);
+                errorList.add(createError("Invalid Header", "urn:au-cds:error:cds-all:Header/Invalid", "x-cds-client-headers: request header value is not Base64 encoded"));
             }
             if (!errorList.isEmpty()) {
-                ResponseErrorListV2 errors = new ResponseErrorListV2();
-                errors.setErrors(errorList);
-                throw new CDSException(errors, HttpStatus.BAD_REQUEST);
+                throwCDSErrors(errorList, HttpStatus.BAD_REQUEST);
             }
         }
     }

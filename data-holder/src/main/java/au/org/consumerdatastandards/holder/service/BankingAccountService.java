@@ -96,4 +96,8 @@ public class BankingAccountService {
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }
+
+    public boolean checkAccountExistence(String accountId) {
+        return bankingAccountRepository.findById(accountId).isPresent();
+    }
 }
