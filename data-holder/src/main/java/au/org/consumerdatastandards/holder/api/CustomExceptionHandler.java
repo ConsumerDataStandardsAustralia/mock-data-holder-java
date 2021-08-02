@@ -34,6 +34,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(CDSException.class)
     @SuppressWarnings("unused")
     public final ResponseEntity<Object> handleCDSException(CDSException ex, WebRequest request) {
-        return new ResponseEntity<>(ex.getErrors(), ex.getStatus());
+        return new ResponseEntity<>(ex.getErrors(), ex.getHeaders(), ex.getStatus());
     }
 }

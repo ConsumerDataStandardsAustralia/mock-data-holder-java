@@ -51,7 +51,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId,
                                                                        Integer xMinV,
                                                                        Integer xV) {
-        validateSupportedVersion(xMinV, xV);
+        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingProductDetail productDetail = service.getProductDetail(productId, getSupportedVersion(xMinV, xV));
         if (productDetail == null) {
@@ -80,8 +80,8 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         logger.info(
             "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",
             effective, updatedSince, brand, productCategory, page, pageSize);
-        validateSupportedVersion(xMinV, xV);
-        validatePageSize(pageSize);
+        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID);
+        validatePageSize(pageSize, NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingProduct bankingProduct = new BankingProductV2();
         bankingProduct.setLastUpdated(updatedSince);
@@ -100,7 +100,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
             actualPage, productsPage.getTotalPages(), actualPageSize, effective, updatedSince, brand,
             productCategory);
 
-        validatePageRange(page, productsPage.getTotalPages());
+        validatePageRange(page, productsPage.getTotalPages(), NO_INTERACTION_ID);
 
         ResponseBankingProductListData listData = new ResponseBankingProductListData();
         listData.setProducts(productsPage.getContent());
