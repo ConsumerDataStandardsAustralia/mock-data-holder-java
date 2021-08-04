@@ -12,14 +12,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ApiControllerBase {
+    protected final static UUID NO_INTERACTION_ID = UUID.randomUUID();
 
     private final static String V = "x-v";
     private final static String MIN_V = "x-min-v";
@@ -33,30 +37,46 @@ public class ApiControllerBase {
         return page != null && page > 0 ? page : defaultValue;
     }
 
-    protected void validatePageRange(Integer page, int totalPages) {
+    protected void throwCDSUnprocessableErrors(UUID interactionId, List<ErrorV2> errorList) {
+        throwCDSErrors(interactionId, errorList, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    protected void throwCDSErrors(UUID interactionId, List<ErrorV2> errorList, HttpStatus httpStatus) {
+        ResponseErrorListV2 errors = new ResponseErrorListV2();
+        errors.setErrors(errorList);
+        MultiValueMap<String, String> headers;
+        if (interactionId == NO_INTERACTION_ID) {
+            headers = null;
+        } else {
+            headers = new HttpHeaders();
+            headers.add("x-fapi-interaction-id", (interactionId == null ? UUID.randomUUID() : interactionId).toString());
+        }
+        throw new CDSException(errors, headers, httpStatus);
+    }
+
+    protected ErrorV2 createError(String title, String code, String detail) {
+        ErrorV2 error = new ErrorV2();
+        error.setTitle(title);
+        error.setCode(code);
+        error.setDetail(detail);
+        return error;
+    }
+
+    protected void validatePageRange(Integer page, int totalPages, UUID interactionId) {
         if (totalPages > 0 && page != null && page > totalPages) {
-            ResponseErrorListV2 errors = new ResponseErrorListV2();
-            ErrorV2 error = new ErrorV2();
-            error.setTitle("Invalid Page");
-            error.setCode("urn:au-cds:error:cds-all:Field/InvalidPage");
-            error.setDetail(String.valueOf(totalPages));
-            errors.setErrors(Collections.singletonList(error));
-            throw new CDSException(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+            throwCDSUnprocessableErrors(interactionId, Collections.singletonList(
+                    createError("Invalid Page", "urn:au-cds:error:cds-all:Field/InvalidPage", String.valueOf(totalPages))));
         }
     }
 
-    protected void validatePageSize(Integer pageSize) {
+    protected void validatePageSize(Integer pageSize, UUID interactionId) {
         if (pageSize != null && pageSize > 1000) {
-            ResponseErrorListV2 errors = new ResponseErrorListV2();
-            ErrorV2 error = new ErrorV2();
-            error.setTitle("Invalid Page Size");
-            error.setCode("urn:au-cds:error:cds-all:Field/InvalidPageSize");
             String message = String.format(
                     "Invalid page size requested: %d. Page size has to be between 1 and 1000",
                     pageSize);
-            error.setDetail(message);
-            errors.setErrors(Collections.singletonList(error));
-            throw new CDSException(errors, HttpStatus.NOT_ACCEPTABLE);
+            throwCDSErrors(interactionId, Collections.singletonList(
+                    createError("Invalid Page Size", "urn:au-cds:error:cds-all:Field/InvalidPageSize", message)),
+                    HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
@@ -82,7 +102,7 @@ public class ApiControllerBase {
         if (StringUtils.hasText(minV)) {
             xMinV = Integer.parseInt(minV);
         }
-        Integer xV = Integer.parseInt(request.getHeader(V));
+        Integer xV = Integer.parseInt(Objects.requireNonNull(request.getHeader(V)));
         responseHeaders.set(V, "" + getSupportedVersion(xMinV, xV));
         String correlationId = request.getHeader(CORRELATION_ID);
         if (!StringUtils.isEmpty(correlationId)) {
@@ -97,58 +117,39 @@ public class ApiControllerBase {
         return responseHeaders;
     }
 
-
-    protected void validateSupportedVersion(Integer xMinV, Integer xV) {
+    protected void validateSupportedVersion(Integer xMinV, Integer xV, UUID interactionId) {
         if (!hasSupportedVersion(xMinV, xV)) {
             String message = String.format(
                 "Unsupported version requested, minimum version specified is %d, maximum version specified is %d, current version is %d",
                 xMinV, xV, getCurrentVersion());
-            ResponseErrorListV2 errors = new ResponseErrorListV2();
-            ErrorV2 error = new ErrorV2();
-            error.setTitle("Unsupported Version");
-            error.setCode("urn:au-cds:error:cds-all:Header/UnsupportedVersion");
-            error.setDetail(message);
-            errors.setErrors(Collections.singletonList(error));
-            throw new CDSException(errors, HttpStatus.NOT_ACCEPTABLE);
+            ErrorV2 error = createError("Unsupported Version", "urn:au-cds:error:cds-all:Header/UnsupportedVersion", message);
+            throwCDSErrors(interactionId, Collections.singletonList(error), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
     protected void validateHeaders(String xCdsClientHeaders,
                                    String xFapiCustomerIpAddress,
+                                   UUID interactionId,
                                    Integer xMinV, Integer xV) {
-        validateSupportedVersion(xMinV, xV);
+        validateSupportedVersion(xMinV, xV, interactionId);
         if (StringUtils.hasText(xFapiCustomerIpAddress)) {
             ArrayList<ErrorV2> errorList = new ArrayList<>();
             InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {
-                ErrorV2 error = new ErrorV2();
-                error.setTitle("Invalid Header");
-                error.setCode("urn:au-cds:error:cds-all:Header/Invalid");
-                error.setDetail("x-fapi-customer-ip-address: request header value is not a valid IP address");
-                errorList.add(error);
+                errorList.add(createError("Invalid Header", "urn:au-cds:error:cds-all:Header/Invalid", "x-fapi-customer-ip-address: request header value is not a valid IP address"));
             }
             if (StringUtils.isEmpty(xCdsClientHeaders)) {
-                ErrorV2 error = new ErrorV2();
-                error.setTitle("Missing Required Header");
-                error.setCode("urn:au-cds:error:cds-all:Header/Missing");
-                error.setDetail("x-cds-client-headers: request header is not present");
-                errorList.add(error);
+                errorList.add(createError("Missing Required Header", "urn:au-cds:error:cds-all:Header/Missing", "x-cds-client-headers: request header is not present"));
             } else if (!xCdsClientHeaders.matches(BASE64_PATTERN)) {
-                ErrorV2 error = new ErrorV2();
-                error.setTitle("Invalid Header");
-                error.setCode("urn:au-cds:error:cds-all:Header/Invalid");
-                error.setDetail("x-cds-client-headers: request header value is not Base64 encoded");
-                errorList.add(error);
+                errorList.add(createError("Invalid Header", "urn:au-cds:error:cds-all:Header/Invalid", "x-cds-client-headers: request header value is not Base64 encoded"));
             }
             if (!errorList.isEmpty()) {
-                ResponseErrorListV2 errors = new ResponseErrorListV2();
-                errors.setErrors(errorList);
-                throw new CDSException(errors, HttpStatus.BAD_REQUEST);
+                throwCDSErrors(interactionId, errorList, HttpStatus.BAD_REQUEST);
             }
         }
     }
 
-    protected LinksPaginated getLinkData(NativeWebRequest request, Page page, Integer actualPage, Integer actualPageSize) {
+    protected LinksPaginated getLinkData(NativeWebRequest request, @SuppressWarnings("rawtypes") Page page, Integer actualPage, Integer actualPageSize) {
         LinksPaginated linkData = new LinksPaginated();
         linkData.setSelf(WebUtil.getOriginalUrl(request));
 
@@ -170,17 +171,18 @@ public class ApiControllerBase {
         return linkData;
     }
 
-    protected MetaPaginated getMetaData(Page page) {
+    protected MetaPaginated getMetaData(@SuppressWarnings("rawtypes") Page page) {
         MetaPaginated metaData = new MetaPaginated();
         metaData.setTotalPages(page.getTotalPages());
         metaData.setTotalRecords((int)page.getTotalElements());
         return metaData;
     }
 
-    protected TxMetaPaginated getTxMetaData(Page page, boolean isQueryParamUnsupported) {
+    protected TxMetaPaginated getTxMetaData(@SuppressWarnings("rawtypes") Page page, boolean isQueryParamUnsupported) {
         TxMetaPaginated metaData = new TxMetaPaginated();
         metaData.setTotalPages(page.getTotalPages());
         metaData.setTotalRecords((int)page.getTotalElements());
+        metaData.setIsQueryParamUnsupported(isQueryParamUnsupported);
         return metaData;
     }
 }

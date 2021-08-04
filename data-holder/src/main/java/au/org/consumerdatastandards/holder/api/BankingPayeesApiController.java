@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,11 +45,12 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
                                                                    UUID xFapiInteractionId,
                                                                    Integer xMinV,
                                                                    Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
         HttpHeaders headers = generateResponseHeaders(request);
         BankingPayeeDetail payeeDetail = payeeService.getBankingPayeeDetail(payeeId);
         if (payeeDetail == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throwCDSErrors(xFapiInteractionId, Collections.singletonList(
+                    createError("Invalid Resource", "urn:au-cds:error:cds-all:Resource/Invalid", payeeId)), HttpStatus.NOT_FOUND);
         }
         ResponseBankingPayeeById responseBankingPayeeById = new ResponseBankingPayeeById();
         responseBankingPayeeById.setData(payeeDetail);
@@ -65,8 +67,8 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
                                                                UUID xFapiInteractionId,
                                                                Integer xMinV,
                                                                Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageSize(pageSize);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -76,7 +78,7 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
             payeeType = BankingPayee.Type.valueOf(type.name());
         }
         Page<BankingPayee> payeePage = payeeService.getBankingPayees(payeeType, PageRequest.of(actualPage - 1, actualPageSize));
-        validatePageRange(actualPage, payeePage.getTotalPages());
+        validatePageRange(actualPage, payeePage.getTotalPages(), xFapiInteractionId);
         listData.setPayees(payeePage.getContent());
         ResponseBankingPayeeList responseBankingPayeeList = new ResponseBankingPayeeList();
         responseBankingPayeeList.setData(listData);

@@ -42,7 +42,7 @@ or, if you want to skip the Docker image build step:
 
 The `--projects !integration-test` parameter skips running of the integration tests.
 You can ommit this parameter if you've built the current version of the project once before and
-the `data-holder` is running, so the tests can be run agains it.
+the `data-holder` is running, so the tests can be run against it.
 
 ## Unit tests
 

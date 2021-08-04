@@ -45,15 +45,15 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                       UUID xFapiInteractionId,
                                                                                       Integer xMinV,
                                                                                       Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageSize(pageSize);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingScheduledPaymentsListData listData = new ResponseBankingScheduledPaymentsListData();
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(accountId, PageRequest.of(actualPage - 1, actualPageSize));
-        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages());
+        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages(), xFapiInteractionId);
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 
@@ -69,8 +69,8 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                           UUID xFapiInteractionId,
                                                                                           Integer xMinV,
                                                                                           Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageSize(pageSize);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -78,7 +78,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(BankingProductCategory.valueOf(productCategory.name()),
             openStatus, isOwned, PageRequest.of(actualPage - 1, actualPageSize));
-        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages());
+        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages(), xFapiInteractionId);
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 
@@ -91,8 +91,8 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
                                                                                                       UUID xFapiInteractionId,
                                                                                                       Integer xMinV,
                                                                                                       Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xMinV, xV);
-        validatePageSize(pageSize);
+        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(request);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -100,7 +100,7 @@ public class BankingScheduledPaymentsApiController extends ApiControllerBase imp
         Page<BankingScheduledPayment> scheduledPaymentPage
             = scheduledPaymentService.getBankingScheduledPayments(
                 accountIds.getData().getAccountIds(), PageRequest.of(actualPage - 1, actualPageSize));
-        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages());
+        validatePageRange(actualPage, scheduledPaymentPage.getTotalPages(), xFapiInteractionId);
         return getResponse(headers, actualPage, actualPageSize, listData, scheduledPaymentPage);
     }
 
