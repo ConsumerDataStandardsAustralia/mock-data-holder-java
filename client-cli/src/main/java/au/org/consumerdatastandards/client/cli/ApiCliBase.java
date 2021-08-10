@@ -69,7 +69,7 @@ public class ApiCliBase {
         return 1;
     }
 
-    public List<ConformanceError> validateMetadata(String requestUrl, Object response) {
+    public <T> List<ConformanceError> validateMetadata(String requestUrl, ApiResponse<T> response) {
         Integer page = 1, pageSize = 25;
         Map<String, Object> params = extractParameters(requestUrl);
         List<ConformanceError> errors = new ArrayList<>();
@@ -93,8 +93,9 @@ public class ApiCliBase {
         }
 
         Integer totalPages = null;
-        if (response instanceof PaginatedResponse) {
-            MetaPaginated meta = ((PaginatedResponse)response).getMeta();
+        T body = response.getBody();
+        if (body instanceof PaginatedResponse) {
+            MetaPaginated meta = ((PaginatedResponse)body).getMeta();
             if (meta != null) {
                 Integer totalRecords = meta.getTotalRecords();
                 totalPages = meta.getTotalPages();
@@ -108,7 +109,7 @@ public class ApiCliBase {
                 }
             }
         }
-        Links links = (response instanceof PaginatedResponse ? ((PaginatedResponse)response).getLinks() : ((BaseResponse)response).getLinks());
+        Links links = (body instanceof PaginatedResponse ? ((PaginatedResponse)body).getLinks() : ((BaseResponse)body).getLinks());
         if (links != null) {
             String self = links.getSelf();
             String linksJson = toJson(links);

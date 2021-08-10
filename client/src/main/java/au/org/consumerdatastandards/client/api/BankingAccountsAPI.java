@@ -113,7 +113,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             accountId);
 
         ApiResponse<ResponseBankingAccountById> resp = getAccountDetailWithHttpInfo(accountId);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -251,7 +251,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             accountId);
 
         ApiResponse<ResponseBankingAccountsBalanceById> resp = getBalanceWithHttpInfo(accountId);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -399,7 +399,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             transactionId);
 
         ApiResponse<ResponseBankingTransactionById> resp = getTransactionDetailWithHttpInfo(accountId, transactionId);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -575,7 +575,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingTransactionList> resp = getTransactionsWithHttpInfo(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -749,7 +749,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingAccountList> resp = listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -914,7 +914,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingAccountsBalanceList> resp = listBalancesBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -1081,7 +1081,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingAccountsBalanceList> resp = listBalancesSpecificAccountsWithHttpInfo(accountIds, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**

@@ -35,7 +35,7 @@ public class BankingDirectDebitsIT extends ProtectedITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingDirectDebit directDebit : resp.getData().getData().getDirectDebitAuthorisations()) {
+        for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
             checkAccountId(directDebit.getAccountId(), accountId, conformanceErrors);
         }
 
@@ -59,7 +59,7 @@ public class BankingDirectDebitsIT extends ProtectedITBase {
 
         BankingAccountsAPI accountsAPI = new BankingAccountsAPI();
         accountsAPI.setApiClient(getAPI().getApiClient());
-        for (BankingDirectDebit directDebit : resp.getData().getData().getDirectDebitAuthorisations()) {
+        for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
             BankingAccountDetail accountDetail = accountsAPI.getAccountDetail(directDebit.getAccountId()).getData();
             checkProductCategory(accountDetail.getProductCategory(), productCategory, conformanceErrors);
             checkOpenStatus(accountDetail.getOpenStatus(), openStatus, conformanceErrors);
@@ -84,7 +84,7 @@ public class BankingDirectDebitsIT extends ProtectedITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
-        for (BankingDirectDebit directDebit : resp.getData().getData().getDirectDebitAuthorisations()) {
+        for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
             checkAccountInList(directDebit.getAccountId(), idList.getData().getAccountIds(), conformanceErrors);
         }
 

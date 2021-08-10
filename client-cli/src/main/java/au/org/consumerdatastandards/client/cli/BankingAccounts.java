@@ -201,7 +201,7 @@ public class BankingAccounts extends ApiCliBase {
     }
 
     @ShellMethod("List balances specific accounts")
-    public String listBalancesSpecificAccounts(@ShellOption(defaultValue = ShellOption.NULL) boolean check,
+    public String listBalancesSpecificAccounts(@ShellOption(defaultValue = "false") boolean check,
         @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {

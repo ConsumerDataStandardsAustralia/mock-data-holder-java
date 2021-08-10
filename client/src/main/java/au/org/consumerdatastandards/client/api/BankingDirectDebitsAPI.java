@@ -117,7 +117,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> resp = listDirectDebitsWithHttpInfo(accountId, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -276,7 +276,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> resp = listDirectDebitsBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -445,7 +445,7 @@ public class BankingDirectDebitsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> resp = listDirectDebitsSpecificAccountsWithHttpInfo(accountIds, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**

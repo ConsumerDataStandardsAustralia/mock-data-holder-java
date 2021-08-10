@@ -34,7 +34,7 @@ public class BankingPayeesIT extends ProtectedITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
-        for (BankingPayee payee : resp.getData().getData().getPayees()) {
+        for (BankingPayee payee : resp.getBody().getData().getPayees()) {
             if (type != null && type != BankingPayeesAPI.ParamType.ALL && !payee.getType().name().equals(type.name())) {
                 conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorMessage(String.format(
@@ -56,7 +56,7 @@ public class BankingPayeesIT extends ProtectedITBase {
         for (BankingPayee payee : payees) {
             ApiResponse<ResponseBankingPayeeById> resp = ((BankingPayeesAPI) getAPI()).getPayeeDetailWithHttpInfo(payee.getPayeeId());
             checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-            String bankingPayeeId = resp.getData().getData().getPayeeId();
+            String bankingPayeeId = resp.getBody().getData().getPayeeId();
             if (!payee.getPayeeId().equals(bankingPayeeId)) {
                 conformanceErrors.add(new ConformanceError().errorType(DATA_NOT_MATCHING_CRITERIA)
                         .errorMessage(String.format(
