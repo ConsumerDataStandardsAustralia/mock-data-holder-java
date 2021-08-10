@@ -124,10 +124,35 @@ public class BankingAccountsIT extends ProtectedITBase {
     @CsvSource({
             "1234567 2345567 3456789,,"
     })
+    public void listBalancesSpecificAccounts_unavailabe(String accountIds, Integer page, Integer pageSize) {
+        RequestAccountIds accIds = getRequestAccountIds(accountIds);
+        try {
+            ((BankingAccountsAPI)getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
+            Assertions.fail("The test should result in error");
+        } catch (ApiException e) {
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("urn:au-cds:error:cds-banking:Authorisation/UnavailableBankingAccount"),
+                    "Response doesn't contain the UnavailableBankingAccount message");
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("1234567"),
+                    "Response doesn't reference account 1234567");
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("2345567"),
+                    "Response doesn't reference account 2345567");
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("3456789"),
+                    "Response doesn't reference account 3456789");
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "RmrxLLD7blXRhplXn9S3uCq0WafZrZ1EE693WngNwB8 DJ_GEF_28zh_cO6uxdmCecaCRgpAKtwEeTGLkd2gdgU,,"
+    })
     public void listBalancesSpecificAccounts(String accountIds, Integer page, Integer pageSize) throws ApiException {
         RequestAccountIds accIds = getRequestAccountIds(accountIds);
         ApiResponse<ResponseBankingAccountsBalanceList> resp =
-                ((BankingAccountsAPI)getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
+                ((BankingAccountsAPI) getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
