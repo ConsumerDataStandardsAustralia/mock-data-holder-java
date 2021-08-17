@@ -183,7 +183,7 @@ public class BankingProductsAPI {
             productId, version);
 
         ApiResponse<ResponseBankingProductById> resp = getProductDetailWithHttpInfo(productId, version);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -402,7 +402,7 @@ public class BankingProductsAPI {
             version);
 
         ApiResponse<ResponseBankingProductList<T>> resp = listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, version,  page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**

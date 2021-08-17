@@ -50,7 +50,7 @@ public class BankingAccountsIT extends ProtectedITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingAccount account : resp.getData().getData().getAccounts()) {
+        for (BankingAccount account : resp.getBody().getData().getAccounts()) {
             checkProductCategory(account.getProductCategory(), productCategory, conformanceErrors);
             checkOwned(account.getIsOwned(), isOwned, conformanceErrors);
             checkOpenStatus(account.getOpenStatus(), openStatus, conformanceErrors);
@@ -71,7 +71,7 @@ public class BankingAccountsIT extends ProtectedITBase {
             ApiResponse<ResponseBankingAccountById> accountDetail = ((BankingAccountsAPI)getAPI()).getAccountDetailWithHttpInfo(account.getAccountId());
             Assertions.assertEquals(ResponseCode.OK.getCode(), accountDetail.getStatusCode());
             checkResponseHeaders(accountDetail.getHeaders(), conformanceErrors);
-            checkAccountId(accountDetail.getData().getData().getAccountId(), account.getAccountId(), conformanceErrors);
+            checkAccountId(accountDetail.getBody().getData().getAccountId(), account.getAccountId(), conformanceErrors);
         }
 
         dumpConformanceErrors(conformanceErrors);
@@ -89,7 +89,7 @@ public class BankingAccountsIT extends ProtectedITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        checkAccountId(resp.getData().getData().getAccountId(), accountId, conformanceErrors);
+        checkAccountId(resp.getBody().getData().getAccountId(), accountId, conformanceErrors);
 
         dumpConformanceErrors(conformanceErrors);
 
@@ -107,7 +107,7 @@ public class BankingAccountsIT extends ProtectedITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingBalance acc : resp.getData().getData().getBalances()) {
+        for (BankingBalance acc : resp.getBody().getData().getBalances()) {
             BankingAccountDetail account = ((BankingAccountsAPI)getAPI()).getAccountDetail(acc.getAccountId()).getData();
             checkProductCategory(account.getProductCategory(), productCategory, conformanceErrors);
             checkOwned(account.getIsOwned(), isOwned, conformanceErrors);
@@ -124,14 +124,39 @@ public class BankingAccountsIT extends ProtectedITBase {
     @CsvSource({
             "1234567 2345567 3456789,,"
     })
+    public void listBalancesSpecificAccounts_unavailabe(String accountIds, Integer page, Integer pageSize) {
+        RequestAccountIds accIds = getRequestAccountIds(accountIds);
+        try {
+            ((BankingAccountsAPI)getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
+            Assertions.fail("The test should result in error");
+        } catch (ApiException e) {
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("urn:au-cds:error:cds-banking:Authorisation/UnavailableBankingAccount"),
+                    "Response doesn't contain the UnavailableBankingAccount message");
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("1234567"),
+                    "Response doesn't reference account 1234567");
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("2345567"),
+                    "Response doesn't reference account 2345567");
+            Assertions.assertTrue(
+                    e.getResponseBody().contains("3456789"),
+                    "Response doesn't reference account 3456789");
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "RmrxLLD7blXRhplXn9S3uCq0WafZrZ1EE693WngNwB8 DJ_GEF_28zh_cO6uxdmCecaCRgpAKtwEeTGLkd2gdgU,,"
+    })
     public void listBalancesSpecificAccounts(String accountIds, Integer page, Integer pageSize) throws ApiException {
         RequestAccountIds accIds = getRequestAccountIds(accountIds);
         ApiResponse<ResponseBankingAccountsBalanceList> resp =
-                ((BankingAccountsAPI)getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
+                ((BankingAccountsAPI) getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingBalance bal : resp.getData().getData().getBalances()) {
+        for (BankingBalance bal : resp.getBody().getData().getBalances()) {
             checkAccountInList(bal.getAccountId(), accIds.getData().getAccountIds(), conformanceErrors);
         }
 
@@ -153,7 +178,7 @@ public class BankingAccountsIT extends ProtectedITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingTransaction tx : resp.getData().getData().getTransactions()) {
+        for (BankingTransaction tx : resp.getBody().getData().getTransactions()) {
             checkAccountId(tx.getAccountId(), accountId, conformanceErrors);
             OffsetDateTime execTime = tx.getExecutionDateTime();
             if (execTime != null) {
@@ -162,7 +187,7 @@ public class BankingAccountsIT extends ProtectedITBase {
             }
             checkMinAmount(tx.getAmount(), minAmount, conformanceErrors);
             checkMaxAmount(tx.getAmount(), maxAmount, conformanceErrors);
-            checkText(tx.getDescription(), tx.getReference(), text, resp.getData().getMeta().isQueryParamUnsupported(), conformanceErrors);
+            checkText(tx.getDescription(), tx.getReference(), text, resp.getBody().getMeta().isQueryParamUnsupported(), conformanceErrors);
         }
 
         dumpConformanceErrors(conformanceErrors);
@@ -183,7 +208,7 @@ public class BankingAccountsIT extends ProtectedITBase {
                     ((BankingAccountsAPI)getAPI()).getTransactionDetailWithHttpInfo(accountId, tx.getTransactionId());
             Assertions.assertEquals(ResponseCode.OK.getCode(), detail.getStatusCode());
             checkResponseHeaders(detail.getHeaders(), conformanceErrors);
-            BankingTransactionDetail transactionDetail = detail.getData().getData();
+            BankingTransactionDetail transactionDetail = detail.getBody().getData();
             checkAccountId(transactionDetail.getAccountId(), accountId, conformanceErrors);
             checkTransactionId(transactionDetail.getTransactionId(), tx.getTransactionId(), conformanceErrors);
         }

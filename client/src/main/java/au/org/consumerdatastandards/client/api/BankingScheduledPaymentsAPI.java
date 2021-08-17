@@ -117,7 +117,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingScheduledPaymentsList> resp = listScheduledPaymentsWithHttpInfo(accountId, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -276,7 +276,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingScheduledPaymentsList> resp = listScheduledPaymentsBulkWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -443,7 +443,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
             pageSize);
 
         ApiResponse<ResponseBankingScheduledPaymentsList> resp = listScheduledPaymentsSpecificAccountsWithHttpInfo(accountIds, page, pageSize);
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**

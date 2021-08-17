@@ -46,7 +46,7 @@ public class BankingProductsIT extends ITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        List<BankingProductV1> prods = resp.getData().getData().getProducts();
+        List<BankingProductV1> prods = resp.getBody().getData().getProducts();
         if (prods != null) {
             for (BankingProductV1 bankingProduct : prods) {
                 checkProducts(bankingProduct, effective, updatedSince, brand, productCategory, conformanceErrors);
@@ -73,7 +73,7 @@ public class BankingProductsIT extends ITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        List<BankingProductV2> prods = resp.getData().getData().getProducts();
+        List<BankingProductV2> prods = resp.getBody().getData().getProducts();
         if (prods != null) {
             for (BankingProductV2 bankingProduct : prods) {
                 checkProducts(bankingProduct, effective, updatedSince, brand, productCategory, conformanceErrors);
@@ -96,7 +96,7 @@ public class BankingProductsIT extends ITBase {
             ApiResponse<ResponseBankingProductById> resp = api.getProductDetailWithHttpInfo(prod.getProductId(), version);
             Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
             checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-            Assertions.assertEquals(prod.getProductId(), resp.getData().getData().getProductId());
+            Assertions.assertEquals(prod.getProductId(), resp.getBody().getData().getProductId());
         }
 
         dumpConformanceErrors(conformanceErrors);

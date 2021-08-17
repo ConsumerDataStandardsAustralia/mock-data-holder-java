@@ -7,10 +7,12 @@
  */
 package au.org.consumerdatastandards.client.cli;
 
+import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.BankingProductsAPI;
 import au.org.consumerdatastandards.client.api.BankingProductsAPI.ParamEffective;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.BankingProduct;
 import au.org.consumerdatastandards.client.model.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.ResponseBankingProductList;
@@ -41,7 +43,7 @@ public class BankingProducts extends ApiCliBase {
             productId, version);
 
         api.setApiClient(clientFactory.create(false, check));
-        ResponseBankingProductById response = api.getProductDetail(productId, version);
+        ApiResponse<ResponseBankingProductById> response = api.getProductDetailWithHttpInfo(productId, version);
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.getProductDetailCall(productId, version, null);
@@ -74,7 +76,8 @@ public class BankingProducts extends ApiCliBase {
             version);
 
         api.setApiClient(clientFactory.create(false, check));
-        ResponseBankingProductList response = api.listProducts(effective, updatedSince, brand, productCategory, version, page, pageSize);
+        ApiResponse<ResponseBankingProductList<BankingProduct>> response =
+                api.listProductsWithHttpInfo(effective, updatedSince, brand, productCategory, version, page, pageSize);
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
             okhttp3.Call call = api.listProductsCall(effective, updatedSince, brand, productCategory, version, page, pageSize, null);

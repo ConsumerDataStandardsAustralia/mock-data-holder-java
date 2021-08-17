@@ -39,7 +39,7 @@ public class BankingScheduledPaymentsIT extends ProtectedITBase {
 
         BankingAccountsAPI accountsAPI = new BankingAccountsAPI();
         accountsAPI.setApiClient(getAPI().getApiClient());
-        for (BankingScheduledPayment payment : resp.getData().getData().getScheduledPayments()) {
+        for (BankingScheduledPayment payment : resp.getBody().getData().getScheduledPayments()) {
             BankingAccountDetail accountDetail = accountsAPI.getAccountDetail(payment.getFrom().getAccountId()).getData();
             checkProductCategory(accountDetail.getProductCategory(), productCategory, conformanceErrors);
             checkOpenStatus(accountDetail.getOpenStatus(), openStatus, conformanceErrors);
@@ -62,7 +62,7 @@ public class BankingScheduledPaymentsIT extends ProtectedITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingScheduledPayment scheduledPayment : resp.getData().getData().getScheduledPayments()) {
+        for (BankingScheduledPayment scheduledPayment : resp.getBody().getData().getScheduledPayments()) {
             checkAccountId(scheduledPayment.getFrom().getAccountId(), accountId, conformanceErrors);
         }
 
@@ -83,7 +83,7 @@ public class BankingScheduledPaymentsIT extends ProtectedITBase {
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingScheduledPayment payment : resp.getData().getData().getScheduledPayments()) {
+        for (BankingScheduledPayment payment : resp.getBody().getData().getScheduledPayments()) {
             checkAccountInList(payment.getFrom().getAccountId(), idList.getData().getAccountIds(), conformanceErrors);
         }
 

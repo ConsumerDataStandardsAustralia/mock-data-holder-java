@@ -96,7 +96,7 @@ public class CommonCustomerAPI extends ProtectedAPI {
         LOGGER.trace("getCustomer");
 
         ApiResponse<ResponseCommonCustomer> resp = getCustomerWithHttpInfo();
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -224,7 +224,7 @@ public class CommonCustomerAPI extends ProtectedAPI {
         LOGGER.trace("getCustomerDetail");
 
         ApiResponse<ResponseCommonCustomerDetail> resp = getCustomerDetailWithHttpInfo();
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**

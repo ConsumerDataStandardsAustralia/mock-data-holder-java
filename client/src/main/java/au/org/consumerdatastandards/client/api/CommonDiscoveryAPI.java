@@ -107,7 +107,7 @@ public class CommonDiscoveryAPI {
         LOGGER.trace("getOutages");
 
         ApiResponse<ResponseDiscoveryOutagesList> resp = getOutagesWithHttpInfo();
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**
@@ -236,7 +236,7 @@ public class CommonDiscoveryAPI {
         LOGGER.trace("getStatus");
 
         ApiResponse<ResponseCommonDiscoveryStatus> resp = getStatusWithHttpInfo();
-        return resp.getData();
+        return resp.getBody();
     }
 
     /**

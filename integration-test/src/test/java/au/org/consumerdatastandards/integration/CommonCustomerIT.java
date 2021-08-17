@@ -34,7 +34,7 @@ public class CommonCustomerIT extends ProtectedITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
-        checkCustomerUType(resp.getData().getData().getCustomerUType(), conformanceErrors);
+        checkCustomerUType(resp.getBody().getData().getCustomerUType(), conformanceErrors);
 
         dumpConformanceErrors(conformanceErrors);
 
@@ -56,7 +56,7 @@ public class CommonCustomerIT extends ProtectedITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
-        ResponseCommonCustomerDetailData data = resp.getData().getData();
+        ResponseCommonCustomerDetailData data = resp.getBody().getData();
         ResponseCommonCustomerDetailData.CustomerUType customerUType = data.getCustomerUType();
         checkCustomerUType(customerUType, conformanceErrors);
         if (customerUType == person) {
