@@ -1,6 +1,12 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.*;
+import au.org.consumerdatastandards.holder.model.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.BankingScheduledPayment;
+import au.org.consumerdatastandards.holder.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.holder.model.ParamProductCategory;
+import au.org.consumerdatastandards.holder.model.RequestAccountIds;
+import au.org.consumerdatastandards.holder.model.ResponseBankingScheduledPaymentsList;
+import au.org.consumerdatastandards.holder.model.ResponseBankingScheduledPaymentsListData;
 import au.org.consumerdatastandards.holder.service.BankingScheduledPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -19,6 +26,7 @@ import java.util.UUID;
 
 @Validated
 @Controller
+@CrossOrigin
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class BankingScheduledPaymentsApiController extends ApiControllerBase implements BankingScheduledPaymentsApi {
 

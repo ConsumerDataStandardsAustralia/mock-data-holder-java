@@ -1,6 +1,25 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.*;
+import au.org.consumerdatastandards.holder.model.BankingAccount;
+import au.org.consumerdatastandards.holder.model.BankingAccountDetail;
+import au.org.consumerdatastandards.holder.model.BankingBalance;
+import au.org.consumerdatastandards.holder.model.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.BankingTransaction;
+import au.org.consumerdatastandards.holder.model.BankingTransactionDetail;
+import au.org.consumerdatastandards.holder.model.ErrorV2;
+import au.org.consumerdatastandards.holder.model.Links;
+import au.org.consumerdatastandards.holder.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.holder.model.ParamProductCategory;
+import au.org.consumerdatastandards.holder.model.RequestAccountIds;
+import au.org.consumerdatastandards.holder.model.ResponseBankingAccountById;
+import au.org.consumerdatastandards.holder.model.ResponseBankingAccountList;
+import au.org.consumerdatastandards.holder.model.ResponseBankingAccountListData;
+import au.org.consumerdatastandards.holder.model.ResponseBankingAccountsBalanceById;
+import au.org.consumerdatastandards.holder.model.ResponseBankingAccountsBalanceList;
+import au.org.consumerdatastandards.holder.model.ResponseBankingAccountsBalanceListData;
+import au.org.consumerdatastandards.holder.model.ResponseBankingTransactionById;
+import au.org.consumerdatastandards.holder.model.ResponseBankingTransactionList;
+import au.org.consumerdatastandards.holder.model.ResponseBankingTransactionListData;
 import au.org.consumerdatastandards.holder.service.BankingAccountService;
 import au.org.consumerdatastandards.holder.service.BankingTransactionService;
 import au.org.consumerdatastandards.holder.util.WebUtil;
@@ -12,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -24,6 +44,7 @@ import java.util.UUID;
 
 @Validated
 @Controller
+@CrossOrigin
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class BankingAccountsApiController extends ApiControllerBase implements BankingAccountsApi {
 
