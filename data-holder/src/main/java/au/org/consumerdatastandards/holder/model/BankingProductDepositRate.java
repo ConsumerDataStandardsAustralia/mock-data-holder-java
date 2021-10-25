@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Objects;
 
@@ -29,7 +28,7 @@ public class BankingProductDepositRate {
     /**
      * The rate to be applied
      */
-    private BigDecimal rate;
+    private String rate;
 
     /**
      * The period after which the rate is applied to the balance to
@@ -85,11 +84,11 @@ public class BankingProductDepositRate {
         this.depositRateType = depositRateType;
     }
 
-    public BigDecimal getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(BigDecimal rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 

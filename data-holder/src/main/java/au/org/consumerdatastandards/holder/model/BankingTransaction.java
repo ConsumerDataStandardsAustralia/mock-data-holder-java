@@ -8,9 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.math.BigDecimal;
-import java.util.Objects;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @ApiModel
 @Entity
@@ -31,7 +30,7 @@ public class BankingTransaction  {
     /**
      * The value of the transaction. Negative values mean money was outgoing from the account
      */
-    private BigDecimal amount;
+    private String amount;
 
     /**
      * 6 Digit APCA number for the initiating institution
@@ -120,17 +119,17 @@ public class BankingTransaction  {
         this.accountId = accountId;
     }
 
-    public BankingTransaction amount(BigDecimal amount) {
+    public BankingTransaction amount(String amount) {
         this.amount = amount;
         return this;
     }
 
     @ApiModelProperty(required = true, value = "The value of the transaction. Negative values mean money was outgoing from the account")
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
