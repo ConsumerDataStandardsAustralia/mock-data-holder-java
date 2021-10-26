@@ -60,7 +60,7 @@
         <validation-api.version>2.0.1.Final</validation-api.version>
         <commons-validator.version>1.6</commons-validator.version>
         <commons-codec.version>1.13</commons-codec.version>
-        <bouncy-castle.version>1.64</bouncy-castle.version>
+        <bouncy-castle.version>[1.66,)</bouncy-castle.version>
     </properties>
 
     <modules>
