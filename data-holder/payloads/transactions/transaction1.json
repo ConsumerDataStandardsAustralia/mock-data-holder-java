@@ -9,5 +9,15 @@
     "valueDateTime": "0001-01-05T00:00:00Z",
     "amount": "25000.00",
     "currency": "AUD",
-    "reference": "0000000"
+    "reference": "0000000",
+    "extendedData": {
+        "payer": "John Doe",
+        "payee": "Alice Wonderlander",
+        "extensionUType": "x2p101Payload",
+        "x2p101Payload": {
+            "extendedDescription": "From John to Alice",
+            "endToEndId": "12345678987654321"
+        },
+        "service": "X2P1.01"
+    }
 }

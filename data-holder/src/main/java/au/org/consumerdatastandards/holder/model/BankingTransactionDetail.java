@@ -9,6 +9,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
@@ -107,7 +108,7 @@ public class BankingTransactionDetail {
     private OffsetDateTime valueDateTime;
 
 
-    @Embedded
+    @Embedded @NotNull
     private BankingTransactionDetailExtendedData extendedData;
 
     public String getTransactionId() {
