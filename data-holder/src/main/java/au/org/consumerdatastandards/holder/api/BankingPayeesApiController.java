@@ -14,8 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.time.OffsetDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
 
     public ResponseEntity<ResponseBankingPayeeById> getPayeeDetail(String payeeId,
                                                                    String xCdsClientHeaders,
-                                                                   OffsetDateTime xFapiAuthDate,
+                                                                   Date xFapiAuthDate,
                                                                    String xFapiCustomerIpAddress,
                                                                    UUID xFapiInteractionId,
                                                                    Integer xMinV,
@@ -62,7 +62,7 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
                                                                Integer pageSize,
                                                                ParamPayeeType type,
                                                                String xCdsClientHeaders,
-                                                               OffsetDateTime xFapiAuthDate,
+                                                               Date xFapiAuthDate,
                                                                String xFapiCustomerIpAddress,
                                                                UUID xFapiInteractionId,
                                                                Integer xMinV,

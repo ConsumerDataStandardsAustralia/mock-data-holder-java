@@ -18,6 +18,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -47,7 +48,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
 
     public ResponseEntity<ResponseBankingAccountById> getAccountDetail(String accountId,
                                                                        String xCdsClientHeaders,
-                                                                       OffsetDateTime xFapiAuthDate,
+                                                                       Date xFapiAuthDate,
                                                                        String xFapiCustomerIpAddress,
                                                                        UUID xFapiInteractionId,
                                                                        Integer xMinV,
@@ -68,7 +69,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingTransactionById> getTransactionDetail(String accountId,
                                                                                String transactionId,
                                                                                String xCdsClientHeaders,
-                                                                               OffsetDateTime xFapiAuthDate,
+                                                                               Date xFapiAuthDate,
                                                                                String xFapiCustomerIpAddress,
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV,
@@ -94,7 +95,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           Integer pageSize,
                                                                           String text,
                                                                           String xCdsClientHeaders,
-                                                                          OffsetDateTime xFapiAuthDate,
+                                                                          Date xFapiAuthDate,
                                                                           String xFapiCustomerIpAddress,
                                                                           UUID xFapiInteractionId,
                                                                           Integer xMinV,
@@ -122,7 +123,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                    Integer pageSize,
                                                                    ParamProductCategory productCategory,
                                                                    String xCdsClientHeaders,
-                                                                   OffsetDateTime xFapiAuthDate,
+                                                                   Date xFapiAuthDate,
                                                                    String xFapiCustomerIpAddress,
                                                                    UUID xFapiInteractionId,
                                                                    Integer xMinV,
@@ -152,7 +153,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
 
     public ResponseEntity<ResponseBankingAccountsBalanceById> getBalance(String accountId,
                                                                          String xCdsClientHeaders,
-                                                                         OffsetDateTime xFapiAuthDate,
+                                                                         Date xFapiAuthDate,
                                                                          String xFapiCustomerIpAddress,
                                                                          UUID xFapiInteractionId,
                                                                          Integer xMinV,
@@ -175,7 +176,8 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                ParamProductCategory paramProductCategory,
                                                                                Integer page,
                                                                                Integer pageSize,
-                                                                               String xCdsClientHeaders,OffsetDateTime xFapiAuthDate,
+                                                                               String xCdsClientHeaders,
+                                                                               Date xFapiAuthDate,
                                                                                String xFapiCustomerIpAddress,
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV, Integer xV) {
@@ -201,7 +203,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesSpecificAccounts(RequestAccountIds accountIds,
                                                                                            Integer page,
                                                                                            Integer pageSize,
-            String xCdsClientHeaders,OffsetDateTime xFapiAuthDate,
+                                                                                           String xCdsClientHeaders,Date xFapiAuthDate,
                                                                                            String xFapiCustomerIpAddress,
                                                                                            UUID xFapiInteractionId,
                                                                                            Integer xMinV,

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
@@ -35,5 +36,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @SuppressWarnings("unused")
     public final ResponseEntity<Object> handleCDSException(CDSException ex, WebRequest request) {
         return new ResponseEntity<>(ex.getErrors(), ex.getHeaders(), ex.getStatus());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @SuppressWarnings("unused")
+    public final ResponseEntity<Object> handleArgException(MethodArgumentTypeMismatchException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.toString(), null, HttpStatus.BAD_REQUEST);
     }
 }
