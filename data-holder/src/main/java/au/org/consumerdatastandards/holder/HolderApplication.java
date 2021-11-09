@@ -34,6 +34,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
     "au.org.consumerdatastandards.holder.configuration",
     "au.org.consumerdatastandards.holder.service",
     "au.org.consumerdatastandards.holder.util",
+    "au.org.consumerdatastandards.holder.converter"
 })
 public class HolderApplication implements CommandLineRunner {
 

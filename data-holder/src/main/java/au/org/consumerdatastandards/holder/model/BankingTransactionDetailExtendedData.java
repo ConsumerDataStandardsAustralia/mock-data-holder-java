@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.holder.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -18,13 +19,14 @@ public class BankingTransactionDetailExtendedData  {
     public enum Service {
         X2P1_01("X2P1.01");
 
-        private String value;
+        private final String value;
 
         Service(String value) {
             this.value = value;
         }
 
         @Override
+        @JsonValue
         public String toString() {
             return value;
         }

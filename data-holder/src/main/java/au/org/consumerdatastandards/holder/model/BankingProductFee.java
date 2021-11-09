@@ -11,8 +11,14 @@ package au.org.consumerdatastandards.holder.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
@@ -41,21 +47,21 @@ public class BankingProductFee {
      * One of amount, balanceRate, transactionRate and accruedRate
      * is mandatory unless the feeType VARIABLE is supplied
      */
-    private BigDecimal amount;
+    private String amount;
 
     /**
      * A fee rate calculated based on a proportion of the balance.
      * One of amount, balanceRate, transactionRate and accruedRate
      * is mandatory unless the feeType VARIABLE is supplied
      */
-    private BigDecimal balanceRate;
+    private String balanceRate;
 
     /**
      * A fee rate calculated based on a proportion of a transaction.
      * One of amount, balanceRate, transactionRate and accruedRate
      * is mandatory unless the feeType VARIABLE is supplied
      */
-    private BigDecimal transactionRate;
+    private String transactionRate;
 
     /**
      * A fee rate calculated based on a proportion of the
@@ -63,7 +69,7 @@ public class BankingProductFee {
      * One of amount, balanceRate, transactionRate and accruedRate
      * is mandatory unless the feeType VARIABLE is supplied
      */
-    private BigDecimal accruedRate;
+    private String accruedRate;
 
     /**
      * The indicative frequency with which the fee is calculated on
@@ -133,35 +139,35 @@ public class BankingProductFee {
         this.feeType = feeType;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public BigDecimal getBalanceRate() {
+    public String getBalanceRate() {
         return balanceRate;
     }
 
-    public void setBalanceRate(BigDecimal balanceRate) {
+    public void setBalanceRate(String balanceRate) {
         this.balanceRate = balanceRate;
     }
 
-    public BigDecimal getTransactionRate() {
+    public String getTransactionRate() {
         return transactionRate;
     }
 
-    public void setTransactionRate(BigDecimal transactionRate) {
+    public void setTransactionRate(String transactionRate) {
         this.transactionRate = transactionRate;
     }
 
-    public BigDecimal getAccruedRate() {
+    public String getAccruedRate() {
         return accruedRate;
     }
 
-    public void setAccruedRate(BigDecimal accruedRate) {
+    public void setAccruedRate(String accruedRate) {
         this.accruedRate = accruedRate;
     }
 

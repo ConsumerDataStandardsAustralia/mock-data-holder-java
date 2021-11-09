@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Objects;
 
@@ -29,12 +28,12 @@ public abstract class BankingProductLendingRate {
     /**
      * The rate to be applied
      */
-    private BigDecimal rate;
+    private String rate;
 
     /**
      * A comparison rate equivalent for this rate
      */
-    private BigDecimal comparisonRate;
+    private String comparisonRate;
 
     /**
      * The period after which the rate is applied to the balance to
@@ -97,19 +96,19 @@ public abstract class BankingProductLendingRate {
         this.lendingRateType = lendingRateType;
     }
 
-    public BigDecimal getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(BigDecimal rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 
-    public BigDecimal getComparisonRate() {
+    public String getComparisonRate() {
         return comparisonRate;
     }
 
-    public void setComparisonRate(BigDecimal comparisonRate) {
+    public void setComparisonRate(String comparisonRate) {
         this.comparisonRate = comparisonRate;
     }
 

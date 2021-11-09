@@ -11,9 +11,15 @@ package au.org.consumerdatastandards.holder.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
@@ -42,7 +48,7 @@ public class BankingProductDiscount {
      * Dollar value of the discount.
      * One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory.
      */
-    private BigDecimal amount;
+    private String amount;
 
     /**
      * A discount rate calculated based on a proportion of the
@@ -53,7 +59,7 @@ public class BankingProductDiscount {
      * assumes the application and calculation frequency are the
      * same as the corresponding fee
      */
-    private BigDecimal balanceRate;
+    private String balanceRate;
 
     /**
      * A discount rate calculated based on a proportion of a
@@ -62,7 +68,7 @@ public class BankingProductDiscount {
      * One of amount, balanceRate, transactionRate, accruedRate and
      * feeRate is mandatory
      */
-    private BigDecimal transactionRate;
+    private String transactionRate;
 
     /**
      * A discount rate calculated based on a proportion of the
@@ -73,7 +79,7 @@ public class BankingProductDiscount {
      * Unless noted in additionalInfo, assumes the application and
      * calculation frequency are the same as the corresponding fee
      */
-    private BigDecimal accruedRate;
+    private String accruedRate;
 
     /**
      * A discount rate calculated based on a proportion of the fee
@@ -84,7 +90,7 @@ public class BankingProductDiscount {
      * Unless noted in additionalInfo, assumes the application and
      * calculation frequency are the same as the corresponding fee
      */
-    private BigDecimal feeRate;
+    private String feeRate;
 
     /**
      * Generic field containing additional information relevant to
@@ -141,43 +147,43 @@ public class BankingProductDiscount {
         this.discountType = discountType;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public BigDecimal getBalanceRate() {
+    public String getBalanceRate() {
         return balanceRate;
     }
 
-    public void setBalanceRate(BigDecimal balanceRate) {
+    public void setBalanceRate(String balanceRate) {
         this.balanceRate = balanceRate;
     }
 
-    public BigDecimal getTransactionRate() {
+    public String getTransactionRate() {
         return transactionRate;
     }
 
-    public void setTransactionRate(BigDecimal transactionRate) {
+    public void setTransactionRate(String transactionRate) {
         this.transactionRate = transactionRate;
     }
 
-    public BigDecimal getAccruedRate() {
+    public String getAccruedRate() {
         return accruedRate;
     }
 
-    public void setAccruedRate(BigDecimal accruedRate) {
+    public void setAccruedRate(String accruedRate) {
         this.accruedRate = accruedRate;
     }
 
-    public BigDecimal getFeeRate() {
+    public String getFeeRate() {
         return feeRate;
     }
 
-    public void setFeeRate(BigDecimal feeRate) {
+    public void setFeeRate(String feeRate) {
         this.feeRate = feeRate;
     }
 

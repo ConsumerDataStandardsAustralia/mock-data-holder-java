@@ -9,7 +9,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
@@ -32,7 +32,7 @@ public class BankingTransactionDetail {
     /**
      * The value of the transaction. Negative values mean money was outgoing from the account
      */
-    private BigDecimal amount;
+    private String amount;
 
     /**
      * 6 Digit APCA number for the initiating institution
@@ -108,7 +108,7 @@ public class BankingTransactionDetail {
     private OffsetDateTime valueDateTime;
 
 
-    @Embedded
+    @Embedded @NotNull
     private BankingTransactionDetailExtendedData extendedData;
 
     public String getTransactionId() {
@@ -127,11 +127,11 @@ public class BankingTransactionDetail {
         this.accountId = accountId;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
@@ -260,7 +260,7 @@ public class BankingTransactionDetail {
         return this;
     }
 
-    public BankingTransactionDetail amount(BigDecimal amount) {
+    public BankingTransactionDetail amount(String amount) {
         this.amount = amount;
         return this;
     }
