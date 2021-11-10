@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,7 +50,7 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
                                                                                         Integer page,
                                                                                         Integer pageSize,
                                                                                         String xCdsClientHeaders,
-                                                                                        OffsetDateTime xFapiAuthDate,
+                                                                                        Date xFapiAuthDate,
                                                                                         String xFapiCustomerIpAddress,
                                                                                         UUID xFapiInteractionId,
                                                                                         Integer xMinV,
@@ -74,7 +74,7 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
                                                                                             Integer page,
                                                                                             Integer pageSize,
                                                                                             String xCdsClientHeaders,
-                                                                                            OffsetDateTime xFapiAuthDate,
+                                                                                            Date xFapiAuthDate,
                                                                                             String xFapiCustomerIpAddress,
                                                                                             UUID xFapiInteractionId,
                                                                                             Integer xMinV,
@@ -103,7 +103,7 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
                                                                                                         Integer page,
                                                                                                         Integer pageSize,
                                                                                                         String xCdsClientHeaders,
-                                                                                                        OffsetDateTime xFapiAuthDate,
+                                                                                                        Date xFapiAuthDate,
                                                                                                         String xFapiCustomerIpAddress,
                                                                                                         UUID xFapiInteractionId,
                                                                                                         Integer xMinV,
