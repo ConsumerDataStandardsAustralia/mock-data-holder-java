@@ -2,7 +2,7 @@ package au.org.consumerdatastandards.holder.model;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "cds_ser")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="user_type")
 public class User {
