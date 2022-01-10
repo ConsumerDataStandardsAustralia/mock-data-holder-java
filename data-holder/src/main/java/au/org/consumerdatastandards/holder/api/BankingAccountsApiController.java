@@ -87,6 +87,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         return new ResponseEntity<>(responseBankingAccountById, headers, HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<ResponseBankingTransactionById> getTransactionDetail(String accountId,
                                                                                String transactionId,
                                                                                String xCdsClientHeaders,
@@ -107,6 +108,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         return new ResponseEntity<>(responseBankingTransactionById, headers, HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<ResponseBankingTransactionList> getTransactions(String accountId,
                                                                           BigDecimal maxAmount,
                                                                           BigDecimal minAmount,
@@ -138,6 +140,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         return new ResponseEntity<>(responseBankingTransactionList, headers, HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<ResponseBankingAccountList> listAccounts(Boolean isOwned,
                                                                    ParamAccountOpenStatus openStatus,
                                                                    Integer page,
@@ -172,6 +175,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         return new ResponseEntity<>(responseBankingAccountList, headers, HttpStatus.OK);
     }
 
+    @Override
     public ResponseEntity<ResponseBankingAccountsBalanceById> getBalance(String accountId,
                                                                          String xCdsClientHeaders,
                                                                          Date xFapiAuthDate,
@@ -221,6 +225,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         return getBalanceListResponse(headers, actualPage, actualPageSize, balancePage);
     }
 
+    @Override
     public ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesSpecificAccounts(RequestAccountIds accountIds,
                                                                                            Integer page,
                                                                                            Integer pageSize,

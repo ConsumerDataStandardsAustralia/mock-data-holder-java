@@ -54,7 +54,7 @@ public class BankingProductService {
         switch (version) {
             case 2:
             case 3:
-               return productsV2Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(product -> product);
+                return productsV2Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(product -> product);
             default:
                 return productsV1Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(productV1 -> productV1);
         }
