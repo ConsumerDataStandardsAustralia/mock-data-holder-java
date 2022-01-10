@@ -1,8 +1,8 @@
 package au.org.consumerdatastandards.holder.service;
 
-import au.org.consumerdatastandards.holder.model.BankingProduct;
-import au.org.consumerdatastandards.holder.model.BankingProductDetail;
-import au.org.consumerdatastandards.holder.model.ParamEffective;
+import au.org.consumerdatastandards.holder.model.banking.BankingProduct;
+import au.org.consumerdatastandards.holder.model.banking.BankingProductDetail;
+import au.org.consumerdatastandards.holder.model.banking.ParamEffective;
 import au.org.consumerdatastandards.holder.repository.BankingProductDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.BankingProductDetailV3Repository;

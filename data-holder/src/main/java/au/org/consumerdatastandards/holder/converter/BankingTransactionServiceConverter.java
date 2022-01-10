@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.holder.converter;
 
-import au.org.consumerdatastandards.holder.model.BankingTransactionDetailExtendedData;
+import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetailExtendedData;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

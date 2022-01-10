@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.holder.repository;
 
-import au.org.consumerdatastandards.holder.model.BankingBalance;
+import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

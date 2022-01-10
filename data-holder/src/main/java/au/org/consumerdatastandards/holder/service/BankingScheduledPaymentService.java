@@ -1,9 +1,9 @@
 package au.org.consumerdatastandards.holder.service;
 
-import au.org.consumerdatastandards.holder.model.BankingProductCategory;
-import au.org.consumerdatastandards.holder.model.BankingScheduledPayment;
-import au.org.consumerdatastandards.holder.model.BankingScheduledPaymentFrom;
-import au.org.consumerdatastandards.holder.model.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.holder.model.banking.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.banking.BankingScheduledPayment;
+import au.org.consumerdatastandards.holder.model.banking.BankingScheduledPaymentFrom;
+import au.org.consumerdatastandards.holder.model.banking.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.repository.BankingScheduledPaymentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,10 +1,10 @@
 package au.org.consumerdatastandards.holder.util;
 
-import au.org.consumerdatastandards.holder.model.BankingAccount;
-import au.org.consumerdatastandards.holder.model.BankingAccountDetail;
-import au.org.consumerdatastandards.holder.model.BankingBalance;
-import au.org.consumerdatastandards.holder.model.BankingProductV2Detail;
-import au.org.consumerdatastandards.holder.model.BankingTransactionDetail;
+import au.org.consumerdatastandards.holder.model.banking.BankingAccount;
+import au.org.consumerdatastandards.holder.model.banking.BankingAccountDetail;
+import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
+import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
+import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
 import au.org.consumerdatastandards.holder.model.CommonEmailAddress;
 import au.org.consumerdatastandards.holder.model.CommonOrganisationDetail;
 import au.org.consumerdatastandards.holder.model.CommonPersonDetail;

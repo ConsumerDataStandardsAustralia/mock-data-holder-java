@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.holder.repository;
 
-import au.org.consumerdatastandards.holder.model.BankingProductV2Detail;
+import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

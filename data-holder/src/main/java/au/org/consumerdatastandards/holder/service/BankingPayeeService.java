@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.service;
 
-import au.org.consumerdatastandards.holder.model.BankingPayee;
-import au.org.consumerdatastandards.holder.model.BankingPayeeDetail;
+import au.org.consumerdatastandards.holder.model.banking.BankingPayee;
+import au.org.consumerdatastandards.holder.model.banking.BankingPayeeDetail;
 import au.org.consumerdatastandards.holder.repository.BankingPayeeDetailRepository;
 import au.org.consumerdatastandards.holder.repository.BankingPayeeRepository;
 import org.slf4j.Logger;

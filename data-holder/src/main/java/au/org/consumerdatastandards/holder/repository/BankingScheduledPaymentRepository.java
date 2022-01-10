@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.repository;
 
-import au.org.consumerdatastandards.holder.model.BankingScheduledPayment;
-import au.org.consumerdatastandards.holder.model.BankingScheduledPaymentFrom;
+import au.org.consumerdatastandards.holder.model.banking.BankingScheduledPayment;
+import au.org.consumerdatastandards.holder.model.banking.BankingScheduledPaymentFrom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import au.org.consumerdatastandards.holder.model.BankingProductV1;
+import au.org.consumerdatastandards.holder.model.banking.BankingProductV1;
 
 
 @Repository

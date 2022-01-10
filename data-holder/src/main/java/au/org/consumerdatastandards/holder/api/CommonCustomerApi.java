@@ -2,7 +2,7 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.ResponseCommonCustomer;
 import au.org.consumerdatastandards.holder.model.ResponseCommonCustomerDetail;
-import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

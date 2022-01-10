@@ -1,8 +1,8 @@
 package au.org.consumerdatastandards.holder.service;
 
-import au.org.consumerdatastandards.holder.model.BankingAccount;
-import au.org.consumerdatastandards.holder.model.BankingDirectDebit;
-import au.org.consumerdatastandards.holder.model.BankingProductCategory;
+import au.org.consumerdatastandards.holder.model.banking.BankingAccount;
+import au.org.consumerdatastandards.holder.model.banking.BankingDirectDebit;
+import au.org.consumerdatastandards.holder.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.holder.repository.BankingDirectDebitRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
