@@ -7,6 +7,8 @@
  */
 package au.org.consumerdatastandards.client.model;
 
+import au.org.consumerdatastandards.client.model.banking.BaseResponse;
+
 import java.util.Objects;
 
 public class ResponseDiscoveryOutagesList extends BaseResponse {

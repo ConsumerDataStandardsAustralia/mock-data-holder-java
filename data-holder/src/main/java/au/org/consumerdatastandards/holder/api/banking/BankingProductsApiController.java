@@ -10,7 +10,7 @@ import au.org.consumerdatastandards.holder.model.banking.ParamEffective;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductList;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductListData;
-import au.org.consumerdatastandards.holder.service.BankingProductService;
+import au.org.consumerdatastandards.holder.service.banking.BankingProductService;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

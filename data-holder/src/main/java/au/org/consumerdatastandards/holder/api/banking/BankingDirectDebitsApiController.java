@@ -9,7 +9,7 @@ import au.org.consumerdatastandards.holder.model.banking.ParamProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingDirectDebitAuthorisationList;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingDirectDebitAuthorisationListData;
-import au.org.consumerdatastandards.holder.service.BankingDirectDebitService;
+import au.org.consumerdatastandards.holder.service.banking.BankingDirectDebitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

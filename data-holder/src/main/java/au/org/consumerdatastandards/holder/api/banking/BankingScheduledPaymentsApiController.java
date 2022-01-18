@@ -8,7 +8,7 @@ import au.org.consumerdatastandards.holder.model.banking.ParamProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingScheduledPaymentsList;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingScheduledPaymentsListData;
-import au.org.consumerdatastandards.holder.service.BankingScheduledPaymentService;
+import au.org.consumerdatastandards.holder.service.banking.BankingScheduledPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

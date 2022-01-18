@@ -109,7 +109,7 @@ public class ErrorV2 {
 
     @Override
     public String toString() {
-        return "class Error {\n" +
+        return "class ErrorV2 {\n" +
             "   code: " + toIndentedString(code) + "\n" + 
             "   detail: " + toIndentedString(detail) + "\n" + 
             "   meta: " + toIndentedString(meta) + "\n" + 

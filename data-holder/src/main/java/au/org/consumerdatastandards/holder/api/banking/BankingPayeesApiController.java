@@ -7,7 +7,7 @@ import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeList;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeListData;
-import au.org.consumerdatastandards.holder.service.BankingPayeeService;
+import au.org.consumerdatastandards.holder.service.banking.BankingPayeeService;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

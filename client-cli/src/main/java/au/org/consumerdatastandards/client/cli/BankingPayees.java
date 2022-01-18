@@ -9,11 +9,11 @@ package au.org.consumerdatastandards.client.cli;
 
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
-import au.org.consumerdatastandards.client.api.BankingPayeesAPI;
-import au.org.consumerdatastandards.client.api.BankingPayeesAPI.ParamType;
+import au.org.consumerdatastandards.client.api.banking.BankingPayeesAPI;
+import au.org.consumerdatastandards.client.api.banking.BankingPayeesAPI.ParamType;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
-import au.org.consumerdatastandards.client.model.ResponseBankingPayeeById;
-import au.org.consumerdatastandards.client.model.ResponseBankingPayeeList;
+import au.org.consumerdatastandards.client.model.banking.ResponseBankingPayeeById;
+import au.org.consumerdatastandards.client.model.banking.ResponseBankingPayeeList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;

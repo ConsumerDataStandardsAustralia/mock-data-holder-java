@@ -21,8 +21,8 @@ import au.org.consumerdatastandards.holder.model.banking.ResponseBankingAccounts
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingTransactionById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingTransactionList;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingTransactionListData;
-import au.org.consumerdatastandards.holder.service.BankingAccountService;
-import au.org.consumerdatastandards.holder.service.BankingTransactionService;
+import au.org.consumerdatastandards.holder.service.banking.BankingAccountService;
+import au.org.consumerdatastandards.holder.service.banking.BankingTransactionService;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
