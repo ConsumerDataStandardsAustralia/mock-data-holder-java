@@ -26,16 +26,31 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>default</id>
+                        <id>build-tag-push-version</id>
+						<phase>deploy</phase>
                         <goals>
                             <goal>build</goal>
                             <goal>push</goal>
+							<goal>tag</goal>
                         </goals>
+						<configuration>
+							<tag>${project.version}</tag>
+						</configuration>
                     </execution>
+					<execution>
+						<id>tag-push-latest</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>tag</goal>
+							<goal>push</goal>
+						</goals>
+						<configuration>
+							<tag>latest</tag>
+						</configuration>
+					</execution>
                 </executions>
                 <configuration>
                     <repository>consumerdatastandardsaustralia/data-holder</repository>
-                    <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
