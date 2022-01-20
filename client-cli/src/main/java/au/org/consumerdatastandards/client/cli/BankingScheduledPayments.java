@@ -9,10 +9,10 @@ package au.org.consumerdatastandards.client.cli;
 
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
-import au.org.consumerdatastandards.client.api.BankingScheduledPaymentsAPI;
+import au.org.consumerdatastandards.client.api.banking.BankingScheduledPaymentsAPI;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
-import au.org.consumerdatastandards.client.model.RequestAccountIds;
-import au.org.consumerdatastandards.client.model.ResponseBankingScheduledPaymentsList;
+import au.org.consumerdatastandards.client.model.banking.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.banking.ResponseBankingScheduledPaymentsList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;

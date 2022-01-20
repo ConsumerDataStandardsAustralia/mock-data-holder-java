@@ -1,6 +1,6 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MultiValueMap;
 

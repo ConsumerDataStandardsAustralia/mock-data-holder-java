@@ -4,11 +4,11 @@ import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.Header;
 import au.org.consumerdatastandards.client.api.ProtectedAPI;
-import au.org.consumerdatastandards.client.model.BankingAccount;
-import au.org.consumerdatastandards.client.model.BankingProductCategory;
-import au.org.consumerdatastandards.client.model.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.client.model.RequestAccountIds;
-import au.org.consumerdatastandards.client.model.RequestAccountIdsData;
+import au.org.consumerdatastandards.client.model.banking.BankingAccount;
+import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
+import au.org.consumerdatastandards.client.model.banking.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.banking.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.banking.RequestAccountIdsData;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;

@@ -1,9 +1,9 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.ErrorV2;
+import au.org.consumerdatastandards.holder.model.banking.ErrorV2;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
-import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
 import au.org.consumerdatastandards.holder.model.TxMetaPaginated;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.apache.commons.validator.routines.InetAddressValidator;

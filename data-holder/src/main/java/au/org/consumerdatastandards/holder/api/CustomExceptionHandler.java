@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.ErrorV2;
-import au.org.consumerdatastandards.holder.model.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.banking.ErrorV2;
+import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

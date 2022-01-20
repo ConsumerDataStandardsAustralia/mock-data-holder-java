@@ -12,7 +12,7 @@ import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.Header;
 import au.org.consumerdatastandards.client.cli.support.ClientCLIFactory;
 import au.org.consumerdatastandards.client.cli.support.ClientCLIOptions;
-import au.org.consumerdatastandards.client.model.BaseResponse;
+import au.org.consumerdatastandards.client.model.banking.BaseResponse;
 import au.org.consumerdatastandards.client.model.Links;
 import au.org.consumerdatastandards.client.model.LinksPaginated;
 import au.org.consumerdatastandards.client.model.MetaPaginated;
