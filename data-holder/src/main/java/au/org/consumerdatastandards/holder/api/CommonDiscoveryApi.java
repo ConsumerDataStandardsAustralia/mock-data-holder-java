@@ -2,7 +2,7 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.ResponseCommonDiscoveryStatus;
 import au.org.consumerdatastandards.holder.model.ResponseDiscoveryOutagesList;
-import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -40,12 +40,12 @@ public interface CommonDiscoveryApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(
@@ -79,12 +79,12 @@ public interface CommonDiscoveryApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(

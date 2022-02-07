@@ -8,7 +8,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransaction;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
 import au.org.consumerdatastandards.holder.model.Links;
-import au.org.consumerdatastandards.holder.model.banking.ErrorV2;
+import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.banking.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.banking.ParamProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.RequestAccountIds;
@@ -249,7 +249,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
     }
 
     private void validateAccountExistence(List<String> accountIds, UUID interactionId) {
-        ArrayList<ErrorV2> errorList = new ArrayList<>();
+        ArrayList<Error> errorList = new ArrayList<>();
         for (String accountId : accountIds) {
             if (!accountService.checkAccountExistence(accountId)) {
                 errorList.add(createError("Unavailable Banking Account", "urn:au-cds:error:cds-banking:Authorisation/UnavailableBankingAccount", accountId));

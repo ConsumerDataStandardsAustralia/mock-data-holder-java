@@ -1,9 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +18,29 @@ import java.util.Objects;
  * Describes the geographical area that the plan is available for.  If absent then it is assumed the plan is not geographically limited
  */
 @ApiModel(description = "Describes the geographical area that the plan is available for.  If absent then it is assumed the plan is not geographically limited")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanGeography {
-    @JsonProperty("excludedPostcodes")
-    @Valid
-    private List<String> excludedPostcodes = null;
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String geographyId;
 
-    @JsonProperty("includedPostcodes")
+    @ElementCollection
     @Valid
-    private List<String> includedPostcodes = null;
+    private List<String> excludedPostcodes;
+
+    @ElementCollection
+    @Valid
+    private List<String> includedPostcodes;
+
+    public String getGeographyId() {
+        return geographyId;
+    }
+
+    public void setGeographyId(String geographyId) {
+        this.geographyId = geographyId;
+    }
 
     public EnergyPlanGeography excludedPostcodes(List<String> excludedPostcodes) {
         this.excludedPostcodes = excludedPostcodes;
@@ -43,8 +61,6 @@ public class EnergyPlanGeography {
      * @return excludedPostcodes
      */
     @ApiModelProperty(value = "Array of valid Australian post codes that are specifically excluded from the plan.  Each element is a single four digit postcode (e.g. 3000) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g. 3000-3999)")
-
-
     public List<String> getExcludedPostcodes() {
         return excludedPostcodes;
     }
@@ -72,8 +88,6 @@ public class EnergyPlanGeography {
      * @return includedPostcodes
      */
     @ApiModelProperty(value = "Array of valid Australian post codes that are included from the plan.  If absent defaults to all non-excluded post codes.  Each element is a single four digit postcode (e.g. 3000) or a range of postcodes defined by two four digit postcodes and a hyphen (e.g. 3000-3999)")
-
-
     public List<String> getIncludedPostcodes() {
         return includedPostcodes;
     }
@@ -92,20 +106,19 @@ public class EnergyPlanGeography {
             return false;
         }
         EnergyPlanGeography energyPlanGeography = (EnergyPlanGeography) o;
-        return Objects.equals(this.excludedPostcodes, energyPlanGeography.excludedPostcodes) &&
-                Objects.equals(this.includedPostcodes, energyPlanGeography.includedPostcodes);
+        return Objects.equals(this.geographyId, energyPlanGeography.geographyId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(excludedPostcodes, includedPostcodes);
+        return Objects.hash(geographyId);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanGeography {\n");
-
+        sb.append("    geographyId: ").append(toIndentedString(geographyId)).append("\n");
         sb.append("    excludedPostcodes: ").append(toIndentedString(excludedPostcodes)).append("\n");
         sb.append("    includedPostcodes: ").append(toIndentedString(includedPostcodes)).append("\n");
         sb.append("}");
@@ -123,4 +136,3 @@ public class EnergyPlanGeography {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

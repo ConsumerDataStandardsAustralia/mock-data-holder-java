@@ -15,7 +15,10 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyPlanResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
-import au.org.consumerdatastandards.holder.model.energy.ErrorListResponse;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
+import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
+import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
+import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.energy.RequestServicePointIds;
 import io.swagger.annotations.Api;
@@ -32,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Api(value = "energy", description = "the energy API")
@@ -85,8 +88,7 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
@@ -162,8 +164,7 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
@@ -246,9 +247,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type")
             @Valid
@@ -265,18 +270,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -346,8 +346,7 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
@@ -423,8 +422,7 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
@@ -507,9 +505,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
@@ -526,18 +528,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -607,8 +604,7 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
@@ -681,8 +677,7 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
@@ -743,8 +738,7 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
@@ -828,9 +822,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
             @Valid
@@ -847,18 +845,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -924,26 +917,25 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
-            @ApiParam(
-                    value = "Page of results to request (standard pagination)")
-            @Valid
-            @RequestParam(value = "page",
-                    required = false)
-                    BigDecimal page,
-            @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
-            @Valid
-            @RequestParam(value = "page-size",
-                    required = false)
-                    BigDecimal pageSize,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
                     Integer xMinV,
+            @ApiParam(
+                    value = "Page of results to request (standard pagination)")
+            @Valid
+            @RequestParam(value = "page",
+                    required = false)
+                    Integer page,
+            @ApiParam(
+                    value = "Page size to request.  Default is 25 (standard pagination)")
+            @Valid
+            @RequestParam(value = "page-size",
+                    required = false)
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1009,26 +1001,25 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
-            @ApiParam(
-                    value = "Page of results to request (standard pagination)")
-            @Valid
-            @RequestParam(value = "page",
-                    required = false)
-                    BigDecimal page,
-            @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
-            @Valid
-            @RequestParam(value = "page-size",
-                    required = false)
-                    BigDecimal pageSize,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
                     Integer xMinV,
+            @ApiParam(
+                    value = "Page of results to request (standard pagination)")
+            @Valid
+            @RequestParam(value = "page",
+                    required = false)
+                    Integer page,
+            @ApiParam(
+                    value = "Page size to request.  Default is 25 (standard pagination)")
+            @Valid
+            @RequestParam(value = "page-size",
+                    required = false)
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1096,9 +1087,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Request payload containing list of specific Accounts to obtain data for",
                     required = true)
@@ -1110,18 +1105,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1190,9 +1180,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type")
             @Valid
@@ -1210,18 +1204,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1291,9 +1280,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Request payload containing list of specific Accounts to obtain data for",
                     required = true)
@@ -1317,18 +1310,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1395,26 +1383,25 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
-            @ApiParam(
-                    value = "Page of results to request (standard pagination)")
-            @Valid
-            @RequestParam(value = "page",
-                    required = false)
-                    BigDecimal page,
-            @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
-            @Valid
-            @RequestParam(value = "page-size",
-                    required = false)
-                    BigDecimal pageSize,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
                     Integer xMinV,
+            @ApiParam(
+                    value = "Page of results to request (standard pagination)")
+            @Valid
+            @RequestParam(value = "page",
+                    required = false)
+                    Integer page,
+            @ApiParam(
+                    value = "Page size to request.  Default is 25 (standard pagination)")
+            @Valid
+            @RequestParam(value = "page-size",
+                    required = false)
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1482,9 +1469,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Request payload containing list of specific Service Points to obtain data for",
                     required = true)
@@ -1496,18 +1487,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1575,9 +1561,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
@@ -1595,18 +1585,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1676,9 +1661,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Request payload containing list of specific Accounts to obtain data for",
                     required = true)
@@ -1702,18 +1691,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1782,9 +1766,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Used to filter results on the type field.  Any one of the valid values for this field can be supplied plus 'ALL'.  If absent defaults to 'ALL'",
                     allowableValues = "STANDING, MARKET, REGULATED, ALL",
@@ -1793,7 +1781,7 @@ public interface EnergyApi {
             @RequestParam(value = "type",
                     required = false,
                     defaultValue = "ALL")
-                    String type,
+                    ParamTypeEnum type,
             @ApiParam(
                     value = "Used to filter results on the fuelType field.  Any one of the valid values for this field can be supplied plus 'ALL'.  If absent defaults to 'ALL'",
                     allowableValues = "ELECTRICITY, GAS, DUAL, ALL",
@@ -1802,7 +1790,7 @@ public interface EnergyApi {
             @RequestParam(value = "fuelType",
                     required = false,
                     defaultValue = "ALL")
-                    String fuelType,
+                    ParamFuelTypeEnum fuelType,
             @ApiParam(
                     value = "Allows for the filtering of plans based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to 'CURRENT'",
                     allowableValues = "CURRENT, FUTURE, ALL",
@@ -1811,13 +1799,13 @@ public interface EnergyApi {
             @RequestParam(value = "effective",
                     required = false,
                     defaultValue = "CURRENT")
-                    String effective,
+                    ParamEffective effective,
             @ApiParam(
                     value = "Only include plans that have been updated after the specified date and time.  If absent defaults to include all plans")
             @Valid
             @RequestParam(value = "updated-since",
                     required = false)
-                    String updatedSince,
+                    OffsetDateTime updatedSince,
             @ApiParam(
                     value = "Used to filter results on the brand field.  If absent defaults to include all plans")
             @Valid
@@ -1829,18 +1817,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1891,26 +1874,25 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
-            @ApiParam(
-                    value = "Page of results to request (standard pagination)")
-            @Valid
-            @RequestParam(value = "page",
-                    required = false)
-                    BigDecimal page,
-            @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
-            @Valid
-            @RequestParam(value = "page-size",
-                    required = false)
-                    BigDecimal pageSize,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
                     Integer xMinV,
+            @ApiParam(
+                    value = "Page of results to request (standard pagination)")
+            @Valid
+            @RequestParam(value = "page",
+                    required = false)
+                    Integer page,
+            @ApiParam(
+                    value = "Page size to request.  Default is 25 (standard pagination)")
+            @Valid
+            @RequestParam(value = "page-size",
+                    required = false)
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -1979,9 +1961,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
             @Valid
@@ -1999,18 +1985,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -2080,9 +2061,13 @@ public interface EnergyApi {
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
-            @RequestHeader(value = "x-v",
-                    required = true)
+            @RequestHeader(value = "x-v", required = false)
                     Integer xV,
+            @ApiParam(
+                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
+            @RequestHeader(value = "x-min-v",
+                    required = false)
+                    Integer xMinV,
             @ApiParam(
                     value = "Request payload containing list of specific Service Points to obtain data for",
                     required = true)
@@ -2106,18 +2091,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-                    BigDecimal page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-                    BigDecimal pageSize,
-            @ApiParam(
-                    value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
-            @RequestHeader(value = "x-min-v",
-                    required = false)
-                    Integer xMinV,
+                    Integer pageSize,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",

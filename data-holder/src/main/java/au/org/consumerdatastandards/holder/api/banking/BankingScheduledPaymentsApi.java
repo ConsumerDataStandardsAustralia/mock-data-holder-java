@@ -4,7 +4,7 @@ import au.org.consumerdatastandards.holder.model.banking.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.banking.ParamProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingScheduledPaymentsList;
-import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -51,22 +51,22 @@ public interface BankingScheduledPaymentsApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Page Size / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 404,
             message = "Invalid Banking Account / Unavailable Banking Account",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 422,
             message = "Invalid Page",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(
@@ -130,17 +130,17 @@ public interface BankingScheduledPaymentsApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Page Size / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 422,
             message = "Invalid Page",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(
@@ -211,17 +211,17 @@ public interface BankingScheduledPaymentsApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Page Size / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 422,
             message = "Invalid Banking Account / Unavailable Banking Account / Invalid Page",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(

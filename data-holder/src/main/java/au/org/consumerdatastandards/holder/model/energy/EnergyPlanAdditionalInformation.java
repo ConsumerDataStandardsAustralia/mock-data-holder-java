@@ -1,32 +1,45 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
 /**
  * Object that contains links to additional information on specific topics
  */
 @ApiModel(description = "Object that contains links to additional information on specific topics")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanAdditionalInformation {
-    @JsonProperty("overviewUri")
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String additionalInformationId;
+
     private String overviewUri;
 
-    @JsonProperty("termsUri")
     private String termsUri;
 
-    @JsonProperty("eligibilityUri")
     private String eligibilityUri;
 
-    @JsonProperty("pricingUri")
     private String pricingUri;
 
-    @JsonProperty("bundleUri")
     private String bundleUri;
+
+    public String getAdditionalInformationId() {
+        return additionalInformationId;
+    }
+
+    public void setAdditionalInformationId(String additionalInformationId) {
+        this.additionalInformationId = additionalInformationId;
+    }
 
     public EnergyPlanAdditionalInformation overviewUri(String overviewUri) {
         this.overviewUri = overviewUri;
@@ -39,8 +52,6 @@ public class EnergyPlanAdditionalInformation {
      * @return overviewUri
      */
     @ApiModelProperty(value = "A link to a general overview of the plan")
-
-
     public String getOverviewUri() {
         return overviewUri;
     }
@@ -60,8 +71,6 @@ public class EnergyPlanAdditionalInformation {
      * @return termsUri
      */
     @ApiModelProperty(value = "A link to terms and conditions for the plan")
-
-
     public String getTermsUri() {
         return termsUri;
     }
@@ -81,8 +90,6 @@ public class EnergyPlanAdditionalInformation {
      * @return eligibilityUri
      */
     @ApiModelProperty(value = "A link to detail on eligibility criteria for the plan")
-
-
     public String getEligibilityUri() {
         return eligibilityUri;
     }
@@ -102,8 +109,6 @@ public class EnergyPlanAdditionalInformation {
      * @return pricingUri
      */
     @ApiModelProperty(value = "A link to detail on pricing for the plan")
-
-
     public String getPricingUri() {
         return pricingUri;
     }
@@ -123,8 +128,6 @@ public class EnergyPlanAdditionalInformation {
      * @return bundleUri
      */
     @ApiModelProperty(value = "A link to detail on bundles that this plan can be a part of")
-
-
     public String getBundleUri() {
         return bundleUri;
     }
@@ -142,24 +145,20 @@ public class EnergyPlanAdditionalInformation {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanAdditionalInformation energyPlanAdditionalInformation = (EnergyPlanAdditionalInformation) o;
-        return Objects.equals(this.overviewUri, energyPlanAdditionalInformation.overviewUri) &&
-                Objects.equals(this.termsUri, energyPlanAdditionalInformation.termsUri) &&
-                Objects.equals(this.eligibilityUri, energyPlanAdditionalInformation.eligibilityUri) &&
-                Objects.equals(this.pricingUri, energyPlanAdditionalInformation.pricingUri) &&
-                Objects.equals(this.bundleUri, energyPlanAdditionalInformation.bundleUri);
+        EnergyPlanAdditionalInformation that = (EnergyPlanAdditionalInformation) o;
+        return Objects.equals(additionalInformationId, that.additionalInformationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(overviewUri, termsUri, eligibilityUri, pricingUri, bundleUri);
+        return Objects.hash(additionalInformationId);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanAdditionalInformation {\n");
-
+        sb.append("    additionalInformationId: ").append(toIndentedString(additionalInformationId)).append('\n');
         sb.append("    overviewUri: ").append(toIndentedString(overviewUri)).append("\n");
         sb.append("    termsUri: ").append(toIndentedString(termsUri)).append("\n");
         sb.append("    eligibilityUri: ").append(toIndentedString(eligibilityUri)).append("\n");
@@ -180,4 +179,3 @@ public class EnergyPlanAdditionalInformation {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

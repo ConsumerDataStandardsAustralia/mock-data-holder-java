@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.banking.ErrorV2;
-import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.Error;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,10 +20,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(
             ConstraintViolationException ex, WebRequest request) {
-        ResponseErrorListV2 errors = new ResponseErrorListV2();
+        ErrorListResponse errors = new ErrorListResponse();
         errors.setErrors(new ArrayList<>());
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            ErrorV2 error = new ErrorV2();
+            Error error = new Error();
             error.setTitle("Invalid Field");
             error.setCode("urn:au-cds:error:cds-all:Field/Invalid");
             error.setDetail(violation.getPropertyPath().toString().replaceAll(".*\\.", "") + ": " + violation.getMessage());

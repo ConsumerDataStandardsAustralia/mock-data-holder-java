@@ -1,169 +1,81 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
-/**
- * EnergyPlan
- */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlan {
-    @JsonProperty("planId")
+    @Id
     private String planId;
 
-    @JsonProperty("effectiveFrom")
-    private String effectiveFrom;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime effectiveFrom;
 
-    @JsonProperty("effectiveTo")
-    private String effectiveTo;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime effectiveTo;
 
-    @JsonProperty("lastUpdated")
-    private String lastUpdated;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime lastUpdated;
 
-    @JsonProperty("displayName")
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
     /**
      * The type of the plan
      */
     public enum TypeEnum {
-        STANDING("STANDING"),
-
-        MARKET("MARKET"),
-
-        REGULATED("REGULATED");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        STANDING,
+        MARKET,
+        REGULATED
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
     /**
      * The fuel types covered by the plan
      */
     public enum FuelTypeEnum {
-        ELECTRICITY("ELECTRICITY"),
-
-        GAS("GAS"),
-
-        DUAL("DUAL");
-
-        private String value;
-
-        FuelTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static FuelTypeEnum fromValue(String value) {
-            for (FuelTypeEnum b : FuelTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ELECTRICITY,
+        GAS,
+        DUAL;
     }
 
-    @JsonProperty("fuelType")
     private FuelTypeEnum fuelType;
 
-    @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("brandName")
     private String brandName;
 
-    @JsonProperty("applicationUri")
     private String applicationUri;
 
-    @JsonProperty("additionalInformation")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanAdditionalInformation additionalInformation;
 
     /**
      * The type of customer that the plan is offered to.  If absent then the plan is available to all customers
      */
     public enum CustomerTypeEnum {
-        RESIDENTIAL("RESIDENTIAL"),
-
-        BUSINESS("BUSINESS");
-
-        private String value;
-
-        CustomerTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static CustomerTypeEnum fromValue(String value) {
-            for (CustomerTypeEnum b : CustomerTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        RESIDENTIAL,
+        BUSINESS
     }
 
-    @JsonProperty("customerType")
     private CustomerTypeEnum customerType;
 
-    @JsonProperty("geography")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanGeography geography;
 
     public EnergyPlan planId(String planId) {
@@ -176,11 +88,8 @@ public class EnergyPlan {
      *
      * @return planId
      */
-    @ApiModelProperty(required = true,
-            value = "The ID of the specific plan")
+    @ApiModelProperty(required = true,value  = "The ID of the specific plan")
     @NotNull
-
-
     public String getPlanId() {
         return planId;
     }
@@ -189,30 +98,18 @@ public class EnergyPlan {
         this.planId = planId;
     }
 
-    public EnergyPlan effectiveFrom(String effectiveFrom) {
-        this.effectiveFrom = effectiveFrom;
-        return this;
-    }
-
     /**
      * The date and time from which this plan is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
      *
      * @return effectiveFrom
      */
     @ApiModelProperty(value = "The date and time from which this plan is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate")
-
-
-    public String getEffectiveFrom() {
+    public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
     }
 
-    public void setEffectiveFrom(String effectiveFrom) {
+    public void setEffectiveFrom(OffsetDateTime effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
-    }
-
-    public EnergyPlan effectiveTo(String effectiveTo) {
-        this.effectiveTo = effectiveTo;
-        return this;
     }
 
     /**
@@ -221,19 +118,12 @@ public class EnergyPlan {
      * @return effectiveTo
      */
     @ApiModelProperty(value = "The date and time at which this plan will be retired and will no longer be offered. Used to enable the managed deprecation of plans")
-
-
-    public String getEffectiveTo() {
+    public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
     }
 
-    public void setEffectiveTo(String effectiveTo) {
+    public void setEffectiveTo(OffsetDateTime effectiveTo) {
         this.effectiveTo = effectiveTo;
-    }
-
-    public EnergyPlan lastUpdated(String lastUpdated) {
-        this.lastUpdated = lastUpdated;
-        return this;
     }
 
     /**
@@ -244,13 +134,11 @@ public class EnergyPlan {
     @ApiModelProperty(required = true,
             value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)")
     @NotNull
-
-
-    public String getLastUpdated() {
+    public OffsetDateTime getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(String lastUpdated) {
+    public void setLastUpdated(OffsetDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
@@ -265,8 +153,6 @@ public class EnergyPlan {
      * @return displayName
      */
     @ApiModelProperty(value = "The display name of the plan")
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -286,8 +172,6 @@ public class EnergyPlan {
      * @return description
      */
     @ApiModelProperty(value = "A description of the plan")
-
-
     public String getDescription() {
         return description;
     }
@@ -306,11 +190,8 @@ public class EnergyPlan {
      *
      * @return type
      */
-    @ApiModelProperty(required = true,
-            value = "The type of the plan")
+    @ApiModelProperty(required = true, value = "The type of the plan")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -329,11 +210,8 @@ public class EnergyPlan {
      *
      * @return fuelType
      */
-    @ApiModelProperty(required = true,
-            value = "The fuel types covered by the plan")
+    @ApiModelProperty(required = true, value = "The fuel types covered by the plan")
     @NotNull
-
-
     public FuelTypeEnum getFuelType() {
         return fuelType;
     }
@@ -352,11 +230,8 @@ public class EnergyPlan {
      *
      * @return brand
      */
-    @ApiModelProperty(required = true,
-            value = "The ID of the brand under which this plan is offered")
+    @ApiModelProperty(required = true, value = "The ID of the brand under which this plan is offered")
     @NotNull
-
-
     public String getBrand() {
         return brand;
     }
@@ -375,11 +250,8 @@ public class EnergyPlan {
      *
      * @return brandName
      */
-    @ApiModelProperty(required = true,
-            value = "The display name of the brand under which this plan is offered")
+    @ApiModelProperty(required = true, value = "The display name of the brand under which this plan is offered")
     @NotNull
-
-
     public String getBrandName() {
         return brandName;
     }
@@ -399,8 +271,6 @@ public class EnergyPlan {
      * @return applicationUri
      */
     @ApiModelProperty(value = "A link to an application web page where this plan can be applied for")
-
-
     public String getApplicationUri() {
         return applicationUri;
     }
@@ -419,10 +289,8 @@ public class EnergyPlan {
      *
      * @return additionalInformation
      */
-    @ApiModelProperty(value = "")
-
+    @ApiModelProperty(value = "Object that contains links to additional information on specific topics")
     @Valid
-
     public EnergyPlanAdditionalInformation getAdditionalInformation() {
         return additionalInformation;
     }
@@ -441,9 +309,7 @@ public class EnergyPlan {
      *
      * @return customerType
      */
-    @ApiModelProperty(value = "The type of customer that the plan is offered to.  If absent then the plan is available to all customers")
-
-
+    @ApiModelProperty("The type of customer that the plan is offered to.  If absent then the plan is available to all customers")
     public CustomerTypeEnum getCustomerType() {
         return customerType;
     }
@@ -462,10 +328,8 @@ public class EnergyPlan {
      *
      * @return geography
      */
-    @ApiModelProperty(value = "")
-
+    @ApiModelProperty("Describes the geographical area that the plan is available for. If absent then it is assumed the plan is not geographically limited")
     @Valid
-
     public EnergyPlanGeography getGeography() {
         return geography;
     }
@@ -508,8 +372,13 @@ public class EnergyPlan {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlan {\n");
+        sb.append("class ").append(getClass().getSimpleName()).append(" {\n");
+        toStringFields(sb);
+        sb.append("}");
+        return sb.toString();
+    }
 
+    protected void toStringFields(StringBuilder sb) {
         sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
         sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
         sb.append("    effectiveTo: ").append(toIndentedString(effectiveTo)).append("\n");
@@ -524,19 +393,16 @@ public class EnergyPlan {
         sb.append("    additionalInformation: ").append(toIndentedString(additionalInformation)).append("\n");
         sb.append("    customerType: ").append(toIndentedString(customerType)).append("\n");
         sb.append("    geography: ").append(toIndentedString(geography)).append("\n");
-        sb.append("}");
-        return sb.toString();
     }
 
     /**
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(Object o) {
+    protected String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
     }
 }
-

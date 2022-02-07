@@ -87,9 +87,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         BankingProduct bankingProduct = new BankingProductV2();
         bankingProduct.setLastUpdated(updatedSince);
         bankingProduct.setBrand(brand);
-        if (productCategory != null) {
-            bankingProduct.setProductCategory(BankingProductCategory.valueOf(productCategory.name()));
-        }
+        bankingProduct.setProductCategory(productCategory);
 
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);

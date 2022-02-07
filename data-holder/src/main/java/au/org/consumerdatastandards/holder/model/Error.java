@@ -1,11 +1,12 @@
-package au.org.consumerdatastandards.holder.model.banking;
+package au.org.consumerdatastandards.holder.model;
 
+import au.org.consumerdatastandards.holder.model.banking.MetaError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 @ApiModel
-public class ErrorV2 {
+public class Error {
 
     /**
      * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
@@ -27,7 +28,7 @@ public class ErrorV2 {
      */
     private String title;
 
-    public ErrorV2 code(String code) {
+    public Error code(String code) {
         this.code = code;
         return this;
     }
@@ -41,7 +42,7 @@ public class ErrorV2 {
         this.code = code;
     }
 
-    public ErrorV2 detail(String detail) {
+    public Error detail(String detail) {
         this.detail = detail;
         return this;
     }
@@ -55,7 +56,7 @@ public class ErrorV2 {
         this.detail = detail;
     }
 
-    public ErrorV2 meta(MetaError meta) {
+    public Error meta(MetaError meta) {
         this.meta = meta;
         return this;
     }
@@ -69,7 +70,7 @@ public class ErrorV2 {
         this.meta = meta;
     }
 
-    public ErrorV2 title(String title) {
+    public Error title(String title) {
         this.title = title;
         return this;
     }
@@ -91,7 +92,7 @@ public class ErrorV2 {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ErrorV2 responseErrorListErrors = (ErrorV2) o;
+        Error responseErrorListErrors = (Error) o;
         return Objects.equals(this.code, responseErrorListErrors.code) &&
             Objects.equals(this.detail, responseErrorListErrors.detail) &&
             Objects.equals(this.meta, responseErrorListErrors.meta) &&

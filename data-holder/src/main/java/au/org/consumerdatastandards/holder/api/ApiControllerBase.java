@@ -1,9 +1,9 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.banking.ErrorV2;
+import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
-import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.TxMetaPaginated;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.apache.commons.validator.routines.InetAddressValidator;
@@ -37,12 +37,12 @@ public class ApiControllerBase {
         return page != null && page > 0 ? page : defaultValue;
     }
 
-    protected void throwCDSUnprocessableErrors(UUID interactionId, List<ErrorV2> errorList) {
+    protected void throwCDSUnprocessableErrors(UUID interactionId, List<Error> errorList) {
         throwCDSErrors(interactionId, errorList, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    protected void throwCDSErrors(UUID interactionId, List<ErrorV2> errorList, HttpStatus httpStatus) {
-        ResponseErrorListV2 errors = new ResponseErrorListV2();
+    protected void throwCDSErrors(UUID interactionId, List<Error> errorList, HttpStatus httpStatus) {
+        ErrorListResponse errors = new ErrorListResponse();
         errors.setErrors(errorList);
         MultiValueMap<String, String> headers;
         if (interactionId == NO_INTERACTION_ID) {
@@ -54,8 +54,8 @@ public class ApiControllerBase {
         throw new CDSException(errors, headers, httpStatus);
     }
 
-    protected ErrorV2 createError(String title, String code, String detail) {
-        ErrorV2 error = new ErrorV2();
+    protected Error createError(String title, String code, String detail) {
+        Error error = new Error();
         error.setTitle(title);
         error.setCode(code);
         error.setDetail(detail);
@@ -81,7 +81,6 @@ public class ApiControllerBase {
     }
 
     protected boolean hasSupportedVersion(Integer xMinV, Integer xV) {
-        if (xV == null) return false;
         return (xMinV == null || getCurrentVersion() >= xMinV) && (xMinV != null || getCurrentVersion() >= xV);
     }
 
@@ -118,11 +117,15 @@ public class ApiControllerBase {
     }
 
     protected void validateSupportedVersion(Integer xMinV, Integer xV, UUID interactionId) {
+        if (xV == null) {
+            Error error = createError("Missing Required Header", "urn:au-cds:error:cds-all:Header/Missing", "x-v");
+            throwCDSErrors(interactionId, Collections.singletonList(error), HttpStatus.BAD_REQUEST);
+        }
         if (!hasSupportedVersion(xMinV, xV)) {
             String message = String.format(
                 "Unsupported version requested, minimum version specified is %d, maximum version specified is %d, current version is %d",
                 xMinV, xV, getCurrentVersion());
-            ErrorV2 error = createError("Unsupported Version", "urn:au-cds:error:cds-all:Header/UnsupportedVersion", message);
+            Error error = createError("Unsupported Version", "urn:au-cds:error:cds-all:Header/UnsupportedVersion", message);
             throwCDSErrors(interactionId, Collections.singletonList(error), HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -133,7 +136,7 @@ public class ApiControllerBase {
                                    Integer xMinV, Integer xV) {
         validateSupportedVersion(xMinV, xV, interactionId);
         if (StringUtils.hasText(xFapiCustomerIpAddress)) {
-            ArrayList<ErrorV2> errorList = new ArrayList<>();
+            ArrayList<Error> errorList = new ArrayList<>();
             InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {
                 errorList.add(createError("Invalid Header", "urn:au-cds:error:cds-all:Header/Invalid", "x-fapi-customer-ip-address: request header value is not a valid IP address"));

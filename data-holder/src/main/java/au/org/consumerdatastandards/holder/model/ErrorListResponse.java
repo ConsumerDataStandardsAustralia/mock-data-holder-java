@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.holder.model.banking;
+package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,30 +6,30 @@ import java.util.Objects;
 import java.util.List;
 
 @ApiModel
-public class ResponseErrorListV2 {
+public class ErrorListResponse {
 
     /**
      * Get errors
      */
 
-    private List<ErrorV2> errors;
+    private List<Error> errors;
 
-    public ResponseErrorListV2 errors(List<ErrorV2> errors) {
+    public ErrorListResponse errors(List<Error> errors) {
         this.errors = errors;
         return this;
     }
 
-    public ResponseErrorListV2 addItem(ErrorV2 errorsItem) {
+    public ErrorListResponse addItem(Error errorsItem) {
         this.errors.add(errorsItem);
         return this;
     }
 
     @ApiModelProperty(required = true)
-    public List<ErrorV2> getErrors() {
+    public List<Error> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<ErrorV2> errors) {
+    public void setErrors(List<Error> errors) {
         this.errors = errors;
     }
 
@@ -41,7 +41,7 @@ public class ResponseErrorListV2 {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ResponseErrorListV2 responseErrorList = (ResponseErrorListV2) o;
+        ErrorListResponse responseErrorList = (ErrorListResponse) o;
         return Objects.equals(this.errors, responseErrorList.errors);
     }
 

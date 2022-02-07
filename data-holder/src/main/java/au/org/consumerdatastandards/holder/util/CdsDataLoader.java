@@ -11,6 +11,7 @@ import au.org.consumerdatastandards.holder.model.CommonPersonDetail;
 import au.org.consumerdatastandards.holder.model.OrganisationUser;
 import au.org.consumerdatastandards.holder.model.PersonUser;
 import au.org.consumerdatastandards.holder.model.User;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
 import au.org.consumerdatastandards.holder.repository.banking.BankingAccountDetailRepository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingAccountRepository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingBalanceRepository;
@@ -20,6 +21,7 @@ import au.org.consumerdatastandards.holder.repository.CommonOrganisationReposito
 import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonRepository;
 import au.org.consumerdatastandards.holder.repository.UserRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -43,6 +45,7 @@ public class CdsDataLoader {
     private static final Logger LOGGER = LogManager.getLogger(CdsDataLoader.class);
     private static final String DEFAULT_PASSWORD = "password";
 
+    // Banking repositories
     private BankingProductDetailV2Repository productDetailRepository;
     private BankingAccountDetailRepository accountDetailRepository;
     private BankingAccountRepository accountRepository;
@@ -52,6 +55,9 @@ public class CdsDataLoader {
     private UserRepository userRepository;
     private CommonPersonRepository commonPersonRepository;
     private CommonOrganisationRepository commonOrganisationRepository;
+
+    // Energy repositories
+    private EnergyPlanRepository energyPlanRepository;
 
     private ObjectMapper objectMapper;
     private int personUserIdSeq = 0;
@@ -64,6 +70,7 @@ public class CdsDataLoader {
                          BankingBalanceRepository balanceRepository,
                          CommonPersonDetailRepository commonPersonDetailRepository,
                          BankingTransactionDetailRepository transactionDetailRepository,
+                         EnergyPlanRepository energyPlanRepository,
                          UserRepository userRepository,
                          CommonPersonRepository commonPersonRepository,
                          CommonOrganisationRepository commonOrganisationRepository) {
@@ -73,6 +80,7 @@ public class CdsDataLoader {
         this.balanceRepository = balanceRepository;
         this.commonPersonDetailRepository = commonPersonDetailRepository;
         this.transactionDetailRepository = transactionDetailRepository;
+        this.energyPlanRepository = energyPlanRepository;
         this.userRepository = userRepository;
         this.commonPersonRepository = commonPersonRepository;
         this.commonOrganisationRepository = commonOrganisationRepository;
@@ -83,14 +91,18 @@ public class CdsDataLoader {
     }
 
     public void loadAll() throws IOException {
-        load("payloads/accounts", accountDetailRepository, BankingAccountDetail.class);
-        load("payloads/balances", balanceRepository, BankingBalance.class);
-        load("payloads/persons", commonPersonDetailRepository, CommonPersonDetail.class);
-        load("payloads/products", productDetailRepository, BankingProductV2Detail.class);
-        load("payloads/transactions", transactionDetailRepository, BankingTransactionDetail.class);
+        // Banking
+        load("payloads/banking/accounts", accountDetailRepository, BankingAccountDetail.class);
+        load("payloads/banking/balances", balanceRepository, BankingBalance.class);
+        load("payloads/banking/persons", commonPersonDetailRepository, CommonPersonDetail.class);
+        load("payloads/banking/products", productDetailRepository, BankingProductV2Detail.class);
+        load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
+
+        // Energy
+        load("payloads/energy/plans", energyPlanRepository, EnergyPlan.class);
     }
 
-    private void load(String fileOrFolder, CrudRepository repository, Class<?> dataType) throws IOException {
+    private <T, U> void load(String fileOrFolder, CrudRepository<T, U> repository, Class<T> dataType) throws IOException {
         File file = new File(fileOrFolder);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
@@ -99,7 +111,7 @@ public class CdsDataLoader {
             }
         } else {
             LOGGER.info("Loading data from {}", file.getAbsolutePath());
-            Object obj = objectMapper.readValue(file, dataType);
+            T obj = objectMapper.readValue(file, dataType);
 
             if (dataType.isAssignableFrom(BankingBalance.class)) {
                 assignAccountToBalance((BankingBalance) obj);

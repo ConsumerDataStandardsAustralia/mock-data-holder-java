@@ -2,7 +2,7 @@ package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeList;
-import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -55,22 +55,22 @@ public interface BankingPayeesApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Page Size / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 404,
             message = "Invalid Resource / Unavailable Resource",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 422,
             message = "Invalid Page",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(
@@ -126,17 +126,17 @@ public interface BankingPayeesApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Page Size / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 422,
             message = "Invalid Page",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(

@@ -4,7 +4,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.ParamEffective;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductList;
-import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -46,17 +46,17 @@ public interface BankingProductsApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Field",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 404,
             message = "Invalid Resource / Unavailable Resource",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(
@@ -95,17 +95,17 @@ public interface BankingProductsApi {
         @ApiResponse(
             code = 400,
             message = "Invalid Version / Invalid Page Size / Invalid Field / Invalid Date",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 406,
             message = "Unsupported Version",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         ),
         @ApiResponse(
             code = 422,
             message = "Invalid Page",
-            response = ResponseErrorListV2.class
+            response = ErrorListResponse.class
         )
     })
     @RequestMapping(
