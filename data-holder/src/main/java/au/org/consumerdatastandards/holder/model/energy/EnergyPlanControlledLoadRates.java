@@ -1,8 +1,12 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -11,14 +15,25 @@ import java.util.Objects;
 /**
  * EnergyPlanControlledLoadRates
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity(name = "controlled_load_rates")
 public class EnergyPlanControlledLoadRates {
-    @JsonProperty("unitPrice")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String unitPrice;
 
-    @JsonProperty("volume")
     private BigDecimal volume;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanControlledLoadRates unitPrice(String unitPrice) {
         this.unitPrice = unitPrice;
@@ -30,11 +45,8 @@ public class EnergyPlanControlledLoadRates {
      *
      * @return unitPrice
      */
-    @ApiModelProperty(required = true,
-            value = "Unit price of usage per kWh (exclusive of GST)")
+    @ApiModelProperty(required = true, value = "Unit price of usage per kWh (exclusive of GST)")
     @NotNull
-
-
     public String getUnitPrice() {
         return unitPrice;
     }
@@ -54,9 +66,7 @@ public class EnergyPlanControlledLoadRates {
      * @return volume
      */
     @ApiModelProperty(value = "Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period")
-
     @Valid
-
     public BigDecimal getVolume() {
         return volume;
     }
@@ -64,7 +74,6 @@ public class EnergyPlanControlledLoadRates {
     public void setVolume(BigDecimal volume) {
         this.volume = volume;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -88,7 +97,6 @@ public class EnergyPlanControlledLoadRates {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanControlledLoadRates {\n");
-
         sb.append("    unitPrice: ").append(toIndentedString(unitPrice)).append("\n");
         sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
         sb.append("}");
@@ -106,4 +114,3 @@ public class EnergyPlanControlledLoadRates {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

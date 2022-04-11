@@ -1,9 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -11,14 +15,25 @@ import java.util.Objects;
  * Required if methodUType is percentOverThreshold
  */
 @ApiModel(description = "Required if methodUType is percentOverThreshold")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractPercentOverThreshold {
-    @JsonProperty("rate")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String rate;
 
-    @JsonProperty("usageAmount")
     private String usageAmount;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractPercentOverThreshold rate(String rate) {
         this.rate = rate;
@@ -30,11 +45,8 @@ public class EnergyPlanContractPercentOverThreshold {
      *
      * @return rate
      */
-    @ApiModelProperty(required = true,
-            value = "The rate of the discount over the usage amount")
+    @ApiModelProperty(required = true, value = "The rate of the discount over the usage amount")
     @NotNull
-
-
     public String getRate() {
         return rate;
     }
@@ -53,11 +65,8 @@ public class EnergyPlanContractPercentOverThreshold {
      *
      * @return usageAmount
      */
-    @ApiModelProperty(required = true,
-            value = "The usage amount threshold above which the discount applies")
+    @ApiModelProperty(required = true, value = "The usage amount threshold above which the discount applies")
     @NotNull
-
-
     public String getUsageAmount() {
         return usageAmount;
     }
@@ -65,7 +74,6 @@ public class EnergyPlanContractPercentOverThreshold {
     public void setUsageAmount(String usageAmount) {
         this.usageAmount = usageAmount;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -89,7 +97,6 @@ public class EnergyPlanContractPercentOverThreshold {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractPercentOverThreshold {\n");
-
         sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
         sb.append("    usageAmount: ").append(toIndentedString(usageAmount)).append("\n");
         sb.append("}");
@@ -107,4 +114,3 @@ public class EnergyPlanContractPercentOverThreshold {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

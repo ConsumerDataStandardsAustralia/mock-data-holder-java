@@ -1,9 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -11,11 +15,23 @@ import java.util.Objects;
  * Required if methodUType is fixedAmount
  */
 @ApiModel(description = "Required if methodUType is fixedAmount")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractFixedAmount {
-    @JsonProperty("amount")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String amount;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractFixedAmount amount(String amount) {
         this.amount = amount;
@@ -27,11 +43,8 @@ public class EnergyPlanContractFixedAmount {
      *
      * @return amount
      */
-    @ApiModelProperty(required = true,
-            value = "The amount of the discount")
+    @ApiModelProperty(required = true, value = "The amount of the discount")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -39,7 +52,6 @@ public class EnergyPlanContractFixedAmount {
     public void setAmount(String amount) {
         this.amount = amount;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -62,7 +74,6 @@ public class EnergyPlanContractFixedAmount {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractFixedAmount {\n");
-
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -79,4 +90,3 @@ public class EnergyPlanContractFixedAmount {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

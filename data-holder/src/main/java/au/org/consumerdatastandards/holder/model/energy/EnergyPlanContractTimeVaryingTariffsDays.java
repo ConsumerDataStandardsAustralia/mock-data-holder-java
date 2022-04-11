@@ -1,22 +1,37 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyPlanContractTimeVaryingTariffsDays
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractTimeVaryingTariffsDays {
-    @JsonProperty("weekdays")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private Boolean weekdays;
 
-    @JsonProperty("weekend")
     private Boolean weekend;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractTimeVaryingTariffsDays weekdays(Boolean weekdays) {
         this.weekdays = weekdays;
@@ -28,11 +43,8 @@ public class EnergyPlanContractTimeVaryingTariffsDays {
      *
      * @return weekdays
      */
-    @ApiModelProperty(required = true,
-            value = "Indicates whether the tariff is applicable Monday to Friday")
+    @ApiModelProperty(required = true, value = "Indicates whether the tariff is applicable Monday to Friday")
     @NotNull
-
-
     public Boolean getWeekdays() {
         return weekdays;
     }
@@ -51,11 +63,8 @@ public class EnergyPlanContractTimeVaryingTariffsDays {
      *
      * @return weekend
      */
-    @ApiModelProperty(required = true,
-            value = "Indicates whether the tariff is applicable Saturday and Sunday")
+    @ApiModelProperty(required = true, value = "Indicates whether the tariff is applicable Saturday and Sunday")
     @NotNull
-
-
     public Boolean getWeekend() {
         return weekend;
     }
@@ -63,7 +72,6 @@ public class EnergyPlanContractTimeVaryingTariffsDays {
     public void setWeekend(Boolean weekend) {
         this.weekend = weekend;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -87,7 +95,6 @@ public class EnergyPlanContractTimeVaryingTariffsDays {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractTimeVaryingTariffsDays {\n");
-
         sb.append("    weekdays: ").append(toIndentedString(weekdays)).append("\n");
         sb.append("    weekend: ").append(toIndentedString(weekend)).append("\n");
         sb.append("}");
@@ -105,4 +112,3 @@ public class EnergyPlanContractTimeVaryingTariffsDays {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

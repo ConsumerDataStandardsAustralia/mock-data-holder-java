@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,26 +11,19 @@ import java.util.Objects;
 /**
  * EnergyAccountDetailAllOfAuthorisedContacts
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
-public class EnergyAccountDetailAllOfAuthorisedContacts {
-    @JsonProperty("firstName")
+public class EnergyAccountDetailAuthorisedContacts {
     private String firstName;
 
-    @JsonProperty("lastName")
     private String lastName;
 
-    @JsonProperty("middleNames")
     @Valid
     private List<String> middleNames = null;
 
-    @JsonProperty("prefix")
     private String prefix;
 
-    @JsonProperty("suffix")
     private String suffix;
 
-    public EnergyAccountDetailAllOfAuthorisedContacts firstName(String firstName) {
+    public EnergyAccountDetailAuthorisedContacts firstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -42,8 +34,6 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
      * @return firstName
      */
     @ApiModelProperty(value = "For people with single names this field need not be present. The single name should be in the lastName field")
-
-
     public String getFirstName() {
         return firstName;
     }
@@ -52,7 +42,7 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
         this.firstName = firstName;
     }
 
-    public EnergyAccountDetailAllOfAuthorisedContacts lastName(String lastName) {
+    public EnergyAccountDetailAuthorisedContacts lastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -65,8 +55,6 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
     @ApiModelProperty(required = true,
             value = "For people with single names the single name should be in this field")
     @NotNull
-
-
     public String getLastName() {
         return lastName;
     }
@@ -75,12 +63,12 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
         this.lastName = lastName;
     }
 
-    public EnergyAccountDetailAllOfAuthorisedContacts middleNames(List<String> middleNames) {
+    public EnergyAccountDetailAuthorisedContacts middleNames(List<String> middleNames) {
         this.middleNames = middleNames;
         return this;
     }
 
-    public EnergyAccountDetailAllOfAuthorisedContacts addMiddleNamesItem(String middleNamesItem) {
+    public EnergyAccountDetailAuthorisedContacts addMiddleNamesItem(String middleNamesItem) {
         if (this.middleNames == null) {
             this.middleNames = new ArrayList<>();
         }
@@ -94,8 +82,6 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
      * @return middleNames
      */
     @ApiModelProperty(value = "Field is mandatory but array may be empty")
-
-
     public List<String> getMiddleNames() {
         return middleNames;
     }
@@ -104,7 +90,7 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
         this.middleNames = middleNames;
     }
 
-    public EnergyAccountDetailAllOfAuthorisedContacts prefix(String prefix) {
+    public EnergyAccountDetailAuthorisedContacts prefix(String prefix) {
         this.prefix = prefix;
         return this;
     }
@@ -115,8 +101,6 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
      * @return prefix
      */
     @ApiModelProperty(value = "Also known as title or salutation. The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)")
-
-
     public String getPrefix() {
         return prefix;
     }
@@ -125,7 +109,7 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
         this.prefix = prefix;
     }
 
-    public EnergyAccountDetailAllOfAuthorisedContacts suffix(String suffix) {
+    public EnergyAccountDetailAuthorisedContacts suffix(String suffix) {
         this.suffix = suffix;
         return this;
     }
@@ -136,8 +120,6 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
      * @return suffix
      */
     @ApiModelProperty(value = "Used for a trailing suffix to the name (e.g. Jr)")
-
-
     public String getSuffix() {
         return suffix;
     }
@@ -145,7 +127,6 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
     public void setSuffix(String suffix) {
         this.suffix = suffix;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -155,12 +136,12 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccountDetailAllOfAuthorisedContacts energyAccountDetailAllOfAuthorisedContacts = (EnergyAccountDetailAllOfAuthorisedContacts) o;
-        return Objects.equals(this.firstName, energyAccountDetailAllOfAuthorisedContacts.firstName) &&
-                Objects.equals(this.lastName, energyAccountDetailAllOfAuthorisedContacts.lastName) &&
-                Objects.equals(this.middleNames, energyAccountDetailAllOfAuthorisedContacts.middleNames) &&
-                Objects.equals(this.prefix, energyAccountDetailAllOfAuthorisedContacts.prefix) &&
-                Objects.equals(this.suffix, energyAccountDetailAllOfAuthorisedContacts.suffix);
+        EnergyAccountDetailAuthorisedContacts energyAccountDetailAuthorisedContacts = (EnergyAccountDetailAuthorisedContacts) o;
+        return Objects.equals(this.firstName, energyAccountDetailAuthorisedContacts.firstName) &&
+                Objects.equals(this.lastName, energyAccountDetailAuthorisedContacts.lastName) &&
+                Objects.equals(this.middleNames, energyAccountDetailAuthorisedContacts.middleNames) &&
+                Objects.equals(this.prefix, energyAccountDetailAuthorisedContacts.prefix) &&
+                Objects.equals(this.suffix, energyAccountDetailAuthorisedContacts.suffix);
     }
 
     @Override
@@ -172,7 +153,6 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyAccountDetailAllOfAuthorisedContacts {\n");
-
         sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
         sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
         sb.append("    middleNames: ").append(toIndentedString(middleNames)).append("\n");
@@ -193,4 +173,3 @@ public class EnergyAccountDetailAllOfAuthorisedContacts {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

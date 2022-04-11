@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -14,183 +11,77 @@ import java.util.Objects;
 /**
  * EnergyPlanContract
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyPlanContract {
-    @JsonProperty("additionalFeeInformation")
+
     private String additionalFeeInformation;
 
     /**
      * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
      */
     public enum PricingModelEnum {
-        SINGLE_RATE("SINGLE_RATE"),
-
-        SINGLE_RATE_CONT_LOAD("SINGLE_RATE_CONT_LOAD"),
-
-        TIME_OF_USE("TIME_OF_USE"),
-
-        TIME_OF_USE_CONT_LOAD("TIME_OF_USE_CONT_LOAD"),
-
-        FLEXIBLE("FLEXIBLE"),
-
-        FLEXIBLE_CONT_LOAD("FLEXIBLE_CONT_LOAD"),
-
-        QUOTA("QUOTA");
-
-        private String value;
-
-        PricingModelEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static PricingModelEnum fromValue(String value) {
-            for (PricingModelEnum b : PricingModelEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        SINGLE_RATE,
+        SINGLE_RATE_CONT_LOAD,
+        TIME_OF_USE,
+        TIME_OF_USE_CONT_LOAD,
+        FLEXIBLE,
+        FLEXIBLE_CONT_LOAD,
+        QUOTA
     }
 
-    @JsonProperty("pricingModel")
     private PricingModelEnum pricingModel;
 
     /**
      * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds
      */
     public enum TimeZoneEnum {
-        LOCAL("LOCAL"),
-
-        AEST("AEST");
-
-        private String value;
-
-        TimeZoneEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TimeZoneEnum fromValue(String value) {
-            for (TimeZoneEnum b : TimeZoneEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        LOCAL,
+        AEST
     }
 
-    @JsonProperty("timeZone")
     private TimeZoneEnum timeZone;
 
-    @JsonProperty("isFixed")
     private Boolean isFixed;
 
-    @JsonProperty("variation")
     private String variation;
 
-    @JsonProperty("onExpiryDescription")
     private String onExpiryDescription;
 
     /**
      * Gets or Sets paymentOption
      */
     public enum PaymentOptionEnum {
-        PAPER_BILL("PAPER_BILL"),
-
-        CREDIT_CARD("CREDIT_CARD"),
-
-        DIRECT_DEBIT("DIRECT_DEBIT"),
-
-        BPAY("BPAY"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        PaymentOptionEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static PaymentOptionEnum fromValue(String value) {
-            for (PaymentOptionEnum b : PaymentOptionEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PAPER_BILL,
+        CREDIT_CARD,
+        DIRECT_DEBIT,
+        BPAY,
+        OTHER
     }
 
-    @JsonProperty("paymentOption")
     @Valid
     private List<PaymentOptionEnum> paymentOption = new ArrayList<>();
 
-    @JsonProperty("intrinsicGreenPower")
     private EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower;
 
-    @JsonProperty("controlledLoad")
     private EnergyPlanControlledLoad controlledLoad;
 
-    @JsonProperty("incentives")
     @Valid
     private List<EnergyPlanContractIncentives> incentives = null;
 
-    @JsonProperty("discounts")
     @Valid
     private List<EnergyPlanContractDiscounts> discounts = null;
 
-    @JsonProperty("greenPowerCharges")
     @Valid
     private List<EnergyPlanContractGreenPowerCharges> greenPowerCharges = null;
 
-    @JsonProperty("eligibility")
     @Valid
     private List<EnergyPlanContractEligibility> eligibility = null;
 
-    @JsonProperty("fees")
     @Valid
     private List<EnergyPlanContractFees> fees = null;
 
-    @JsonProperty("solarFeedInTariff")
     @Valid
     private List<EnergyPlanContractSolarFeedInTariff> solarFeedInTariff = null;
 
-    @JsonProperty("tariffPeriod")
     @Valid
     private List<EnergyPlanContractTariffPeriod> tariffPeriod = new ArrayList<>();
 
@@ -205,8 +96,6 @@ public class EnergyPlanContract {
      * @return additionalFeeInformation
      */
     @ApiModelProperty(value = "Free text field containing additional information of the fees for this contract")
-
-
     public String getAdditionalFeeInformation() {
         return additionalFeeInformation;
     }
@@ -228,8 +117,6 @@ public class EnergyPlanContract {
     @ApiModelProperty(required = true,
             value = "The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>")
     @NotNull
-
-
     public PricingModelEnum getPricingModel() {
         return pricingModel;
     }
@@ -249,8 +136,6 @@ public class EnergyPlanContract {
      * @return timeZone
      */
     @ApiModelProperty(value = "Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds")
-
-
     public TimeZoneEnum getTimeZone() {
         return timeZone;
     }
@@ -269,11 +154,8 @@ public class EnergyPlanContract {
      *
      * @return isFixed
      */
-    @ApiModelProperty(required = true,
-            value = "Flag indicating whether prices are fixed or variable")
+    @ApiModelProperty(required = true, value = "Flag indicating whether prices are fixed or variable")
     @NotNull
-
-
     public Boolean getIsFixed() {
         return isFixed;
     }
@@ -293,8 +175,6 @@ public class EnergyPlanContract {
      * @return variation
      */
     @ApiModelProperty(value = "Free text description of price variation policy and conditions for the contract.  Mandatory if isFixed is true")
-
-
     public String getVariation() {
         return variation;
     }
@@ -314,8 +194,6 @@ public class EnergyPlanContract {
      * @return onExpiryDescription
      */
     @ApiModelProperty(value = "Free text field that describes what will occur on or prior to expiry of the fixed contract term or benefit period")
-
-
     public String getOnExpiryDescription() {
         return onExpiryDescription;
     }
@@ -339,11 +217,8 @@ public class EnergyPlanContract {
      *
      * @return paymentOption
      */
-    @ApiModelProperty(required = true,
-            value = "Payment options for this contract")
+    @ApiModelProperty(required = true, value = "Payment options for this contract")
     @NotNull
-
-
     public List<PaymentOptionEnum> getPaymentOption() {
         return paymentOption;
     }
@@ -363,9 +238,7 @@ public class EnergyPlanContract {
      * @return intrinsicGreenPower
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractIntrinsicGreenPower getIntrinsicGreenPower() {
         return intrinsicGreenPower;
     }
@@ -385,9 +258,7 @@ public class EnergyPlanContract {
      * @return controlledLoad
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanControlledLoad getControlledLoad() {
         return controlledLoad;
     }
@@ -415,9 +286,7 @@ public class EnergyPlanContract {
      * @return incentives
      */
     @ApiModelProperty(value = "Optional list of incentives available for the contract")
-
     @Valid
-
     public List<EnergyPlanContractIncentives> getIncentives() {
         return incentives;
     }
@@ -445,9 +314,7 @@ public class EnergyPlanContract {
      * @return discounts
      */
     @ApiModelProperty(value = "Optional list of discounts available for the contract")
-
     @Valid
-
     public List<EnergyPlanContractDiscounts> getDiscounts() {
         return discounts;
     }
@@ -475,9 +342,7 @@ public class EnergyPlanContract {
      * @return greenPowerCharges
      */
     @ApiModelProperty(value = "Optional list of charges applicable to green power")
-
     @Valid
-
     public List<EnergyPlanContractGreenPowerCharges> getGreenPowerCharges() {
         return greenPowerCharges;
     }
@@ -505,9 +370,7 @@ public class EnergyPlanContract {
      * @return eligibility
      */
     @ApiModelProperty(value = "Eligibility restrictions or requirements")
-
     @Valid
-
     public List<EnergyPlanContractEligibility> getEligibility() {
         return eligibility;
     }
@@ -535,9 +398,7 @@ public class EnergyPlanContract {
      * @return fees
      */
     @ApiModelProperty(value = "An array of fees applicable to the plan")
-
     @Valid
-
     public List<EnergyPlanContractFees> getFees() {
         return fees;
     }
@@ -565,9 +426,7 @@ public class EnergyPlanContract {
      * @return solarFeedInTariff
      */
     @ApiModelProperty(value = "Array of feed in tariffs for solar power")
-
     @Valid
-
     public List<EnergyPlanContractSolarFeedInTariff> getSolarFeedInTariff() {
         return solarFeedInTariff;
     }
@@ -591,12 +450,9 @@ public class EnergyPlanContract {
      *
      * @return tariffPeriod
      */
-    @ApiModelProperty(required = true,
-            value = "Array of tariff periods")
+    @ApiModelProperty(required = true, value = "Array of tariff periods")
     @NotNull
-
     @Valid
-
     public List<EnergyPlanContractTariffPeriod> getTariffPeriod() {
         return tariffPeriod;
     }
@@ -604,7 +460,6 @@ public class EnergyPlanContract {
     public void setTariffPeriod(List<EnergyPlanContractTariffPeriod> tariffPeriod) {
         this.tariffPeriod = tariffPeriod;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -642,7 +497,6 @@ public class EnergyPlanContract {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContract {\n");
-
         sb.append("    additionalFeeInformation: ").append(toIndentedString(additionalFeeInformation)).append("\n");
         sb.append("    pricingModel: ").append(toIndentedString(pricingModel)).append("\n");
         sb.append("    timeZone: ").append(toIndentedString(timeZone)).append("\n");
@@ -674,4 +528,3 @@ public class EnergyPlanContract {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

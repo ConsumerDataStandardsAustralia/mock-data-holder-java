@@ -1,10 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -12,153 +16,74 @@ import java.util.Objects;
 /**
  * EnergyPlanContractDiscounts
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractDiscounts {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
     /**
      * The type of the discount
      */
     public enum TypeEnum {
-        CONDITIONAL("CONDITIONAL"),
-
-        GUARANTEED("GUARANTEED"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        CONDITIONAL,
+        GUARANTEED,
+        OTHER
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
     /**
      * The type of the discount.  Mandatory if the discount type is CONDITIONAL
      */
     public enum CategoryEnum {
-        PAY_ON_TIME("PAY_ON_TIME"),
-
-        DIRECT_DEBIT("DIRECT_DEBIT"),
-
-        GUARANTEED_DISCOUNT("GUARANTEED_DISCOUNT"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        CategoryEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static CategoryEnum fromValue(String value) {
-            for (CategoryEnum b : CategoryEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PAY_ON_TIME,
+        DIRECT_DEBIT,
+        GUARANTEED_DISCOUNT,
+        OTHER
     }
 
-    @JsonProperty("category")
     private CategoryEnum category;
 
-    @JsonProperty("endDate")
     private String endDate;
 
     /**
      * The method of calculation of the discount
      */
     public enum MethodUTypeEnum {
-        PERCENTOFBILL("percentOfBill"),
-
-        PERCENTOFUSE("percentOfUse"),
-
-        FIXEDAMOUNT("fixedAmount"),
-
-        PERCENTOVERTHRESHOLD("percentOverThreshold");
-
-        private String value;
-
-        MethodUTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static MethodUTypeEnum fromValue(String value) {
-            for (MethodUTypeEnum b : MethodUTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PERCENTOFBILL,
+        PERCENTOFUSE,
+        FIXEDAMOUNT,
+        PERCENTOVERTHRESHOLD
     }
 
-    @JsonProperty("methodUType")
     private MethodUTypeEnum methodUType;
 
-    @JsonProperty("percentOfBill")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractPercentOfBill percentOfBill;
 
-    @JsonProperty("percentOfUse")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractPercentOfUse percentOfUse;
 
-    @JsonProperty("fixedAmount")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractFixedAmount fixedAmount;
 
-    @JsonProperty("percentOverThreshold")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractPercentOverThreshold percentOverThreshold;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractDiscounts displayName(String displayName) {
         this.displayName = displayName;
@@ -170,11 +95,8 @@ public class EnergyPlanContractDiscounts {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "The display name of the discount")
+    @ApiModelProperty(required = true, value = "The display name of the discount")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -194,8 +116,6 @@ public class EnergyPlanContractDiscounts {
      * @return description
      */
     @ApiModelProperty(value = "The description of the discount")
-
-
     public String getDescription() {
         return description;
     }
@@ -214,11 +134,8 @@ public class EnergyPlanContractDiscounts {
      *
      * @return type
      */
-    @ApiModelProperty(required = true,
-            value = "The type of the discount")
+    @ApiModelProperty(required = true, value = "The type of the discount")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -238,8 +155,6 @@ public class EnergyPlanContractDiscounts {
      * @return category
      */
     @ApiModelProperty(value = "The type of the discount.  Mandatory if the discount type is CONDITIONAL")
-
-
     public CategoryEnum getCategory() {
         return category;
     }
@@ -259,8 +174,6 @@ public class EnergyPlanContractDiscounts {
      * @return endDate
      */
     @ApiModelProperty(value = "Optional end date for the discount after which the discount is no longer available")
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -279,11 +192,8 @@ public class EnergyPlanContractDiscounts {
      *
      * @return methodUType
      */
-    @ApiModelProperty(required = true,
-            value = "The method of calculation of the discount")
+    @ApiModelProperty(required = true, value = "The method of calculation of the discount")
     @NotNull
-
-
     public MethodUTypeEnum getMethodUType() {
         return methodUType;
     }
@@ -303,9 +213,7 @@ public class EnergyPlanContractDiscounts {
      * @return percentOfBill
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractPercentOfBill getPercentOfBill() {
         return percentOfBill;
     }
@@ -325,9 +233,7 @@ public class EnergyPlanContractDiscounts {
      * @return percentOfUse
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractPercentOfUse getPercentOfUse() {
         return percentOfUse;
     }
@@ -347,9 +253,7 @@ public class EnergyPlanContractDiscounts {
      * @return fixedAmount
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractFixedAmount getFixedAmount() {
         return fixedAmount;
     }
@@ -369,9 +273,7 @@ public class EnergyPlanContractDiscounts {
      * @return percentOverThreshold
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractPercentOverThreshold getPercentOverThreshold() {
         return percentOverThreshold;
     }
@@ -379,7 +281,6 @@ public class EnergyPlanContractDiscounts {
     public void setPercentOverThreshold(EnergyPlanContractPercentOverThreshold percentOverThreshold) {
         this.percentOverThreshold = percentOverThreshold;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -411,7 +312,6 @@ public class EnergyPlanContractDiscounts {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractDiscounts {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -437,4 +337,3 @@ public class EnergyPlanContractDiscounts {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

@@ -1,67 +1,50 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyPlanContractIncentives
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractIncentives {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
     /**
      * The type of the incentive
      */
     public enum CategoryEnum {
-        GIFT("GIFT"),
-
-        ACCOUNT_CREDIT("ACCOUNT_CREDIT"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        CategoryEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static CategoryEnum fromValue(String value) {
-            for (CategoryEnum b : CategoryEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        GIFT,
+        ACCOUNT_CREDIT,
+        OTHER
     }
 
-    @JsonProperty("category")
     private CategoryEnum category;
 
-    @JsonProperty("eligibility")
     private String eligibility;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractIncentives displayName(String displayName) {
         this.displayName = displayName;
@@ -73,11 +56,8 @@ public class EnergyPlanContractIncentives {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "The display name of the incentive")
+    @ApiModelProperty(required = true, value = "The display name of the incentive")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -96,11 +76,8 @@ public class EnergyPlanContractIncentives {
      *
      * @return description
      */
-    @ApiModelProperty(required = true,
-            value = "The description of the incentive")
+    @ApiModelProperty(required = true, value = "The description of the incentive")
     @NotNull
-
-
     public String getDescription() {
         return description;
     }
@@ -119,11 +96,8 @@ public class EnergyPlanContractIncentives {
      *
      * @return category
      */
-    @ApiModelProperty(required = true,
-            value = "The type of the incentive")
+    @ApiModelProperty(required = true, value = "The type of the incentive")
     @NotNull
-
-
     public CategoryEnum getCategory() {
         return category;
     }
@@ -143,8 +117,6 @@ public class EnergyPlanContractIncentives {
      * @return eligibility
      */
     @ApiModelProperty(value = "A display message outlining an eligibility criteria that may apply")
-
-
     public String getEligibility() {
         return eligibility;
     }
@@ -152,7 +124,6 @@ public class EnergyPlanContractIncentives {
     public void setEligibility(String eligibility) {
         this.eligibility = eligibility;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -178,7 +149,6 @@ public class EnergyPlanContractIncentives {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractIncentives {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    category: ").append(toIndentedString(category)).append("\n");
@@ -198,4 +168,3 @@ public class EnergyPlanContractIncentives {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

@@ -1,83 +1,50 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyPlanContractFees
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractFees {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     /**
      * The type of the fee
      */
     public enum TypeEnum {
-        EXIT("EXIT"),
-
-        ESTABLISHMENT("ESTABLISHMENT"),
-
-        LATE_PAYMENT("LATE_PAYMENT"),
-
-        DISCONNECTION("DISCONNECTION"),
-
-        DISCONNECT_MOVE_OUT("DISCONNECT_MOVE_OUT"),
-
-        DISCONNECT_NON_PAY("DISCONNECT_NON_PAY"),
-
-        RECONNECTION("RECONNECTION"),
-
-        CONNECTION("CONNECTION"),
-
-        PAYMENT_PROCESSING("PAYMENT_PROCESSING"),
-
-        CC_PROCESSING("CC_PROCESSING"),
-
-        CHEQUE_DISHONOUR("CHEQUE_DISHONOUR"),
-
-        DD_DISHONOUR("DD_DISHONOUR"),
-
-        MEMBERSHIP("MEMBERSHIP"),
-
-        CONTRIBUTION("CONTRIBUTION"),
-
-        PAPER_BILL("PAPER_BILL"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        EXIT,
+        ESTABLISHMENT,
+        LATE_PAYMENT,
+        DISCONNECTION,
+        DISCONNECT_MOVE_OUT,
+        DISCONNECT_NON_PAY,
+        RECONNECTION,
+        CONNECTION,
+        PAYMENT_PROCESSING,
+        CC_PROCESSING,
+        CHEQUE_DISHONOUR,
+        DD_DISHONOUR,
+        MEMBERSHIP,
+        CONTRIBUTION,
+        PAPER_BILL,
+        OTHER
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
     /**
@@ -85,32 +52,20 @@ public class EnergyPlanContractFees {
      */
     public enum TermEnum {
         FIXED("FIXED"),
-
         _1_YEAR("1_YEAR"),
-
         _2_YEAR("2_YEAR"),
-
         _3_YEAR("3_YEAR"),
-
         _4_YEAR("4_YEAR"),
-
         _5_YEAR("5_YEAR"),
-
         PERCENT_OF_BILL("PERCENT_OF_BILL"),
-
         ANNUAL("ANNUAL"),
-
         DAILY("DAILY"),
-
         WEEKLY("WEEKLY"),
-
         MONTHLY("MONTHLY"),
-
         BIANNUAL("BIANNUAL"),
-
         VARIABLE("VARIABLE");
 
-        private String value;
+        private final String value;
 
         TermEnum(String value) {
             this.value = value;
@@ -137,17 +92,21 @@ public class EnergyPlanContractFees {
         }
     }
 
-    @JsonProperty("term")
     private TermEnum term;
 
-    @JsonProperty("amount")
     private String amount;
 
-    @JsonProperty("rate")
     private String rate;
 
-    @JsonProperty("description")
     private String description;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractFees type(TypeEnum type) {
         this.type = type;
@@ -159,11 +118,8 @@ public class EnergyPlanContractFees {
      *
      * @return type
      */
-    @ApiModelProperty(required = true,
-            value = "The type of the fee")
+    @ApiModelProperty(required = true, value = "The type of the fee")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -182,11 +138,8 @@ public class EnergyPlanContractFees {
      *
      * @return term
      */
-    @ApiModelProperty(required = true,
-            value = "The term of the fee")
+    @ApiModelProperty(required = true, value = "The term of the fee")
     @NotNull
-
-
     public TermEnum getTerm() {
         return term;
     }
@@ -206,8 +159,6 @@ public class EnergyPlanContractFees {
      * @return amount
      */
     @ApiModelProperty(value = "The fee amount. Required if term is not PERCENT_OF_BILL")
-
-
     public String getAmount() {
         return amount;
     }
@@ -227,8 +178,6 @@ public class EnergyPlanContractFees {
      * @return rate
      */
     @ApiModelProperty(value = "The fee rate. Required if term is PERCENT_OF_BILL")
-
-
     public String getRate() {
         return rate;
     }
@@ -248,8 +197,6 @@ public class EnergyPlanContractFees {
      * @return description
      */
     @ApiModelProperty(value = "A description of the fee")
-
-
     public String getDescription() {
         return description;
     }
@@ -284,7 +231,6 @@ public class EnergyPlanContractFees {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractFees {\n");
-
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    term: ").append(toIndentedString(term)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
@@ -305,4 +251,3 @@ public class EnergyPlanContractFees {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

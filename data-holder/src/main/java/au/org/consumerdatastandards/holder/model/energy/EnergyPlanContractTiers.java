@@ -1,25 +1,39 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyPlanContractTiers
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractTiers {
-    @JsonProperty("percentGreen")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String percentGreen;
 
-    @JsonProperty("rate")
     private String rate;
 
-    @JsonProperty("amount")
     private String amount;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractTiers percentGreen(String percentGreen) {
         this.percentGreen = percentGreen;
@@ -31,11 +45,8 @@ public class EnergyPlanContractTiers {
      *
      * @return percentGreen
      */
-    @ApiModelProperty(required = true,
-            value = "The upper percentage of green power used applicable for this tier")
+    @ApiModelProperty(required = true, value = "The upper percentage of green power used applicable for this tier")
     @NotNull
-
-
     public String getPercentGreen() {
         return percentGreen;
     }
@@ -55,8 +66,6 @@ public class EnergyPlanContractTiers {
      * @return rate
      */
     @ApiModelProperty(value = "The rate of the charge if the type implies the application of a rate")
-
-
     public String getRate() {
         return rate;
     }
@@ -76,8 +85,6 @@ public class EnergyPlanContractTiers {
      * @return amount
      */
     @ApiModelProperty(value = "The amount of the charge if the type implies the application of a fixed amount")
-
-
     public String getAmount() {
         return amount;
     }
@@ -85,7 +92,6 @@ public class EnergyPlanContractTiers {
     public void setAmount(String amount) {
         this.amount = amount;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -110,7 +116,6 @@ public class EnergyPlanContractTiers {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractTiers {\n");
-
         sb.append("    percentGreen: ").append(toIndentedString(percentGreen)).append("\n");
         sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
@@ -129,4 +134,3 @@ public class EnergyPlanContractTiers {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

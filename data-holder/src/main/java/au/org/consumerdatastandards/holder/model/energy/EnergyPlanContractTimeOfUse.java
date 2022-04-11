@@ -1,10 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,65 +17,43 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTimeOfUse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractTimeOfUse {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     /**
      * Gets or Sets days
      */
     public enum DaysEnum {
-        SUNDAY("SUNDAY"),
-
-        MONDAY("MONDAY"),
-
-        TUESDAY("TUESDAY"),
-
-        WEDNESDAY("WEDNESDAY"),
-
-        THURSDAY("THURSDAY"),
-
-        FRIDAY("FRIDAY"),
-
-        SATURDAY("SATURDAY"),
-
-        BUSINESS_DAYS("BUSINESS_DAYS");
-
-        private String value;
-
-        DaysEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static DaysEnum fromValue(String value) {
-            for (DaysEnum b : DaysEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        SUNDAY,
+        MONDAY,
+        TUESDAY,
+        WEDNESDAY,
+        THURSDAY,
+        FRIDAY,
+        SATURDAY,
+        BUSINESS_DAYS
     }
 
-    @JsonProperty("days")
     @Valid
+    @ElementCollection
     private List<DaysEnum> days = new ArrayList<>();
 
-    @JsonProperty("startTime")
     private String startTime;
 
-    @JsonProperty("endTime")
     private String endTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractTimeOfUse days(List<DaysEnum> days) {
         this.days = days;
@@ -89,11 +70,8 @@ public class EnergyPlanContractTimeOfUse {
      *
      * @return days
      */
-    @ApiModelProperty(required = true,
-            value = "The days that the rate applies to")
+    @ApiModelProperty(required = true, value = "The days that the rate applies to")
     @NotNull
-
-
     public List<DaysEnum> getDays() {
         return days;
     }
@@ -112,11 +90,8 @@ public class EnergyPlanContractTimeOfUse {
      *
      * @return startTime
      */
-    @ApiModelProperty(required = true,
-            value = "Start of the period in HHMM format using 24 hour clock format")
+    @ApiModelProperty(required = true, value = "Start of the period in HHMM format using 24 hour clock format")
     @NotNull
-
-
     public String getStartTime() {
         return startTime;
     }
@@ -135,11 +110,8 @@ public class EnergyPlanContractTimeOfUse {
      *
      * @return endTime
      */
-    @ApiModelProperty(required = true,
-            value = "End of the period in HHMM format using 24 hour clock format")
+    @ApiModelProperty(required = true, value = "End of the period in HHMM format using 24 hour clock format")
     @NotNull
-
-
     public String getEndTime() {
         return endTime;
     }
@@ -147,7 +119,6 @@ public class EnergyPlanContractTimeOfUse {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -172,7 +143,6 @@ public class EnergyPlanContractTimeOfUse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractTimeOfUse {\n");
-
         sb.append("    days: ").append(toIndentedString(days)).append("\n");
         sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
         sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
@@ -191,4 +161,3 @@ public class EnergyPlanContractTimeOfUse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

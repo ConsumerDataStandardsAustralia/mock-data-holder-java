@@ -1,10 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,65 +18,45 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTimeOfUseRates
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractTimeOfUseRates {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("rates")
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractRates> rates = new ArrayList<>();
 
-    @JsonProperty("timeOfUse")
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractTimeOfUse> timeOfUse = new ArrayList<>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * The type of usage that the rate applies to
      */
     public enum TypeEnum {
-        PEAK("PEAK"),
-
-        OFF_PEAK("OFF_PEAK"),
-
-        SHOULDER("SHOULDER"),
-
-        SHOULDER1("SHOULDER1"),
-
-        SHOULDER2("SHOULDER2");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PEAK,
+        OFF_PEAK,
+        SHOULDER,
+        SHOULDER1,
+        SHOULDER2
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
     public EnergyPlanContractTimeOfUseRates displayName(String displayName) {
@@ -85,11 +69,8 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "Display name of the rate")
+    @ApiModelProperty(required = true, value = "Display name of the rate")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -134,12 +115,9 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return rates
      */
-    @ApiModelProperty(required = true,
-            value = "Array of controlled load rates in order of usage volume")
+    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume")
     @NotNull
-
     @Valid
-
     public List<EnergyPlanContractRates> getRates() {
         return rates;
     }
@@ -163,12 +141,9 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return timeOfUse
      */
-    @ApiModelProperty(required = true,
-            value = "Array of times of use")
+    @ApiModelProperty(required = true, value = "Array of times of use")
     @NotNull
-
     @Valid
-
     public List<EnergyPlanContractTimeOfUse> getTimeOfUse() {
         return timeOfUse;
     }
@@ -187,11 +162,8 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return type
      */
-    @ApiModelProperty(required = true,
-            value = "The type of usage that the rate applies to")
+    @ApiModelProperty(required = true, value = "The type of usage that the rate applies to")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -199,7 +171,6 @@ public class EnergyPlanContractTimeOfUseRates {
     public void setType(TypeEnum type) {
         this.type = type;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -226,7 +197,6 @@ public class EnergyPlanContractTimeOfUseRates {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractTimeOfUseRates {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
@@ -247,4 +217,3 @@ public class EnergyPlanContractTimeOfUseRates {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

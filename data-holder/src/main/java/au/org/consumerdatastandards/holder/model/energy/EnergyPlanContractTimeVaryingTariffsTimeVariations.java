@@ -1,25 +1,42 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import java.util.Objects;
 
 /**
  * EnergyPlanContractTimeVaryingTariffsTimeVariations
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity(name = "time_variations")
 public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
-    @JsonProperty("days")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractTimeVaryingTariffsDays days;
 
-    @JsonProperty("startTime")
     private String startTime;
 
-    @JsonProperty("endTime")
     private String endTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractTimeVaryingTariffsTimeVariations days(EnergyPlanContractTimeVaryingTariffsDays days) {
         this.days = days;
@@ -32,9 +49,7 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
      * @return days
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractTimeVaryingTariffsDays getDays() {
         return days;
     }
@@ -75,8 +90,6 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
      * @return endTime
      */
     @ApiModelProperty(value = "The end of the time period per day for which the tariff applies.  If absent assumes end of day (ie. one second before midnight)")
-
-
     public String getEndTime() {
         return endTime;
     }
@@ -84,7 +97,6 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -109,7 +121,6 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractTimeVaryingTariffsTimeVariations {\n");
-
         sb.append("    days: ").append(toIndentedString(days)).append("\n");
         sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
         sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
@@ -128,4 +139,3 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

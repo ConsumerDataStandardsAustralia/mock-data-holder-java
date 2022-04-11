@@ -1,10 +1,17 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,67 +21,35 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTariffPeriod
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractTariffPeriod {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     /**
      * Type of charge. Assumed to be other if absent
      */
     public enum TypeEnum {
-        ENVIRONMENTAL("ENVIRONMENTAL"),
-
-        REGULATED("REGULATED"),
-
-        NETWORK("NETWORK"),
-
-        METERING("METERING"),
-
-        RETAIL_SERVICE("RETAIL_SERVICE"),
-
-        RCTI("RCTI"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ENVIRONMENTAL,
+        REGULATED,
+        NETWORK,
+        METERING,
+        RETAIL_SERVICE,
+        RCTI,
+        OTHER
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
-    @JsonProperty("displayName")
     private String displayName;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
-    @JsonProperty("dailySupplyCharges")
     private String dailySupplyCharges;
 
     /**
@@ -87,7 +62,7 @@ public class EnergyPlanContractTariffPeriod {
 
         DEMANDCHARGES("demandCharges");
 
-        private String value;
+        private final String value;
 
         RateBlockUTypeEnum(String value) {
             this.value = value;
@@ -114,19 +89,26 @@ public class EnergyPlanContractTariffPeriod {
         }
     }
 
-    @JsonProperty("rateBlockUType")
     private RateBlockUTypeEnum rateBlockUType;
 
-    @JsonProperty("singleRate")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractSingleRate singleRate;
 
-    @JsonProperty("timeOfUseRates")
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractTimeOfUseRates> timeOfUseRates = null;
 
-    @JsonProperty("demandCharges")
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractDemandCharges> demandCharges = null;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractTariffPeriod type(TypeEnum type) {
         this.type = type;
@@ -139,8 +121,6 @@ public class EnergyPlanContractTariffPeriod {
      * @return type
      */
     @ApiModelProperty(value = "Type of charge. Assumed to be other if absent")
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -159,11 +139,8 @@ public class EnergyPlanContractTariffPeriod {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "The name of the tariff period")
+    @ApiModelProperty(required = true, value = "The name of the tariff period")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -185,8 +162,6 @@ public class EnergyPlanContractTariffPeriod {
     @ApiModelProperty(required = true,
             value = "The start date of the tariff period in a calendar year.  Formatted in mm-dd format")
     @NotNull
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -208,8 +183,6 @@ public class EnergyPlanContractTariffPeriod {
     @ApiModelProperty(required = true,
             value = "The end date of the tariff period in a calendar year.  Formatted in mm-dd format")
     @NotNull
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -229,8 +202,6 @@ public class EnergyPlanContractTariffPeriod {
      * @return dailySupplyCharges
      */
     @ApiModelProperty(value = "The amount of access charge for the tariff period, in dollars per day exclusive of GST.")
-
-
     public String getDailySupplyCharges() {
         return dailySupplyCharges;
     }
@@ -252,8 +223,6 @@ public class EnergyPlanContractTariffPeriod {
     @ApiModelProperty(required = true,
             value = "Specifies the type of rate applicable to this tariff period")
     @NotNull
-
-
     public RateBlockUTypeEnum getRateBlockUType() {
         return rateBlockUType;
     }
@@ -273,9 +242,7 @@ public class EnergyPlanContractTariffPeriod {
      * @return singleRate
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractSingleRate getSingleRate() {
         return singleRate;
     }
@@ -303,9 +270,7 @@ public class EnergyPlanContractTariffPeriod {
      * @return timeOfUseRates
      */
     @ApiModelProperty(value = "Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates")
-
     @Valid
-
     public List<EnergyPlanContractTimeOfUseRates> getTimeOfUseRates() {
         return timeOfUseRates;
     }
@@ -333,9 +298,7 @@ public class EnergyPlanContractTariffPeriod {
      * @return demandCharges
      */
     @ApiModelProperty(value = "Array of demand charges.  Required if rateBlockUType is demandCharges")
-
     @Valid
-
     public List<EnergyPlanContractDemandCharges> getDemandCharges() {
         return demandCharges;
     }
@@ -343,7 +306,6 @@ public class EnergyPlanContractTariffPeriod {
     public void setDemandCharges(List<EnergyPlanContractDemandCharges> demandCharges) {
         this.demandCharges = demandCharges;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -374,7 +336,6 @@ public class EnergyPlanContractTariffPeriod {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractTariffPeriod {\n");
-
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
@@ -399,4 +360,3 @@ public class EnergyPlanContractTariffPeriod {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

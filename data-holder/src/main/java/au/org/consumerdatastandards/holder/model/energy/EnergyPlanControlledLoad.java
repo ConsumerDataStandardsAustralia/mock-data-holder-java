@@ -1,9 +1,15 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,24 +20,33 @@ import java.util.Objects;
  * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
  */
 @ApiModel(description = "Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanControlledLoad {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("dailyCharge")
     private String dailyCharge;
 
-    @JsonProperty("period")
     private String period;
 
-    @JsonProperty("rates")
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanControlledLoadRates> rates = new ArrayList<>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanControlledLoad displayName(String displayName) {
         this.displayName = displayName;
@@ -43,11 +58,8 @@ public class EnergyPlanControlledLoad {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "A display name for the controlled load tier")
+    @ApiModelProperty(required = true, value = "A display name for the controlled load tier")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -67,8 +79,6 @@ public class EnergyPlanControlledLoad {
      * @return description
      */
     @ApiModelProperty(value = "A description of the controlled load tier")
-
-
     public String getDescription() {
         return description;
     }
@@ -90,8 +100,6 @@ public class EnergyPlanControlledLoad {
     @ApiModelProperty(required = true,
             value = "The daily supply charge (exclusive of GST) for this controlled load tier")
     @NotNull
-
-
     public String getDailyCharge() {
         return dailyCharge;
     }
@@ -113,8 +121,6 @@ public class EnergyPlanControlledLoad {
     @ApiModelProperty(required = true,
             value = "The period for which the controlled load rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
     @NotNull
-
-
     public String getPeriod() {
         return period;
     }
@@ -141,9 +147,7 @@ public class EnergyPlanControlledLoad {
     @ApiModelProperty(required = true,
             value = "Array of controlled load rates in order of usage volume")
     @NotNull
-
     @Valid
-
     public List<EnergyPlanControlledLoadRates> getRates() {
         return rates;
     }
@@ -151,7 +155,6 @@ public class EnergyPlanControlledLoad {
     public void setRates(List<EnergyPlanControlledLoadRates> rates) {
         this.rates = rates;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -178,7 +181,6 @@ public class EnergyPlanControlledLoad {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanControlledLoad {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    dailyCharge: ").append(toIndentedString(dailyCharge)).append("\n");
@@ -199,4 +201,3 @@ public class EnergyPlanControlledLoad {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

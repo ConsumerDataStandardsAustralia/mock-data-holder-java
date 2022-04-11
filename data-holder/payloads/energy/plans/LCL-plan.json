@@ -3397,5 +3397,29 @@
             "4034",
             "4710"
         ]
+    },
+    "electricityContract": {
+      "pricingModel": "SINGLE_RATE",
+      "isFixed": true,
+      "paymentOption": ["PAPER_BILL"],
+      "tariffPeriod": [
+        {
+          "displayName": "LCL Tariff",
+          "startDate": "01-01",
+          "endDate": "12-31",
+          "rateBlockUType": "singleRate",
+          "singleRate": {
+            "displayName": "LCL Single Rate",
+            "rates": [
+              {
+                "unitPrice": "10.00"
+              }
+            ]
+          }
+        }
+      ],
+      "billFrequency": [
+        "P3M"
+      ]
     }
 }

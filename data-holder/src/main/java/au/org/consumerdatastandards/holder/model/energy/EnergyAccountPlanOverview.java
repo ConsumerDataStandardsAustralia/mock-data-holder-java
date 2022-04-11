@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
@@ -9,19 +8,14 @@ import java.util.Objects;
 /**
  * EnergyAccountAllOfPlanOverview
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
-public class EnergyAccountAllOfPlanOverview {
-    @JsonProperty("displayName")
+public class EnergyAccountPlanOverview {
     private String displayName;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
-    public EnergyAccountAllOfPlanOverview displayName(String displayName) {
+    public EnergyAccountPlanOverview displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -32,8 +26,6 @@ public class EnergyAccountAllOfPlanOverview {
      * @return displayName
      */
     @ApiModelProperty(value = "The name of the plan if one exists")
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -42,7 +34,7 @@ public class EnergyAccountAllOfPlanOverview {
         this.displayName = displayName;
     }
 
-    public EnergyAccountAllOfPlanOverview startDate(String startDate) {
+    public EnergyAccountPlanOverview startDate(String startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -52,11 +44,8 @@ public class EnergyAccountAllOfPlanOverview {
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true,
-            value = "The start date of the applicability of this plan")
+    @ApiModelProperty(required = true, value = "The start date of the applicability of this plan")
     @NotNull
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -65,7 +54,7 @@ public class EnergyAccountAllOfPlanOverview {
         this.startDate = startDate;
     }
 
-    public EnergyAccountAllOfPlanOverview endDate(String endDate) {
+    public EnergyAccountPlanOverview endDate(String endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -76,8 +65,6 @@ public class EnergyAccountAllOfPlanOverview {
      * @return endDate
      */
     @ApiModelProperty(value = "The end date of the applicability of this plan")
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -85,7 +72,6 @@ public class EnergyAccountAllOfPlanOverview {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -95,10 +81,10 @@ public class EnergyAccountAllOfPlanOverview {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccountAllOfPlanOverview energyAccountAllOfPlanOverview = (EnergyAccountAllOfPlanOverview) o;
-        return Objects.equals(this.displayName, energyAccountAllOfPlanOverview.displayName) &&
-                Objects.equals(this.startDate, energyAccountAllOfPlanOverview.startDate) &&
-                Objects.equals(this.endDate, energyAccountAllOfPlanOverview.endDate);
+        EnergyAccountPlanOverview energyAccountPlanOverview = (EnergyAccountPlanOverview) o;
+        return Objects.equals(this.displayName, energyAccountPlanOverview.displayName) &&
+                Objects.equals(this.startDate, energyAccountPlanOverview.startDate) &&
+                Objects.equals(this.endDate, energyAccountPlanOverview.endDate);
     }
 
     @Override
@@ -110,7 +96,6 @@ public class EnergyAccountAllOfPlanOverview {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyAccountAllOfPlanOverview {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
@@ -129,4 +114,3 @@ public class EnergyAccountAllOfPlanOverview {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

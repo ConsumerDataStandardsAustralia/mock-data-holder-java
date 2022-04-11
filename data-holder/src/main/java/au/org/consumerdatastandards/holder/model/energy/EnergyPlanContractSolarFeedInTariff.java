@@ -1,10 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -12,134 +16,61 @@ import java.util.Objects;
 /**
  * EnergyPlanContractSolarFeedInTariff
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractSolarFeedInTariff {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
     /**
      * The applicable scheme
      */
     public enum SchemeEnum {
-        PREMIUM("PREMIUM"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        SchemeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static SchemeEnum fromValue(String value) {
-            for (SchemeEnum b : SchemeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PREMIUM,
+        OTHER
     }
 
-    @JsonProperty("scheme")
     private SchemeEnum scheme;
 
     /**
      * The type of the payer
      */
     public enum PayerTypeEnum {
-        GOVERNMENT("GOVERNMENT"),
-
-        RETAILER("RETAILER");
-
-        private String value;
-
-        PayerTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static PayerTypeEnum fromValue(String value) {
-            for (PayerTypeEnum b : PayerTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        GOVERNMENT,
+        RETAILER
     }
 
-    @JsonProperty("payerType")
     private PayerTypeEnum payerType;
 
     /**
      * The type of the payer
      */
     public enum TariffUTypeEnum {
-        SINGLETARIFF("singleTariff"),
-
-        TIMEVARYINGTARIFFS("timeVaryingTariffs");
-
-        private String value;
-
-        TariffUTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TariffUTypeEnum fromValue(String value) {
-            for (TariffUTypeEnum b : TariffUTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        SINGLETARIFF,
+        TIMEVARYINGTARIFFS
     }
 
-    @JsonProperty("tariffUType")
     private TariffUTypeEnum tariffUType;
 
-    @JsonProperty("singleTariff")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractSingleTariff singleTariff;
 
-    @JsonProperty("timeVaryingTariffs")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractTimeVaryingTariffs timeVaryingTariffs;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractSolarFeedInTariff displayName(String displayName) {
         this.displayName = displayName;
@@ -151,11 +82,8 @@ public class EnergyPlanContractSolarFeedInTariff {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "The name of the tariff")
+    @ApiModelProperty(required = true, value = "The name of the tariff")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -175,8 +103,6 @@ public class EnergyPlanContractSolarFeedInTariff {
      * @return description
      */
     @ApiModelProperty(value = "A description of the tariff")
-
-
     public String getDescription() {
         return description;
     }
@@ -195,11 +121,8 @@ public class EnergyPlanContractSolarFeedInTariff {
      *
      * @return scheme
      */
-    @ApiModelProperty(required = true,
-            value = "The applicable scheme")
+    @ApiModelProperty(required = true, value = "The applicable scheme")
     @NotNull
-
-
     public SchemeEnum getScheme() {
         return scheme;
     }
@@ -218,11 +141,8 @@ public class EnergyPlanContractSolarFeedInTariff {
      *
      * @return payerType
      */
-    @ApiModelProperty(required = true,
-            value = "The type of the payer")
+    @ApiModelProperty(required = true, value = "The type of the payer")
     @NotNull
-
-
     public PayerTypeEnum getPayerType() {
         return payerType;
     }
@@ -241,11 +161,8 @@ public class EnergyPlanContractSolarFeedInTariff {
      *
      * @return tariffUType
      */
-    @ApiModelProperty(required = true,
-            value = "The type of the payer")
+    @ApiModelProperty(required = true, value = "The type of the payer")
     @NotNull
-
-
     public TariffUTypeEnum getTariffUType() {
         return tariffUType;
     }
@@ -265,9 +182,7 @@ public class EnergyPlanContractSolarFeedInTariff {
      * @return singleTariff
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractSingleTariff getSingleTariff() {
         return singleTariff;
     }
@@ -287,9 +202,7 @@ public class EnergyPlanContractSolarFeedInTariff {
      * @return timeVaryingTariffs
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractTimeVaryingTariffs getTimeVaryingTariffs() {
         return timeVaryingTariffs;
     }
@@ -297,7 +210,6 @@ public class EnergyPlanContractSolarFeedInTariff {
     public void setTimeVaryingTariffs(EnergyPlanContractTimeVaryingTariffs timeVaryingTariffs) {
         this.timeVaryingTariffs = timeVaryingTariffs;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -326,7 +238,6 @@ public class EnergyPlanContractSolarFeedInTariff {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractSolarFeedInTariff {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    scheme: ").append(toIndentedString(scheme)).append("\n");
@@ -349,4 +260,3 @@ public class EnergyPlanContractSolarFeedInTariff {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

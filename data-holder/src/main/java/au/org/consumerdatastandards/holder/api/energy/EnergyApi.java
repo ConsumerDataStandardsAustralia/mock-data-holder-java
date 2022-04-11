@@ -27,6 +27,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -79,6 +80,7 @@ public interface EnergyApi {
             value = "/energy/accounts/{accountId}",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:accounts.detail:read')")
     ResponseEntity<EnergyAccountDetailResponse> getAccount(
             @ApiParam(
                     value = "ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point.",
@@ -155,6 +157,7 @@ public interface EnergyApi {
             value = "/energy/accounts/{accountId}/balance",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyBalanceResponse> getBalanceForAccount(
             @ApiParam(
                     value = "ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point.",
@@ -238,6 +241,7 @@ public interface EnergyApi {
             value = "/energy/accounts/{accountId}/billing",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyBillingListResponse> getBillingForAccount(
             @ApiParam(
                     value = "ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point.",
@@ -337,6 +341,7 @@ public interface EnergyApi {
             value = "/energy/accounts/{accountId}/concessions",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:accounts.concessions:read')")
     ResponseEntity<EnergyConcessionsResponse> getConcessions(
             @ApiParam(
                     value = "ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point.",
@@ -413,6 +418,7 @@ public interface EnergyApi {
             value = "/energy/electricity/servicepoints/{servicePointId}/der",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.der:read')")
     ResponseEntity<EnergyDerDetailResponse> getDERForServicePoint(
             @ApiParam(
                     value = "ID of the specific service point requested.  This is a tokenised ID previous obtained from the Service Point List Data end point.  Note that it is not a nationalMeteringId.",
@@ -496,6 +502,7 @@ public interface EnergyApi {
             value = "/energy/accounts/{accountId}/invoices",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyInvoiceListResponse> getInvoicesForAccount(
             @ApiParam(
                     value = "ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point.",
@@ -595,6 +602,7 @@ public interface EnergyApi {
             value = "/energy/accounts/{accountId}/payment-schedule",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:accounts.paymentschedule:read')")
     ResponseEntity<EnergyPaymentScheduleResponse> getPaymentSchedule(
             @ApiParam(
                     value = "ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point.",
@@ -729,6 +737,7 @@ public interface EnergyApi {
             value = "/energy/electricity/servicepoints/{servicePointId}",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.servicepoints.detail:read')")
     ResponseEntity<EnergyServicePointDetailResponse> getServicePoint(
             @ApiParam(
                     value = "ID of the specific service point requested.  This is a tokenised ID previous obtained from the Service Point List Data end point.  Note that it is not a nationalMeteringId.",
@@ -813,6 +822,7 @@ public interface EnergyApi {
             value = "/energy/electricity/servicepoints/{servicePointId}/usage",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.usage:read')")
     ResponseEntity<EnergyUsageListResponse> getUsageForServicePoint(
             @ApiParam(
                     value = "ID of the specific service point requested.  This is a tokenised ID previous obtained from the Service Point List Data end point.  Note that it is not a nationalMeteringId.",
@@ -913,6 +923,7 @@ public interface EnergyApi {
             value = "/energy/accounts",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:accounts.basic:read')")
     ResponseEntity<EnergyAccountListResponse> listAccounts(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -997,6 +1008,7 @@ public interface EnergyApi {
             value = "/energy/accounts/balances",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyBalanceListResponse> listBalancesBulk(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1083,6 +1095,7 @@ public interface EnergyApi {
             produces = {"application/json"},
             consumes = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyBalanceListResponse> listBalancesForAccounts(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1176,6 +1189,7 @@ public interface EnergyApi {
             value = "/energy/accounts/billing",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyBillingListResponse> listBillingBulk(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1276,6 +1290,7 @@ public interface EnergyApi {
             produces = {"application/json"},
             consumes = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyBillingListResponse> listBillingForAccounts(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1379,6 +1394,7 @@ public interface EnergyApi {
             value = "/energy/electricity/servicepoints/der",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.der:read')")
     ResponseEntity<EnergyDerListResponse> listDERBulk(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1465,6 +1481,7 @@ public interface EnergyApi {
             produces = {"application/json"},
             consumes = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.der:read')")
     ResponseEntity<EnergyDerListResponse> listDERForServicePoints(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1557,6 +1574,7 @@ public interface EnergyApi {
             value = "/energy/accounts/invoices",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyInvoiceListResponse> listInvoicesBulk(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1657,6 +1675,7 @@ public interface EnergyApi {
             produces = {"application/json"},
             consumes = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:billing:read')")
     ResponseEntity<EnergyInvoiceListResponse> listInvoicesForAccounts(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1870,6 +1889,7 @@ public interface EnergyApi {
             value = "/energy/electricity/servicepoints",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.servicepoints.basic:read')")
     ResponseEntity<EnergyServicePointListResponse> listServicePoints(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -1957,6 +1977,7 @@ public interface EnergyApi {
             value = "/energy/electricity/servicepoints/usage",
             produces = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.usage:read')")
     ResponseEntity<EnergyUsageListResponse> listUsageBulk(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
@@ -2057,6 +2078,7 @@ public interface EnergyApi {
             produces = {"application/json"},
             consumes = {"application/json"}
     )
+    @PreAuthorize("hasAuthority('SCOPE_energy:electricity.usage:read')")
     ResponseEntity<EnergyUsageListResponse> listUsageForServicePoints(
             @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",

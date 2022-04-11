@@ -1,10 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,102 +18,53 @@ import java.util.Objects;
 /**
  * EnergyPlanContractGreenPowerCharges
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractGreenPowerCharges {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
     /**
      * The applicable green power scheme
      */
     public enum SchemeEnum {
-        GREENPOWER("GREENPOWER"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        SchemeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static SchemeEnum fromValue(String value) {
-            for (SchemeEnum b : SchemeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        GREENPOWER,
+        OTHER
     }
 
-    @JsonProperty("scheme")
     private SchemeEnum scheme;
 
     /**
      * The type of charge
      */
     public enum TypeEnum {
-        FIXED_PER_DAY("FIXED_PER_DAY"),
-
-        FIXED_PER_WEEK("FIXED_PER_WEEK"),
-
-        FIXED_PER_MONTH("FIXED_PER_MONTH"),
-
-        FIXED_PER_UNIT("FIXED_PER_UNIT"),
-
-        PERCENT_OF_USE("PERCENT_OF_USE"),
-
-        PERCENT_OF_BILL("PERCENT_OF_BILL");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        FIXED_PER_DAY,
+        FIXED_PER_WEEK,
+        FIXED_PER_MONTH,
+        FIXED_PER_UNIT,
+        PERCENT_OF_USE,
+        PERCENT_OF_BILL
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
-    @JsonProperty("tiers")
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractTiers> tiers = new ArrayList<>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractGreenPowerCharges displayName(String displayName) {
         this.displayName = displayName;
@@ -121,11 +76,8 @@ public class EnergyPlanContractGreenPowerCharges {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "The display name of the charge")
+    @ApiModelProperty(required = true, value = "The display name of the charge")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -145,8 +97,6 @@ public class EnergyPlanContractGreenPowerCharges {
      * @return description
      */
     @ApiModelProperty(value = "The description of the charge")
-
-
     public String getDescription() {
         return description;
     }
@@ -165,11 +115,8 @@ public class EnergyPlanContractGreenPowerCharges {
      *
      * @return scheme
      */
-    @ApiModelProperty(required = true,
-            value = "The applicable green power scheme")
+    @ApiModelProperty(required = true, value = "The applicable green power scheme")
     @NotNull
-
-
     public SchemeEnum getScheme() {
         return scheme;
     }
@@ -188,11 +135,8 @@ public class EnergyPlanContractGreenPowerCharges {
      *
      * @return type
      */
-    @ApiModelProperty(required = true,
-            value = "The type of charge")
+    @ApiModelProperty(required = true, value = "The type of charge")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -219,9 +163,7 @@ public class EnergyPlanContractGreenPowerCharges {
     @ApiModelProperty(required = true,
             value = "Array of charge tiers based on the percentage of green power used for the period implied by the type.  Array is in order of increasing percentage of green power")
     @NotNull
-
     @Valid
-
     public List<EnergyPlanContractTiers> getTiers() {
         return tiers;
     }
@@ -229,7 +171,6 @@ public class EnergyPlanContractGreenPowerCharges {
     public void setTiers(List<EnergyPlanContractTiers> tiers) {
         this.tiers = tiers;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -256,7 +197,6 @@ public class EnergyPlanContractGreenPowerCharges {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractGreenPowerCharges {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    scheme: ").append(toIndentedString(scheme)).append("\n");
@@ -277,4 +217,3 @@ public class EnergyPlanContractGreenPowerCharges {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

@@ -1,9 +1,15 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,24 +20,33 @@ import java.util.Objects;
  * Object representing a single rate.  Required if rateBlockUType is singleRate
  */
 @ApiModel(description = "Object representing a single rate.  Required if rateBlockUType is singleRate")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractSingleRate {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("generalUnitPrice")
     private String generalUnitPrice;
 
-    @JsonProperty("rates")
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractSingleRateRates> rates = new ArrayList<>();
 
-    @JsonProperty("period")
     private String period;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractSingleRate displayName(String displayName) {
         this.displayName = displayName;
@@ -43,11 +58,8 @@ public class EnergyPlanContractSingleRate {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "Display name of the rate")
+    @ApiModelProperty(required = true, value = "Display name of the rate")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -67,8 +79,6 @@ public class EnergyPlanContractSingleRate {
      * @return description
      */
     @ApiModelProperty(value = "Description of the rate")
-
-
     public String getDescription() {
         return description;
     }
@@ -88,8 +98,6 @@ public class EnergyPlanContractSingleRate {
      * @return generalUnitPrice
      */
     @ApiModelProperty(value = "The block rate (unit price) for any usage above the included fixed usage, in dollars per kWh inclusive of GST.  Only required if pricingModel field is ‘QUOTA’")
-
-
     public String getGeneralUnitPrice() {
         return generalUnitPrice;
     }
@@ -113,12 +121,9 @@ public class EnergyPlanContractSingleRate {
      *
      * @return rates
      */
-    @ApiModelProperty(required = true,
-            value = "Array of controlled load rates in order of usage volume")
+    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume")
     @NotNull
-
     @Valid
-
     public List<EnergyPlanContractSingleRateRates> getRates() {
         return rates;
     }
@@ -138,8 +143,6 @@ public class EnergyPlanContractSingleRate {
      * @return period
      */
     @ApiModelProperty(value = "Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
-
-
     public String getPeriod() {
         return period;
     }
@@ -147,7 +150,6 @@ public class EnergyPlanContractSingleRate {
     public void setPeriod(String period) {
         this.period = period;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -174,7 +176,6 @@ public class EnergyPlanContractSingleRate {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractSingleRate {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    generalUnitPrice: ").append(toIndentedString(generalUnitPrice)).append("\n");
@@ -195,4 +196,3 @@ public class EnergyPlanContractSingleRate {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

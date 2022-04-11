@@ -1,33 +1,45 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyPlanDetailAllOfMeteringCharges
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
-public class EnergyPlanDetailAllOfMeteringCharges {
-    @JsonProperty("displayName")
+@Entity
+public class MeteringCharges {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("minimumValue")
     private String minimumValue;
 
-    @JsonProperty("maximumValue")
     private String maximumValue;
 
-    @JsonProperty("period")
     private String period;
 
-    public EnergyPlanDetailAllOfMeteringCharges displayName(String displayName) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public MeteringCharges displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -37,11 +49,8 @@ public class EnergyPlanDetailAllOfMeteringCharges {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "Display name of the charge")
+    @ApiModelProperty(required = true, value = "Display name of the charge")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -50,7 +59,7 @@ public class EnergyPlanDetailAllOfMeteringCharges {
         this.displayName = displayName;
     }
 
-    public EnergyPlanDetailAllOfMeteringCharges description(String description) {
+    public MeteringCharges description(String description) {
         this.description = description;
         return this;
     }
@@ -61,8 +70,6 @@ public class EnergyPlanDetailAllOfMeteringCharges {
      * @return description
      */
     @ApiModelProperty(value = "Description of the charge")
-
-
     public String getDescription() {
         return description;
     }
@@ -71,7 +78,7 @@ public class EnergyPlanDetailAllOfMeteringCharges {
         this.description = description;
     }
 
-    public EnergyPlanDetailAllOfMeteringCharges minimumValue(String minimumValue) {
+    public MeteringCharges minimumValue(String minimumValue) {
         this.minimumValue = minimumValue;
         return this;
     }
@@ -84,8 +91,6 @@ public class EnergyPlanDetailAllOfMeteringCharges {
     @ApiModelProperty(required = true,
             value = "Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified")
     @NotNull
-
-
     public String getMinimumValue() {
         return minimumValue;
     }
@@ -94,7 +99,7 @@ public class EnergyPlanDetailAllOfMeteringCharges {
         this.minimumValue = minimumValue;
     }
 
-    public EnergyPlanDetailAllOfMeteringCharges maximumValue(String maximumValue) {
+    public MeteringCharges maximumValue(String maximumValue) {
         this.maximumValue = maximumValue;
         return this;
     }
@@ -105,8 +110,6 @@ public class EnergyPlanDetailAllOfMeteringCharges {
      * @return maximumValue
      */
     @ApiModelProperty(value = "The upper limit of the charge if the charge could occur in a range")
-
-
     public String getMaximumValue() {
         return maximumValue;
     }
@@ -115,7 +118,7 @@ public class EnergyPlanDetailAllOfMeteringCharges {
         this.maximumValue = maximumValue;
     }
 
-    public EnergyPlanDetailAllOfMeteringCharges period(String period) {
+    public MeteringCharges period(String period) {
         this.period = period;
         return this;
     }
@@ -126,8 +129,6 @@ public class EnergyPlanDetailAllOfMeteringCharges {
      * @return period
      */
     @ApiModelProperty(value = "The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
-
-
     public String getPeriod() {
         return period;
     }
@@ -135,7 +136,6 @@ public class EnergyPlanDetailAllOfMeteringCharges {
     public void setPeriod(String period) {
         this.period = period;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -145,12 +145,12 @@ public class EnergyPlanDetailAllOfMeteringCharges {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanDetailAllOfMeteringCharges energyPlanDetailAllOfMeteringCharges = (EnergyPlanDetailAllOfMeteringCharges) o;
-        return Objects.equals(this.displayName, energyPlanDetailAllOfMeteringCharges.displayName) &&
-                Objects.equals(this.description, energyPlanDetailAllOfMeteringCharges.description) &&
-                Objects.equals(this.minimumValue, energyPlanDetailAllOfMeteringCharges.minimumValue) &&
-                Objects.equals(this.maximumValue, energyPlanDetailAllOfMeteringCharges.maximumValue) &&
-                Objects.equals(this.period, energyPlanDetailAllOfMeteringCharges.period);
+        MeteringCharges meteringCharges = (MeteringCharges) o;
+        return Objects.equals(this.displayName, meteringCharges.displayName) &&
+                Objects.equals(this.description, meteringCharges.description) &&
+                Objects.equals(this.minimumValue, meteringCharges.minimumValue) &&
+                Objects.equals(this.maximumValue, meteringCharges.maximumValue) &&
+                Objects.equals(this.period, meteringCharges.period);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class EnergyPlanDetailAllOfMeteringCharges {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanDetailAllOfMeteringCharges {\n");
-
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    minimumValue: ").append(toIndentedString(minimumValue)).append("\n");
@@ -183,4 +183,3 @@ public class EnergyPlanDetailAllOfMeteringCharges {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

@@ -1,9 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -11,17 +15,27 @@ import java.util.Objects;
  * Object containing demand tariff by day of week
  */
 @ApiModel(description = "Object containing demand tariff by day of week")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractDays {
-    @JsonProperty("weekdays")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private Boolean weekdays;
 
-    @JsonProperty("saturday")
     private Boolean saturday;
 
-    @JsonProperty("sunday")
     private Boolean sunday;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractDays weekdays(Boolean weekdays) {
         this.weekdays = weekdays;
@@ -33,11 +47,8 @@ public class EnergyPlanContractDays {
      *
      * @return weekdays
      */
-    @ApiModelProperty(required = true,
-            value = "Indicates the demand tariff is applicable on weekdays")
+    @ApiModelProperty(required = true, value = "Indicates the demand tariff is applicable on weekdays")
     @NotNull
-
-
     public Boolean getWeekdays() {
         return weekdays;
     }
@@ -56,11 +67,8 @@ public class EnergyPlanContractDays {
      *
      * @return saturday
      */
-    @ApiModelProperty(required = true,
-            value = "Indicates the demand tariff is applicable on Saturdays")
+    @ApiModelProperty(required = true, value = "Indicates the demand tariff is applicable on Saturdays")
     @NotNull
-
-
     public Boolean getSaturday() {
         return saturday;
     }
@@ -79,11 +87,8 @@ public class EnergyPlanContractDays {
      *
      * @return sunday
      */
-    @ApiModelProperty(required = true,
-            value = "Indicates the demand tariff is applicable on Sundays")
+    @ApiModelProperty(required = true, value = "Indicates the demand tariff is applicable on Sundays")
     @NotNull
-
-
     public Boolean getSunday() {
         return sunday;
     }
@@ -91,7 +96,6 @@ public class EnergyPlanContractDays {
     public void setSunday(Boolean sunday) {
         this.sunday = sunday;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -116,7 +120,6 @@ public class EnergyPlanContractDays {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractDays {\n");
-
         sb.append("    weekdays: ").append(toIndentedString(weekdays)).append("\n");
         sb.append("    saturday: ").append(toIndentedString(saturday)).append("\n");
         sb.append("    sunday: ").append(toIndentedString(sunday)).append("\n");
@@ -135,4 +138,3 @@ public class EnergyPlanContractDays {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

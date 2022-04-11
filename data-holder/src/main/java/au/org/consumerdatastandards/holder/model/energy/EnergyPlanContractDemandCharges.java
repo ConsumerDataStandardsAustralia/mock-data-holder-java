@@ -1,10 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -12,162 +16,76 @@ import java.util.Objects;
 /**
  * EnergyPlanContractDemandCharges
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractDemandCharges {
-    @JsonProperty("displayName")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("amount")
     private String amount;
 
     /**
      * The measurement unit of charge amount. Assumed to be KWH if absent
      */
     public enum MeasureUnitEnum {
-        KWH("KWH"),
-
-        KVA("KVA"),
-
-        KVAR("KVAR"),
-
-        KVARH("KVARH"),
-
-        KW("KW"),
-
-        DAYS("DAYS"),
-
-        METER("METER"),
-
-        MONTH("MONTH");
-
-        private String value;
-
-        MeasureUnitEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static MeasureUnitEnum fromValue(String value) {
-            for (MeasureUnitEnum b : MeasureUnitEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        KWH,
+        KVA,
+        KVAR,
+        KVARH,
+        KW,
+        DAYS,
+        METER,
+        MONTH
     }
 
-    @JsonProperty("measureUnit")
     private MeasureUnitEnum measureUnit;
 
-    @JsonProperty("startTime")
     private String startTime;
 
-    @JsonProperty("endTime")
     private String endTime;
 
-    @JsonProperty("days")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractDays days;
 
-    @JsonProperty("minDemand")
     private String minDemand;
 
-    @JsonProperty("maxDemand")
     private String maxDemand;
 
     /**
      * Application period for the demand tariff
      */
     public enum MeasurementPeriodEnum {
-        DAY("DAY"),
-
-        MONTH("MONTH"),
-
-        TARIFF_PERIOD("TARIFF_PERIOD");
-
-        private String value;
-
-        MeasurementPeriodEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static MeasurementPeriodEnum fromValue(String value) {
-            for (MeasurementPeriodEnum b : MeasurementPeriodEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        DAY,
+        MONTH,
+        TARIFF_PERIOD
     }
 
-    @JsonProperty("measurementPeriod")
     private MeasurementPeriodEnum measurementPeriod;
 
     /**
      * Charge period for the demand tariff
      */
     public enum ChargePeriodEnum {
-        DAY("DAY"),
-
-        MONTH("MONTH"),
-
-        TARIFF_PERIOD("TARIFF_PERIOD");
-
-        private String value;
-
-        ChargePeriodEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ChargePeriodEnum fromValue(String value) {
-            for (ChargePeriodEnum b : ChargePeriodEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        DAY,
+        MONTH,
+        TARIFF_PERIOD
     }
 
-    @JsonProperty("chargePeriod")
     private ChargePeriodEnum chargePeriod;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractDemandCharges displayName(String displayName) {
         this.displayName = displayName;
@@ -179,11 +97,8 @@ public class EnergyPlanContractDemandCharges {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "Display name of the charge")
+    @ApiModelProperty(required = true, value = "Display name of the charge")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -203,8 +118,6 @@ public class EnergyPlanContractDemandCharges {
      * @return description
      */
     @ApiModelProperty(value = "Description of the charge")
-
-
     public String getDescription() {
         return description;
     }
@@ -226,8 +139,6 @@ public class EnergyPlanContractDemandCharges {
     @ApiModelProperty(required = true,
             value = "The charge amount per  measure unit exclusive of GST")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -247,8 +158,6 @@ public class EnergyPlanContractDemandCharges {
      * @return measureUnit
      */
     @ApiModelProperty(value = "The measurement unit of charge amount. Assumed to be KWH if absent")
-
-
     public MeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
@@ -270,8 +179,6 @@ public class EnergyPlanContractDemandCharges {
     @ApiModelProperty(required = true,
             value = "Start of the period in HHMM format using 24 hour clock format")
     @NotNull
-
-
     public String getStartTime() {
         return startTime;
     }
@@ -293,8 +200,6 @@ public class EnergyPlanContractDemandCharges {
     @ApiModelProperty(required = true,
             value = "End of the period in HHMM format using 24 hour clock format")
     @NotNull
-
-
     public String getEndTime() {
         return endTime;
     }
@@ -314,9 +219,7 @@ public class EnergyPlanContractDemandCharges {
      * @return days
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyPlanContractDays getDays() {
         return days;
     }
@@ -336,8 +239,6 @@ public class EnergyPlanContractDemandCharges {
      * @return minDemand
      */
     @ApiModelProperty(value = "Minimum demand for this demand tariff in kW.  If absent then 0 is assumed")
-
-
     public String getMinDemand() {
         return minDemand;
     }
@@ -357,8 +258,6 @@ public class EnergyPlanContractDemandCharges {
      * @return maxDemand
      */
     @ApiModelProperty(value = "Maximum demand for this demand tariff in kW.  If present, must be higher than the value of the minDemand field")
-
-
     public String getMaxDemand() {
         return maxDemand;
     }
@@ -377,11 +276,8 @@ public class EnergyPlanContractDemandCharges {
      *
      * @return measurementPeriod
      */
-    @ApiModelProperty(required = true,
-            value = "Application period for the demand tariff")
+    @ApiModelProperty(required = true, value = "Application period for the demand tariff")
     @NotNull
-
-
     public MeasurementPeriodEnum getMeasurementPeriod() {
         return measurementPeriod;
     }
@@ -400,11 +296,8 @@ public class EnergyPlanContractDemandCharges {
      *
      * @return chargePeriod
      */
-    @ApiModelProperty(required = true,
-            value = "Charge period for the demand tariff")
+    @ApiModelProperty(required = true, value = "Charge period for the demand tariff")
     @NotNull
-
-
     public ChargePeriodEnum getChargePeriod() {
         return chargePeriod;
     }
@@ -412,7 +305,6 @@ public class EnergyPlanContractDemandCharges {
     public void setChargePeriod(ChargePeriodEnum chargePeriod) {
         this.chargePeriod = chargePeriod;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -445,7 +337,6 @@ public class EnergyPlanContractDemandCharges {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractDemandCharges {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
@@ -472,4 +363,3 @@ public class EnergyPlanContractDemandCharges {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

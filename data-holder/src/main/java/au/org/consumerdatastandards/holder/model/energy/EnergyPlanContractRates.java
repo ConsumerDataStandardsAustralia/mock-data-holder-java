@@ -1,10 +1,12 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -13,64 +15,41 @@ import java.util.Objects;
 /**
  * EnergyPlanContractRates
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractRates {
-    @JsonProperty("unitPrice")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String unitPrice;
 
     /**
      * The measurement unit of rate. Assumed to be KWH if absent
      */
     public enum MeasureUnitEnum {
-        KWH("KWH"),
-
-        KVA("KVA"),
-
-        KVAR("KVAR"),
-
-        KVARH("KVARH"),
-
-        KW("KW"),
-
-        DAYS("DAYS"),
-
-        METER("METER"),
-
-        MONTH("MONTH");
-
-        private String value;
-
-        MeasureUnitEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static MeasureUnitEnum fromValue(String value) {
-            for (MeasureUnitEnum b : MeasureUnitEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        KWH,
+        KVA,
+        KVAR,
+        KVARH,
+        KW,
+        DAYS,
+        METER,
+        MONTH
     }
 
-    @JsonProperty("measureUnit")
     private MeasureUnitEnum measureUnit;
 
-    @JsonProperty("volume")
     private BigDecimal volume;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractRates unitPrice(String unitPrice) {
         this.unitPrice = unitPrice;
@@ -82,11 +61,8 @@ public class EnergyPlanContractRates {
      *
      * @return unitPrice
      */
-    @ApiModelProperty(required = true,
-            value = "Unit price of usage per  measure unit (exclusive of GST)")
+    @ApiModelProperty(required = true, value = "Unit price of usage per  measure unit (exclusive of GST)")
     @NotNull
-
-
     public String getUnitPrice() {
         return unitPrice;
     }
@@ -106,8 +82,6 @@ public class EnergyPlanContractRates {
      * @return measureUnit
      */
     @ApiModelProperty(value = "The measurement unit of rate. Assumed to be KWH if absent")
-
-
     public MeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
@@ -127,9 +101,7 @@ public class EnergyPlanContractRates {
      * @return volume
      */
     @ApiModelProperty(value = "Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period")
-
     @Valid
-
     public BigDecimal getVolume() {
         return volume;
     }
@@ -137,7 +109,6 @@ public class EnergyPlanContractRates {
     public void setVolume(BigDecimal volume) {
         this.volume = volume;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -162,7 +133,6 @@ public class EnergyPlanContractRates {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractRates {\n");
-
         sb.append("    unitPrice: ").append(toIndentedString(unitPrice)).append("\n");
         sb.append("    measureUnit: ").append(toIndentedString(measureUnit)).append("\n");
         sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
@@ -181,4 +151,3 @@ public class EnergyPlanContractRates {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

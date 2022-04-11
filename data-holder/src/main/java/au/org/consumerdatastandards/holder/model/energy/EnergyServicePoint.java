@@ -1,19 +1,19 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 /**
  * EnergyServicePoint
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyServicePoint {
     @JsonProperty("servicePointId")
     private String servicePointId;
@@ -25,47 +25,14 @@ public class EnergyServicePoint {
      * The classification of the service point as defined in MSATS procedures
      */
     public enum ServicePointClassificationEnum {
-        EXTERNAL_PROFILE("EXTERNAL_PROFILE"),
-
-        GENERATOR("GENERATOR"),
-
-        LARGE("LARGE"),
-
-        SMALL("SMALL"),
-
-        WHOLESALE("WHOLESALE"),
-
-        NON_CONTEST_UNMETERED_LOAD("NON_CONTEST_UNMETERED_LOAD"),
-
-        NON_REGISTERED_EMBEDDED_GENERATOR("NON_REGISTERED_EMBEDDED_GENERATOR"),
-
-        DISTRIBUTION_WHOLESALE("DISTRIBUTION_WHOLESALE");
-
-        private String value;
-
-        ServicePointClassificationEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ServicePointClassificationEnum fromValue(String value) {
-            for (ServicePointClassificationEnum b : ServicePointClassificationEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        EXTERNAL_PROFILE,
+        GENERATOR,
+        LARGE,
+        SMALL,
+        WHOLESALE,
+        NON_CONTEST_UNMETERED_LOAD,
+        NON_REGISTERED_EMBEDDED_GENERATOR,
+        DISTRIBUTION_WHOLESALE
     }
 
     @JsonProperty("servicePointClassification")
@@ -75,41 +42,11 @@ public class EnergyServicePoint {
      * Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>**ACTIVE** - An active, energised, service point</li><li>**DE_ENERGISED** - The service point exists but is deenergised</li><li>**EXTINCT** - The service point has been permanently decommissioned</li><li>**GREENFIELD** - Applies to a service point that has never been energised</li><li>**OFF_MARKET** - Applies when the service point is no longer settled in the NEM</li></ul>
      */
     public enum ServicePointStatusEnum {
-        ACTIVE("ACTIVE"),
-
-        DE_ENERGISED("DE_ENERGISED"),
-
-        EXTINCT("EXTINCT"),
-
-        GREENFIELD("GREENFIELD"),
-
-        OFF_MARKET("OFF_MARKET");
-
-        private String value;
-
-        ServicePointStatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ServicePointStatusEnum fromValue(String value) {
-            for (ServicePointStatusEnum b : ServicePointStatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ACTIVE,
+        DE_ENERGISED,
+        EXTINCT,
+        GREENFIELD,
+        OFF_MARKET
     }
 
     @JsonProperty("servicePointStatus")
@@ -119,60 +56,27 @@ public class EnergyServicePoint {
      * Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>**ALL** - All Jurisdictions</li><li>**ACT** - Australian Capital Territory</li><li>**NEM** - National Electricity Market</li><li>**NSW** - New South Wales</li><li>**QLD** - Queensland</li><li>**SA** - South Australia</li><li>**TAS** - Tasmania</li><li>**VIC** - Victoria</li></ul>
      */
     public enum JurisdictionCodeEnum {
-        ALL("ALL"),
-
-        ACT("ACT"),
-
-        NEM("NEM"),
-
-        NSW("NSW"),
-
-        QLD("QLD"),
-
-        SA("SA"),
-
-        TAS("TAS"),
-
-        VIC("VIC");
-
-        private String value;
-
-        JurisdictionCodeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static JurisdictionCodeEnum fromValue(String value) {
-            for (JurisdictionCodeEnum b : JurisdictionCodeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ALL,
+        ACT,
+        NEM,
+        NSW,
+        QLD,
+        SA,
+        TAS,
+        VIC
     }
 
-    @JsonProperty("jurisdictionCode")
     private JurisdictionCodeEnum jurisdictionCode;
 
-    @JsonProperty("isGenerator")
     private Boolean isGenerator;
 
-    @JsonProperty("validFromDate")
-    private String validFromDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate validFromDate;
 
-    @JsonProperty("lastUpdateDateTime")
-    private String lastUpdateDateTime;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime lastUpdateDateTime;
 
     @JsonProperty("consumerProfile")
     private EnergyServicePointConsumerProfile consumerProfile;
@@ -313,7 +217,7 @@ public class EnergyServicePoint {
         this.isGenerator = isGenerator;
     }
 
-    public EnergyServicePoint validFromDate(String validFromDate) {
+    public EnergyServicePoint validFromDate(LocalDate validFromDate) {
         this.validFromDate = validFromDate;
         return this;
     }
@@ -325,18 +229,17 @@ public class EnergyServicePoint {
      */
     @ApiModelProperty(required = true,
             value = "The start date from which this service point first became valid")
-    @NotNull
 
 
-    public String getValidFromDate() {
+    public LocalDate getValidFromDate() {
         return validFromDate;
     }
 
-    public void setValidFromDate(String validFromDate) {
+    public void setValidFromDate(LocalDate validFromDate) {
         this.validFromDate = validFromDate;
     }
 
-    public EnergyServicePoint lastUpdateDateTime(String lastUpdateDateTime) {
+    public EnergyServicePoint lastUpdateDateTime(OffsetDateTime lastUpdateDateTime) {
         this.lastUpdateDateTime = lastUpdateDateTime;
         return this;
     }
@@ -351,11 +254,11 @@ public class EnergyServicePoint {
     @NotNull
 
 
-    public String getLastUpdateDateTime() {
+    public OffsetDateTime getLastUpdateDateTime() {
         return lastUpdateDateTime;
     }
 
-    public void setLastUpdateDateTime(String lastUpdateDateTime) {
+    public void setLastUpdateDateTime(OffsetDateTime lastUpdateDateTime) {
         this.lastUpdateDateTime = lastUpdateDateTime;
     }
 

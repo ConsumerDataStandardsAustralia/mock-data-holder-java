@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -13,31 +12,21 @@ import java.util.Objects;
 /**
  * EnergyDerRecord
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyDerRecord {
-    @JsonProperty("servicePointId")
     private String servicePointId;
 
-    @JsonProperty("approvedCapacity")
     private BigDecimal approvedCapacity;
 
-    @JsonProperty("availablePhasesCount")
-    private BigDecimal availablePhasesCount;
+    private int availablePhasesCount;
 
-    @JsonProperty("installedPhasesCount")
-    private BigDecimal installedPhasesCount;
+    private int installedPhasesCount;
 
-    @JsonProperty("islandableInstallation")
     private String islandableInstallation;
 
-    @JsonProperty("hasCentralProtectionControl")
     private Boolean hasCentralProtectionControl = false;
 
-    @JsonProperty("protectionMode")
     private EnergyDerRecordProtectionMode protectionMode;
 
-    @JsonProperty("acConnections")
     @Valid
     private List<EnergyDerRecordAcConnections> acConnections = new ArrayList<>();
 
@@ -54,8 +43,6 @@ public class EnergyDerRecord {
     @ApiModelProperty(required = true,
             value = "Tokenised ID of the service point to be used for referring to the service point in the CDR API suite.  To be created in accordance with CDR ID permanence requirements")
     @NotNull
-
-
     public String getServicePointId() {
         return servicePointId;
     }
@@ -77,9 +64,7 @@ public class EnergyDerRecord {
     @ApiModelProperty(required = true,
             value = "Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA")
     @NotNull
-
     @Valid
-
     public BigDecimal getApprovedCapacity() {
         return approvedCapacity;
     }
@@ -88,7 +73,7 @@ public class EnergyDerRecord {
         this.approvedCapacity = approvedCapacity;
     }
 
-    public EnergyDerRecord availablePhasesCount(BigDecimal availablePhasesCount) {
+    public EnergyDerRecord availablePhasesCount(int availablePhasesCount) {
         this.availablePhasesCount = availablePhasesCount;
         return this;
     }
@@ -100,19 +85,15 @@ public class EnergyDerRecord {
      */
     @ApiModelProperty(required = true,
             value = "The number of phases available for the installation of DER")
-    @NotNull
-
-    @Valid
-
-    public BigDecimal getAvailablePhasesCount() {
+    public int getAvailablePhasesCount() {
         return availablePhasesCount;
     }
 
-    public void setAvailablePhasesCount(BigDecimal availablePhasesCount) {
+    public void setAvailablePhasesCount(int availablePhasesCount) {
         this.availablePhasesCount = availablePhasesCount;
     }
 
-    public EnergyDerRecord installedPhasesCount(BigDecimal installedPhasesCount) {
+    public EnergyDerRecord installedPhasesCount(int installedPhasesCount) {
         this.installedPhasesCount = installedPhasesCount;
         return this;
     }
@@ -124,15 +105,11 @@ public class EnergyDerRecord {
      */
     @ApiModelProperty(required = true,
             value = "The number of phases that DER is connected to")
-    @NotNull
-
-    @Valid
-
-    public BigDecimal getInstalledPhasesCount() {
+    public int getInstalledPhasesCount() {
         return installedPhasesCount;
     }
 
-    public void setInstalledPhasesCount(BigDecimal installedPhasesCount) {
+    public void setInstalledPhasesCount(int installedPhasesCount) {
         this.installedPhasesCount = installedPhasesCount;
     }
 
@@ -149,8 +126,6 @@ public class EnergyDerRecord {
     @ApiModelProperty(required = true,
             value = "For identification of small generating units designed with the ability to operate in an islanded mode")
     @NotNull
-
-
     public String getIslandableInstallation() {
         return islandableInstallation;
     }
@@ -170,8 +145,6 @@ public class EnergyDerRecord {
      * @return hasCentralProtectionControl
      */
     @ApiModelProperty(value = "For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter.  If absent then assumed to be false")
-
-
     public Boolean getHasCentralProtectionControl() {
         return hasCentralProtectionControl;
     }
@@ -191,9 +164,7 @@ public class EnergyDerRecord {
      * @return protectionMode
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyDerRecordProtectionMode getProtectionMode() {
         return protectionMode;
     }
@@ -220,9 +191,7 @@ public class EnergyDerRecord {
     @ApiModelProperty(required = true,
             value = "")
     @NotNull
-
     @Valid
-
     public List<EnergyDerRecordAcConnections> getAcConnections() {
         return acConnections;
     }
@@ -230,7 +199,6 @@ public class EnergyDerRecord {
     public void setAcConnections(List<EnergyDerRecordAcConnections> acConnections) {
         this.acConnections = acConnections;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -260,7 +228,6 @@ public class EnergyDerRecord {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyDerRecord {\n");
-
         sb.append("    servicePointId: ").append(toIndentedString(servicePointId)).append("\n");
         sb.append("    approvedCapacity: ").append(toIndentedString(approvedCapacity)).append("\n");
         sb.append("    availablePhasesCount: ").append(toIndentedString(availablePhasesCount)).append("\n");
@@ -284,4 +251,3 @@ public class EnergyDerRecord {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

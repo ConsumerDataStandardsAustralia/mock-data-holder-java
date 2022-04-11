@@ -15,7 +15,7 @@ import java.util.Objects;
         date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyPlanResponse {
     @JsonProperty("data")
-    private EnergyPlanDetail data;
+    private EnergyPlanDetailEntity data;
 
     @JsonProperty("links")
     private Links links;
@@ -23,7 +23,7 @@ public class EnergyPlanResponse {
     @JsonProperty("meta")
     private Object meta;
 
-    public EnergyPlanResponse data(EnergyPlanDetail data) {
+    public EnergyPlanResponse data(EnergyPlanDetailEntity data) {
         this.data = data;
         return this;
     }
@@ -39,11 +39,11 @@ public class EnergyPlanResponse {
 
     @Valid
 
-    public EnergyPlanDetail getData() {
+    public EnergyPlanDetailEntity getData() {
         return data;
     }
 
-    public void setData(EnergyPlanDetail data) {
+    public void setData(EnergyPlanDetailEntity data) {
         this.data = data;
     }
 

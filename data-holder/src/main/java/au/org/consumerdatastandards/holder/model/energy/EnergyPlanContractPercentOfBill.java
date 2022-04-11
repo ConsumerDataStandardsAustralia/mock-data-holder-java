@@ -1,9 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -11,11 +15,23 @@ import java.util.Objects;
  * Required if methodUType is percentOfBill
  */
 @ApiModel(description = "Required if methodUType is percentOfBill")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPlanContractPercentOfBill {
-    @JsonProperty("rate")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String rate;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPlanContractPercentOfBill rate(String rate) {
         this.rate = rate;
@@ -27,11 +43,8 @@ public class EnergyPlanContractPercentOfBill {
      *
      * @return rate
      */
-    @ApiModelProperty(required = true,
-            value = "The rate of the discount applied to the bill amount")
+    @ApiModelProperty(required = true, value = "The rate of the discount applied to the bill amount")
     @NotNull
-
-
     public String getRate() {
         return rate;
     }
@@ -39,7 +52,6 @@ public class EnergyPlanContractPercentOfBill {
     public void setRate(String rate) {
         this.rate = rate;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -62,7 +74,6 @@ public class EnergyPlanContractPercentOfBill {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanContractPercentOfBill {\n");
-
         sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -79,4 +90,3 @@ public class EnergyPlanContractPercentOfBill {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
