@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,10 +14,8 @@ import java.util.Objects;
  * EnergyServicePoint
  */
 public class EnergyServicePoint {
-    @JsonProperty("servicePointId")
     private String servicePointId;
 
-    @JsonProperty("nationalMeteringId")
     private String nationalMeteringId;
 
     /**
@@ -35,7 +32,6 @@ public class EnergyServicePoint {
         DISTRIBUTION_WHOLESALE
     }
 
-    @JsonProperty("servicePointClassification")
     private ServicePointClassificationEnum servicePointClassification;
 
     /**
@@ -49,7 +45,6 @@ public class EnergyServicePoint {
         OFF_MARKET
     }
 
-    @JsonProperty("servicePointStatus")
     private ServicePointStatusEnum servicePointStatus;
 
     /**
@@ -78,7 +73,6 @@ public class EnergyServicePoint {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastUpdateDateTime;
 
-    @JsonProperty("consumerProfile")
     private EnergyServicePointConsumerProfile consumerProfile;
 
     public EnergyServicePoint servicePointId(String servicePointId) {
@@ -94,8 +88,6 @@ public class EnergyServicePoint {
     @ApiModelProperty(required = true,
             value = "Tokenised ID of the service point to be used for referring to the service point in the CDR API suite. To be created in accordance with CDR ID permanence requirements")
     @NotNull
-
-
     public String getServicePointId() {
         return servicePointId;
     }
@@ -117,8 +109,6 @@ public class EnergyServicePoint {
     @ApiModelProperty(required = true,
             value = "The independent ID of the service point, known in the industry as the NMI")
     @NotNull
-
-
     public String getNationalMeteringId() {
         return nationalMeteringId;
     }
@@ -140,8 +130,6 @@ public class EnergyServicePoint {
     @ApiModelProperty(required = true,
             value = "The classification of the service point as defined in MSATS procedures")
     @NotNull
-
-
     public ServicePointClassificationEnum getServicePointClassification() {
         return servicePointClassification;
     }
@@ -163,8 +151,6 @@ public class EnergyServicePoint {
     @ApiModelProperty(required = true,
             value = "Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>**ACTIVE** - An active, energised, service point</li><li>**DE_ENERGISED** - The service point exists but is deenergised</li><li>**EXTINCT** - The service point has been permanently decommissioned</li><li>**GREENFIELD** - Applies to a service point that has never been energised</li><li>**OFF_MARKET** - Applies when the service point is no longer settled in the NEM</li></ul> ")
     @NotNull
-
-
     public ServicePointStatusEnum getServicePointStatus() {
         return servicePointStatus;
     }
@@ -186,8 +172,6 @@ public class EnergyServicePoint {
     @ApiModelProperty(required = true,
             value = "Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>**ALL** - All Jurisdictions</li><li>**ACT** - Australian Capital Territory</li><li>**NEM** - National Electricity Market</li><li>**NSW** - New South Wales</li><li>**QLD** - Queensland</li><li>**SA** - South Australia</li><li>**TAS** - Tasmania</li><li>**VIC** - Victoria</li></ul>")
     @NotNull
-
-
     public JurisdictionCodeEnum getJurisdictionCode() {
         return jurisdictionCode;
     }
@@ -207,8 +191,6 @@ public class EnergyServicePoint {
      * @return isGenerator
      */
     @ApiModelProperty(value = "This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer")
-
-
     public Boolean getIsGenerator() {
         return isGenerator;
     }
@@ -229,8 +211,6 @@ public class EnergyServicePoint {
      */
     @ApiModelProperty(required = true,
             value = "The start date from which this service point first became valid")
-
-
     public LocalDate getValidFromDate() {
         return validFromDate;
     }
@@ -252,8 +232,6 @@ public class EnergyServicePoint {
     @ApiModelProperty(required = true,
             value = "The date and time that the information for this service point was modified")
     @NotNull
-
-
     public OffsetDateTime getLastUpdateDateTime() {
         return lastUpdateDateTime;
     }
@@ -273,9 +251,7 @@ public class EnergyServicePoint {
      * @return consumerProfile
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyServicePointConsumerProfile getConsumerProfile() {
         return consumerProfile;
     }
@@ -283,7 +259,6 @@ public class EnergyServicePoint {
     public void setConsumerProfile(EnergyServicePointConsumerProfile consumerProfile) {
         this.consumerProfile = consumerProfile;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -314,7 +289,6 @@ public class EnergyServicePoint {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyServicePoint {\n");
-
         sb.append("    servicePointId: ").append(toIndentedString(servicePointId)).append("\n");
         sb.append("    nationalMeteringId: ").append(toIndentedString(nationalMeteringId)).append("\n");
         sb.append("    servicePointClassification: ").append(toIndentedString(servicePointClassification)).append("\n");
@@ -339,4 +313,3 @@ public class EnergyServicePoint {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
