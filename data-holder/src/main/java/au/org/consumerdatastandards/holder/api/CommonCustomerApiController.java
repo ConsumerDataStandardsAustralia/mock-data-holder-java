@@ -52,8 +52,8 @@ public class CommonCustomerApiController extends ApiControllerBase implements Co
                                                               UUID xFapiInteractionId,
                                                               Integer xMinV,
                                                               Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         String sub = jwt.getClaim("sub");
         ResponseCommonCustomer responseCommonCustomer = new ResponseCommonCustomer();
         ResponseCommonCustomerData data = new ResponseCommonCustomerData();
@@ -79,8 +79,8 @@ public class CommonCustomerApiController extends ApiControllerBase implements Co
                                                                           UUID xFapiInteractionId,
                                                                           Integer xMinV,
                                                                           Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         String sub = jwt.getClaim("sub");
         ResponseCommonCustomerDetail responseCommonCustomerDetail = new ResponseCommonCustomerDetail();
         ResponseCommonCustomerDetailData data = new ResponseCommonCustomerDetailData();

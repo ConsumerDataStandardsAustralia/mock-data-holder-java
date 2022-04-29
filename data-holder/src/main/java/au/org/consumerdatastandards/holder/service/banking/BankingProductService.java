@@ -6,8 +6,10 @@ import au.org.consumerdatastandards.holder.model.banking.ParamEffective;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV3Repository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV4Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductV1Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductV2Repository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingProductV4Repository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,21 +34,27 @@ public class BankingProductService {
 
     private final BankingProductV1Repository productsV1Repository;
     private final BankingProductV2Repository productsV2Repository;
+    private final BankingProductV4Repository productsV4Repository;
     private final BankingProductDetailV1Repository productDetailV1Repository;
     private final BankingProductDetailV2Repository productDetailV2Repository;
     private final BankingProductDetailV3Repository productDetailV3Repository;
+    private final BankingProductDetailV4Repository productDetailV4Repository;
 
     @Autowired
     public BankingProductService(BankingProductV1Repository productsV1Repository,
                                  BankingProductV2Repository productsV2Repository,
+                                 BankingProductV4Repository productsV4Repository,
                                  BankingProductDetailV1Repository productDetailV1Repository,
                                  BankingProductDetailV2Repository productDetailV2Repository,
-                                 BankingProductDetailV3Repository productDetailV3Repository) {
+                                 BankingProductDetailV3Repository productDetailV3Repository,
+                                 BankingProductDetailV4Repository productDetailV4Repository) {
         this.productsV1Repository = productsV1Repository;
         this.productsV2Repository = productsV2Repository;
+        this.productsV4Repository = productsV4Repository;
         this.productDetailV1Repository = productDetailV1Repository;
         this.productDetailV2Repository = productDetailV2Repository;
         this.productDetailV3Repository = productDetailV3Repository;
+        this.productDetailV4Repository = productDetailV4Repository;
     }
 
     public Page<BankingProduct> findProductsLike(ParamEffective effective, BankingProduct bankingProduct, Pageable pageable, Integer version) {
@@ -55,18 +63,22 @@ public class BankingProductService {
             case 2:
             case 3:
                 return productsV2Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(product -> product);
+            case 4:
+                return productsV4Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(product -> product);
             default:
                 return productsV1Repository.findAll(new BankingProductSpecification<>(effective, bankingProduct), pageable).map(productV1 -> productV1);
         }
     }
 
-    public BankingProductDetail getProductDetail(String productId, Integer version) {
+    public BankingProductDetail getProductDetail(String productId, int version) {
         LOGGER.debug("Retrieving product detail by id {}",  productId);
         switch (version) {
             case 2:
                 return productDetailV2Repository.findById(productId).orElse(null);
             case 3:
                 return productDetailV3Repository.findById(productId).orElse(null);
+            case 4:
+                return productDetailV4Repository.findById(productId).orElse(null);
             default:
                 return productDetailV1Repository.findById(productId).orElse(null);
         }

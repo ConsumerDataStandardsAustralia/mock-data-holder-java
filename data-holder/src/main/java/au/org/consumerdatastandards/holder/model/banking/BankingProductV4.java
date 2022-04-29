@@ -15,14 +15,18 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "BankingProduct")
-public class BankingProductV1 implements BankingProduct {
+public class BankingProductV4 implements BankingProduct {
 
     /**
      * A provider specific unique identifier for this product. This
@@ -102,7 +106,14 @@ public class BankingProductV1 implements BankingProduct {
     private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private BankingProductAdditionalInformationV1 additionalInformation;
+    private BankingProductAdditionalInformationV2 additionalInformation;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "product_cardarts",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "cardart_id"))
+    private List<BankingProductV2CardArt> cardArt;
 
     @Override
     public String getProductId() {
@@ -214,19 +225,27 @@ public class BankingProductV1 implements BankingProduct {
         this.isTailored = isTailored;
     }
 
-    public BankingProductAdditionalInformationV1 getAdditionalInformation() {
+    public BankingProductAdditionalInformationV2 getAdditionalInformation() {
         return additionalInformation;
     }
 
-    public void setAdditionalInformation(BankingProductAdditionalInformationV1 additionalInformation) {
+    public void setAdditionalInformation(BankingProductAdditionalInformationV2 additionalInformation) {
         this.additionalInformation = additionalInformation;
+    }
+
+    public List<BankingProductV2CardArt> getCardArt() {
+        return cardArt;
+    }
+
+    public void setCardArt(List<BankingProductV2CardArt> cardArt) {
+        this.cardArt = cardArt;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BankingProductV1 that = (BankingProductV1) o;
+        BankingProductV4 that = (BankingProductV4) o;
         return productId.equals(that.productId);
     }
 
@@ -250,6 +269,7 @@ public class BankingProductV1 implements BankingProduct {
             ", applicationUri='" + applicationUri + '\'' +
             ", isTailored=" + isTailored +
             ", additionalInformation=" + additionalInformation +
+            ", cardArt=" + cardArt +
             '}';
     }
 }

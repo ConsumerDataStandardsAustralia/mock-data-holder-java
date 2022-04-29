@@ -19,7 +19,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "BankingProduct")
-public class BankingProductV2Detail implements BankingProductDetail {
+public class BankingProductDetailV4 implements BankingProductDetail {
 
     /**
      * A provider specific unique identifier for this product. This
@@ -99,7 +99,7 @@ public class BankingProductV2Detail implements BankingProductDetail {
     private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private BankingProductAdditionalInformationV1 additionalInformation;
+    private BankingProductAdditionalInformationV2 additionalInformation;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -130,7 +130,7 @@ public class BankingProductV2Detail implements BankingProductDetail {
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "deposit_rate_id"))
     @Valid
-    private List<BankingProductDepositRateV1> depositRates = null;
+    private List<BankingProductDepositRateV2> depositRates = null;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -162,7 +162,7 @@ public class BankingProductV2Detail implements BankingProductDetail {
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "lending_rate_id"))
     @Valid
-    private List<BankingProductLendingRateV1> lendingRates = null;
+    private List<BankingProductLendingRateV2> lendingRates = null;
 
     @Override
     public String getProductId() {
@@ -274,8 +274,8 @@ public class BankingProductV2Detail implements BankingProductDetail {
         isTailored = tailored;
     }
 
-    public BankingProductV2Detail additionalInformation(BankingProductAdditionalInformation additionalInformation) {
-        this.additionalInformation = (BankingProductAdditionalInformationV1) additionalInformation;
+    public BankingProductDetailV4 additionalInformation(BankingProductAdditionalInformationV2 additionalInformation) {
+        this.additionalInformation = additionalInformation;
         return this;
     }
 
@@ -285,11 +285,11 @@ public class BankingProductV2Detail implements BankingProductDetail {
      * @return additionalInformation
      */
     @Valid
-    public BankingProductAdditionalInformationV1 getAdditionalInformation() {
+    public BankingProductAdditionalInformationV2 getAdditionalInformation() {
         return additionalInformation;
     }
 
-    public void setAdditionalInformation(BankingProductAdditionalInformationV1 additionalInformation) {
+    public void setAdditionalInformation(BankingProductAdditionalInformationV2 additionalInformation) {
         this.additionalInformation = additionalInformation;
     }
 
@@ -301,67 +301,67 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.cardArt = cardArt;
     }
 
-    public BankingProductV2Detail applicationUri(String applicationUri) {
+    public BankingProductDetailV4 applicationUri(String applicationUri) {
         this.applicationUri = applicationUri;
         return this;
     }
 
-    public BankingProductV2Detail brand(String brand) {
+    public BankingProductDetailV4 brand(String brand) {
         this.brand = brand;
         return this;
     }
 
-    public BankingProductV2Detail brandName(String brandName) {
+    public BankingProductDetailV4 brandName(String brandName) {
         this.brandName = brandName;
         return this;
     }
 
-    public BankingProductV2Detail description(String description) {
+    public BankingProductDetailV4 description(String description) {
         this.description = description;
         return this;
     }
 
-    public BankingProductV2Detail effectiveFrom(OffsetDateTime effectiveFrom) {
+    public BankingProductDetailV4 effectiveFrom(OffsetDateTime effectiveFrom) {
         this.effectiveFrom = effectiveFrom;
         return this;
     }
 
-    public BankingProductV2Detail effectiveTo(OffsetDateTime effectiveTo) {
+    public BankingProductDetailV4 effectiveTo(OffsetDateTime effectiveTo) {
         this.effectiveTo = effectiveTo;
         return this;
     }
 
-    public BankingProductV2Detail isTailored(Boolean isTailored) {
+    public BankingProductDetailV4 isTailored(Boolean isTailored) {
         this.isTailored = isTailored;
         return this;
     }
 
-    public BankingProductV2Detail lastUpdated(OffsetDateTime lastUpdated) {
+    public BankingProductDetailV4 lastUpdated(OffsetDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
         return this;
     }
 
-    public BankingProductV2Detail name(String name) {
+    public BankingProductDetailV4 name(String name) {
         this.name = name;
         return this;
     }
 
-    public BankingProductV2Detail productCategory(BankingProductCategory productCategory) {
+    public BankingProductDetailV4 productCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
         return this;
     }
 
-    public BankingProductV2Detail productId(String productId) {
+    public BankingProductDetailV4 productId(String productId) {
         this.productId = productId;
         return this;
     }
 
-    public BankingProductV2Detail bundles(List<BankingProductBundle> bundles) {
+    public BankingProductDetailV4 bundles(List<BankingProductBundle> bundles) {
         this.bundles = bundles;
         return this;
     }
 
-    public BankingProductV2Detail addBundlesItem(BankingProductBundle bundlesItem) {
+    public BankingProductDetailV4 addBundlesItem(BankingProductBundle bundlesItem) {
         if (this.bundles == null) {
             this.bundles = new ArrayList<>();
         }
@@ -383,12 +383,12 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.bundles = bundles;
     }
 
-    public BankingProductV2Detail constraints(List<BankingProductConstraint> constraints) {
+    public BankingProductDetailV4 constraints(List<BankingProductConstraint> constraints) {
         this.constraints = constraints;
         return this;
     }
 
-    public BankingProductV2Detail addConstraintsItem(BankingProductConstraint constraintsItem) {
+    public BankingProductDetailV4 addConstraintsItem(BankingProductConstraint constraintsItem) {
         if (this.constraints == null) {
             this.constraints = new ArrayList<>();
         }
@@ -410,12 +410,12 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.constraints = constraints;
     }
 
-    public BankingProductV2Detail depositRates(List<BankingProductDepositRateV1> depositRates) {
+    public BankingProductDetailV4 depositRates(List<BankingProductDepositRateV2> depositRates) {
         this.depositRates = depositRates;
         return this;
     }
 
-    public BankingProductV2Detail addDepositRatesItem(BankingProductDepositRateV1 depositRatesItem) {
+    public BankingProductDetailV4 addDepositRatesItem(BankingProductDepositRateV2 depositRatesItem) {
         if (this.depositRates == null) {
             this.depositRates = new ArrayList<>();
         }
@@ -429,20 +429,20 @@ public class BankingProductV2Detail implements BankingProductDetail {
      * @return depositRates
      */
     @Valid
-    public List<BankingProductDepositRateV1> getDepositRates() {
+    public List<BankingProductDepositRateV2> getDepositRates() {
         return depositRates;
     }
 
-    public void setDepositRates(List<BankingProductDepositRateV1> depositRates) {
+    public void setDepositRates(List<BankingProductDepositRateV2> depositRates) {
         this.depositRates = depositRates;
     }
 
-    public BankingProductV2Detail eligibility(List<BankingProductEligibility> eligibility) {
+    public BankingProductDetailV4 eligibility(List<BankingProductEligibility> eligibility) {
         this.eligibility = eligibility;
         return this;
     }
 
-    public BankingProductV2Detail addEligibilityItem(BankingProductEligibility eligibilityItem) {
+    public BankingProductDetailV4 addEligibilityItem(BankingProductEligibility eligibilityItem) {
         if (this.eligibility == null) {
             this.eligibility = new ArrayList<>();
         }
@@ -464,12 +464,12 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.eligibility = eligibility;
     }
 
-    public BankingProductV2Detail features(List<BankingProductFeature> features) {
+    public BankingProductDetailV4 features(List<BankingProductFeature> features) {
         this.features = features;
         return this;
     }
 
-    public BankingProductV2Detail addFeaturesItem(BankingProductFeature featuresItem) {
+    public BankingProductDetailV4 addFeaturesItem(BankingProductFeature featuresItem) {
         if (this.features == null) {
             this.features = new ArrayList<>();
         }
@@ -491,12 +491,12 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.features = features;
     }
 
-    public BankingProductV2Detail fees(List<BankingProductFee> fees) {
+    public BankingProductDetailV4 fees(List<BankingProductFee> fees) {
         this.fees = fees;
         return this;
     }
 
-    public BankingProductV2Detail addFeesItem(BankingProductFee feesItem) {
+    public BankingProductDetailV4 addFeesItem(BankingProductFee feesItem) {
         if (this.fees == null) {
             this.fees = new ArrayList<>();
         }
@@ -518,12 +518,12 @@ public class BankingProductV2Detail implements BankingProductDetail {
         this.fees = fees;
     }
 
-    public BankingProductV2Detail lendingRates(List<BankingProductLendingRateV1> lendingRates) {
+    public BankingProductDetailV4 lendingRates(List<BankingProductLendingRateV2> lendingRates) {
         this.lendingRates = lendingRates;
         return this;
     }
 
-    public BankingProductV2Detail addLendingRatesItem(BankingProductLendingRateV1 lendingRatesItem) {
+    public BankingProductDetailV4 addLendingRatesItem(BankingProductLendingRateV2 lendingRatesItem) {
         if (this.lendingRates == null) {
             this.lendingRates = new ArrayList<>();
         }
@@ -537,11 +537,11 @@ public class BankingProductV2Detail implements BankingProductDetail {
      * @return lendingRates
      */
     @Valid
-    public List<BankingProductLendingRateV1> getLendingRates() {
+    public List<BankingProductLendingRateV2> getLendingRates() {
         return lendingRates;
     }
 
-    public void setLendingRates(List<BankingProductLendingRateV1> lendingRates) {
+    public void setLendingRates(List<BankingProductLendingRateV2> lendingRates) {
         this.lendingRates = lendingRates;
     }
 

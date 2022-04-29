@@ -75,8 +75,8 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                        UUID xFapiInteractionId,
                                                                        Integer xMinV,
                                                                        Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId);
         if (bankingAccountDetail == null) {
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
@@ -97,8 +97,8 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV,
                                                                                Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingTransactionDetail transactionDetail = transactionService.getBankingTransactionDetail(transactionId);
         if (transactionDetail == null) {
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
@@ -124,9 +124,9 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           UUID xFapiInteractionId,
                                                                           Integer xMinV,
                                                                           Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingTransaction> transactionPage = transactionService.findTransactions(
@@ -153,9 +153,9 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                    UUID xFapiInteractionId,
                                                                    Integer xMinV,
                                                                    Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         BankingAccount bankingAccount = new BankingAccount();
@@ -184,8 +184,8 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                          UUID xFapiInteractionId,
                                                                          Integer xMinV,
                                                                          Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingBalance balance = accountService.getBankingBalance(accountId);
         if (balance == null) {
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
@@ -207,9 +207,9 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                String xFapiCustomerIpAddress,
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV, Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         BankingAccount.OpenStatus openStatus = null;
@@ -235,11 +235,11 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                            UUID xFapiInteractionId,
                                                                                            Integer xMinV,
                                                                                            Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         List<String> accountIdList = accountIds.getData().getAccountIds();
         validateAccountExistence(accountIdList, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingBalance> balancePage = accountService.getBankingBalances(accountIdList,

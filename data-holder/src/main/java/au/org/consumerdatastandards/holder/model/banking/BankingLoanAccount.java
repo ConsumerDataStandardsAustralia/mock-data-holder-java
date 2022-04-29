@@ -113,7 +113,7 @@ public class BankingLoanAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Date that the loan is due to be repaid in full")
+    @ApiModelProperty(value = "Date that the loan is due to be repaid in full")
     public LocalDate getLoanEndDate() {
         return loanEndDate;
     }
@@ -204,7 +204,7 @@ public class BankingLoanAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Next date that an instalment is required")
+    @ApiModelProperty(value = "Next date that an instalment is required")
     public LocalDate getNextInstalmentDate() {
         return nextInstalmentDate;
     }
@@ -290,7 +290,7 @@ public class BankingLoanAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The expected or required repayment frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)")
+    @ApiModelProperty(value = "The expected or required repayment frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)")
     public String getRepaymentFrequency() {
         return repaymentFrequency;
     }

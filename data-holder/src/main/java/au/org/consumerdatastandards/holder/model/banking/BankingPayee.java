@@ -100,7 +100,7 @@ public class BankingPayee  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The type of payee.<br/>DOMESTIC means a registered payee for domestic payments including NPP. <br/>INTERNATIONAL means a registered payee for international payments. <br/>BILLER means a registered payee for BPAY. <br/>DIGITAL_WALLET means a registered payee for a bank's digital wallet")
     public Type getType() {
         return type;
     }
@@ -159,6 +159,7 @@ public class BankingPayee  {
 
     public enum Type {
         BILLER,
+        DIGITAL_WALLET,
         DOMESTIC,
         INTERNATIONAL
     }

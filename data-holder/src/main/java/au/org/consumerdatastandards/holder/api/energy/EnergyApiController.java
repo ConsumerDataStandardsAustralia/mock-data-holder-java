@@ -84,8 +84,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyAccountDetailResponse> getAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyAccountDetailResponse response = new EnergyAccountDetailResponse();
         EnergyAccountDetail data = new EnergyAccountDetail();
         populateAccount(data);
@@ -96,39 +96,44 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyBalanceResponse> getBalanceForAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyBalanceResponse response = new EnergyBalanceResponse();
         EnergyBalanceResponseData data = new EnergyBalanceResponseData();
         data.setBalance("12.34");
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyBillingListResponse> getBillingForAccount(String accountId, Integer xV, Integer xMinV,
             String newestTime, String oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId,
             String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyBillingListResponse response = new EnergyBillingListResponse();
         EnergyBillingListResponseData data = new EnergyBillingListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyConcessionsResponse> getConcessions(String accountId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyConcessionsResponse response = new EnergyConcessionsResponse();
         EnergyConcessionsResponseData data = new EnergyConcessionsResponseData();
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyDerDetailResponse> getDERForServicePoint(String servicePointId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyDerDetailResponse response = new EnergyDerDetailResponse();
         EnergyDerRecord data = new EnergyDerRecord();
         data.setServicePointId("servicePointId");
@@ -138,24 +143,27 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         data.setIslandableInstallation("islandableInstallation");
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> getInvoicesForAccount(String accountId, Integer xV, Integer xMinV,
             String newestDate, String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
             String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
         EnergyInvoiceListResponseData data = new EnergyInvoiceListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyPaymentScheduleResponse> getPaymentSchedule(String accountId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyPaymentScheduleResponse response = new EnergyPaymentScheduleResponse();
         EnergyPaymentSchedule data = new EnergyPaymentSchedule();
         data.setAmount("12.34");
@@ -167,13 +175,13 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         data.setCardDebit(cardDebit);
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyPlanResponse> getPlan(String planId, Integer xV, Integer xMinV, UUID xFapiInteractionId) {
-        validateSupportedVersion(xMinV, xV, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyPlanResponse response = new EnergyPlanResponse();
         EnergyPlanDetailEntity planDetail = service.getPlanDetail(planId);
         if (planDetail == null) {
@@ -187,6 +195,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyServicePointDetailResponse> getServicePoint(String servicePointId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyServicePointDetailResponse response = new EnergyServicePointDetailResponse();
         EnergyServicePointDetail servicePoint = new EnergyServicePointDetail();
         servicePoint.setServicePointId("SP12345");
@@ -206,25 +215,27 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         servicePoint.setDistributionLossFactor(dlf);
         response.setData(servicePoint);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyUsageListResponse> getUsageForServicePoint(String servicePointId, Integer xV, Integer xMinV,
             String oldestDate, String newestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
             String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyUsageListResponse response = new EnergyUsageListResponse();
         EnergyUsageListResponseData data = new EnergyUsageListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyAccountListResponse> listAccounts(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyAccountListResponse response = new EnergyAccountListResponse();
         EnergyAccountListResponseData data = new EnergyAccountListResponseData();
         EnergyAccount account = new EnergyAccount();
@@ -261,94 +272,110 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyBalanceListResponse> listBalancesBulk(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyBalanceListResponse response = new EnergyBalanceListResponse();
         EnergyBalanceListResponseData data = new EnergyBalanceListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyBalanceListResponse> listBalancesForAccounts(Integer xV, Integer xMinV, RequestAccountIds accountIdList,
             Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyBalanceListResponse response = new EnergyBalanceListResponse();
         EnergyBalanceListResponseData data = new EnergyBalanceListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyBillingListResponse> listBillingBulk(Integer xV, Integer xMinV, String newestTime,
             String oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyBillingListResponse response = new EnergyBillingListResponse();
         EnergyBillingListResponseData data = new EnergyBillingListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyBillingListResponse> listBillingForAccounts(Integer xV, Integer xMinV,
             RequestAccountIds accountIdList, String newestTime, String oldestTime, Integer page, Integer pageSize,
             UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyBillingListResponse response = new EnergyBillingListResponse();
         EnergyBillingListResponseData data = new EnergyBillingListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyDerListResponse> listDERBulk(Integer xV, Integer xMinV, Integer page, Integer pageSize,
             UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyDerListResponse response = new EnergyDerListResponse();
         EnergyDerListResponseData data = new EnergyDerListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyDerListResponse> listDERForServicePoints(Integer xV, Integer xMinV,
             RequestServicePointIds servicePointIdList, Integer page, Integer pageSize, UUID xFapiInteractionId,
             String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyDerListResponse response = new EnergyDerListResponse();
         EnergyDerListResponseData data = new EnergyDerListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> listInvoicesBulk(Integer xV, Integer xMinV, String newestDate,
             String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
         EnergyInvoiceListResponseData data = new EnergyInvoiceListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> listInvoicesForAccounts(Integer xV, Integer xMinV,
             RequestAccountIds accountIdList, String newestDate, String oldestDate, Integer page, Integer pageSize,
             UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
         EnergyInvoiceListResponseData data = new EnergyInvoiceListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
@@ -356,8 +383,9 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             ParamFuelTypeEnum fuelType, ParamEffective effective, OffsetDateTime updatedSince, String brand,
             Integer page, Integer pageSize, UUID xFapiInteractionId) {
 
-        validateSupportedVersion(xMinV, xV, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyPlanListResponse response = new EnergyPlanListResponse();
         EnergyPlanListResponseData data = new EnergyPlanListResponseData();
         Integer actualPage = getPagingValue(page, 1);
@@ -384,7 +412,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress,
             String xCdsClientHeaders) {
 
-        validateSupportedVersion(xMinV, xV, xFapiInteractionId);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyServicePointListResponse response = new EnergyServicePointListResponse();
         EnergyServicePointListResponseData data = new EnergyServicePointListResponseData();
         EnergyServicePoint servicePoint = new EnergyServicePoint();
@@ -401,7 +430,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         data.setServicePoints(Collections.singletonList(servicePoint));
         response.setData(data);
 
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
@@ -409,12 +438,14 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             String newestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
 
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyUsageListResponse response = new EnergyUsageListResponse();
         EnergyUsageListResponseData data = new EnergyUsageListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
@@ -423,11 +454,13 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             Integer pageSize,UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress,
             String xCdsClientHeaders) {
 
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
         EnergyUsageListResponse response = new EnergyUsageListResponse();
         EnergyUsageListResponseData data = new EnergyUsageListResponseData();
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 }

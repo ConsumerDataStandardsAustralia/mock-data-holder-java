@@ -91,7 +91,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private BankingProductAdditionalInformation additionalInformation;
+    private BankingProductAdditionalInformationV1 additionalInformation;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -259,7 +259,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
         isTailored = tailored;
     }
 
-    public BankingProductV1Detail additionalInformation(BankingProductAdditionalInformation additionalInformation) {
+    public BankingProductV1Detail additionalInformation(BankingProductAdditionalInformationV1 additionalInformation) {
         this.additionalInformation = additionalInformation;
         return this;
     }
@@ -270,13 +270,11 @@ public class BankingProductV1Detail implements BankingProductDetail {
      * @return additionalInformation
      */
     @Valid
-    @Override
-    public BankingProductAdditionalInformation getAdditionalInformation() {
+    public BankingProductAdditionalInformationV1 getAdditionalInformation() {
         return additionalInformation;
     }
 
-    @Override
-    public void setAdditionalInformation(BankingProductAdditionalInformation additionalInformation) {
+    public void setAdditionalInformation(BankingProductAdditionalInformationV1 additionalInformation) {
         this.additionalInformation = additionalInformation;
     }
 
