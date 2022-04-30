@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.holder.repository.banking;
+package au.org.consumerdatastandards.holder.model.banking;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;

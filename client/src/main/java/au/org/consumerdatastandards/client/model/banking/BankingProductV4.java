@@ -4,20 +4,21 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Objects;
 
-public class BankingProductV2 extends BankingProductBase {
+public class BankingProductV4 extends BankingProductBase {
 
-    private BankingProductAdditionalInformationV1 additionalInformation;
+    private BankingProductAdditionalInformationV2 additionalInformation;
+
     private List<BankingProductCardArt> cardArt;
 
     /**
      * Get additionalInformation
      * @return additionalInformation
      */
-    public BankingProductAdditionalInformationV1 getAdditionalInformation() {
+    public BankingProductAdditionalInformationV2 getAdditionalInformation() {
         return additionalInformation;
     }
 
-    public void setAdditionalInformation(BankingProductAdditionalInformationV1 additionalInformation) {
+    public void setAdditionalInformation(BankingProductAdditionalInformationV2 additionalInformation) {
         this.additionalInformation = additionalInformation;
     }
 
@@ -36,7 +37,7 @@ public class BankingProductV2 extends BankingProductBase {
     @Override
     public boolean equals(Object o) {
         return super.equals(o) &&
-            Objects.equals(this.cardArt, ((BankingProductV2)o).cardArt);
+            Objects.equals(this.cardArt, ((BankingProductV4)o).cardArt);
     }
 
     @Override

@@ -17,13 +17,18 @@ public class BankingProductFeature {
         BILL_PAYMENT,
         BONUS_REWARDS,
         CARD_ACCESS,
+        CASHBACK_OFFER,
         COMPLEMENTARY_PRODUCT_DISCOUNTS,
         DIGITAL_BANKING,
         DIGITAL_WALLET,
         DONATE_INTEREST,
+        EXTRA_REPAYMENTS,
+        FRAUD_PROTECTION,
         FREE_TXNS,
         FREE_TXNS_ALLOWANCE,
+        GUARANTOR,
         INSURANCE,
+        INSTALMENT_PLAN,
         INTEREST_FREE,
         INTEREST_FREE_TRANSFERS,
         LOYALTY_PROGRAM,
@@ -31,10 +36,11 @@ public class BankingProductFeature {
         NPP_ENABLED,
         NPP_PAYID,
         OFFSET,
+        OTHER,
         OVERDRAFT,
         REDRAW,
-        UNLIMITED_TXNS,
-        OTHER
+        RELATIONSHIP_MANAGEMENT,
+        UNLIMITED_TXNS
     }
 
     private FeatureType featureType;

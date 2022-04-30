@@ -30,6 +30,7 @@ public interface BankingPayeesApi {
 
     public enum ParamPayeeType {
         BILLER,
+        DIGITAL_WALLET,
         DOMESTIC,
         INTERNATIONAL,
         ALL
@@ -155,7 +156,7 @@ public interface BankingPayeesApi {
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
             value = "Filter on the payee type field.  In addition to normal type field values, ALL can be specified to retrieve all payees.  If absent the assumed value is ALL",
-            allowableValues = "ALL, BILLER, DOMESTIC, INTERNATIONAL",
+            allowableValues = "ALL, BILLER, DIGITAL_WALLET, DOMESTIC, INTERNATIONAL",
             defaultValue = "ALL"
         ) @RequestParam(value = "type", required = false, defaultValue = "ALL") ParamPayeeType type,
         @ApiParam(

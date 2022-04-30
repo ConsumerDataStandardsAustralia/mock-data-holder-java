@@ -12,8 +12,9 @@ import java.util.Objects;
 public class BankingPayeeDetail extends BankingPayee {
 
     public enum PayeeUType {
-        domestic,
         biller,
+        digitalWallet,
+        domestic,
         international
     }
 
@@ -24,6 +25,8 @@ public class BankingPayeeDetail extends BankingPayee {
     private BankingBillerPayee biller;
 
     private BankingInternationalPayee international;
+
+    private BankingDigitalWalletPayee digitalWallet;
 
     /**
      * Type of object included that describes the payee in detail
@@ -73,6 +76,14 @@ public class BankingPayeeDetail extends BankingPayee {
         this.international = international;
     }
 
+    public BankingDigitalWalletPayee getDigitalWallet() {
+        return digitalWallet;
+    }
+
+    public void setDigitalWallet(BankingDigitalWalletPayee digitalWallet) {
+        this.digitalWallet = digitalWallet;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -86,6 +97,7 @@ public class BankingPayeeDetail extends BankingPayee {
             Objects.equals(this.domestic, bankingPayeeDetail.domestic) &&
             Objects.equals(this.biller, bankingPayeeDetail.biller) &&
             Objects.equals(this.international, bankingPayeeDetail.international) &&
+            Objects.equals(this.digitalWallet, bankingPayeeDetail.digitalWallet) &&
             super.equals(o);
     }
 
@@ -96,6 +108,7 @@ public class BankingPayeeDetail extends BankingPayee {
             domestic,
             biller,
             international,
+            digitalWallet,
             super.hashCode());
     }
 
@@ -111,6 +124,7 @@ public class BankingPayeeDetail extends BankingPayee {
             "   domestic: " + toIndentedString(domestic) + "\n" +
             "   biller: " + toIndentedString(biller) + "\n" +
             "   international: " + toIndentedString(international) + "\n" +
+            "   digitalWallet: " + toIndentedString(digitalWallet) + "\n" +
             "}";
     }
 
