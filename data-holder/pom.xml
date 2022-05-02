@@ -12,7 +12,7 @@
     <properties>
         <springfox.version>2.9.2</springfox.version>
         <jackson-databind-nullable.version>0.2.0</jackson-databind-nullable.version>
-        <h2.version>2.0.206</h2.version>
+        <h2.version>2.1.210</h2.version>
         <nimbus-jose-jwt.version>9.15.2</nimbus-jose-jwt.version>
     </properties>
     <build>
