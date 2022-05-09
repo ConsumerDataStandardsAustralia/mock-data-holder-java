@@ -78,7 +78,7 @@ public class CommonPersonDetail {
     private List<CommonPhoneNumber> phoneNumbers;
 
     /**
-     * Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
+     * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
      */
     @OneToMany
     @JoinTable(
@@ -237,7 +237,7 @@ public class CommonPersonDetail {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Must contain at least one address. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail")
+    @ApiModelProperty(required = true, value = "Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail")
     public List<CommonPhysicalAddressWithPurpose> getPhysicalAddresses() {
         return physicalAddresses;
     }
