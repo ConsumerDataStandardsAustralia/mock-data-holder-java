@@ -3,10 +3,6 @@ package au.org.consumerdatastandards.client.model.banking;
 import java.time.OffsetDateTime;
 
 public interface BankingProduct {
-    BankingProductAdditionalInformation getAdditionalInformation();
-
-    void setAdditionalInformation(BankingProductAdditionalInformation additionalInformation);
-
     String getApplicationUri();
 
     void setApplicationUri(String applicationUri);

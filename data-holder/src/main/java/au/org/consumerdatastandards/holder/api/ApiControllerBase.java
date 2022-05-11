@@ -1,9 +1,9 @@
 package au.org.consumerdatastandards.holder.api;
 
-import au.org.consumerdatastandards.holder.model.banking.ErrorV2;
+import au.org.consumerdatastandards.holder.model.Error;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
-import au.org.consumerdatastandards.holder.model.banking.ResponseErrorListV2;
 import au.org.consumerdatastandards.holder.model.TxMetaPaginated;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.apache.commons.validator.routines.InetAddressValidator;
@@ -19,16 +19,11 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class ApiControllerBase {
     protected final static UUID NO_INTERACTION_ID = UUID.randomUUID();
 
-    private final static String V = "x-v";
-    private final static String MIN_V = "x-min-v";
-    private final static String CORRELATION_ID = "x-Correlation-Id";
-    private final static String FAPI_INTERACTION_ID = "x-fapi-interaction-id";
     private final static String BASE64_PATTERN = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,12 +32,12 @@ public class ApiControllerBase {
         return page != null && page > 0 ? page : defaultValue;
     }
 
-    protected void throwCDSUnprocessableErrors(UUID interactionId, List<ErrorV2> errorList) {
+    protected void throwCDSUnprocessableErrors(UUID interactionId, List<Error> errorList) {
         throwCDSErrors(interactionId, errorList, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    protected void throwCDSErrors(UUID interactionId, List<ErrorV2> errorList, HttpStatus httpStatus) {
-        ResponseErrorListV2 errors = new ResponseErrorListV2();
+    protected void throwCDSErrors(UUID interactionId, List<Error> errorList, HttpStatus httpStatus) {
+        ErrorListResponse errors = new ErrorListResponse();
         errors.setErrors(errorList);
         MultiValueMap<String, String> headers;
         if (interactionId == NO_INTERACTION_ID) {
@@ -54,8 +49,8 @@ public class ApiControllerBase {
         throw new CDSException(errors, headers, httpStatus);
     }
 
-    protected ErrorV2 createError(String title, String code, String detail) {
-        ErrorV2 error = new ErrorV2();
+    protected Error createError(String title, String code, String detail) {
+        Error error = new Error();
         error.setTitle(title);
         error.setCode(code);
         error.setDetail(detail);
@@ -80,60 +75,48 @@ public class ApiControllerBase {
         }
     }
 
-    protected boolean hasSupportedVersion(Integer xMinV, Integer xV) {
-        if (xV == null) return false;
-        return (xMinV == null || getCurrentVersion() >= xMinV) && (xMinV != null || getCurrentVersion() >= xV);
+    protected boolean hasSupportedVersion(Integer xMinV, Integer xV, int maxSupportedVersion) {
+        if (xMinV == null || xMinV > xV) {
+            return (maxSupportedVersion >= xV);
+        }
+        return (maxSupportedVersion >= xMinV);
     }
 
-    protected Integer getSupportedVersion(Integer xMinV, Integer xV) {
+    protected int getSupportedVersion(Integer xMinV, Integer xV, int maxSupportedVersion) {
         if (xMinV == null) return xV;
-        return Math.min(xV, getCurrentVersion());
+        return Math.min(xV, maxSupportedVersion);
     }
 
-    protected Integer getCurrentVersion() {
-        return 3;
-    }
-
-    protected HttpHeaders generateResponseHeaders(NativeWebRequest request) {
+    protected HttpHeaders generateResponseHeaders(UUID fapiInteractionId, int supportedVersion) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("content-type", "application/json");
-        Integer xMinV = null;
-        String minV = request.getHeader(MIN_V);
-        if (StringUtils.hasText(minV)) {
-            xMinV = Integer.parseInt(minV);
-        }
-        Integer xV = Integer.parseInt(Objects.requireNonNull(request.getHeader(V)));
-        responseHeaders.set(V, "" + getSupportedVersion(xMinV, xV));
-        String correlationId = request.getHeader(CORRELATION_ID);
-        if (!StringUtils.isEmpty(correlationId)) {
-            responseHeaders.set(CORRELATION_ID, correlationId);
-        }
-        String fapiInteractionId = request.getHeader(FAPI_INTERACTION_ID);
-        if (!StringUtils.isEmpty(fapiInteractionId)) {
-            responseHeaders.set(FAPI_INTERACTION_ID, fapiInteractionId);
-        } else {
-            responseHeaders.set(FAPI_INTERACTION_ID, UUID.randomUUID().toString());
-        }
+        responseHeaders.set("x-v", "" + supportedVersion);
+        responseHeaders.set("x-fapi-interaction-id", (fapiInteractionId == null ? UUID.randomUUID() : fapiInteractionId).toString());
         return responseHeaders;
     }
 
-    protected void validateSupportedVersion(Integer xMinV, Integer xV, UUID interactionId) {
-        if (!hasSupportedVersion(xMinV, xV)) {
+    protected int validateSupportedVersion(Integer xMinV, Integer xV, UUID interactionId, int maxSupportedVersion) {
+        if (xV == null) {
+            Error error = createError("Missing Required Header", "urn:au-cds:error:cds-all:Header/Missing", "x-v");
+            throwCDSErrors(interactionId, Collections.singletonList(error), HttpStatus.BAD_REQUEST);
+        }
+        if (!hasSupportedVersion(xMinV, xV, maxSupportedVersion)) {
             String message = String.format(
                 "Unsupported version requested, minimum version specified is %d, maximum version specified is %d, current version is %d",
-                xMinV, xV, getCurrentVersion());
-            ErrorV2 error = createError("Unsupported Version", "urn:au-cds:error:cds-all:Header/UnsupportedVersion", message);
+                xMinV, xV, maxSupportedVersion);
+            Error error = createError("Unsupported Version", "urn:au-cds:error:cds-all:Header/UnsupportedVersion", message);
             throwCDSErrors(interactionId, Collections.singletonList(error), HttpStatus.NOT_ACCEPTABLE);
         }
+        return getSupportedVersion(xMinV, xV, maxSupportedVersion);
     }
 
-    protected void validateHeaders(String xCdsClientHeaders,
+    protected int validateHeaders(String xCdsClientHeaders,
                                    String xFapiCustomerIpAddress,
                                    UUID interactionId,
-                                   Integer xMinV, Integer xV) {
-        validateSupportedVersion(xMinV, xV, interactionId);
+                                   Integer xMinV, Integer xV, int maxSupportedVersion) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, interactionId, maxSupportedVersion);
         if (StringUtils.hasText(xFapiCustomerIpAddress)) {
-            ArrayList<ErrorV2> errorList = new ArrayList<>();
+            ArrayList<Error> errorList = new ArrayList<>();
             InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
             if (!inetAddressValidator.isValid(xFapiCustomerIpAddress)) {
                 errorList.add(createError("Invalid Header", "urn:au-cds:error:cds-all:Header/Invalid", "x-fapi-customer-ip-address: request header value is not a valid IP address"));
@@ -147,6 +130,7 @@ public class ApiControllerBase {
                 throwCDSErrors(interactionId, errorList, HttpStatus.BAD_REQUEST);
             }
         }
+        return supportedVersion;
     }
 
     protected LinksPaginated getLinkData(NativeWebRequest request, @SuppressWarnings("rawtypes") Page page, Integer actualPage, Integer actualPageSize) {

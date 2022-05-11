@@ -64,4 +64,3 @@ public class ResponseBankingAccountById extends BaseResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

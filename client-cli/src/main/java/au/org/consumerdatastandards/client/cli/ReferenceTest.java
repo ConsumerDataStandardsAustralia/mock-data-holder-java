@@ -28,7 +28,7 @@ import au.org.consumerdatastandards.client.model.banking.BankingInternationalPay
 import au.org.consumerdatastandards.client.model.banking.BankingLoanAccount;
 import au.org.consumerdatastandards.client.model.banking.BankingPayee;
 import au.org.consumerdatastandards.client.model.banking.BankingPayeeDetail;
-import au.org.consumerdatastandards.client.model.banking.BankingProductAdditionalInformation;
+import au.org.consumerdatastandards.client.model.banking.BankingProductAdditionalInformationV1;
 import au.org.consumerdatastandards.client.model.banking.BankingProductBundle;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.banking.BankingProductConstraint;
@@ -150,7 +150,7 @@ public class ReferenceTest extends ApiCliBase {
             new TypeToken<BankingLoanAccount>() {}.getType(),
             new TypeToken<BankingPayee>() {}.getType(),
             new TypeToken<BankingPayeeDetail>() {}.getType(),
-            new TypeToken<BankingProductAdditionalInformation>() {}.getType(),
+            new TypeToken<BankingProductAdditionalInformationV1>() {}.getType(),
             new TypeToken<BankingProductBundle>() {}.getType(),
             new TypeToken<BankingProductCategory>() {}.getType(),
             new TypeToken<BankingProductConstraint>() {}.getType(),

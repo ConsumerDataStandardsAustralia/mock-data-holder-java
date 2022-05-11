@@ -163,6 +163,15 @@
 								<value>bank:transactions:read</value>
 								<value>bank:regular_payments:read</value>
 								<value>bank:payees:read</value>
+								<value>energy:accounts.concessions:read</value>
+								<value>energy:accounts.basic:read</value>
+								<value>energy:accounts.detail:read</value>
+								<value>energy:accounts.paymentschedule:read</value>
+								<value>energy:billing:read</value>
+								<value>energy:electricity.der:read</value>
+								<value>energy:electricity.servicepoints.basic:read</value>
+								<value>energy:electricity.servicepoints.detail:read</value>
+								<value>energy:electricity.usage:read</value>
 								<value>common:customer.basic:read</value>
 								<value>common:customer.detail:read</value>
 							</set>

@@ -43,7 +43,7 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
     }
 
     public ResponseEntity<ResponseDiscoveryOutagesList> getOutages(Integer xMinV, Integer xV) {
-        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID);
+        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 1);
         ResponseDiscoveryOutagesListData listData = new ResponseDiscoveryOutagesListData();
         List<DiscoveryOutage> outages = new ArrayList<>();
         Iterable<DiscoveryOutage> outageIter = outageService.getOutages();
@@ -52,17 +52,17 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
         ResponseDiscoveryOutagesList responseDiscoveryOutagesList = new ResponseDiscoveryOutagesList();
         responseDiscoveryOutagesList.setData(listData);
         responseDiscoveryOutagesList.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(responseDiscoveryOutagesList, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(responseDiscoveryOutagesList, generateResponseHeaders(null, 1), HttpStatus.OK);
     }
 
       public ResponseEntity<ResponseCommonDiscoveryStatus> getStatus(Integer xMinV, Integer xV) {
-        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID);
+        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 1);
         ResponseCommonDiscoveryStatusData data = new ResponseCommonDiscoveryStatusData();
         data.setStatus(ResponseCommonDiscoveryStatusData.Status.OK);
         data.setUpdateTime(OffsetDateTime.now());
         ResponseCommonDiscoveryStatus responseCommonDiscoveryStatus = new ResponseCommonDiscoveryStatus();
         responseCommonDiscoveryStatus.setData(data);
         responseCommonDiscoveryStatus.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(responseCommonDiscoveryStatus, generateResponseHeaders(request), HttpStatus.OK);
+        return new ResponseEntity<>(responseCommonDiscoveryStatus, generateResponseHeaders(null, 1), HttpStatus.OK);
     }
 }

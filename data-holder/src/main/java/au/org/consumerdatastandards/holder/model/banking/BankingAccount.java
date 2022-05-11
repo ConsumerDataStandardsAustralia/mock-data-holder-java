@@ -104,6 +104,7 @@ public class BankingAccount  {
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
+
     public BankingAccount displayName(String displayName) {
         this.displayName = displayName;
         return this;

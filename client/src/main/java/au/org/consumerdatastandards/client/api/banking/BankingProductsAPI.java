@@ -15,11 +15,13 @@ import au.org.consumerdatastandards.client.Pair;
 import au.org.consumerdatastandards.client.api.ReturnTypeResolver;
 import au.org.consumerdatastandards.client.model.banking.BankingProduct;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
-import au.org.consumerdatastandards.client.model.banking.BankingProductV1;
 import au.org.consumerdatastandards.client.model.banking.BankingProductDetailV1;
-import au.org.consumerdatastandards.client.model.banking.BankingProductV2;
 import au.org.consumerdatastandards.client.model.banking.BankingProductDetailV2;
 import au.org.consumerdatastandards.client.model.banking.BankingProductDetailV3;
+import au.org.consumerdatastandards.client.model.banking.BankingProductDetailV4;
+import au.org.consumerdatastandards.client.model.banking.BankingProductV1;
+import au.org.consumerdatastandards.client.model.banking.BankingProductV2;
+import au.org.consumerdatastandards.client.model.banking.BankingProductV4;
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingProductList;
 import com.google.gson.reflect.TypeToken;
@@ -592,27 +594,29 @@ public class BankingProductsAPI {
                 return null;
             }
             String version = response.header("x-v");
-            Integer versionNumber = Integer.parseInt(version);
-            switch (versionNumber) {
+            switch (Integer.parseInt(version)) {
                 case 2:
                 case 3:
                     return new TypeToken<ResponseBankingProductList<BankingProductV2>>(){}.getType();
+                case 4:
+                    return new TypeToken<ResponseBankingProductList<BankingProductV4>>(){}.getType();
                 default:
                     return new TypeToken<ResponseBankingProductList<BankingProductV1>>(){}.getType();
             }
         }
     }
 
-    private class GetProductDetailReturnTypeResolver implements ReturnTypeResolver {
+    private static class GetProductDetailReturnTypeResolver implements ReturnTypeResolver {
         @Override
         public Type resolve(Response response) {
             String version = response.header("x-v");
-            Integer versionNumber = Integer.parseInt(version);
-            switch (versionNumber) {
+            switch (Integer.parseInt(version)) {
                 case 2:
                     return new TypeToken<ResponseBankingProductById<BankingProductDetailV2>>(){}.getType();
                 case 3:
                     return new TypeToken<ResponseBankingProductById<BankingProductDetailV3>>(){}.getType();
+                case 4:
+                    return new TypeToken<ResponseBankingProductById<BankingProductDetailV4>>(){}.getType();
                 default:
                     return new TypeToken<ResponseBankingProductById<BankingProductDetailV1>>(){}.getType();
             }

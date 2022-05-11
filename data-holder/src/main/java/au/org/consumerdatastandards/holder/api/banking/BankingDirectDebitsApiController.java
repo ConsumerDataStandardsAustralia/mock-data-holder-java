@@ -56,9 +56,9 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
                                                                                         UUID xFapiInteractionId,
                                                                                         Integer xMinV,
                                                                                         Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingDirectDebitAuthorisationListData listData = new ResponseBankingDirectDebitAuthorisationListData();
@@ -80,9 +80,9 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
                                                                                             UUID xFapiInteractionId,
                                                                                             Integer xMinV,
                                                                                             Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingDirectDebitAuthorisationListData listData = new ResponseBankingDirectDebitAuthorisationListData();
@@ -109,9 +109,9 @@ public class BankingDirectDebitsApiController extends ApiControllerBase implemen
                                                                                                         UUID xFapiInteractionId,
                                                                                                         Integer xMinV,
                                                                                                         Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingDirectDebitAuthorisationListData listData = new ResponseBankingDirectDebitAuthorisationListData();

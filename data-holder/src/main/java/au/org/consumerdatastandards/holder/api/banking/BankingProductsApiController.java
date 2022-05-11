@@ -52,9 +52,9 @@ public class BankingProductsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId,
                                                                        Integer xMinV,
                                                                        Integer xV) {
-        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID);
-        HttpHeaders headers = generateResponseHeaders(request);
-        BankingProductDetail productDetail = service.getProductDetail(productId, getSupportedVersion(xMinV, xV));
+        int supportedVersion = validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 4);
+        HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
+        BankingProductDetail productDetail = service.getProductDetail(productId, supportedVersion);
         if (productDetail == null) {
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
         }
@@ -81,20 +81,18 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         logger.info(
             "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",
             effective, updatedSince, brand, productCategory, page, pageSize);
-        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 3);
         validatePageSize(pageSize, NO_INTERACTION_ID);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         BankingProduct bankingProduct = new BankingProductV2();
         bankingProduct.setLastUpdated(updatedSince);
         bankingProduct.setBrand(brand);
-        if (productCategory != null) {
-            bankingProduct.setProductCategory(BankingProductCategory.valueOf(productCategory.name()));
-        }
+        bankingProduct.setProductCategory(productCategory);
 
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<BankingProduct> productsPage = service.findProductsLike(effective, bankingProduct,
-            PageRequest.of(actualPage - 1, actualPageSize, Sort.by(Sort.Direction.DESC, "lastUpdated")), getSupportedVersion(xMinV, xV));
+            PageRequest.of(actualPage - 1, actualPageSize, Sort.by(Sort.Direction.DESC, "lastUpdated")), supportedVersion);
 
         logger.info(
             "Returning basic product listing page {} of {} (page size of {}) using filters of effective {}, updated since {}, brand {}, product category of {}",
@@ -115,10 +113,5 @@ public class BankingProductsApiController extends ApiControllerBase implements B
 
         logger.debug("Product listing raw response payload is: {}", responseProductList);
         return new ResponseEntity<>(responseProductList, headers, HttpStatus.OK);
-    }
-
-    @Override
-    protected Integer getCurrentVersion() {
-        return 3;
     }
 }

@@ -46,8 +46,4 @@ public interface BankingProduct {
     Boolean getIsTailored();
 
     void setIsTailored(Boolean isTailored);
-
-    BankingProductAdditionalInformation getAdditionalInformation();
-
-    void setAdditionalInformation(BankingProductAdditionalInformation additionalInformation);
 }

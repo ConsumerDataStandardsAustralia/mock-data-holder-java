@@ -7,11 +7,13 @@
  */
 package au.org.consumerdatastandards.client.model.banking;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Objects;
 /**
  * Object that contains links to additional information on specific topics
  */
-public class BankingProductAdditionalInformation {
+public class BankingProductAdditionalInformationV1 {
 
     private String overviewUri;
 
@@ -91,7 +93,7 @@ public class BankingProductAdditionalInformation {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingProductAdditionalInformation bankingProductAdditionalInformation = (BankingProductAdditionalInformation) o;
+        BankingProductAdditionalInformationV1 bankingProductAdditionalInformation = (BankingProductAdditionalInformationV1) o;
         return Objects.equals(this.overviewUri, bankingProductAdditionalInformation.overviewUri) &&
             Objects.equals(this.termsUri, bankingProductAdditionalInformation.termsUri) &&
             Objects.equals(this.eligibilityUri, bankingProductAdditionalInformation.eligibilityUri) &&
@@ -111,20 +113,27 @@ public class BankingProductAdditionalInformation {
 
     @Override
     public String toString() {
-        return "class BankingProductAdditionalInformation {\n" +
-            "   overviewUri: " + toIndentedString(overviewUri) + "\n" +
-            "   termsUri: " + toIndentedString(termsUri) + "\n" +
-            "   eligibilityUri: " + toIndentedString(eligibilityUri) + "\n" +
-            "   feesAndPricingUri: " + toIndentedString(feesAndPricingUri) + "\n" +
-            "   bundleUri: " + toIndentedString(bundleUri) + "\n" +
-            "}";
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        pw.print("class "); pw.print(getClass().getSimpleName()); pw.println(" {");
+        writeProperties(pw);
+        pw.print("}");
+        return sw.toString();
+    }
+
+    protected void writeProperties(PrintWriter pw) {
+        pw.print("   overviewUri: "); pw.println(toIndentedString(overviewUri));
+        pw.print("   termsUri: "); pw.println(toIndentedString(termsUri));
+        pw.print("   eligibilityUri: "); pw.println(toIndentedString(eligibilityUri));
+        pw.print("   feesAndPricingUri: "); pw.println(toIndentedString(feesAndPricingUri));
+        pw.print("   bundleUri: "); pw.println(toIndentedString(bundleUri));
     }
 
     /**
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(Object o) {
+    protected String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

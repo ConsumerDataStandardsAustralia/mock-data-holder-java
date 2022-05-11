@@ -1,9 +1,9 @@
 package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
+import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayee;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayeeDetail;
-import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeList;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingPayeeListData;
@@ -53,9 +53,9 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
                                                                    UUID xFapiInteractionId,
                                                                    Integer xMinV,
                                                                    Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
-        HttpHeaders headers = generateResponseHeaders(request);
-        BankingPayeeDetail payeeDetail = payeeService.getBankingPayeeDetail(payeeId);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        BankingPayeeDetail payeeDetail = payeeService.getBankingPayeeDetail(payeeId, supportedVersion);
         if (payeeDetail == null) {
             throwCDSErrors(xFapiInteractionId, Collections.singletonList(
                     createError("Invalid Resource", "urn:au-cds:error:cds-all:Resource/Invalid", payeeId)), HttpStatus.NOT_FOUND);
@@ -75,9 +75,9 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
                                                                UUID xFapiInteractionId,
                                                                Integer xMinV,
                                                                Integer xV) {
-        validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
         validatePageSize(pageSize, xFapiInteractionId);
-        HttpHeaders headers = generateResponseHeaders(request);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         ResponseBankingPayeeListData listData = new ResponseBankingPayeeListData();
