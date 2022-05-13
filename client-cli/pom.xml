@@ -4,7 +4,7 @@
     <parent>
         <groupId>au.org.consumerdatastandards</groupId>
         <artifactId>cds-java-artefacts</artifactId>
-        <version>1.15.0</version>
+        <version>1.15.1-SNAPSHOT</version>
     </parent>
     <artifactId>client-cli</artifactId>
     <name>Client CLI</name>
