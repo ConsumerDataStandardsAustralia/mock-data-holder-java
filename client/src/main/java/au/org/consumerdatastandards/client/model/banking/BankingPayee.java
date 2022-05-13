@@ -68,7 +68,7 @@ public class BankingPayee {
     }
 
     /**
-     * The type of payee.<br/>DOMESTIC means a registered payee for domestic payments including NPP. <br/>INTERNATIONAL means a registered payee for international payments. <br/>BILLER means a registered payee for BPAY. <br/>DIGITAL_WALLET means a registered payee for a bank's digital wallet
+     * The type of payee.<br>DOMESTIC means a registered payee for domestic payments including NPP. <br>INTERNATIONAL means a registered payee for international payments. <br>BILLER means a registered payee for BPAY. <br>DIGITAL_WALLET means a registered payee for a bank's digital wallet
      * @return type
      */
     public Type getType() {

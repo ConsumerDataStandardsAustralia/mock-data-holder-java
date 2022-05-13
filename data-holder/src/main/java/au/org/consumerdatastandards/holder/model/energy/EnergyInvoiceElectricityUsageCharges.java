@@ -140,7 +140,7 @@ public class EnergyInvoiceElectricityUsageCharges {
     }
 
     /**
-     * Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&I consumers) (exclusive of GST)
+     * Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&amp;I consumers) (exclusive of GST)
      *
      * @return otherCharges
      */

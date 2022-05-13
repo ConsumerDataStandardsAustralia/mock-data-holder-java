@@ -22,7 +22,7 @@ public class EnergyPlanContractEligibility {
     private String id;
 
     /**
-     * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
+     * The type of the eligibility restriction.<br>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
      */
     public enum TypeEnum {
         EXISTING_CUST,
@@ -68,7 +68,7 @@ public class EnergyPlanContractEligibility {
     }
 
     /**
-     * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
+     * The type of the eligibility restriction.<br>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
      *
      * @return type
      */
