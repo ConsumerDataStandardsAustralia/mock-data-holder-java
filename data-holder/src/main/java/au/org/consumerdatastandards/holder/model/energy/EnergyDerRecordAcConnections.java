@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -15,109 +12,42 @@ import java.util.Objects;
 /**
  * EnergyDerRecordAcConnections
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyDerRecordAcConnections {
-    @JsonProperty("connectionIdentifier")
     private BigDecimal connectionIdentifier;
 
-    @JsonProperty("count")
-    private String count;
+    private Integer count;
 
     /**
      * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
      */
     public enum EquipmentTypeEnum {
-        INVERTER("INVERTER"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        EquipmentTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static EquipmentTypeEnum fromValue(String value) {
-            for (EquipmentTypeEnum b : EquipmentTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        INVERTER,
+        OTHER
     }
 
-    @JsonProperty("equipmentType")
     private EquipmentTypeEnum equipmentType;
 
-    @JsonProperty("manufacturerName")
     private String manufacturerName;
 
-    @JsonProperty("inverterSeries")
     private String inverterSeries;
 
-    @JsonProperty("inverterModelNumber")
     private String inverterModelNumber;
 
-    @JsonProperty("commissioningDate")
     private String commissioningDate;
 
     /**
      * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned
      */
     public enum StatusEnum {
-        ACTIVE("ACTIVE"),
-
-        INACTIVE("INACTIVE"),
-
-        DECOMMISSIONED("DECOMMISSIONED");
-
-        private String value;
-
-        StatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static StatusEnum fromValue(String value) {
-            for (StatusEnum b : StatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ACTIVE,
+        INACTIVE,
+        DECOMMISSIONED
     }
 
-    @JsonProperty("status")
     private StatusEnum status;
 
-    @JsonProperty("inverterDeviceCapacity")
     private BigDecimal inverterDeviceCapacity;
 
-    @JsonProperty("derDevices")
     @Valid
     private List<EnergyDerRecordDerDevices> derDevices = new ArrayList<>();
 
@@ -134,9 +64,7 @@ public class EnergyDerRecordAcConnections {
     @ApiModelProperty(required = true,
             value = "AC Connection ID as defined in the DER register.  Does not align with CDR ID permanence standards")
     @NotNull
-
     @Valid
-
     public BigDecimal getConnectionIdentifier() {
         return connectionIdentifier;
     }
@@ -145,7 +73,7 @@ public class EnergyDerRecordAcConnections {
         this.connectionIdentifier = connectionIdentifier;
     }
 
-    public EnergyDerRecordAcConnections count(String count) {
+    public EnergyDerRecordAcConnections count(Integer count) {
         this.count = count;
         return this;
     }
@@ -157,14 +85,11 @@ public class EnergyDerRecordAcConnections {
      */
     @ApiModelProperty(required = true,
             value = "Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes")
-    @NotNull
-
-
-    public String getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
@@ -179,8 +104,6 @@ public class EnergyDerRecordAcConnections {
      * @return equipmentType
      */
     @ApiModelProperty(value = "Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.")
-
-
     public EquipmentTypeEnum getEquipmentType() {
         return equipmentType;
     }
@@ -200,8 +123,6 @@ public class EnergyDerRecordAcConnections {
      * @return manufacturerName
      */
     @ApiModelProperty(value = "The name of the inverter manufacturer. Mandatory if equipmentType is INVERTER")
-
-
     public String getManufacturerName() {
         return manufacturerName;
     }
@@ -221,8 +142,6 @@ public class EnergyDerRecordAcConnections {
      * @return inverterSeries
      */
     @ApiModelProperty(value = "The inverter series. Mandatory if equipmentType is INVERTER")
-
-
     public String getInverterSeries() {
         return inverterSeries;
     }
@@ -242,8 +161,6 @@ public class EnergyDerRecordAcConnections {
      * @return inverterModelNumber
      */
     @ApiModelProperty(value = "The inverter model number. Mandatory if equipmentType is INVERTER")
-
-
     public String getInverterModelNumber() {
         return inverterModelNumber;
     }
@@ -262,11 +179,8 @@ public class EnergyDerRecordAcConnections {
      *
      * @return commissioningDate
      */
-    @ApiModelProperty(required = true,
-            value = "The date that the DER installation is commissioned")
+    @ApiModelProperty(required = true, value = "The date that the DER installation is commissioned")
     @NotNull
-
-
     public String getCommissioningDate() {
         return commissioningDate;
     }
@@ -288,8 +202,6 @@ public class EnergyDerRecordAcConnections {
     @ApiModelProperty(required = true,
             value = "Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned")
     @NotNull
-
-
     public StatusEnum getStatus() {
         return status;
     }
@@ -309,9 +221,7 @@ public class EnergyDerRecordAcConnections {
      * @return inverterDeviceCapacity
      */
     @ApiModelProperty(value = "The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER")
-
     @Valid
-
     public BigDecimal getInverterDeviceCapacity() {
         return inverterDeviceCapacity;
     }
@@ -335,12 +245,9 @@ public class EnergyDerRecordAcConnections {
      *
      * @return derDevices
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public List<EnergyDerRecordDerDevices> getDerDevices() {
         return derDevices;
     }
@@ -348,7 +255,6 @@ public class EnergyDerRecordAcConnections {
     public void setDerDevices(List<EnergyDerRecordDerDevices> derDevices) {
         this.derDevices = derDevices;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -380,7 +286,6 @@ public class EnergyDerRecordAcConnections {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyDerRecordAcConnections {\n");
-
         sb.append("    connectionIdentifier: ").append(toIndentedString(connectionIdentifier)).append("\n");
         sb.append("    count: ").append(toIndentedString(count)).append("\n");
         sb.append("    equipmentType: ").append(toIndentedString(equipmentType)).append("\n");
@@ -406,4 +311,3 @@ public class EnergyDerRecordAcConnections {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

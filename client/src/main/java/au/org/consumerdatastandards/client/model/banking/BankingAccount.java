@@ -96,7 +96,7 @@ public class BankingAccount {
     }
 
     /**
-     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then &#39;true&#39; is assumed
+     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
      * @return isOwned
      */
     public Boolean getIsOwned() {

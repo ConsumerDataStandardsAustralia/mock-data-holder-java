@@ -114,7 +114,7 @@ public interface BankingProductsApi {
     )
     ResponseEntity<ResponseBankingProductList> listProducts(
         @ApiParam(
-            value = "Allows for the filtering of products based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to &#39;CURRENT&#39;",
+            value = "Allows for the filtering of products based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to 'CURRENT'",
             allowableValues = "ALL, CURRENT, FUTURE",
             defaultValue = "CURRENT"
         )

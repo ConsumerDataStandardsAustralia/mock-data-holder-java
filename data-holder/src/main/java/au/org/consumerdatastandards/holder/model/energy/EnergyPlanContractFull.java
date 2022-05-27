@@ -161,7 +161,7 @@ public class EnergyPlanContractFull {
     @ElementCollection
     private List<String> meterTypes = null;
 
-    private String coolingOffDays;
+    private Integer coolingOffDays;
 
     @Valid
     @ElementCollection
@@ -637,7 +637,7 @@ public class EnergyPlanContractFull {
         this.meterTypes = meterTypes;
     }
 
-    public EnergyPlanContractFull coolingOffDays(String coolingOffDays) {
+    public EnergyPlanContractFull coolingOffDays(Integer coolingOffDays) {
         this.coolingOffDays = coolingOffDays;
         return this;
     }
@@ -648,11 +648,11 @@ public class EnergyPlanContractFull {
      * @return coolingOffDays
      */
     @ApiModelProperty(value = "Number of days in the cooling off period for the contract.  Mandatory for plans with type of MARKET ")
-    public String getCoolingOffDays() {
+    public Integer getCoolingOffDays() {
         return coolingOffDays;
     }
 
-    public void setCoolingOffDays(String coolingOffDays) {
+    public void setCoolingOffDays(Integer coolingOffDays) {
         this.coolingOffDays = coolingOffDays;
     }
 
