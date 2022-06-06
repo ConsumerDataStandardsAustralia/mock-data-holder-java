@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,20 +14,15 @@ import java.util.Objects;
  * Mandatory if readUType is set to intervalRead
  */
 @ApiModel(description = "Mandatory if readUType is set to intervalRead")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyUsageReadIntervalRead {
-    @JsonProperty("readIntervalLength")
-    private String readIntervalLength;
+    private Integer readIntervalLength;
 
-    @JsonProperty("aggregateValue")
     private BigDecimal aggregateValue;
 
-    @JsonProperty("intervalReads")
     @Valid
     private List<EnergyUsageReadIntervalReadIntervalReads> intervalReads = new ArrayList<>();
 
-    public EnergyUsageReadIntervalRead readIntervalLength(String readIntervalLength) {
+    public EnergyUsageReadIntervalRead readIntervalLength(Integer readIntervalLength) {
         this.readIntervalLength = readIntervalLength;
         return this;
     }
@@ -38,16 +32,12 @@ public class EnergyUsageReadIntervalRead {
      *
      * @return readIntervalLength
      */
-    @ApiModelProperty(required = true,
-            value = "Read interval length in minutes")
-    @NotNull
-
-
-    public String getReadIntervalLength() {
+    @ApiModelProperty(required = true, value = "Read interval length in minutes")
+    public Integer getReadIntervalLength() {
         return readIntervalLength;
     }
 
-    public void setReadIntervalLength(String readIntervalLength) {
+    public void setReadIntervalLength(Integer readIntervalLength) {
         this.readIntervalLength = readIntervalLength;
     }
 
@@ -64,9 +54,7 @@ public class EnergyUsageReadIntervalRead {
     @ApiModelProperty(required = true,
             value = "The aggregate sum of the interval read values. If positive then it means net consumption, if negative it means net export")
     @NotNull
-
     @Valid
-
     public BigDecimal getAggregateValue() {
         return aggregateValue;
     }
@@ -93,9 +81,7 @@ public class EnergyUsageReadIntervalRead {
     @ApiModelProperty(required = true,
             value = "Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)")
     @NotNull
-
     @Valid
-
     public List<EnergyUsageReadIntervalReadIntervalReads> getIntervalReads() {
         return intervalReads;
     }
@@ -103,7 +89,6 @@ public class EnergyUsageReadIntervalRead {
     public void setIntervalReads(List<EnergyUsageReadIntervalReadIntervalReads> intervalReads) {
         this.intervalReads = intervalReads;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -128,7 +113,6 @@ public class EnergyUsageReadIntervalRead {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyUsageReadIntervalRead {\n");
-
         sb.append("    readIntervalLength: ").append(toIndentedString(readIntervalLength)).append("\n");
         sb.append("    aggregateValue: ").append(toIndentedString(aggregateValue)).append("\n");
         sb.append("    intervalReads: ").append(toIndentedString(intervalReads)).append("\n");
@@ -147,4 +131,3 @@ public class EnergyUsageReadIntervalRead {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

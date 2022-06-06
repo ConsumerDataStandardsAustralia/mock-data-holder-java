@@ -35,7 +35,7 @@ public class CommonPhoneNumber {
     private String fullNumber;
 
     /**
-     * May be true for one and only one entry to indicate the preferred phone number. Assumed to be &#39;false&#39; if not present
+     * May be true for one and only one entry to indicate the preferred phone number. Assumed to be 'false' if not present
      * @return isPreferred
      */
     public Boolean getIsPreferred() {

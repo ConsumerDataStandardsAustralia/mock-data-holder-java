@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,166 +12,61 @@ import java.util.Objects;
  * Usage data registers available from the meter
  */
 @ApiModel(description = "Usage data registers available from the meter")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyServicePointDetailMetersRegisters {
-    @JsonProperty("registerId")
     private String registerId;
 
-    @JsonProperty("registerSuffix")
     private String registerSuffix;
 
-    @JsonProperty("averagedDailyLoad")
     private BigDecimal averagedDailyLoad;
 
     /**
      * Indicates the consumption type of register
      */
     public enum RegisterConsumptionTypeEnum {
-        INTERVAL("INTERVAL"),
-
-        BASIC("BASIC"),
-
-        PROFILE_DATA("PROFILE_DATA"),
-
-        ACTIVE_IMPORT("ACTIVE_IMPORT"),
-
-        ACTIVE("ACTIVE"),
-
-        REACTIVE_IMPORT("REACTIVE_IMPORT"),
-
-        REACTIVE("REACTIVE");
-
-        private String value;
-
-        RegisterConsumptionTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static RegisterConsumptionTypeEnum fromValue(String value) {
-            for (RegisterConsumptionTypeEnum b : RegisterConsumptionTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        INTERVAL,
+        BASIC,
+        PROFILE_DATA,
+        ACTIVE_IMPORT,
+        ACTIVE,
+        REACTIVE_IMPORT,
+        REACTIVE
     }
 
-    @JsonProperty("registerConsumptionType")
     private RegisterConsumptionTypeEnum registerConsumptionType;
 
-    @JsonProperty("networkTariffCode")
     private String networkTariffCode;
 
-    @JsonProperty("unitOfMeasure")
     private String unitOfMeasure;
 
     /**
      * Code to identify the time validity of register contents
      */
     public enum TimeOfDayEnum {
-        ALLDAY("ALLDAY"),
-
-        INTERVAL("INTERVAL"),
-
-        PEAK("PEAK"),
-
-        BUSINESS("BUSINESS"),
-
-        SHOULDER("SHOULDER"),
-
-        EVENING("EVENING"),
-
-        OFFPEAK("OFFPEAK"),
-
-        CONTROLLED("CONTROLLED"),
-
-        DEMAND("DEMAND");
-
-        private String value;
-
-        TimeOfDayEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TimeOfDayEnum fromValue(String value) {
-            for (TimeOfDayEnum b : TimeOfDayEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ALLDAY,
+        INTERVAL,
+        PEAK,
+        BUSINESS,
+        SHOULDER,
+        EVENING,
+        OFFPEAK,
+        CONTROLLED,
+        DEMAND
     }
 
-    @JsonProperty("timeOfDay")
     private TimeOfDayEnum timeOfDay;
 
-    @JsonProperty("multiplier")
     private BigDecimal multiplier;
 
-    @JsonProperty("controlledLoad")
     private Boolean controlledLoad;
 
     /**
      * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>
      */
     public enum ConsumptionTypeEnum {
-        ACTUAL("ACTUAL"),
-
-        CUMULATIVE("CUMULATIVE");
-
-        private String value;
-
-        ConsumptionTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ConsumptionTypeEnum fromValue(String value) {
-            for (ConsumptionTypeEnum b : ConsumptionTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ACTUAL,
+        CUMULATIVE
     }
 
-    @JsonProperty("consumptionType")
     private ConsumptionTypeEnum consumptionType;
 
     public EnergyServicePointDetailMetersRegisters registerId(String registerId) {
@@ -190,8 +82,6 @@ public class EnergyServicePointDetailMetersRegisters {
     @ApiModelProperty(required = true,
             value = "Unique identifier of the register within this service point.  Is not globally unique")
     @NotNull
-
-
     public String getRegisterId() {
         return registerId;
     }
@@ -210,11 +100,8 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return registerSuffix
      */
-    @ApiModelProperty(required = true,
-            value = "Register suffix of the meter register where the meter reads are obtained")
+    @ApiModelProperty(required = true, value = "Register suffix of the meter register where the meter reads are obtained")
     @NotNull
-
-
     public String getRegisterSuffix() {
         return registerSuffix;
     }
@@ -234,9 +121,7 @@ public class EnergyServicePointDetailMetersRegisters {
      * @return averagedDailyLoad
      */
     @ApiModelProperty(value = "The energy delivered through a connection point or metering point over an extended period normalised to a 'per day' basis (kWh). This value is calculated annually.")
-
     @Valid
-
     public BigDecimal getAveragedDailyLoad() {
         return averagedDailyLoad;
     }
@@ -255,11 +140,8 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return registerConsumptionType
      */
-    @ApiModelProperty(required = true,
-            value = "Indicates the consumption type of register")
+    @ApiModelProperty(required = true, value = "Indicates the consumption type of register")
     @NotNull
-
-
     public RegisterConsumptionTypeEnum getRegisterConsumptionType() {
         return registerConsumptionType;
     }
@@ -279,8 +161,6 @@ public class EnergyServicePointDetailMetersRegisters {
      * @return networkTariffCode
      */
     @ApiModelProperty(value = "The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider")
-
-
     public String getNetworkTariffCode() {
         return networkTariffCode;
     }
@@ -300,8 +180,6 @@ public class EnergyServicePointDetailMetersRegisters {
      * @return unitOfMeasure
      */
     @ApiModelProperty(value = "The unit of measure for data held in this register")
-
-
     public String getUnitOfMeasure() {
         return unitOfMeasure;
     }
@@ -321,8 +199,6 @@ public class EnergyServicePointDetailMetersRegisters {
      * @return timeOfDay
      */
     @ApiModelProperty(value = "Code to identify the time validity of register contents")
-
-
     public TimeOfDayEnum getTimeOfDay() {
         return timeOfDay;
     }
@@ -342,9 +218,7 @@ public class EnergyServicePointDetailMetersRegisters {
      * @return multiplier
      */
     @ApiModelProperty(value = "Multiplier required to take a register value and turn it into a value representing billable energy")
-
     @Valid
-
     public BigDecimal getMultiplier() {
         return multiplier;
     }
@@ -359,13 +233,11 @@ public class EnergyServicePointDetailMetersRegisters {
     }
 
     /**
-     * Indicates whether the energy recorded by this register is created under a Controlled Load regime. ControlledLoad field will have 'No' if register does not relate to a Controlled Load.  If the register relates to a Controlled Load, it should contain a description of the Controlled Load regime. ControlledLoad field will have 'No' if register does not relate to a Controlled Load, “Yes” if register relates to a Controlled Load If absent the status is unknown.
+     * Indicates whether the energy recorded by this register is created under a Controlled Load regime
      *
      * @return controlledLoad
      */
-    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime. ControlledLoad field will have 'No' if register does not relate to a Controlled Load.  If the register relates to a Controlled Load, it should contain a description of the Controlled Load regime. ControlledLoad field will have 'No' if register does not relate to a Controlled Load, “Yes” if register relates to a Controlled Load If absent the status is unknown. ")
-
-
+    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime")
     public Boolean getControlledLoad() {
         return controlledLoad;
     }
@@ -385,8 +257,6 @@ public class EnergyServicePointDetailMetersRegisters {
      * @return consumptionType
      */
     @ApiModelProperty(value = "Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>")
-
-
     public ConsumptionTypeEnum getConsumptionType() {
         return consumptionType;
     }
@@ -394,7 +264,6 @@ public class EnergyServicePointDetailMetersRegisters {
     public void setConsumptionType(ConsumptionTypeEnum consumptionType) {
         this.consumptionType = consumptionType;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -426,7 +295,6 @@ public class EnergyServicePointDetailMetersRegisters {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyServicePointDetailMetersRegisters {\n");
-
         sb.append("    registerId: ").append(toIndentedString(registerId)).append("\n");
         sb.append("    registerSuffix: ").append(toIndentedString(registerSuffix)).append("\n");
         sb.append("    averagedDailyLoad: ").append(toIndentedString(averagedDailyLoad)).append("\n");
@@ -452,4 +320,3 @@ public class EnergyServicePointDetailMetersRegisters {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,42 +11,32 @@ import java.util.Objects;
 /**
  * EnergyUsageRead
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyUsageRead {
-    @JsonProperty("servicePointId")
     private String servicePointId;
 
-    @JsonProperty("registerId")
     private String registerId;
 
-    @JsonProperty("registerSuffix")
     private String registerSuffix;
 
-    @JsonProperty("meterID")
     private String meterID;
 
-    @JsonProperty("controlledLoad")
     private Boolean controlledLoad;
 
-    @JsonProperty("readStartDate")
     private String readStartDate;
 
-    @JsonProperty("readEndDate")
     private String readEndDate;
 
-    @JsonProperty("unitOfMeasure")
     private String unitOfMeasure;
 
     /**
      * Specify the type of the meter read data
      */
     public enum ReadUTypeEnum {
-        BASICREAD("basicRead"),
+        BASIC_READ("basicRead"),
 
-        INTERVALREAD("intervalRead");
+        INTERVAL_READ("intervalRead");
 
-        private String value;
+        private final String value;
 
         ReadUTypeEnum(String value) {
             this.value = value;
@@ -74,13 +63,10 @@ public class EnergyUsageRead {
         }
     }
 
-    @JsonProperty("readUType")
     private ReadUTypeEnum readUType;
 
-    @JsonProperty("basicRead")
     private EnergyUsageReadBasicRead basicRead;
 
-    @JsonProperty("intervalRead")
     private EnergyUsageReadIntervalRead intervalRead;
 
     public EnergyUsageRead servicePointId(String servicePointId) {
@@ -96,8 +82,6 @@ public class EnergyUsageRead {
     @ApiModelProperty(required = true,
             value = "Tokenised ID of the service point to be used for referring to the service point in the CDR API suite.  To be created in accordance with CDR ID permanence requirements")
     @NotNull
-
-
     public String getServicePointId() {
         return servicePointId;
     }
@@ -117,8 +101,6 @@ public class EnergyUsageRead {
      * @return registerId
      */
     @ApiModelProperty(value = "Register ID of the meter register where the meter reads are obtained")
-
-
     public String getRegisterId() {
         return registerId;
     }
@@ -137,11 +119,8 @@ public class EnergyUsageRead {
      *
      * @return registerSuffix
      */
-    @ApiModelProperty(required = true,
-            value = "Register suffix of the meter register where the meter reads are obtained")
+    @ApiModelProperty(required = true, value = "Register suffix of the meter register where the meter reads are obtained")
     @NotNull
-
-
     public String getRegisterSuffix() {
         return registerSuffix;
     }
@@ -161,8 +140,6 @@ public class EnergyUsageRead {
      * @return meterID
      */
     @ApiModelProperty(value = "Meter id/serial number as it appears in customer’s bill. ID permanence rules do not apply.")
-
-
     public String getMeterID() {
         return meterID;
     }
@@ -177,13 +154,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Indicates whether the energy recorded by this register is created under a Controlled Load regime. ControlledLoad field will have 'No if register does not relate to a Controlled Load, “Yes” if register relates to a Controlled Load If absent the status is unknown.
+     * Indicates whether the energy recorded by this register is created under a Controlled Load regime
      *
      * @return controlledLoad
      */
-    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime. ControlledLoad field will have 'No if register does not relate to a Controlled Load, “Yes” if register relates to a Controlled Load If absent the status is unknown. ")
-
-
+    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime")
     public Boolean getControlledLoad() {
         return controlledLoad;
     }
@@ -202,11 +177,8 @@ public class EnergyUsageRead {
      *
      * @return readStartDate
      */
-    @ApiModelProperty(required = true,
-            value = "Date time when the meter reads start")
+    @ApiModelProperty(required = true, value = "Date time when the meter reads start")
     @NotNull
-
-
     public String getReadStartDate() {
         return readStartDate;
     }
@@ -226,8 +198,6 @@ public class EnergyUsageRead {
      * @return readEndDate
      */
     @ApiModelProperty(value = "Date time when the meter reads end.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate")
-
-
     public String getReadEndDate() {
         return readEndDate;
     }
@@ -247,8 +217,6 @@ public class EnergyUsageRead {
      * @return unitOfMeasure
      */
     @ApiModelProperty(value = "Unit of measure of the meter reads. Refer to Appendix B of <a href='https://www.aemo.com.au/-/media/files/stakeholder_consultation/consultations/nem-consultations/2019/5ms-metering-package-2/final-determination/mdff-specification-nem12-nem13-v21-final-determination-clean.pdf?la=en&hash=03FCBA0D60E091DE00F2361AE76206EA'>MDFF Specification NEM12 NEM13 v2.1</a> for a list of possible values")
-
-
     public String getUnitOfMeasure() {
         return unitOfMeasure;
     }
@@ -267,11 +235,8 @@ public class EnergyUsageRead {
      *
      * @return readUType
      */
-    @ApiModelProperty(required = true,
-            value = "Specify the type of the meter read data")
+    @ApiModelProperty(required = true, value = "Specify the type of the meter read data")
     @NotNull
-
-
     public ReadUTypeEnum getReadUType() {
         return readUType;
     }
@@ -291,9 +256,7 @@ public class EnergyUsageRead {
      * @return basicRead
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyUsageReadBasicRead getBasicRead() {
         return basicRead;
     }
@@ -313,9 +276,7 @@ public class EnergyUsageRead {
      * @return intervalRead
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyUsageReadIntervalRead getIntervalRead() {
         return intervalRead;
     }
@@ -323,7 +284,6 @@ public class EnergyUsageRead {
     public void setIntervalRead(EnergyUsageReadIntervalRead intervalRead) {
         this.intervalRead = intervalRead;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -356,7 +316,6 @@ public class EnergyUsageRead {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyUsageRead {\n");
-
         sb.append("    servicePointId: ").append(toIndentedString(servicePointId)).append("\n");
         sb.append("    registerId: ").append(toIndentedString(registerId)).append("\n");
         sb.append("    registerSuffix: ").append(toIndentedString(registerSuffix)).append("\n");
@@ -383,4 +342,3 @@ public class EnergyUsageRead {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
