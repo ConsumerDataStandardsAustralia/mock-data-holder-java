@@ -1,6 +1,8 @@
 package au.org.consumerdatastandards.holder.api.energy;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
+import au.org.consumerdatastandards.holder.model.CommonPhysicalAddress;
+import au.org.consumerdatastandards.holder.model.CommonSimpleAddress;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
@@ -36,6 +38,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyServicePoint;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointConsumerProfile;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailDistributionLossFactor;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailRelatedParticipants;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponseData;
@@ -213,6 +216,19 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         dlf.setDescription("Distribution Loss Factor description");
         dlf.setLossValue("LossValue123");
         servicePoint.setDistributionLossFactor(dlf);
+        EnergyServicePointDetailRelatedParticipants relatedParticipants = new EnergyServicePointDetailRelatedParticipants();
+        relatedParticipants.setParty("Party/Organisation Name");
+        relatedParticipants.setRole(EnergyServicePointDetailRelatedParticipants.RoleEnum.LNSP);
+        servicePoint.setRelatedParticipants(Collections.singletonList(relatedParticipants));
+        CommonPhysicalAddress location = new CommonPhysicalAddress();
+        location.setAddressUType(CommonPhysicalAddress.AddressUType.simple);
+        CommonSimpleAddress sa = new CommonSimpleAddress();
+        sa.setAddressLine1("1 One St");
+        sa.setCity("Sydney");
+        sa.setState("NSW");
+        sa.setPostcode("2000");
+        location.setSimple(sa);
+        servicePoint.setLocation(location);
         response.setData(servicePoint);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
@@ -429,6 +445,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         servicePoint.setLastUpdateDateTime(OffsetDateTime.now());
         data.setServicePoints(Collections.singletonList(servicePoint));
         response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        response.setMeta(createSinglePageMeta());
 
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
