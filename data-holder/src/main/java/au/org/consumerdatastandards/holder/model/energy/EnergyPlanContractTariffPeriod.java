@@ -53,6 +53,16 @@ public class EnergyPlanContractTariffPeriod {
     private String dailySupplyCharges;
 
     /**
+     * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
+     */
+    public enum TimeZone {
+        LOCAL,
+        AEST
+    }
+
+    private TimeZone timeZone;
+
+    /**
      * Specifies the type of rate applicable to this tariff period
      */
     public enum RateBlockUTypeEnum {
@@ -210,6 +220,20 @@ public class EnergyPlanContractTariffPeriod {
         this.dailySupplyCharges = dailySupplyCharges;
     }
 
+    /**
+     * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
+     *
+     * @return timeZone
+     */
+    @ApiModelProperty(value = "Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.")
+    public TimeZone getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
+    }
+
     public EnergyPlanContractTariffPeriod rateBlockUType(RateBlockUTypeEnum rateBlockUType) {
         this.rateBlockUType = rateBlockUType;
         return this;
@@ -321,6 +345,7 @@ public class EnergyPlanContractTariffPeriod {
                 Objects.equals(this.startDate, energyPlanContractTariffPeriod.startDate) &&
                 Objects.equals(this.endDate, energyPlanContractTariffPeriod.endDate) &&
                 Objects.equals(this.dailySupplyCharges, energyPlanContractTariffPeriod.dailySupplyCharges) &&
+                Objects.equals(this.timeZone, energyPlanContractTariffPeriod.timeZone) &&
                 Objects.equals(this.rateBlockUType, energyPlanContractTariffPeriod.rateBlockUType) &&
                 Objects.equals(this.singleRate, energyPlanContractTariffPeriod.singleRate) &&
                 Objects.equals(this.timeOfUseRates, energyPlanContractTariffPeriod.timeOfUseRates) &&
@@ -329,7 +354,7 @@ public class EnergyPlanContractTariffPeriod {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, displayName, startDate, endDate, dailySupplyCharges, rateBlockUType, singleRate, timeOfUseRates, demandCharges);
+        return Objects.hash(type, displayName, startDate, endDate, dailySupplyCharges, timeZone, rateBlockUType, singleRate, timeOfUseRates, demandCharges);
     }
 
     @Override
@@ -341,6 +366,7 @@ public class EnergyPlanContractTariffPeriod {
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
         sb.append("    dailySupplyCharges: ").append(toIndentedString(dailySupplyCharges)).append("\n");
+        sb.append("    timeZone: ").append(toIndentedString(timeZone)).append("\n");
         sb.append("    rateBlockUType: ").append(toIndentedString(rateBlockUType)).append("\n");
         sb.append("    singleRate: ").append(toIndentedString(singleRate)).append("\n");
         sb.append("    timeOfUseRates: ").append(toIndentedString(timeOfUseRates)).append("\n");

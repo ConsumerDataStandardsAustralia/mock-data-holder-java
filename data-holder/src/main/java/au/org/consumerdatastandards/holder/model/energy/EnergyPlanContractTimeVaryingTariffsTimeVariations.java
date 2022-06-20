@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -48,8 +49,9 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
      *
      * @return days
      */
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(required = true, value = "")
     @Valid
+    @NotNull
     public EnergyPlanContractTimeVaryingTariffsDays getDays() {
         return days;
     }

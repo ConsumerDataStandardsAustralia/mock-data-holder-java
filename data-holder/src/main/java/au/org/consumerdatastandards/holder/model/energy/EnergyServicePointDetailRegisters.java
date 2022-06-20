@@ -12,7 +12,7 @@ import java.util.Objects;
  * Usage data registers available from the meter
  */
 @ApiModel(description = "Usage data registers available from the meter")
-public class EnergyServicePointDetailMetersRegisters {
+public class EnergyServicePointDetailRegisters {
     private String registerId;
 
     private String registerSuffix;
@@ -69,7 +69,7 @@ public class EnergyServicePointDetailMetersRegisters {
 
     private ConsumptionTypeEnum consumptionType;
 
-    public EnergyServicePointDetailMetersRegisters registerId(String registerId) {
+    public EnergyServicePointDetailRegisters registerId(String registerId) {
         this.registerId = registerId;
         return this;
     }
@@ -90,7 +90,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.registerId = registerId;
     }
 
-    public EnergyServicePointDetailMetersRegisters registerSuffix(String registerSuffix) {
+    public EnergyServicePointDetailRegisters registerSuffix(String registerSuffix) {
         this.registerSuffix = registerSuffix;
         return this;
     }
@@ -100,8 +100,7 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return registerSuffix
      */
-    @ApiModelProperty(required = true, value = "Register suffix of the meter register where the meter reads are obtained")
-    @NotNull
+    @ApiModelProperty(value = "Register suffix of the meter register where the meter reads are obtained")
     public String getRegisterSuffix() {
         return registerSuffix;
     }
@@ -110,7 +109,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.registerSuffix = registerSuffix;
     }
 
-    public EnergyServicePointDetailMetersRegisters averagedDailyLoad(BigDecimal averagedDailyLoad) {
+    public EnergyServicePointDetailRegisters averagedDailyLoad(BigDecimal averagedDailyLoad) {
         this.averagedDailyLoad = averagedDailyLoad;
         return this;
     }
@@ -130,7 +129,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.averagedDailyLoad = averagedDailyLoad;
     }
 
-    public EnergyServicePointDetailMetersRegisters registerConsumptionType(RegisterConsumptionTypeEnum registerConsumptionType) {
+    public EnergyServicePointDetailRegisters registerConsumptionType(RegisterConsumptionTypeEnum registerConsumptionType) {
         this.registerConsumptionType = registerConsumptionType;
         return this;
     }
@@ -150,7 +149,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.registerConsumptionType = registerConsumptionType;
     }
 
-    public EnergyServicePointDetailMetersRegisters networkTariffCode(String networkTariffCode) {
+    public EnergyServicePointDetailRegisters networkTariffCode(String networkTariffCode) {
         this.networkTariffCode = networkTariffCode;
         return this;
     }
@@ -169,7 +168,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.networkTariffCode = networkTariffCode;
     }
 
-    public EnergyServicePointDetailMetersRegisters unitOfMeasure(String unitOfMeasure) {
+    public EnergyServicePointDetailRegisters unitOfMeasure(String unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
         return this;
     }
@@ -188,7 +187,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.unitOfMeasure = unitOfMeasure;
     }
 
-    public EnergyServicePointDetailMetersRegisters timeOfDay(TimeOfDayEnum timeOfDay) {
+    public EnergyServicePointDetailRegisters timeOfDay(TimeOfDayEnum timeOfDay) {
         this.timeOfDay = timeOfDay;
         return this;
     }
@@ -207,7 +206,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.timeOfDay = timeOfDay;
     }
 
-    public EnergyServicePointDetailMetersRegisters multiplier(BigDecimal multiplier) {
+    public EnergyServicePointDetailRegisters multiplier(BigDecimal multiplier) {
         this.multiplier = multiplier;
         return this;
     }
@@ -227,7 +226,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.multiplier = multiplier;
     }
 
-    public EnergyServicePointDetailMetersRegisters controlledLoad(Boolean controlledLoad) {
+    public EnergyServicePointDetailRegisters controlledLoad(Boolean controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -246,7 +245,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.controlledLoad = controlledLoad;
     }
 
-    public EnergyServicePointDetailMetersRegisters consumptionType(ConsumptionTypeEnum consumptionType) {
+    public EnergyServicePointDetailRegisters consumptionType(ConsumptionTypeEnum consumptionType) {
         this.consumptionType = consumptionType;
         return this;
     }
@@ -273,17 +272,17 @@ public class EnergyServicePointDetailMetersRegisters {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyServicePointDetailMetersRegisters energyServicePointDetailMetersRegisters = (EnergyServicePointDetailMetersRegisters) o;
-        return Objects.equals(this.registerId, energyServicePointDetailMetersRegisters.registerId) &&
-                Objects.equals(this.registerSuffix, energyServicePointDetailMetersRegisters.registerSuffix) &&
-                Objects.equals(this.averagedDailyLoad, energyServicePointDetailMetersRegisters.averagedDailyLoad) &&
-                Objects.equals(this.registerConsumptionType, energyServicePointDetailMetersRegisters.registerConsumptionType) &&
-                Objects.equals(this.networkTariffCode, energyServicePointDetailMetersRegisters.networkTariffCode) &&
-                Objects.equals(this.unitOfMeasure, energyServicePointDetailMetersRegisters.unitOfMeasure) &&
-                Objects.equals(this.timeOfDay, energyServicePointDetailMetersRegisters.timeOfDay) &&
-                Objects.equals(this.multiplier, energyServicePointDetailMetersRegisters.multiplier) &&
-                Objects.equals(this.controlledLoad, energyServicePointDetailMetersRegisters.controlledLoad) &&
-                Objects.equals(this.consumptionType, energyServicePointDetailMetersRegisters.consumptionType);
+        EnergyServicePointDetailRegisters energyServicePointDetailRegisters = (EnergyServicePointDetailRegisters) o;
+        return Objects.equals(this.registerId, energyServicePointDetailRegisters.registerId) &&
+                Objects.equals(this.registerSuffix, energyServicePointDetailRegisters.registerSuffix) &&
+                Objects.equals(this.averagedDailyLoad, energyServicePointDetailRegisters.averagedDailyLoad) &&
+                Objects.equals(this.registerConsumptionType, energyServicePointDetailRegisters.registerConsumptionType) &&
+                Objects.equals(this.networkTariffCode, energyServicePointDetailRegisters.networkTariffCode) &&
+                Objects.equals(this.unitOfMeasure, energyServicePointDetailRegisters.unitOfMeasure) &&
+                Objects.equals(this.timeOfDay, energyServicePointDetailRegisters.timeOfDay) &&
+                Objects.equals(this.multiplier, energyServicePointDetailRegisters.multiplier) &&
+                Objects.equals(this.controlledLoad, energyServicePointDetailRegisters.controlledLoad) &&
+                Objects.equals(this.consumptionType, energyServicePointDetailRegisters.consumptionType);
     }
 
     @Override

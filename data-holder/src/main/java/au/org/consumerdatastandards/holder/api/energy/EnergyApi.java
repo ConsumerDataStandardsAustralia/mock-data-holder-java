@@ -464,7 +464,7 @@ public interface EnergyApi {
      * @param accountId              ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point. (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -526,7 +526,7 @@ public interface EnergyApi {
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -777,7 +777,7 @@ public interface EnergyApi {
      *
      * @param servicePointId         ID of the specific service point requested.  This is a tokenised ID previous obtained from the Service Point List Data end point.  Note that it is not a nationalMeteringId. (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
@@ -834,7 +834,7 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1533,7 +1533,7 @@ public interface EnergyApi {
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -1587,7 +1587,7 @@ public interface EnergyApi {
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1633,7 +1633,7 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -1694,7 +1694,7 @@ public interface EnergyApi {
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1929,7 +1929,7 @@ public interface EnergyApi {
      * Obtain usage data for all service points associated with the customer
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
@@ -1978,7 +1978,7 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -2029,7 +2029,7 @@ public interface EnergyApi {
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param servicePointIdList     Request payload containing list of specific Service Points to obtain data for (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
@@ -2085,7 +2085,7 @@ public interface EnergyApi {
             @RequestBody
                     RequestServicePointIds servicePointIdList,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)

@@ -48,7 +48,7 @@ public class EnergyPlanContractFull {
     private PricingModelEnum pricingModel;
 
     /**
-     * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds
+     * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent
      */
     public enum TimeZoneEnum {
         LOCAL,
@@ -221,11 +221,11 @@ public class EnergyPlanContractFull {
     }
 
     /**
-     * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds
+     * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent
      *
      * @return timeZone
      */
-    @ApiModelProperty(value = "Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds")
+    @ApiModelProperty(value = "Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent")
     public TimeZoneEnum getTimeZone() {
         return timeZone;
     }

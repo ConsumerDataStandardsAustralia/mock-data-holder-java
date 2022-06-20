@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -10,17 +9,12 @@ import java.util.Objects;
 /**
  * EnergyServicePointDetailMeters
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyServicePointDetailMeters {
-    @JsonProperty("meterId")
     private String meterId;
 
-    @JsonProperty("specifications")
-    private EnergyServicePointDetailMetersSpecifications specifications;
+    private EnergyServicePointDetailSpecifications specifications;
 
-    @JsonProperty("registers")
-    private EnergyServicePointDetailMetersRegisters registers;
+    private EnergyServicePointDetailRegisters registers;
 
     public EnergyServicePointDetailMeters meterId(String meterId) {
         this.meterId = meterId;
@@ -35,8 +29,6 @@ public class EnergyServicePointDetailMeters {
     @ApiModelProperty(required = true,
             value = "The meter ID uniquely identifies a meter for a given service point.  It is unique in the context of the service point.  It is not globally unique")
     @NotNull
-
-
     public String getMeterId() {
         return meterId;
     }
@@ -45,7 +37,7 @@ public class EnergyServicePointDetailMeters {
         this.meterId = meterId;
     }
 
-    public EnergyServicePointDetailMeters specifications(EnergyServicePointDetailMetersSpecifications specifications) {
+    public EnergyServicePointDetailMeters specifications(EnergyServicePointDetailSpecifications specifications) {
         this.specifications = specifications;
         return this;
     }
@@ -55,44 +47,36 @@ public class EnergyServicePointDetailMeters {
      *
      * @return specifications
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public EnergyServicePointDetailMetersSpecifications getSpecifications() {
+    public EnergyServicePointDetailSpecifications getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(EnergyServicePointDetailMetersSpecifications specifications) {
+    public void setSpecifications(EnergyServicePointDetailSpecifications specifications) {
         this.specifications = specifications;
     }
 
-    public EnergyServicePointDetailMeters registers(EnergyServicePointDetailMetersRegisters registers) {
+    public EnergyServicePointDetailMeters registers(EnergyServicePointDetailRegisters registers) {
         this.registers = registers;
         return this;
     }
 
     /**
-     * Get registers
+     * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
      *
      * @return registers
      */
-    @ApiModelProperty(required = true,
-            value = "")
-    @NotNull
-
+    @ApiModelProperty(value = "Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point")
     @Valid
-
-    public EnergyServicePointDetailMetersRegisters getRegisters() {
+    public EnergyServicePointDetailRegisters getRegisters() {
         return registers;
     }
 
-    public void setRegisters(EnergyServicePointDetailMetersRegisters registers) {
+    public void setRegisters(EnergyServicePointDetailRegisters registers) {
         this.registers = registers;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -117,7 +101,6 @@ public class EnergyServicePointDetailMeters {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyServicePointDetailMeters {\n");
-
         sb.append("    meterId: ").append(toIndentedString(meterId)).append("\n");
         sb.append("    specifications: ").append(toIndentedString(specifications)).append("\n");
         sb.append("    registers: ").append(toIndentedString(registers)).append("\n");
@@ -136,4 +119,3 @@ public class EnergyServicePointDetailMeters {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
