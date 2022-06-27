@@ -1,5 +1,7 @@
 package au.org.consumerdatastandards.holder.api.energy;
 
+import au.org.consumerdatastandards.holder.api.DateFormat;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponse;
@@ -15,7 +17,6 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyPlanResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
-import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +38,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Api(value = "energy", description = "the energy API")
@@ -106,7 +110,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -183,7 +187,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -290,7 +294,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -367,7 +371,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -444,7 +448,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -551,7 +555,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -628,7 +632,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -757,7 +761,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -865,7 +869,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+            @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -950,7 +954,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1035,7 +1039,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1128,7 +1132,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -1228,7 +1232,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1335,7 +1339,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -1421,7 +1425,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1514,7 +1518,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1613,7 +1617,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1720,7 +1724,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -1817,7 +1821,7 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "updated-since",
                     required = false)
-                    OffsetDateTime updatedSince,
+                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) OffsetDateTime updatedSince,
             @ApiParam(
                     value = "Used to filter results on the brand field.  If absent defaults to include all plans")
             @Valid
@@ -1910,7 +1914,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -2010,7 +2014,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -2117,7 +2121,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
