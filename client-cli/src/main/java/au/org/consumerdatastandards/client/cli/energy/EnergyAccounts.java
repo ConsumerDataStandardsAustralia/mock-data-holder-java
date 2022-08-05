@@ -140,7 +140,7 @@ public class EnergyAccounts extends ApiCliBase {
     }
 
     @ShellMethod("Get bulk balances for Energy")
-    public String listBalancesBulk(@ShellOption(defaultValue = "false") boolean check,
+    public String listEnergyBalancesBulk(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
