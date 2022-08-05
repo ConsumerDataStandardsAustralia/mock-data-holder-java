@@ -3,7 +3,7 @@ package au.org.consumerdatastandards.client.model.energy;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-public class EnergyPlanEntity implements EnergyPlan {
+public class EnergyPlanBean implements EnergyPlan {
     private String planId;
 
     private OffsetDateTime effectiveFrom;
@@ -248,7 +248,7 @@ public class EnergyPlanEntity implements EnergyPlan {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanEntity energyPlan = (EnergyPlanEntity) o;
+        EnergyPlanBean energyPlan = (EnergyPlanBean) o;
         return Objects.equals(this.planId, energyPlan.planId) &&
                 Objects.equals(this.effectiveFrom, energyPlan.effectiveFrom) &&
                 Objects.equals(this.effectiveTo, energyPlan.effectiveTo) &&

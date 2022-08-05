@@ -8,14 +8,14 @@ import java.util.Objects;
  * EnergyPlanListResponseData
  */
 public class EnergyPlanListResponseData {
-    private List<EnergyPlanEntity> plans = new ArrayList<>();
+    private List<EnergyPlanBean> plans = new ArrayList<>();
 
-    public EnergyPlanListResponseData plans(List<EnergyPlanEntity> plans) {
+    public EnergyPlanListResponseData plans(List<EnergyPlanBean> plans) {
         this.plans = plans;
         return this;
     }
 
-    public EnergyPlanListResponseData addPlansItem(EnergyPlanEntity plansItem) {
+    public EnergyPlanListResponseData addPlansItem(EnergyPlanBean plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -25,11 +25,11 @@ public class EnergyPlanListResponseData {
      *
      * @return plans
      */
-    public List<EnergyPlanEntity> getPlans() {
+    public List<EnergyPlanBean> getPlans() {
         return plans;
     }
 
-    public void setPlans(List<EnergyPlanEntity> plans) {
+    public void setPlans(List<EnergyPlanBean> plans) {
         this.plans = plans;
     }
 
