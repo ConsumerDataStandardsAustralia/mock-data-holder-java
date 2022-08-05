@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.holder.service.energy;
 
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailEntity;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
@@ -42,10 +43,10 @@ public class EnergyService {
         return energyPlanRepository.findAll((Specification<EnergyPlanEntity>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (type != null && type != ParamTypeEnum.ALL) {
-                predicates.add(criteriaBuilder.equal(root.get("type"), type));
+                predicates.add(criteriaBuilder.equal(root.get("type"), EnergyPlan.FuelTypeEnum.valueOf(type.name())));
             }
             if (fuelType != null && fuelType != ParamFuelTypeEnum.ALL) {
-                predicates.add(criteriaBuilder.equal(root.get("fuelType"), fuelType));
+                predicates.add(criteriaBuilder.equal(root.get("fuelType"), EnergyPlan.FuelTypeEnum.valueOf(fuelType.name())));
             }
             if (effective == null || effective == ParamEffective.CURRENT) {
                 OffsetDateTime now = OffsetDateTime.now();

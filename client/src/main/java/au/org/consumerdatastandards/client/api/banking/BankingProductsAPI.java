@@ -8,11 +8,11 @@
 package au.org.consumerdatastandards.client.api.banking;
 
 import au.org.consumerdatastandards.client.ApiCallback;
-import au.org.consumerdatastandards.client.ApiClient;
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.Pair;
 import au.org.consumerdatastandards.client.api.ReturnTypeResolver;
+import au.org.consumerdatastandards.client.api.UnprotectedAPI;
 import au.org.consumerdatastandards.client.model.banking.BankingProduct;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.banking.BankingProductDetailV1;
@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BankingProductsAPI {
+public class BankingProductsAPI extends UnprotectedAPI {
 
     public enum ParamEffective {
         CURRENT,
@@ -46,16 +46,6 @@ public class BankingProductsAPI {
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingProductsAPI.class);
-
-    private ApiClient apiClient;
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
 
     /**
      * Build call for getProductDetail
@@ -578,13 +568,6 @@ public class BankingProductsAPI {
         okhttp3.Call call = listProductsValidateBeforeCall(effective, updatedSince, brand, productCategory, version, page, pageSize, _callback);
         apiClient.executeAsync(call, _callback, new ListProductsReturnTypeResolver());
         return call;
-    }
-
-    private void addQueryParam(List<Pair> queryParams, String paramName, Object paramValue) {
-        if (paramValue != null) {
-            LOGGER.trace("Adding query parameter of {} with value of {}", paramName, paramValue);
-            queryParams.addAll(apiClient.parameterToPair(paramName, paramValue));
-        }
     }
 
     private class ListProductsReturnTypeResolver implements ReturnTypeResolver {

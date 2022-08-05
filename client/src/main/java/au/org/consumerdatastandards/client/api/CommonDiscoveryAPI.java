@@ -8,7 +8,6 @@
 package au.org.consumerdatastandards.client.api;
 
 import au.org.consumerdatastandards.client.ApiCallback;
-import au.org.consumerdatastandards.client.ApiClient;
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.Pair;
@@ -24,19 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CommonDiscoveryAPI {
+public class CommonDiscoveryAPI extends UnprotectedAPI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonDiscoveryAPI.class);
-
-    private ApiClient apiClient;
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
 
     /**
      * Build call for getOutages
@@ -293,12 +282,5 @@ public class CommonDiscoveryAPI {
         Type returnType = new TypeToken<ResponseCommonDiscoveryStatus>(){}.getType();
         apiClient.executeAsync(call, returnType, _callback);
         return call;
-    }
-
-    private void addQueryParam(List<Pair> queryParams, String paramName, Object paramValue) {
-        if (paramValue != null) {
-            LOGGER.trace("Adding query parameter of {} with value of {}", paramName, paramValue);
-            queryParams.addAll(apiClient.parameterToPair(paramName, paramValue));
-        }
     }
 }

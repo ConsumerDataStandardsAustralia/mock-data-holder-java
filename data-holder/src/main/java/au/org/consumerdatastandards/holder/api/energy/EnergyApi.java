@@ -226,7 +226,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyBalanceResponse.class),
+                    response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -329,7 +329,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyBalanceResponse.class),
+                    response = EnergyConcessionsResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
@@ -905,7 +905,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyAccountListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -990,7 +990,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyBalanceListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1171,7 +1171,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1271,7 +1271,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1376,7 +1376,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyDerListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1656,7 +1656,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyDerListResponse.class),
+                    response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1762,7 +1762,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyUsageListResponse.class),
+                    response = EnergyPlanListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1865,7 +1865,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyUsageListResponse.class),
+                    response = EnergyServicePointListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -2053,7 +2053,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyBalanceListResponse.class),
+                    response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Page Size / Invalid Field",
                     response = ErrorListResponse.class),
