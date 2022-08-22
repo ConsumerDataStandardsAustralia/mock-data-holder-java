@@ -1,6 +1,8 @@
 package au.org.consumerdatastandards.holder.api.energy;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
+import au.org.consumerdatastandards.holder.model.CommonPhysicalAddress;
+import au.org.consumerdatastandards.holder.model.CommonSimpleAddress;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
@@ -27,8 +29,8 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyInvoiceListRespons
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleCardDebit;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleResponse;
-import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailEntity;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanResponse;
@@ -36,6 +38,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyServicePoint;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointConsumerProfile;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailDistributionLossFactor;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailRelatedParticipants;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponseData;
@@ -65,6 +68,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.UUID;
 
 @Validated
@@ -83,7 +87,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyAccountDetailResponse> getAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+    public ResponseEntity<EnergyAccountDetailResponse> getAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyAccountDetailResponse response = new EnergyAccountDetailResponse();
@@ -95,7 +99,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyBalanceResponse> getBalanceForAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+    public ResponseEntity<EnergyBalanceResponse> getBalanceForAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyBalanceResponse response = new EnergyBalanceResponse();
         EnergyBalanceResponseData data = new EnergyBalanceResponseData();
@@ -108,7 +112,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyBillingListResponse> getBillingForAccount(String accountId, Integer xV, Integer xMinV,
             String newestTime, String oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId,
-            String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyBillingListResponse response = new EnergyBillingListResponse();
@@ -121,7 +125,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyConcessionsResponse> getConcessions(String accountId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyConcessionsResponse response = new EnergyConcessionsResponse();
         EnergyConcessionsResponseData data = new EnergyConcessionsResponseData();
@@ -132,7 +136,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyDerDetailResponse> getDERForServicePoint(String servicePointId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyDerDetailResponse response = new EnergyDerDetailResponse();
         EnergyDerRecord data = new EnergyDerRecord();
@@ -149,7 +153,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> getInvoicesForAccount(String accountId, Integer xV, Integer xMinV,
             String newestDate, String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
-            String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
@@ -162,7 +166,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyPaymentScheduleResponse> getPaymentSchedule(String accountId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyPaymentScheduleResponse response = new EnergyPaymentScheduleResponse();
         EnergyPaymentSchedule data = new EnergyPaymentSchedule();
@@ -194,7 +198,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyServicePointDetailResponse> getServicePoint(String servicePointId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyServicePointDetailResponse response = new EnergyServicePointDetailResponse();
         EnergyServicePointDetail servicePoint = new EnergyServicePointDetail();
@@ -213,6 +217,19 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         dlf.setDescription("Distribution Loss Factor description");
         dlf.setLossValue("LossValue123");
         servicePoint.setDistributionLossFactor(dlf);
+        EnergyServicePointDetailRelatedParticipants relatedParticipants = new EnergyServicePointDetailRelatedParticipants();
+        relatedParticipants.setParty("Party/Organisation Name");
+        relatedParticipants.setRole(EnergyServicePointDetailRelatedParticipants.RoleEnum.LNSP);
+        servicePoint.setRelatedParticipants(Collections.singletonList(relatedParticipants));
+        CommonPhysicalAddress location = new CommonPhysicalAddress();
+        location.setAddressUType(CommonPhysicalAddress.AddressUType.simple);
+        CommonSimpleAddress sa = new CommonSimpleAddress();
+        sa.setAddressLine1("1 One St");
+        sa.setCity("Sydney");
+        sa.setState("NSW");
+        sa.setPostcode("2000");
+        location.setSimple(sa);
+        servicePoint.setLocation(location);
         response.setData(servicePoint);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
@@ -221,7 +238,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyUsageListResponse> getUsageForServicePoint(String servicePointId, Integer xV, Integer xMinV,
             String oldestDate, String newestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
-            String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyUsageListResponse response = new EnergyUsageListResponse();
@@ -233,7 +250,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyAccountListResponse> listAccounts(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+    public ResponseEntity<EnergyAccountListResponse> listAccounts(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyAccountListResponse response = new EnergyAccountListResponse();
@@ -271,7 +288,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyBalanceListResponse> listBalancesBulk(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+    public ResponseEntity<EnergyBalanceListResponse> listBalancesBulk(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyBalanceListResponse response = new EnergyBalanceListResponse();
@@ -284,7 +301,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyBalanceListResponse> listBalancesForAccounts(Integer xV, Integer xMinV, RequestAccountIds accountIdList,
-            Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyBalanceListResponse response = new EnergyBalanceListResponse();
@@ -297,7 +314,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyBillingListResponse> listBillingBulk(Integer xV, Integer xMinV, String newestTime,
-            String oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate,
+            String oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
@@ -312,7 +329,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyBillingListResponse> listBillingForAccounts(Integer xV, Integer xMinV,
             RequestAccountIds accountIdList, String newestTime, String oldestTime, Integer page, Integer pageSize,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyBillingListResponse response = new EnergyBillingListResponse();
@@ -325,7 +342,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyDerListResponse> listDERBulk(Integer xV, Integer xMinV, Integer page, Integer pageSize,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyDerListResponse response = new EnergyDerListResponse();
@@ -339,7 +356,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyDerListResponse> listDERForServicePoints(Integer xV, Integer xMinV,
             RequestServicePointIds servicePointIdList, Integer page, Integer pageSize, UUID xFapiInteractionId,
-            String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyDerListResponse response = new EnergyDerListResponse();
@@ -352,7 +369,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> listInvoicesBulk(Integer xV, Integer xMinV, String newestDate,
-            String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate,
+            String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
@@ -367,7 +384,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> listInvoicesForAccounts(Integer xV, Integer xMinV,
             RequestAccountIds accountIdList, String newestDate, String oldestDate, Integer page, Integer pageSize,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
@@ -409,7 +426,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyServicePointListResponse> listServicePoints(Integer xV, Integer xMinV, Integer page,
-            Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress,
+            Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress,
             String xCdsClientHeaders) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
@@ -429,13 +446,15 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         servicePoint.setLastUpdateDateTime(OffsetDateTime.now());
         data.setServicePoints(Collections.singletonList(servicePoint));
         response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        response.setMeta(createSinglePageMeta());
 
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyUsageListResponse> listUsageBulk(Integer xV, Integer xMinV, String oldestDate,
-            String newestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, String xFapiAuthDate,
+            String newestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
@@ -451,7 +470,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyUsageListResponse> listUsageForServicePoints(Integer xV, Integer xMinV,
             RequestServicePointIds servicePointIdList, String oldestDate, String newestDate, Integer page,
-            Integer pageSize,UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress,
+            Integer pageSize,UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress,
             String xCdsClientHeaders) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);

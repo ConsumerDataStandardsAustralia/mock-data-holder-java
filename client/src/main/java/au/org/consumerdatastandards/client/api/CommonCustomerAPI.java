@@ -281,11 +281,4 @@ public class CommonCustomerAPI extends ProtectedAPI {
         apiClient.executeAsync(call, returnType, _callback);
         return call;
     }
-
-    private void addQueryParam(List<Pair> queryParams, String paramName, Object paramValue) {
-        if (paramValue != null) {
-            LOGGER.trace("Adding query parameter of {} with value of {}", paramName, paramValue);
-            queryParams.addAll(apiClient.parameterToPair(paramName, paramValue));
-        }
-    }
 }

@@ -1,5 +1,7 @@
 package au.org.consumerdatastandards.holder.api.energy;
 
+import au.org.consumerdatastandards.holder.api.DateFormat;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponse;
@@ -15,7 +17,6 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyPlanResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
-import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +38,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Api(value = "energy", description = "the energy API")
@@ -106,7 +110,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -183,7 +187,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -222,7 +226,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyBalanceResponse.class),
+                    response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -290,7 +294,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -325,7 +329,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyBalanceResponse.class),
+                    response = EnergyConcessionsResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
@@ -367,7 +371,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -444,7 +448,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -464,7 +468,7 @@ public interface EnergyApi {
      * @param accountId              ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point. (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -526,7 +530,7 @@ public interface EnergyApi {
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -551,7 +555,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -628,7 +632,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -757,7 +761,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -777,7 +781,7 @@ public interface EnergyApi {
      *
      * @param servicePointId         ID of the specific service point requested.  This is a tokenised ID previous obtained from the Service Point List Data end point.  Note that it is not a nationalMeteringId. (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
@@ -834,7 +838,7 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -865,7 +869,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+            @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -901,7 +905,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyAccountListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -950,7 +954,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -986,7 +990,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyBalanceListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1035,7 +1039,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1128,7 +1132,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -1167,7 +1171,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1228,7 +1232,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1267,7 +1271,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1335,7 +1339,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -1372,7 +1376,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyInvoiceListResponse.class),
+                    response = EnergyDerListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1421,7 +1425,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1514,7 +1518,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1533,7 +1537,7 @@ public interface EnergyApi {
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -1587,7 +1591,7 @@ public interface EnergyApi {
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1613,7 +1617,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -1633,7 +1637,7 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -1652,7 +1656,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyDerListResponse.class),
+                    response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1694,7 +1698,7 @@ public interface EnergyApi {
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1720,7 +1724,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -1758,7 +1762,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyUsageListResponse.class),
+                    response = EnergyPlanListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1817,7 +1821,7 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "updated-since",
                     required = false)
-                    OffsetDateTime updatedSince,
+                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) OffsetDateTime updatedSince,
             @ApiParam(
                     value = "Used to filter results on the brand field.  If absent defaults to include all plans")
             @Valid
@@ -1861,7 +1865,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyUsageListResponse.class),
+                    response = EnergyServicePointListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
@@ -1910,7 +1914,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(
@@ -1929,7 +1933,7 @@ public interface EnergyApi {
      * Obtain usage data for all service points associated with the customer
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
@@ -1978,7 +1982,7 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -2010,7 +2014,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-customer-ip-address",
@@ -2029,7 +2033,7 @@ public interface EnergyApi {
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param servicePointIdList     Request payload containing list of specific Service Points to obtain data for (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
@@ -2049,7 +2053,7 @@ public interface EnergyApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "Successful response",
-                    response = EnergyBalanceListResponse.class),
+                    response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
                     message = "Invalid Version / Invalid Page Size / Invalid Field",
                     response = ErrorListResponse.class),
@@ -2085,7 +2089,7 @@ public interface EnergyApi {
             @RequestBody
                     RequestServicePointIds servicePointIdList,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months days.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -2117,7 +2121,7 @@ public interface EnergyApi {
                     value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
-                    String xFapiAuthDate,
+                    @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
             @ApiParam(
                     value = "The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.")
             @RequestHeader(

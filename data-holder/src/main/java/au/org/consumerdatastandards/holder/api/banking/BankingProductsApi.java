@@ -1,15 +1,17 @@
 package au.org.consumerdatastandards.holder.api.banking;
 
+import au.org.consumerdatastandards.holder.api.DateFormat;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.ParamEffective;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductList;
-import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -122,7 +124,7 @@ public interface BankingProductsApi {
         @ApiParam(
             value = "Only include products that have been updated after the specified date and time. If absent defaults to include all products"
         )
-        @RequestParam(value = "updated-since", required = false) OffsetDateTime updatedSince,
+        @RequestParam(value = "updated-since", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) OffsetDateTime updatedSince,
         @ApiParam(
             value = "Filter results based on a specific brand"
         )

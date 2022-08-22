@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import au.org.consumerdatastandards.holder.model.CommonPhysicalAddress;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -82,7 +83,7 @@ public class EnergyServicePointDetail {
     @Valid
     private List<EnergyServicePointDetailRelatedParticipants> relatedParticipants = new ArrayList<>();
 
-    private EnergyServicePointDetailLocation location;
+    private CommonPhysicalAddress location;
 
     private EnergyServicePointDetailMeters meters;
 
@@ -318,7 +319,7 @@ public class EnergyServicePointDetail {
         this.relatedParticipants = relatedParticipants;
     }
 
-    public EnergyServicePointDetail location(EnergyServicePointDetailLocation location) {
+    public EnergyServicePointDetail location(CommonPhysicalAddress location) {
         this.location = location;
         return this;
     }
@@ -331,11 +332,11 @@ public class EnergyServicePointDetail {
     @ApiModelProperty(required = true, value = "")
     @NotNull
     @Valid
-    public EnergyServicePointDetailLocation getLocation() {
+    public CommonPhysicalAddress getLocation() {
         return location;
     }
 
-    public void setLocation(EnergyServicePointDetailLocation location) {
+    public void setLocation(CommonPhysicalAddress location) {
         this.location = location;
     }
 
@@ -345,12 +346,11 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * Get meters
+     * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
      *
      * @return meters
      */
-    @ApiModelProperty(required = true, value = "")
-    @NotNull
+    @ApiModelProperty(value = "The meters associated with the service point. This may be empty where there are no meters physically installed at the service point")
     @Valid
     public EnergyServicePointDetailMeters getMeters() {
         return meters;

@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.client.api;
 
-import au.org.consumerdatastandards.client.ApiClient;
-
-
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -10,9 +7,7 @@ import java.net.UnknownHostException;
 import java.time.OffsetDateTime;
 import java.util.Map;
 
-public class ProtectedAPI {
-
-    protected ApiClient apiClient;
+public class ProtectedAPI extends UnprotectedAPI {
 
     protected void addCdsProtectedApiHeaders(Map<String, String> headers) {
         headers.put("x-fapi-customer-ip-address", getIpAddress());
@@ -30,13 +25,5 @@ public class ProtectedAPI {
             // ignored
         }
         return ipAddress;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
     }
 }

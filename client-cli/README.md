@@ -29,11 +29,11 @@ or, if you want to point to your own keystore:
 
     docker run -p 8686:8686 -it -v /your/local/path/to/java-artefacts/client-cli/keystore:/keystore consumerdatastandardsaustralia/client-cli:x.x.x
     
-Where `x.x.x` is the version, say, `1.16.1`
+Where `x.x.x` is the version, say, `1.17.0`
 
 Run locally-built image:
 
-    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.16.2-SNAPSHOT
+    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.17.1-SNAPSHOT
 
 ### Command Reference
 
@@ -117,6 +117,35 @@ CommonCustomer
 CommonDiscovery
         get-outages: Get outages
         get-status: Get status
+
+EnergyAccounts
+        get-balance-for-account: Get balance for Energy account
+        get-billing-for-account: Get billing for account
+        get-concessions: Get concessions
+        get-energy-account-detail: Get Energy account detail
+        get-invoices-for-account: Get invoices for account
+        get-payment-schedule: Get agreed payment schedule
+        list-balances-for-accounts: Get balances for specific Energy accounts
+        list-billing-bulk: Get bulk billing
+        list-billing-for-accounts: Get billing for specific accounts
+        list-energy-accounts: List Energy accounts
+        list-energy-balances-bulk: Get bulk balances for Energy
+        list-invoices-bulk: Get bulk invoices
+        list-invoices-for-accounts: Get invoices for specific accounts
+
+EnergyPlans
+        get-generic-plan-detail: Get generic plan detail
+        list-generic-plans: List generic Energy plans
+
+EnergyServicePoints
+        get-service-point-detail: Get service point detail
+        get-usage-for-service-point: Get usage for service point
+        list-derbulk: Get bulk DER
+        list-derfor-service-point: Get DER for service point
+        list-derfor-service-points: Get DER for specific service points
+        list-service-points: List Energy service points
+        list-usage-bulk: Get bulk usage
+        list-usage-for-service-points: Get usage for specific service points
 
 Exit Command
         exit, quit: Exit Client CLI.

@@ -1,84 +1,49 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * EnergyBillingOtherTransaction
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyBillingOtherTransaction {
-    @JsonProperty("servicePointId")
     private String servicePointId;
 
-    @JsonProperty("invoiceNumber")
     private String invoiceNumber;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
     /**
      * Type of charge. Assumed to be other if absent
      */
     public enum TypeEnum {
-        ENVIRONMENTAL("ENVIRONMENTAL"),
-
-        REGULATED("REGULATED"),
-
-        NETWORK("NETWORK"),
-
-        METERING("METERING"),
-
-        RETAIL_SERVICE("RETAIL_SERVICE"),
-
-        RCTI("RCTI"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ENVIRONMENTAL,
+        REGULATED,
+        NETWORK,
+        METERING,
+        RETAIL_SERVICE,
+        RCTI,
+        OTHER
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
-    @JsonProperty("amount")
     private String amount;
 
-    @JsonProperty("description")
     private String description;
+
+    @Valid
+    private List<EnergyBillingUsageTransactionCalculationFactors> calculationFactors;
+
+    @Valid
+    private List<EnergyBillingUsageTransactionAdjustments> adjustments;
 
     public EnergyBillingOtherTransaction servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -91,8 +56,6 @@ public class EnergyBillingOtherTransaction {
      * @return servicePointId
      */
     @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
-
-
     public String getServicePointId() {
         return servicePointId;
     }
@@ -112,8 +75,6 @@ public class EnergyBillingOtherTransaction {
      * @return invoiceNumber
      */
     @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
-
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -133,8 +94,6 @@ public class EnergyBillingOtherTransaction {
      * @return startDate
      */
     @ApiModelProperty(value = "Optional start date for the application of the charge")
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -154,8 +113,6 @@ public class EnergyBillingOtherTransaction {
      * @return endDate
      */
     @ApiModelProperty(value = "Optional end date for the application of the charge")
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -175,8 +132,6 @@ public class EnergyBillingOtherTransaction {
      * @return type
      */
     @ApiModelProperty(value = "Type of charge. Assumed to be other if absent")
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -195,11 +150,8 @@ public class EnergyBillingOtherTransaction {
      *
      * @return amount
      */
-    @ApiModelProperty(required = true,
-            value = "The amount of the charge")
+    @ApiModelProperty(required = true, value = "The amount of the charge")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -218,11 +170,8 @@ public class EnergyBillingOtherTransaction {
      *
      * @return description
      */
-    @ApiModelProperty(required = true,
-            value = "A free text description of the item")
+    @ApiModelProperty(required = true, value = "A free text description of the item")
     @NotNull
-
-
     public String getDescription() {
         return description;
     }
@@ -231,6 +180,56 @@ public class EnergyBillingOtherTransaction {
         this.description = description;
     }
 
+    public EnergyBillingOtherTransaction addCalculationFactorsItem(EnergyBillingUsageTransactionCalculationFactors calculationFactorsItem) {
+        if (this.calculationFactors == null) {
+            this.calculationFactors = new ArrayList<>();
+        }
+        this.calculationFactors.add(calculationFactorsItem);
+        return this;
+    }
+
+    /**
+     * Additional calculation factors that inform the transaction
+     *
+     * @return calculationFactors
+     */
+    @ApiModelProperty(value = "Additional calculation factors that inform the transaction")
+    @Valid
+    public List<EnergyBillingUsageTransactionCalculationFactors> getCalculationFactors() {
+        return calculationFactors;
+    }
+
+    public void setCalculationFactors(List<EnergyBillingUsageTransactionCalculationFactors> calculationFactors) {
+        this.calculationFactors = calculationFactors;
+    }
+
+    public EnergyBillingOtherTransaction adjustments(List<EnergyBillingUsageTransactionAdjustments> adjustments) {
+        this.adjustments = adjustments;
+        return this;
+    }
+
+    public EnergyBillingOtherTransaction addAdjustmentsItem(EnergyBillingUsageTransactionAdjustments adjustmentsItem) {
+        if (this.adjustments == null) {
+            this.adjustments = new ArrayList<>();
+        }
+        this.adjustments.add(adjustmentsItem);
+        return this;
+    }
+
+    /**
+     * Optional array of adjustments arising for this transaction
+     *
+     * @return adjustments
+     */
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
+    @Valid
+    public List<EnergyBillingUsageTransactionAdjustments> getAdjustments() {
+        return adjustments;
+    }
+
+    public void setAdjustments(List<EnergyBillingUsageTransactionAdjustments> adjustments) {
+        this.adjustments = adjustments;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -247,19 +246,20 @@ public class EnergyBillingOtherTransaction {
                 Objects.equals(this.endDate, energyBillingOtherTransaction.endDate) &&
                 Objects.equals(this.type, energyBillingOtherTransaction.type) &&
                 Objects.equals(this.amount, energyBillingOtherTransaction.amount) &&
-                Objects.equals(this.description, energyBillingOtherTransaction.description);
+                Objects.equals(this.description, energyBillingOtherTransaction.description) &&
+                Objects.equals(this.calculationFactors, energyBillingOtherTransaction.calculationFactors) &&
+                Objects.equals(this.adjustments, energyBillingOtherTransaction.adjustments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(servicePointId, invoiceNumber, startDate, endDate, type, amount, description);
+        return Objects.hash(servicePointId, invoiceNumber, startDate, endDate, type, amount, description, calculationFactors, adjustments);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyBillingOtherTransaction {\n");
-
         sb.append("    servicePointId: ").append(toIndentedString(servicePointId)).append("\n");
         sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
@@ -267,6 +267,8 @@ public class EnergyBillingOtherTransaction {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    calculationFactors: ").append(toIndentedString(calculationFactors)).append("\n");
+        sb.append("    adjustments: ").append(toIndentedString(adjustments)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -282,4 +284,3 @@ public class EnergyBillingOtherTransaction {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

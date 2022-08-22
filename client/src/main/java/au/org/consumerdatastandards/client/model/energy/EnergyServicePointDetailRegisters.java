@@ -1,18 +1,12 @@
-package au.org.consumerdatastandards.holder.model.energy;
+package au.org.consumerdatastandards.client.model.energy;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
  * Usage data registers available from the meter
  */
-@ApiModel(description = "Usage data registers available from the meter")
-public class EnergyServicePointDetailMetersRegisters {
+public class EnergyServicePointDetailRegisters {
     private String registerId;
 
     private String registerSuffix;
@@ -69,7 +63,7 @@ public class EnergyServicePointDetailMetersRegisters {
 
     private ConsumptionTypeEnum consumptionType;
 
-    public EnergyServicePointDetailMetersRegisters registerId(String registerId) {
+    public EnergyServicePointDetailRegisters registerId(String registerId) {
         this.registerId = registerId;
         return this;
     }
@@ -79,9 +73,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return registerId
      */
-    @ApiModelProperty(required = true,
-            value = "Unique identifier of the register within this service point.  Is not globally unique")
-    @NotNull
     public String getRegisterId() {
         return registerId;
     }
@@ -90,7 +81,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.registerId = registerId;
     }
 
-    public EnergyServicePointDetailMetersRegisters registerSuffix(String registerSuffix) {
+    public EnergyServicePointDetailRegisters registerSuffix(String registerSuffix) {
         this.registerSuffix = registerSuffix;
         return this;
     }
@@ -100,8 +91,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return registerSuffix
      */
-    @ApiModelProperty(required = true, value = "Register suffix of the meter register where the meter reads are obtained")
-    @NotNull
     public String getRegisterSuffix() {
         return registerSuffix;
     }
@@ -110,7 +99,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.registerSuffix = registerSuffix;
     }
 
-    public EnergyServicePointDetailMetersRegisters averagedDailyLoad(BigDecimal averagedDailyLoad) {
+    public EnergyServicePointDetailRegisters averagedDailyLoad(BigDecimal averagedDailyLoad) {
         this.averagedDailyLoad = averagedDailyLoad;
         return this;
     }
@@ -120,8 +109,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return averagedDailyLoad
      */
-    @ApiModelProperty(value = "The energy delivered through a connection point or metering point over an extended period normalised to a 'per day' basis (kWh). This value is calculated annually.")
-    @Valid
     public BigDecimal getAveragedDailyLoad() {
         return averagedDailyLoad;
     }
@@ -130,7 +117,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.averagedDailyLoad = averagedDailyLoad;
     }
 
-    public EnergyServicePointDetailMetersRegisters registerConsumptionType(RegisterConsumptionTypeEnum registerConsumptionType) {
+    public EnergyServicePointDetailRegisters registerConsumptionType(RegisterConsumptionTypeEnum registerConsumptionType) {
         this.registerConsumptionType = registerConsumptionType;
         return this;
     }
@@ -140,8 +127,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return registerConsumptionType
      */
-    @ApiModelProperty(required = true, value = "Indicates the consumption type of register")
-    @NotNull
     public RegisterConsumptionTypeEnum getRegisterConsumptionType() {
         return registerConsumptionType;
     }
@@ -150,7 +135,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.registerConsumptionType = registerConsumptionType;
     }
 
-    public EnergyServicePointDetailMetersRegisters networkTariffCode(String networkTariffCode) {
+    public EnergyServicePointDetailRegisters networkTariffCode(String networkTariffCode) {
         this.networkTariffCode = networkTariffCode;
         return this;
     }
@@ -160,7 +145,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return networkTariffCode
      */
-    @ApiModelProperty(value = "The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider")
     public String getNetworkTariffCode() {
         return networkTariffCode;
     }
@@ -169,7 +153,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.networkTariffCode = networkTariffCode;
     }
 
-    public EnergyServicePointDetailMetersRegisters unitOfMeasure(String unitOfMeasure) {
+    public EnergyServicePointDetailRegisters unitOfMeasure(String unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
         return this;
     }
@@ -179,7 +163,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return unitOfMeasure
      */
-    @ApiModelProperty(value = "The unit of measure for data held in this register")
     public String getUnitOfMeasure() {
         return unitOfMeasure;
     }
@@ -188,7 +171,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.unitOfMeasure = unitOfMeasure;
     }
 
-    public EnergyServicePointDetailMetersRegisters timeOfDay(TimeOfDayEnum timeOfDay) {
+    public EnergyServicePointDetailRegisters timeOfDay(TimeOfDayEnum timeOfDay) {
         this.timeOfDay = timeOfDay;
         return this;
     }
@@ -198,7 +181,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return timeOfDay
      */
-    @ApiModelProperty(value = "Code to identify the time validity of register contents")
     public TimeOfDayEnum getTimeOfDay() {
         return timeOfDay;
     }
@@ -207,7 +189,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.timeOfDay = timeOfDay;
     }
 
-    public EnergyServicePointDetailMetersRegisters multiplier(BigDecimal multiplier) {
+    public EnergyServicePointDetailRegisters multiplier(BigDecimal multiplier) {
         this.multiplier = multiplier;
         return this;
     }
@@ -217,8 +199,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return multiplier
      */
-    @ApiModelProperty(value = "Multiplier required to take a register value and turn it into a value representing billable energy")
-    @Valid
     public BigDecimal getMultiplier() {
         return multiplier;
     }
@@ -227,7 +207,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.multiplier = multiplier;
     }
 
-    public EnergyServicePointDetailMetersRegisters controlledLoad(Boolean controlledLoad) {
+    public EnergyServicePointDetailRegisters controlledLoad(Boolean controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -237,7 +217,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return controlledLoad
      */
-    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime")
     public Boolean getControlledLoad() {
         return controlledLoad;
     }
@@ -246,7 +225,7 @@ public class EnergyServicePointDetailMetersRegisters {
         this.controlledLoad = controlledLoad;
     }
 
-    public EnergyServicePointDetailMetersRegisters consumptionType(ConsumptionTypeEnum consumptionType) {
+    public EnergyServicePointDetailRegisters consumptionType(ConsumptionTypeEnum consumptionType) {
         this.consumptionType = consumptionType;
         return this;
     }
@@ -256,7 +235,6 @@ public class EnergyServicePointDetailMetersRegisters {
      *
      * @return consumptionType
      */
-    @ApiModelProperty(value = "Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>")
     public ConsumptionTypeEnum getConsumptionType() {
         return consumptionType;
     }
@@ -273,17 +251,17 @@ public class EnergyServicePointDetailMetersRegisters {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyServicePointDetailMetersRegisters energyServicePointDetailMetersRegisters = (EnergyServicePointDetailMetersRegisters) o;
-        return Objects.equals(this.registerId, energyServicePointDetailMetersRegisters.registerId) &&
-                Objects.equals(this.registerSuffix, energyServicePointDetailMetersRegisters.registerSuffix) &&
-                Objects.equals(this.averagedDailyLoad, energyServicePointDetailMetersRegisters.averagedDailyLoad) &&
-                Objects.equals(this.registerConsumptionType, energyServicePointDetailMetersRegisters.registerConsumptionType) &&
-                Objects.equals(this.networkTariffCode, energyServicePointDetailMetersRegisters.networkTariffCode) &&
-                Objects.equals(this.unitOfMeasure, energyServicePointDetailMetersRegisters.unitOfMeasure) &&
-                Objects.equals(this.timeOfDay, energyServicePointDetailMetersRegisters.timeOfDay) &&
-                Objects.equals(this.multiplier, energyServicePointDetailMetersRegisters.multiplier) &&
-                Objects.equals(this.controlledLoad, energyServicePointDetailMetersRegisters.controlledLoad) &&
-                Objects.equals(this.consumptionType, energyServicePointDetailMetersRegisters.consumptionType);
+        EnergyServicePointDetailRegisters energyServicePointDetailRegisters = (EnergyServicePointDetailRegisters) o;
+        return Objects.equals(this.registerId, energyServicePointDetailRegisters.registerId) &&
+                Objects.equals(this.registerSuffix, energyServicePointDetailRegisters.registerSuffix) &&
+                Objects.equals(this.averagedDailyLoad, energyServicePointDetailRegisters.averagedDailyLoad) &&
+                Objects.equals(this.registerConsumptionType, energyServicePointDetailRegisters.registerConsumptionType) &&
+                Objects.equals(this.networkTariffCode, energyServicePointDetailRegisters.networkTariffCode) &&
+                Objects.equals(this.unitOfMeasure, energyServicePointDetailRegisters.unitOfMeasure) &&
+                Objects.equals(this.timeOfDay, energyServicePointDetailRegisters.timeOfDay) &&
+                Objects.equals(this.multiplier, energyServicePointDetailRegisters.multiplier) &&
+                Objects.equals(this.controlledLoad, energyServicePointDetailRegisters.controlledLoad) &&
+                Objects.equals(this.consumptionType, energyServicePointDetailRegisters.consumptionType);
     }
 
     @Override

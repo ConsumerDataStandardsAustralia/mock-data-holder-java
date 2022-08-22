@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
@@ -9,35 +8,47 @@ import java.util.Objects;
 /**
  * EnergyConcession
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyConcession {
-    @JsonProperty("displayName")
+    public enum Type {
+        FIXED_AMOUNT,
+        FIXED_PERCENTAGE,
+        VARIABLE
+    }
+
+    private Type type;
+
     private String displayName;
 
-    @JsonProperty("additionalInfo")
     private String additionalInfo;
 
-    @JsonProperty("additionalInfoUri")
     private String additionalInfoUri;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
-    @JsonProperty("dailyDiscount")
-    private String dailyDiscount;
+    private String discountFrequency;
 
-    @JsonProperty("monthlyDiscount")
-    private String monthlyDiscount;
+    private String amount;
 
-    @JsonProperty("yearlyDiscount")
-    private String yearlyDiscount;
+    private String percentage;
 
-    @JsonProperty("percentageDiscount")
-    private String percentageDiscount;
+    private String appliedTo;
+
+    /**
+     * Indicator of the method of concession calculation
+     *
+     * @return type
+     */
+    @ApiModelProperty(required = true, value = "Indicator of the method of concession calculation")
+    @NotNull
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 
     public EnergyConcession displayName(String displayName) {
         this.displayName = displayName;
@@ -49,11 +60,8 @@ public class EnergyConcession {
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true,
-            value = "The display name of the concession")
+    @ApiModelProperty(required = true, value = "The display name of the concession")
     @NotNull
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -68,13 +76,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Display text providing more information on the concession
+     * Display text providing more information on the concession. Mandatory if type is VARIABLE
      *
      * @return additionalInfo
      */
-    @ApiModelProperty(value = "Display text providing more information on the concession")
-
-
+    @ApiModelProperty(value = "Display text providing more information on the concession. Mandatory if type is VARIABLE")
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -94,8 +100,6 @@ public class EnergyConcession {
      * @return additionalInfoUri
      */
     @ApiModelProperty(value = "Optional link to additional information regarding the concession")
-
-
     public String getAdditionalInfoUri() {
         return additionalInfoUri;
     }
@@ -115,8 +119,6 @@ public class EnergyConcession {
      * @return startDate
      */
     @ApiModelProperty(value = "Optional start date for the application of the concession")
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -136,8 +138,6 @@ public class EnergyConcession {
      * @return endDate
      */
     @ApiModelProperty(value = "Optional end date for the application of the concession")
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -146,90 +146,81 @@ public class EnergyConcession {
         this.endDate = endDate;
     }
 
-    public EnergyConcession dailyDiscount(String dailyDiscount) {
-        this.dailyDiscount = dailyDiscount;
+    public EnergyConcession discountFrequency(String discountFrequency) {
+        this.discountFrequency = discountFrequency;
         return this;
     }
 
     /**
-     * Daily discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
+     * Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
      *
-     * @return dailyDiscount
+     * @return discountFrequency
      */
-    @ApiModelProperty(value = "Daily discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided")
-
-
-    public String getDailyDiscount() {
-        return dailyDiscount;
+    @ApiModelProperty(value = "Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+    public String getDiscountFrequency() {
+        return discountFrequency;
     }
 
-    public void setDailyDiscount(String dailyDiscount) {
-        this.dailyDiscount = dailyDiscount;
+    public void setDiscountFrequency(String discountFrequency) {
+        this.discountFrequency = discountFrequency;
     }
 
-    public EnergyConcession monthlyDiscount(String monthlyDiscount) {
-        this.monthlyDiscount = monthlyDiscount;
+    public EnergyConcession amount(String amount) {
+        this.amount = amount;
         return this;
     }
 
     /**
-     * Monthly discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
+     * Conditional attribute for the amount of discount for the concession- required if type is FIXED_AMOUNT
      *
-     * @return monthlyDiscount
+     * @return amount
      */
-    @ApiModelProperty(value = "Monthly discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided")
-
-
-    public String getMonthlyDiscount() {
-        return monthlyDiscount;
+    @ApiModelProperty(value = "Conditional attribute for the amount of discount for the concession- required if type is FIXED_AMOUNT")
+    public String getAmount() {
+        return amount;
     }
 
-    public void setMonthlyDiscount(String monthlyDiscount) {
-        this.monthlyDiscount = monthlyDiscount;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
-    public EnergyConcession yearlyDiscount(String yearlyDiscount) {
-        this.yearlyDiscount = yearlyDiscount;
+    public EnergyConcession percentage(String percentage) {
+        this.percentage = percentage;
         return this;
     }
 
     /**
-     * Annual discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
+     * Conditional attribute for the percentage of discount of concession - required if type is FIXED_PERCENTAGE
      *
-     * @return yearlyDiscount
+     * @return percentage
      */
-    @ApiModelProperty(value = "Annual discount value due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided")
-
-
-    public String getYearlyDiscount() {
-        return yearlyDiscount;
+    @ApiModelProperty(value = "Conditional attribute for the percentage of discount of concession - required if type is FIXED_PERCENTAGE")
+    public String getPercentage() {
+        return percentage;
     }
 
-    public void setYearlyDiscount(String yearlyDiscount) {
-        this.yearlyDiscount = yearlyDiscount;
+    public void setPercentage(String percentage) {
+        this.percentage = percentage;
     }
 
-    public EnergyConcession percentageDiscount(String percentageDiscount) {
-        this.percentageDiscount = percentageDiscount;
+    public EnergyConcession appliedTo(String appliedTo) {
+        this.appliedTo = appliedTo;
         return this;
     }
 
     /**
-     * Percentage of each invoice to be discounted due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided
+     * Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed
      *
-     * @return percentageDiscount
+     * @return appliedTo
      */
-    @ApiModelProperty(value = "Percentage of each invoice to be discounted due to the concession.  At least one dailyDiscount, monthlyDiscount, yearlyDiscount and percentageDiscount must be provided")
-
-
-    public String getPercentageDiscount() {
-        return percentageDiscount;
+    @ApiModelProperty(value = "Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed")
+    public String getAppliedTo() {
+        return appliedTo;
     }
 
-    public void setPercentageDiscount(String percentageDiscount) {
-        this.percentageDiscount = percentageDiscount;
+    public void setAppliedTo(String appliedTo) {
+        this.appliedTo = appliedTo;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -245,31 +236,32 @@ public class EnergyConcession {
                 Objects.equals(this.additionalInfoUri, energyConcession.additionalInfoUri) &&
                 Objects.equals(this.startDate, energyConcession.startDate) &&
                 Objects.equals(this.endDate, energyConcession.endDate) &&
-                Objects.equals(this.dailyDiscount, energyConcession.dailyDiscount) &&
-                Objects.equals(this.monthlyDiscount, energyConcession.monthlyDiscount) &&
-                Objects.equals(this.yearlyDiscount, energyConcession.yearlyDiscount) &&
-                Objects.equals(this.percentageDiscount, energyConcession.percentageDiscount);
+                Objects.equals(this.type, energyConcession.type) &&
+                Objects.equals(this.discountFrequency, energyConcession.discountFrequency) &&
+                Objects.equals(this.amount, energyConcession.amount) &&
+                Objects.equals(this.percentage, energyConcession.percentage) &&
+                Objects.equals(this.appliedTo, energyConcession.appliedTo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(displayName, additionalInfo, additionalInfoUri, startDate, endDate, dailyDiscount, monthlyDiscount, yearlyDiscount, percentageDiscount);
+        return Objects.hash(displayName, additionalInfo, additionalInfoUri, startDate, endDate, type, discountFrequency, amount, percentage, appliedTo);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyConcession {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
         sb.append("    additionalInfoUri: ").append(toIndentedString(additionalInfoUri)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
-        sb.append("    dailyDiscount: ").append(toIndentedString(dailyDiscount)).append("\n");
-        sb.append("    monthlyDiscount: ").append(toIndentedString(monthlyDiscount)).append("\n");
-        sb.append("    yearlyDiscount: ").append(toIndentedString(yearlyDiscount)).append("\n");
-        sb.append("    percentageDiscount: ").append(toIndentedString(percentageDiscount)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    dailyDiscount: ").append(toIndentedString(discountFrequency)).append("\n");
+        sb.append("    monthlyDiscount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    yearlyDiscount: ").append(toIndentedString(percentage)).append("\n");
+        sb.append("    percentageDiscount: ").append(toIndentedString(appliedTo)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -285,4 +277,3 @@ public class EnergyConcession {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
