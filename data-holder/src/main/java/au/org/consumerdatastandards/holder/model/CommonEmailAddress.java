@@ -21,7 +21,7 @@ public class CommonEmailAddress  {
     private String id;
 
     /**
-     * A correctly formatted email address, as defined by the addr_spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)
+     * A correctly formatted email address, as defined by the addr-spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)
      */
     private String address;
 
@@ -45,7 +45,7 @@ public class CommonEmailAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "A correctly formatted email address, as defined by the addr_spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)")
+    @ApiModelProperty(required = true, value = "A correctly formatted email address, as defined by the addr-spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)")
     public String getAddress() {
         return address;
     }
