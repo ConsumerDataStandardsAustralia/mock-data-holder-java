@@ -3396,7 +3396,8 @@
             "4850",
             "4034",
             "4710"
-        ]
+        ],
+        "distributors": ["Ausgrid"]
     },
     "electricityContract": {
       "pricingModel": "SINGLE_RATE",

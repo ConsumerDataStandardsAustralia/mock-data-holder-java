@@ -7,7 +7,7 @@ import java.util.Objects;
  * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
  */
 public class EnergyDerRecordProtectionMode {
-    private BigDecimal exportLimitkva;
+    private BigDecimal exportLimitKva;
 
     private BigDecimal underFrequencyProtection;
 
@@ -38,21 +38,21 @@ public class EnergyDerRecordProtectionMode {
     private BigDecimal neutralVoltageDisplacement;
 
     public EnergyDerRecordProtectionMode exportLimitkva(BigDecimal exportLimitkva) {
-        this.exportLimitkva = exportLimitkva;
+        this.exportLimitKva = exportLimitkva;
         return this;
     }
 
     /**
      * Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit
      *
-     * @return exportLimitkva
+     * @return exportLimitKva
      */
-    public BigDecimal getExportLimitkva() {
-        return exportLimitkva;
+    public BigDecimal getExportLimitKva() {
+        return exportLimitKva;
     }
 
-    public void setExportLimitkva(BigDecimal exportLimitkva) {
-        this.exportLimitkva = exportLimitkva;
+    public void setExportLimitKva(BigDecimal exportLimitKva) {
+        this.exportLimitKva = exportLimitKva;
     }
 
     public EnergyDerRecordProtectionMode underFrequencyProtection(BigDecimal underFrequencyProtection) {
@@ -83,8 +83,6 @@ public class EnergyDerRecordProtectionMode {
      *
      * @return underFrequencyProtectionDelay
      */
-
-
     public BigDecimal getUnderFrequencyProtectionDelay() {
         return underFrequencyProtectionDelay;
     }
@@ -225,7 +223,7 @@ public class EnergyDerRecordProtectionMode {
     }
 
     /**
-     * Trip delay time in seconds.
+     * Sustained Over voltage protection delay in seconds.
      *
      * @return sustainedOverVoltageDelay
      */
@@ -318,7 +316,7 @@ public class EnergyDerRecordProtectionMode {
             return false;
         }
         EnergyDerRecordProtectionMode energyDerRecordProtectionMode = (EnergyDerRecordProtectionMode) o;
-        return Objects.equals(this.exportLimitkva, energyDerRecordProtectionMode.exportLimitkva) &&
+        return Objects.equals(this.exportLimitKva, energyDerRecordProtectionMode.exportLimitKva) &&
                 Objects.equals(this.underFrequencyProtection, energyDerRecordProtectionMode.underFrequencyProtection) &&
                 Objects.equals(this.underFrequencyProtectionDelay, energyDerRecordProtectionMode.underFrequencyProtectionDelay) &&
                 Objects.equals(this.overFrequencyProtection, energyDerRecordProtectionMode.overFrequencyProtection) &&
@@ -337,14 +335,14 @@ public class EnergyDerRecordProtectionMode {
 
     @Override
     public int hashCode() {
-        return Objects.hash(exportLimitkva, underFrequencyProtection, underFrequencyProtectionDelay, overFrequencyProtection, overFrequencyProtectionDelay, underVoltageProtection, underVoltageProtectionDelay, overVoltageProtection, overVoltageProtectionDelay, sustainedOverVoltage, sustainedOverVoltageDelay, frequencyRateOfChange, voltageVectorShift, interTripScheme, neutralVoltageDisplacement);
+        return Objects.hash(exportLimitKva, underFrequencyProtection, underFrequencyProtectionDelay, overFrequencyProtection, overFrequencyProtectionDelay, underVoltageProtection, underVoltageProtectionDelay, overVoltageProtection, overVoltageProtectionDelay, sustainedOverVoltage, sustainedOverVoltageDelay, frequencyRateOfChange, voltageVectorShift, interTripScheme, neutralVoltageDisplacement);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyDerRecordProtectionMode {\n");
-        sb.append("    exportLimitkva: ").append(toIndentedString(exportLimitkva)).append("\n");
+        sb.append("    exportLimitKva: ").append(toIndentedString(exportLimitKva)).append("\n");
         sb.append("    underFrequencyProtection: ").append(toIndentedString(underFrequencyProtection)).append("\n");
         sb.append("    underFrequencyProtectionDelay: ").append(toIndentedString(underFrequencyProtectionDelay)).append("\n");
         sb.append("    overFrequencyProtection: ").append(toIndentedString(overFrequencyProtection)).append("\n");

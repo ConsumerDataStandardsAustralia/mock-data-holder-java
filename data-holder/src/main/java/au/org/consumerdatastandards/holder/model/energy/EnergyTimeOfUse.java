@@ -1,39 +1,66 @@
-package au.org.consumerdatastandards.client.model.energy;
+package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyPlanContractTimeOfUse
+ * EnergyTimeOfUse
  */
-public class EnergyPlanContractTimeOfUse {
+@Entity
+public class EnergyTimeOfUse {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     /**
      * Gets or Sets days
      */
     public enum DaysEnum {
-        SUNDAY,
-        MONDAY,
-        TUESDAY,
-        WEDNESDAY,
-        THURSDAY,
-        FRIDAY,
-        SATURDAY,
-        BUSINESS_DAYS
+        SUN,
+        MON,
+        TUE,
+        WED,
+        THU,
+        FRI,
+        SAT,
+        PUBLIC_HOLIDAYS
     }
 
+    @Valid
+    @ElementCollection
     private List<DaysEnum> days = new ArrayList<>();
 
     private String startTime;
 
     private String endTime;
 
-    public EnergyPlanContractTimeOfUse days(List<DaysEnum> days) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public EnergyTimeOfUse days(List<DaysEnum> days) {
         this.days = days;
         return this;
     }
 
-    public EnergyPlanContractTimeOfUse addDaysItem(DaysEnum daysItem) {
+    public EnergyTimeOfUse addDaysItem(DaysEnum daysItem) {
         this.days.add(daysItem);
         return this;
     }
@@ -43,6 +70,8 @@ public class EnergyPlanContractTimeOfUse {
      *
      * @return days
      */
+    @ApiModelProperty(required = true, value = "The days that the rate applies to")
+    @NotNull
     public List<DaysEnum> getDays() {
         return days;
     }
@@ -51,16 +80,18 @@ public class EnergyPlanContractTimeOfUse {
         this.days = days;
     }
 
-    public EnergyPlanContractTimeOfUse startTime(String startTime) {
+    public EnergyTimeOfUse startTime(String startTime) {
         this.startTime = startTime;
         return this;
     }
 
     /**
-     * Start of the period in HHMM format using 24 hour clock format
+     * Start of the period
      *
      * @return startTime
      */
+    @ApiModelProperty(required = true, value = "Start of the period")
+    @NotNull
     public String getStartTime() {
         return startTime;
     }
@@ -69,16 +100,18 @@ public class EnergyPlanContractTimeOfUse {
         this.startTime = startTime;
     }
 
-    public EnergyPlanContractTimeOfUse endTime(String endTime) {
+    public EnergyTimeOfUse endTime(String endTime) {
         this.endTime = endTime;
         return this;
     }
 
     /**
-     * End of the period in HHMM format using 24 hour clock format
+     * End of the period
      *
      * @return endTime
      */
+    @ApiModelProperty(required = true, value = "End of the period")
+    @NotNull
     public String getEndTime() {
         return endTime;
     }
@@ -95,10 +128,10 @@ public class EnergyPlanContractTimeOfUse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanContractTimeOfUse energyPlanContractTimeOfUse = (EnergyPlanContractTimeOfUse) o;
-        return Objects.equals(this.days, energyPlanContractTimeOfUse.days) &&
-                Objects.equals(this.startTime, energyPlanContractTimeOfUse.startTime) &&
-                Objects.equals(this.endTime, energyPlanContractTimeOfUse.endTime);
+        EnergyTimeOfUse energyTimeOfUse = (EnergyTimeOfUse) o;
+        return Objects.equals(this.days, energyTimeOfUse.days) &&
+                Objects.equals(this.startTime, energyTimeOfUse.startTime) &&
+                Objects.equals(this.endTime, energyTimeOfUse.endTime);
     }
 
     @Override
@@ -109,7 +142,7 @@ public class EnergyPlanContractTimeOfUse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractTimeOfUse {\n");
+        sb.append("class EnergyTimeOfUse {\n");
         sb.append("    days: ").append(toIndentedString(days)).append("\n");
         sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
         sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");

@@ -11,6 +11,7 @@ import au.org.consumerdatastandards.client.model.energy.EnergyDerListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyUsageListResponse;
+import au.org.consumerdatastandards.client.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.client.model.energy.RequestServicePointIds;
 import au.org.consumerdatastandards.client.model.energy.RequestServicePointIdsData;
 import org.slf4j.Logger;
@@ -79,13 +80,14 @@ public class EnergyServicePoints extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestDate,
-            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
+            @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get usage for service point CLI initiated with servicePointId: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}",
-                servicePointId, page, pageSize, oldestDate, newestDate);
+        LOGGER.info("Get usage for service point CLI initiated with servicePointId: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
+                servicePointId, page, pageSize, oldestDate, newestDate, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<EnergyUsageListResponse> result = api.getUsageForServicePoint(servicePointId, page, pageSize, oldestDate, newestDate);
+        ApiResult<EnergyUsageListResponse> result = api.getUsageForServicePoint(servicePointId, page, pageSize, oldestDate, newestDate, intervalReads);
         ApiResponse<EnergyUsageListResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
@@ -104,13 +106,14 @@ public class EnergyServicePoints extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestDate,
-            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
+            @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get bulk usage CLI initiated with page: {}, page-size: {}, oldest-date: {}, newest-date: {}",
-                page, pageSize, oldestDate, newestDate);
+        LOGGER.info("Get bulk usage CLI initiated with page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
+                page, pageSize, oldestDate, newestDate, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<EnergyUsageListResponse> result = api.listUsageBulk(page, pageSize, oldestDate, newestDate);
+        ApiResult<EnergyUsageListResponse> result = api.listUsageBulk(page, pageSize, oldestDate, newestDate, intervalReads);
         ApiResponse<EnergyUsageListResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
@@ -130,17 +133,19 @@ public class EnergyServicePoints extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestDate,
-            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
+            @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get usage for specific service points CLI initiated with servicePointIds: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}",
-                servicePointIds, page, pageSize, oldestDate, newestDate);
+        LOGGER.info("Get usage for specific service points CLI initiated with servicePointIds: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
+                servicePointIds, page, pageSize, oldestDate, newestDate, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
         RequestServicePointIds requestServicePointIds = new RequestServicePointIds();
         RequestServicePointIdsData data = new RequestServicePointIdsData();
         data.setServicePointIds(servicePointIds);
         requestServicePointIds.setData(data);
-        ApiResult<EnergyUsageListResponse> result = api.listUsageForServicePoints(requestServicePointIds, page, pageSize, oldestDate, newestDate);
+        ApiResult<EnergyUsageListResponse> result = api.listUsageForServicePoints(requestServicePointIds, page, pageSize,
+                oldestDate, newestDate, intervalReads);
         ApiResponse<EnergyUsageListResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {

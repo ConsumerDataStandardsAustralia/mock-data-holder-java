@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,10 +11,7 @@ import java.util.Objects;
 /**
  * EnergyPaymentSchedule
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyPaymentSchedule {
-    @JsonProperty("amount")
     private String amount;
 
     /**
@@ -26,9 +22,11 @@ public class EnergyPaymentSchedule {
 
         DIRECTDEBIT("directDebit"),
 
-        MANUALPAYMENT("manualPayment");
+        MANUALPAYMENT("manualPayment"),
 
-        private String value;
+        DIGITALWALLET("digitalWallet");
+
+        private final String value;
 
         PaymentScheduleUTypeEnum(String value) {
             this.value = value;
@@ -55,16 +53,14 @@ public class EnergyPaymentSchedule {
         }
     }
 
-    @JsonProperty("paymentScheduleUType")
     private PaymentScheduleUTypeEnum paymentScheduleUType;
 
-    @JsonProperty("cardDebit")
     private EnergyPaymentScheduleCardDebit cardDebit;
 
-    @JsonProperty("directDebit")
     private EnergyPaymentScheduleDirectDebit directDebit;
 
-    @JsonProperty("manualPayment")
+    private EnergyPaymentScheduleDigitalWallet digitalWallet;
+
     private EnergyPaymentScheduleManualPayment manualPayment;
 
     public EnergyPaymentSchedule amount(String amount) {
@@ -78,8 +74,6 @@ public class EnergyPaymentSchedule {
      * @return amount
      */
     @ApiModelProperty(value = "Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smooting scenarios)")
-
-
     public String getAmount() {
         return amount;
     }
@@ -98,11 +92,8 @@ public class EnergyPaymentSchedule {
      *
      * @return paymentScheduleUType
      */
-    @ApiModelProperty(required = true,
-            value = "The type of object present in this response")
+    @ApiModelProperty(required = true, value = "The type of object present in this response")
     @NotNull
-
-
     public PaymentScheduleUTypeEnum getPaymentScheduleUType() {
         return paymentScheduleUType;
     }
@@ -117,14 +108,12 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Get cardDebit
+     * Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit
      *
      * @return cardDebit
      */
-    @ApiModelProperty(value = "")
-
+    @ApiModelProperty(value = "Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit")
     @Valid
-
     public EnergyPaymentScheduleCardDebit getCardDebit() {
         return cardDebit;
     }
@@ -139,14 +128,12 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Get directDebit
+     * Represents a regular direct debit from a specified bank account. Mandatory if paymentScheduleUType is set to directDebit
      *
      * @return directDebit
      */
-    @ApiModelProperty(value = "")
-
+    @ApiModelProperty(value = "Represents a regular direct debit from a specified bank account. Mandatory if paymentScheduleUType is set to directDebit")
     @Valid
-
     public EnergyPaymentScheduleDirectDebit getDirectDebit() {
         return directDebit;
     }
@@ -155,20 +142,31 @@ public class EnergyPaymentSchedule {
         this.directDebit = directDebit;
     }
 
+    /**
+     * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
+     *
+     * @return digitalWallet
+     */
+    public EnergyPaymentScheduleDigitalWallet getDigitalWallet() {
+        return digitalWallet;
+    }
+
+    public void setDigitalWallet(EnergyPaymentScheduleDigitalWallet digitalWallet) {
+        this.digitalWallet = digitalWallet;
+    }
+
     public EnergyPaymentSchedule manualPayment(EnergyPaymentScheduleManualPayment manualPayment) {
         this.manualPayment = manualPayment;
         return this;
     }
 
     /**
-     * Get manualPayment
+     * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment
      *
      * @return manualPayment
      */
-    @ApiModelProperty(value = "")
-
+    @ApiModelProperty(value = "Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment")
     @Valid
-
     public EnergyPaymentScheduleManualPayment getManualPayment() {
         return manualPayment;
     }
@@ -176,7 +174,6 @@ public class EnergyPaymentSchedule {
     public void setManualPayment(EnergyPaymentScheduleManualPayment manualPayment) {
         this.manualPayment = manualPayment;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -191,23 +188,24 @@ public class EnergyPaymentSchedule {
                 Objects.equals(this.paymentScheduleUType, energyPaymentSchedule.paymentScheduleUType) &&
                 Objects.equals(this.cardDebit, energyPaymentSchedule.cardDebit) &&
                 Objects.equals(this.directDebit, energyPaymentSchedule.directDebit) &&
+                Objects.equals(this.digitalWallet, energyPaymentSchedule.digitalWallet) &&
                 Objects.equals(this.manualPayment, energyPaymentSchedule.manualPayment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount, paymentScheduleUType, cardDebit, directDebit, manualPayment);
+        return Objects.hash(amount, paymentScheduleUType, cardDebit, directDebit, digitalWallet, manualPayment);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPaymentSchedule {\n");
-
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    paymentScheduleUType: ").append(toIndentedString(paymentScheduleUType)).append("\n");
         sb.append("    cardDebit: ").append(toIndentedString(cardDebit)).append("\n");
         sb.append("    directDebit: ").append(toIndentedString(directDebit)).append("\n");
+        sb.append("    digitalWallet: ").append(toIndentedString(digitalWallet)).append("\n");
         sb.append("    manualPayment: ").append(toIndentedString(manualPayment)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -224,4 +222,3 @@ public class EnergyPaymentSchedule {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

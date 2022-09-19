@@ -1,50 +1,23 @@
-package au.org.consumerdatastandards.holder.model.energy;
+package au.org.consumerdatastandards.client.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyPlanContractTimeOfUseRates
+ * EnergyPlanControlledLoadTimeOfUseRates
  */
-@Entity
-public class EnergyPlanContractTimeOfUseRates {
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @JsonIgnore
-    private String id;
+public class EnergyPlanControlledLoadTimeOfUseRates {
 
     private String displayName;
 
     private String description;
 
-    @Valid
-    @OneToMany(cascade = CascadeType.ALL)
+    private String dailySupplyCharge;
+
     private List<EnergyRates> rates = new ArrayList<>();
 
-    @Valid
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<EnergyTimeOfUse> timeOfUse = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private List<EnergyPlanControlledLoadTimeOfUse> timeOfUse = new ArrayList<>();
 
     /**
      * The type of usage that the rate applies to
@@ -59,18 +32,16 @@ public class EnergyPlanContractTimeOfUseRates {
 
     private TypeEnum type;
 
-    public EnergyPlanContractTimeOfUseRates displayName(String displayName) {
+    public EnergyPlanControlledLoadTimeOfUseRates displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
 
     /**
-     * Display name of the rate
+     * Display name of the controlled load rate
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "Display name of the rate")
-    @NotNull
     public String getDisplayName() {
         return displayName;
     }
@@ -79,17 +50,16 @@ public class EnergyPlanContractTimeOfUseRates {
         this.displayName = displayName;
     }
 
-    public EnergyPlanContractTimeOfUseRates description(String description) {
+    public EnergyPlanControlledLoadTimeOfUseRates description(String description) {
         this.description = description;
         return this;
     }
 
     /**
-     * Description of the rate
+     * Description of the controlled load rate
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the rate")
     public String getDescription() {
         return description;
     }
@@ -98,12 +68,25 @@ public class EnergyPlanContractTimeOfUseRates {
         this.description = description;
     }
 
-    public EnergyPlanContractTimeOfUseRates rates(List<EnergyRates> rates) {
+    /**
+     * The daily supply charge (exclusive of GST) for this controlled load tier
+     *
+     * @return dailySupplyCharge
+     */
+    public String getDailySupplyCharge() {
+        return dailySupplyCharge;
+    }
+
+    public void setDailySupplyCharge(String dailySupplyCharge) {
+        this.dailySupplyCharge = dailySupplyCharge;
+    }
+
+    public EnergyPlanControlledLoadTimeOfUseRates rates(List<EnergyRates> rates) {
         this.rates = rates;
         return this;
     }
 
-    public EnergyPlanContractTimeOfUseRates addRatesItem(EnergyRates ratesItem) {
+    public EnergyPlanControlledLoadTimeOfUseRates addRatesItem(EnergyRates ratesItem) {
         this.rates.add(ratesItem);
         return this;
     }
@@ -113,9 +96,6 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return rates
      */
-    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume")
-    @NotNull
-    @Valid
     public List<EnergyRates> getRates() {
         return rates;
     }
@@ -124,12 +104,12 @@ public class EnergyPlanContractTimeOfUseRates {
         this.rates = rates;
     }
 
-    public EnergyPlanContractTimeOfUseRates timeOfUse(List<EnergyTimeOfUse> timeOfUse) {
+    public EnergyPlanControlledLoadTimeOfUseRates timeOfUse(List<EnergyPlanControlledLoadTimeOfUse> timeOfUse) {
         this.timeOfUse = timeOfUse;
         return this;
     }
 
-    public EnergyPlanContractTimeOfUseRates addTimeOfUseItem(EnergyTimeOfUse timeOfUseItem) {
+    public EnergyPlanControlledLoadTimeOfUseRates addTimeOfUseItem(EnergyPlanControlledLoadTimeOfUse timeOfUseItem) {
         this.timeOfUse.add(timeOfUseItem);
         return this;
     }
@@ -139,18 +119,15 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return timeOfUse
      */
-    @ApiModelProperty(required = true, value = "Array of times of use")
-    @NotNull
-    @Valid
-    public List<EnergyTimeOfUse> getTimeOfUse() {
+    public List<EnergyPlanControlledLoadTimeOfUse> getTimeOfUse() {
         return timeOfUse;
     }
 
-    public void setTimeOfUse(List<EnergyTimeOfUse> timeOfUse) {
+    public void setTimeOfUse(List<EnergyPlanControlledLoadTimeOfUse> timeOfUse) {
         this.timeOfUse = timeOfUse;
     }
 
-    public EnergyPlanContractTimeOfUseRates type(TypeEnum type) {
+    public EnergyPlanControlledLoadTimeOfUseRates type(TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -160,8 +137,6 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of usage that the rate applies to")
-    @NotNull
     public TypeEnum getType() {
         return type;
     }
@@ -178,25 +153,27 @@ public class EnergyPlanContractTimeOfUseRates {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanContractTimeOfUseRates energyPlanContractTimeOfUseRates = (EnergyPlanContractTimeOfUseRates) o;
-        return Objects.equals(this.displayName, energyPlanContractTimeOfUseRates.displayName) &&
-                Objects.equals(this.description, energyPlanContractTimeOfUseRates.description) &&
-                Objects.equals(this.rates, energyPlanContractTimeOfUseRates.rates) &&
-                Objects.equals(this.timeOfUse, energyPlanContractTimeOfUseRates.timeOfUse) &&
-                Objects.equals(this.type, energyPlanContractTimeOfUseRates.type);
+        EnergyPlanControlledLoadTimeOfUseRates energyPlanControlledLoadTimeOfUseRates = (EnergyPlanControlledLoadTimeOfUseRates) o;
+        return Objects.equals(this.displayName, energyPlanControlledLoadTimeOfUseRates.displayName) &&
+                Objects.equals(this.description, energyPlanControlledLoadTimeOfUseRates.description) &&
+                Objects.equals(this.dailySupplyCharge, energyPlanControlledLoadTimeOfUseRates.dailySupplyCharge) &&
+                Objects.equals(this.rates, energyPlanControlledLoadTimeOfUseRates.rates) &&
+                Objects.equals(this.timeOfUse, energyPlanControlledLoadTimeOfUseRates.timeOfUse) &&
+                Objects.equals(this.type, energyPlanControlledLoadTimeOfUseRates.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(displayName, description, rates, timeOfUse, type);
+        return Objects.hash(displayName, description, dailySupplyCharge, rates, timeOfUse, type);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractTimeOfUseRates {\n");
+        sb.append("class EnergyPlanControlledLoadTimeOfUseRates {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    dailySupplyCharge: ").append(toIndentedString(dailySupplyCharge)).append("\n");
         sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
         sb.append("    timeOfUse: ").append(toIndentedString(timeOfUse)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");

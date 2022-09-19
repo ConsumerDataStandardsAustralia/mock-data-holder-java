@@ -1,17 +1,22 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,15 +35,53 @@ public class EnergyPlanControlledLoad {
 
     private String displayName;
 
-    private String description;
+    public enum RateBlockUTypeEnum {
+        SINGLERATE("singleRate"),
+        TIMEOFUSERATES("timeOfUseRates");
 
-    private String dailyCharge;
+        private final String value;
 
-    private String period;
+        RateBlockUTypeEnum(String value) {
+            this.value = value;
+        }
 
-    @Valid
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static RateBlockUTypeEnum fromValue(String value) {
+            for (RateBlockUTypeEnum b : RateBlockUTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    private RateBlockUTypeEnum rateBlockUType;
+
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate startDate;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate endDate;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private EnergyPlanControlledLoadSingleRate singleRate;
+
     @OneToMany(cascade = CascadeType.ALL)
-    private List<EnergyPlanControlledLoadRates> rates = new ArrayList<>();
+    private List<EnergyPlanControlledLoadTimeOfUseRates> timeOfUseRates = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -54,11 +97,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * A display name for the controlled load tier
+     * A display name for the controlled load
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "A display name for the controlled load tier")
+    @ApiModelProperty(required = true, value = "A display name for the controlled load")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -68,92 +111,75 @@ public class EnergyPlanControlledLoad {
         this.displayName = displayName;
     }
 
-    public EnergyPlanControlledLoad description(String description) {
-        this.description = description;
-        return this;
-    }
-
     /**
-     * A description of the controlled load tier
+     * Specifies the type of controlled load rate
      *
-     * @return description
+     * @return rateBlockUType
      */
-    @ApiModelProperty(value = "A description of the controlled load tier")
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public EnergyPlanControlledLoad dailyCharge(String dailyCharge) {
-        this.dailyCharge = dailyCharge;
-        return this;
-    }
-
-    /**
-     * The daily supply charge (exclusive of GST) for this controlled load tier
-     *
-     * @return dailyCharge
-     */
-    @ApiModelProperty(required = true,
-            value = "The daily supply charge (exclusive of GST) for this controlled load tier")
+    @ApiModelProperty(required = true, value = "Specifies the type of controlled load rate")
     @NotNull
-    public String getDailyCharge() {
-        return dailyCharge;
+    public RateBlockUTypeEnum getRateBlockUType() {
+        return rateBlockUType;
     }
 
-    public void setDailyCharge(String dailyCharge) {
-        this.dailyCharge = dailyCharge;
-    }
-
-    public EnergyPlanControlledLoad period(String period) {
-        this.period = period;
-        return this;
+    public void setRateBlockUType(RateBlockUTypeEnum rateBlockUType) {
+        this.rateBlockUType = rateBlockUType;
     }
 
     /**
-     * The period for which the controlled load rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * Optional start date of the application of the controlled load rate
      *
-     * @return period
+     * @return startDate
      */
-    @ApiModelProperty(required = true,
-            value = "The period for which the controlled load rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
-    @NotNull
-    public String getPeriod() {
-        return period;
+    @ApiModelProperty("Optional start date of the application of the controlled load rate")
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
-    }
-
-    public EnergyPlanControlledLoad rates(List<EnergyPlanControlledLoadRates> rates) {
-        this.rates = rates;
-        return this;
-    }
-
-    public EnergyPlanControlledLoad addRatesItem(EnergyPlanControlledLoadRates ratesItem) {
-        this.rates.add(ratesItem);
-        return this;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     /**
-     * Array of controlled load rates in order of usage volume
+     * Optional end date of the application of the controlled load rate
      *
-     * @return rates
+     * @return endDate
      */
-    @ApiModelProperty(required = true,
-            value = "Array of controlled load rates in order of usage volume")
-    @NotNull
-    @Valid
-    public List<EnergyPlanControlledLoadRates> getRates() {
-        return rates;
+    @ApiModelProperty("Optional end date of the application of the controlled load rate")
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setRates(List<EnergyPlanControlledLoadRates> rates) {
-        this.rates = rates;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * Object representing a single controlled load rate.  Required if rateBlockUType is singleRate
+     *
+     * @return singleRate
+     */
+    @ApiModelProperty("Object representing a single controlled load rate.  Required if rateBlockUType is singleRate")
+    public EnergyPlanControlledLoadSingleRate getSingleRate() {
+        return singleRate;
+    }
+
+    public void setSingleRate(EnergyPlanControlledLoadSingleRate singleRate) {
+        this.singleRate = singleRate;
+    }
+
+    /**
+     * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
+     *
+     * @return timeOfUseRates
+     */
+    @ApiModelProperty("Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates")
+    public List<EnergyPlanControlledLoadTimeOfUseRates> getTimeOfUseRates() {
+        return timeOfUseRates;
+    }
+
+    public void setTimeOfUseRates(List<EnergyPlanControlledLoadTimeOfUseRates> timeOfUseRates) {
+        this.timeOfUseRates = timeOfUseRates;
     }
 
     @Override
@@ -166,15 +192,16 @@ public class EnergyPlanControlledLoad {
         }
         EnergyPlanControlledLoad energyPlanControlledLoad = (EnergyPlanControlledLoad) o;
         return Objects.equals(this.displayName, energyPlanControlledLoad.displayName) &&
-                Objects.equals(this.description, energyPlanControlledLoad.description) &&
-                Objects.equals(this.dailyCharge, energyPlanControlledLoad.dailyCharge) &&
-                Objects.equals(this.period, energyPlanControlledLoad.period) &&
-                Objects.equals(this.rates, energyPlanControlledLoad.rates);
+                Objects.equals(this.rateBlockUType, energyPlanControlledLoad.rateBlockUType) &&
+                Objects.equals(this.startDate, energyPlanControlledLoad.startDate) &&
+                Objects.equals(this.endDate, energyPlanControlledLoad.endDate) &&
+                Objects.equals(this.singleRate, energyPlanControlledLoad.singleRate) &&
+                Objects.equals(this.timeOfUseRates, energyPlanControlledLoad.timeOfUseRates);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(displayName, description, dailyCharge, period, rates);
+        return Objects.hash(displayName, rateBlockUType, startDate, endDate, singleRate, timeOfUseRates);
     }
 
     @Override
@@ -182,10 +209,11 @@ public class EnergyPlanControlledLoad {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanControlledLoad {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("    dailyCharge: ").append(toIndentedString(dailyCharge)).append("\n");
-        sb.append("    period: ").append(toIndentedString(period)).append("\n");
-        sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
+        sb.append("    rateBlockUType: ").append(toIndentedString(rateBlockUType)).append("\n");
+        sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+        sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
+        sb.append("    singleRate: ").append(toIndentedString(singleRate)).append("\n");
+        sb.append("    timeOfUseRates: ").append(toIndentedString(timeOfUseRates)).append("\n");
         sb.append("}");
         return sb.toString();
     }

@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,74 +11,55 @@ import java.util.Objects;
  * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
  */
 @ApiModel(description = "Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyDerRecordProtectionMode {
-    @JsonProperty("exportLimitkva")
-    private BigDecimal exportLimitkva;
+    private BigDecimal exportLimitKva;
 
-    @JsonProperty("underFrequencyProtection")
     private BigDecimal underFrequencyProtection;
 
-    @JsonProperty("underFrequencyProtectionDelay")
     private BigDecimal underFrequencyProtectionDelay;
 
-    @JsonProperty("overFrequencyProtection")
     private BigDecimal overFrequencyProtection;
 
-    @JsonProperty("overFrequencyProtectionDelay")
     private BigDecimal overFrequencyProtectionDelay;
 
-    @JsonProperty("underVoltageProtection")
     private BigDecimal underVoltageProtection;
 
-    @JsonProperty("underVoltageProtectionDelay")
     private BigDecimal underVoltageProtectionDelay;
 
-    @JsonProperty("overVoltageProtection")
     private BigDecimal overVoltageProtection;
 
-    @JsonProperty("overVoltageProtectionDelay")
     private BigDecimal overVoltageProtectionDelay;
 
-    @JsonProperty("sustainedOverVoltage")
     private BigDecimal sustainedOverVoltage;
 
-    @JsonProperty("sustainedOverVoltageDelay")
     private BigDecimal sustainedOverVoltageDelay;
 
-    @JsonProperty("frequencyRateOfChange")
     private BigDecimal frequencyRateOfChange;
 
-    @JsonProperty("voltageVectorShift")
     private BigDecimal voltageVectorShift;
 
-    @JsonProperty("interTripScheme")
     private String interTripScheme;
 
-    @JsonProperty("neutralVoltageDisplacement")
     private BigDecimal neutralVoltageDisplacement;
 
-    public EnergyDerRecordProtectionMode exportLimitkva(BigDecimal exportLimitkva) {
-        this.exportLimitkva = exportLimitkva;
+    public EnergyDerRecordProtectionMode exportLimitkva(BigDecimal exportLimitKva) {
+        this.exportLimitKva = exportLimitKva;
         return this;
     }
 
     /**
      * Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit
      *
-     * @return exportLimitkva
+     * @return exportLimitKva
      */
     @ApiModelProperty(value = "Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit")
-
     @Valid
-
-    public BigDecimal getExportLimitkva() {
-        return exportLimitkva;
+    public BigDecimal getExportLimitKva() {
+        return exportLimitKva;
     }
 
-    public void setExportLimitkva(BigDecimal exportLimitkva) {
-        this.exportLimitkva = exportLimitkva;
+    public void setExportLimitKva(BigDecimal exportLimitKva) {
+        this.exportLimitKva = exportLimitKva;
     }
 
     public EnergyDerRecordProtectionMode underFrequencyProtection(BigDecimal underFrequencyProtection) {
@@ -93,9 +73,7 @@ public class EnergyDerRecordProtectionMode {
      * @return underFrequencyProtection
      */
     @ApiModelProperty(value = "Protective function limit in Hz.")
-
     @Valid
-
     public BigDecimal getUnderFrequencyProtection() {
         return underFrequencyProtection;
     }
@@ -115,9 +93,7 @@ public class EnergyDerRecordProtectionMode {
      * @return underFrequencyProtectionDelay
      */
     @ApiModelProperty(value = "Trip delay time in seconds.")
-
     @Valid
-
     public BigDecimal getUnderFrequencyProtectionDelay() {
         return underFrequencyProtectionDelay;
     }
@@ -137,9 +113,7 @@ public class EnergyDerRecordProtectionMode {
      * @return overFrequencyProtection
      */
     @ApiModelProperty(value = "Protective function limit in Hz.")
-
     @Valid
-
     public BigDecimal getOverFrequencyProtection() {
         return overFrequencyProtection;
     }
@@ -159,9 +133,7 @@ public class EnergyDerRecordProtectionMode {
      * @return overFrequencyProtectionDelay
      */
     @ApiModelProperty(value = "Trip delay time in seconds.")
-
     @Valid
-
     public BigDecimal getOverFrequencyProtectionDelay() {
         return overFrequencyProtectionDelay;
     }
@@ -181,9 +153,7 @@ public class EnergyDerRecordProtectionMode {
      * @return underVoltageProtection
      */
     @ApiModelProperty(value = "Protective function limit in V.")
-
     @Valid
-
     public BigDecimal getUnderVoltageProtection() {
         return underVoltageProtection;
     }
@@ -203,9 +173,7 @@ public class EnergyDerRecordProtectionMode {
      * @return underVoltageProtectionDelay
      */
     @ApiModelProperty(value = "Trip delay time in seconds.")
-
     @Valid
-
     public BigDecimal getUnderVoltageProtectionDelay() {
         return underVoltageProtectionDelay;
     }
@@ -225,9 +193,7 @@ public class EnergyDerRecordProtectionMode {
      * @return overVoltageProtection
      */
     @ApiModelProperty(value = "Protective function limit in V.")
-
     @Valid
-
     public BigDecimal getOverVoltageProtection() {
         return overVoltageProtection;
     }
@@ -247,9 +213,7 @@ public class EnergyDerRecordProtectionMode {
      * @return overVoltageProtectionDelay
      */
     @ApiModelProperty(value = "Trip delay time in seconds.")
-
     @Valid
-
     public BigDecimal getOverVoltageProtectionDelay() {
         return overVoltageProtectionDelay;
     }
@@ -269,9 +233,7 @@ public class EnergyDerRecordProtectionMode {
      * @return sustainedOverVoltage
      */
     @ApiModelProperty(value = "Sustained over voltage.")
-
     @Valid
-
     public BigDecimal getSustainedOverVoltage() {
         return sustainedOverVoltage;
     }
@@ -286,14 +248,12 @@ public class EnergyDerRecordProtectionMode {
     }
 
     /**
-     * Trip delay time in seconds.
+     * Sustained Over voltage protection delay in seconds.
      *
      * @return sustainedOverVoltageDelay
      */
-    @ApiModelProperty(value = "Trip delay time in seconds.")
-
+    @ApiModelProperty(value = "Sustained Over voltage protection delay in seconds.")
     @Valid
-
     public BigDecimal getSustainedOverVoltageDelay() {
         return sustainedOverVoltageDelay;
     }
@@ -313,9 +273,7 @@ public class EnergyDerRecordProtectionMode {
      * @return frequencyRateOfChange
      */
     @ApiModelProperty(value = "Rate of change of frequency trip point (Hz/s).")
-
     @Valid
-
     public BigDecimal getFrequencyRateOfChange() {
         return frequencyRateOfChange;
     }
@@ -335,9 +293,7 @@ public class EnergyDerRecordProtectionMode {
      * @return voltageVectorShift
      */
     @ApiModelProperty(value = "Trip angle in degrees.")
-
     @Valid
-
     public BigDecimal getVoltageVectorShift() {
         return voltageVectorShift;
     }
@@ -357,8 +313,6 @@ public class EnergyDerRecordProtectionMode {
      * @return interTripScheme
      */
     @ApiModelProperty(value = "Description of the form of inter-trip (e.g. 'from local substation').")
-
-
     public String getInterTripScheme() {
         return interTripScheme;
     }
@@ -378,9 +332,7 @@ public class EnergyDerRecordProtectionMode {
      * @return neutralVoltageDisplacement
      */
     @ApiModelProperty(value = "Trip voltage.")
-
     @Valid
-
     public BigDecimal getNeutralVoltageDisplacement() {
         return neutralVoltageDisplacement;
     }
@@ -388,7 +340,6 @@ public class EnergyDerRecordProtectionMode {
     public void setNeutralVoltageDisplacement(BigDecimal neutralVoltageDisplacement) {
         this.neutralVoltageDisplacement = neutralVoltageDisplacement;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -399,7 +350,7 @@ public class EnergyDerRecordProtectionMode {
             return false;
         }
         EnergyDerRecordProtectionMode energyDerRecordProtectionMode = (EnergyDerRecordProtectionMode) o;
-        return Objects.equals(this.exportLimitkva, energyDerRecordProtectionMode.exportLimitkva) &&
+        return Objects.equals(this.exportLimitKva, energyDerRecordProtectionMode.exportLimitKva) &&
                 Objects.equals(this.underFrequencyProtection, energyDerRecordProtectionMode.underFrequencyProtection) &&
                 Objects.equals(this.underFrequencyProtectionDelay, energyDerRecordProtectionMode.underFrequencyProtectionDelay) &&
                 Objects.equals(this.overFrequencyProtection, energyDerRecordProtectionMode.overFrequencyProtection) &&
@@ -418,15 +369,14 @@ public class EnergyDerRecordProtectionMode {
 
     @Override
     public int hashCode() {
-        return Objects.hash(exportLimitkva, underFrequencyProtection, underFrequencyProtectionDelay, overFrequencyProtection, overFrequencyProtectionDelay, underVoltageProtection, underVoltageProtectionDelay, overVoltageProtection, overVoltageProtectionDelay, sustainedOverVoltage, sustainedOverVoltageDelay, frequencyRateOfChange, voltageVectorShift, interTripScheme, neutralVoltageDisplacement);
+        return Objects.hash(exportLimitKva, underFrequencyProtection, underFrequencyProtectionDelay, overFrequencyProtection, overFrequencyProtectionDelay, underVoltageProtection, underVoltageProtectionDelay, overVoltageProtection, overVoltageProtectionDelay, sustainedOverVoltage, sustainedOverVoltageDelay, frequencyRateOfChange, voltageVectorShift, interTripScheme, neutralVoltageDisplacement);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyDerRecordProtectionMode {\n");
-
-        sb.append("    exportLimitkva: ").append(toIndentedString(exportLimitkva)).append("\n");
+        sb.append("    exportLimitKva: ").append(toIndentedString(exportLimitKva)).append("\n");
         sb.append("    underFrequencyProtection: ").append(toIndentedString(underFrequencyProtection)).append("\n");
         sb.append("    underFrequencyProtectionDelay: ").append(toIndentedString(underFrequencyProtectionDelay)).append("\n");
         sb.append("    overFrequencyProtection: ").append(toIndentedString(overFrequencyProtection)).append("\n");
@@ -456,4 +406,3 @@ public class EnergyDerRecordProtectionMode {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

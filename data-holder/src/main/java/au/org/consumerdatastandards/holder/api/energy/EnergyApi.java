@@ -19,6 +19,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListRe
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
+import au.org.consumerdatastandards.holder.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.energy.RequestServicePointIds;
@@ -54,7 +55,7 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -107,7 +108,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -131,7 +132,7 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -184,7 +185,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -212,7 +213,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -291,7 +292,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -315,7 +316,7 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -368,7 +369,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -392,7 +393,7 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -445,7 +446,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -473,7 +474,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -552,7 +553,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -570,13 +571,17 @@ public interface EnergyApi {
 
     /**
      * GET /energy/accounts/{accountId}/payment-schedule : Get Agreed Payment Schedule
-     * Obtain the agreed payment schedule and details, if any, for a specific energy account
+     * Obtain the agreed payment schedule and details, if any, for a specific energy account.
+     *
+     * Some general notes about this end point:
+     *
+     * <ul><li>This API describes how the consumer has elected to pay for their account</li><li>Payments initiated by the consumer are classified as manual payments. The billing frequency is captured for manual payments. The consumer may choose to pay on a different schedule/frequency. The payment method and frequency is not captured for manual payments</li><li>Payments that can be initiated by the retailer, based on a consumer's preferences and permission, include payments based on a direct debit, card debit or digital wallet setup. Each of these requires a payment frequency to be provided along with other relevant fields</li><li>Information about payment plans related to debt repayments or arrangements due to hardship is not captured within this API</li></ul>
      *
      * @param accountId              ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point. (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -584,7 +589,7 @@ public interface EnergyApi {
      */
     @ApiOperation(value = "Get Agreed Payment Schedule",
             nickname = "getPaymentSchedule",
-            notes = "Obtain the agreed payment schedule and details, if any, for a specific energy account",
+            notes = "Obtain the agreed payment schedule and details, if any, for a specific energy account. \n\nSome general notes about this end point:\n\n <ul><li>This API describes how the consumer has elected to pay for their account</li><li>Payments initiated by the consumer are classified as manual payments. The billing frequency is captured for manual payments. The consumer may choose to pay on a different schedule/frequency. The payment method and frequency is not captured for manual payments</li><li>Payments that can be initiated by the retailer, based on a consumer's preferences and permission, include payments based on a direct debit, card debit or digital wallet setup. Each of these requires a payment frequency to be provided along with other relevant fields</li><li>Information about payment plans related to debt repayments or arrangements due to hardship is not captured within this API</li></ul>",
             response = EnergyPaymentScheduleResponse.class,
             tags = {"Energy", "Energy Accounts",})
     @ApiResponses(value = {
@@ -629,7 +634,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -705,7 +710,7 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -758,7 +763,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -783,11 +788,12 @@ public interface EnergyApi {
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
+     * @param intervalReads          Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -849,6 +855,12 @@ public interface EnergyApi {
             @RequestParam(value = "newest-date",
                     required = false)
                     String newestDate,
+            @ApiParam(
+                    value = "Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE")
+            @Valid
+            @RequestParam(value = "interval-reads",
+                    defaultValue = "NONE")
+                    ParamIntervalReadsEnum intervalReads,
             @ApiParam(value = "Page of results to request (standard pagination)")
             @Valid
             @RequestParam(value = "page",
@@ -866,7 +878,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
             @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -891,7 +903,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -951,7 +963,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -976,7 +988,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1036,7 +1048,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1062,7 +1074,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1129,7 +1141,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1157,7 +1169,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1229,7 +1241,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1257,9 +1269,10 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param intervalReads          Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li><li>[422 - Invalid Page](#error-422-field-invalid-page)</li><li>[422 - Unavailable Energy Account](#error-422-unavailable-energy-account)</li><li>[422 - Invalid Energy Account](#error-422-invalid-energy-account)</li></ul> (status code 4xx)
      */
@@ -1336,7 +1349,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1350,7 +1363,13 @@ public interface EnergyApi {
                     value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
-                    String xCdsClientHeaders);
+                    String xCdsClientHeaders,
+            @ApiParam(
+                    value = "Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE")
+            @Valid
+            @RequestParam(value = "interval-reads",
+                    defaultValue = "NONE")
+                    ParamIntervalReadsEnum intervalReads);
 
 
     /**
@@ -1362,7 +1381,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1422,7 +1441,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1448,7 +1467,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1515,7 +1534,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1542,7 +1561,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1614,7 +1633,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1642,7 +1661,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1721,7 +1740,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1851,7 +1870,7 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
      * @return Successful response (status code 200)
@@ -1911,7 +1930,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -1939,9 +1958,10 @@ public interface EnergyApi {
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param intervalReads          Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li><li>[422 - Invalid Page](#error-422-field-invalid-page)</li></ul> (status code 4xx)
      */
@@ -2011,7 +2031,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -2024,7 +2044,13 @@ public interface EnergyApi {
                     value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
-                    String xCdsClientHeaders);
+                    String xCdsClientHeaders,
+            @ApiParam(
+                    value = "Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE")
+            @Valid
+            @RequestParam(value = "interval-reads",
+                    defaultValue = "NONE")
+                    ParamIntervalReadsEnum intervalReads);
 
 
     /**
@@ -2032,16 +2058,17 @@ public interface EnergyApi {
      * Obtain the electricity usage data for a specific set of service points
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
+     * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param servicePointIdList     Request payload containing list of specific Service Points to obtain data for (required)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
-     * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls. (optional)
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
      * @param xCdsClientHeaders      The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param intervalReads          Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li><li>[422 - Invalid Page](#error-422-field-invalid-page)</li><li>[422 - Unavailable Service Point](#error-422-unavailable-service-point)</li><li>[422 - Invalid Service Point](#error-422-invalid-service-point)</li></ul> (status code 4xx)
      */
@@ -2118,7 +2145,7 @@ public interface EnergyApi {
                     required = false)
                     UUID xFapiInteractionId,
             @ApiParam(
-                    value = "The time when the customer last logged in to the data recipient. Required for all resource calls (customer present and unattended). Not to be included for unauthenticated calls.")
+                    value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
                     @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
@@ -2132,6 +2159,12 @@ public interface EnergyApi {
                     value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
-                    String xCdsClientHeaders);
+                    String xCdsClientHeaders,
+            @ApiParam(
+                    value = "Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE")
+            @Valid
+            @RequestParam(value = "interval-reads",
+                    defaultValue = "NONE")
+            ParamIntervalReadsEnum intervalReads);
 
 }

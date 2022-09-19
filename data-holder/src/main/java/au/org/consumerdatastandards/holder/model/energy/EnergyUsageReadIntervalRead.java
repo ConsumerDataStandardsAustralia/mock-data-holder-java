@@ -3,6 +3,7 @@ package au.org.consumerdatastandards.holder.model.energy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -19,8 +20,10 @@ public class EnergyUsageReadIntervalRead {
 
     private BigDecimal aggregateValue;
 
-    @Valid
-    private List<EnergyUsageReadIntervalReadIntervalReads> intervalReads = new ArrayList<>();
+    private List<BigDecimal> intervalReads = new ArrayList<>();
+
+    @OneToOne
+    private EnergyUsageReadIntervalReadReadQualities readQualities;
 
     public EnergyUsageReadIntervalRead readIntervalLength(Integer readIntervalLength) {
         this.readIntervalLength = readIntervalLength;
@@ -28,11 +31,11 @@ public class EnergyUsageReadIntervalRead {
     }
 
     /**
-     * Read interval length in minutes
+     * Read interval length in minutes. Required when interval-reads query parameter equals FULL or MIN_30
      *
      * @return readIntervalLength
      */
-    @ApiModelProperty(required = true, value = "Read interval length in minutes")
+    @ApiModelProperty("Read interval length in minutes. Required when interval-reads query parameter equals FULL or MIN_30")
     public Integer getReadIntervalLength() {
         return readIntervalLength;
     }
@@ -63,12 +66,12 @@ public class EnergyUsageReadIntervalRead {
         this.aggregateValue = aggregateValue;
     }
 
-    public EnergyUsageReadIntervalRead intervalReads(List<EnergyUsageReadIntervalReadIntervalReads> intervalReads) {
+    public EnergyUsageReadIntervalRead intervalReads(List<BigDecimal> intervalReads) {
         this.intervalReads = intervalReads;
         return this;
     }
 
-    public EnergyUsageReadIntervalRead addIntervalReadsItem(EnergyUsageReadIntervalReadIntervalReads intervalReadsItem) {
+    public EnergyUsageReadIntervalRead addIntervalReadsItem(BigDecimal intervalReadsItem) {
         this.intervalReads.add(intervalReadsItem);
         return this;
     }
@@ -78,16 +81,27 @@ public class EnergyUsageReadIntervalRead {
      *
      * @return intervalReads
      */
-    @ApiModelProperty(required = true,
-            value = "Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)")
-    @NotNull
-    @Valid
-    public List<EnergyUsageReadIntervalReadIntervalReads> getIntervalReads() {
+    @ApiModelProperty("Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)")
+    public List<BigDecimal> getIntervalReads() {
         return intervalReads;
     }
 
-    public void setIntervalReads(List<EnergyUsageReadIntervalReadIntervalReads> intervalReads) {
+    public void setIntervalReads(List<BigDecimal> intervalReads) {
         this.intervalReads = intervalReads;
+    }
+
+    /**
+     * Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
+     *
+     * @return readQualities
+     */
+    @ApiModelProperty("Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30")
+    public EnergyUsageReadIntervalReadReadQualities getReadQualities() {
+        return readQualities;
+    }
+
+    public void setReadQualities(EnergyUsageReadIntervalReadReadQualities readQualities) {
+        this.readQualities = readQualities;
     }
 
     @Override
@@ -101,12 +115,13 @@ public class EnergyUsageReadIntervalRead {
         EnergyUsageReadIntervalRead energyUsageReadIntervalRead = (EnergyUsageReadIntervalRead) o;
         return Objects.equals(this.readIntervalLength, energyUsageReadIntervalRead.readIntervalLength) &&
                 Objects.equals(this.aggregateValue, energyUsageReadIntervalRead.aggregateValue) &&
-                Objects.equals(this.intervalReads, energyUsageReadIntervalRead.intervalReads);
+                Objects.equals(this.intervalReads, energyUsageReadIntervalRead.intervalReads) &&
+                Objects.equals(this.readQualities, energyUsageReadIntervalRead.readQualities);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(readIntervalLength, aggregateValue, intervalReads);
+        return Objects.hash(readIntervalLength, aggregateValue, intervalReads, readQualities);
     }
 
     @Override
@@ -116,6 +131,7 @@ public class EnergyUsageReadIntervalRead {
         sb.append("    readIntervalLength: ").append(toIndentedString(readIntervalLength)).append("\n");
         sb.append("    aggregateValue: ").append(toIndentedString(aggregateValue)).append("\n");
         sb.append("    intervalReads: ").append(toIndentedString(intervalReads)).append("\n");
+        sb.append("    readQualities: ").append(toIndentedString(readQualities)).append("\n");
         sb.append("}");
         return sb.toString();
     }

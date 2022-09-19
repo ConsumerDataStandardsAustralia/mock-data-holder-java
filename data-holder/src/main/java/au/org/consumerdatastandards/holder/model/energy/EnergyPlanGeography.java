@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +34,10 @@ public class EnergyPlanGeography {
     @ElementCollection
     @Valid
     private List<String> includedPostcodes;
+
+    @ElementCollection
+    @Valid
+    private List<String> distributors;
 
     public String getGeographyId() {
         return geographyId;
@@ -96,6 +101,20 @@ public class EnergyPlanGeography {
         this.includedPostcodes = includedPostcodes;
     }
 
+    /**
+     * Array of distributors for the plan. Must have at least one entry
+     *
+     * @return distributors
+     */
+    @ApiModelProperty(required = true, value = "Array of distributors for the plan. Must have at least one entry")
+    @NotNull
+    public List<String> getDistributors() {
+        return distributors;
+    }
+
+    public void setDistributors(List<String> distributors) {
+        this.distributors = distributors;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -121,6 +140,7 @@ public class EnergyPlanGeography {
         sb.append("    geographyId: ").append(toIndentedString(geographyId)).append("\n");
         sb.append("    excludedPostcodes: ").append(toIndentedString(excludedPostcodes)).append("\n");
         sb.append("    includedPostcodes: ").append(toIndentedString(includedPostcodes)).append("\n");
+        sb.append("    distributors: ").append(toIndentedString(distributors)).append("\n");
         sb.append("}");
         return sb.toString();
     }

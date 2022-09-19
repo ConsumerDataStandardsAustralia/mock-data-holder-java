@@ -13,10 +13,10 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * EnergyPlanContractRates
+ * EnergyRates
  */
 @Entity
-public class EnergyPlanContractRates {
+public class EnergyRates {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
@@ -51,7 +51,7 @@ public class EnergyPlanContractRates {
         this.id = id;
     }
 
-    public EnergyPlanContractRates unitPrice(String unitPrice) {
+    public EnergyRates unitPrice(String unitPrice) {
         this.unitPrice = unitPrice;
         return this;
     }
@@ -71,7 +71,7 @@ public class EnergyPlanContractRates {
         this.unitPrice = unitPrice;
     }
 
-    public EnergyPlanContractRates measureUnit(MeasureUnitEnum measureUnit) {
+    public EnergyRates measureUnit(MeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
         return this;
     }
@@ -90,7 +90,7 @@ public class EnergyPlanContractRates {
         this.measureUnit = measureUnit;
     }
 
-    public EnergyPlanContractRates volume(BigDecimal volume) {
+    public EnergyRates volume(BigDecimal volume) {
         this.volume = volume;
         return this;
     }
@@ -118,10 +118,10 @@ public class EnergyPlanContractRates {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanContractRates energyPlanContractRates = (EnergyPlanContractRates) o;
-        return Objects.equals(this.unitPrice, energyPlanContractRates.unitPrice) &&
-                Objects.equals(this.measureUnit, energyPlanContractRates.measureUnit) &&
-                Objects.equals(this.volume, energyPlanContractRates.volume);
+        EnergyRates energyRates = (EnergyRates) o;
+        return Objects.equals(this.unitPrice, energyRates.unitPrice) &&
+                Objects.equals(this.measureUnit, energyRates.measureUnit) &&
+                Objects.equals(this.volume, energyRates.volume);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class EnergyPlanContractRates {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractRates {\n");
+        sb.append("class EnergyRates {\n");
         sb.append("    unitPrice: ").append(toIndentedString(unitPrice)).append("\n");
         sb.append("    measureUnit: ").append(toIndentedString(measureUnit)).append("\n");
         sb.append("    volume: ").append(toIndentedString(volume)).append("\n");

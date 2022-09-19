@@ -9,6 +9,7 @@ import au.org.consumerdatastandards.client.model.energy.EnergyDerListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyUsageListResponse;
+import au.org.consumerdatastandards.client.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.client.model.energy.RequestServicePointIds;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.Call;
@@ -64,7 +65,8 @@ public class EnergyServicePointsAPI extends ProtectedAPI {
     }
 
     public ApiResult<EnergyUsageListResponse> getUsageForServicePoint(String servicePointId,
-            Integer page, Integer pageSize, OffsetDateTime oldestDate, OffsetDateTime newestDate) throws ApiException {
+            Integer page, Integer pageSize, OffsetDateTime oldestDate, OffsetDateTime newestDate,
+            ParamIntervalReadsEnum intervalReads) throws ApiException {
 
         if (servicePointId == null) {
             throw new ApiException("Missing the required parameter 'servicePointId' when calling getUsageForServicePoint()");
@@ -73,9 +75,9 @@ public class EnergyServicePointsAPI extends ProtectedAPI {
         // create path and map variables
         String path = "/energy/electricity/servicepoints/" + apiClient.escapeString(servicePointId) + "/usage";
 
-        logger.trace("Building Call for getUsageForServicePoint with path: {}, servicePointId: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}",
+        logger.trace("Building Call for getUsageForServicePoint with path: {}, servicePointId: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
                 path,
-                servicePointId, page, pageSize, oldestDate, newestDate);
+                servicePointId, page, pageSize, oldestDate, newestDate, intervalReads);
 
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
@@ -84,6 +86,7 @@ public class EnergyServicePointsAPI extends ProtectedAPI {
         addQueryParam(queryParams, "newest-date", newestDate);
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
+        addQueryParam(queryParams, "interval-reads", intervalReads);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
         Type returnType = new TypeToken<EnergyUsageListResponse>(){}.getType();
@@ -91,14 +94,15 @@ public class EnergyServicePointsAPI extends ProtectedAPI {
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 
-    public ApiResult<EnergyUsageListResponse> listUsageBulk(Integer page, Integer pageSize, OffsetDateTime oldestDate, OffsetDateTime newestDate) throws ApiException {
+    public ApiResult<EnergyUsageListResponse> listUsageBulk(Integer page, Integer pageSize, OffsetDateTime oldestDate,
+            OffsetDateTime newestDate, ParamIntervalReadsEnum intervalReads) throws ApiException {
 
         // create path and map variables
         String path = "/energy/electricity/servicepoints/usage";
 
-        logger.trace("Building Call for listUsageBulk with path: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}",
+        logger.trace("Building Call for listUsageBulk with path: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
                 path,
-                page, pageSize, oldestDate, newestDate);
+                page, pageSize, oldestDate, newestDate, intervalReads);
 
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
@@ -107,6 +111,7 @@ public class EnergyServicePointsAPI extends ProtectedAPI {
         addQueryParam(queryParams, "newest-date", newestDate);
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
+        addQueryParam(queryParams, "interval-reads", intervalReads);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
         Type returnType = new TypeToken<EnergyUsageListResponse>(){}.getType();
@@ -115,14 +120,14 @@ public class EnergyServicePointsAPI extends ProtectedAPI {
     }
 
     public ApiResult<EnergyUsageListResponse> listUsageForServicePoints(RequestServicePointIds requestServicePointIds, Integer page, Integer pageSize,
-            OffsetDateTime oldestDate, OffsetDateTime newestDate) throws ApiException {
+            OffsetDateTime oldestDate, OffsetDateTime newestDate, ParamIntervalReadsEnum intervalReads) throws ApiException {
 
         // create path and map variables
         String path = "/energy/electricity/servicepoints/usage";
 
-        logger.trace("Building Call for listUsageBulk with path: {}, requestServicePointIds: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}",
+        logger.trace("Building Call for listUsageBulk with path: {}, requestServicePointIds: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
                 path,
-                requestServicePointIds, page, pageSize, oldestDate, newestDate);
+                requestServicePointIds, page, pageSize, oldestDate, newestDate, intervalReads);
 
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
@@ -131,6 +136,7 @@ public class EnergyServicePointsAPI extends ProtectedAPI {
         addQueryParam(queryParams, "newest-date", newestDate);
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
+        addQueryParam(queryParams, "interval-reads", intervalReads);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_POST, queryParams, null, requestServicePointIds, headerParams, authNames, null);
         Type returnType = new TypeToken<EnergyUsageListResponse>(){}.getType();

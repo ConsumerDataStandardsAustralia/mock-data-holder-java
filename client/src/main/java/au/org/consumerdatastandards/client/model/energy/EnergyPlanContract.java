@@ -57,7 +57,7 @@ public class EnergyPlanContract {
 
     private EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower;
 
-    private EnergyPlanControlledLoad controlledLoad;
+    private List<EnergyPlanControlledLoad> controlledLoad;
 
     private List<EnergyPlanContractIncentives> incentives = null;
 
@@ -151,7 +151,7 @@ public class EnergyPlanContract {
     }
 
     /**
-     * Free text description of price variation policy and conditions for the contract.  Mandatory if isFixed is true
+     * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
      *
      * @return variation
      */
@@ -222,7 +222,7 @@ public class EnergyPlanContract {
         this.intrinsicGreenPower = intrinsicGreenPower;
     }
 
-    public EnergyPlanContract controlledLoad(EnergyPlanControlledLoad controlledLoad) {
+    public EnergyPlanContract controlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -232,11 +232,11 @@ public class EnergyPlanContract {
      *
      * @return controlledLoad
      */
-    public EnergyPlanControlledLoad getControlledLoad() {
+    public List<EnergyPlanControlledLoad> getControlledLoad() {
         return controlledLoad;
     }
 
-    public void setControlledLoad(EnergyPlanControlledLoad controlledLoad) {
+    public void setControlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
         this.controlledLoad = controlledLoad;
     }
 

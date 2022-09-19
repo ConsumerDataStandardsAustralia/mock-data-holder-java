@@ -12,9 +12,9 @@ public class EnergyPlanContractTimeOfUseRates {
 
     private String description;
 
-    private List<EnergyPlanContractRates> rates = new ArrayList<>();
+    private List<EnergyRates> rates = new ArrayList<>();
 
-    private List<EnergyPlanContractTimeOfUse> timeOfUse = new ArrayList<>();
+    private List<EnergyTimeOfUse> timeOfUse = new ArrayList<>();
 
     /**
      * The type of usage that the rate applies to
@@ -57,8 +57,6 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return description
      */
-
-
     public String getDescription() {
         return description;
     }
@@ -67,12 +65,12 @@ public class EnergyPlanContractTimeOfUseRates {
         this.description = description;
     }
 
-    public EnergyPlanContractTimeOfUseRates rates(List<EnergyPlanContractRates> rates) {
+    public EnergyPlanContractTimeOfUseRates rates(List<EnergyRates> rates) {
         this.rates = rates;
         return this;
     }
 
-    public EnergyPlanContractTimeOfUseRates addRatesItem(EnergyPlanContractRates ratesItem) {
+    public EnergyPlanContractTimeOfUseRates addRatesItem(EnergyRates ratesItem) {
         this.rates.add(ratesItem);
         return this;
     }
@@ -82,20 +80,20 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return rates
      */
-    public List<EnergyPlanContractRates> getRates() {
+    public List<EnergyRates> getRates() {
         return rates;
     }
 
-    public void setRates(List<EnergyPlanContractRates> rates) {
+    public void setRates(List<EnergyRates> rates) {
         this.rates = rates;
     }
 
-    public EnergyPlanContractTimeOfUseRates timeOfUse(List<EnergyPlanContractTimeOfUse> timeOfUse) {
+    public EnergyPlanContractTimeOfUseRates timeOfUse(List<EnergyTimeOfUse> timeOfUse) {
         this.timeOfUse = timeOfUse;
         return this;
     }
 
-    public EnergyPlanContractTimeOfUseRates addTimeOfUseItem(EnergyPlanContractTimeOfUse timeOfUseItem) {
+    public EnergyPlanContractTimeOfUseRates addTimeOfUseItem(EnergyTimeOfUse timeOfUseItem) {
         this.timeOfUse.add(timeOfUseItem);
         return this;
     }
@@ -105,11 +103,11 @@ public class EnergyPlanContractTimeOfUseRates {
      *
      * @return timeOfUse
      */
-    public List<EnergyPlanContractTimeOfUse> getTimeOfUse() {
+    public List<EnergyTimeOfUse> getTimeOfUse() {
         return timeOfUse;
     }
 
-    public void setTimeOfUse(List<EnergyPlanContractTimeOfUse> timeOfUse) {
+    public void setTimeOfUse(List<EnergyTimeOfUse> timeOfUse) {
         this.timeOfUse = timeOfUse;
     }
 

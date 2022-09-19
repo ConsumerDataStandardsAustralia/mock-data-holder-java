@@ -1,5 +1,7 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,7 +34,21 @@ public class EnergyPlanContractDemandCharges {
 
     private String endTime;
 
-    private EnergyPlanContractDays days;
+    /**
+     * Gets or Sets days
+     */
+    public enum DaysEnum {
+        SUN,
+        MON,
+        TUE,
+        WED,
+        THU,
+        FRI,
+        SAT,
+        PUBLIC_HOLIDAYS
+    }
+
+    private List<DaysEnum> days = new ArrayList<>();
 
     private String minDemand;
 
@@ -138,7 +154,7 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Start of the period in HHMM format using 24 hour clock format
+     * Start of the period
      *
      * @return startTime
      */
@@ -156,7 +172,7 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * End of the period in HHMM format using 24 hour clock format
+     * End of the period
      *
      * @return endTime
      */
@@ -168,21 +184,21 @@ public class EnergyPlanContractDemandCharges {
         this.endTime = endTime;
     }
 
-    public EnergyPlanContractDemandCharges days(EnergyPlanContractDays days) {
+    public EnergyPlanContractDemandCharges days(List<DaysEnum> days) {
         this.days = days;
         return this;
     }
 
     /**
-     * Get days
+     * The days that the demand tariff applies to
      *
      * @return days
      */
-    public EnergyPlanContractDays getDays() {
+    public List<DaysEnum> getDays() {
         return days;
     }
 
-    public void setDays(EnergyPlanContractDays days) {
+    public void setDays(List<DaysEnum> days) {
         this.days = days;
     }
 

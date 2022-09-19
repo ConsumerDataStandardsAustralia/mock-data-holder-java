@@ -8,13 +8,13 @@ import java.util.Objects;
  * EnergyPaymentScheduleResponse
  */
 public class EnergyPaymentScheduleResponse {
-    private EnergyPaymentSchedule data;
+    private EnergyPaymentScheduleResponseData data;
 
     private Links links;
 
     private Object meta;
 
-    public EnergyPaymentScheduleResponse data(EnergyPaymentSchedule data) {
+    public EnergyPaymentScheduleResponse data(EnergyPaymentScheduleResponseData data) {
         this.data = data;
         return this;
     }
@@ -24,11 +24,11 @@ public class EnergyPaymentScheduleResponse {
      *
      * @return data
      */
-    public EnergyPaymentSchedule getData() {
+    public EnergyPaymentScheduleResponseData getData() {
         return data;
     }
 
-    public void setData(EnergyPaymentSchedule data) {
+    public void setData(EnergyPaymentScheduleResponseData data) {
         this.data = data;
     }
 

@@ -12,6 +12,8 @@ public class EnergyPlanGeography {
 
     private List<String> includedPostcodes;
 
+    private List<String> distributors;
+
     public EnergyPlanGeography excludedPostcodes(List<String> excludedPostcodes) {
         this.excludedPostcodes = excludedPostcodes;
         return this;
@@ -64,6 +66,18 @@ public class EnergyPlanGeography {
         this.includedPostcodes = includedPostcodes;
     }
 
+    /**
+     * Array of distributors for the plan. Must have at least one entry
+     *
+     * @return distributors
+     */
+    public List<String> getDistributors() {
+        return distributors;
+    }
+
+    public void setDistributors(List<String> distributors) {
+        this.distributors = distributors;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -75,12 +89,13 @@ public class EnergyPlanGeography {
         }
         EnergyPlanGeography energyPlanGeography = (EnergyPlanGeography) o;
         return Objects.equals(this.excludedPostcodes, energyPlanGeography.excludedPostcodes) &&
-                Objects.equals(this.includedPostcodes, energyPlanGeography.includedPostcodes);
+                Objects.equals(this.includedPostcodes, energyPlanGeography.includedPostcodes) &&
+                Objects.equals(this.distributors, energyPlanGeography.distributors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(excludedPostcodes, includedPostcodes);
+        return Objects.hash(excludedPostcodes, includedPostcodes, distributors);
     }
 
     @Override
@@ -89,6 +104,7 @@ public class EnergyPlanGeography {
         sb.append("class EnergyPlanGeography {\n");
         sb.append("    excludedPostcodes: ").append(toIndentedString(excludedPostcodes)).append("\n");
         sb.append("    includedPostcodes: ").append(toIndentedString(includedPostcodes)).append("\n");
+        sb.append("    distributors: ").append(toIndentedString(distributors)).append("\n");
         sb.append("}");
         return sb.toString();
     }

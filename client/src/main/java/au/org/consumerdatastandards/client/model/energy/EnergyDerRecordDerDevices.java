@@ -9,7 +9,7 @@ import java.util.Objects;
 public class EnergyDerRecordDerDevices {
     private BigDecimal deviceIdentifier;
 
-    private BigDecimal count;
+    private Integer count;
 
     private String manufacturer;
 
@@ -66,7 +66,7 @@ public class EnergyDerRecordDerDevices {
         this.deviceIdentifier = deviceIdentifier;
     }
 
-    public EnergyDerRecordDerDevices count(BigDecimal count) {
+    public EnergyDerRecordDerDevices count(Integer count) {
         this.count = count;
         return this;
     }
@@ -76,11 +76,11 @@ public class EnergyDerRecordDerDevices {
      *
      * @return count
      */
-    public BigDecimal getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(BigDecimal count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 

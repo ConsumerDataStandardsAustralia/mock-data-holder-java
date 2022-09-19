@@ -12,9 +12,37 @@ public class EnergyPaymentSchedule {
      * The type of object present in this response
      */
     public enum PaymentScheduleUTypeEnum {
-        CARDDEBIT,
-        DIRECTDEBIT,
-        MANUALPAYMENT
+        CARDDEBIT("cardDebit"),
+
+        DIRECTDEBIT("directDebit"),
+
+        MANUALPAYMENT("manualPayment"),
+
+        DIGITALWALLET("digitalWallet");
+
+        private final String value;
+
+        PaymentScheduleUTypeEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static PaymentScheduleUTypeEnum fromValue(String value) {
+            for (PaymentScheduleUTypeEnum b : PaymentScheduleUTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
     private PaymentScheduleUTypeEnum paymentScheduleUType;
@@ -22,6 +50,8 @@ public class EnergyPaymentSchedule {
     private EnergyPaymentScheduleCardDebit cardDebit;
 
     private EnergyPaymentScheduleDirectDebit directDebit;
+
+    private EnergyPaymentScheduleDigitalWallet digitalWallet;
 
     private EnergyPaymentScheduleManualPayment manualPayment;
 
@@ -97,6 +127,19 @@ public class EnergyPaymentSchedule {
         this.directDebit = directDebit;
     }
 
+    /**
+     * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
+     *
+     * @return digitalWallet
+     */
+    public EnergyPaymentScheduleDigitalWallet getDigitalWallet() {
+        return digitalWallet;
+    }
+
+    public void setDigitalWallet(EnergyPaymentScheduleDigitalWallet digitalWallet) {
+        this.digitalWallet = digitalWallet;
+    }
+
     public EnergyPaymentSchedule manualPayment(EnergyPaymentScheduleManualPayment manualPayment) {
         this.manualPayment = manualPayment;
         return this;
@@ -128,12 +171,13 @@ public class EnergyPaymentSchedule {
                 Objects.equals(this.paymentScheduleUType, energyPaymentSchedule.paymentScheduleUType) &&
                 Objects.equals(this.cardDebit, energyPaymentSchedule.cardDebit) &&
                 Objects.equals(this.directDebit, energyPaymentSchedule.directDebit) &&
+                Objects.equals(this.digitalWallet, energyPaymentSchedule.digitalWallet) &&
                 Objects.equals(this.manualPayment, energyPaymentSchedule.manualPayment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount, paymentScheduleUType, cardDebit, directDebit, manualPayment);
+        return Objects.hash(amount, paymentScheduleUType, cardDebit, directDebit, digitalWallet, manualPayment);
     }
 
     @Override
@@ -144,6 +188,7 @@ public class EnergyPaymentSchedule {
         sb.append("    paymentScheduleUType: ").append(toIndentedString(paymentScheduleUType)).append("\n");
         sb.append("    cardDebit: ").append(toIndentedString(cardDebit)).append("\n");
         sb.append("    directDebit: ").append(toIndentedString(directDebit)).append("\n");
+        sb.append("    digitalWallet: ").append(toIndentedString(digitalWallet)).append("\n");
         sb.append("    manualPayment: ").append(toIndentedString(manualPayment)).append("\n");
         sb.append("}");
         return sb.toString();
