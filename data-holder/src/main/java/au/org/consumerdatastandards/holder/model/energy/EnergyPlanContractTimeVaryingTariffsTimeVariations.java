@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,8 +24,20 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
     @JsonIgnore
     private String id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private EnergyPlanContractTimeVaryingTariffsDays days;
+    public enum DaysEnum {
+        SUN,
+        MON,
+        TUE,
+        WED,
+        THU,
+        FRI,
+        SAT,
+        PUBLIC_HOLIDAYS
+    }
+
+    @Valid
+    @ElementCollection
+    private List<DaysEnum> days;
 
     private String startTime;
 
@@ -39,24 +51,24 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
         this.id = id;
     }
 
-    public EnergyPlanContractTimeVaryingTariffsTimeVariations days(EnergyPlanContractTimeVaryingTariffsDays days) {
+    public EnergyPlanContractTimeVaryingTariffsTimeVariations days(List<DaysEnum> days) {
         this.days = days;
         return this;
     }
 
     /**
-     * Get days
+     * The days that the tariff applies to. At least one entry required
      *
      * @return days
      */
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true, value = "The days that the tariff applies to. At least one entry required")
     @Valid
     @NotNull
-    public EnergyPlanContractTimeVaryingTariffsDays getDays() {
+    public List<DaysEnum> getDays() {
         return days;
     }
 
-    public void setDays(EnergyPlanContractTimeVaryingTariffsDays days) {
+    public void setDays(List<DaysEnum> days) {
         this.days = days;
     }
 
@@ -71,8 +83,6 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
      * @return startTime
      */
     @ApiModelProperty(value = "The beginning of the time period per day for which the tariff applies.  If absent assumes start of day (ie. midnight)")
-
-
     public String getStartTime() {
         return startTime;
     }

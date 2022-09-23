@@ -12,6 +12,7 @@ import au.org.consumerdatastandards.client.model.energy.EnergyBillingListRespons
 import au.org.consumerdatastandards.client.model.energy.EnergyConcessionsResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyInvoiceListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyPaymentScheduleResponse;
+import au.org.consumerdatastandards.client.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.client.model.energy.RequestAccountIds;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.Call;
@@ -316,23 +317,26 @@ public class EnergyAccountsAPI extends ProtectedAPI {
     }
 
     public ApiResult<EnergyBillingListResponse> listBillingForAccounts(RequestAccountIds accountIds,
-            OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize) throws ApiException {
+            OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize,
+            ParamIntervalReadsEnum intervalReads) throws ApiException {
 
         String path = "/energy/accounts/billing";
 
-        logger.trace("Building Call for listBillingForAccounts with path: {}, accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
+        logger.trace("Building Call for listBillingForAccounts with path: {}, accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}",
                 path,
                 accountIds,
                 oldestTime,
                 newestTime,
                 page,
-                pageSize);
+                pageSize,
+                intervalReads);
 
         List<Pair> queryParams = new ArrayList<>();
         addQueryParam(queryParams, "oldest-time", oldestTime);
         addQueryParam(queryParams, "newest-date", newestTime);
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
+        addQueryParam(queryParams, "interval-reads", intervalReads);
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };

@@ -1,32 +1,44 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
  * EnergyPlanContractTimeVaryingTariffsTimeVariations
  */
 public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
-    private EnergyPlanContractTimeVaryingTariffsDays days;
+    public enum DaysEnum {
+        SUN,
+        MON,
+        TUE,
+        WED,
+        THU,
+        FRI,
+        SAT,
+        PUBLIC_HOLIDAYS
+    }
+
+    private List<DaysEnum> days;
 
     private String startTime;
 
     private String endTime;
 
-    public EnergyPlanContractTimeVaryingTariffsTimeVariations days(EnergyPlanContractTimeVaryingTariffsDays days) {
+    public EnergyPlanContractTimeVaryingTariffsTimeVariations days(List<DaysEnum> days) {
         this.days = days;
         return this;
     }
 
     /**
-     * Get days
+     * The days that the tariff applies to. At least one entry required
      *
      * @return days
      */
-    public EnergyPlanContractTimeVaryingTariffsDays getDays() {
+    public List<DaysEnum> getDays() {
         return days;
     }
 
-    public void setDays(EnergyPlanContractTimeVaryingTariffsDays days) {
+    public void setDays(List<DaysEnum> days) {
         this.days = days;
     }
 
@@ -40,8 +52,6 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
      *
      * @return startTime
      */
-
-
     public String getStartTime() {
         return startTime;
     }

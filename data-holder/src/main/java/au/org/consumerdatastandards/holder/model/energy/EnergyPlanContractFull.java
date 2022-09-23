@@ -81,8 +81,8 @@ public class EnergyPlanContractFull {
     @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private EnergyPlanControlledLoad controlledLoad;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<EnergyPlanControlledLoad> controlledLoad;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
@@ -261,11 +261,11 @@ public class EnergyPlanContractFull {
     }
 
     /**
-     * Free text description of price variation policy and conditions for the contract.  Mandatory if isFixed is true
+     * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
      *
      * @return variation
      */
-    @ApiModelProperty(value = "Free text description of price variation policy and conditions for the contract.  Mandatory if isFixed is true")
+    @ApiModelProperty(value = "Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false")
     public String getVariation() {
         return variation;
     }
@@ -339,7 +339,7 @@ public class EnergyPlanContractFull {
         this.intrinsicGreenPower = intrinsicGreenPower;
     }
 
-    public EnergyPlanContractFull controlledLoad(EnergyPlanControlledLoad controlledLoad) {
+    public EnergyPlanContractFull controlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -350,12 +350,11 @@ public class EnergyPlanContractFull {
      * @return controlledLoad
      */
     @ApiModelProperty(value = "")
-    @Valid
-    public EnergyPlanControlledLoad getControlledLoad() {
+    public List<EnergyPlanControlledLoad> getControlledLoad() {
         return controlledLoad;
     }
 
-    public void setControlledLoad(EnergyPlanControlledLoad controlledLoad) {
+    public void setControlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
         this.controlledLoad = controlledLoad;
     }
 

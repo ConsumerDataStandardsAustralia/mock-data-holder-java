@@ -1,8 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -13,56 +11,22 @@ import java.util.Objects;
 /**
  * EnergyDerRecordDerDevices
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyDerRecordDerDevices {
-    @JsonProperty("deviceIdentifier")
     private BigDecimal deviceIdentifier;
 
-    @JsonProperty("count")
-    private BigDecimal count;
+    private Integer count;
 
-    @JsonProperty("manufacturer")
     private String manufacturer;
 
-    @JsonProperty("modelNumber")
     private String modelNumber;
 
     /**
      * Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned
      */
     public enum StatusEnum {
-        ACTIVE("ACTIVE"),
-
-        INACTIVE("INACTIVE"),
-
-        DECOMMISSIONED("DECOMMISSIONED");
-
-        private String value;
-
-        StatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static StatusEnum fromValue(String value) {
-            for (StatusEnum b : StatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ACTIVE,
+        INACTIVE,
+        DECOMMISSIONED
     }
 
     @JsonProperty("status")
@@ -72,59 +36,22 @@ public class EnergyDerRecordDerDevices {
      * Used to indicate the primary technology used in the DER device
      */
     public enum TypeEnum {
-        FOSSIL("FOSSIL"),
-
-        HYDRO("HYDRO"),
-
-        WIND("WIND"),
-
-        SOLAR_PV("SOLAR_PV"),
-
-        RENEWABLE("RENEWABLE"),
-
-        GEOTHERMAL("GEOTHERMAL"),
-
-        STORAGE("STORAGE"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        FOSSIL,
+        HYDRO,
+        WIND,
+        SOLAR_PV,
+        RENEWABLE,
+        GEOTHERMAL,
+        STORAGE,
+        OTHER
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
-    @JsonProperty("subtype")
     private String subtype;
 
-    @JsonProperty("nominalRatedCapacity")
     private BigDecimal nominalRatedCapacity;
 
-    @JsonProperty("nominalStorageCapacity")
     private BigDecimal nominalStorageCapacity;
 
     public EnergyDerRecordDerDevices deviceIdentifier(BigDecimal deviceIdentifier) {
@@ -140,9 +67,7 @@ public class EnergyDerRecordDerDevices {
     @ApiModelProperty(required = true,
             value = "Unique identifier for a single DER device or a group of DER devices with the same attributes. Does not align with CDR ID permanence standards")
     @NotNull
-
     @Valid
-
     public BigDecimal getDeviceIdentifier() {
         return deviceIdentifier;
     }
@@ -151,7 +76,7 @@ public class EnergyDerRecordDerDevices {
         this.deviceIdentifier = deviceIdentifier;
     }
 
-    public EnergyDerRecordDerDevices count(BigDecimal count) {
+    public EnergyDerRecordDerDevices count(Integer count) {
         this.count = count;
         return this;
     }
@@ -161,17 +86,14 @@ public class EnergyDerRecordDerDevices {
      *
      * @return count
      */
-    @ApiModelProperty(required = true,
-            value = "Number of devices in the group of DER devices")
+    @ApiModelProperty(required = true, value = "Number of devices in the group of DER devices")
     @NotNull
-
     @Valid
-
-    public BigDecimal getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(BigDecimal count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
@@ -186,8 +108,6 @@ public class EnergyDerRecordDerDevices {
      * @return manufacturer
      */
     @ApiModelProperty(value = "The name of the device manufacturer. If absent then assumed to be “unknown”")
-
-
     public String getManufacturer() {
         return manufacturer;
     }
@@ -207,8 +127,6 @@ public class EnergyDerRecordDerDevices {
      * @return modelNumber
      */
     @ApiModelProperty(value = "The model number of the device. If absent then assumed to be “unknown”")
-
-
     public String getModelNumber() {
         return modelNumber;
     }
@@ -228,8 +146,6 @@ public class EnergyDerRecordDerDevices {
      * @return status
      */
     @ApiModelProperty(value = "Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned")
-
-
     public StatusEnum getStatus() {
         return status;
     }
@@ -251,8 +167,6 @@ public class EnergyDerRecordDerDevices {
     @ApiModelProperty(required = true,
             value = "Used to indicate the primary technology used in the DER device")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -272,8 +186,6 @@ public class EnergyDerRecordDerDevices {
      * @return subtype
      */
     @ApiModelProperty(value = "Used to indicate the primary technology used in the DER device. This field is also used to record for example the battery chemistry, or the type of PV panel. It is also used to record if a battery is contained in an electric vehicle connected in a vehicle-to-grid arrangement. If absent then assumed to be “other”")
-
-
     public String getSubtype() {
         return subtype;
     }
@@ -295,9 +207,7 @@ public class EnergyDerRecordDerDevices {
     @ApiModelProperty(required = true,
             value = "Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group")
     @NotNull
-
     @Valid
-
     public BigDecimal getNominalRatedCapacity() {
         return nominalRatedCapacity;
     }
@@ -317,9 +227,7 @@ public class EnergyDerRecordDerDevices {
      * @return nominalStorageCapacity
      */
     @ApiModelProperty(value = "Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to “STORAGE”")
-
     @Valid
-
     public BigDecimal getNominalStorageCapacity() {
         return nominalStorageCapacity;
     }
@@ -327,7 +235,6 @@ public class EnergyDerRecordDerDevices {
     public void setNominalStorageCapacity(BigDecimal nominalStorageCapacity) {
         this.nominalStorageCapacity = nominalStorageCapacity;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -358,7 +265,6 @@ public class EnergyDerRecordDerDevices {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyDerRecordDerDevices {\n");
-
         sb.append("    deviceIdentifier: ").append(toIndentedString(deviceIdentifier)).append("\n");
         sb.append("    count: ").append(toIndentedString(count)).append("\n");
         sb.append("    manufacturer: ").append(toIndentedString(manufacturer)).append("\n");
@@ -383,4 +289,3 @@ public class EnergyDerRecordDerDevices {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

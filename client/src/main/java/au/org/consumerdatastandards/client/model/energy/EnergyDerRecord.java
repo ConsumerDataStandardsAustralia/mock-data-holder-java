@@ -17,7 +17,7 @@ public class EnergyDerRecord {
 
     private int installedPhasesCount;
 
-    private String islandableInstallation;
+    private boolean islandableInstallation;
 
     private Boolean hasCentralProtectionControl = false;
 
@@ -97,7 +97,7 @@ public class EnergyDerRecord {
         this.installedPhasesCount = installedPhasesCount;
     }
 
-    public EnergyDerRecord islandableInstallation(String islandableInstallation) {
+    public EnergyDerRecord islandableInstallation(boolean islandableInstallation) {
         this.islandableInstallation = islandableInstallation;
         return this;
     }
@@ -107,11 +107,11 @@ public class EnergyDerRecord {
      *
      * @return islandableInstallation
      */
-    public String getIslandableInstallation() {
+    public boolean getIslandableInstallation() {
         return islandableInstallation;
     }
 
-    public void setIslandableInstallation(String islandableInstallation) {
+    public void setIslandableInstallation(boolean islandableInstallation) {
         this.islandableInstallation = islandableInstallation;
     }
 

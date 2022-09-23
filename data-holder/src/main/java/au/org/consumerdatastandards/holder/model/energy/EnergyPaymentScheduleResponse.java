@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import au.org.consumerdatastandards.holder.model.Links;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -11,19 +10,14 @@ import java.util.Objects;
 /**
  * EnergyPaymentScheduleResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyPaymentScheduleResponse {
-    @JsonProperty("data")
-    private EnergyPaymentSchedule data;
+    private EnergyPaymentScheduleResponseData data;
 
-    @JsonProperty("links")
     private Links links;
 
-    @JsonProperty("meta")
     private Object meta;
 
-    public EnergyPaymentScheduleResponse data(EnergyPaymentSchedule data) {
+    public EnergyPaymentScheduleResponse data(EnergyPaymentScheduleResponseData data) {
         this.data = data;
         return this;
     }
@@ -33,17 +27,14 @@ public class EnergyPaymentScheduleResponse {
      *
      * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public EnergyPaymentSchedule getData() {
+    public EnergyPaymentScheduleResponseData getData() {
         return data;
     }
 
-    public void setData(EnergyPaymentSchedule data) {
+    public void setData(EnergyPaymentScheduleResponseData data) {
         this.data = data;
     }
 
@@ -57,12 +48,9 @@ public class EnergyPaymentScheduleResponse {
      *
      * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public Links getLinks() {
         return links;
     }
@@ -81,11 +69,8 @@ public class EnergyPaymentScheduleResponse {
      *
      * @return meta
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
-
     public Object getMeta() {
         return meta;
     }
@@ -93,7 +78,6 @@ public class EnergyPaymentScheduleResponse {
     public void setMeta(Object meta) {
         this.meta = meta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -118,7 +102,6 @@ public class EnergyPaymentScheduleResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPaymentScheduleResponse {\n");
-
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
@@ -137,4 +120,3 @@ public class EnergyPaymentScheduleResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

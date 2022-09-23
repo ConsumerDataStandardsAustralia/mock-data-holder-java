@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -50,8 +50,22 @@ public class EnergyPlanContractDemandCharges {
 
     private String endTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private EnergyPlanContractDays days;
+    /**
+     * Gets or Sets days
+     */
+    public enum DaysEnum {
+        SUN,
+        MON,
+        TUE,
+        WED,
+        THU,
+        FRI,
+        SAT,
+        PUBLIC_HOLIDAYS
+    }
+
+    @ElementCollection
+    private List<DaysEnum> days = new ArrayList<>();
 
     private String minDemand;
 
@@ -172,12 +186,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Start of the period in HHMM format using 24 hour clock format
+     * Start of the period
      *
      * @return startTime
      */
-    @ApiModelProperty(required = true,
-            value = "Start of the period in HHMM format using 24 hour clock format")
+    @ApiModelProperty(required = true, value = "Start of the period")
     @NotNull
     public String getStartTime() {
         return startTime;
@@ -193,12 +206,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * End of the period in HHMM format using 24 hour clock format
+     * End of the period
      *
      * @return endTime
      */
-    @ApiModelProperty(required = true,
-            value = "End of the period in HHMM format using 24 hour clock format")
+    @ApiModelProperty(required = true, value = "End of the period")
     @NotNull
     public String getEndTime() {
         return endTime;
@@ -208,23 +220,22 @@ public class EnergyPlanContractDemandCharges {
         this.endTime = endTime;
     }
 
-    public EnergyPlanContractDemandCharges days(EnergyPlanContractDays days) {
+    public EnergyPlanContractDemandCharges days(List<DaysEnum> days) {
         this.days = days;
         return this;
     }
 
     /**
-     * Get days
+     * The days that the demand tariff applies to
      *
      * @return days
      */
-    @ApiModelProperty(value = "")
-    @Valid
-    public EnergyPlanContractDays getDays() {
+    @ApiModelProperty(value = "The days that the demand tariff applies to")
+    public List<DaysEnum> getDays() {
         return days;
     }
 
-    public void setDays(EnergyPlanContractDays days) {
+    public void setDays(List<DaysEnum> days) {
         this.days = days;
     }
 

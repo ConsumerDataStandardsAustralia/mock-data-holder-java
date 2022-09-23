@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,10 +11,7 @@ import java.util.Objects;
 /**
  * EnergyUsageListResponseData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyUsageListResponseData {
-    @JsonProperty("reads")
     @Valid
     private List<EnergyUsageRead> reads = new ArrayList<>();
 
@@ -30,16 +26,14 @@ public class EnergyUsageListResponseData {
     }
 
     /**
-     * Array of meter reads
+     * Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order
      *
      * @return reads
      */
     @ApiModelProperty(required = true,
-            value = "Array of meter reads")
+            value = "Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order")
     @NotNull
-
     @Valid
-
     public List<EnergyUsageRead> getReads() {
         return reads;
     }
@@ -47,7 +41,6 @@ public class EnergyUsageListResponseData {
     public void setReads(List<EnergyUsageRead> reads) {
         this.reads = reads;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -70,7 +63,6 @@ public class EnergyUsageListResponseData {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyUsageListResponseData {\n");
-
         sb.append("    reads: ").append(toIndentedString(reads)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -87,4 +79,3 @@ public class EnergyUsageListResponseData {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

@@ -21,7 +21,7 @@ public class EnergyInvoiceListResponseData {
     }
 
     /**
-     * Array of invoices sorted by date in descending order
+     * Array of invoices sorted by issue date in descending order
      *
      * @return invoices
      */
@@ -32,7 +32,6 @@ public class EnergyInvoiceListResponseData {
     public void setInvoices(List<EnergyInvoice> invoices) {
         this.invoices = invoices;
     }
-
 
     @Override
     public boolean equals(Object o) {

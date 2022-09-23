@@ -31,7 +31,7 @@ public class EnergyPaymentScheduleDirectDebit {
     }
 
     /**
-     * Flag indicating that the account details are tokenised and cannot be shared.  False if absent.  If false then bsb and accountNumber should not be expected to be included
+     * Flag indicating that the account details are tokenised and cannot be shared.  False if absent
      *
      * @return isTokenised
      */
@@ -114,7 +114,6 @@ public class EnergyPaymentScheduleDirectDebit {
     public void setCalculationType(CalculationTypeEnum calculationType) {
         this.calculationType = calculationType;
     }
-
 
     @Override
     public boolean equals(Object o) {

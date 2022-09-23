@@ -56,7 +56,7 @@ public class EnergyPlanContractFull {
 
     private EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower;
 
-    private EnergyPlanControlledLoad controlledLoad;
+    private List<EnergyPlanControlledLoad> controlledLoad;
 
     private List<EnergyPlanContractIncentives> incentives = null;
 
@@ -90,7 +90,6 @@ public class EnergyPlanContractFull {
             this.value = value;
         }
 
-//        @JsonValue
         public String getValue() {
             return value;
         }
@@ -100,7 +99,6 @@ public class EnergyPlanContractFull {
             return String.valueOf(value);
         }
 
-//        @JsonCreator
         public static TermTypeEnum fromValue(String value) {
             for (TermTypeEnum b : TermTypeEnum.values()) {
                 if (b.value.equals(value)) {
@@ -201,7 +199,7 @@ public class EnergyPlanContractFull {
     }
 
     /**
-     * Free text description of price variation policy and conditions for the contract.  Mandatory if isFixed is true
+     * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
      *
      * @return variation
      */
@@ -272,7 +270,7 @@ public class EnergyPlanContractFull {
         this.intrinsicGreenPower = intrinsicGreenPower;
     }
 
-    public EnergyPlanContractFull controlledLoad(EnergyPlanControlledLoad controlledLoad) {
+    public EnergyPlanContractFull controlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -282,11 +280,11 @@ public class EnergyPlanContractFull {
      *
      * @return controlledLoad
      */
-    public EnergyPlanControlledLoad getControlledLoad() {
+    public List<EnergyPlanControlledLoad> getControlledLoad() {
         return controlledLoad;
     }
 
-    public void setControlledLoad(EnergyPlanControlledLoad controlledLoad) {
+    public void setControlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
         this.controlledLoad = controlledLoad;
     }
 

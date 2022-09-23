@@ -4,20 +4,36 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * EnergyPlanControlledLoadRates
+ * EnergyRates
  */
-public class EnergyPlanControlledLoadRates {
+public class EnergyRates {
     private String unitPrice;
+
+    /**
+     * The measurement unit of rate. Assumed to be KWH if absent
+     */
+    public enum MeasureUnitEnum {
+        KWH,
+        KVA,
+        KVAR,
+        KVARH,
+        KW,
+        DAYS,
+        METER,
+        MONTH
+    }
+
+    private MeasureUnitEnum measureUnit;
 
     private BigDecimal volume;
 
-    public EnergyPlanControlledLoadRates unitPrice(String unitPrice) {
+    public EnergyRates unitPrice(String unitPrice) {
         this.unitPrice = unitPrice;
         return this;
     }
 
     /**
-     * Unit price of usage per kWh (exclusive of GST)
+     * Unit price of usage per  measure unit (exclusive of GST)
      *
      * @return unitPrice
      */
@@ -29,7 +45,25 @@ public class EnergyPlanControlledLoadRates {
         this.unitPrice = unitPrice;
     }
 
-    public EnergyPlanControlledLoadRates volume(BigDecimal volume) {
+    public EnergyRates measureUnit(MeasureUnitEnum measureUnit) {
+        this.measureUnit = measureUnit;
+        return this;
+    }
+
+    /**
+     * The measurement unit of rate. Assumed to be KWH if absent
+     *
+     * @return measureUnit
+     */
+    public MeasureUnitEnum getMeasureUnit() {
+        return measureUnit;
+    }
+
+    public void setMeasureUnit(MeasureUnitEnum measureUnit) {
+        this.measureUnit = measureUnit;
+    }
+
+    public EnergyRates volume(BigDecimal volume) {
         this.volume = volume;
         return this;
     }
@@ -55,21 +89,23 @@ public class EnergyPlanControlledLoadRates {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanControlledLoadRates energyPlanControlledLoadRates = (EnergyPlanControlledLoadRates) o;
-        return Objects.equals(this.unitPrice, energyPlanControlledLoadRates.unitPrice) &&
-                Objects.equals(this.volume, energyPlanControlledLoadRates.volume);
+        EnergyRates energyRates = (EnergyRates) o;
+        return Objects.equals(this.unitPrice, energyRates.unitPrice) &&
+                Objects.equals(this.measureUnit, energyRates.measureUnit) &&
+                Objects.equals(this.volume, energyRates.volume);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(unitPrice, volume);
+        return Objects.hash(unitPrice, measureUnit, volume);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanControlledLoadRates {\n");
+        sb.append("class EnergyRates {\n");
         sb.append("    unitPrice: ").append(toIndentedString(unitPrice)).append("\n");
+        sb.append("    measureUnit: ").append(toIndentedString(measureUnit)).append("\n");
         sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
         sb.append("}");
         return sb.toString();

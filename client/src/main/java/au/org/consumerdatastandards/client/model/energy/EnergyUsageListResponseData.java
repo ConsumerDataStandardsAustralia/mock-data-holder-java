@@ -21,7 +21,7 @@ public class EnergyUsageListResponseData {
     }
 
     /**
-     * Array of meter reads
+     * Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order
      *
      * @return reads
      */
@@ -32,7 +32,6 @@ public class EnergyUsageListResponseData {
     public void setReads(List<EnergyUsageRead> reads) {
         this.reads = reads;
     }
-
 
     @Override
     public boolean equals(Object o) {

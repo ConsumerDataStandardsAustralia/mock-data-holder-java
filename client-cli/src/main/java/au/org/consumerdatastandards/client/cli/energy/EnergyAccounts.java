@@ -14,6 +14,7 @@ import au.org.consumerdatastandards.client.model.energy.EnergyBillingListRespons
 import au.org.consumerdatastandards.client.model.energy.EnergyConcessionsResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyInvoiceListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyPaymentScheduleResponse;
+import au.org.consumerdatastandards.client.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.client.model.energy.RequestAccountIds;
 import au.org.consumerdatastandards.client.model.energy.RequestAccountIdsData;
 import org.slf4j.Logger;
@@ -327,17 +328,18 @@ public class EnergyAccounts extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestTime,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestTime,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
-            @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
+            @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get billing for specific accounts CLI initiated with accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
-                accountIds, oldestTime, newestTime, page, pageSize);
+        LOGGER.info("Get billing for specific accounts CLI initiated with accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}",
+                accountIds, oldestTime, newestTime, page, pageSize, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
         RequestAccountIds requestAccountIds = new RequestAccountIds();
         RequestAccountIdsData data = new RequestAccountIdsData();
         data.setAccountIds(accountIds);
         requestAccountIds.setData(data);
-        ApiResult<EnergyBillingListResponse> result = api.listBillingForAccounts(requestAccountIds, oldestTime, newestTime, page, pageSize);
+        ApiResult<EnergyBillingListResponse> result = api.listBillingForAccounts(requestAccountIds, oldestTime, newestTime, page, pageSize, intervalReads);
         ApiResponse<EnergyBillingListResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
