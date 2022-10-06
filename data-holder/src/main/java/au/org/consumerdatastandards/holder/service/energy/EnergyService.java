@@ -1,13 +1,8 @@
 package au.org.consumerdatastandards.holder.service.energy;
 
-import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
-import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
-import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailEntity;
-import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
-import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
-import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailRepository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanRepository;
+import au.org.consumerdatastandards.holder.model.energy.*;
+import au.org.consumerdatastandards.holder.repository.energy.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +21,20 @@ import java.util.List;
 public class EnergyService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EnergyService.class);
 
+    private final EnergyAccountV1Repository energyAccountV1Repository;
+    private final EnergyAccountV2Repository energyAccountV2Repository;
+    private final EnergyAccountDetailV1Repository energyAccountDetailV1Repository;
+    private final EnergyAccountDetailV2Repository energyAccountDetailV2Repository;
     private final EnergyPlanRepository energyPlanRepository;
     private final EnergyPlanDetailRepository energyPlanDetailRepository;
 
     @Autowired
-    public EnergyService(EnergyPlanRepository energyPlanRepository, EnergyPlanDetailRepository energyPlanDetailRepository) {
+    public EnergyService(EnergyAccountV1Repository energyAccountV1Repository, EnergyAccountV2Repository energyAccountV2Repository, EnergyAccountDetailV1Repository energyAccountDetailV1Repository, EnergyAccountDetailV2Repository energyAccountDetailV2Repository, EnergyPlanRepository energyPlanRepository, EnergyPlanDetailRepository energyPlanDetailRepository) {
+
+        this.energyAccountV1Repository = energyAccountV1Repository;
+        this.energyAccountV2Repository = energyAccountV2Repository;
+        this.energyAccountDetailV1Repository =energyAccountDetailV1Repository;
+        this.energyAccountDetailV2Repository =energyAccountDetailV2Repository;
         this.energyPlanRepository = energyPlanRepository;
         this.energyPlanDetailRepository = energyPlanDetailRepository;
     }
@@ -69,5 +73,38 @@ public class EnergyService {
     public EnergyPlanDetailEntity getPlanDetail(String planId) {
         LOGGER.debug("Retrieving plan detail by id {}",  planId);
         return energyPlanDetailRepository.findById(planId).orElse(null);
+    }
+
+    public Page<EnergyAccountBase> findAccounts(ParamAccountOpenStatus openStatus, PageRequest pageable, Integer version) {
+
+        LOGGER.debug("Retrieving energy accounts using filters of openStatus {} with Paging content specified as {}",
+                openStatus, pageable);
+
+        switch (version) {
+            case 1:
+                return energyAccountV1Repository.findAll(pageable).map(account -> account);
+            case 2:
+            default:
+                return energyAccountV2Repository.findAll((Specification<EnergyAccountV2>) (root, criteriaQuery, criteriaBuilder) -> {
+                    List<Predicate> predicates = new ArrayList<>();
+                    if (openStatus != null && openStatus != ParamAccountOpenStatus.ALL) {
+                        predicates.add(criteriaBuilder.equal(root.get("openStatus"), EnergyAccountBaseV2.OpenStatus.valueOf(openStatus.name())));
+                    }
+                    return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+                }, pageable).map(account -> account);
+        }
+    }
+
+    public EnergyAccountDetailBase getAccountDetail(String accountId, int version) {
+
+        LOGGER.debug("Retrieving energy account detail by id {}",  accountId);
+
+        switch (version) {
+            case 1:
+                return energyAccountDetailV1Repository.findById(accountId).orElse(null);
+            case 2:
+            default:
+                return energyAccountDetailV2Repository.findById(accountId).orElse(null);
+        }
     }
 }

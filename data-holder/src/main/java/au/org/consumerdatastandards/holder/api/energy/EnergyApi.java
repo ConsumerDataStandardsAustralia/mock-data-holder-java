@@ -2,6 +2,7 @@ package au.org.consumerdatastandards.holder.api.energy;
 
 import au.org.consumerdatastandards.holder.api.DateFormat;
 import au.org.consumerdatastandards.holder.model.ErrorListResponse;
+import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponse;
@@ -54,7 +55,6 @@ public interface EnergyApi {
      * @param accountId              ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point. (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
-     * @param openStatus             Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
@@ -103,12 +103,6 @@ public interface EnergyApi {
             @RequestHeader(value = "x-min-v",
                     required = false)
                     Integer xMinV,
-            @ApiParam(
-                    value="Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed")
-            @Valid
-            @RequestParam(value = "open-status",
-                    required = false)
-                    String openStatus,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
@@ -900,16 +894,15 @@ public interface EnergyApi {
                     required = false)
                     String xCdsClientHeaders);
 
-
     /**
      * GET /energy/accounts : Get Energy Accounts
      * Obtain the list of energy accounts available under the authorised consent
      *
+     * @param openStatus             Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
-     * @param openStatus             Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
@@ -944,6 +937,12 @@ public interface EnergyApi {
     @PreAuthorize("hasAuthority('SCOPE_energy:accounts.basic:read')")
     ResponseEntity<EnergyAccountListResponse> listAccounts(
             @ApiParam(
+                    value="Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed")
+            @RequestParam(value = "open-status",
+                    required = false,
+                    defaultValue = "ALL")
+            ParamAccountOpenStatus openStatus,
+            @ApiParam(
                     value = "Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers)",
                     required = true)
             @RequestHeader(value = "x-v", required = false)
@@ -965,12 +964,6 @@ public interface EnergyApi {
             @RequestHeader(value = "x-min-v",
                     required = false)
                     Integer xMinV,
-            @ApiParam(
-                    value="Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed")
-            @Valid
-            @RequestParam(value = "open-status",
-                    required = false)
-                    String openStatus,
             @ApiParam(
                     value = "An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",

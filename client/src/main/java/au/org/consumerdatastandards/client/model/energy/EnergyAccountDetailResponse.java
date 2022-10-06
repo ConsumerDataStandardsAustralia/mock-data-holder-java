@@ -1,20 +1,19 @@
 package au.org.consumerdatastandards.client.model.energy;
 
 import au.org.consumerdatastandards.client.model.Links;
-
 import java.util.Objects;
 
 /**
  * EnergyAccountDetailResponse
  */
-public class EnergyAccountDetailResponse {
-    private EnergyAccountDetail data;
+public class EnergyAccountDetailResponse<T extends EnergyAccountBase>  {
+    private T data;
 
     private Links links;
 
     private Object meta;
 
-    public EnergyAccountDetailResponse data(EnergyAccountDetail data) {
+    public EnergyAccountDetailResponse data(T data) {
         this.data = data;
         return this;
     }
@@ -24,11 +23,11 @@ public class EnergyAccountDetailResponse {
      *
      * @return data
      */
-    public EnergyAccountDetail getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(EnergyAccountDetail data) {
+    public void setData(T data) {
         this.data = data;
     }
 

@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyAccount
+ * EnergyAccountDetail
  */
-public class EnergyAccount implements EnergyAccountBase {
+public class EnergyAccountDetailV1 implements EnergyAccountBase {
     private String accountId;
     private String accountNumber;
     private String displayName;
 
     private LocalDate creationDate;
 
-    private List<EnergyAccountPlans> plans = new ArrayList<>();
+    private List<EnergyAccountDetailPlans> plans = new ArrayList<>();
 
-    public EnergyAccount accountId(String accountId) {
+    public EnergyAccountDetailV1 accountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -37,7 +37,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.accountId = accountId;
     }
 
-    public EnergyAccount accountNumber(String accountNumber) {
+    public EnergyAccountDetailV1 accountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }
@@ -57,7 +57,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.accountNumber = accountNumber;
     }
 
-    public EnergyAccount displayName(String displayName) {
+    public EnergyAccountDetailV1 displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -77,7 +77,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.displayName = displayName;
     }
 
-    public EnergyAccount creationDate(LocalDate creationDate) {
+    public EnergyAccountDetailV1 creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -97,12 +97,12 @@ public class EnergyAccount implements EnergyAccountBase {
         this.creationDate = creationDate;
     }
 
-    public EnergyAccount plans(List<EnergyAccountPlans> plans) {
+    public EnergyAccountDetailV1 plans(List<EnergyAccountDetailPlans> plans) {
         this.plans = plans;
         return this;
     }
 
-    public EnergyAccount addPlansItem(EnergyAccountPlans plansItem) {
+    public EnergyAccountDetailV1 addPlansItem(EnergyAccountDetailPlans plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -112,11 +112,11 @@ public class EnergyAccount implements EnergyAccountBase {
      *
      * @return plans
      */
-    public List<EnergyAccountPlans> getPlans() {
+    public List<EnergyAccountDetailPlans> getPlans() {
         return plans;
     }
 
-    public void setPlans(List<EnergyAccountPlans> plans) {
+    public void setPlans(List<EnergyAccountDetailPlans> plans) {
         this.plans = plans;
     }
 
@@ -128,12 +128,12 @@ public class EnergyAccount implements EnergyAccountBase {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccount energyAccount = (EnergyAccount) o;
-        return Objects.equals(this.accountId, energyAccount.accountId) &&
-                Objects.equals(this.accountNumber, energyAccount.accountNumber) &&
-                Objects.equals(this.displayName, energyAccount.displayName) &&
-                Objects.equals(this.creationDate, energyAccount.creationDate) &&
-                Objects.equals(this.plans, energyAccount.plans);
+        EnergyAccountDetailV1 energyAccountDetail = (EnergyAccountDetailV1) o;
+        return Objects.equals(this.accountId, energyAccountDetail.accountId) &&
+                Objects.equals(this.accountNumber, energyAccountDetail.accountNumber) &&
+                Objects.equals(this.displayName, energyAccountDetail.displayName) &&
+                Objects.equals(this.creationDate, energyAccountDetail.creationDate) &&
+                Objects.equals(this.plans, energyAccountDetail.plans);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class EnergyAccount implements EnergyAccountBase {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccount {\n");
+        sb.append("class EnergyAccountDetailV1 {\n");
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");

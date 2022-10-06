@@ -8,14 +8,14 @@ import java.util.Objects;
 /**
  * EnergyAccountListResponse
  */
-public class EnergyAccountListResponse {
-    private EnergyAccountListResponseData data;
+public class EnergyAccountListResponse<T extends EnergyAccountBase>  {
+    private EnergyAccountListResponseData<T> data;
 
     private LinksPaginated links;
 
     private MetaPaginated meta;
 
-    public EnergyAccountListResponse data(EnergyAccountListResponseData data) {
+    public EnergyAccountListResponse data(EnergyAccountListResponseData<T> data) {
         this.data = data;
         return this;
     }
@@ -25,11 +25,11 @@ public class EnergyAccountListResponse {
      *
      * @return data
      */
-    public EnergyAccountListResponseData getData() {
+    public EnergyAccountListResponseData<T> getData() {
         return data;
     }
 
-    public void setData(EnergyAccountListResponseData data) {
+    public void setData(EnergyAccountListResponseData<T> data) {
         this.data = data;
     }
 

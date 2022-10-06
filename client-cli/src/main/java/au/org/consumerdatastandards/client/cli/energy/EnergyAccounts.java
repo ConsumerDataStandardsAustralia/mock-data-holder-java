@@ -6,17 +6,7 @@ import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.energy.EnergyAccountsAPI;
 import au.org.consumerdatastandards.client.cli.ApiCliBase;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
-import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyAccountListResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyBalanceListResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyBalanceResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyBillingListResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyConcessionsResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyInvoiceListResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyPaymentScheduleResponse;
-import au.org.consumerdatastandards.client.model.energy.ParamIntervalReadsEnum;
-import au.org.consumerdatastandards.client.model.energy.RequestAccountIds;
-import au.org.consumerdatastandards.client.model.energy.RequestAccountIdsData;
+import au.org.consumerdatastandards.client.model.energy.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellCommandGroup;
@@ -36,14 +26,16 @@ public class EnergyAccounts extends ApiCliBase {
 
     @ShellMethod("List Energy accounts")
     public String listEnergyAccounts(@ShellOption(defaultValue = "false") boolean check,
+            @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
+            @ShellOption(defaultValue = "1") Integer version,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
         LOGGER.info("List Energy accounts CLI initiated with page: {}, page-size: {}", page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<EnergyAccountListResponse> result = api.listEnergyAccounts(page, pageSize);
-        ApiResponse<EnergyAccountListResponse> response = result.getResponse();
+        ApiResult<EnergyAccountListResponse<EnergyAccountV1>> result = api.listEnergyAccounts(openStatus, version, page, pageSize);
+        ApiResponse<EnergyAccountListResponse<EnergyAccountV1>> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
@@ -58,13 +50,14 @@ public class EnergyAccounts extends ApiCliBase {
 
     @ShellMethod("Get Energy account detail")
     public String getEnergyAccountDetail(@ShellOption(defaultValue = "false") boolean check,
-            @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) String accountId,
+            @ShellOption(defaultValue = "1") Integer version) throws Exception {
 
         LOGGER.info("Get Energy account detail CLI initiated with accountId: {}", accountId);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<EnergyAccountDetailResponse> result = api.getEnergyAccountDetail(accountId);
-        ApiResponse<EnergyAccountDetailResponse> response = result.getResponse();
+        ApiResult<EnergyAccountDetailResponse<EnergyAccountBase>> result = api.getEnergyAccountDetail(accountId, version);
+        ApiResponse<EnergyAccountDetailResponse<EnergyAccountBase>> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");

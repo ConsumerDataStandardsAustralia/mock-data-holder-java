@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -14,7 +15,11 @@ import java.util.Objects;
 /**
  * EnergyAccount
  */
-public class EnergyAccount implements EnergyAccountBase {
+@Entity
+@Table(name = "EnergyAccount")
+public class EnergyAccountV1 implements EnergyAccountBase {
+
+    @Id
     private String accountId;
     private String accountNumber;
     private String displayName;
@@ -24,9 +29,11 @@ public class EnergyAccount implements EnergyAccountBase {
     private LocalDate creationDate;
 
     @Valid
+    @Transient
     private List<EnergyAccountPlans> plans = new ArrayList<>();
 
-    public EnergyAccount accountId(String accountId) {
+
+    public EnergyAccountV1 accountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -49,7 +56,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.accountId = accountId;
     }
 
-    public EnergyAccount accountNumber(String accountNumber) {
+    public EnergyAccountV1 accountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }
@@ -70,7 +77,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.accountNumber = accountNumber;
     }
 
-    public EnergyAccount displayName(String displayName) {
+    public EnergyAccountV1 displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -91,7 +98,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.displayName = displayName;
     }
 
-    public EnergyAccount creationDate(LocalDate creationDate) {
+    public EnergyAccountV1 creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -113,12 +120,12 @@ public class EnergyAccount implements EnergyAccountBase {
         this.creationDate = creationDate;
     }
 
-    public EnergyAccount plans(List<EnergyAccountPlans> plans) {
+    public EnergyAccountV1 plans(List<EnergyAccountPlans> plans) {
         this.plans = plans;
         return this;
     }
 
-    public EnergyAccount addPlansItem(EnergyAccountPlans plansItem) {
+    public EnergyAccountV1 addPlansItem(EnergyAccountPlans plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -148,7 +155,7 @@ public class EnergyAccount implements EnergyAccountBase {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccount energyAccount = (EnergyAccount) o;
+        EnergyAccountV1 energyAccount = (EnergyAccountV1) o;
         return Objects.equals(this.accountId, energyAccount.accountId) &&
                 Objects.equals(this.accountNumber, energyAccount.accountNumber) &&
                 Objects.equals(this.displayName, energyAccount.displayName) &&
@@ -164,7 +171,7 @@ public class EnergyAccount implements EnergyAccountBase {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccount {\n");
+        sb.append("class EnergyAccountV1 {\n");
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
