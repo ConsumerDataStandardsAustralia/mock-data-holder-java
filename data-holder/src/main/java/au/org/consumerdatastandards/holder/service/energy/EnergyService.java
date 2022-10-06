@@ -47,7 +47,7 @@ public class EnergyService {
         return energyPlanRepository.findAll((Specification<EnergyPlanEntity>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (type != null && type != ParamTypeEnum.ALL) {
-                predicates.add(criteriaBuilder.equal(root.get("type"), EnergyPlan.FuelTypeEnum.valueOf(type.name())));
+                predicates.add(criteriaBuilder.equal(root.get("type"), EnergyPlan.TypeEnum.valueOf(type.name())));
             }
             if (fuelType != null && fuelType != ParamFuelTypeEnum.ALL) {
                 predicates.add(criteriaBuilder.equal(root.get("fuelType"), EnergyPlan.FuelTypeEnum.valueOf(fuelType.name())));
