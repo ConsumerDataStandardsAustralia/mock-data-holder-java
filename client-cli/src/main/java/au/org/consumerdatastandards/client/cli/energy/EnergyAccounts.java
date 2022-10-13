@@ -9,7 +9,6 @@ import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountBase;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountListResponse;
-import au.org.consumerdatastandards.client.model.energy.EnergyAccountV1;
 import au.org.consumerdatastandards.client.model.energy.EnergyBalanceListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyBalanceResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyBillingListResponse;
@@ -47,8 +46,8 @@ public class EnergyAccounts extends ApiCliBase {
         LOGGER.info("List Energy accounts CLI initiated with page: {}, page-size: {}", page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<EnergyAccountListResponse<EnergyAccountV1>> result = api.listEnergyAccounts(openStatus, version, page, pageSize);
-        ApiResponse<EnergyAccountListResponse<EnergyAccountV1>> response = result.getResponse();
+        ApiResult<EnergyAccountListResponse<EnergyAccountBase>> result = api.listEnergyAccounts(openStatus, version, page, pageSize);
+        ApiResponse<EnergyAccountListResponse<EnergyAccountBase>> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
