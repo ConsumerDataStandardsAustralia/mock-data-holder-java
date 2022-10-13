@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,14 +37,14 @@ public class EnergyAccountDetailPlans {
     @ElementCollection
     private List<String> servicePointIds = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyAccountPlanOverview planOverview;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyAccountDetailPlanDetail planDetail;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyAccountDetailAuthorisedContacts> authorisedContacts = null;
 
     public EnergyAccountDetailPlans nickname(String nickname) {

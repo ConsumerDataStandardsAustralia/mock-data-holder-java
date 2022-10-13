@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -78,38 +79,38 @@ public class EnergyPlanContract {
     @ElementCollection
     private List<PaymentOptionEnum> paymentOption = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanControlledLoad> controlledLoad;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractIncentives> incentives = null;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractDiscounts> discounts = null;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractGreenPowerCharges> greenPowerCharges = null;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractEligibility> eligibility = null;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractFees> fees = null;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractSolarFeedInTariff> solarFeedInTariff = null;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyPlanContractTariffPeriod> tariffPeriod = new ArrayList<>();
 
     public EnergyPlanContract additionalFeeInformation(String additionalFeeInformation) {

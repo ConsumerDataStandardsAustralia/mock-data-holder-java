@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -44,13 +45,13 @@ public class EnergyAccountDetailPlanDetail {
     private Boolean isContingentPlan = false;
 
     @Valid
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<MeteringCharges> meteringCharges = null;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContract gasContract;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanContract electricityContract;
 
     public EnergyAccountDetailPlanDetail fuelType(FuelTypeEnum fuelType) {
