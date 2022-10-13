@@ -174,24 +174,28 @@ public class EnergyAccountV2 implements EnergyAccountBaseV2 {
 
         EnergyAccountV2 energyAccount = (EnergyAccountV2) o;
 
-        return super.equals(o) &&
+        return Objects.equals(this.accountId, energyAccount.accountId) &&
+                Objects.equals(this.accountNumber, energyAccount.accountNumber) &&
+                Objects.equals(this.displayName, energyAccount.displayName) &&
+                Objects.equals(this.creationDate, energyAccount.creationDate) &&
+                Objects.equals(this.plans, energyAccount.plans) &&
                 Objects.equals(this.openStatus, energyAccount.openStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAccountId(), getAccountNumber(), getDisplayName(), getCreationDate(), getPlans(), openStatus);
+        return Objects.hash(accountId, accountNumber, displayName, creationDate, plans, openStatus);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyAccountV2 {\n");
-        sb.append("    accountId: ").append(toIndentedString(getAccountId())).append("\n");
-        sb.append("    accountNumber: ").append(toIndentedString(getAccountNumber())).append("\n");
-        sb.append("    displayName: ").append(toIndentedString(getDisplayName())).append("\n");
-        sb.append("    creationDate: ").append(toIndentedString(getCreationDate())).append("\n");
-        sb.append("    plans: ").append(toIndentedString(getPlans())).append("\n");
+        sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+        sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
+        sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+        sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+        sb.append("    plans: ").append(toIndentedString(plans)).append("\n");
         sb.append("    openStatus: ").append(toIndentedString(openStatus)).append("\n");
         sb.append("}");
         return sb.toString();
