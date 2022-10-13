@@ -33,8 +33,8 @@ public class EnergyService {
 
         this.energyAccountV1Repository = energyAccountV1Repository;
         this.energyAccountV2Repository = energyAccountV2Repository;
-        this.energyAccountDetailV1Repository =energyAccountDetailV1Repository;
-        this.energyAccountDetailV2Repository =energyAccountDetailV2Repository;
+        this.energyAccountDetailV1Repository = energyAccountDetailV1Repository;
+        this.energyAccountDetailV2Repository = energyAccountDetailV2Repository;
         this.energyPlanRepository = energyPlanRepository;
         this.energyPlanDetailRepository = energyPlanDetailRepository;
     }
