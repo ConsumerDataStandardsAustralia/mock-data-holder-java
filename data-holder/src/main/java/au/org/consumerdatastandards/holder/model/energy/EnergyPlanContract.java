@@ -1,7 +1,16 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -11,7 +20,15 @@ import java.util.Objects;
 /**
  * EnergyPlanContract
  */
+@Entity
+@Table(name = "EnergyPlanContract")
 public class EnergyPlanContract {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     private String additionalFeeInformation;
 
@@ -58,31 +75,41 @@ public class EnergyPlanContract {
     }
 
     @Valid
+    @ElementCollection
     private List<PaymentOptionEnum> paymentOption = new ArrayList<>();
 
+    @OneToOne
     private EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower;
 
+    @OneToMany
     private List<EnergyPlanControlledLoad> controlledLoad;
 
     @Valid
+    @OneToMany
     private List<EnergyPlanContractIncentives> incentives = null;
 
     @Valid
+    @OneToMany
     private List<EnergyPlanContractDiscounts> discounts = null;
 
     @Valid
+    @OneToMany
     private List<EnergyPlanContractGreenPowerCharges> greenPowerCharges = null;
 
     @Valid
+    @OneToMany
     private List<EnergyPlanContractEligibility> eligibility = null;
 
     @Valid
+    @OneToMany
     private List<EnergyPlanContractFees> fees = null;
 
     @Valid
+    @OneToMany
     private List<EnergyPlanContractSolarFeedInTariff> solarFeedInTariff = null;
 
     @Valid
+    @OneToMany
     private List<EnergyPlanContractTariffPeriod> tariffPeriod = new ArrayList<>();
 
     public EnergyPlanContract additionalFeeInformation(String additionalFeeInformation) {

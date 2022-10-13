@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -29,9 +33,8 @@ public class EnergyAccountV1 implements EnergyAccountBase {
     private LocalDate creationDate;
 
     @Valid
-    @Transient
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<EnergyAccountPlans> plans = new ArrayList<>();
-
 
     public EnergyAccountV1 accountId(String accountId) {
         this.accountId = accountId;

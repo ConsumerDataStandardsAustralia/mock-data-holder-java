@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.Objects;
  * EnergyPlanContractTariffPeriod
  */
 @Entity
+@Table(name="TariffPeriod")
 public class EnergyPlanContractTariffPeriod {
     @Id
     @GeneratedValue(generator = "system-uuid")

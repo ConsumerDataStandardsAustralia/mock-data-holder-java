@@ -1,8 +1,16 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -13,6 +21,8 @@ import java.util.Objects;
  * Detail on the plan applicable to this account
  */
 @ApiModel(description = "Detail on the plan applicable to this account")
+@Entity
+@Table(name = "PlanDetail")
 public class EnergyAccountDetailPlanDetail {
     /**
      * The fuel types covered by the plan
@@ -23,15 +33,24 @@ public class EnergyAccountDetailPlanDetail {
         DUAL
     }
 
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private FuelTypeEnum fuelType;
 
     private Boolean isContingentPlan = false;
 
     @Valid
+    @OneToMany
     private List<MeteringCharges> meteringCharges = null;
 
+    @OneToOne
     private EnergyPlanContract gasContract;
 
+    @OneToOne
     private EnergyPlanContract electricityContract;
 
     public EnergyAccountDetailPlanDetail fuelType(FuelTypeEnum fuelType) {

@@ -1,7 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -11,12 +18,22 @@ import java.util.Objects;
 /**
  * EnergyAccountDetailAllOfAuthorisedContacts
  */
+@Entity
+@Table(name = "AuthorisedContact")
 public class EnergyAccountDetailAuthorisedContacts {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String firstName;
 
     private String lastName;
 
     @Valid
+    @ElementCollection
     private List<String> middleNames = null;
 
     private String prefix;
