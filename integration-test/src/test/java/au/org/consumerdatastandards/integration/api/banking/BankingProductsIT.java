@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.integration;
+package au.org.consumerdatastandards.integration.api.banking;
 
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
@@ -10,6 +10,7 @@ import au.org.consumerdatastandards.client.model.banking.BankingProductV1;
 import au.org.consumerdatastandards.client.model.banking.BankingProductV2;
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingProductById;
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingProductList;
+import au.org.consumerdatastandards.integration.ITBase;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;

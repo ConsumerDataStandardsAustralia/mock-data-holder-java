@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnergyAccountsIT extends ProtectedITBase {
+public class EnergyAccountsIT extends EnergyITBase {
     public EnergyAccountsIT() throws ApiException, IOException {
         super(new EnergyAccountsAPI());
     }
@@ -42,8 +42,7 @@ public class EnergyAccountsIT extends ProtectedITBase {
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
         dumpConformanceErrors(conformanceErrors);
 
-        Assertions.assertTrue(resp.getBody().getData().getAccounts().toArray().length == 2);
-
+        Assertions.assertEquals(2, resp.getBody().getData().getAccounts().size());
 
         Assertions.assertTrue(conformanceErrors.isEmpty(),
                 CONFORMANCE_ERRORS_FOUND + buildConformanceErrorsDescription(conformanceErrors));
@@ -89,7 +88,7 @@ public class EnergyAccountsIT extends ProtectedITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
-        Assertions.assertTrue(resp.getBody().getData().getAccounts().toArray().length == 2);
+        Assertions.assertEquals(2, resp.getBody().getData().getAccounts().size());
 
         // Gets accounts details.
         for (EnergyAccountBase account : resp.getBody().getData().getAccounts()) {

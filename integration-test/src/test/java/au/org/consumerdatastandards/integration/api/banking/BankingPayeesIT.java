@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.integration;
+package au.org.consumerdatastandards.integration.api.banking;
 
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
@@ -19,7 +19,7 @@ import java.util.List;
 
 import static au.org.consumerdatastandards.client.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 
-public class BankingPayeesIT extends ProtectedITBase {
+public class BankingPayeesIT extends BankingITBase {
     public BankingPayeesIT() throws IOException, ApiException {
         super(new BankingPayeesAPI());
     }
