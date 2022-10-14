@@ -8,7 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Objects;
 
 /**
@@ -16,7 +15,6 @@ import java.util.Objects;
  */
 @ApiModel(description = "Object that contains links to additional information on specific topics")
 @Entity
-@Table(name="EnergyPlanAdditionalInformation")
 public class EnergyPlanAdditionalInformation {
 
     @Id

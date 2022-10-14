@@ -23,7 +23,7 @@ import java.util.Objects;
  */
 @ApiModel(description = "Detail on the plan applicable to this account")
 @Entity
-@Table(name = "PlanDetail")
+@Table(name = "EnergyAccountPlanDetail")
 public class EnergyAccountDetailPlanDetail {
     /**
      * The fuel types covered by the plan

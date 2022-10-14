@@ -4,7 +4,22 @@ import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResult;
 import au.org.consumerdatastandards.client.Pair;
 import au.org.consumerdatastandards.client.api.ProtectedAPI;
-import au.org.consumerdatastandards.client.model.energy.*;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountBase;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV1;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV2;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountListResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountV1;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountV2;
+import au.org.consumerdatastandards.client.model.energy.EnergyBalanceListResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyBalanceResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyBillingListResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyConcessionsResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyInvoiceListResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyPaymentScheduleResponse;
+import au.org.consumerdatastandards.client.model.energy.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.client.model.energy.ParamIntervalReadsEnum;
+import au.org.consumerdatastandards.client.model.energy.RequestAccountIds;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.Call;
 
@@ -367,6 +382,4 @@ public class EnergyAccountsAPI extends ProtectedAPI {
 
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
-
-
 }

@@ -952,13 +952,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "page",
                     required = false)
-            Integer page,
+                    Integer page,
             @ApiParam(
                     value = "Page size to request.  Default is 25 (standard pagination)")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
-            Integer pageSize,
+                    Integer pageSize,
             @ApiParam(
                     value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",

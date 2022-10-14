@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.Objects;
  * EnergyPlanContract
  */
 @Entity
-@Table(name = "EnergyPlanContract")
 public class EnergyPlanContract {
 
     @Id

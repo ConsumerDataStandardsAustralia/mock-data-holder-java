@@ -108,9 +108,7 @@ public class CdsDataLoader {
         load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
 
         // Energy
-        //load("payloads/energy/accounts", energyAccountV1Repository, EnergyAccountV2.class);
         load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
-
         load("payloads/energy/plans", energyPlanDetailRepository, EnergyPlanDetailEntity.class);
     }
 

@@ -20,7 +20,7 @@ import java.util.Objects;
  * EnergyPlanContractGreenPowerCharges
  */
 @Entity
-@Table(name="GreenPowerCharge")
+@Table(name="EnergyGreenPowerCharge")
 public class EnergyPlanContractGreenPowerCharges {
     @Id
     @GeneratedValue(generator = "system-uuid")

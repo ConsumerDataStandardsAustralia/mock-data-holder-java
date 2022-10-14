@@ -6,7 +6,51 @@ import au.org.consumerdatastandards.holder.model.CommonSimpleAddress;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
-import au.org.consumerdatastandards.holder.model.energy.*;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountBase;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailBase;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBillingListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBillingListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyConcessionsResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyConcessionsResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyDerDetailResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyDerListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyDerListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyDerRecord;
+import au.org.consumerdatastandards.holder.model.energy.EnergyInvoiceListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyInvoiceListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleCardDebit;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailEntity;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePoint;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointConsumerProfile;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailDistributionLossFactor;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailRelatedParticipants;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
+import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
+import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
+import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
+import au.org.consumerdatastandards.holder.model.energy.ParamIntervalReadsEnum;
+import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
+import au.org.consumerdatastandards.holder.model.energy.RequestAccountIds;
+import au.org.consumerdatastandards.holder.model.energy.RequestServicePointIds;
 import au.org.consumerdatastandards.holder.service.energy.EnergyService;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +130,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyConcessionsResponse> getConcessions(String accountId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+                                                                    UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyConcessionsResponse response = new EnergyConcessionsResponse();
         EnergyConcessionsResponseData data = new EnergyConcessionsResponseData();
@@ -113,8 +157,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> getInvoicesForAccount(String accountId, Integer xV, Integer xMinV,
-            String newestDate, String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
-            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+                                                                           String newestDate, String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
+                                                                           Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
@@ -127,7 +171,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyPaymentScheduleResponse> getPaymentSchedule(String accountId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+                                                                            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyPaymentScheduleResponse response = new EnergyPaymentScheduleResponse();
         EnergyPaymentSchedule schedule = new EnergyPaymentSchedule();
@@ -161,7 +205,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyServicePointDetailResponse> getServicePoint(String servicePointId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+                                                                            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         EnergyServicePointDetailResponse response = new EnergyServicePointDetailResponse();
         EnergyServicePointDetail servicePoint = new EnergyServicePointDetail();
@@ -200,8 +244,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyUsageListResponse> getUsageForServicePoint(String servicePointId, Integer xV, Integer xMinV,
-            String oldestDate, String newestDate, ParamIntervalReadsEnum intervalReads, Integer page, Integer pageSize,
-            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+                                                                           String oldestDate, String newestDate, ParamIntervalReadsEnum intervalReads, Integer page, Integer pageSize,
+                                                                           UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyUsageListResponse response = new EnergyUsageListResponse();
@@ -300,9 +344,9 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyBillingListResponse> listBillingForAccounts(Integer xV, Integer xMinV,
-            RequestAccountIds accountIdList, String newestTime, String oldestTime, Integer page, Integer pageSize,
-            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders,
-            ParamIntervalReadsEnum intervalReads) {
+                                                                            RequestAccountIds accountIdList, String newestTime, String oldestTime, Integer page, Integer pageSize,
+                                                                            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders,
+                                                                            ParamIntervalReadsEnum intervalReads) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         EnergyBillingListResponse response = new EnergyBillingListResponse();

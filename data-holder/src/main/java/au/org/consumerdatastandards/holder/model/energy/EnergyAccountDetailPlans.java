@@ -22,7 +22,7 @@ import java.util.Objects;
  * EnergyAccountDetailAllOfPlans
  */
 @Entity
-@Table(name="DetailPlan")
+@Table(name="EnergyDetailPlan")
 public class EnergyAccountDetailPlans {
 
     @Id

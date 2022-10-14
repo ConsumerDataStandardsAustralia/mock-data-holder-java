@@ -5,8 +5,15 @@ import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ApiResult;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.energy.EnergyAccountsAPI;
-import au.org.consumerdatastandards.client.model.energy.*;
 
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountBase;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV1;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV2;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountListResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountV1;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountV2;
+import au.org.consumerdatastandards.client.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
