@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.integration;
+package au.org.consumerdatastandards.integration.api.banking;
 
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankingDirectDebitsIT extends ProtectedITBase {
+public class BankingDirectDebitsIT extends BankingITBase {
     public BankingDirectDebitsIT() throws IOException, ApiException {
         super(new BankingDirectDebitsAPI());
     }
