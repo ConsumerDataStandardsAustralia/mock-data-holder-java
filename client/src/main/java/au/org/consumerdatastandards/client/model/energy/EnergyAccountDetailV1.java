@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * EnergyAccountDetail
  */
-public class EnergyAccountDetail implements EnergyAccountBase {
+public class EnergyAccountDetailV1 implements EnergyAccountBase {
     private String accountId;
     private String accountNumber;
     private String displayName;
@@ -17,7 +17,7 @@ public class EnergyAccountDetail implements EnergyAccountBase {
 
     private List<EnergyAccountDetailPlans> plans = new ArrayList<>();
 
-    public EnergyAccountDetail accountId(String accountId) {
+    public EnergyAccountDetailV1 accountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -37,7 +37,7 @@ public class EnergyAccountDetail implements EnergyAccountBase {
         this.accountId = accountId;
     }
 
-    public EnergyAccountDetail accountNumber(String accountNumber) {
+    public EnergyAccountDetailV1 accountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }
@@ -57,7 +57,7 @@ public class EnergyAccountDetail implements EnergyAccountBase {
         this.accountNumber = accountNumber;
     }
 
-    public EnergyAccountDetail displayName(String displayName) {
+    public EnergyAccountDetailV1 displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -77,7 +77,7 @@ public class EnergyAccountDetail implements EnergyAccountBase {
         this.displayName = displayName;
     }
 
-    public EnergyAccountDetail creationDate(LocalDate creationDate) {
+    public EnergyAccountDetailV1 creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -97,12 +97,12 @@ public class EnergyAccountDetail implements EnergyAccountBase {
         this.creationDate = creationDate;
     }
 
-    public EnergyAccountDetail plans(List<EnergyAccountDetailPlans> plans) {
+    public EnergyAccountDetailV1 plans(List<EnergyAccountDetailPlans> plans) {
         this.plans = plans;
         return this;
     }
 
-    public EnergyAccountDetail addPlansItem(EnergyAccountDetailPlans plansItem) {
+    public EnergyAccountDetailV1 addPlansItem(EnergyAccountDetailPlans plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -128,7 +128,7 @@ public class EnergyAccountDetail implements EnergyAccountBase {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccountDetail energyAccountDetail = (EnergyAccountDetail) o;
+        EnergyAccountDetailV1 energyAccountDetail = (EnergyAccountDetailV1) o;
         return Objects.equals(this.accountId, energyAccountDetail.accountId) &&
                 Objects.equals(this.accountNumber, energyAccountDetail.accountNumber) &&
                 Objects.equals(this.displayName, energyAccountDetail.displayName) &&
@@ -144,7 +144,7 @@ public class EnergyAccountDetail implements EnergyAccountBase {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountDetail {\n");
+        sb.append("class EnergyAccountDetailV1 {\n");
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");

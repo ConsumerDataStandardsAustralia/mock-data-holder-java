@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ import java.util.Objects;
  * EnergyPlanContractEligibility
  */
 @Entity
+@Table(name="EnergyContractEligibility")
 public class EnergyPlanContractEligibility {
     @Id
     @GeneratedValue(generator = "system-uuid")

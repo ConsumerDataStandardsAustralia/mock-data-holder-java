@@ -4,14 +4,20 @@ import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResult;
 import au.org.consumerdatastandards.client.Pair;
 import au.org.consumerdatastandards.client.api.ProtectedAPI;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountBase;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV1;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV2;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountListResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountV1;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.client.model.energy.EnergyBalanceListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyBalanceResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyBillingListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyConcessionsResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyInvoiceListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyPaymentScheduleResponse;
+import au.org.consumerdatastandards.client.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.client.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.client.model.energy.RequestAccountIds;
 import com.google.gson.reflect.TypeToken;
@@ -26,28 +32,45 @@ import java.util.Map;
 
 public class EnergyAccountsAPI extends ProtectedAPI {
 
-    public ApiResult<EnergyAccountListResponse> listEnergyAccounts(Integer page, Integer pageSize) throws ApiException {
+    public <T extends EnergyAccountBase> ApiResult<EnergyAccountListResponse<T>> listEnergyAccounts(ParamAccountOpenStatus openStatus, Integer version, Integer page, Integer pageSize) throws ApiException {
 
         String path = "/energy/accounts";
 
-        logger.trace("Building Call for listEnergyAccounts with path: {}, page: {}, page-size: {}",
+        logger.trace("Building Call for listEnergyAccounts with path: {}, open-status: {}, version: {}, page: {}, page-size: {}",
                 path,
+                openStatus,
+                version,
                 page,
                 pageSize);
 
         List<Pair> queryParams = new ArrayList<>();
+        addQueryParam(queryParams, "open-status", openStatus);
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
+
         Map<String, String> headerParams = new HashMap<>();
+        headerParams.put("x-v", version.toString());
         addCdsProtectedApiHeaders(headerParams);
+
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
-        Type returnType = new TypeToken<EnergyAccountListResponse>(){}.getType();
+
+        Type returnType;
+
+        switch (version) {
+            case 1:
+                returnType = new TypeToken<EnergyAccountListResponse<EnergyAccountV1>>(){}.getType();
+                break;
+            case 2:
+            default:
+                returnType = new TypeToken<EnergyAccountListResponse<EnergyAccountV2>>(){}.getType();
+                break;
+        }
 
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 
-    public ApiResult<EnergyAccountDetailResponse> getEnergyAccountDetail(String accountId) throws ApiException {
+    public <T extends EnergyAccountBase> ApiResult<EnergyAccountDetailResponse<T>> getEnergyAccountDetail(String accountId, Integer version) throws ApiException {
 
         if (accountId == null) {
             throw new ApiException("Missing the required parameter 'accountId' when calling getEnergyAccountDetail()");
@@ -56,15 +79,29 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         // create path and map variables
         String path = "/energy/accounts/" + apiClient.escapeString(accountId);
 
-        logger.trace("Building Call for getEnergyAccountDetail with path: {}, accountId: {}",
+        logger.trace("Building Call for getEnergyAccountDetail with path: {}, version: {}, accountId: {}",
                 path,
+                version,
                 accountId);
 
         Map<String, String> headerParams = new HashMap<>();
         addCdsProtectedApiHeaders(headerParams);
+        headerParams.put("x-v", version.toString());
+
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, null, null, null, headerParams, authNames, null);
-        Type returnType = new TypeToken<EnergyAccountDetailResponse>(){}.getType();
+
+        Type returnType;
+
+        switch (version) {
+            case 1:
+                returnType = new TypeToken<EnergyAccountDetailResponse<EnergyAccountDetailV1>>(){}.getType();
+                break;
+            case 2:
+            default:
+                returnType = new TypeToken<EnergyAccountDetailResponse<EnergyAccountDetailV2>>(){}.getType();
+                break;
+        }
 
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }

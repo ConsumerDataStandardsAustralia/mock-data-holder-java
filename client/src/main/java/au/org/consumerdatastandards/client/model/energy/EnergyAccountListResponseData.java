@@ -7,15 +7,15 @@ import java.util.Objects;
 /**
  * EnergyAccountListResponseData
  */
-public class EnergyAccountListResponseData {
-    private List<EnergyAccount> accounts = new ArrayList<>();
+public class EnergyAccountListResponseData<T extends EnergyAccountBase> {
+    private List<T> accounts = new ArrayList<>();
 
-    public EnergyAccountListResponseData accounts(List<EnergyAccount> accounts) {
+    public EnergyAccountListResponseData accounts(List<T> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public EnergyAccountListResponseData addAccountsItem(EnergyAccount accountsItem) {
+    public EnergyAccountListResponseData addAccountsItem(T accountsItem) {
         this.accounts.add(accountsItem);
         return this;
     }
@@ -25,11 +25,11 @@ public class EnergyAccountListResponseData {
      *
      * @return accounts
      */
-    public List<EnergyAccount> getAccounts() {
+    public List<T> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<EnergyAccount> accounts) {
+    public void setAccounts(List<T> accounts) {
         this.accounts = accounts;
     }
 

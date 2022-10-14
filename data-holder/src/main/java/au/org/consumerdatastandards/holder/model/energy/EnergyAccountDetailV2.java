@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,9 +17,13 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyAccount
+ * EnergyAccountDetailV2
  */
-public class EnergyAccount implements EnergyAccountBase {
+@Entity
+@Table(name = "EnergyAccount")
+public class EnergyAccountDetailV2 implements EnergyAccountDetailBase {
+
+    @Id
     private String accountId;
     private String accountNumber;
     private String displayName;
@@ -24,9 +33,11 @@ public class EnergyAccount implements EnergyAccountBase {
     private LocalDate creationDate;
 
     @Valid
-    private List<EnergyAccountPlans> plans = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<EnergyAccountDetailPlans> plans = new ArrayList<>();
+    private EnergyAccountBaseV2.OpenStatus openStatus;
 
-    public EnergyAccount accountId(String accountId) {
+    public EnergyAccountDetailV2 accountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -36,10 +47,10 @@ public class EnergyAccount implements EnergyAccountBase {
      *
      * @return accountId
      */
-    @Override
     @ApiModelProperty(required = true,
             value = "The ID of the account.  To be created in accordance with CDR ID permanence requirements")
     @NotNull
+    @Override
     public String getAccountId() {
         return accountId;
     }
@@ -49,7 +60,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.accountId = accountId;
     }
 
-    public EnergyAccount accountNumber(String accountNumber) {
+    public EnergyAccountDetailV2 accountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }
@@ -59,8 +70,8 @@ public class EnergyAccount implements EnergyAccountBase {
      *
      * @return accountNumber
      */
-    @Override
     @ApiModelProperty(value = "Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId")
+    @Override
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -70,7 +81,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.accountNumber = accountNumber;
     }
 
-    public EnergyAccount displayName(String displayName) {
+    public EnergyAccountDetailV2 displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -80,8 +91,8 @@ public class EnergyAccount implements EnergyAccountBase {
      *
      * @return displayName
      */
-    @Override
     @ApiModelProperty(value = "An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder")
+    @Override
     public String getDisplayName() {
         return displayName;
     }
@@ -91,7 +102,7 @@ public class EnergyAccount implements EnergyAccountBase {
         this.displayName = displayName;
     }
 
-    public EnergyAccount creationDate(LocalDate creationDate) {
+    public EnergyAccountDetailV2 creationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -101,9 +112,8 @@ public class EnergyAccount implements EnergyAccountBase {
      *
      * @return creationDate
      */
-    @Override
     @ApiModelProperty(required = true, value = "The date that the account was created or opened")
-    @NotNull
+    @Override
     public LocalDate getCreationDate() {
         return creationDate;
     }
@@ -113,12 +123,12 @@ public class EnergyAccount implements EnergyAccountBase {
         this.creationDate = creationDate;
     }
 
-    public EnergyAccount plans(List<EnergyAccountPlans> plans) {
+    public EnergyAccountDetailV2 plans(List<EnergyAccountDetailPlans> plans) {
         this.plans = plans;
         return this;
     }
 
-    public EnergyAccount addPlansItem(EnergyAccountPlans plansItem) {
+    public EnergyAccountDetailV2 addPlansItem(EnergyAccountDetailPlans plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -132,12 +142,20 @@ public class EnergyAccount implements EnergyAccountBase {
             value = "The array of plans containing service points and associated plan details")
     @NotNull
     @Valid
-    public List<EnergyAccountPlans> getPlans() {
+    public List<EnergyAccountDetailPlans> getPlans() {
         return plans;
     }
 
-    public void setPlans(List<EnergyAccountPlans> plans) {
+    public void setPlans(List<EnergyAccountDetailPlans> plans) {
         this.plans = plans;
+    }
+    @ApiModelProperty
+    public EnergyAccountBaseV2.OpenStatus getOpenStatus() {
+        return openStatus;
+    }
+
+    public void setOpenStatus(EnergyAccountBaseV2.OpenStatus openStatus) {
+        this.openStatus = openStatus;
     }
 
     @Override
@@ -148,28 +166,26 @@ public class EnergyAccount implements EnergyAccountBase {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccount energyAccount = (EnergyAccount) o;
-        return Objects.equals(this.accountId, energyAccount.accountId) &&
-                Objects.equals(this.accountNumber, energyAccount.accountNumber) &&
-                Objects.equals(this.displayName, energyAccount.displayName) &&
-                Objects.equals(this.creationDate, energyAccount.creationDate) &&
-                Objects.equals(this.plans, energyAccount.plans);
+        EnergyAccountDetailV2 energyAccountDetail = (EnergyAccountDetailV2) o;
+        return super.equals(o) &&
+                Objects.equals(openStatus, energyAccountDetail.openStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, accountNumber, displayName, creationDate, plans);
+        return Objects.hash(getAccountId(), getAccountNumber(), getDisplayName(), getCreationDate(), getPlans(), openStatus);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccount {\n");
-        sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
-        sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
-        sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
-        sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-        sb.append("    plans: ").append(toIndentedString(plans)).append("\n");
+        sb.append("class EnergyAccountDetailV2 {\n");
+        sb.append("    accountId: ").append(toIndentedString(getAccountId())).append("\n");
+        sb.append("    accountNumber: ").append(toIndentedString(getAccountNumber())).append("\n");
+        sb.append("    displayName: ").append(toIndentedString(getDisplayName())).append("\n");
+        sb.append("    creationDate: ").append(toIndentedString(getCreationDate())).append("\n");
+        sb.append("    plans: ").append(toIndentedString(getPlans())).append("\n");
+        sb.append("    openStatus: ").append(toIndentedString(openStatus)).append("\n");
         sb.append("}");
         return sb.toString();
     }

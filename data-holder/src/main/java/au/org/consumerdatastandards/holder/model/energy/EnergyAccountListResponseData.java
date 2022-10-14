@@ -17,14 +17,14 @@ import java.util.Objects;
 public class EnergyAccountListResponseData {
     @JsonProperty("accounts")
     @Valid
-    private List<EnergyAccount> accounts = new ArrayList<>();
+    private List<EnergyAccountBase> accounts = new ArrayList<>();
 
-    public EnergyAccountListResponseData accounts(List<EnergyAccount> accounts) {
+    public EnergyAccountListResponseData accounts(List<EnergyAccountBase> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public EnergyAccountListResponseData addAccountsItem(EnergyAccount accountsItem) {
+    public EnergyAccountListResponseData addAccountsItem(EnergyAccountBase accountsItem) {
         this.accounts.add(accountsItem);
         return this;
     }
@@ -40,11 +40,11 @@ public class EnergyAccountListResponseData {
 
     @Valid
 
-    public List<EnergyAccount> getAccounts() {
+    public List<EnergyAccountBase> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<EnergyAccount> accounts) {
+    public void setAccounts(List<EnergyAccountBase> accounts) {
         this.accounts = accounts;
     }
 

@@ -3,6 +3,7 @@ package au.org.consumerdatastandards.holder.model.energy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.CascadeType;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -22,7 +23,7 @@ public class EnergyUsageReadIntervalRead {
 
     private List<BigDecimal> intervalReads = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyUsageReadIntervalReadReadQualities readQualities;
 
     public EnergyUsageReadIntervalRead readIntervalLength(Integer readIntervalLength) {

@@ -6,9 +6,8 @@ import au.org.consumerdatastandards.holder.model.CommonSimpleAddress;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
-import au.org.consumerdatastandards.holder.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountBase;
-import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetail;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailBase;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponseData;
@@ -45,6 +44,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListRe
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamIntervalReadsEnum;
@@ -90,12 +90,11 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyAccountDetailResponse> getAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyAccountDetailResponse response = new EnergyAccountDetailResponse();
-        EnergyAccountDetail data = new EnergyAccountDetail();
-        populateAccount(data);
-        response.setData(data);
+        EnergyAccountDetailBase energyAccountDetail = service.getAccountDetail(accountId, supportedVersion);
+        response.setData(energyAccountDetail);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
@@ -254,14 +253,22 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyAccountListResponse> listAccounts(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+    public ResponseEntity<EnergyAccountListResponse> listAccounts(ParamAccountOpenStatus openStatus, Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
+        validatePageSize(pageSize, NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+
         EnergyAccountListResponse response = new EnergyAccountListResponse();
         EnergyAccountListResponseData data = new EnergyAccountListResponseData();
-        EnergyAccount account = new EnergyAccount();
-        populateAccount(account);
-        data.setAccounts(Collections.singletonList(account));
+
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+
+        PageRequest pageRequest = PageRequest.of(actualPage - 1, actualPageSize, Sort.by(Sort.Direction.DESC, "creationDate"));
+        Page<EnergyAccountBase> energyAccountPage = service.findAccounts(openStatus, pageRequest, supportedVersion);
+        validatePageRange(actualPage, energyAccountPage.getTotalPages(), xFapiInteractionId);
+
+        data.setAccounts(energyAccountPage.getContent());
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
         response.setMeta(createSinglePageMeta());

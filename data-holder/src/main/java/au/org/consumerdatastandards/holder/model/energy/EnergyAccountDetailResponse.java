@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import au.org.consumerdatastandards.holder.model.Links;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -11,19 +10,14 @@ import java.util.Objects;
 /**
  * EnergyAccountDetailResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyAccountDetailResponse {
-    @JsonProperty("data")
-    private EnergyAccountDetail data;
+    private EnergyAccountDetailBase data;
 
-    @JsonProperty("links")
     private Links links;
 
-    @JsonProperty("meta")
     private Object meta;
 
-    public EnergyAccountDetailResponse data(EnergyAccountDetail data) {
+    public EnergyAccountDetailResponse data(EnergyAccountDetailBase data) {
         this.data = data;
         return this;
     }
@@ -39,11 +33,11 @@ public class EnergyAccountDetailResponse {
 
     @Valid
 
-    public EnergyAccountDetail getData() {
+    public EnergyAccountDetailBase getData() {
         return data;
     }
 
-    public void setData(EnergyAccountDetail data) {
+    public void setData(EnergyAccountDetailBase data) {
         this.data = data;
     }
 
