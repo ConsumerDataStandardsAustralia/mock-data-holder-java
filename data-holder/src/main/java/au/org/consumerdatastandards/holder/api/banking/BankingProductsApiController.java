@@ -30,7 +30,7 @@ import java.util.Optional;
 
 @Validated
 @Controller
-@CrossOrigin
+@CrossOrigin(allowedHeaders = "*")
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class BankingProductsApiController extends ApiControllerBase implements BankingProductsApi {
 
