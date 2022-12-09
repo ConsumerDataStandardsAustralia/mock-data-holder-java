@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @Validated
 @Controller
-@CrossOrigin
+@CrossOrigin(allowedHeaders = "*")
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class CommonDiscoveryApiController extends ApiControllerBase implements CommonDiscoveryApi {
 

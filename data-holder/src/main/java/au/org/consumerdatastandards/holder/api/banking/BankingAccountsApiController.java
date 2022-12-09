@@ -46,7 +46,7 @@ import java.util.UUID;
 
 @Validated
 @Controller
-@CrossOrigin
+@CrossOrigin(allowedHeaders = "*")
 @RequestMapping("${openapi.consumerDataStandards.base-path:/cds-au/v1}")
 public class BankingAccountsApiController extends ApiControllerBase implements BankingAccountsApi {
 
