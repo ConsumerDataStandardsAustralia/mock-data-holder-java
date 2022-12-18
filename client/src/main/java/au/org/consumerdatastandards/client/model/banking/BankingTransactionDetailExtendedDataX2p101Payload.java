@@ -18,7 +18,7 @@ public class BankingTransactionDetailExtendedDataX2p101Payload {
     private String purposeCode;
 
     /**
-     * An extended string description. Only present if specified by the extensionUType field
+     * An extended string description. Required if the extensionUType field is `x2p101Payload`
      * @return extendedDescription
      */
     public String getExtendedDescription() {

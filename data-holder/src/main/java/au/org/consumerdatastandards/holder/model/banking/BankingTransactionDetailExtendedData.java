@@ -32,6 +32,9 @@ public class BankingTransactionDetailExtendedData  {
         }
     }
 
+    /**
+     * Optional extended data specific to transactions originated via NPP
+     */
     private ExtensionUType extensionUType;
 
     /**
@@ -44,6 +47,9 @@ public class BankingTransactionDetailExtendedData  {
      */
     private String payer;
 
+    /**
+     * Identifier of the applicable overlay service. Valid values are: X2P1.01
+     */
     private Service service;
 
     @Embedded
@@ -54,7 +60,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty
+    @ApiModelProperty("Optional extended data specific to transactions originated via NPP")
     public ExtensionUType getExtensionUType() {
         return extensionUType;
     }
@@ -75,6 +81,7 @@ public class BankingTransactionDetailExtendedData  {
     public void setPayee(String payee) {
         this.payee = payee;
     }
+
     public BankingTransactionDetailExtendedData payer(String payer) {
         this.payer = payer;
         return this;
@@ -93,7 +100,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Identifier of the applicable overlay service. Valid values are: X2P1.01")
     public Service getService() {
         return service;
     }
@@ -163,4 +170,3 @@ public class BankingTransactionDetailExtendedData  {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

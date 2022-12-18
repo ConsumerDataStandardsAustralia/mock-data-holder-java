@@ -65,7 +65,7 @@ public class BankingTransactionDetailExtendedData {
     }
 
     /**
-     * Optional extended data provided specific to transaction originated via NPP
+     * Optional extended data specific to transactions originated via NPP
      * @return extensionUType
      */
     public ExtensionUType getExtensionUType() {
