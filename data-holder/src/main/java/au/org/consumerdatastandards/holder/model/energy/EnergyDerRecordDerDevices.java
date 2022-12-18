@@ -200,12 +200,12 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group
+     * Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group. Default is 0 if value not known
      *
      * @return nominalRatedCapacity
      */
     @ApiModelProperty(required = true,
-            value = "Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group")
+            value = "Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group. Default is 0 if value not known")
     @NotNull
     @Valid
     public BigDecimal getNominalRatedCapacity() {
@@ -222,11 +222,11 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to “STORAGE”
+     * Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to “STORAGE”. Default is 0 if value not known
      *
      * @return nominalStorageCapacity
      */
-    @ApiModelProperty(value = "Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to “STORAGE”")
+    @ApiModelProperty(value = "Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to “STORAGE”. Default is 0 if value not known")
     @Valid
     public BigDecimal getNominalStorageCapacity() {
         return nominalStorageCapacity;

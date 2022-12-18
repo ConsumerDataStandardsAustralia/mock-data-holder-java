@@ -217,12 +217,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * The start date from which this service point first became valid
+     * The latest start date from which the constituent data sets of this service point became valid
      *
      * @return validFromDate
      */
     @ApiModelProperty(required = true,
-            value = "The start date from which this service point first became valid")
+            value = "The latest start date from which the constituent data sets of this service point became valid")
     public LocalDate getValidFromDate() {
         return validFromDate;
     }
