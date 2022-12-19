@@ -29,6 +29,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ResponseHeader;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -69,15 +70,22 @@ public interface EnergyApi {
             tags = {"Energy", "Energy Accounts",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyAccountDetailResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class)
     })
@@ -146,15 +154,22 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyBalanceResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class)
     })
@@ -227,18 +242,26 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -330,15 +353,22 @@ public interface EnergyApi {
             tags = {"Energy", "Energy Accounts",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyConcessionsResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class)
     })
@@ -407,15 +437,22 @@ public interface EnergyApi {
             tags = {"Energy", "Distributed Energy Resources",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyDerDetailResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class)
     })
@@ -469,8 +506,8 @@ public interface EnergyApi {
      *
      * @param accountId              ID of a specific account to obtain data for.  This is a tokenised ID previous obtained from the Account List end point. (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
+     * @param newestDate             Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -488,18 +525,26 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -526,13 +571,13 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -595,15 +640,22 @@ public interface EnergyApi {
             tags = {"Energy", "Energy Accounts",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyPaymentScheduleResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class)
     })
@@ -669,15 +721,19 @@ public interface EnergyApi {
             tags = {"Energy", "Generic Tariffs",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
                     message = "Successful response",
                     response = EnergyPlanResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Resource",
                     response = ErrorListResponse.class)
     })
@@ -724,15 +780,22 @@ public interface EnergyApi {
             tags = {"Energy", "NMI Standing Data",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyServicePointDetailResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Service Point / Invalid Service Point",
                     response = ErrorListResponse.class)
     })
@@ -807,18 +870,26 @@ public interface EnergyApi {
             tags = {"Energy", "Electricity Usage",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 404,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unavailable Service Point / Invalid Service Point",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -917,15 +988,22 @@ public interface EnergyApi {
             tags = {"Energy", "Energy Accounts",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyAccountListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1008,15 +1086,22 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyBalanceListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1094,15 +1179,22 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyBalanceListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Page Size / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Energy Account / Unavailable Energy Account / Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1189,15 +1281,22 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1290,15 +1389,22 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page / Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class)
     })
@@ -1401,15 +1507,22 @@ public interface EnergyApi {
             tags = {"Energy", "Distributed Energy Resources",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyDerListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1487,15 +1600,22 @@ public interface EnergyApi {
             tags = {"Energy", "Distributed Energy Resources",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyDerListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page / Unavailable Service Point / Invalid Service Point",
                     response = ErrorListResponse.class)
     })
@@ -1562,8 +1682,8 @@ public interface EnergyApi {
      * Obtain the invoices for all accounts
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
+     * @param newestDate             Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -1581,15 +1701,22 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1611,13 +1738,13 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1662,8 +1789,8 @@ public interface EnergyApi {
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
+     * @param newestDate             Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
+     * @param oldestDate             Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param page                   Page of results to request (standard pagination) (optional)
      * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV                  Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
@@ -1681,15 +1808,22 @@ public interface EnergyApi {
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page / Unavailable Energy Account / Invalid Energy Account",
                     response = ErrorListResponse.class)
     })
@@ -1718,13 +1852,13 @@ public interface EnergyApi {
             @RequestBody
                     RequestAccountIds accountIdList,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
                     String newestDate,
             @ApiParam(
-                    value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+                    value = "Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1787,15 +1921,19 @@ public interface EnergyApi {
             tags = {"Energy", "Generic Tariffs",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
                     message = "Successful response",
                     response = EnergyPlanListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1890,15 +2028,22 @@ public interface EnergyApi {
             tags = {"Energy", "NMI Standing Data",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyServicePointListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -1979,15 +2124,22 @@ public interface EnergyApi {
             tags = {"Energy", "Electricity Usage",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Page",
                     response = ErrorListResponse.class)
     })
@@ -2086,15 +2238,22 @@ public interface EnergyApi {
             tags = {"Energy", "Electricity Usage",})
     @ApiResponses(value = {
             @ApiResponse(code = 200,
+                    responseHeaders = {
+                        @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
+                        @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
+                    },
                     message = "Successful response",
                     response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Version / Invalid Page Size / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Unsupported Version",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 422,
+                    responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
                     message = "Invalid Service Point / Unavailable Service Point / Invalid Page",
                     response = ErrorListResponse.class)
     })

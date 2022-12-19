@@ -49,7 +49,7 @@ public class EnergyDerRecord {
     }
 
     /**
-     * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
+     * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
      *
      * @return approvedCapacity
      */
@@ -67,7 +67,7 @@ public class EnergyDerRecord {
     }
 
     /**
-     * The number of phases available for the installation of DER
+     * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
      *
      * @return availablePhasesCount
      */
@@ -85,7 +85,7 @@ public class EnergyDerRecord {
     }
 
     /**
-     * The number of phases that DER is connected to
+     * The number of phases that DER is connected to. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
      *
      * @return installedPhasesCount
      */

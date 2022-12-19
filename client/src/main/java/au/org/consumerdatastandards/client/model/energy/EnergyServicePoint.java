@@ -179,7 +179,7 @@ public class EnergyServicePoint {
     }
 
     /**
-     * The start date from which this service point first became valid
+     * The latest start date from which the constituent data sets of this service point became valid
      *
      * @return validFromDate
      */

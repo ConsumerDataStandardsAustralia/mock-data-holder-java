@@ -216,11 +216,11 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER
+     * The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER. Default is 0 if value not known
      *
      * @return inverterDeviceCapacity
      */
-    @ApiModelProperty(value = "The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER")
+    @ApiModelProperty(value = "The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER. Default is 0 if value not known")
     @Valid
     public BigDecimal getInverterDeviceCapacity() {
         return inverterDeviceCapacity;

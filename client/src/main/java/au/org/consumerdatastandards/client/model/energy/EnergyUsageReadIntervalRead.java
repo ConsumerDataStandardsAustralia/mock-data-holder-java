@@ -15,7 +15,7 @@ public class EnergyUsageReadIntervalRead {
 
     private List<BigDecimal> intervalReads = new ArrayList<>();
 
-    private EnergyUsageReadIntervalReadReadQualities readQualities;
+    private List<EnergyUsageReadIntervalReadReadQualities> readQualities = new ArrayList<>();
 
     public EnergyUsageReadIntervalRead readIntervalLength(Integer readIntervalLength) {
         this.readIntervalLength = readIntervalLength;
@@ -81,11 +81,11 @@ public class EnergyUsageReadIntervalRead {
      *
      * @return readQualities
      */
-    public EnergyUsageReadIntervalReadReadQualities getReadQualities() {
+    public List<EnergyUsageReadIntervalReadReadQualities> getReadQualities() {
         return readQualities;
     }
 
-    public void setReadQualities(EnergyUsageReadIntervalReadReadQualities readQualities) {
+    public void setReadQualities(List<EnergyUsageReadIntervalReadReadQualities> readQualities) {
         this.readQualities = readQualities;
     }
 

@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -23,8 +23,8 @@ public class EnergyUsageReadIntervalRead {
 
     private List<BigDecimal> intervalReads = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private EnergyUsageReadIntervalReadReadQualities readQualities;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<EnergyUsageReadIntervalReadReadQualities> readQualities = new ArrayList<>();
 
     public EnergyUsageReadIntervalRead readIntervalLength(Integer readIntervalLength) {
         this.readIntervalLength = readIntervalLength;
@@ -97,11 +97,11 @@ public class EnergyUsageReadIntervalRead {
      * @return readQualities
      */
     @ApiModelProperty("Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30")
-    public EnergyUsageReadIntervalReadReadQualities getReadQualities() {
+    public List<EnergyUsageReadIntervalReadReadQualities> getReadQualities() {
         return readQualities;
     }
 
-    public void setReadQualities(EnergyUsageReadIntervalReadReadQualities readQualities) {
+    public void setReadQualities(List<EnergyUsageReadIntervalReadReadQualities> readQualities) {
         this.readQualities = readQualities;
     }
 

@@ -16,7 +16,7 @@ public class BankingTransactionDetailExtendedDataX2p101Payload  {
     private String endToEndId;
 
     /**
-     * An extended string description. Only present if specified by the extensionUType field
+     * An extended string description. Required if the extensionUType field is `x2p101Payload`
      */
     private String extendedDescription;
 
@@ -43,7 +43,7 @@ public class BankingTransactionDetailExtendedDataX2p101Payload  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "An extended string description. Only present if specified by the extensionUType field")
+    @ApiModelProperty(required = true, value = "An extended string description. Required if the extensionUType field is `x2p101Payload`")
     public String getExtendedDescription() {
         return extendedDescription;
     }
