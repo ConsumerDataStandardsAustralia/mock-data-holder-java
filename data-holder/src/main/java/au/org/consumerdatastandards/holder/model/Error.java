@@ -28,6 +28,14 @@ public class Error {
      */
     private String title;
 
+    public Error() {}
+
+    public Error(String title, String code, String detail) {
+        this.title = title;
+        this.code = code;
+        this.detail = detail;
+    }
+
     public Error code(String code) {
         this.code = code;
         return this;

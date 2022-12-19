@@ -252,7 +252,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         ArrayList<Error> errorList = new ArrayList<>();
         for (String accountId : accountIds) {
             if (!accountService.checkAccountExistence(accountId)) {
-                errorList.add(createError("Unavailable Banking Account", "urn:au-cds:error:cds-banking:Authorisation/UnavailableBankingAccount", accountId));
+                errorList.add(new Error("Unavailable Banking Account", "urn:au-cds:error:cds-banking:Authorisation/UnavailableBankingAccount", accountId));
             }
         }
         if (!errorList.isEmpty()) {

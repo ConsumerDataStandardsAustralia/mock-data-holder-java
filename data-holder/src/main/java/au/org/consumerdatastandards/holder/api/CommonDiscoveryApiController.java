@@ -43,7 +43,7 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
     }
 
     public ResponseEntity<ResponseDiscoveryOutagesList> getOutages(Integer xMinV, Integer xV) {
-        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 1);
+        validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 1);
         ResponseDiscoveryOutagesListData listData = new ResponseDiscoveryOutagesListData();
         List<DiscoveryOutage> outages = new ArrayList<>();
         Iterable<DiscoveryOutage> outageIter = outageService.getOutages();
@@ -56,7 +56,7 @@ public class CommonDiscoveryApiController extends ApiControllerBase implements C
     }
 
       public ResponseEntity<ResponseCommonDiscoveryStatus> getStatus(Integer xMinV, Integer xV) {
-        validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 1);
+        validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 1);
         ResponseCommonDiscoveryStatusData data = new ResponseCommonDiscoveryStatusData();
         data.setStatus(ResponseCommonDiscoveryStatusData.Status.OK);
         data.setUpdateTime(OffsetDateTime.now());
