@@ -1,6 +1,8 @@
 package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
+import au.org.consumerdatastandards.holder.api.CDSException;
+import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccount;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccountDetail;
 import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
@@ -39,6 +41,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +82,10 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId);
         if (bankingAccountDetail == null) {
-            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+            ErrorListResponse errors = new ErrorListResponse();
+            errors.setErrors(Collections.singletonList(new Error("Invalid Banking Account",
+                    "urn:au-cds:error:cds-banking:Authorisation/InvalidBankingAccount", accountId)));
+            throw new CDSException(errors, xFapiInteractionId, HttpStatus.NOT_FOUND);
         }
 
         ResponseBankingAccountById responseBankingAccountById = new ResponseBankingAccountById();
