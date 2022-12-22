@@ -52,7 +52,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId,
                                                                        Integer xMinV,
                                                                        Integer xV) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 4);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 4);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         BankingProductDetail productDetail = service.getProductDetail(productId, supportedVersion);
         if (productDetail == null) {
@@ -81,8 +81,8 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         logger.info(
             "Initiating product list call with supplied input of effective from {}, updated since {}, brand of {}, product category of {} for page {} with page size of {}",
             effective, updatedSince, brand, productCategory, page, pageSize);
-        int supportedVersion = validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 3);
-        validatePageSize(pageSize, NO_INTERACTION_ID);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 3);
+        validatePageSize(pageSize, WebUtil.NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         BankingProduct bankingProduct = new BankingProductV2();
         bankingProduct.setLastUpdated(updatedSince);
@@ -99,7 +99,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
             actualPage, productsPage.getTotalPages(), actualPageSize, effective, updatedSince, brand,
             productCategory);
 
-        validatePageRange(page, productsPage.getTotalPages(), NO_INTERACTION_ID);
+        validatePageRange(page, productsPage.getTotalPages(), WebUtil.NO_INTERACTION_ID);
 
         ResponseBankingProductListData listData = new ResponseBankingProductListData();
         listData.setProducts(productsPage.getContent());

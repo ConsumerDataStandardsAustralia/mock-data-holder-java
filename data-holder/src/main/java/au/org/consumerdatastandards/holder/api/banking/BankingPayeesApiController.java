@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
+import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayee;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayeeDetail;
@@ -58,7 +59,7 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
         BankingPayeeDetail payeeDetail = payeeService.getBankingPayeeDetail(payeeId, supportedVersion);
         if (payeeDetail == null) {
             throwCDSErrors(xFapiInteractionId, Collections.singletonList(
-                    createError("Invalid Resource", "urn:au-cds:error:cds-all:Resource/Invalid", payeeId)), HttpStatus.NOT_FOUND);
+                    new Error("Invalid Resource", "urn:au-cds:error:cds-all:Resource/Invalid", payeeId)), HttpStatus.NOT_FOUND);
         }
         ResponseBankingPayeeById responseBankingPayeeById = new ResponseBankingPayeeById();
         responseBankingPayeeById.setData(payeeDetail);

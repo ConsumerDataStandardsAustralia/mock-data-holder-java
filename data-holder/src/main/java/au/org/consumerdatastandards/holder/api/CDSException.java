@@ -2,18 +2,19 @@ package au.org.consumerdatastandards.holder.api;
 
 import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.MultiValueMap;
+
+import java.util.UUID;
 
 public class CDSException extends RuntimeException {
 	private final ErrorListResponse errors;
 	private final HttpStatus status;
-	private final MultiValueMap<String, String> headers;
+	private final UUID interactionId;
 
-	public CDSException(ErrorListResponse errors, MultiValueMap<String, String> headers, HttpStatus status) {
+	public CDSException(ErrorListResponse errors, UUID interactionId, HttpStatus status) {
 		super();
 		this.errors = errors;
 		this.status = status;
-		this.headers = headers;
+		this.interactionId = interactionId;
 	}
 
 	public ErrorListResponse getErrors() {
@@ -24,7 +25,7 @@ public class CDSException extends RuntimeException {
 		return status;
 	}
 
-	public MultiValueMap<String, String> getHeaders() {
-		return headers;
-	}
+    public UUID getInteractionId() {
+        return interactionId;
+    }
 }

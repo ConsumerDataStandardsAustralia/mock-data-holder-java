@@ -4,8 +4,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 public class WebUtil {
+    public static final UUID NO_INTERACTION_ID = UUID.randomUUID();
 
     public static String getPaginatedLink(NativeWebRequest request, Integer page, Integer pageSize) {
         HttpServletRequest servletRequest = request.getNativeRequest(HttpServletRequest.class);

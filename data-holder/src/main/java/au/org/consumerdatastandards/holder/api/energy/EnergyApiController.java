@@ -187,7 +187,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyPlanResponse> getPlan(String planId, Integer xV, Integer xMinV) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 1);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 1);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         EnergyPlanResponse response = new EnergyPlanResponse();
         EnergyPlanDetailEntity planDetail = service.getPlanDetail(planId);
@@ -255,7 +255,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyAccountListResponse> listAccounts(ParamAccountOpenStatus openStatus, Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
-        validatePageSize(pageSize, NO_INTERACTION_ID);
+        validatePageSize(pageSize, WebUtil.NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
 
         EnergyAccountListResponse response = new EnergyAccountListResponse();
@@ -412,8 +412,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             ParamFuelTypeEnum fuelType, ParamEffective effective, OffsetDateTime updatedSince, String brand,
             Integer page, Integer pageSize) {
 
-        int supportedVersion = validateSupportedVersion(xMinV, xV, NO_INTERACTION_ID, 1);
-        validatePageSize(pageSize, NO_INTERACTION_ID);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 1);
+        validatePageSize(pageSize, WebUtil.NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         EnergyPlanListResponse response = new EnergyPlanListResponse();
         EnergyPlanListResponseData data = new EnergyPlanListResponseData();
@@ -425,7 +425,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
                 "Returning basic plan listing page {} of {} (page size of {}) using filters of type {} effective {}, updated since {}, brand {}, fuel type {}",
                 actualPage, plansPage.getTotalPages(), actualPageSize, type, effective, updatedSince, brand, fuelType);
 
-        validatePageRange(page, plansPage.getTotalPages(), NO_INTERACTION_ID);
+        validatePageRange(page, plansPage.getTotalPages(), WebUtil.NO_INTERACTION_ID);
         data.setPlans(plansPage.getContent());
         response.setData(data);
         response.setLinks(getLinkData(request, plansPage, actualPage, actualPageSize));
