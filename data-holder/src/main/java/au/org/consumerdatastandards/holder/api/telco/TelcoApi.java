@@ -97,7 +97,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
                     allowableValues = "ALL, CLOSED, OPEN",
                     defaultValue = "ALL")
@@ -109,11 +109,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -183,15 +183,15 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -261,15 +261,15 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -348,7 +348,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
@@ -372,11 +372,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -446,15 +446,15 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -517,11 +517,11 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV);
+            Integer xMinV);
 
 
     /**
@@ -588,7 +588,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type")
             @Valid
             @RequestParam(value = "newest-time",
@@ -612,11 +612,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -695,7 +695,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
@@ -719,11 +719,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -791,7 +791,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
                     allowableValues = "ALL, CLOSED, OPEN",
                     defaultValue = "ALL")
@@ -813,11 +813,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -884,7 +884,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Page of results to request (standard pagination)")
             @Valid
             @RequestParam(value = "page",
@@ -898,11 +898,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -971,7 +971,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for",
                     required = true)
             @Valid
@@ -990,11 +990,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -1065,7 +1065,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for",
                     required = true)
             @Valid
@@ -1094,11 +1094,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -1167,7 +1167,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
@@ -1191,11 +1191,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -1266,7 +1266,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for",
                     required = true)
             @Valid
@@ -1295,11 +1295,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -1364,7 +1364,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Used to filter results on the type field.  Any one of the valid values for this field can be supplied. If absent, defaults to include all products. Valid values are ‘MOBILE’, ‘BROADBAND’",
                     allowableValues = "MOBILE, BROADBAND",
                     defaultValue = "MOBILE")
@@ -1412,7 +1412,7 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV);
+            Integer xMinV);
 
 
     /**
@@ -1469,7 +1469,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type")
             @Valid
             @RequestParam(value = "newest-time",
@@ -1493,11 +1493,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -1566,7 +1566,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
@@ -1590,11 +1590,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
@@ -1665,7 +1665,7 @@ public interface TelcoApi {
                     required = true)
             @RequestHeader(value = "x-v",
                     required = true)
-            String xV,
+            Integer xV,
             @ApiParam(value = "Request payload containing list of specific Service Points to obtain data for",
                     required = true)
             @Valid
@@ -1694,11 +1694,11 @@ public interface TelcoApi {
             @ApiParam(value = "Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable.")
             @RequestHeader(value = "x-min-v",
                     required = false)
-            String xMinV,
+            Integer xMinV,
             @ApiParam(value = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.")
             @RequestHeader(value = "x-fapi-interaction-id",
                     required = false)
-            String xFapiInteractionId,
+            UUID xFapiInteractionId,
             @ApiParam(value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.")
             @RequestHeader(value = "x-fapi-auth-date",
                     required = false)
