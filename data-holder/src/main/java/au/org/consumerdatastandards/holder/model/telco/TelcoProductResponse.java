@@ -1,9 +1,7 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
 import au.org.consumerdatastandards.holder.model.Links;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,39 +10,26 @@ import java.util.Objects;
 /**
  * TelcoProductResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoProductResponse {
-    @JsonProperty("data")
-    private JsonNullable<TelcoProduct> data = JsonNullable.undefined();
+    private TelcoProductDetail data = new TelcoProductDetail();
 
-    @JsonProperty("links")
     private Links links;
 
-    @JsonProperty("meta")
     private Object meta;
-
-    public TelcoProductResponse data(TelcoProduct data) {
-        this.data = JsonNullable.of(data);
-        return this;
-    }
 
     /**
      * Get data
      *
      * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public JsonNullable<TelcoProduct> getData() {
+    public TelcoProductDetail getData() {
         return data;
     }
 
-    public void setData(JsonNullable<TelcoProduct> data) {
+    public void setData(TelcoProductDetail data) {
         this.data = data;
     }
 
@@ -58,12 +43,9 @@ public class TelcoProductResponse {
      *
      * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public Links getLinks() {
         return links;
     }
@@ -83,8 +65,6 @@ public class TelcoProductResponse {
      * @return meta
      */
     @ApiModelProperty(value = "")
-
-
     public Object getMeta() {
         return meta;
     }
@@ -92,7 +72,6 @@ public class TelcoProductResponse {
     public void setMeta(Object meta) {
         this.meta = meta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -117,7 +96,6 @@ public class TelcoProductResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoProductResponse {\n");
-
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
@@ -136,4 +114,3 @@ public class TelcoProductResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

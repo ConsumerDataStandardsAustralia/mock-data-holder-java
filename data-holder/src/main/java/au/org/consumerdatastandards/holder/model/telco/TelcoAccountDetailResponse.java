@@ -1,9 +1,7 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
 import au.org.consumerdatastandards.holder.model.Links;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,39 +10,26 @@ import java.util.Objects;
 /**
  * TelcoAccountDetailResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoAccountDetailResponse {
-    @JsonProperty("data")
-    private JsonNullable<TelcoAccountBase> data = JsonNullable.undefined();
+    private TelcoAccountDetail data;
 
-    @JsonProperty("links")
     private Links links;
 
-    @JsonProperty("meta")
     private Object meta;
-
-    public TelcoAccountDetailResponse data(TelcoAccountBase data) {
-        this.data = JsonNullable.of(data);
-        return this;
-    }
 
     /**
      * Get data
      *
      * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public JsonNullable<TelcoAccountBase> getData() {
+    public TelcoAccountDetail getData() {
         return data;
     }
 
-    public void setData(JsonNullable<TelcoAccountBase> data) {
+    public void setData(TelcoAccountDetail data) {
         this.data = data;
     }
 
@@ -58,12 +43,9 @@ public class TelcoAccountDetailResponse {
      *
      * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public Links getLinks() {
         return links;
     }
@@ -82,11 +64,8 @@ public class TelcoAccountDetailResponse {
      *
      * @return meta
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
-
     public Object getMeta() {
         return meta;
     }
@@ -94,7 +73,6 @@ public class TelcoAccountDetailResponse {
     public void setMeta(Object meta) {
         this.meta = meta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -119,7 +97,6 @@ public class TelcoAccountDetailResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoAccountDetailResponse {\n");
-
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
@@ -138,4 +115,3 @@ public class TelcoAccountDetailResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

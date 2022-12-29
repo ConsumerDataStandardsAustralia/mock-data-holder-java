@@ -4,7 +4,6 @@ import au.org.consumerdatastandards.holder.api.ApiControllerBase;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.telco.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.telco.RequestServiceIds;
-import au.org.consumerdatastandards.holder.model.telco.TelcoAccountBase;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountDetail;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountDetailResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountListResponse;
@@ -20,7 +19,6 @@ import au.org.consumerdatastandards.holder.model.telco.TelcoServiceUsageResponse
 import au.org.consumerdatastandards.holder.model.telco.TelcoTransactionListResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoUsageListResponse;
 import au.org.consumerdatastandards.holder.util.WebUtil;
-import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -49,6 +47,9 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         TelcoAccountDetailResponse response = new TelcoAccountDetailResponse();
         TelcoAccountDetail data = new TelcoAccountDetail();
+        data.setAccountId("12345");
+        data.setAccountNumber("IW12345");
+        data.setBrand("Interwebs");
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);

@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -14,173 +11,42 @@ import java.util.Objects;
 /**
  * TelcoProduct
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoProduct {
-    @JsonProperty("productId")
     private String productId;
 
-    @JsonProperty("effectiveFrom")
     private String effectiveFrom;
 
-    @JsonProperty("effectiveTo")
     private String effectiveTo;
 
-    @JsonProperty("lastUpdated")
     private String lastUpdated;
 
-    @JsonProperty("displayName")
     private String displayName;
 
-    @JsonProperty("description")
     private String description;
 
-    /**
-     * The type of product
-     */
-    public enum TypeEnum {
-        MOBILE("MOBILE"),
-
-        BROADBAND("BROADBAND");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    @JsonProperty("type")
     private TypeEnum type = TypeEnum.MOBILE;
 
-    /**
-     * The purpose type of the product. If absent, then the value PERSONAL is assumed
-     */
-    public enum PurposeEnum {
-        PERSONAL("PERSONAL"),
-
-        BUSINESS("BUSINESS"),
-
-        ALL("ALL");
-
-        private String value;
-
-        PurposeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static PurposeEnum fromValue(String value) {
-            for (PurposeEnum b : PurposeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    @JsonProperty("purpose")
     private PurposeEnum purpose = PurposeEnum.ALL;
 
-    /**
-     * The type of product
-     */
-    public enum BillingTypeEnum {
-        PRE_PAID("PRE_PAID"),
-
-        POST_PAID("POST_PAID"),
-
-        UPFRONT_PAID("UPFRONT_PAID"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        BillingTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static BillingTypeEnum fromValue(String value) {
-            for (BillingTypeEnum b : BillingTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    @JsonProperty("billingType")
     private BillingTypeEnum billingType = BillingTypeEnum.PRE_PAID;
 
-    @JsonProperty("contract")
     private TelcoContract contract;
 
-    @JsonProperty("bundle")
     private Boolean bundle;
 
-    @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("brandName")
     private String brandName;
 
-    @JsonProperty("pricing")
     @Valid
     private List<TelcoProductPricing> pricing = new ArrayList<>();
 
-    @JsonProperty("thirdPartyAgentId")
     private String thirdPartyAgentId;
 
-    @JsonProperty("thirdPartyAgentName")
     private String thirdPartyAgentName;
 
-    @JsonProperty("applicationUri")
     private String applicationUri;
 
-    @JsonProperty("additionalInformation")
     private TelcoAdditionalInformation additionalInformation;
 
     public TelcoProduct productId(String productId) {
@@ -193,11 +59,8 @@ public class TelcoProduct {
      *
      * @return productId
      */
-    @ApiModelProperty(required = true,
-            value = "The ID of the specific product")
+    @ApiModelProperty(required = true, value = "The ID of the specific product")
     @NotNull
-
-
     public String getProductId() {
         return productId;
     }
@@ -217,8 +80,6 @@ public class TelcoProduct {
      * @return effectiveFrom
      */
     @ApiModelProperty(value = "The date and time from which this product is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate")
-
-
     public String getEffectiveFrom() {
         return effectiveFrom;
     }
@@ -238,8 +99,6 @@ public class TelcoProduct {
      * @return effectiveTo
      */
     @ApiModelProperty(value = "The date and time at which this product will be retired and will no longer be offered. Used to enable the managed deprecation of plans")
-
-
     public String getEffectiveTo() {
         return effectiveTo;
     }
@@ -259,8 +118,6 @@ public class TelcoProduct {
      * @return lastUpdated
      */
     @ApiModelProperty(value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)")
-
-
     public String getLastUpdated() {
         return lastUpdated;
     }
@@ -280,8 +137,6 @@ public class TelcoProduct {
      * @return displayName
      */
     @ApiModelProperty(value = "The display name of the product")
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -301,8 +156,6 @@ public class TelcoProduct {
      * @return description
      */
     @ApiModelProperty(value = "A description of the product")
-
-
     public String getDescription() {
         return description;
     }
@@ -321,11 +174,8 @@ public class TelcoProduct {
      *
      * @return type
      */
-    @ApiModelProperty(required = true,
-            value = "The type of product")
+    @ApiModelProperty(required = true, value = "The type of product")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -345,8 +195,6 @@ public class TelcoProduct {
      * @return purpose
      */
     @ApiModelProperty(value = "The purpose type of the product. If absent, then the value PERSONAL is assumed")
-
-
     public PurposeEnum getPurpose() {
         return purpose;
     }
@@ -365,11 +213,8 @@ public class TelcoProduct {
      *
      * @return billingType
      */
-    @ApiModelProperty(required = true,
-            value = "The type of product")
+    @ApiModelProperty(required = true, value = "The type of product")
     @NotNull
-
-
     public BillingTypeEnum getBillingType() {
         return billingType;
     }
@@ -389,9 +234,7 @@ public class TelcoProduct {
      * @return contract
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public TelcoContract getContract() {
         return contract;
     }
@@ -411,8 +254,6 @@ public class TelcoProduct {
      * @return bundle
      */
     @ApiModelProperty(value = "Required if part of a bundle. If not present FALSE is assumed")
-
-
     public Boolean getBundle() {
         return bundle;
     }
@@ -431,11 +272,8 @@ public class TelcoProduct {
      *
      * @return brand
      */
-    @ApiModelProperty(required = true,
-            value = "The ID of the brand under which this product is offered")
+    @ApiModelProperty(required = true, value = "The ID of the brand under which this product is offered")
     @NotNull
-
-
     public String getBrand() {
         return brand;
     }
@@ -454,11 +292,8 @@ public class TelcoProduct {
      *
      * @return brandName
      */
-    @ApiModelProperty(required = true,
-            value = "The display name of the brand under which this product is offered")
+    @ApiModelProperty(required = true, value = "The display name of the brand under which this product is offered")
     @NotNull
-
-
     public String getBrandName() {
         return brandName;
     }
@@ -482,12 +317,9 @@ public class TelcoProduct {
      *
      * @return pricing
      */
-    @ApiModelProperty(required = true,
-            value = "List of pricing details for the product plan")
+    @ApiModelProperty(required = true, value = "List of pricing details for the product plan")
     @NotNull
-
     @Valid
-
     public List<TelcoProductPricing> getPricing() {
         return pricing;
     }
@@ -507,8 +339,6 @@ public class TelcoProduct {
      * @return thirdPartyAgentId
      */
     @ApiModelProperty(value = "The ID of the Third Party through which this product may be originated")
-
-
     public String getThirdPartyAgentId() {
         return thirdPartyAgentId;
     }
@@ -528,8 +358,6 @@ public class TelcoProduct {
      * @return thirdPartyAgentName
      */
     @ApiModelProperty(value = "The display name of the Third Party through which this product may be originated")
-
-
     public String getThirdPartyAgentName() {
         return thirdPartyAgentName;
     }
@@ -549,8 +377,6 @@ public class TelcoProduct {
      * @return applicationUri
      */
     @ApiModelProperty(value = "A link to an application web page where this plan can be applied for")
-
-
     public String getApplicationUri() {
         return applicationUri;
     }
@@ -570,9 +396,7 @@ public class TelcoProduct {
      * @return additionalInformation
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public TelcoAdditionalInformation getAdditionalInformation() {
         return additionalInformation;
     }
@@ -580,7 +404,6 @@ public class TelcoProduct {
     public void setAdditionalInformation(TelcoAdditionalInformation additionalInformation) {
         this.additionalInformation = additionalInformation;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -620,7 +443,6 @@ public class TelcoProduct {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoProduct {\n");
-
         sb.append("    productId: ").append(toIndentedString(productId)).append("\n");
         sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
         sb.append("    effectiveTo: ").append(toIndentedString(effectiveTo)).append("\n");
