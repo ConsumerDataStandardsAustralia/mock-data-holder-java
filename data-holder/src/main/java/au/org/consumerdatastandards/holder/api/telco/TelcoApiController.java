@@ -9,8 +9,10 @@ import au.org.consumerdatastandards.holder.model.telco.RequestServiceIds;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountDetail;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountDetailResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountListResponse;
+import au.org.consumerdatastandards.holder.model.telco.TelcoAccountListResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoBalance;
 import au.org.consumerdatastandards.holder.model.telco.TelcoBalanceListResponse;
+import au.org.consumerdatastandards.holder.model.telco.TelcoBalanceListResponseBalances;
 import au.org.consumerdatastandards.holder.model.telco.TelcoBalanceResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoConcessionsResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoConcessionsResponseData;
@@ -19,6 +21,7 @@ import au.org.consumerdatastandards.holder.model.telco.TelcoPaymentScheduleRespo
 import au.org.consumerdatastandards.holder.model.telco.TelcoPaymentScheduleResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoProductDetail;
 import au.org.consumerdatastandards.holder.model.telco.TelcoProductListResponse;
+import au.org.consumerdatastandards.holder.model.telco.TelcoProductListResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoProductResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoServiceUsage;
 import au.org.consumerdatastandards.holder.model.telco.TelcoServiceUsageListResponse;
@@ -39,6 +42,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import java.time.OffsetDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.UUID;
 
 @Validated
@@ -56,7 +60,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
 
     @Override
     public ResponseEntity<TelcoAccountDetailResponse> getAccount(String accountId, Integer xV, String openStatus,
-            Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         TelcoAccountDetailResponse response = new TelcoAccountDetailResponse();
         TelcoAccountDetail data = new TelcoAccountDetail();
@@ -71,7 +75,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
 
     @Override
     public ResponseEntity<TelcoBalanceResponse> getBalanceForAccount(String accountId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         TelcoBalanceResponse response = new TelcoBalanceResponse();
         TelcoBalance data = new TelcoBalance();
@@ -83,7 +87,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
 
     @Override
     public ResponseEntity<TelcoConcessionsResponse> getConcessions(String accountId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         TelcoConcessionsResponse response = new TelcoConcessionsResponse();
         TelcoConcessionsResponseData data = new TelcoConcessionsResponseData();
@@ -96,16 +100,16 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
     @Override
     public ResponseEntity<TelcoInvoiceListResponse> getInvoicesForAccount(String accountId, Integer xV,
             String newestDate, String oldestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
-            String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
-        TelcoInvoiceListResponse data = new TelcoInvoiceListResponse();
-        data.setInvoices(Collections.emptyList());
-        return new ResponseEntity<>(data, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        TelcoInvoiceListResponse response = new TelcoInvoiceListResponse();
+        response.setInvoices(Collections.emptyList());
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<TelcoPaymentScheduleResponse> getPaymentSchedule(String accountId, Integer xV, Integer xMinV,
-            UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         TelcoPaymentScheduleResponse response = new TelcoPaymentScheduleResponse();
         TelcoPaymentScheduleResponseData data = new TelcoPaymentScheduleResponseData();
@@ -134,7 +138,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
     @Override
     public ResponseEntity<TelcoTransactionListResponse> getTransactionsForAccount(String accountId, Integer xV,
             String newestTime, String oldestTime, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
-            String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         TelcoTransactionListResponse response = new TelcoTransactionListResponse();
@@ -148,7 +152,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
     @Override
     public ResponseEntity<TelcoServiceUsageResponse> getUsageForService(String serviceId, Integer xV, String oldestDate,
             String newestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
-            String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         TelcoServiceUsageResponse response = new TelcoServiceUsageResponse();
@@ -161,53 +165,130 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
     }
 
     @Override
-    public ResponseEntity<TelcoAccountListResponse> listAccounts(Integer xV, String openStatus, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoAccountListResponse> listAccounts(Integer xV, String openStatus, Integer page,
+            Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress,
+            String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoAccountListResponse response = new TelcoAccountListResponse();
+        TelcoAccountListResponseData data = new TelcoAccountListResponseData();
+        data.setAccounts(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoBalanceListResponse> listBalance(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoBalanceListResponse> listBalance(Integer xV, Integer page, Integer pageSize,
+            Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress,
+            String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoBalanceListResponse response = new TelcoBalanceListResponse();
+        TelcoBalanceListResponseBalances data = new TelcoBalanceListResponseBalances();
+        data.setBalances(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoBalanceListResponse> listBalancesForAccounts(Integer xV, RequestAccountIds accountIdList, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoBalanceListResponse> listBalancesForAccounts(Integer xV, RequestAccountIds accountIdList,
+            Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate,
+            String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoBalanceListResponse response = new TelcoBalanceListResponse();
+        TelcoBalanceListResponseBalances data = new TelcoBalanceListResponseBalances();
+        data.setBalances(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoTransactionListResponse> listBillingForAccounts(Integer xV, RequestAccountIds accountIdList, String newestTime, String oldestTime, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoTransactionListResponse> listBillingForAccounts(Integer xV, RequestAccountIds accountIdList,
+            String newestTime, String oldestTime, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoTransactionListResponse response = new TelcoTransactionListResponse();
+        TelcoTransactionListResponseData data = new TelcoTransactionListResponseData();
+        data.setTransactions(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoInvoiceListResponse> listInvoices(Integer xV, String newestDate, String oldestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoInvoiceListResponse> listInvoices(Integer xV, String newestDate, String oldestDate,
+            Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate,
+            String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoInvoiceListResponse data = new TelcoInvoiceListResponse();
+        data.setInvoices(Collections.emptyList());
+        return new ResponseEntity<>(data, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoInvoiceListResponse> listInvoicesForAccounts(Integer xV, RequestAccountIds accountIdList, String newestDate, String oldestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoInvoiceListResponse> listInvoicesForAccounts(Integer xV, RequestAccountIds accountIdList,
+            String newestDate, String oldestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoInvoiceListResponse response = new TelcoInvoiceListResponse();
+        response.setInvoices(Collections.emptyList());
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoProductListResponse> listProducts(Integer xV, String type, String billingType, String effective, String updatedSince, String brand, Integer page, Integer pageSize, Integer xMinV) {
-        return null;
+    public ResponseEntity<TelcoProductListResponse> listProducts(Integer xV, String type, String billingType,
+            String effective, String updatedSince, String brand, Integer page, Integer pageSize, Integer xMinV) {
+        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 1);
+        TelcoProductListResponse response = new TelcoProductListResponse();
+        TelcoProductListResponseData data = new TelcoProductListResponseData();
+        data.setPlans(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(null, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoTransactionListResponse> listTransactions(Integer xV, String newestTime, String oldestTime, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoTransactionListResponse> listTransactions(Integer xV, String newestTime, String oldestTime,
+            Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate,
+            String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoTransactionListResponse response = new TelcoTransactionListResponse();
+        TelcoTransactionListResponseData data = new TelcoTransactionListResponseData();
+        data.setTransactions(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoUsageListResponse> listUsage(Integer xV, String oldestDate, String newestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoUsageListResponse> listUsage(Integer xV, String oldestDate, String newestDate,
+            Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate,
+            String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoUsageListResponse response = new TelcoUsageListResponse();
+        response.setAccounts(Collections.emptyList());
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoServiceUsageListResponse> listUsageForService(Integer xV, RequestServiceIds serviceIdList, String oldestDate, String newestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, String xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        return null;
+    public ResponseEntity<TelcoServiceUsageListResponse> listUsageForService(Integer xV, RequestServiceIds serviceIdList,
+            String oldestDate, String newestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
+            Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        validatePageSize(pageSize, xFapiInteractionId);
+        TelcoServiceUsageListResponse response = new TelcoServiceUsageListResponse();
+        response.setData(Collections.emptyList());
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     private LinksPaginated createSinglePageLinksPaginated(Integer pageSize) {
