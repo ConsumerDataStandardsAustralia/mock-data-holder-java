@@ -3,7 +3,7 @@ package au.org.consumerdatastandards.client.model.energy;
 import java.util.Objects;
 
 /**
- * Object contain charges and credits related to electricity usage
+ * Object contains account level charges and credits related to electricity usage
  */
 public class EnergyInvoiceAccountCharges {
     private String totalCharges;
