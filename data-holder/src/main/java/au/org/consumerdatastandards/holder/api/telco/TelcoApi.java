@@ -7,6 +7,7 @@ package au.org.consumerdatastandards.holder.api.telco;
 
 import au.org.consumerdatastandards.holder.api.DateFormat;
 import au.org.consumerdatastandards.holder.model.ErrorListResponse;
+import au.org.consumerdatastandards.holder.model.telco.BillingTypeEnum;
 import au.org.consumerdatastandards.holder.model.telco.RequestAccountIds;
 import au.org.consumerdatastandards.holder.model.telco.RequestServiceIds;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountDetailResponse;
@@ -22,6 +23,7 @@ import au.org.consumerdatastandards.holder.model.telco.TelcoServiceUsageListResp
 import au.org.consumerdatastandards.holder.model.telco.TelcoServiceUsageResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoTransactionListResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoUsageListResponse;
+import au.org.consumerdatastandards.holder.model.telco.TypeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -1377,7 +1379,7 @@ public interface TelcoApi {
             @RequestParam(value = "type",
                     required = false,
                     defaultValue = "MOBILE")
-            String type,
+            TypeEnum type,
             @ApiParam(value = "Used to filter results on the billing-type field.  Any one of the valid values for this field can be supplied. If absent, defaults to include all billing types. Valid values are ‘PRE_PAID’, ‘POST_PAID’, 'UPFRONT_PAID', 'OTHER'",
                     allowableValues = "PRE_PAID, POST_PAID, UPFRONT_PAID, OTHER",
                     defaultValue = "PRE_PAID")
@@ -1385,7 +1387,7 @@ public interface TelcoApi {
             @RequestParam(value = "billing-type",
                     required = false,
                     defaultValue = "PRE_PAID")
-            String billingType,
+            BillingTypeEnum billingType,
             @ApiParam(value = "Allows for the filtering of productd based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to 'CURRENT'",
                     allowableValues = "CURRENT, FUTURE, ALL",
                     defaultValue = "CURRENT")

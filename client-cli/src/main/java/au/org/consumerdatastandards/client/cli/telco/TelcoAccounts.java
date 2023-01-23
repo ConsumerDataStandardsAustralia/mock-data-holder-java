@@ -38,7 +38,7 @@ public class TelcoAccounts extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("List Telco accounts CLI initiated with page: {}, page-size: {}", page, pageSize);
+        LOGGER.info("List Telco accounts CLI initiated with openStatus: {}, page: {}, page-size: {}", openStatus, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
         ApiResult<TelcoAccountListResponse> result = api.listAccounts(openStatus, page, pageSize);

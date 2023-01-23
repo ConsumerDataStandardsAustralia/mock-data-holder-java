@@ -243,7 +243,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
     }
 
     @Override
-    public ResponseEntity<TelcoProductListResponse> listProducts(Integer xV, String type, String billingType,
+    public ResponseEntity<TelcoProductListResponse> listProducts(Integer xV, TypeEnum type, BillingTypeEnum billingType,
             String effective, String updatedSince, String brand, Integer page, Integer pageSize, Integer xMinV) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 1);
         TelcoProductListResponse response = new TelcoProductListResponse();

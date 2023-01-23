@@ -32,7 +32,7 @@ public class EnergyServicePoints extends ApiCliBase {
     private final EnergyServicePointsAPI api = new EnergyServicePointsAPI();
 
     @ShellMethod("List Energy service points")
-    public String listServicePoints(@ShellOption(defaultValue = "false") boolean check,
+    public String listEnergyServicePoints(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
@@ -53,11 +53,11 @@ public class EnergyServicePoints extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get service point detail")
-    public String getServicePointDetail(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get Energy service point detail")
+    public String getEnergyServicePointDetail(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String servicePointId) throws Exception {
 
-        LOGGER.info("Get service point detail CLI initiated with servicePointId: {}", servicePointId);
+        LOGGER.info("Get Energy service point detail CLI initiated with servicePointId: {}", servicePointId);
 
         api.setApiClient(clientFactory.create(true, check));
         ApiResult<EnergyServicePointDetailResponse> result = api.getServicePointDetail(servicePointId);
@@ -74,8 +74,8 @@ public class EnergyServicePoints extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get usage for service point")
-    public String getUsageForServicePoint(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get Energy usage for service point")
+    public String getEnergyUsageForServicePoint(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String servicePointId,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
@@ -83,7 +83,7 @@ public class EnergyServicePoints extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
             @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get usage for service point CLI initiated with servicePointId: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
+        LOGGER.info("Get Energy usage for service point CLI initiated with servicePointId: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
                 servicePointId, page, pageSize, oldestDate, newestDate, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -101,15 +101,15 @@ public class EnergyServicePoints extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get bulk usage")
-    public String listUsageBulk(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get bulk Energy usage")
+    public String listEnergyUsageBulk(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestDate,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
             @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get bulk usage CLI initiated with page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
+        LOGGER.info("Get bulk Energy usage CLI initiated with page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
                 page, pageSize, oldestDate, newestDate, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -127,8 +127,8 @@ public class EnergyServicePoints extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get usage for specific service points")
-    public String listUsageForServicePoints(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get usage for specific Energy service points")
+    public String listUsageForEnergyServicePoints(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) List<String> servicePointIds,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
@@ -136,7 +136,7 @@ public class EnergyServicePoints extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
             @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get usage for specific service points CLI initiated with servicePointIds: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
+        LOGGER.info("Get usage for specific Energy service points CLI initiated with servicePointIds: {}, page: {}, page-size: {}, oldest-date: {}, newest-date: {}, interval-reads: {}",
                 servicePointIds, page, pageSize, oldestDate, newestDate, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -159,11 +159,11 @@ public class EnergyServicePoints extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get DER for service point")
-    public String listDERForServicePoint(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get DER for Energy service point")
+    public String listDerForEnergyServicePoint(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String servicePointId) throws Exception {
 
-        LOGGER.info("Get DER for service point CLI initiated with servicePointId: {}",
+        LOGGER.info("Get DER for Energy service point CLI initiated with servicePointId: {}",
                 servicePointId);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -181,12 +181,12 @@ public class EnergyServicePoints extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get bulk DER")
-    public String listDERBulk(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get bulk Energy DER")
+    public String listEnergyDerBulk(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get bulk DER CLI initiated with page: {}, page-size: {}", page, pageSize);
+        LOGGER.info("Get bulk Energy DER CLI initiated with page: {}, page-size: {}", page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
         ApiResult<EnergyDerListResponse> result = api.listDERBulk(page, pageSize);
@@ -203,13 +203,13 @@ public class EnergyServicePoints extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get DER for specific service points")
-    public String listDERForServicePoints(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get DER for specific Energy service points")
+    public String listDerForEnergyServicePoints(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) List<String> servicePointIds,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get DER for specific service points CLI initiated with servicePointIds: {}, page: {}, page-size: {}",
+        LOGGER.info("Get DER for specific Energy service points CLI initiated with servicePointIds: {}, page: {}, page-size: {}",
                 servicePointIds, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
