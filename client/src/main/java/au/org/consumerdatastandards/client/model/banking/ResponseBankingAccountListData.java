@@ -10,19 +10,19 @@ package au.org.consumerdatastandards.client.model.banking;
 import java.util.List;
 import java.util.Objects;
 
-public class ResponseBankingAccountListData {
+public class ResponseBankingAccountListData<T extends BankingAccount> {
 
-    private List<BankingAccount> accounts;
+    private List<T> accounts;
 
     /**
      * The list of accounts returned. If the filter results in an empty set then this array may have no records
      * @return accounts
      */
-    public List<BankingAccount> getAccounts() {
+    public List<T> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<BankingAccount> accounts) {
+    public void setAccounts(List<T> accounts) {
         this.accounts = accounts;
     }
 

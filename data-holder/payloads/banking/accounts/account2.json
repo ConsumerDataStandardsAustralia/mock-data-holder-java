@@ -4,5 +4,6 @@
   "openStatus": "OPEN",
   "maskedNumber": "xxxxx-xxxxx2714",
   "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS",
-  "productName": "Security Deposit Account"
+  "productName": "Security Deposit Account",
+  "accountOwnership": "ONE_PARTY"
 }

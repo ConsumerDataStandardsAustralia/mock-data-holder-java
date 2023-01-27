@@ -11,19 +11,19 @@ import au.org.consumerdatastandards.client.model.PaginatedResponse;
 
 import java.util.Objects;
 
-public class ResponseBankingAccountList extends PaginatedResponse {
+public class ResponseBankingAccountList<T extends BankingAccount> extends PaginatedResponse {
 
-    private ResponseBankingAccountListData data;
+    private ResponseBankingAccountListData<T> data;
 
     /**
      * Get data
      * @return data
      */
-    public ResponseBankingAccountListData getData() {
+    public ResponseBankingAccountListData<T> getData() {
         return data;
     }
 
-    public void setData(ResponseBankingAccountListData data) {
+    public void setData(ResponseBankingAccountListData<T> data) {
         this.data = data;
     }
 

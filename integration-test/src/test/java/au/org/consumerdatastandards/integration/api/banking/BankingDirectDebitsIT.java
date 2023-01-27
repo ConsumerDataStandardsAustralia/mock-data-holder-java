@@ -60,7 +60,7 @@ public class BankingDirectDebitsIT extends BankingITBase {
         BankingAccountsAPI accountsAPI = new BankingAccountsAPI();
         accountsAPI.setApiClient(getAPI().getApiClient());
         for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
-            BankingAccountDetail accountDetail = accountsAPI.getAccountDetail(directDebit.getAccountId()).getData();
+            BankingAccountDetail accountDetail = accountsAPI.getAccountDetail(directDebit.getAccountId(), 1).getData();
             checkProductCategory(accountDetail.getProductCategory(), productCategory, conformanceErrors);
             checkOpenStatus(accountDetail.getOpenStatus(), openStatus, conformanceErrors);
             checkOwned(accountDetail.getIsOwned(), isOwned, conformanceErrors);

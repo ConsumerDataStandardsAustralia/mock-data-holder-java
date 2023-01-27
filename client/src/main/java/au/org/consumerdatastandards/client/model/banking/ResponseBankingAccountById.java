@@ -9,19 +9,19 @@ package au.org.consumerdatastandards.client.model.banking;
 
 import java.util.Objects;
 
-public class ResponseBankingAccountById extends BaseResponse {
+public class ResponseBankingAccountById<T extends BankingAccountDetail> extends BaseResponse {
 
-    private BankingAccountDetail data;
+    private T data;
 
     /**
      * Get data
      * @return data
      */
-    public BankingAccountDetail getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(BankingAccountDetail data) {
+    public void setData(T data) {
         this.data = data;
     }
 

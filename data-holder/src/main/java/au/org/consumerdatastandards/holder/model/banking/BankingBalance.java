@@ -28,7 +28,7 @@ public class BankingBalance  {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(updatable = false)
-    private BankingAccount bankingAccount;
+    private BankingAccountV2 bankingAccount;
 
     /**
      * Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent
@@ -87,7 +87,7 @@ public class BankingBalance  {
         return bankingAccount;
     }
 
-    public void setBankingAccount(BankingAccount bankingAccount) {
+    public void setBankingAccount(BankingAccountV2 bankingAccount) {
         this.bankingAccount = bankingAccount;
     }
 

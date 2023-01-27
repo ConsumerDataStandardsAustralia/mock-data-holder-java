@@ -6,5 +6,6 @@
   "openStatus": "OPEN",
   "maskedNumber": "xxx-xxx xx0914",
   "productCategory": "TERM_DEPOSITS",
-  "productName": "Term Deposit"
+  "productName": "Term Deposit",
+  "accountOwnership": "ONE_PARTY"
 }

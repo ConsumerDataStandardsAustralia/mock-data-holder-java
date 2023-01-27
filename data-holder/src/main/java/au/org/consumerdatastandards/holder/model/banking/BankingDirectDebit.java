@@ -12,12 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.util.Objects;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @ApiModel
 @Entity
-public class BankingDirectDebit  {
+public class BankingDirectDebit {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -33,7 +33,7 @@ public class BankingDirectDebit  {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(updatable = false)
-    private BankingAccount bankingAccount;
+    private BankingAccountV2 bankingAccount;
 
     /**
      * Get authorisedEntity
@@ -74,16 +74,17 @@ public class BankingDirectDebit  {
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
+
     public BankingDirectDebit authorisedEntity(BankingAuthorisedEntity authorisedEntity) {
         this.authorisedEntity = authorisedEntity;
         return this;
     }
 
-    public BankingAccount getBankingAccount() {
+    public BankingAccountV2 getBankingAccount() {
         return bankingAccount;
     }
 
-    public void setBankingAccount(BankingAccount bankingAccount) {
+    public void setBankingAccount(BankingAccountV2 bankingAccount) {
         this.bankingAccount = bankingAccount;
     }
 
@@ -170,4 +171,3 @@ public class BankingDirectDebit  {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

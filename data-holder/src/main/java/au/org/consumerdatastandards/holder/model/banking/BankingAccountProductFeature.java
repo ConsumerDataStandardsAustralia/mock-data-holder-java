@@ -18,9 +18,9 @@ public class BankingAccountProductFeature {
     @JsonIgnore
     private String id;
 
-    @JsonIgnore
-    @ManyToOne
-    private BankingAccountDetail bankingAccountDetail;
+//    @JsonIgnore
+//    @ManyToOne
+//    private BankingAccountDetail bankingAccountDetail;
 
     @ManyToOne
     private BankingProductFeature bankingProductFeature;
@@ -35,13 +35,13 @@ public class BankingAccountProductFeature {
         this.id = id;
     }
 
-    public BankingAccountDetail getBankingAccountDetail() {
-        return bankingAccountDetail;
-    }
+//    public BankingAccountDetail getBankingAccountDetail() {
+//        return bankingAccountDetail;
+//    }
 
-    public void setBankingAccountDetail(BankingAccountDetail bankingAccountDetail) {
-        this.bankingAccountDetail = bankingAccountDetail;
-    }
+//    public void setBankingAccountDetail(BankingAccountDetail bankingAccountDetail) {
+//        this.bankingAccountDetail = bankingAccountDetail;
+//    }
 
     public BankingProductFeature getBankingProductFeature() {
         return bankingProductFeature;
@@ -65,7 +65,7 @@ public class BankingAccountProductFeature {
         if (!(o instanceof BankingAccountProductFeature)) return false;
         BankingAccountProductFeature that = (BankingAccountProductFeature) o;
         return Objects.equals(id, that.id) &&
-            Objects.equals(bankingAccountDetail, that.bankingAccountDetail) &&
+//            Objects.equals(bankingAccountDetail, that.bankingAccountDetail) &&
             Objects.equals(bankingProductFeature, that.bankingProductFeature) &&
             Objects.equals(isActivated, that.isActivated);
     }
@@ -74,7 +74,7 @@ public class BankingAccountProductFeature {
     public int hashCode() {
         return Objects.hash(
             id,
-            bankingAccountDetail,
+//            bankingAccountDetail,
             bankingProductFeature,
             isActivated);
     }
@@ -83,7 +83,7 @@ public class BankingAccountProductFeature {
     public String toString() {
         return "class BankingAccountProductFeature {" +
             "   id: " + toIndentedString(id) + '\'' +
-            "   bankingAccountDetail: " + toIndentedString(bankingAccountDetail) +
+//            "   bankingAccountDetail: " + toIndentedString(bankingAccountDetail) +
             "   bankingProductFeature: " + toIndentedString(bankingProductFeature) +
             "   isActivated: " + toIndentedString(isActivated) +
             '}';

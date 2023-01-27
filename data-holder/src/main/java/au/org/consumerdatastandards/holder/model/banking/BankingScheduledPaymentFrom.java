@@ -19,7 +19,7 @@ public class BankingScheduledPaymentFrom  {
 
     @ManyToOne
     @JsonIgnore
-    private BankingAccount bankingAccount;
+    private BankingAccountV2 bankingAccount;
 
     public BankingScheduledPaymentFrom accountId(String accountId) {
         this.accountId = accountId;
@@ -35,11 +35,11 @@ public class BankingScheduledPaymentFrom  {
         this.accountId = accountId;
     }
 
-    public BankingAccount getBankingAccount() {
+    public BankingAccountV2 getBankingAccount() {
         return bankingAccount;
     }
 
-    public void setBankingAccount(BankingAccount bankingAccount) {
+    public void setBankingAccount(BankingAccountV2 bankingAccount) {
         this.bankingAccount = bankingAccount;
     }
 
