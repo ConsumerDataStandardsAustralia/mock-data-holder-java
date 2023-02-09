@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -8,19 +7,14 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Object contain charges and credits related to electricity usage
+ * Object contains account level charges and credits related to electricity usage
  */
-@ApiModel(description = "Object contain charges and credits related to electricity usage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@ApiModel(description = "Object contains account level charges and credits related to electricity usage")
 public class EnergyInvoiceAccountCharges {
-    @JsonProperty("totalCharges")
     private String totalCharges;
 
-    @JsonProperty("totalDiscounts")
     private String totalDiscounts;
 
-    @JsonProperty("totalGst")
     private String totalGst;
 
     public EnergyInvoiceAccountCharges totalCharges(String totalCharges) {
@@ -36,8 +30,6 @@ public class EnergyInvoiceAccountCharges {
     @ApiModelProperty(required = true,
             value = "The aggregate total of account level charges for the period covered by the invoice")
     @NotNull
-
-
     public String getTotalCharges() {
         return totalCharges;
     }
@@ -59,8 +51,6 @@ public class EnergyInvoiceAccountCharges {
     @ApiModelProperty(required = true,
             value = "The aggregate total of account level discounts or credits for the period covered by the invoice")
     @NotNull
-
-
     public String getTotalDiscounts() {
         return totalDiscounts;
     }
@@ -80,8 +70,6 @@ public class EnergyInvoiceAccountCharges {
      * @return totalGst
      */
     @ApiModelProperty(value = "The total GST for all account level charges.  If absent then zero is assumed")
-
-
     public String getTotalGst() {
         return totalGst;
     }
@@ -89,7 +77,6 @@ public class EnergyInvoiceAccountCharges {
     public void setTotalGst(String totalGst) {
         this.totalGst = totalGst;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -114,7 +101,6 @@ public class EnergyInvoiceAccountCharges {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyInvoiceAccountCharges {\n");
-
         sb.append("    totalCharges: ").append(toIndentedString(totalCharges)).append("\n");
         sb.append("    totalDiscounts: ").append(toIndentedString(totalDiscounts)).append("\n");
         sb.append("    totalGst: ").append(toIndentedString(totalGst)).append("\n");
@@ -133,4 +119,3 @@ public class EnergyInvoiceAccountCharges {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

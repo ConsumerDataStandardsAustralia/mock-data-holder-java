@@ -29,11 +29,11 @@ or, if you want to point to your own keystore:
 
     docker run -p 8686:8686 -it -v /your/local/path/to/java-artefacts/client-cli/keystore:/keystore consumerdatastandardsaustralia/client-cli:x.x.x
     
-Where `x.x.x` is the version, say, `1.20.0`
+Where `x.x.x` is the version, say, `1.22.0`
 
 Run locally-built image:
 
-    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.20.1-SNAPSHOT
+    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.22.1-SNAPSHOT
 
 ### Command Reference
 
@@ -119,33 +119,33 @@ CommonDiscovery
         get-status: Get status
 
 EnergyAccounts
-        get-balance-for-account: Get balance for Energy account
-        get-billing-for-account: Get billing for account
-        get-concessions: Get concessions
+        get-balance-for-energy-account: Get balance for Energy account
+        get-billing-for-energy-account: Get billing for Energy account
         get-energy-account-detail: Get Energy account detail
-        get-invoices-for-account: Get invoices for account
-        get-payment-schedule: Get agreed payment schedule
-        list-balances-for-accounts: Get balances for specific Energy accounts
-        list-billing-bulk: Get bulk billing
-        list-billing-for-accounts: Get billing for specific accounts
+        get-energy-concessions: Get Energy concessions
+        get-energy-payment-schedule: Get agreed Energy payment schedule
+        get-invoices-for-energy-account: Get invoices for Energy account
+        list-balances-for-energy-accounts: Get balances for specific Energy accounts
+        list-billing-for-energy-accounts: Get billing for specific Energy accounts
         list-energy-accounts: List Energy accounts
         list-energy-balances-bulk: Get bulk balances for Energy
-        list-invoices-bulk: Get bulk invoices
-        list-invoices-for-accounts: Get invoices for specific accounts
+        list-energy-billing-bulk: Get Energy bulk billing
+        list-energy-invoices-bulk: Get bulk Energy invoices
+        list-invoices-for-energy-accounts: Get invoices for specific Energy accounts
 
 EnergyPlans
-        get-generic-plan-detail: Get generic plan detail
-        list-generic-plans: List generic Energy plans
+        get-generic-energy-plan-detail: Get generic Energy plan detail
+        list-generic-energy-plans: List generic Energy plans
 
 EnergyServicePoints
-        get-service-point-detail: Get service point detail
-        get-usage-for-service-point: Get usage for service point
-        list-derbulk: Get bulk DER
-        list-derfor-service-point: Get DER for service point
-        list-derfor-service-points: Get DER for specific service points
-        list-service-points: List Energy service points
-        list-usage-bulk: Get bulk usage
-        list-usage-for-service-points: Get usage for specific service points
+        get-energy-service-point-detail: Get Energy service point detail
+        get-energy-usage-for-service-point: Get Energy usage for service point
+        list-der-for-energy-service-point: Get DER for Energy service point
+        list-der-for-energy-service-points: Get DER for specific Energy service points
+        list-energy-der-bulk: Get bulk Energy DER
+        list-energy-service-points: List Energy service points
+        list-energy-usage-bulk: Get bulk Energy usage
+        list-usage-for-energy-service-points: Get usage for specific Energy service points
 
 Exit Command
         exit, quit: Exit Client CLI.
@@ -155,6 +155,27 @@ Reference Testing
         list-payload-models: List top-level payload models
         payload-validation-status: Retrieve current conformance check status
         validate-path: Validate json payload(s) against CDS
+
+TelcoAccounts
+        get-balance-for-telco-account: Get balance for Telco account
+        get-invoices-for-telco-account: Get invoices for Telco account
+        get-telco-account-detail: Get Telco account detail
+        get-telco-concessions: Get Telco concessions
+        get-telco-payment-schedule: Get Telco agreed payment schedule
+        list-balances-for-telco-accounts: Get balances for specific Telco accounts
+        list-invoices-for-telco-accounts: Get invoices for specific Telco accounts
+        list-telco-accounts: List Telco accounts
+        list-telco-balances-bulk: Get bulk Telco balances
+        list-telco-invoices-bulk: Get bulk Telco invoices
+
+TelcoProducts
+        get-telco-product-detail: Get Telco product detail
+        list-telco-products: List Telco products
+
+TelcoUsage
+        get-usage-for-telco-service: Get usage for Telco service
+        list-telco-usage: List Telco usage
+        list-usage-for-telco-service: Get usage for specific Telco service
 </pre>
 
 The properties associated with select commands can be set in the command line, e.g. -Dproperty.name=property_value
@@ -162,8 +183,8 @@ or in the application.properties file before launching the application with `mvn
 
 Example:
 
-    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.9.0.jar
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.22.0.jar
 
 or
 
-    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.9.1-SNAPSHOT.jar
+    java -Dserver=http://localhost:8383/cds-au/v1 -jar target/client-cli-1.22.1-SNAPSHOT.jar

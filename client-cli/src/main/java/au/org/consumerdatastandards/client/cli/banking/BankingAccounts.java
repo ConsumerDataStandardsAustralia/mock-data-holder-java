@@ -12,6 +12,7 @@ import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.banking.BankingAccountsAPI;
 import au.org.consumerdatastandards.client.cli.ApiCliBase;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.banking.BankingAccount;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.banking.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.client.model.banking.RequestAccountIds;
@@ -42,16 +43,17 @@ public class BankingAccounts extends ApiCliBase {
 
     @ShellMethod("Get account detail")
     public String getAccountDetail(@ShellOption(defaultValue = "false") boolean check,
-        @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
+        @ShellOption(defaultValue = ShellOption.NULL) String accountId,
+        @ShellOption(defaultValue = "1") Integer version) throws Exception {
 
-        LOGGER.info("Get account detail CLI initiated with accountId: {}",
-            accountId);
+        LOGGER.info("Get account detail CLI initiated with accountId: {}, version: {}",
+            accountId, version);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResponse<ResponseBankingAccountById> response = api.getAccountDetailWithHttpInfo(accountId);
+        ApiResponse<ResponseBankingAccountById> response = api.getAccountDetailWithHttpInfo(accountId, version);
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.getAccountDetailCall(accountId, null);
+            okhttp3.Call call = api.getAccountDetailCall(accountId, version, null);
             String requestUrl = call.request().url().toString();
             List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {
@@ -127,21 +129,23 @@ public class BankingAccounts extends ApiCliBase {
         @ShellOption(defaultValue = ShellOption.NULL) ParamAccountOpenStatus openStatus,
         @ShellOption(defaultValue = ShellOption.NULL) Integer page,
         @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
-        @ShellOption(defaultValue = ShellOption.NULL) BankingProductCategory productCategory) throws Exception {
+        @ShellOption(defaultValue = ShellOption.NULL) BankingProductCategory productCategory,
+        @ShellOption(defaultValue = "1") Integer version) throws Exception {
 
-        LOGGER.info("List accounts CLI initiated with is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}",
+        LOGGER.info("List accounts CLI initiated with is-owned: {}, open-status: {}, page: {}, page-size: {}, product-category: {}, version: {}",
             isOwned,
             openStatus,
             page,
             pageSize,
-            productCategory);
+            productCategory,
+            version);
 
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResponse<ResponseBankingAccountList> response = api.listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
+        ApiResponse<ResponseBankingAccountList<BankingAccount>> response = api.listAccountsWithHttpInfo(productCategory, openStatus, isOwned, version, page, pageSize);
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");
-            okhttp3.Call call = api.listAccountsCall(productCategory, openStatus, isOwned, page, pageSize, null);
+            okhttp3.Call call = api.listAccountsCall(productCategory, openStatus, isOwned, version, page, pageSize, null);
             String requestUrl = call.request().url().toString();
             List<ConformanceError> conformanceErrors = validateMetadata(requestUrl, response);
             if (!conformanceErrors.isEmpty()) {

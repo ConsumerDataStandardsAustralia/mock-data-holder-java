@@ -6,6 +6,7 @@ import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.banking.BankingAccountsAPI;
 import au.org.consumerdatastandards.client.model.banking.BankingAccount;
 import au.org.consumerdatastandards.client.model.banking.BankingAccountDetail;
+import au.org.consumerdatastandards.client.model.banking.BankingAccountV2;
 import au.org.consumerdatastandards.client.model.banking.BankingBalance;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.banking.BankingTransaction;
@@ -21,9 +22,9 @@ import au.org.consumerdatastandards.client.model.banking.ResponseBankingTransact
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -43,10 +44,10 @@ public class BankingAccountsIT extends BankingITBase {
     @CsvSource({
             "BUSINESS_LOANS,ALL,,,"
     })
-    public void listAccounts(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned,
+    public void listAccountsV1(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned,
                              Integer page, Integer pageSize) throws ApiException {
-        ApiResponse<ResponseBankingAccountList> resp =
-                ((BankingAccountsAPI)getAPI()).listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
+        ApiResponse<ResponseBankingAccountList<BankingAccount>> resp =
+                ((BankingAccountsAPI)getAPI()).listAccountsWithHttpInfo(productCategory, openStatus, isOwned, 1, page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
@@ -62,13 +63,37 @@ public class BankingAccountsIT extends BankingITBase {
                 CONFORMANCE_ERRORS_FOUND + buildConformanceErrorsDescription(conformanceErrors));
     }
 
-    @Test
-    public void getAccountDetail() throws ApiException {
-        ResponseBankingAccountList resp =
-                ((BankingAccountsAPI)getAPI()).listAccounts(null, null, null, null, 50);
+    @ParameterizedTest
+    @CsvSource({
+            "BUSINESS_LOANS,ALL,,,"
+    })
+    public void listAccountsV2(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned,
+                             Integer page, Integer pageSize) throws ApiException {
+        ApiResponse<ResponseBankingAccountList<BankingAccountV2>> resp =
+                ((BankingAccountsAPI)getAPI()).listAccountsWithHttpInfo(productCategory, openStatus, isOwned, 2, page, pageSize);
+        Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+        List<ConformanceError> conformanceErrors = new ArrayList<>();
+        checkResponseHeaders(resp.getHeaders(), conformanceErrors);
+        for (BankingAccountV2 account : resp.getBody().getData().getAccounts()) {
+            checkProductCategory(account.getProductCategory(), productCategory, conformanceErrors);
+            checkOwned(account.getIsOwned(), isOwned, conformanceErrors);
+            checkOpenStatus(account.getOpenStatus(), openStatus, conformanceErrors);
+        }
+
+        dumpConformanceErrors(conformanceErrors);
+
+        Assertions.assertTrue(conformanceErrors.isEmpty(),
+                CONFORMANCE_ERRORS_FOUND + buildConformanceErrorsDescription(conformanceErrors));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3})
+    public void getAccountDetail(int version) throws ApiException {
+        ResponseBankingAccountList<BankingAccount> resp =
+                ((BankingAccountsAPI)getAPI()).listAccounts(null, null, null, 1, null, 50);
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         for (BankingAccount account : resp.getData().getAccounts()) {
-            ApiResponse<ResponseBankingAccountById> accountDetail = ((BankingAccountsAPI)getAPI()).getAccountDetailWithHttpInfo(account.getAccountId());
+            ApiResponse<ResponseBankingAccountById> accountDetail = ((BankingAccountsAPI)getAPI()).getAccountDetailWithHttpInfo(account.getAccountId(), version);
             Assertions.assertEquals(ResponseCode.OK.getCode(), accountDetail.getStatusCode());
             checkResponseHeaders(accountDetail.getHeaders(), conformanceErrors);
             checkAccountId(accountDetail.getBody().getData().getAccountId(), account.getAccountId(), conformanceErrors);
@@ -108,7 +133,7 @@ public class BankingAccountsIT extends BankingITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
         for (BankingBalance acc : resp.getBody().getData().getBalances()) {
-            BankingAccountDetail account = ((BankingAccountsAPI)getAPI()).getAccountDetail(acc.getAccountId()).getData();
+            BankingAccountDetail account = ((BankingAccountsAPI)getAPI()).getAccountDetail(acc.getAccountId(), 1).getData();
             checkProductCategory(account.getProductCategory(), productCategory, conformanceErrors);
             checkOwned(account.getIsOwned(), isOwned, conformanceErrors);
             checkOpenStatus(account.getOpenStatus(), openStatus, conformanceErrors);

@@ -6,8 +6,8 @@ import au.org.consumerdatastandards.holder.model.CommonPersonDetail;
 import au.org.consumerdatastandards.holder.model.OrganisationUser;
 import au.org.consumerdatastandards.holder.model.PersonUser;
 import au.org.consumerdatastandards.holder.model.User;
-import au.org.consumerdatastandards.holder.model.banking.BankingAccount;
-import au.org.consumerdatastandards.holder.model.banking.BankingAccountDetail;
+import au.org.consumerdatastandards.holder.model.banking.BankingAccountDetailV3;
+import au.org.consumerdatastandards.holder.model.banking.BankingAccountV2;
 import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
@@ -17,12 +17,11 @@ import au.org.consumerdatastandards.holder.repository.CommonOrganisationReposito
 import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonRepository;
 import au.org.consumerdatastandards.holder.repository.UserRepository;
-import au.org.consumerdatastandards.holder.repository.banking.BankingAccountDetailRepository;
-import au.org.consumerdatastandards.holder.repository.banking.BankingAccountRepository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingAccountDetailRepositoryV3;
+import au.org.consumerdatastandards.holder.repository.banking.BankingAccountRepositoryV2;
 import au.org.consumerdatastandards.holder.repository.banking.BankingBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,8 +49,8 @@ public class CdsDataLoader {
 
     // Banking repositories
     private BankingProductDetailV2Repository productDetailRepository;
-    private BankingAccountDetailRepository accountDetailRepository;
-    private BankingAccountRepository accountRepository;
+    private BankingAccountDetailRepositoryV3 accountDetailRepository;
+    private BankingAccountRepositoryV2 accountRepository;
     private BankingBalanceRepository balanceRepository;
     private CommonPersonDetailRepository commonPersonDetailRepository;
     private BankingTransactionDetailRepository transactionDetailRepository;
@@ -60,7 +59,6 @@ public class CdsDataLoader {
     private CommonOrganisationRepository commonOrganisationRepository;
 
     // Energy repositories
-    private final EnergyAccountV1Repository energyAccountV1Repository;
     private final EnergyAccountV2Repository energyAccountV2Repository;
     private final EnergyPlanDetailRepository energyPlanDetailRepository;
 
@@ -70,12 +68,11 @@ public class CdsDataLoader {
 
     @Autowired
     public CdsDataLoader(BankingProductDetailV2Repository productDetailRepository,
-                         BankingAccountDetailRepository accountDetailRepository,
-                         BankingAccountRepository accountRepository,
+                         BankingAccountDetailRepositoryV3 accountDetailRepository,
+                         BankingAccountRepositoryV2 accountRepository,
                          BankingBalanceRepository balanceRepository,
                          CommonPersonDetailRepository commonPersonDetailRepository,
                          BankingTransactionDetailRepository transactionDetailRepository,
-                         EnergyAccountV1Repository energyAccountV1Repository,
                          EnergyAccountV2Repository energyAccountV2Repository,
                          EnergyPlanDetailRepository energyPlanDetailRepository,
                          UserRepository userRepository,
@@ -87,7 +84,6 @@ public class CdsDataLoader {
         this.balanceRepository = balanceRepository;
         this.commonPersonDetailRepository = commonPersonDetailRepository;
         this.transactionDetailRepository = transactionDetailRepository;
-        this.energyAccountV1Repository = energyAccountV1Repository;
         this.energyAccountV2Repository = energyAccountV2Repository;
         this.energyPlanDetailRepository = energyPlanDetailRepository;
         this.userRepository = userRepository;
@@ -101,7 +97,7 @@ public class CdsDataLoader {
 
     public void loadAll() throws IOException {
         // Banking
-        load("payloads/banking/accounts", accountDetailRepository, BankingAccountDetail.class);
+        load("payloads/banking/accounts", accountDetailRepository, BankingAccountDetailV3.class);
         load("payloads/banking/balances", balanceRepository, BankingBalance.class);
         load("payloads/banking/persons", commonPersonDetailRepository, CommonPersonDetail.class);
         load("payloads/banking/products", productDetailRepository, BankingProductV2Detail.class);
@@ -139,7 +135,7 @@ public class CdsDataLoader {
     }
 
     private void assignAccountToBalance(BankingBalance balance) {
-        Optional<BankingAccount> account = accountRepository.findById(balance.getAccountId());
+        Optional<BankingAccountV2> account = accountRepository.findById(balance.getAccountId());
         if (account.isPresent()) {
             balance.setBankingAccount(account.get());
         } else {

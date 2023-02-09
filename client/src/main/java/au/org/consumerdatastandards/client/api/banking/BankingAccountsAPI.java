@@ -12,6 +12,12 @@ import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.Pair;
 import au.org.consumerdatastandards.client.api.ProtectedAPI;
+import au.org.consumerdatastandards.client.api.ReturnTypeResolver;
+import au.org.consumerdatastandards.client.model.banking.BankingAccount;
+import au.org.consumerdatastandards.client.model.banking.BankingAccountDetailV2;
+import au.org.consumerdatastandards.client.model.banking.BankingAccountDetailV3;
+import au.org.consumerdatastandards.client.model.banking.BankingAccountV1;
+import au.org.consumerdatastandards.client.model.banking.BankingAccountV2;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.banking.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.client.model.banking.RequestAccountIds;
@@ -22,9 +28,11 @@ import au.org.consumerdatastandards.client.model.banking.ResponseBankingAccounts
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingTransactionById;
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingTransactionList;
 import com.google.gson.reflect.TypeToken;
+import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -38,25 +46,27 @@ public class BankingAccountsAPI extends ProtectedAPI {
 
     /**
      * Build call for getAccountDetail
+     *
      * @param accountId A tokenised identifier for the account which is unique but not shareable (required)
+     * @param version endpoint version
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
-     * http.response.details
-     * <table summary="Response Details" border="1">
-     *   <tr>
-     *       <td> Status Code </td>
-     *       <td> Description </td>
-     *       <td> Response Headers </td>
-     *   </tr>
-     *   <tr>
-     *       <td> 200 </td>
-     *       <td> Success </td>
-     *       <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
-     *   </tr>
-     * </table>
+     *                      http.response.details
+     *                      <table summary="Response Details" border="1">
+     *                        <tr>
+     *                            <td> Status Code </td>
+     *                            <td> Description </td>
+     *                            <td> Response Headers </td>
+     *                        </tr>
+     *                        <tr>
+     *                            <td> 200 </td>
+     *                            <td> Success </td>
+     *                            <td>  * x-v - The [version](#response-headers) of the API end point that the data holder has responded with. <br>  * x-fapi-interaction-id - An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. <br>  </td>
+     *                        </tr>
+     *                      </table>
      */
-    public okhttp3.Call getAccountDetailCall(String accountId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getAccountDetailCall(String accountId, int version, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -71,13 +81,14 @@ public class BankingAccountsAPI extends ProtectedAPI {
         List<Pair> queryParams = new ArrayList<>();
         List<Pair> collectionQueryParams = new ArrayList<>();
         Map<String, String> headerParams = new HashMap<>();
+        headerParams.put("x-v", "" + version);
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getAccountDetailValidateBeforeCall(String accountId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getAccountDetailValidateBeforeCall(String accountId, int version, final ApiCallback _callback) throws ApiException {
 
         // verify the required parameter 'accountId' is set
         if (accountId == null) {
@@ -85,13 +96,14 @@ public class BankingAccountsAPI extends ProtectedAPI {
         }
 
 
-        return getAccountDetailCall(accountId, _callback);
+        return getAccountDetailCall(accountId, version, _callback);
     }
 
     /**
      * Get Account Detail
      * Obtain detailed information on a single account
      * @param accountId A tokenised identifier for the account which is unique but not shareable (required)
+     * @param version endpoint version
      * @return ResponseBankingAccountById
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
@@ -108,12 +120,12 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ResponseBankingAccountById getAccountDetail(String accountId) throws ApiException {
+    public ResponseBankingAccountById getAccountDetail(String accountId, int version) throws ApiException {
 
         LOGGER.trace("getAccountDetail with accountId: {}",
             accountId);
 
-        ApiResponse<ResponseBankingAccountById> resp = getAccountDetailWithHttpInfo(accountId);
+        ApiResponse<ResponseBankingAccountById> resp = getAccountDetailWithHttpInfo(accountId, version);
         return resp.getBody();
     }
 
@@ -121,6 +133,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * Get Account Detail
      * Obtain detailed information on a single account
      * @param accountId A tokenised identifier for the account which is unique but not shareable (required)
+     * @param version endpoint version
      * @return ApiResponse&lt;ResponseBankingAccountById&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
@@ -137,16 +150,22 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingAccountById> getAccountDetailWithHttpInfo(String accountId) throws ApiException {
-        okhttp3.Call call = getAccountDetailValidateBeforeCall(accountId, null);
-        Type returnType = new TypeToken<ResponseBankingAccountById>(){}.getType();
-        return apiClient.execute(call, returnType);
+    public ApiResponse<ResponseBankingAccountById> getAccountDetailWithHttpInfo(String accountId, int version) throws ApiException {
+        okhttp3.Call call = getAccountDetailValidateBeforeCall(accountId, version, null);
+        try {
+            Response response = call.execute();
+            Type returnType = new ListAccountDetailReturnTypeResolver().resolve(response);
+            return apiClient.handle(response, returnType);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Get Account Detail (asynchronously)
      * Obtain detailed information on a single account
      * @param accountId A tokenised identifier for the account which is unique but not shareable (required)
+     * @param version endpoint version
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -164,12 +183,12 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call getAccountDetailAsync(String accountId, final ApiCallback<ResponseBankingAccountById> _callback) throws ApiException {
+    public okhttp3.Call getAccountDetailAsync(String accountId, int version, final ApiCallback<ResponseBankingAccountById> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously getAccountDetail with accountId: {}",
             accountId);
 
-        okhttp3.Call call = getAccountDetailValidateBeforeCall(accountId, _callback);
+        okhttp3.Call call = getAccountDetailValidateBeforeCall(accountId, version, _callback);
         Type returnType = new TypeToken<ResponseBankingAccountById>(){}.getType();
         apiClient.executeAsync(call, returnType, _callback);
         return call;
@@ -662,6 +681,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param version endpoint version
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @param _callback Callback for upload/download progress
@@ -681,7 +701,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public okhttp3.Call listAccountsCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listAccountsCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, int version, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
         Object postBody = null;
 
@@ -704,16 +724,16 @@ public class BankingAccountsAPI extends ProtectedAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        headerParams.put("x-v", "" + version);
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         return apiClient.buildCall(path, "GET", queryParams, collectionQueryParams, postBody, headerParams, authNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listAccountsValidateBeforeCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listAccountsValidateBeforeCall(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, int version, Integer page, Integer pageSize, final ApiCallback _callback) throws ApiException {
 
-
-        return listAccountsCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
+        return listAccountsCall(productCategory, openStatus, isOwned, version, page, pageSize, _callback);
     }
 
     /**
@@ -722,6 +742,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param version endpoint version
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @return ResponseBankingAccountList
@@ -740,7 +761,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ResponseBankingAccountList listAccounts(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
+    public <T extends BankingAccount> ResponseBankingAccountList<T> listAccounts(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, int version, Integer page, Integer pageSize) throws ApiException {
 
         LOGGER.trace("listAccounts with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -749,7 +770,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
             page,
             pageSize);
 
-        ApiResponse<ResponseBankingAccountList> resp = listAccountsWithHttpInfo(productCategory, openStatus, isOwned, page, pageSize);
+        ApiResponse<ResponseBankingAccountList<T>> resp = listAccountsWithHttpInfo(productCategory, openStatus, isOwned, version, page, pageSize);
         return resp.getBody();
     }
 
@@ -759,6 +780,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param version endpoint version
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @return ApiResponse&lt;ResponseBankingAccountList&gt;
@@ -777,10 +799,15 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *   </tr>
      * </table>
      */
-    public ApiResponse<ResponseBankingAccountList> listAccountsWithHttpInfo(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize) throws ApiException {
-        okhttp3.Call call = listAccountsValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, null);
-        Type returnType = new TypeToken<ResponseBankingAccountList>(){}.getType();
-        return apiClient.execute(call, returnType);
+    public <T extends BankingAccount> ApiResponse<ResponseBankingAccountList<T>> listAccountsWithHttpInfo(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, int version, Integer page, Integer pageSize) throws ApiException {
+        okhttp3.Call call = listAccountsValidateBeforeCall(productCategory, openStatus, isOwned, version, page, pageSize, null);
+        try {
+            Response response = call.execute();
+            Type returnType = new ListAccountsReturnTypeResolver().resolve(response);
+            return apiClient.handle(response, returnType);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -789,6 +816,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
+     * @param version endpoint version
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
      * @param _callback The callback to be executed when the API call finishes
@@ -808,7 +836,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
      *    </tr>
      * </table>
      */
-    public okhttp3.Call listAccountsAsync(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountList> _callback) throws ApiException {
+    public okhttp3.Call listAccountsAsync(BankingProductCategory productCategory, ParamAccountOpenStatus openStatus, Boolean isOwned, int version, Integer page, Integer pageSize, final ApiCallback<ResponseBankingAccountList> _callback) throws ApiException {
 
         LOGGER.trace("Asynchronously listAccounts with product-category: {}, open-status: {}, is-owned: {}, page: {}, page-size: {}",
             productCategory,
@@ -817,11 +845,11 @@ public class BankingAccountsAPI extends ProtectedAPI {
             page,
             pageSize);
 
-        okhttp3.Call call = listAccountsValidateBeforeCall(productCategory, openStatus, isOwned, page, pageSize, _callback);
-        Type returnType = new TypeToken<ResponseBankingAccountList>(){}.getType();
-        apiClient.executeAsync(call, returnType, _callback);
+        okhttp3.Call call = listAccountsValidateBeforeCall(productCategory, openStatus, isOwned, version, page, pageSize, _callback);
+        apiClient.executeAsync(call, _callback, new ListAccountsReturnTypeResolver());
         return call;
     }
+
     /**
      * Build call for listBalancesBulk
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
@@ -1157,5 +1185,36 @@ public class BankingAccountsAPI extends ProtectedAPI {
         Type returnType = new TypeToken<ResponseBankingAccountsBalanceList>(){}.getType();
         apiClient.executeAsync(call, returnType, _callback);
         return call;
+    }
+}
+
+class ListAccountsReturnTypeResolver implements ReturnTypeResolver {
+    @Override
+    public Type resolve(Response response) {
+        if (!response.isSuccessful()) {
+            return null;
+        }
+        String version = response.header("x-v");
+        switch (Integer.parseInt(version)) {
+            case 2:
+                return new TypeToken<ResponseBankingAccountList<BankingAccountV2>>() {}.getType();
+            default:
+                return new TypeToken<ResponseBankingAccountList<BankingAccountV1>>() {}.getType();
+        }
+    }
+}
+class ListAccountDetailReturnTypeResolver implements ReturnTypeResolver {
+    @Override
+    public Type resolve(Response response) {
+        if (!response.isSuccessful()) {
+            return null;
+        }
+        String version = response.header("x-v");
+        switch (Integer.parseInt(version)) {
+            case 3:
+                return new TypeToken<ResponseBankingAccountById<BankingAccountDetailV3>>() {}.getType();
+            default:
+                return new TypeToken<ResponseBankingAccountById<BankingAccountDetailV2>>() {}.getType();
+        }
     }
 }

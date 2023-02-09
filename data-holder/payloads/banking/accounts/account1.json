@@ -4,5 +4,6 @@
   "openStatus": "OPEN",
   "maskedNumber": "xxxxx-xxxxx2722",
   "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS",
-  "productName": "Access Select Account"
+  "productName": "Access Select Account",
+  "accountOwnership": "ONE_PARTY"
 }

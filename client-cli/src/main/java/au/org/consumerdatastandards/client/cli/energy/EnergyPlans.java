@@ -29,7 +29,7 @@ public class EnergyPlans extends ApiCliBase {
     private final EnergyPlansAPI api = new EnergyPlansAPI();
 
     @ShellMethod("List generic Energy plans")
-    public String listGenericPlans(@ShellOption(defaultValue = "false") boolean check,
+    public String listGenericEnergyPlans(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) ParamTypeEnum type,
             @ShellOption(defaultValue = ShellOption.NULL) ParamFuelTypeEnum fuelType,
             @ShellOption(defaultValue = ShellOption.NULL) String brand,
@@ -56,11 +56,11 @@ public class EnergyPlans extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get generic plan detail")
-    public String getGenericPlanDetail(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get generic Energy plan detail")
+    public String getGenericEnergyPlanDetail(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String planId) throws Exception {
 
-        LOGGER.info("Get generic plan detail CLI initiated with planId: {}", planId);
+        LOGGER.info("Get generic Energy plan detail CLI initiated with planId: {}", planId);
 
         api.setApiClient(clientFactory.create(false, check));
         ApiResult<EnergyPlanResponse> result = api.getGenericPlanDetail(planId);

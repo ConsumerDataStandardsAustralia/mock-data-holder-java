@@ -6,5 +6,6 @@
   "openStatus": "OPEN",
   "maskedNumber": "xxx-xxx xx8676",
   "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS",
-  "productName": "Bump Savings"
+  "productName": "Bump Savings",
+  "accountOwnership": "ONE_PARTY"
 }

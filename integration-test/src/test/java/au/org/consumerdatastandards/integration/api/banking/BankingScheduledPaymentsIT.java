@@ -40,7 +40,7 @@ public class BankingScheduledPaymentsIT extends BankingITBase {
         BankingAccountsAPI accountsAPI = new BankingAccountsAPI();
         accountsAPI.setApiClient(getAPI().getApiClient());
         for (BankingScheduledPayment payment : resp.getBody().getData().getScheduledPayments()) {
-            BankingAccountDetail accountDetail = accountsAPI.getAccountDetail(payment.getFrom().getAccountId()).getData();
+            BankingAccountDetail accountDetail = accountsAPI.getAccountDetail(payment.getFrom().getAccountId(), 1).getData();
             checkProductCategory(accountDetail.getProductCategory(), productCategory, conformanceErrors);
             checkOpenStatus(accountDetail.getOpenStatus(), openStatus, conformanceErrors);
             checkOwned(accountDetail.getIsOwned(), isOwned, conformanceErrors);

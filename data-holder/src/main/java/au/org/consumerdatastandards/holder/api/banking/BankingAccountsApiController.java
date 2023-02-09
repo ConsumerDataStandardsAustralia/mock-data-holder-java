@@ -2,15 +2,16 @@ package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
 import au.org.consumerdatastandards.holder.api.CDSException;
+import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.ErrorListResponse;
+import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccount;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccountDetail;
+import au.org.consumerdatastandards.holder.model.banking.BankingAccountV2;
 import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransaction;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
-import au.org.consumerdatastandards.holder.model.Links;
-import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.banking.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.banking.ParamProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.RequestAccountIds;
@@ -78,9 +79,9 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                        UUID xFapiInteractionId,
                                                                        Integer xMinV,
                                                                        Integer xV) {
-        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 3);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
-        BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId);
+        BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId, supportedVersion);
         if (bankingAccountDetail == null) {
             ErrorListResponse errors = new ErrorListResponse();
             errors.setErrors(Collections.singletonList(new Error("Invalid Banking Account",
@@ -159,19 +160,19 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                    UUID xFapiInteractionId,
                                                                    Integer xMinV,
                                                                    Integer xV) {
-        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
         validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
-        BankingAccount bankingAccount = new BankingAccount();
+        BankingAccountV2 bankingAccount = new BankingAccountV2();
         if (openStatus != null && !openStatus.equals(ParamAccountOpenStatus.ALL)) {
             bankingAccount.setOpenStatus(BankingAccount.OpenStatus.valueOf(openStatus.name()));
         }
         if (productCategory != null ) {
             bankingAccount.setProductCategory(BankingProductCategory.valueOf(productCategory.name()));
         }
-        Page<BankingAccount> accountPage = accountService.findBankingAccountsLike(isOwned, bankingAccount, PageRequest.of(actualPage - 1, actualPageSize));
+        Page<BankingAccount> accountPage = accountService.findBankingAccountsLike(isOwned, bankingAccount, PageRequest.of(actualPage - 1, actualPageSize), supportedVersion);
         validatePageRange(actualPage, accountPage.getTotalPages(), xFapiInteractionId);
         ResponseBankingAccountListData listData = new ResponseBankingAccountListData();
         listData.setAccounts(accountPage.getContent());

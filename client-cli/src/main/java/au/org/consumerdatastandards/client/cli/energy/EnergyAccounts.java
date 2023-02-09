@@ -82,11 +82,11 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get agreed payment schedule")
-    public String getPaymentSchedule(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get agreed Energy payment schedule")
+    public String getEnergyPaymentSchedule(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
 
-        LOGGER.info("Get agreed payment schedule CLI initiated with accountId: {}", accountId);
+        LOGGER.info("Get agreed Energy payment schedule CLI initiated with accountId: {}", accountId);
 
         api.setApiClient(clientFactory.create(true, check));
         ApiResult<EnergyPaymentScheduleResponse> result = api.getPaymentSchedule(accountId);
@@ -103,11 +103,11 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get concessions")
-    public String getConcessions(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get Energy concessions")
+    public String getEnergyConcessions(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
 
-        LOGGER.info("Get concessions CLI initiated with accountId: {}", accountId);
+        LOGGER.info("Get Energy concessions CLI initiated with accountId: {}", accountId);
 
         api.setApiClient(clientFactory.create(true, check));
         ApiResult<EnergyConcessionsResponse> result = api.getConcessions(accountId);
@@ -125,7 +125,7 @@ public class EnergyAccounts extends ApiCliBase {
     }
 
     @ShellMethod("Get balance for Energy account")
-    public String getBalanceForAccount(@ShellOption(defaultValue = "false") boolean check,
+    public String getBalanceForEnergyAccount(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String accountId) throws Exception {
 
         LOGGER.info("Get balance for Energy account CLI initiated with accountId: {}", accountId);
@@ -168,7 +168,7 @@ public class EnergyAccounts extends ApiCliBase {
     }
 
     @ShellMethod("Get balances for specific Energy accounts")
-    public String listBalancesForAccounts(@ShellOption(defaultValue = "false") boolean check,
+    public String listBalancesForEnergyAccounts(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
@@ -195,15 +195,15 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get invoices for account")
-    public String getInvoicesForAccount(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get invoices for Energy account")
+    public String getInvoicesForEnergyAccount(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String accountId,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestDate,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get invoices for account CLI initiated with accountId: {}, oldest-date: {}, newest-date: {}, page: {}, page-size: {}",
+        LOGGER.info("Get invoices for Energy account CLI initiated with accountId: {}, oldest-date: {}, newest-date: {}, page: {}, page-size: {}",
                 accountId, oldestDate, newestDate, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -221,14 +221,14 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get bulk invoices")
-    public String listInvoicesBulk(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get bulk Energy invoices")
+    public String listEnergyInvoicesBulk(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestDate,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get bulk invoices CLI initiated with oldest-date: {}, newest-date: {}, page: {}, page-size: {}",
+        LOGGER.info("Get bulk Energy invoices CLI initiated with oldest-date: {}, newest-date: {}, page: {}, page-size: {}",
                 oldestDate, newestDate, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -246,15 +246,15 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get invoices for specific accounts")
-    public String listInvoicesForAccounts(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get invoices for specific Energy accounts")
+    public String listInvoicesForEnergyAccounts(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestDate,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestDate,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get invoices for specific accounts CLI initiated with accountIds: {}, oldest-date: {}, newest-date: {}, page: {}, page-size: {}",
+        LOGGER.info("Get invoices for specific Energy accounts CLI initiated with accountIds: {}, oldest-date: {}, newest-date: {}, page: {}, page-size: {}",
                 accountIds, oldestDate, newestDate, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -276,15 +276,15 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get billing for account")
-    public String getBillingForAccount(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get billing for Energy account")
+    public String getBillingForEnergyAccount(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) String accountId,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestTime,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestTime,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get billing for account CLI initiated with accountId: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
+        LOGGER.info("Get billing for Energy account CLI initiated with accountId: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
                 accountId, oldestTime, newestTime, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -302,14 +302,14 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get bulk billing")
-    public String listBillingBulk(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get Energy bulk billing")
+    public String listEnergyBillingBulk(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestTime,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestTime,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
 
-        LOGGER.info("Get bulk billing CLI initiated with oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
+        LOGGER.info("Get Energy bulk billing CLI initiated with oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
                 oldestTime, newestTime, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
@@ -327,8 +327,8 @@ public class EnergyAccounts extends ApiCliBase {
         return JsonPrinter.toJson(response);
     }
 
-    @ShellMethod("Get billing for specific accounts")
-    public String listBillingForAccounts(@ShellOption(defaultValue = "false") boolean check,
+    @ShellMethod("Get billing for specific Energy accounts")
+    public String listBillingForEnergyAccounts(@ShellOption(defaultValue = "false") boolean check,
             @ShellOption(defaultValue = ShellOption.NULL) List<String> accountIds,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestTime,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestTime,
@@ -336,7 +336,7 @@ public class EnergyAccounts extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
             @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
 
-        LOGGER.info("Get billing for specific accounts CLI initiated with accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}",
+        LOGGER.info("Get billing for specific Energy accounts CLI initiated with accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}",
                 accountIds, oldestTime, newestTime, page, pageSize, intervalReads);
 
         api.setApiClient(clientFactory.create(true, check));
