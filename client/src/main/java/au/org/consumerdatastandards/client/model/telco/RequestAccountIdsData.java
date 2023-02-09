@@ -19,6 +19,7 @@ public class RequestAccountIdsData {
 
     /**
      * Get accountIds
+     * @return accountIds
      */
     public List<String> getAccountIds() {
         return accountIds;

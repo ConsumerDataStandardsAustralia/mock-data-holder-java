@@ -25,6 +25,7 @@ public class BankingAccountV2 extends BankingAccountV1 implements BankingAccount
 
     /**
      * Value indicating the number of customers that have ownership of the account, according to the data holder's definition of account ownership. Does not indicate that all account owners are eligible consumers
+     * @param accountOwnership a value from <code>AccountOwnershipEnum</code>
      */
     public void setAccountOwnership(AccountOwnershipEnum accountOwnership) {
         this.accountOwnership = accountOwnership;

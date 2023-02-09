@@ -19,6 +19,7 @@ public class RequestServiceIdsData {
 
     /**
      * Get servicePointIds
+     * @return service point Ids
      */
     public List<String> getServicePointIds() {
         return serviceIds;

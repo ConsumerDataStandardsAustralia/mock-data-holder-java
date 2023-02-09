@@ -13,134 +13,43 @@ import java.util.Objects;
  * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
  */
 @ApiModel(description = "Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoPaymentScheduleDigitalWallet {
-    @JsonProperty("name")
     private String name;
 
-    @JsonProperty("identifier")
     private String identifier;
 
     /**
      * The type of the digital wallet identifier
      */
     public enum TypeEnum {
-        EMAIL("EMAIL"),
-
-        CONTACT_NAME("CONTACT_NAME"),
-
-        TELEPHONE("TELEPHONE");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        EMAIL,
+        CONTACT_NAME,
+        TELEPHONE
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
     /**
      * The provider of the digital wallet
      */
     public enum ProviderEnum {
-        PAYPAL_AU("PAYPAL_AU"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        ProviderEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ProviderEnum fromValue(String value) {
-            for (ProviderEnum b : ProviderEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PAYPAL_AU,
+        OTHER
     }
 
-    @JsonProperty("provider")
     private ProviderEnum provider;
 
-    @JsonProperty("paymentFrequency")
     private String paymentFrequency;
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
      */
     public enum CalculationTypeEnum {
-        STATIC("STATIC"),
-
-        BALANCE("BALANCE"),
-
-        CALCULATED("CALCULATED");
-
-        private String value;
-
-        CalculationTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static CalculationTypeEnum fromValue(String value) {
-            for (CalculationTypeEnum b : CalculationTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        STATIC,
+        BALANCE,
+        CALCULATED
     }
 
-    @JsonProperty("calculationType")
     private CalculationTypeEnum calculationType;
 
     public TelcoPaymentScheduleDigitalWallet name(String name) {
@@ -156,8 +65,6 @@ public class TelcoPaymentScheduleDigitalWallet {
     @ApiModelProperty(required = true,
             value = "The name assigned to the digital wallet by the owner of the wallet, else the display name provided by the digital wallet provider")
     @NotNull
-
-
     public String getName() {
         return name;
     }
@@ -179,8 +86,6 @@ public class TelcoPaymentScheduleDigitalWallet {
     @ApiModelProperty(required = true,
             value = "The identifier of the digital wallet (dependent on type)")
     @NotNull
-
-
     public String getIdentifier() {
         return identifier;
     }
@@ -202,8 +107,6 @@ public class TelcoPaymentScheduleDigitalWallet {
     @ApiModelProperty(required = true,
             value = "The type of the digital wallet identifier")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -222,11 +125,8 @@ public class TelcoPaymentScheduleDigitalWallet {
      *
      * @return provider
      */
-    @ApiModelProperty(required = true,
-            value = "The provider of the digital wallet")
+    @ApiModelProperty(required = true, value = "The provider of the digital wallet")
     @NotNull
-
-
     public ProviderEnum getProvider() {
         return provider;
     }
@@ -248,8 +148,6 @@ public class TelcoPaymentScheduleDigitalWallet {
     @ApiModelProperty(required = true,
             value = "The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
     @NotNull
-
-
     public String getPaymentFrequency() {
         return paymentFrequency;
     }
@@ -264,15 +162,13 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
      *
      * @return calculationType
      */
     @ApiModelProperty(required = true,
             value = "The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>")
     @NotNull
-
-
     public CalculationTypeEnum getCalculationType() {
         return calculationType;
     }
@@ -280,7 +176,6 @@ public class TelcoPaymentScheduleDigitalWallet {
     public void setCalculationType(CalculationTypeEnum calculationType) {
         this.calculationType = calculationType;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -308,7 +203,6 @@ public class TelcoPaymentScheduleDigitalWallet {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoPaymentScheduleDigitalWallet {\n");
-
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    identifier: ").append(toIndentedString(identifier)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -330,4 +224,3 @@ public class TelcoPaymentScheduleDigitalWallet {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

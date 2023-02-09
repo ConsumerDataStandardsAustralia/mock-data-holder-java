@@ -739,6 +739,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
     /**
      * Get Accounts
      * Obtain a list of accounts
+     * @param <T> Concrete class for <code>BankingAccount</code>
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
@@ -777,6 +778,7 @@ public class BankingAccountsAPI extends ProtectedAPI {
     /**
      * Get Accounts
      * Obtain a list of accounts
+     * @param <T> Concrete class for <code>BankingAccount</code>
      * @param productCategory Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned. (optional)
      * @param openStatus Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)

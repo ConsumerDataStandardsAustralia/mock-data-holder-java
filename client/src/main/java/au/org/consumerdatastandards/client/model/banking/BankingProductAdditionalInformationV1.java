@@ -132,6 +132,8 @@ public class BankingProductAdditionalInformationV1 {
     /**
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
+     * @param o Object
+     * @return Indented string representation of <code>o</code>
      */
     protected String toIndentedString(Object o) {
         if (o == null) {

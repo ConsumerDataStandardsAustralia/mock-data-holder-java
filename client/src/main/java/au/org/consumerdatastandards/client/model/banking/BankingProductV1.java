@@ -35,15 +35,4 @@ public class BankingProductV1 extends BankingProductBase {
         super.writeProperties(pw);
         pw.print("   additionalInformation: "); pw.println(toIndentedString(additionalInformation));
     }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    protected String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
 }

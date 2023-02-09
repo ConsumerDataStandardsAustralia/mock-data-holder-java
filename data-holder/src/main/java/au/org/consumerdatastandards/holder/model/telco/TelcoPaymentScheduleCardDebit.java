@@ -12,97 +12,32 @@ import java.util.Objects;
 /**
  * Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit
  */
-@ApiModel(description = "Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoPaymentScheduleCardDebit {
     /**
      * The type of credit card held on file
      */
     public enum CardSchemeEnum {
-        VISA("VISA"),
-
-        MASTERCARD("MASTERCARD"),
-
-        AMEX("AMEX"),
-
-        DINERS("DINERS"),
-
-        OTHER("OTHER"),
-
-        UNKNOWN("UNKNOWN");
-
-        private String value;
-
-        CardSchemeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static CardSchemeEnum fromValue(String value) {
-            for (CardSchemeEnum b : CardSchemeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        VISA,
+        MASTERCARD,
+        AMEX,
+        DINERS,
+        OTHER,
+        UNKNOWN
     }
 
-    @JsonProperty("cardScheme")
     private CardSchemeEnum cardScheme;
 
-    @JsonProperty("paymentFrequency")
     private String paymentFrequency;
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
      */
     public enum CalculationTypeEnum {
-        STATIC("STATIC"),
-
-        BALANCE("BALANCE"),
-
-        CALCULATED("CALCULATED");
-
-        private String value;
-
-        CalculationTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static CalculationTypeEnum fromValue(String value) {
-            for (CalculationTypeEnum b : CalculationTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        STATIC,
+        BALANCE,
+        CALCULATED
     }
 
-    @JsonProperty("calculationType")
     private CalculationTypeEnum calculationType;
 
     public TelcoPaymentScheduleCardDebit cardScheme(CardSchemeEnum cardScheme) {
@@ -115,11 +50,8 @@ public class TelcoPaymentScheduleCardDebit {
      *
      * @return cardScheme
      */
-    @ApiModelProperty(required = true,
-            value = "The type of credit card held on file")
+    @ApiModelProperty(required = true, value = "The type of credit card held on file")
     @NotNull
-
-
     public CardSchemeEnum getCardScheme() {
         return cardScheme;
     }
@@ -141,8 +73,6 @@ public class TelcoPaymentScheduleCardDebit {
     @ApiModelProperty(required = true,
             value = "The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
     @NotNull
-
-
     public String getPaymentFrequency() {
         return paymentFrequency;
     }
@@ -157,15 +87,13 @@ public class TelcoPaymentScheduleCardDebit {
     }
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
      *
      * @return calculationType
      */
     @ApiModelProperty(required = true,
             value = "The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>")
     @NotNull
-
-
     public CalculationTypeEnum getCalculationType() {
         return calculationType;
     }
@@ -173,7 +101,6 @@ public class TelcoPaymentScheduleCardDebit {
     public void setCalculationType(CalculationTypeEnum calculationType) {
         this.calculationType = calculationType;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -198,7 +125,6 @@ public class TelcoPaymentScheduleCardDebit {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoPaymentScheduleCardDebit {\n");
-
         sb.append("    cardScheme: ").append(toIndentedString(cardScheme)).append("\n");
         sb.append("    paymentFrequency: ").append(toIndentedString(paymentFrequency)).append("\n");
         sb.append("    calculationType: ").append(toIndentedString(calculationType)).append("\n");
@@ -217,4 +143,3 @@ public class TelcoPaymentScheduleCardDebit {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
