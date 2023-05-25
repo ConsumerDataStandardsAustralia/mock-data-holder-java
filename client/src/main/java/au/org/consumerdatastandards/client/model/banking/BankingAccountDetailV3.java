@@ -180,7 +180,7 @@ public class BankingAccountDetailV3 extends BankingAccountV2 implements BankingA
     }
 
     /**
-     * Fully described deposit rates for this account based on the equivalent structure in Product Reference
+     * Fully described lending rates for this account based on the equivalent structure in Product Reference
      * @return lendingRates
      */
     @Override

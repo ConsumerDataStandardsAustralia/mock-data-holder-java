@@ -141,7 +141,7 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     private String lendingRate;
 
     /**
-     * Fully described deposit rates for this account based on the equivalent structure in Product Reference
+     * Fully described lending rates for this account based on the equivalent structure in Product Reference
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -509,7 +509,7 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "Fully described deposit rates for this account based on the equivalent structure in Product Reference")
+    @ApiModelProperty(value = "Fully described lending rates for this account based on the equivalent structure in Product Reference")
     public List<BankingProductLendingRateV1> getLendingRates() {
         return lendingRates;
     }
