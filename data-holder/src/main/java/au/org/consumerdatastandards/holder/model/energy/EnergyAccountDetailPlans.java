@@ -47,6 +47,14 @@ public class EnergyAccountDetailPlans {
     @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyAccountDetailAuthorisedContacts> authorisedContacts = null;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public EnergyAccountDetailPlans nickname(String nickname) {
         this.nickname = nickname;
         return this;

@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import au.org.consumerdatastandards.holder.model.Links;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -11,19 +10,14 @@ import java.util.Objects;
 /**
  * EnergyPlanResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyPlanResponse {
-    @JsonProperty("data")
-    private EnergyPlanDetailEntity data;
+    private EnergyPlanDetail data;
 
-    @JsonProperty("links")
     private Links links;
 
-    @JsonProperty("meta")
     private Object meta;
 
-    public EnergyPlanResponse data(EnergyPlanDetailEntity data) {
+    public EnergyPlanResponse data(EnergyPlanDetail data) {
         this.data = data;
         return this;
     }
@@ -33,17 +27,14 @@ public class EnergyPlanResponse {
      *
      * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public EnergyPlanDetailEntity getData() {
+    public EnergyPlanDetail getData() {
         return data;
     }
 
-    public void setData(EnergyPlanDetailEntity data) {
+    public void setData(EnergyPlanDetail data) {
         this.data = data;
     }
 
@@ -57,12 +48,9 @@ public class EnergyPlanResponse {
      *
      * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public Links getLinks() {
         return links;
     }
@@ -81,11 +69,8 @@ public class EnergyPlanResponse {
      *
      * @return meta
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
-
     public Object getMeta() {
         return meta;
     }
@@ -93,7 +78,6 @@ public class EnergyPlanResponse {
     public void setMeta(Object meta) {
         this.meta = meta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -118,7 +102,6 @@ public class EnergyPlanResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPlanResponse {\n");
-
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
@@ -137,4 +120,3 @@ public class EnergyPlanResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

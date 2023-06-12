@@ -25,21 +25,7 @@ public class EnergyRates {
 
     private String unitPrice;
 
-    /**
-     * The measurement unit of rate. Assumed to be KWH if absent
-     */
-    public enum MeasureUnitEnum {
-        KWH,
-        KVA,
-        KVAR,
-        KVARH,
-        KW,
-        DAYS,
-        METER,
-        MONTH
-    }
-
-    private MeasureUnitEnum measureUnit;
+    private RateMeasureUnitEnum measureUnit;
 
     private BigDecimal volume;
 
@@ -71,7 +57,7 @@ public class EnergyRates {
         this.unitPrice = unitPrice;
     }
 
-    public EnergyRates measureUnit(MeasureUnitEnum measureUnit) {
+    public EnergyRates measureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
         return this;
     }
@@ -82,11 +68,11 @@ public class EnergyRates {
      * @return measureUnit
      */
     @ApiModelProperty(value = "The measurement unit of rate. Assumed to be KWH if absent")
-    public MeasureUnitEnum getMeasureUnit() {
+    public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
 
-    public void setMeasureUnit(MeasureUnitEnum measureUnit) {
+    public void setMeasureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
     }
 

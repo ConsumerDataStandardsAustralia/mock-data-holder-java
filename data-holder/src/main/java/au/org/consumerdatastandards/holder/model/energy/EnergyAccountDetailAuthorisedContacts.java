@@ -40,6 +40,14 @@ public class EnergyAccountDetailAuthorisedContacts {
 
     private String suffix;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public EnergyAccountDetailAuthorisedContacts firstName(String firstName) {
         this.firstName = firstName;
         return this;

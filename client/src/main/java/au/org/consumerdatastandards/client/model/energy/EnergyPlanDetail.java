@@ -19,14 +19,10 @@ public interface EnergyPlanDetail extends EnergyPlan {
      */
     EnergyPlanContractFull getGasContract();
 
-    void setGasContract(EnergyPlanContractFull gasContract);
-
     /**
      * Get electricityContract
      *
      * @return electricityContract
      */
     EnergyPlanContractFull getElectricityContract();
-
-    void setElectricityContract(EnergyPlanContractFull electricityContract);
 }

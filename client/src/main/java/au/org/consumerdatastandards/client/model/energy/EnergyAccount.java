@@ -2,7 +2,13 @@ package au.org.consumerdatastandards.client.model.energy;
 
 import java.time.LocalDate;
 
-public interface EnergyAccountBase {
+public interface EnergyAccount {
+
+    enum OpenStatus {
+        CLOSED,
+        OPEN
+    }
+
     /**
      * The ID of the account.  To be created in accordance with CDR ID permanence requirements
      *

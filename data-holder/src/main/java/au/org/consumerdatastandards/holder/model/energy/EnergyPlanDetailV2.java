@@ -1,20 +1,41 @@
-package au.org.consumerdatastandards.client.model.energy;
+package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyPlanDetail
+ * EnergyPlanDetailV2
  */
-public class EnergyPlanDetailBean implements EnergyPlanDetail {
+@Entity
+@Table(name = "energy_plan")
+public class EnergyPlanDetailV2 implements EnergyPlanDetail {
+    @Id
     private String planId;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveFrom;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime effectiveTo;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastUpdated;
 
     private String displayName;
@@ -31,23 +52,31 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
 
     private String applicationUri;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanAdditionalInformation additionalInformation;
 
     private CustomerTypeEnum customerType;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPlanGeography geography;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @Valid
     private List<MeteringCharges> meteringCharges = new ArrayList<>();
 
-    private EnergyPlanContractFull gasContract;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EnergyPlanContractFullV2 gasContract;
 
-    private EnergyPlanContractFull electricityContract;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EnergyPlanContractFullV2 electricityContract;
 
     /**
      * The ID of the specific plan
      *
      * @return planId
      */
+    @ApiModelProperty(required = true,value  = "The ID of the specific plan")
+    @NotNull
     public String getPlanId() {
         return planId;
     }
@@ -61,6 +90,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return effectiveFrom
      */
+    @ApiModelProperty(value = "The date and time from which this plan is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate")
     @Override
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
@@ -76,6 +106,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return effectiveTo
      */
+    @ApiModelProperty(value = "The date and time at which this plan will be retired and will no longer be offered. Used to enable the managed deprecation of plans")
     @Override
     public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
@@ -91,6 +122,9 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return lastUpdated
      */
+    @ApiModelProperty(required = true,
+            value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)")
+    @NotNull
     @Override
     public OffsetDateTime getLastUpdated() {
         return lastUpdated;
@@ -106,6 +140,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return displayName
      */
+    @ApiModelProperty(value = "The display name of the plan")
     @Override
     public String getDisplayName() {
         return displayName;
@@ -121,6 +156,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return description
      */
+    @ApiModelProperty(value = "A description of the plan")
     @Override
     public String getDescription() {
         return description;
@@ -136,6 +172,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return type
      */
+    @ApiModelProperty(required = true, value = "The type of the plan")
+    @NotNull
     @Override
     public TypeEnum getType() {
         return type;
@@ -151,6 +189,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return fuelType
      */
+    @ApiModelProperty(required = true, value = "The fuel types covered by the plan")
+    @NotNull
     @Override
     public FuelTypeEnum getFuelType() {
         return fuelType;
@@ -166,6 +206,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return brand
      */
+    @ApiModelProperty(required = true, value = "The ID of the brand under which this plan is offered")
+    @NotNull
     @Override
     public String getBrand() {
         return brand;
@@ -181,6 +223,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return brandName
      */
+    @ApiModelProperty(required = true, value = "The display name of the brand under which this plan is offered")
+    @NotNull
     @Override
     public String getBrandName() {
         return brandName;
@@ -196,6 +240,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return applicationUri
      */
+    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for")
     @Override
     public String getApplicationUri() {
         return applicationUri;
@@ -211,6 +256,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return additionalInformation
      */
+    @ApiModelProperty(value = "Object that contains links to additional information on specific topics")
+    @Valid
     @Override
     public EnergyPlanAdditionalInformation getAdditionalInformation() {
         return additionalInformation;
@@ -226,6 +273,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return customerType
      */
+    @ApiModelProperty("The type of customer that the plan is offered to.  If absent then the plan is available to all customers")
     @Override
     public CustomerTypeEnum getCustomerType() {
         return customerType;
@@ -241,6 +289,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      *
      * @return geography
      */
+    @ApiModelProperty("Describes the geographical area that the plan is available for. If absent then it is assumed the plan is not geographically limited")
+    @Valid
     @Override
     public EnergyPlanGeography getGeography() {
         return geography;
@@ -251,12 +301,12 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
         this.geography = geography;
     }
 
-    public EnergyPlanDetail meteringCharges(List<MeteringCharges> meteringCharges) {
+    public EnergyPlanDetailV2 meteringCharges(List<MeteringCharges> meteringCharges) {
         this.meteringCharges = meteringCharges;
         return this;
     }
 
-    public EnergyPlanDetail addMeteringChargesItem(MeteringCharges meteringChargesItem) {
+    public EnergyPlanDetailV2 addMeteringChargesItem(MeteringCharges meteringChargesItem) {
         if (this.meteringCharges == null) {
             this.meteringCharges = new ArrayList<>();
         }
@@ -270,6 +320,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      * @return meteringCharges
      */
     @Override
+    @ApiModelProperty(value = "Charges for metering included in the plan")
+    @Valid
     public List<MeteringCharges> getMeteringCharges() {
         return meteringCharges;
     }
@@ -279,7 +331,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
         this.meteringCharges = meteringCharges;
     }
 
-    public EnergyPlanDetailBean gasContract(EnergyPlanContractFull gasContract) {
+    public EnergyPlanDetailV2 gasContract(EnergyPlanContractFullV2 gasContract) {
         this.gasContract = gasContract;
         return this;
     }
@@ -290,16 +342,17 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      * @return gasContract
      */
     @Override
-    public EnergyPlanContractFull getGasContract() {
+    @ApiModelProperty(value = "")
+    @Valid
+    public EnergyPlanContractFullV2 getGasContract() {
         return gasContract;
     }
 
-    @Override
-    public void setGasContract(EnergyPlanContractFull gasContract) {
+    public void setGasContract(EnergyPlanContractFullV2 gasContract) {
         this.gasContract = gasContract;
     }
 
-    public EnergyPlanDetailBean electricityContract(EnergyPlanContractFull electricityContract) {
+    public EnergyPlanDetailV2 electricityContract(EnergyPlanContractFullV2 electricityContract) {
         this.electricityContract = electricityContract;
         return this;
     }
@@ -310,12 +363,13 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
      * @return electricityContract
      */
     @Override
-    public EnergyPlanContractFull getElectricityContract() {
+    @ApiModelProperty(value = "")
+    @Valid
+    public EnergyPlanContractFullV2 getElectricityContract() {
         return electricityContract;
     }
 
-    @Override
-    public void setElectricityContract(EnergyPlanContractFull electricityContract) {
+    public void setElectricityContract(EnergyPlanContractFullV2 electricityContract) {
         this.electricityContract = electricityContract;
     }
 
@@ -327,7 +381,7 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanDetailBean energyPlanDetail = (EnergyPlanDetailBean) o;
+        EnergyPlanDetailV2 energyPlanDetail = (EnergyPlanDetailV2) o;
         return Objects.equals(this.planId, energyPlanDetail.planId) &&
                 Objects.equals(this.effectiveFrom, energyPlanDetail.effectiveFrom) &&
                 Objects.equals(this.effectiveTo, energyPlanDetail.effectiveTo) &&
@@ -352,7 +406,10 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
         return Objects.hash(planId, effectiveFrom, effectiveTo, lastUpdated, displayName, description, type, fuelType, brand, brandName, applicationUri, additionalInformation, customerType, geography, meteringCharges, gasContract, electricityContract);
     }
 
-    protected void toStringFields(StringBuilder sb) {
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class EnergyPlanDetailV2 {\n");
         sb.append("    planId: ").append(toIndentedString(planId)).append("\n");
         sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
         sb.append("    effectiveTo: ").append(toIndentedString(effectiveTo)).append("\n");
@@ -370,6 +427,8 @@ public class EnergyPlanDetailBean implements EnergyPlanDetail {
         sb.append("    meteringCharges: ").append(toIndentedString(meteringCharges)).append("\n");
         sb.append("    gasContract: ").append(toIndentedString(gasContract)).append("\n");
         sb.append("    electricityContract: ").append(toIndentedString(electricityContract)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
     /**

@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -15,140 +12,45 @@ import java.util.Objects;
 /**
  * EnergyBillingUsageTransaction
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyBillingUsageTransaction {
-    @JsonProperty("servicePointId")
     private String servicePointId;
 
-    @JsonProperty("invoiceNumber")
     private String invoiceNumber;
 
     /**
      * The time of use type that the transaction applies to
      */
     public enum TimeOfUseTypeEnum {
-        PEAK("PEAK"),
-
-        OFF_PEAK("OFF_PEAK"),
-
-        OFF_PEAK_DEMAND_CHARGE("OFF_PEAK_DEMAND_CHARGE"),
-
-        SHOULDER("SHOULDER"),
-
-        SHOULDER1("SHOULDER1"),
-
-        SHOULDER2("SHOULDER2"),
-
-        CONTROLLED_LOAD("CONTROLLED_LOAD"),
-
-        SOLAR("SOLAR"),
-
-        AGGREGATE("AGGREGATE");
-
-        private String value;
-
-        TimeOfUseTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TimeOfUseTypeEnum fromValue(String value) {
-            for (TimeOfUseTypeEnum b : TimeOfUseTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PEAK,
+        OFF_PEAK,
+        OFF_PEAK_DEMAND_CHARGE,
+        SHOULDER,
+        SHOULDER1,
+        SHOULDER2,
+        CONTROLLED_LOAD,
+        SOLAR,
+        AGGREGATE
     }
 
-    @JsonProperty("timeOfUseType")
     private TimeOfUseTypeEnum timeOfUseType;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("isEstimate")
     private Boolean isEstimate;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
-    /**
-     * The measurement unit of rate. Assumed to be KWH if absent
-     */
-    public enum MeasureUnitEnum {
-        KWH("KWH"),
+    private RateMeasureUnitEnum measureUnit;
 
-        KVA("KVA"),
-
-        KVAR("KVAR"),
-
-        KVARH("KVARH"),
-
-        KW("KW"),
-
-        DAYS("DAYS"),
-
-        METER("METER"),
-
-        MONTH("MONTH");
-
-        private String value;
-
-        MeasureUnitEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static MeasureUnitEnum fromValue(String value) {
-            for (MeasureUnitEnum b : MeasureUnitEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    @JsonProperty("measureUnit")
-    private MeasureUnitEnum measureUnit;
-
-    @JsonProperty("usage")
     private BigDecimal usage;
 
-    @JsonProperty("amount")
     private String amount;
 
-    @JsonProperty("calculationFactors")
     @Valid
     private List<EnergyBillingUsageTransactionCalculationFactors> calculationFactors = null;
 
-    @JsonProperty("adjustments")
     @Valid
     private List<EnergyBillingUsageTransactionAdjustments> adjustments = null;
 
@@ -163,8 +65,6 @@ public class EnergyBillingUsageTransaction {
      * @return servicePointId
      */
     @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
-
-
     public String getServicePointId() {
         return servicePointId;
     }
@@ -184,8 +84,6 @@ public class EnergyBillingUsageTransaction {
      * @return invoiceNumber
      */
     @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
-
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -204,11 +102,8 @@ public class EnergyBillingUsageTransaction {
      *
      * @return timeOfUseType
      */
-    @ApiModelProperty(required = true,
-            value = "The time of use type that the transaction applies to")
+    @ApiModelProperty(required = true, value = "The time of use type that the transaction applies to")
     @NotNull
-
-
     public TimeOfUseTypeEnum getTimeOfUseType() {
         return timeOfUseType;
     }
@@ -228,8 +123,6 @@ public class EnergyBillingUsageTransaction {
      * @return description
      */
     @ApiModelProperty(value = "Optional description of the transaction that can be used for display purposes")
-
-
     public String getDescription() {
         return description;
     }
@@ -249,8 +142,6 @@ public class EnergyBillingUsageTransaction {
      * @return isEstimate
      */
     @ApiModelProperty(value = "Flag indicating if the usage is estimated or actual.  True indicates estimate.  False or absent indicates actual")
-
-
     public Boolean getIsEstimate() {
         return isEstimate;
     }
@@ -269,11 +160,8 @@ public class EnergyBillingUsageTransaction {
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true,
-            value = "Date and time when the usage period starts")
+    @ApiModelProperty(required = true, value = "Date and time when the usage period starts")
     @NotNull
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -292,11 +180,8 @@ public class EnergyBillingUsageTransaction {
      *
      * @return endDate
      */
-    @ApiModelProperty(required = true,
-            value = "Date and time when the usage period ends")
+    @ApiModelProperty(required = true, value = "Date and time when the usage period ends")
     @NotNull
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -305,7 +190,7 @@ public class EnergyBillingUsageTransaction {
         this.endDate = endDate;
     }
 
-    public EnergyBillingUsageTransaction measureUnit(MeasureUnitEnum measureUnit) {
+    public EnergyBillingUsageTransaction measureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
         return this;
     }
@@ -316,13 +201,11 @@ public class EnergyBillingUsageTransaction {
      * @return measureUnit
      */
     @ApiModelProperty(value = "The measurement unit of rate. Assumed to be KWH if absent")
-
-
-    public MeasureUnitEnum getMeasureUnit() {
+    public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
 
-    public void setMeasureUnit(MeasureUnitEnum measureUnit) {
+    public void setMeasureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
     }
 
@@ -339,9 +222,7 @@ public class EnergyBillingUsageTransaction {
     @ApiModelProperty(required = true,
             value = "The usage for the period in measure unit.  A negative value indicates power generated")
     @NotNull
-
     @Valid
-
     public BigDecimal getUsage() {
         return usage;
     }
@@ -363,8 +244,6 @@ public class EnergyBillingUsageTransaction {
     @ApiModelProperty(required = true,
             value = "The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -392,9 +271,7 @@ public class EnergyBillingUsageTransaction {
      * @return calculationFactors
      */
     @ApiModelProperty(value = "Additional calculation factors that inform the transaction")
-
     @Valid
-
     public List<EnergyBillingUsageTransactionCalculationFactors> getCalculationFactors() {
         return calculationFactors;
     }
@@ -422,9 +299,7 @@ public class EnergyBillingUsageTransaction {
      * @return adjustments
      */
     @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
-
     @Valid
-
     public List<EnergyBillingUsageTransactionAdjustments> getAdjustments() {
         return adjustments;
     }
@@ -432,7 +307,6 @@ public class EnergyBillingUsageTransaction {
     public void setAdjustments(List<EnergyBillingUsageTransactionAdjustments> adjustments) {
         this.adjustments = adjustments;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -466,7 +340,6 @@ public class EnergyBillingUsageTransaction {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyBillingUsageTransaction {\n");
-
         sb.append("    servicePointId: ").append(toIndentedString(servicePointId)).append("\n");
         sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
         sb.append("    timeOfUseType: ").append(toIndentedString(timeOfUseType)).append("\n");
@@ -494,4 +367,3 @@ public class EnergyBillingUsageTransaction {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

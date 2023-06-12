@@ -61,7 +61,7 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smooting scenarios)
+     * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios)
      *
      * @return amount
      */

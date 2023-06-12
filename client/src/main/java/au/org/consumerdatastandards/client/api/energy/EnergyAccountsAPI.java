@@ -4,10 +4,11 @@ import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResult;
 import au.org.consumerdatastandards.client.Pair;
 import au.org.consumerdatastandards.client.api.ProtectedAPI;
-import au.org.consumerdatastandards.client.model.energy.EnergyAccountBase;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV1;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV2;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountV1;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountV2;
@@ -32,7 +33,7 @@ import java.util.Map;
 
 public class EnergyAccountsAPI extends ProtectedAPI {
 
-    public <T extends EnergyAccountBase> ApiResult<EnergyAccountListResponse<T>> listEnergyAccounts(ParamAccountOpenStatus openStatus, Integer version, Integer page, Integer pageSize) throws ApiException {
+    public <T extends EnergyAccount> ApiResult<EnergyAccountListResponse<T>> listEnergyAccounts(ParamAccountOpenStatus openStatus, Integer version, Integer page, Integer pageSize) throws ApiException {
 
         String path = "/energy/accounts";
 
@@ -70,7 +71,7 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 
-    public <T extends EnergyAccountBase> ApiResult<EnergyAccountDetailResponse<T>> getEnergyAccountDetail(String accountId, Integer version) throws ApiException {
+    public <T extends EnergyAccount> ApiResult<EnergyAccountDetailResponse<T>> getEnergyAccountDetail(String accountId, Integer version) throws ApiException {
 
         if (accountId == null) {
             throw new ApiException("Missing the required parameter 'accountId' when calling getEnergyAccountDetail()");
@@ -98,9 +99,11 @@ public class EnergyAccountsAPI extends ProtectedAPI {
                 returnType = new TypeToken<EnergyAccountDetailResponse<EnergyAccountDetailV1>>(){}.getType();
                 break;
             case 2:
-            default:
                 returnType = new TypeToken<EnergyAccountDetailResponse<EnergyAccountDetailV2>>(){}.getType();
                 break;
+            case 3:
+            default:
+                returnType = new TypeToken<EnergyAccountDetailResponse<EnergyAccountDetailV3>>(){}.getType();
         }
 
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));

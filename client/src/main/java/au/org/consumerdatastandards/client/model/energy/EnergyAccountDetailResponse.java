@@ -6,14 +6,14 @@ import java.util.Objects;
 /**
  * EnergyAccountDetailResponse
  */
-public class EnergyAccountDetailResponse<T extends EnergyAccountBase>  {
+public class EnergyAccountDetailResponse<T extends EnergyAccount>  {
     private T data;
 
     private Links links;
 
     private Object meta;
 
-    public EnergyAccountDetailResponse data(T data) {
+    public EnergyAccountDetailResponse<T> data(T data) {
         this.data = data;
         return this;
     }
@@ -31,7 +31,7 @@ public class EnergyAccountDetailResponse<T extends EnergyAccountBase>  {
         this.data = data;
     }
 
-    public EnergyAccountDetailResponse links(Links links) {
+    public EnergyAccountDetailResponse<T> links(Links links) {
         this.links = links;
         return this;
     }
@@ -49,7 +49,7 @@ public class EnergyAccountDetailResponse<T extends EnergyAccountBase>  {
         this.links = links;
     }
 
-    public EnergyAccountDetailResponse meta(Object meta) {
+    public EnergyAccountDetailResponse<T> meta(Object meta) {
         this.meta = meta;
         return this;
     }
@@ -75,7 +75,7 @@ public class EnergyAccountDetailResponse<T extends EnergyAccountBase>  {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccountDetailResponse energyAccountDetailResponse = (EnergyAccountDetailResponse) o;
+        EnergyAccountDetailResponse<T> energyAccountDetailResponse = (EnergyAccountDetailResponse<T>) o;
         return Objects.equals(this.data, energyAccountDetailResponse.data) &&
                 Objects.equals(this.links, energyAccountDetailResponse.links) &&
                 Objects.equals(this.meta, energyAccountDetailResponse.meta);

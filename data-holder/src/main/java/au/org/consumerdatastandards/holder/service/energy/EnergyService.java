@@ -1,21 +1,23 @@
 package au.org.consumerdatastandards.holder.service.energy;
 
-import au.org.consumerdatastandards.holder.model.energy.EnergyAccountBase;
-import au.org.consumerdatastandards.holder.model.energy.EnergyAccountBaseV2;
-import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailBase;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccount;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
-import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailEntity;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
+import au.org.consumerdatastandards.holder.model.energy.FuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV1Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,18 +41,30 @@ public class EnergyService {
     private final EnergyAccountV2Repository energyAccountV2Repository;
     private final EnergyAccountDetailV1Repository energyAccountDetailV1Repository;
     private final EnergyAccountDetailV2Repository energyAccountDetailV2Repository;
+    private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyPlanRepository energyPlanRepository;
-    private final EnergyPlanDetailRepository energyPlanDetailRepository;
+    private final EnergyPlanDetailV1Repository energyPlanDetailV1Repository;
+    private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
 
     @Autowired
-    public EnergyService(EnergyAccountV1Repository energyAccountV1Repository, EnergyAccountV2Repository energyAccountV2Repository, EnergyAccountDetailV1Repository energyAccountDetailV1Repository, EnergyAccountDetailV2Repository energyAccountDetailV2Repository, EnergyPlanRepository energyPlanRepository, EnergyPlanDetailRepository energyPlanDetailRepository) {
+    public EnergyService(
+            EnergyAccountV1Repository energyAccountV1Repository,
+            EnergyAccountV2Repository energyAccountV2Repository,
+            EnergyAccountDetailV1Repository energyAccountDetailV1Repository,
+            EnergyAccountDetailV2Repository energyAccountDetailV2Repository,
+            EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
+            EnergyPlanRepository energyPlanRepository,
+            EnergyPlanDetailV1Repository energyPlanDetailV1Repository,
+            EnergyPlanDetailV2Repository energyPlanDetailV2Repository) {
 
         this.energyAccountV1Repository = energyAccountV1Repository;
         this.energyAccountV2Repository = energyAccountV2Repository;
         this.energyAccountDetailV1Repository = energyAccountDetailV1Repository;
         this.energyAccountDetailV2Repository = energyAccountDetailV2Repository;
+        this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyPlanRepository = energyPlanRepository;
-        this.energyPlanDetailRepository = energyPlanDetailRepository;
+        this.energyPlanDetailV1Repository = energyPlanDetailV1Repository;
+        this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
     }
 
     public Page<EnergyPlanEntity> findPlans(ParamTypeEnum type, ParamFuelTypeEnum fuelType, ParamEffective effective, OffsetDateTime updatedSince, String brand, PageRequest pageable) {
@@ -64,7 +78,7 @@ public class EnergyService {
                 predicates.add(criteriaBuilder.equal(root.get("type"), EnergyPlan.TypeEnum.valueOf(type.name())));
             }
             if (fuelType != null && fuelType != ParamFuelTypeEnum.ALL) {
-                predicates.add(criteriaBuilder.equal(root.get("fuelType"), EnergyPlan.FuelTypeEnum.valueOf(fuelType.name())));
+                predicates.add(criteriaBuilder.equal(root.get("fuelType"), FuelTypeEnum.valueOf(fuelType.name())));
             }
             if (effective == null || effective == ParamEffective.CURRENT) {
                 OffsetDateTime now = OffsetDateTime.now();
@@ -84,12 +98,19 @@ public class EnergyService {
         }, pageable);
     }
 
-    public EnergyPlanDetailEntity getPlanDetail(String planId) {
+    public EnergyPlanDetail getPlanDetail(String planId, Integer version) {
         LOGGER.debug("Retrieving plan detail by id {}",  planId);
-        return energyPlanDetailRepository.findById(planId).orElse(null);
+
+        switch (version) {
+            case 1:
+                return energyPlanDetailV1Repository.findById(planId).orElse(null);
+            case 2:
+            default:
+                return energyPlanDetailV2Repository.findById(planId).orElse(null);
+        }
     }
 
-    public Page<EnergyAccountBase> findAccounts(ParamAccountOpenStatus openStatus, PageRequest pageable, Integer version) {
+    public Page<EnergyAccount> findAccounts(ParamAccountOpenStatus openStatus, PageRequest pageable, Integer version) {
 
         LOGGER.debug("Retrieving energy accounts using filters of openStatus {} with Paging content specified as {}",
                 openStatus, pageable);
@@ -102,14 +123,14 @@ public class EnergyService {
                 return energyAccountV2Repository.findAll((Specification<EnergyAccountV2>) (root, criteriaQuery, criteriaBuilder) -> {
                     List<Predicate> predicates = new ArrayList<>();
                     if (openStatus != null && openStatus != ParamAccountOpenStatus.ALL) {
-                        predicates.add(criteriaBuilder.equal(root.get("openStatus"), EnergyAccountBaseV2.OpenStatus.valueOf(openStatus.name())));
+                        predicates.add(criteriaBuilder.equal(root.get("openStatus"), EnergyAccount.OpenStatus.valueOf(openStatus.name())));
                     }
                     return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
                 }, pageable).map(account -> account);
         }
     }
 
-    public EnergyAccountDetailBase getAccountDetail(String accountId, int version) {
+    public EnergyAccountDetail getAccountDetail(String accountId, int version) {
 
         LOGGER.debug("Retrieving energy account detail by id {}",  accountId);
 
@@ -117,8 +138,10 @@ public class EnergyService {
             case 1:
                 return energyAccountDetailV1Repository.findById(accountId).orElse(null);
             case 2:
-            default:
                 return energyAccountDetailV2Repository.findById(accountId).orElse(null);
+            case 3:
+            default:
+                return energyAccountDetailV3Repository.findById(accountId).orElse(null);
         }
     }
 }

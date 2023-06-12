@@ -21,7 +21,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "EnergyAccount")
-public class EnergyAccountV2 implements EnergyAccountBaseV2 {
+public class EnergyAccountV2 implements EnergyAccount {
 
     @Id
     private String accountId;

@@ -1,5 +1,19 @@
-package au.org.consumerdatastandards.client.model.energy;
+package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -7,29 +21,42 @@ import java.util.Objects;
 /**
  * Detail on the plan applicable to this account
  */
-public class EnergyAccountDetailPlanDetail {
-    /**
-     * The fuel types covered by the plan
-     */
-    public enum FuelTypeEnum {
-        ELECTRICITY,
-        GAS,
-        DUAL
-    }
+@ApiModel(description = "Detail on the plan applicable to this account")
+@Entity
+@Table(name = "EnergyAccountPlanDetail")
+public class EnergyAccountDetailPlanDetailV3 {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
 
     private FuelTypeEnum fuelType;
 
     private Boolean isContingentPlan = false;
 
+    @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<MeteringCharges> meteringCharges = null;
 
-    private EnergyPlanContract gasContract;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EnergyPlanContractV2 gasContract;
 
-    private EnergyPlanContract electricityContract;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EnergyPlanContractV2 electricityContract;
 
-    public EnergyAccountDetailPlanDetail fuelType(FuelTypeEnum fuelType) {
+    public EnergyAccountDetailPlanDetailV3 fuelType(FuelTypeEnum fuelType) {
         this.fuelType = fuelType;
         return this;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -37,6 +64,8 @@ public class EnergyAccountDetailPlanDetail {
      *
      * @return fuelType
      */
+    @ApiModelProperty(required = true, value = "The fuel types covered by the plan")
+    @NotNull
     public FuelTypeEnum getFuelType() {
         return fuelType;
     }
@@ -45,7 +74,7 @@ public class EnergyAccountDetailPlanDetail {
         this.fuelType = fuelType;
     }
 
-    public EnergyAccountDetailPlanDetail isContingentPlan(Boolean isContingentPlan) {
+    public EnergyAccountDetailPlanDetailV3 isContingentPlan(Boolean isContingentPlan) {
         this.isContingentPlan = isContingentPlan;
         return this;
     }
@@ -55,6 +84,7 @@ public class EnergyAccountDetailPlanDetail {
      *
      * @return isContingentPlan
      */
+    @ApiModelProperty(value = "Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up). Has no meaning if the plan has a fuelType of DUAL. If absent the value is assumed to be false")
     public Boolean getIsContingentPlan() {
         return isContingentPlan;
     }
@@ -63,12 +93,12 @@ public class EnergyAccountDetailPlanDetail {
         this.isContingentPlan = isContingentPlan;
     }
 
-    public EnergyAccountDetailPlanDetail meteringCharges(List<MeteringCharges> meteringCharges) {
+    public EnergyAccountDetailPlanDetailV3 meteringCharges(List<MeteringCharges> meteringCharges) {
         this.meteringCharges = meteringCharges;
         return this;
     }
 
-    public EnergyAccountDetailPlanDetail addMeteringChargesItem(MeteringCharges meteringChargesItem) {
+    public EnergyAccountDetailPlanDetailV3 addMeteringChargesItem(MeteringCharges meteringChargesItem) {
         if (this.meteringCharges == null) {
             this.meteringCharges = new ArrayList<>();
         }
@@ -81,6 +111,8 @@ public class EnergyAccountDetailPlanDetail {
      *
      * @return meteringCharges
      */
+    @ApiModelProperty(value = "Charges for metering included in the plan")
+    @Valid
     public List<MeteringCharges> getMeteringCharges() {
         return meteringCharges;
     }
@@ -89,7 +121,7 @@ public class EnergyAccountDetailPlanDetail {
         this.meteringCharges = meteringCharges;
     }
 
-    public EnergyAccountDetailPlanDetail gasContract(EnergyPlanContract gasContract) {
+    public EnergyAccountDetailPlanDetailV3 gasContract(EnergyPlanContractV2 gasContract) {
         this.gasContract = gasContract;
         return this;
     }
@@ -99,15 +131,17 @@ public class EnergyAccountDetailPlanDetail {
      *
      * @return gasContract
      */
-    public EnergyPlanContract getGasContract() {
+    @ApiModelProperty(value = "")
+    @Valid
+    public EnergyPlanContractV2 getGasContract() {
         return gasContract;
     }
 
-    public void setGasContract(EnergyPlanContract gasContract) {
+    public void setGasContract(EnergyPlanContractV2 gasContract) {
         this.gasContract = gasContract;
     }
 
-    public EnergyAccountDetailPlanDetail electricityContract(EnergyPlanContract electricityContract) {
+    public EnergyAccountDetailPlanDetailV3 electricityContract(EnergyPlanContractV2 electricityContract) {
         this.electricityContract = electricityContract;
         return this;
     }
@@ -117,11 +151,13 @@ public class EnergyAccountDetailPlanDetail {
      *
      * @return electricityContract
      */
-    public EnergyPlanContract getElectricityContract() {
+    @ApiModelProperty(value = "")
+    @Valid
+    public EnergyPlanContractV2 getElectricityContract() {
         return electricityContract;
     }
 
-    public void setElectricityContract(EnergyPlanContract electricityContract) {
+    public void setElectricityContract(EnergyPlanContractV2 electricityContract) {
         this.electricityContract = electricityContract;
     }
 
@@ -133,7 +169,7 @@ public class EnergyAccountDetailPlanDetail {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccountDetailPlanDetail energyAccountDetailPlanDetail = (EnergyAccountDetailPlanDetail) o;
+        EnergyAccountDetailPlanDetailV3 energyAccountDetailPlanDetail = (EnergyAccountDetailPlanDetailV3) o;
         return Objects.equals(this.fuelType, energyAccountDetailPlanDetail.fuelType) &&
                 Objects.equals(this.isContingentPlan, energyAccountDetailPlanDetail.isContingentPlan) &&
                 Objects.equals(this.meteringCharges, energyAccountDetailPlanDetail.meteringCharges) &&

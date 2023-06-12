@@ -6,7 +6,7 @@ import au.org.consumerdatastandards.client.ApiResult;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.energy.EnergyAccountsAPI;
 
-import au.org.consumerdatastandards.client.model.energy.EnergyAccountBase;
+import au.org.consumerdatastandards.client.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV1;
 import au.org.consumerdatastandards.client.model.energy.EnergyAccountDetailV2;
@@ -91,7 +91,7 @@ public class EnergyAccountsIT extends EnergyITBase {
         Assertions.assertEquals(2, resp.getBody().getData().getAccounts().size());
 
         // Gets accounts details.
-        for (EnergyAccountBase account : resp.getBody().getData().getAccounts()) {
+        for (EnergyAccount account : resp.getBody().getData().getAccounts()) {
 
             ApiResult<EnergyAccountDetailResponse<EnergyAccountDetailV1>> accountDetailResult =
                     ((EnergyAccountsAPI)getAPI()).getEnergyAccountDetail(account.getAccountId(), 1);

@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,19 +11,16 @@ import java.util.Objects;
 /**
  * EnergyAccountListResponseData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
 public class EnergyAccountListResponseData {
-    @JsonProperty("accounts")
     @Valid
-    private List<EnergyAccountBase> accounts = new ArrayList<>();
+    private List<EnergyAccount> accounts = new ArrayList<>();
 
-    public EnergyAccountListResponseData accounts(List<EnergyAccountBase> accounts) {
+    public EnergyAccountListResponseData accounts(List<EnergyAccount> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public EnergyAccountListResponseData addAccountsItem(EnergyAccountBase accountsItem) {
+    public EnergyAccountListResponseData addAccountsItem(EnergyAccount accountsItem) {
         this.accounts.add(accountsItem);
         return this;
     }
@@ -34,20 +30,16 @@ public class EnergyAccountListResponseData {
      *
      * @return accounts
      */
-    @ApiModelProperty(required = true,
-            value = "Array of accounts")
+    @ApiModelProperty(required = true, value = "Array of accounts")
     @NotNull
-
     @Valid
-
-    public List<EnergyAccountBase> getAccounts() {
+    public List<EnergyAccount> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<EnergyAccountBase> accounts) {
+    public void setAccounts(List<EnergyAccount> accounts) {
         this.accounts = accounts;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -70,7 +62,6 @@ public class EnergyAccountListResponseData {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyAccountListResponseData {\n");
-
         sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -87,4 +78,3 @@ public class EnergyAccountListResponseData {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

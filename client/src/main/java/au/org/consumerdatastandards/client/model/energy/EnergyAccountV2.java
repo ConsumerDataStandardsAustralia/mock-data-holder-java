@@ -5,16 +5,14 @@ import java.util.Objects;
 /**
  * EnergyAccountV2
  */
-public class EnergyAccountV2 extends EnergyAccountV1 implements EnergyAccountBaseV2 {
+public class EnergyAccountV2 extends EnergyAccountV1 {
 
     private OpenStatus openStatus;
 
-    @Override
     public OpenStatus getOpenStatus() {
         return openStatus;
     }
 
-    @Override
     public void setOpenStatus(OpenStatus openStatus) {
         this.openStatus = openStatus;
     }
