@@ -1,36 +1,72 @@
 package au.org.consumerdatastandards.client.model.telco;
 
-import java.util.ArrayList;
-import java.util.List;
+import au.org.consumerdatastandards.client.model.LinksPaginated;
+import au.org.consumerdatastandards.client.model.MetaPaginated;
+
 import java.util.Objects;
 
 /**
  * TelcoInvoiceListResponse
  */
 public class TelcoInvoiceListResponse {
-    private List<TelcoInvoice> invoices = new ArrayList<>();
+    private TelcoInvoiceListResponseData data;
 
-    public TelcoInvoiceListResponse invoices(List<TelcoInvoice> invoices) {
-        this.invoices = invoices;
-        return this;
-    }
+    private LinksPaginated links;
 
-    public TelcoInvoiceListResponse addInvoicesItem(TelcoInvoice invoicesItem) {
-        this.invoices.add(invoicesItem);
+    private MetaPaginated meta;
+
+    public TelcoInvoiceListResponse data(TelcoInvoiceListResponseData data) {
+        this.data = data;
         return this;
     }
 
     /**
-     * Array of invoices sorted by issue date in descending order
+     * Get data
      *
-     * @return invoices
+     * @return data
      */
-    public List<TelcoInvoice> getInvoices() {
-        return invoices;
+    public TelcoInvoiceListResponseData getData() {
+        return data;
     }
 
-    public void setInvoices(List<TelcoInvoice> invoices) {
-        this.invoices = invoices;
+    public void setData(TelcoInvoiceListResponseData data) {
+        this.data = data;
+    }
+
+    public TelcoInvoiceListResponse links(LinksPaginated links) {
+        this.links = links;
+        return this;
+    }
+
+    /**
+     * Get links
+     *
+     * @return links
+     */
+    public LinksPaginated getLinks() {
+        return links;
+    }
+
+    public void setLinks(LinksPaginated links) {
+        this.links = links;
+    }
+
+    public TelcoInvoiceListResponse meta(MetaPaginated meta) {
+        this.meta = meta;
+        return this;
+    }
+
+    /**
+     * Get meta
+     *
+     * @return meta
+     */
+    public MetaPaginated getMeta() {
+        return meta;
+    }
+
+    public void setMeta(MetaPaginated meta) {
+        this.meta = meta;
     }
 
     @Override
@@ -42,19 +78,23 @@ public class TelcoInvoiceListResponse {
             return false;
         }
         TelcoInvoiceListResponse telcoInvoiceListResponse = (TelcoInvoiceListResponse) o;
-        return Objects.equals(this.invoices, telcoInvoiceListResponse.invoices);
+        return Objects.equals(this.data, telcoInvoiceListResponse.data) &&
+                Objects.equals(this.links, telcoInvoiceListResponse.links) &&
+                Objects.equals(this.meta, telcoInvoiceListResponse.meta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoices);
+        return Objects.hash(data, links, meta);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoInvoiceListResponse {\n");
-        sb.append("    invoices: ").append(toIndentedString(invoices)).append("\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    links: ").append(toIndentedString(links)).append("\n");
+        sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
         sb.append("}");
         return sb.toString();
     }

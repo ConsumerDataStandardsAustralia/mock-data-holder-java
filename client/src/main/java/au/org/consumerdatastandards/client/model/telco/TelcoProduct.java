@@ -22,7 +22,7 @@ public class TelcoProduct {
 
     private TypeEnum type = TypeEnum.MOBILE;
 
-    private PurposeEnum purpose = PurposeEnum.ALL;
+    private PurposeEnum purpose = PurposeEnum.PERSONAL;
 
     private BillingTypeEnum billingType = BillingTypeEnum.PRE_PAID;
 
@@ -158,7 +158,7 @@ public class TelcoProduct {
     }
 
     /**
-     * The type of product
+     * The type of product. [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
      *
      * @return type
      */

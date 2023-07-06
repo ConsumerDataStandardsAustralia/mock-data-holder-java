@@ -29,7 +29,7 @@ public class TelcoAccountDetail {
     private OpenStatusEnum openStatus = OpenStatusEnum.OPEN;
 
     @Valid
-    private List<TelcoAccountDetailPlans> plans = new ArrayList<>();
+    private List<TelcoAccountDetailPlan> plans = new ArrayList<>();
 
     /**
      * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
@@ -129,12 +129,12 @@ public class TelcoAccountDetail {
         this.openStatus = openStatus;
     }
 
-    public TelcoAccountDetail plans(List<TelcoAccountDetailPlans> plans) {
+    public TelcoAccountDetail plans(List<TelcoAccountDetailPlan> plans) {
         this.plans = plans;
         return this;
     }
 
-    public TelcoAccountDetail addPlansItem(TelcoAccountDetailPlans plansItem) {
+    public TelcoAccountDetail addPlansItem(TelcoAccountDetailPlan plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -147,11 +147,11 @@ public class TelcoAccountDetail {
     @ApiModelProperty(required = true, value = "The array of plans containing services and associated plan details")
     @NotNull
     @Valid
-    public List<TelcoAccountDetailPlans> getPlans() {
+    public List<TelcoAccountDetailPlan> getPlans() {
         return plans;
     }
 
-    public void setPlans(List<TelcoAccountDetailPlans> plans) {
+    public void setPlans(List<TelcoAccountDetailPlan> plans) {
         this.plans = plans;
     }
 

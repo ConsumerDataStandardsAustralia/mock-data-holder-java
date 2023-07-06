@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model;
 
-import au.org.consumerdatastandards.holder.model.banking.MetaError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;

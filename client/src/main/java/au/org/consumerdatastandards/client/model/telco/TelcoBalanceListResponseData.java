@@ -1,30 +1,21 @@
-package au.org.consumerdatastandards.holder.model.telco;
+package au.org.consumerdatastandards.client.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * TelcoBalanceListResponseBalances
+ * TelcoBalanceListResponseData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
-public class TelcoBalanceListResponseBalances {
-    @JsonProperty("balances")
-    @Valid
+public class TelcoBalanceListResponseData {
     private List<TelcoBalanceResponseData> balances = new ArrayList<>();
 
-    public TelcoBalanceListResponseBalances balances(List<TelcoBalanceResponseData> balances) {
+    public TelcoBalanceListResponseData balances(List<TelcoBalanceResponseData> balances) {
         this.balances = balances;
         return this;
     }
 
-    public TelcoBalanceListResponseBalances addBalancesItem(TelcoBalanceResponseData balancesItem) {
+    public TelcoBalanceListResponseData addBalancesItem(TelcoBalanceResponseData balancesItem) {
         this.balances.add(balancesItem);
         return this;
     }
@@ -34,12 +25,6 @@ public class TelcoBalanceListResponseBalances {
      *
      * @return balances
      */
-    @ApiModelProperty(required = true,
-            value = "Array of account balances")
-    @NotNull
-
-    @Valid
-
     public List<TelcoBalanceResponseData> getBalances() {
         return balances;
     }
@@ -47,7 +32,6 @@ public class TelcoBalanceListResponseBalances {
     public void setBalances(List<TelcoBalanceResponseData> balances) {
         this.balances = balances;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -57,8 +41,8 @@ public class TelcoBalanceListResponseBalances {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TelcoBalanceListResponseBalances telcoBalanceListResponseBalances = (TelcoBalanceListResponseBalances) o;
-        return Objects.equals(this.balances, telcoBalanceListResponseBalances.balances);
+        TelcoBalanceListResponseData telcoBalanceListResponseData = (TelcoBalanceListResponseData) o;
+        return Objects.equals(this.balances, telcoBalanceListResponseData.balances);
     }
 
     @Override
@@ -69,8 +53,7 @@ public class TelcoBalanceListResponseBalances {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TelcoBalanceListResponseBalances {\n");
-
+        sb.append("class TelcoBalanceListResponseData {\n");
         sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -87,4 +70,3 @@ public class TelcoBalanceListResponseBalances {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

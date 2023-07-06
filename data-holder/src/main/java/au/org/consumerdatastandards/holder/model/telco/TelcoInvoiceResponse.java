@@ -1,21 +1,23 @@
-package au.org.consumerdatastandards.client.model.telco;
+package au.org.consumerdatastandards.holder.model.telco;
 
-import au.org.consumerdatastandards.client.model.LinksPaginated;
-import au.org.consumerdatastandards.client.model.MetaPaginated;
+import au.org.consumerdatastandards.holder.model.Links;
+import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * TelcoConcessionsResponse
+ * TelcoInvoiceResponse
  */
-public class TelcoConcessionsResponse {
-    private TelcoConcessionsResponseData data;
+public class TelcoInvoiceResponse {
+    private TelcoInvoiceListResponseData data;
 
-    private LinksPaginated links;
+    private Links links;
 
-    private MetaPaginated meta;
+    private Object meta;
 
-    public TelcoConcessionsResponse data(TelcoConcessionsResponseData data) {
+    public TelcoInvoiceResponse data(TelcoInvoiceListResponseData data) {
         this.data = data;
         return this;
     }
@@ -25,15 +27,18 @@ public class TelcoConcessionsResponse {
      *
      * @return data
      */
-    public TelcoConcessionsResponseData getData() {
+    @ApiModelProperty(required = true, value = "")
+    @NotNull
+    @Valid
+    public TelcoInvoiceListResponseData getData() {
         return data;
     }
 
-    public void setData(TelcoConcessionsResponseData data) {
+    public void setData(TelcoInvoiceListResponseData data) {
         this.data = data;
     }
 
-    public TelcoConcessionsResponse links(LinksPaginated links) {
+    public TelcoInvoiceResponse links(Links links) {
         this.links = links;
         return this;
     }
@@ -43,15 +48,18 @@ public class TelcoConcessionsResponse {
      *
      * @return links
      */
-    public LinksPaginated getLinks() {
+    @ApiModelProperty(required = true, value = "")
+    @NotNull
+    @Valid
+    public Links getLinks() {
         return links;
     }
 
-    public void setLinks(LinksPaginated links) {
+    public void setLinks(Links links) {
         this.links = links;
     }
 
-    public TelcoConcessionsResponse meta(MetaPaginated meta) {
+    public TelcoInvoiceResponse meta(Object meta) {
         this.meta = meta;
         return this;
     }
@@ -61,11 +69,14 @@ public class TelcoConcessionsResponse {
      *
      * @return meta
      */
-    public MetaPaginated getMeta() {
+    @ApiModelProperty(required = true, value = "")
+    @NotNull
+    @Valid
+    public Object getMeta() {
         return meta;
     }
 
-    public void setMeta(MetaPaginated meta) {
+    public void setMeta(Object meta) {
         this.meta = meta;
     }
 
@@ -77,10 +88,10 @@ public class TelcoConcessionsResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TelcoConcessionsResponse telcoConcessionsResponse = (TelcoConcessionsResponse) o;
-        return Objects.equals(this.data, telcoConcessionsResponse.data) &&
-                Objects.equals(this.links, telcoConcessionsResponse.links) &&
-                Objects.equals(this.meta, telcoConcessionsResponse.meta);
+        TelcoInvoiceResponse telcoInvoiceListResponse = (TelcoInvoiceResponse) o;
+        return Objects.equals(this.data, telcoInvoiceListResponse.data) &&
+                Objects.equals(this.links, telcoInvoiceListResponse.links) &&
+                Objects.equals(this.meta, telcoInvoiceListResponse.meta);
     }
 
     @Override
@@ -91,7 +102,7 @@ public class TelcoConcessionsResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TelcoConcessionsResponse {\n");
+        sb.append("class TelcoInvoiceResponse {\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");

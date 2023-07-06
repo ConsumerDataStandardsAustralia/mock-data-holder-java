@@ -12,7 +12,7 @@ public class TelcoProductPricing {
 
     private String period;
 
-    private String chargeAmount;
+    private String amount;
 
     public TelcoProductPricing name(String name) {
         this.name = name;
@@ -68,22 +68,22 @@ public class TelcoProductPricing {
         this.period = period;
     }
 
-    public TelcoProductPricing chargeAmount(String chargeAmount) {
-        this.chargeAmount = chargeAmount;
+    public TelcoProductPricing amount(String amount) {
+        this.amount = amount;
         return this;
     }
 
     /**
      * The amount charged for the duration period
      *
-     * @return chargeAmount
+     * @return amount
      */
-    public String getChargeAmount() {
-        return chargeAmount;
+    public String getAmount() {
+        return amount;
     }
 
-    public void setChargeAmount(String chargeAmount) {
-        this.chargeAmount = chargeAmount;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -98,12 +98,12 @@ public class TelcoProductPricing {
         return Objects.equals(this.name, telcoProductPricing.name) &&
                 Objects.equals(this.description, telcoProductPricing.description) &&
                 Objects.equals(this.period, telcoProductPricing.period) &&
-                Objects.equals(this.chargeAmount, telcoProductPricing.chargeAmount);
+                Objects.equals(this.amount, telcoProductPricing.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, period, chargeAmount);
+        return Objects.hash(name, description, period, amount);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class TelcoProductPricing {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    period: ").append(toIndentedString(period)).append("\n");
-        sb.append("    chargeAmount: ").append(toIndentedString(chargeAmount)).append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("}");
         return sb.toString();
     }

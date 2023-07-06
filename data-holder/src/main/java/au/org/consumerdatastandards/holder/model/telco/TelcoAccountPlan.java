@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,102 +9,39 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * TelcoAccountPlans
+ * TelcoAccountPlan
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
-public class TelcoAccountPlans {
-    @JsonProperty("nickname")
+public class TelcoAccountPlan {
     private String nickname;
 
     /**
-     * The type of the plan
+     * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
      */
     public enum TypeEnum {
-        MOBILE("MOBILE"),
-
-        BROADBAND("BROADBAND");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        MOBILE,
+        BROADBAND
     }
 
-    @JsonProperty("type")
     private TypeEnum type = TypeEnum.MOBILE;
 
     /**
      * The billing type of then plan
      */
     public enum BillingTypeEnum {
-        PRE_PAID("PRE_PAID"),
-
-        POST_PAID("POST_PAID"),
-
-        UPFRONT_PAID("UPFRONT_PAID"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        BillingTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static BillingTypeEnum fromValue(String value) {
-            for (BillingTypeEnum b : BillingTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PRE_PAID,
+        POST_PAID,
+        UPFRONT_PAID,
+        OTHER
     }
 
-    @JsonProperty("billingType")
     private BillingTypeEnum billingType = BillingTypeEnum.PRE_PAID;
 
-    @JsonProperty("serviceIds")
     @Valid
     private List<String> serviceIds = new ArrayList<>();
 
-    @JsonProperty("planOverview")
     private TelcoAccountPlanOverview planOverview;
 
-    public TelcoAccountPlans nickname(String nickname) {
+    public TelcoAccountPlan nickname(String nickname) {
         this.nickname = nickname;
         return this;
     }
@@ -118,8 +52,6 @@ public class TelcoAccountPlans {
      * @return nickname
      */
     @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans")
-
-
     public String getNickname() {
         return nickname;
     }
@@ -128,19 +60,19 @@ public class TelcoAccountPlans {
         this.nickname = nickname;
     }
 
-    public TelcoAccountPlans type(TypeEnum type) {
+    public TelcoAccountPlan type(TypeEnum type) {
         this.type = type;
         return this;
     }
 
     /**
-     * The type of the plan
+     * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
      *
      * @return type
      */
-    @ApiModelProperty(value = "The type of the plan")
-
-
+    @ApiModelProperty(required = true,
+            value = "The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service")
+    @NotNull
     public TypeEnum getType() {
         return type;
     }
@@ -149,7 +81,7 @@ public class TelcoAccountPlans {
         this.type = type;
     }
 
-    public TelcoAccountPlans billingType(BillingTypeEnum billingType) {
+    public TelcoAccountPlan billingType(BillingTypeEnum billingType) {
         this.billingType = billingType;
         return this;
     }
@@ -159,9 +91,8 @@ public class TelcoAccountPlans {
      *
      * @return billingType
      */
-    @ApiModelProperty(value = "The billing type of then plan")
-
-
+    @ApiModelProperty(required = true, value = "The billing type of then plan")
+    @NotNull
     public BillingTypeEnum getBillingType() {
         return billingType;
     }
@@ -170,12 +101,12 @@ public class TelcoAccountPlans {
         this.billingType = billingType;
     }
 
-    public TelcoAccountPlans serviceIds(List<String> serviceIds) {
+    public TelcoAccountPlan serviceIds(List<String> serviceIds) {
         this.serviceIds = serviceIds;
         return this;
     }
 
-    public TelcoAccountPlans addServiceIdsItem(String serviceIdsItem) {
+    public TelcoAccountPlan addServiceIdsItem(String serviceIdsItem) {
         this.serviceIds.add(serviceIdsItem);
         return this;
     }
@@ -188,8 +119,6 @@ public class TelcoAccountPlans {
     @ApiModelProperty(required = true,
             value = "The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement")
     @NotNull
-
-
     public List<String> getServiceIds() {
         return serviceIds;
     }
@@ -198,7 +127,7 @@ public class TelcoAccountPlans {
         this.serviceIds = serviceIds;
     }
 
-    public TelcoAccountPlans planOverview(TelcoAccountPlanOverview planOverview) {
+    public TelcoAccountPlan planOverview(TelcoAccountPlanOverview planOverview) {
         this.planOverview = planOverview;
         return this;
     }
@@ -208,10 +137,9 @@ public class TelcoAccountPlans {
      *
      * @return planOverview
      */
-    @ApiModelProperty(value = "")
-
+    @ApiModelProperty(required = true, value = "")
     @Valid
-
+    @NotNull
     public TelcoAccountPlanOverview getPlanOverview() {
         return planOverview;
     }
@@ -219,7 +147,6 @@ public class TelcoAccountPlans {
     public void setPlanOverview(TelcoAccountPlanOverview planOverview) {
         this.planOverview = planOverview;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -229,12 +156,12 @@ public class TelcoAccountPlans {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TelcoAccountPlans telcoAccountPlans = (TelcoAccountPlans) o;
-        return Objects.equals(this.nickname, telcoAccountPlans.nickname) &&
-                Objects.equals(this.type, telcoAccountPlans.type) &&
-                Objects.equals(this.billingType, telcoAccountPlans.billingType) &&
-                Objects.equals(this.serviceIds, telcoAccountPlans.serviceIds) &&
-                Objects.equals(this.planOverview, telcoAccountPlans.planOverview);
+        TelcoAccountPlan telcoAccountPlan = (TelcoAccountPlan) o;
+        return Objects.equals(this.nickname, telcoAccountPlan.nickname) &&
+                Objects.equals(this.type, telcoAccountPlan.type) &&
+                Objects.equals(this.billingType, telcoAccountPlan.billingType) &&
+                Objects.equals(this.serviceIds, telcoAccountPlan.serviceIds) &&
+                Objects.equals(this.planOverview, telcoAccountPlan.planOverview);
     }
 
     @Override
@@ -245,8 +172,7 @@ public class TelcoAccountPlans {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TelcoAccountPlans {\n");
-
+        sb.append("class TelcoAccountPlan {\n");
         sb.append("    nickname: ").append(toIndentedString(nickname)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    billingType: ").append(toIndentedString(billingType)).append("\n");
@@ -267,4 +193,3 @@ public class TelcoAccountPlans {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

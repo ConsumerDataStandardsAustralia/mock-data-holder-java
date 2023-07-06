@@ -14,6 +14,7 @@ import au.org.consumerdatastandards.client.model.telco.TelcoBalanceListResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoBalanceResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoConcessionsResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoInvoiceListResponse;
+import au.org.consumerdatastandards.client.model.telco.TelcoInvoiceResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoPaymentScheduleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,8 +202,8 @@ public class TelcoAccounts extends ApiCliBase {
                 accountId, oldestDate, newestDate, page, pageSize);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<TelcoInvoiceListResponse> result = api.getInvoicesForAccount(accountId, oldestDate, newestDate, page, pageSize);
-        ApiResponse<TelcoInvoiceListResponse> response = result.getResponse();
+        ApiResult<TelcoInvoiceResponse> result = api.getInvoicesForAccount(accountId, oldestDate, newestDate, page, pageSize);
+        ApiResponse<TelcoInvoiceResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");

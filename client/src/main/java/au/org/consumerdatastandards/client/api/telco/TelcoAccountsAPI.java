@@ -11,6 +11,7 @@ import au.org.consumerdatastandards.client.model.telco.TelcoBalanceListResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoBalanceResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoConcessionsResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoInvoiceListResponse;
+import au.org.consumerdatastandards.client.model.telco.TelcoInvoiceResponse;
 import au.org.consumerdatastandards.client.model.telco.TelcoPaymentScheduleResponse;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.Call;
@@ -191,7 +192,7 @@ public class TelcoAccountsAPI extends ProtectedAPI {
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 
-    public ApiResult<TelcoInvoiceListResponse> getInvoicesForAccount(String accountId, OffsetDateTime oldestDate, OffsetDateTime newestDate, Integer page, Integer pageSize) throws ApiException {
+    public ApiResult<TelcoInvoiceResponse> getInvoicesForAccount(String accountId, OffsetDateTime oldestDate, OffsetDateTime newestDate, Integer page, Integer pageSize) throws ApiException {
 
         if (accountId == null) {
             throw new ApiException("Missing the required parameter 'accountId' when calling getInvoicesForAccount()");
@@ -216,7 +217,7 @@ public class TelcoAccountsAPI extends ProtectedAPI {
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
 
-        Type returnType = new TypeToken<TelcoInvoiceListResponse>(){}.getType();
+        Type returnType = new TypeToken<TelcoInvoiceResponse>(){}.getType();
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 

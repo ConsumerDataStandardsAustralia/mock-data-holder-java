@@ -22,7 +22,7 @@ public class TelcoAccount {
 
     private OpenStatusEnum openStatus = OpenStatusEnum.OPEN;
 
-    private List<TelcoAccountPlans> plans = new ArrayList<>();
+    private List<TelcoAccountPlan> plans = new ArrayList<>();
     /**
      * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
      *
@@ -114,12 +114,12 @@ public class TelcoAccount {
         this.openStatus = openStatus;
     }
 
-    public TelcoAccount plans(List<TelcoAccountPlans> plans) {
+    public TelcoAccount plans(List<TelcoAccountPlan> plans) {
         this.plans = plans;
         return this;
     }
 
-    public TelcoAccount addPlansItem(TelcoAccountPlans plansItem) {
+    public TelcoAccount addPlansItem(TelcoAccountPlan plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -129,11 +129,11 @@ public class TelcoAccount {
      *
      * @return plans
      */
-    public List<TelcoAccountPlans> getPlans() {
+    public List<TelcoAccountPlan> getPlans() {
         return plans;
     }
 
-    public void setPlans(List<TelcoAccountPlans> plans) {
+    public void setPlans(List<TelcoAccountPlan> plans) {
         this.plans = plans;
     }
 

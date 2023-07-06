@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of the contract details. Required if a contract is required
+ * Summary of the contract details. Mandatory if the billing type is POST_PAID and a contract agreement is required with the service provider for the plan
  */
 public class TelcoContract {
     private String name;
@@ -39,7 +39,7 @@ public class TelcoContract {
     }
 
     /**
-     * Description if the contract
+     * Description of the contract
      *
      * @return description
      */

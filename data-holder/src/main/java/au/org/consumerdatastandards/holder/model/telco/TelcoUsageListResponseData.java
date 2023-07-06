@@ -9,35 +9,35 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * TelcoAccountListResponseData
+ * TelcoUsageListResponseData
  */
-public class TelcoAccountListResponseData {
+public class TelcoUsageListResponseData {
     @Valid
-    private List<TelcoAccountResponseData> accounts = new ArrayList<>();
+    private List<TelcoAccountUsage> accounts = new ArrayList<>();
 
-    public TelcoAccountListResponseData accounts(List<TelcoAccountResponseData> accounts) {
+    public TelcoUsageListResponseData accounts(List<TelcoAccountUsage> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public TelcoAccountListResponseData addAccountsItem(TelcoAccountResponseData accountsItem) {
+    public TelcoUsageListResponseData addAccountsItem(TelcoAccountUsage accountsItem) {
         this.accounts.add(accountsItem);
         return this;
     }
 
     /**
-     * Array of accounts
+     * Array of usage on accounts
      *
      * @return accounts
      */
-    @ApiModelProperty(required = true, value = "Array of accounts")
+    @ApiModelProperty(required = true, value = "Array of usage on accounts")
     @NotNull
     @Valid
-    public List<TelcoAccountResponseData> getAccounts() {
+    public List<TelcoAccountUsage> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<TelcoAccountResponseData> accounts) {
+    public void setAccounts(List<TelcoAccountUsage> accounts) {
         this.accounts = accounts;
     }
 
@@ -49,8 +49,8 @@ public class TelcoAccountListResponseData {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TelcoAccountListResponseData telcoAccountListResponseData = (TelcoAccountListResponseData) o;
-        return Objects.equals(this.accounts, telcoAccountListResponseData.accounts);
+        TelcoUsageListResponseData telcoUsageListResponse = (TelcoUsageListResponseData) o;
+        return Objects.equals(this.accounts, telcoUsageListResponse.accounts);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class TelcoAccountListResponseData {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TelcoAccountListResponseData {\n");
+        sb.append("class TelcoUsageListResponseData {\n");
         sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
         sb.append("}");
         return sb.toString();

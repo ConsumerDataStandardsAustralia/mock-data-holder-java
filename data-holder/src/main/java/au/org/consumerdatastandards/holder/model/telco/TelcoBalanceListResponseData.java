@@ -1,21 +1,26 @@
-package au.org.consumerdatastandards.client.model.telco;
+package au.org.consumerdatastandards.holder.model.telco;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * TelcoBalanceListResponseBalances
+ * TelcoBalanceListResponseData
  */
-public class TelcoBalanceListResponseBalances {
+public class TelcoBalanceListResponseData {
+    @Valid
     private List<TelcoBalanceResponseData> balances = new ArrayList<>();
 
-    public TelcoBalanceListResponseBalances balances(List<TelcoBalanceResponseData> balances) {
+    public TelcoBalanceListResponseData balances(List<TelcoBalanceResponseData> balances) {
         this.balances = balances;
         return this;
     }
 
-    public TelcoBalanceListResponseBalances addBalancesItem(TelcoBalanceResponseData balancesItem) {
+    public TelcoBalanceListResponseData addBalancesItem(TelcoBalanceResponseData balancesItem) {
         this.balances.add(balancesItem);
         return this;
     }
@@ -25,6 +30,9 @@ public class TelcoBalanceListResponseBalances {
      *
      * @return balances
      */
+    @ApiModelProperty(required = true, value = "Array of account balances")
+    @NotNull
+    @Valid
     public List<TelcoBalanceResponseData> getBalances() {
         return balances;
     }
@@ -41,8 +49,8 @@ public class TelcoBalanceListResponseBalances {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TelcoBalanceListResponseBalances telcoBalanceListResponseBalances = (TelcoBalanceListResponseBalances) o;
-        return Objects.equals(this.balances, telcoBalanceListResponseBalances.balances);
+        TelcoBalanceListResponseData telcoBalanceListResponseData = (TelcoBalanceListResponseData) o;
+        return Objects.equals(this.balances, telcoBalanceListResponseData.balances);
     }
 
     @Override
@@ -53,7 +61,7 @@ public class TelcoBalanceListResponseBalances {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TelcoBalanceListResponseBalances {\n");
+        sb.append("class TelcoBalanceListResponseData {\n");
         sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
         sb.append("}");
         return sb.toString();

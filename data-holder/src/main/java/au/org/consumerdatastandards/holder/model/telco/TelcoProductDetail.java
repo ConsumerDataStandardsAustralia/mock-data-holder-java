@@ -150,11 +150,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The type of product
+     * The type of product. [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of product")
+    @ApiModelProperty(required = true, value = "The type of product. [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service")
     @NotNull
     public TypeEnum getType() {
         return type;

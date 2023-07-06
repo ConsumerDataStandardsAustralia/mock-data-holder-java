@@ -8,14 +8,14 @@ import java.util.Objects;
  * TelcoAccountListResponseData
  */
 public class TelcoAccountListResponseData {
-    private List<TelcoAccountResponse> accounts = new ArrayList<>();
+    private List<TelcoAccountResponseData> accounts = new ArrayList<>();
 
-    public TelcoAccountListResponseData accounts(List<TelcoAccountResponse> accounts) {
+    public TelcoAccountListResponseData accounts(List<TelcoAccountResponseData> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public TelcoAccountListResponseData addAccountsItem(TelcoAccountResponse accountsItem) {
+    public TelcoAccountListResponseData addAccountsItem(TelcoAccountResponseData accountsItem) {
         this.accounts.add(accountsItem);
         return this;
     }
@@ -25,11 +25,11 @@ public class TelcoAccountListResponseData {
      *
      * @return accounts
      */
-    public List<TelcoAccountResponse> getAccounts() {
+    public List<TelcoAccountResponseData> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<TelcoAccountResponse> accounts) {
+    public void setAccounts(List<TelcoAccountResponseData> accounts) {
         this.accounts = accounts;
     }
 

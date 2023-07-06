@@ -1,4 +1,4 @@
-package au.org.consumerdatastandards.holder.model.banking;
+package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

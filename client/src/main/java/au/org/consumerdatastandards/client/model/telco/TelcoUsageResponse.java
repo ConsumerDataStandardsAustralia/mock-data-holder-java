@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.client.model.telco;
 
-import au.org.consumerdatastandards.client.model.LinksPaginated;
-import au.org.consumerdatastandards.client.model.MetaPaginated;
+import au.org.consumerdatastandards.client.model.Links;
 
 import java.util.Objects;
 
@@ -11,9 +10,9 @@ import java.util.Objects;
 public class TelcoUsageResponse {
     private TelcoAccountUsage data;
 
-    private LinksPaginated links;
+    private Links links;
 
-    private MetaPaginated meta;
+    private Object meta;
 
     public TelcoUsageResponse data(TelcoAccountUsage data) {
         this.data = data;
@@ -33,7 +32,7 @@ public class TelcoUsageResponse {
         this.data = data;
     }
 
-    public TelcoUsageResponse links(LinksPaginated links) {
+    public TelcoUsageResponse links(Links links) {
         this.links = links;
         return this;
     }
@@ -43,15 +42,15 @@ public class TelcoUsageResponse {
      *
      * @return links
      */
-    public LinksPaginated getLinks() {
+    public Links getLinks() {
         return links;
     }
 
-    public void setLinks(LinksPaginated links) {
+    public void setLinks(Links links) {
         this.links = links;
     }
 
-    public TelcoUsageResponse meta(MetaPaginated meta) {
+    public TelcoUsageResponse meta(Object meta) {
         this.meta = meta;
         return this;
     }
@@ -61,11 +60,11 @@ public class TelcoUsageResponse {
      *
      * @return meta
      */
-    public MetaPaginated getMeta() {
+    public Object getMeta() {
         return meta;
     }
 
-    public void setMeta(MetaPaginated meta) {
+    public void setMeta(Object meta) {
         this.meta = meta;
     }
 

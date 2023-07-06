@@ -1,83 +1,38 @@
-package au.org.consumerdatastandards.holder.model.telco;
+package au.org.consumerdatastandards.client.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * TelcoAccountResponse
+ * TelcoAccountResponseData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
-public class TelcoAccountResponse {
-    @JsonProperty("accountId")
+public class TelcoAccountResponseData {
     private String accountId;
 
-    @JsonProperty("accountNumber")
     private String accountNumber;
 
-    @JsonProperty("displayName")
     private String displayName;
 
-    @JsonProperty("creationDate")
     private String creationDate;
 
-    @JsonProperty("lastUpdated")
     private String lastUpdated;
 
-    @JsonProperty("brand")
     private String brand;
 
     /**
      * Open or closed status for the account. If not present then OPEN is assumed
      */
     public enum OpenStatusEnum {
-        CLOSED("CLOSED"),
-
-        OPEN("OPEN");
-
-        private String value;
-
-        OpenStatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static OpenStatusEnum fromValue(String value) {
-            for (OpenStatusEnum b : OpenStatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        CLOSED,
+        OPEN
     }
 
-    @JsonProperty("openStatus")
     private OpenStatusEnum openStatus = OpenStatusEnum.OPEN;
 
-    @JsonProperty("plans")
-    @Valid
-    private List<TelcoAccountPlans> plans = new ArrayList<>();
+    private List<TelcoAccountPlan> plans = new ArrayList<>();
 
-    public TelcoAccountResponse accountId(String accountId) {
+    public TelcoAccountResponseData accountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -87,9 +42,6 @@ public class TelcoAccountResponse {
      *
      * @return accountId
      */
-    @ApiModelProperty(value = "The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements")
-
-
     public String getAccountId() {
         return accountId;
     }
@@ -98,7 +50,7 @@ public class TelcoAccountResponse {
         this.accountId = accountId;
     }
 
-    public TelcoAccountResponse accountNumber(String accountNumber) {
+    public TelcoAccountResponseData accountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }
@@ -108,9 +60,6 @@ public class TelcoAccountResponse {
      *
      * @return accountNumber
      */
-    @ApiModelProperty(value = "Masked identifier of the account as defined by the data holder. This must be the value presented on physical statements (required if it exists) and must not be used for the value of the accountId")
-
-
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -119,7 +68,7 @@ public class TelcoAccountResponse {
         this.accountNumber = accountNumber;
     }
 
-    public TelcoAccountResponse displayName(String displayName) {
+    public TelcoAccountResponseData displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -129,9 +78,6 @@ public class TelcoAccountResponse {
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder")
-
-
     public String getDisplayName() {
         return displayName;
     }
@@ -140,7 +86,7 @@ public class TelcoAccountResponse {
         this.displayName = displayName;
     }
 
-    public TelcoAccountResponse creationDate(String creationDate) {
+    public TelcoAccountResponseData creationDate(String creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -150,9 +96,6 @@ public class TelcoAccountResponse {
      *
      * @return creationDate
      */
-    @ApiModelProperty(value = "The date that the account was created or opened. Mandatory if openStatus is OPEN")
-
-
     public String getCreationDate() {
         return creationDate;
     }
@@ -161,7 +104,7 @@ public class TelcoAccountResponse {
         this.creationDate = creationDate;
     }
 
-    public TelcoAccountResponse lastUpdated(String lastUpdated) {
+    public TelcoAccountResponseData lastUpdated(String lastUpdated) {
         this.lastUpdated = lastUpdated;
         return this;
     }
@@ -171,9 +114,6 @@ public class TelcoAccountResponse {
      *
      * @return lastUpdated
      */
-    @ApiModelProperty(value = "The date and time which the account was last updated")
-
-
     public String getLastUpdated() {
         return lastUpdated;
     }
@@ -182,7 +122,7 @@ public class TelcoAccountResponse {
         this.lastUpdated = lastUpdated;
     }
 
-    public TelcoAccountResponse brand(String brand) {
+    public TelcoAccountResponseData brand(String brand) {
         this.brand = brand;
         return this;
     }
@@ -192,9 +132,6 @@ public class TelcoAccountResponse {
      *
      * @return brand
      */
-    @ApiModelProperty(value = "The retail name of the brand")
-
-
     public String getBrand() {
         return brand;
     }
@@ -203,7 +140,7 @@ public class TelcoAccountResponse {
         this.brand = brand;
     }
 
-    public TelcoAccountResponse openStatus(OpenStatusEnum openStatus) {
+    public TelcoAccountResponseData openStatus(OpenStatusEnum openStatus) {
         this.openStatus = openStatus;
         return this;
     }
@@ -213,9 +150,6 @@ public class TelcoAccountResponse {
      *
      * @return openStatus
      */
-    @ApiModelProperty(value = "Open or closed status for the account. If not present then OPEN is assumed")
-
-
     public OpenStatusEnum getOpenStatus() {
         return openStatus;
     }
@@ -224,12 +158,12 @@ public class TelcoAccountResponse {
         this.openStatus = openStatus;
     }
 
-    public TelcoAccountResponse plans(List<TelcoAccountPlans> plans) {
+    public TelcoAccountResponseData plans(List<TelcoAccountPlan> plans) {
         this.plans = plans;
         return this;
     }
 
-    public TelcoAccountResponse addPlansItem(TelcoAccountPlans plansItem) {
+    public TelcoAccountResponseData addPlansItem(TelcoAccountPlan plansItem) {
         this.plans.add(plansItem);
         return this;
     }
@@ -239,20 +173,13 @@ public class TelcoAccountResponse {
      *
      * @return plans
      */
-    @ApiModelProperty(required = true,
-            value = "The array of plans containing service and associated plan details")
-    @NotNull
-
-    @Valid
-
-    public List<TelcoAccountPlans> getPlans() {
+    public List<TelcoAccountPlan> getPlans() {
         return plans;
     }
 
-    public void setPlans(List<TelcoAccountPlans> plans) {
+    public void setPlans(List<TelcoAccountPlan> plans) {
         this.plans = plans;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -262,15 +189,15 @@ public class TelcoAccountResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TelcoAccountResponse telcoAccountResponse = (TelcoAccountResponse) o;
-        return Objects.equals(this.accountId, telcoAccountResponse.accountId) &&
-                Objects.equals(this.accountNumber, telcoAccountResponse.accountNumber) &&
-                Objects.equals(this.displayName, telcoAccountResponse.displayName) &&
-                Objects.equals(this.creationDate, telcoAccountResponse.creationDate) &&
-                Objects.equals(this.lastUpdated, telcoAccountResponse.lastUpdated) &&
-                Objects.equals(this.brand, telcoAccountResponse.brand) &&
-                Objects.equals(this.openStatus, telcoAccountResponse.openStatus) &&
-                Objects.equals(this.plans, telcoAccountResponse.plans);
+        TelcoAccountResponseData telcoAccountResponseData = (TelcoAccountResponseData) o;
+        return Objects.equals(this.accountId, telcoAccountResponseData.accountId) &&
+                Objects.equals(this.accountNumber, telcoAccountResponseData.accountNumber) &&
+                Objects.equals(this.displayName, telcoAccountResponseData.displayName) &&
+                Objects.equals(this.creationDate, telcoAccountResponseData.creationDate) &&
+                Objects.equals(this.lastUpdated, telcoAccountResponseData.lastUpdated) &&
+                Objects.equals(this.brand, telcoAccountResponseData.brand) &&
+                Objects.equals(this.openStatus, telcoAccountResponseData.openStatus) &&
+                Objects.equals(this.plans, telcoAccountResponseData.plans);
     }
 
     @Override
@@ -281,8 +208,7 @@ public class TelcoAccountResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TelcoAccountResponse {\n");
-
+        sb.append("class TelcoAccountResponseData {\n");
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
@@ -306,4 +232,3 @@ public class TelcoAccountResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

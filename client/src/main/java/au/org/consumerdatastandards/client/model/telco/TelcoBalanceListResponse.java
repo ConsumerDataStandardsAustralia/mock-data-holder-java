@@ -9,13 +9,13 @@ import java.util.Objects;
  * TelcoBalanceListResponse
  */
 public class TelcoBalanceListResponse {
-    private TelcoBalanceListResponseBalances data;
+    private TelcoBalanceListResponseData data;
 
     private LinksPaginated links;
 
     private MetaPaginated meta;
 
-    public TelcoBalanceListResponse data(TelcoBalanceListResponseBalances data) {
+    public TelcoBalanceListResponse data(TelcoBalanceListResponseData data) {
         this.data = data;
         return this;
     }
@@ -25,11 +25,11 @@ public class TelcoBalanceListResponse {
      *
      * @return data
      */
-    public TelcoBalanceListResponseBalances getData() {
+    public TelcoBalanceListResponseData getData() {
         return data;
     }
 
-    public void setData(TelcoBalanceListResponseBalances data) {
+    public void setData(TelcoBalanceListResponseData data) {
         this.data = data;
     }
 

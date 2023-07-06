@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * TelcoAccountDetailPlans
+ * TelcoAccountDetailPlan
  */
-public class TelcoAccountDetailPlans {
+public class TelcoAccountDetailPlan {
     private String nickname;
 
     private List<String> serviceIds = new ArrayList<>();
@@ -16,9 +16,11 @@ public class TelcoAccountDetailPlans {
 
     private TelcoAccountDetailPlanDetail planDetail;
 
-    private List<TelcoAccountDetailAuthorisedContacts> authorisedContacts = null;
+    private TypeEnum type = TypeEnum.MOBILE;
 
-    public TelcoAccountDetailPlans nickname(String nickname) {
+    private BillingTypeEnum billingType = BillingTypeEnum.PRE_PAID;
+
+    public TelcoAccountDetailPlan nickname(String nickname) {
         this.nickname = nickname;
         return this;
     }
@@ -36,12 +38,12 @@ public class TelcoAccountDetailPlans {
         this.nickname = nickname;
     }
 
-    public TelcoAccountDetailPlans serviceIds(List<String> serviceIds) {
+    public TelcoAccountDetailPlan serviceIds(List<String> serviceIds) {
         this.serviceIds = serviceIds;
         return this;
     }
 
-    public TelcoAccountDetailPlans addServiceIdsItem(String serviceIdsItem) {
+    public TelcoAccountDetailPlan addServiceIdsItem(String serviceIdsItem) {
         this.serviceIds.add(serviceIdsItem);
         return this;
     }
@@ -59,7 +61,7 @@ public class TelcoAccountDetailPlans {
         this.serviceIds = serviceIds;
     }
 
-    public TelcoAccountDetailPlans planOverview(TelcoAccountPlanOverview planOverview) {
+    public TelcoAccountDetailPlan planOverview(TelcoAccountPlanOverview planOverview) {
         this.planOverview = planOverview;
         return this;
     }
@@ -77,7 +79,7 @@ public class TelcoAccountDetailPlans {
         this.planOverview = planOverview;
     }
 
-    public TelcoAccountDetailPlans planDetail(TelcoAccountDetailPlanDetail planDetail) {
+    public TelcoAccountDetailPlan planDetail(TelcoAccountDetailPlanDetail planDetail) {
         this.planDetail = planDetail;
         return this;
     }
@@ -95,30 +97,40 @@ public class TelcoAccountDetailPlans {
         this.planDetail = planDetail;
     }
 
-    public TelcoAccountDetailPlans authorisedContacts(List<TelcoAccountDetailAuthorisedContacts> authorisedContacts) {
-        this.authorisedContacts = authorisedContacts;
-        return this;
-    }
-
-    public TelcoAccountDetailPlans addAuthorisedContactsItem(TelcoAccountDetailAuthorisedContacts authorisedContactsItem) {
-        if (this.authorisedContacts == null) {
-            this.authorisedContacts = new ArrayList<>();
-        }
-        this.authorisedContacts.add(authorisedContactsItem);
+    public TelcoAccountDetailPlan type(TypeEnum type) {
+        this.type = type;
         return this;
     }
 
     /**
-     * An array of additional contacts that are authorised to act on this account
+     * The type of the plan
      *
-     * @return authorisedContacts
+     * @return type
      */
-    public List<TelcoAccountDetailAuthorisedContacts> getAuthorisedContacts() {
-        return authorisedContacts;
+    public TypeEnum getType() {
+        return type;
     }
 
-    public void setAuthorisedContacts(List<TelcoAccountDetailAuthorisedContacts> authorisedContacts) {
-        this.authorisedContacts = authorisedContacts;
+    public void setType(TypeEnum type) {
+        this.type = type;
+    }
+
+    public TelcoAccountDetailPlan billingType(BillingTypeEnum billingType) {
+        this.billingType = billingType;
+        return this;
+    }
+
+    /**
+     * The billing type of then plan
+     *
+     * @return billingType
+     */
+    public BillingTypeEnum getBillingType() {
+        return billingType;
+    }
+
+    public void setBillingType(BillingTypeEnum billingType) {
+        this.billingType = billingType;
     }
 
     @Override
@@ -129,28 +141,30 @@ public class TelcoAccountDetailPlans {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TelcoAccountDetailPlans telcoAccountDetailPlans = (TelcoAccountDetailPlans) o;
-        return Objects.equals(this.nickname, telcoAccountDetailPlans.nickname) &&
-                Objects.equals(this.serviceIds, telcoAccountDetailPlans.serviceIds) &&
-                Objects.equals(this.planOverview, telcoAccountDetailPlans.planOverview) &&
-                Objects.equals(this.planDetail, telcoAccountDetailPlans.planDetail) &&
-                Objects.equals(this.authorisedContacts, telcoAccountDetailPlans.authorisedContacts);
+        TelcoAccountDetailPlan telcoAccountDetailPlan = (TelcoAccountDetailPlan) o;
+        return Objects.equals(this.nickname, telcoAccountDetailPlan.nickname) &&
+                Objects.equals(this.serviceIds, telcoAccountDetailPlan.serviceIds) &&
+                Objects.equals(this.planOverview, telcoAccountDetailPlan.planOverview) &&
+                Objects.equals(this.planDetail, telcoAccountDetailPlan.planDetail) &&
+                Objects.equals(this.type, telcoAccountDetailPlan.type) &&
+                Objects.equals(this.billingType, telcoAccountDetailPlan.billingType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nickname, serviceIds, planOverview, planDetail, authorisedContacts);
+        return Objects.hash(nickname, serviceIds, planOverview, planDetail, type, billingType);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TelcoAccountDetailPlans {\n");
+        sb.append("class TelcoAccountDetailPlan {\n");
         sb.append("    nickname: ").append(toIndentedString(nickname)).append("\n");
         sb.append("    serviceIds: ").append(toIndentedString(serviceIds)).append("\n");
         sb.append("    planOverview: ").append(toIndentedString(planOverview)).append("\n");
         sb.append("    planDetail: ").append(toIndentedString(planDetail)).append("\n");
-        sb.append("    authorisedContacts: ").append(toIndentedString(authorisedContacts)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    billingType: ").append(toIndentedString(billingType)).append("\n");
         sb.append("}");
         return sb.toString();
     }
