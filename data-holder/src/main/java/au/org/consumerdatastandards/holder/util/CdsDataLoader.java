@@ -12,7 +12,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
-import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailEntity;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
 import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonRepository;
@@ -23,7 +23,7 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingBalanceRepo
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -60,7 +60,7 @@ public class CdsDataLoader {
 
     // Energy repositories
     private final EnergyAccountV2Repository energyAccountV2Repository;
-    private final EnergyPlanDetailRepository energyPlanDetailRepository;
+    private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
 
     private ObjectMapper objectMapper;
     private int personUserIdSeq = 0;
@@ -74,7 +74,7 @@ public class CdsDataLoader {
                          CommonPersonDetailRepository commonPersonDetailRepository,
                          BankingTransactionDetailRepository transactionDetailRepository,
                          EnergyAccountV2Repository energyAccountV2Repository,
-                         EnergyPlanDetailRepository energyPlanDetailRepository,
+                         EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
                          UserRepository userRepository,
                          CommonPersonRepository commonPersonRepository,
                          CommonOrganisationRepository commonOrganisationRepository) {
@@ -85,7 +85,7 @@ public class CdsDataLoader {
         this.commonPersonDetailRepository = commonPersonDetailRepository;
         this.transactionDetailRepository = transactionDetailRepository;
         this.energyAccountV2Repository = energyAccountV2Repository;
-        this.energyPlanDetailRepository = energyPlanDetailRepository;
+        this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
         this.userRepository = userRepository;
         this.commonPersonRepository = commonPersonRepository;
         this.commonOrganisationRepository = commonOrganisationRepository;
@@ -105,7 +105,7 @@ public class CdsDataLoader {
 
         // Energy
         load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
-        load("payloads/energy/plans", energyPlanDetailRepository, EnergyPlanDetailEntity.class);
+        load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
     }
 
     private <T, U> void load(String fileOrFolder, CrudRepository<T, U> repository, Class<T> dataType) throws IOException {

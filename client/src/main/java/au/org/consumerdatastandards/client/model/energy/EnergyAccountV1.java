@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * EnergyAccountV1
  */
-public class EnergyAccountV1 implements EnergyAccountBase {
+public class EnergyAccountV1 implements EnergyAccount {
     private String accountId;
     private String accountNumber;
     private String displayName;

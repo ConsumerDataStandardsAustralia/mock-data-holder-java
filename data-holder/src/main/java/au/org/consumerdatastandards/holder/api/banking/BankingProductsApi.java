@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ResponseHeader;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,7 @@ public interface BankingProductsApi {
         @ApiResponse(
             code = 200,
             message = "Successful response for Get Product Detail",
+            responseHeaders = @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
             response = ResponseBankingProductById.class
         ),
         @ApiResponse(
@@ -92,6 +94,7 @@ public interface BankingProductsApi {
         @ApiResponse(
             code = 200,
             message = "Successful response for Get Products",
+            responseHeaders = @ResponseHeader(name = "x-v", response = Integer.class, description = "The [version](#response-headers) of the API end point that the data holder has responded with."),
             response = ResponseBankingProductList.class
         ),
         @ApiResponse(

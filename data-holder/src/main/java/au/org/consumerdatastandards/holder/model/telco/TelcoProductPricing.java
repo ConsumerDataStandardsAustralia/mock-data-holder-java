@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
@@ -9,20 +8,14 @@ import java.util.Objects;
 /**
  * TelcoProductPricing
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoProductPricing {
-    @JsonProperty("name")
     private String name;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("period")
     private String period;
 
-    @JsonProperty("chargeAmount")
-    private String chargeAmount;
+    private String amount;
 
     public TelcoProductPricing name(String name) {
         this.name = name;
@@ -34,11 +27,8 @@ public class TelcoProductPricing {
      *
      * @return name
      */
-    @ApiModelProperty(required = true,
-            value = "The display name of the pricing")
+    @ApiModelProperty(required = true, value = "The display name of the pricing")
     @NotNull
-
-
     public String getName() {
         return name;
     }
@@ -57,11 +47,8 @@ public class TelcoProductPricing {
      *
      * @return description
      */
-    @ApiModelProperty(required = true,
-            value = "The description of the pricing")
+    @ApiModelProperty(required = true, value = "The description of the pricing")
     @NotNull
-
-
     public String getDescription() {
         return description;
     }
@@ -81,8 +68,6 @@ public class TelcoProductPricing {
      * @return period
      */
     @ApiModelProperty(value = "The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
-
-
     public String getPeriod() {
         return period;
     }
@@ -91,29 +76,25 @@ public class TelcoProductPricing {
         this.period = period;
     }
 
-    public TelcoProductPricing chargeAmount(String chargeAmount) {
-        this.chargeAmount = chargeAmount;
+    public TelcoProductPricing amount(String amount) {
+        this.amount = amount;
         return this;
     }
 
     /**
      * The amount charged for the duration period
      *
-     * @return chargeAmount
+     * @return amount
      */
-    @ApiModelProperty(required = true,
-            value = "The amount charged for the duration period")
+    @ApiModelProperty(required = true, value = "The amount charged for the duration period")
     @NotNull
-
-
-    public String getChargeAmount() {
-        return chargeAmount;
+    public String getAmount() {
+        return amount;
     }
 
-    public void setChargeAmount(String chargeAmount) {
-        this.chargeAmount = chargeAmount;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -127,23 +108,22 @@ public class TelcoProductPricing {
         return Objects.equals(this.name, telcoProductPricing.name) &&
                 Objects.equals(this.description, telcoProductPricing.description) &&
                 Objects.equals(this.period, telcoProductPricing.period) &&
-                Objects.equals(this.chargeAmount, telcoProductPricing.chargeAmount);
+                Objects.equals(this.amount, telcoProductPricing.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, period, chargeAmount);
+        return Objects.hash(name, description, period, amount);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoProductPricing {\n");
-
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    period: ").append(toIndentedString(period)).append("\n");
-        sb.append("    chargeAmount: ").append(toIndentedString(chargeAmount)).append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -159,4 +139,3 @@ public class TelcoProductPricing {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

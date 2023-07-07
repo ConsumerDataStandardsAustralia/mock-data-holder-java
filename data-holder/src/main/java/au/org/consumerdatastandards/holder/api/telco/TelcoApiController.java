@@ -12,11 +12,13 @@ import au.org.consumerdatastandards.holder.model.telco.TelcoAccountListResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoAccountListResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoBalance;
 import au.org.consumerdatastandards.holder.model.telco.TelcoBalanceListResponse;
-import au.org.consumerdatastandards.holder.model.telco.TelcoBalanceListResponseBalances;
+import au.org.consumerdatastandards.holder.model.telco.TelcoBalanceListResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoBalanceResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoConcessionsResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoConcessionsResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoInvoiceListResponse;
+import au.org.consumerdatastandards.holder.model.telco.TelcoInvoiceListResponseData;
+import au.org.consumerdatastandards.holder.model.telco.TelcoInvoiceResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoPaymentScheduleResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoPaymentScheduleResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoProductDetail;
@@ -29,6 +31,7 @@ import au.org.consumerdatastandards.holder.model.telco.TelcoServiceUsageResponse
 import au.org.consumerdatastandards.holder.model.telco.TelcoTransactionListResponse;
 import au.org.consumerdatastandards.holder.model.telco.TelcoTransactionListResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TelcoUsageListResponse;
+import au.org.consumerdatastandards.holder.model.telco.TelcoUsageListResponseData;
 import au.org.consumerdatastandards.holder.model.telco.TypeEnum;
 import au.org.consumerdatastandards.holder.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +62,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
     }
 
     @Override
-    public ResponseEntity<TelcoAccountDetailResponse> getAccount(String accountId, Integer xV, String openStatus,
+    public ResponseEntity<TelcoAccountDetailResponse> getAccount(String accountId, Integer xV,
             Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         TelcoAccountDetailResponse response = new TelcoAccountDetailResponse();
@@ -93,17 +96,20 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
         TelcoConcessionsResponseData data = new TelcoConcessionsResponseData();
         data.setConcessions(Collections.emptyList());
         response.setData(data);
-        response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
+        response.setLinks(createSinglePageLinksPaginated(null));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoInvoiceListResponse> getInvoicesForAccount(String accountId, Integer xV,
-            String newestDate, String oldestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
+    public ResponseEntity<TelcoInvoiceResponse> getInvoicesForAccount(String accountId, Integer xV,
+            Integer xMinV, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
-        TelcoInvoiceListResponse response = new TelcoInvoiceListResponse();
-        response.setInvoices(Collections.emptyList());
+        TelcoInvoiceResponse response = new TelcoInvoiceResponse();
+        TelcoInvoiceListResponseData data = new TelcoInvoiceListResponseData();
+        data.setInvoices(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
@@ -115,7 +121,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
         TelcoPaymentScheduleResponseData data = new TelcoPaymentScheduleResponseData();
         data.setPaymentSchedules(Collections.emptyList());
         response.setData(data);
-        response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
+        response.setLinks(createSinglePageLinksPaginated(null));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
@@ -151,21 +157,20 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
 
     @Override
     public ResponseEntity<TelcoServiceUsageResponse> getUsageForService(String serviceId, Integer xV, String oldestDate,
-            String newestDate, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId,
+            String newestDate, Integer xMinV, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
-        validatePageSize(pageSize, xFapiInteractionId);
         TelcoServiceUsageResponse response = new TelcoServiceUsageResponse();
         TelcoServiceUsage data = new TelcoServiceUsage();
         data.setServiceId("SER12345");
         data.setStartDate(OffsetDateTime.now());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<TelcoAccountListResponse> listAccounts(Integer xV, String openStatus, Integer page,
+    public ResponseEntity<TelcoAccountListResponse> listAccounts(Integer xV, String openStatus, String updatedSince, Integer page,
             Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress,
             String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
@@ -185,7 +190,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         TelcoBalanceListResponse response = new TelcoBalanceListResponse();
-        TelcoBalanceListResponseBalances data = new TelcoBalanceListResponseBalances();
+        TelcoBalanceListResponseData data = new TelcoBalanceListResponseData();
         data.setBalances(Collections.emptyList());
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
@@ -199,7 +204,7 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         TelcoBalanceListResponse response = new TelcoBalanceListResponse();
-        TelcoBalanceListResponseBalances data = new TelcoBalanceListResponseBalances();
+        TelcoBalanceListResponseData data = new TelcoBalanceListResponseData();
         data.setBalances(Collections.emptyList());
         response.setData(data);
         response.setLinks(createSinglePageLinksPaginated(pageSize));
@@ -226,9 +231,12 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        TelcoInvoiceListResponse data = new TelcoInvoiceListResponse();
+        TelcoInvoiceListResponseData data = new TelcoInvoiceListResponseData();
         data.setInvoices(Collections.emptyList());
-        return new ResponseEntity<>(data, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        TelcoInvoiceListResponse response = new TelcoInvoiceListResponse();
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
+        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
     @Override
@@ -238,7 +246,10 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         TelcoInvoiceListResponse response = new TelcoInvoiceListResponse();
-        response.setInvoices(Collections.emptyList());
+        TelcoInvoiceListResponseData data = new TelcoInvoiceListResponseData();
+        data.setInvoices(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(createSinglePageLinksPaginated(pageSize));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 
@@ -275,7 +286,10 @@ public class TelcoApiController extends ApiControllerBase implements TelcoApi {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
         TelcoUsageListResponse response = new TelcoUsageListResponse();
-        response.setAccounts(Collections.emptyList());
+        TelcoUsageListResponseData data = new TelcoUsageListResponseData();
+        data.setAccounts(Collections.emptyList());
+        response.setData(data);
+        response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
     }
 

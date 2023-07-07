@@ -38,21 +38,7 @@ public class EnergyBillingUsageTransaction {
 
     private String endDate;
 
-    /**
-     * The measurement unit of rate. Assumed to be KWH if absent
-     */
-    public enum MeasureUnitEnum {
-        KWH,
-        KVA,
-        KVAR,
-        KVARH,
-        KW,
-        DAYS,
-        METER,
-        MONTH
-    }
-
-    private MeasureUnitEnum measureUnit;
+    private RateMeasureUnitEnum measureUnit;
 
     private BigDecimal usage;
 
@@ -188,7 +174,7 @@ public class EnergyBillingUsageTransaction {
         this.endDate = endDate;
     }
 
-    public EnergyBillingUsageTransaction measureUnit(MeasureUnitEnum measureUnit) {
+    public EnergyBillingUsageTransaction measureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
         return this;
     }
@@ -198,11 +184,11 @@ public class EnergyBillingUsageTransaction {
      *
      * @return measureUnit
      */
-    public MeasureUnitEnum getMeasureUnit() {
+    public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
 
-    public void setMeasureUnit(MeasureUnitEnum measureUnit) {
+    public void setMeasureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
     }
 

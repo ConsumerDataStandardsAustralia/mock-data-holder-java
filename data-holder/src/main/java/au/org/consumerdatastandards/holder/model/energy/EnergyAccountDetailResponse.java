@@ -11,13 +11,13 @@ import java.util.Objects;
  * EnergyAccountDetailResponse
  */
 public class EnergyAccountDetailResponse {
-    private EnergyAccountDetailBase data;
+    private EnergyAccountDetail data;
 
     private Links links;
 
     private Object meta;
 
-    public EnergyAccountDetailResponse data(EnergyAccountDetailBase data) {
+    public EnergyAccountDetailResponse data(EnergyAccountDetail data) {
         this.data = data;
         return this;
     }
@@ -33,11 +33,11 @@ public class EnergyAccountDetailResponse {
 
     @Valid
 
-    public EnergyAccountDetailBase getData() {
+    public EnergyAccountDetail getData() {
         return data;
     }
 
-    public void setData(EnergyAccountDetailBase data) {
+    public void setData(EnergyAccountDetail data) {
         this.data = data;
     }
 

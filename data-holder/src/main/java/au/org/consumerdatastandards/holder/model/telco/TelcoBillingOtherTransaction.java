@@ -1,8 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -14,72 +11,32 @@ import java.util.Objects;
 /**
  * TelcoBillingOtherTransaction
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoBillingOtherTransaction {
-    @JsonProperty("serviceId")
     private String serviceId;
 
-    @JsonProperty("invoiceNumber")
     private String invoiceNumber;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
     /**
      * Type of charge. Assumed to be OTHER if absent
      */
     public enum TypeEnum {
-        SERVICE("SERVICE"),
-
-        NETWORK("NETWORK"),
-
-        EQUIPMENT("EQUIPMENT"),
-
-        METERING("METERING"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        SERVICE,
+        NETWORK,
+        EQUIPMENT,
+        METERING,
+        OTHER
     }
 
-    @JsonProperty("type")
-    private TypeEnum type;
+    private TypeEnum type = TypeEnum.OTHER;
 
-    @JsonProperty("amount")
     private String amount;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("adjustments")
     @Valid
     private List<TelcoBillingAccountTransactionAdjustments> adjustments = null;
 
@@ -94,8 +51,6 @@ public class TelcoBillingOtherTransaction {
      * @return serviceId
      */
     @ApiModelProperty(value = "The service identifier to which this transaction applies if any. E.g a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements")
-
-
     public String getServiceId() {
         return serviceId;
     }
@@ -115,8 +70,6 @@ public class TelcoBillingOtherTransaction {
      * @return invoiceNumber
      */
     @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
-
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -136,8 +89,6 @@ public class TelcoBillingOtherTransaction {
      * @return startDate
      */
     @ApiModelProperty(value = "Optional start date for the application of the charge")
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -157,8 +108,6 @@ public class TelcoBillingOtherTransaction {
      * @return endDate
      */
     @ApiModelProperty(value = "Optional end date for the application of the charge")
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -178,8 +127,6 @@ public class TelcoBillingOtherTransaction {
      * @return type
      */
     @ApiModelProperty(value = "Type of charge. Assumed to be OTHER if absent")
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -198,11 +145,8 @@ public class TelcoBillingOtherTransaction {
      *
      * @return amount
      */
-    @ApiModelProperty(required = true,
-            value = "The amount of the charge")
+    @ApiModelProperty(required = true, value = "The amount of the charge")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -221,11 +165,8 @@ public class TelcoBillingOtherTransaction {
      *
      * @return description
      */
-    @ApiModelProperty(required = true,
-            value = "A free text description of the item")
+    @ApiModelProperty(required = true, value = "A free text description of the item")
     @NotNull
-
-
     public String getDescription() {
         return description;
     }
@@ -253,9 +194,7 @@ public class TelcoBillingOtherTransaction {
      * @return adjustments
      */
     @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
-
     @Valid
-
     public List<TelcoBillingAccountTransactionAdjustments> getAdjustments() {
         return adjustments;
     }
@@ -263,7 +202,6 @@ public class TelcoBillingOtherTransaction {
     public void setAdjustments(List<TelcoBillingAccountTransactionAdjustments> adjustments) {
         this.adjustments = adjustments;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -293,7 +231,6 @@ public class TelcoBillingOtherTransaction {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoBillingOtherTransaction {\n");
-
         sb.append("    serviceId: ").append(toIndentedString(serviceId)).append("\n");
         sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
@@ -317,4 +254,3 @@ public class TelcoBillingOtherTransaction {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

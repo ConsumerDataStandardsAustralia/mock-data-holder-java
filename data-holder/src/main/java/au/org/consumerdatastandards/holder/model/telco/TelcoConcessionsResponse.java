@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import au.org.consumerdatastandards.holder.model.Links;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import au.org.consumerdatastandards.holder.model.LinksPaginated;
+import au.org.consumerdatastandards.holder.model.MetaPaginated;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -11,17 +11,12 @@ import java.util.Objects;
 /**
  * TelcoConcessionsResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoConcessionsResponse {
-    @JsonProperty("data")
     private TelcoConcessionsResponseData data;
 
-    @JsonProperty("links")
-    private Links links;
+    private LinksPaginated links;
 
-    @JsonProperty("meta")
-    private Object meta;
+    private MetaPaginated meta;
 
     public TelcoConcessionsResponse data(TelcoConcessionsResponseData data) {
         this.data = data;
@@ -33,12 +28,9 @@ public class TelcoConcessionsResponse {
      *
      * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public TelcoConcessionsResponseData getData() {
         return data;
     }
@@ -47,7 +39,7 @@ public class TelcoConcessionsResponse {
         this.data = data;
     }
 
-    public TelcoConcessionsResponse links(Links links) {
+    public TelcoConcessionsResponse links(LinksPaginated links) {
         this.links = links;
         return this;
     }
@@ -57,21 +49,18 @@ public class TelcoConcessionsResponse {
      *
      * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public Links getLinks() {
+    public LinksPaginated getLinks() {
         return links;
     }
 
-    public void setLinks(Links links) {
+    public void setLinks(LinksPaginated links) {
         this.links = links;
     }
 
-    public TelcoConcessionsResponse meta(Object meta) {
+    public TelcoConcessionsResponse meta(MetaPaginated meta) {
         this.meta = meta;
         return this;
     }
@@ -81,19 +70,15 @@ public class TelcoConcessionsResponse {
      *
      * @return meta
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
-
-    public Object getMeta() {
+    public MetaPaginated getMeta() {
         return meta;
     }
 
-    public void setMeta(Object meta) {
+    public void setMeta(MetaPaginated meta) {
         this.meta = meta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -118,7 +103,6 @@ public class TelcoConcessionsResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoConcessionsResponse {\n");
-
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
@@ -137,4 +121,3 @@ public class TelcoConcessionsResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

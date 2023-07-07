@@ -25,14 +25,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "EnergyAccountPlanDetail")
 public class EnergyAccountDetailPlanDetail {
-    /**
-     * The fuel types covered by the plan
-     */
-    public enum FuelTypeEnum {
-        ELECTRICITY,
-        GAS,
-        DUAL
-    }
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -49,10 +41,18 @@ public class EnergyAccountDetailPlanDetail {
     private List<MeteringCharges> meteringCharges = null;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private EnergyPlanContract gasContract;
+    private EnergyPlanContractV1 gasContract;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private EnergyPlanContract electricityContract;
+    private EnergyPlanContractV1 electricityContract;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyAccountDetailPlanDetail fuelType(FuelTypeEnum fuelType) {
         this.fuelType = fuelType;
@@ -121,7 +121,7 @@ public class EnergyAccountDetailPlanDetail {
         this.meteringCharges = meteringCharges;
     }
 
-    public EnergyAccountDetailPlanDetail gasContract(EnergyPlanContract gasContract) {
+    public EnergyAccountDetailPlanDetail gasContract(EnergyPlanContractV1 gasContract) {
         this.gasContract = gasContract;
         return this;
     }
@@ -133,15 +133,15 @@ public class EnergyAccountDetailPlanDetail {
      */
     @ApiModelProperty(value = "")
     @Valid
-    public EnergyPlanContract getGasContract() {
+    public EnergyPlanContractV1 getGasContract() {
         return gasContract;
     }
 
-    public void setGasContract(EnergyPlanContract gasContract) {
+    public void setGasContract(EnergyPlanContractV1 gasContract) {
         this.gasContract = gasContract;
     }
 
-    public EnergyAccountDetailPlanDetail electricityContract(EnergyPlanContract electricityContract) {
+    public EnergyAccountDetailPlanDetail electricityContract(EnergyPlanContractV1 electricityContract) {
         this.electricityContract = electricityContract;
         return this;
     }
@@ -153,11 +153,11 @@ public class EnergyAccountDetailPlanDetail {
      */
     @ApiModelProperty(value = "")
     @Valid
-    public EnergyPlanContract getElectricityContract() {
+    public EnergyPlanContractV1 getElectricityContract() {
         return electricityContract;
     }
 
-    public void setElectricityContract(EnergyPlanContract electricityContract) {
+    public void setElectricityContract(EnergyPlanContractV1 electricityContract) {
         this.electricityContract = electricityContract;
     }
 

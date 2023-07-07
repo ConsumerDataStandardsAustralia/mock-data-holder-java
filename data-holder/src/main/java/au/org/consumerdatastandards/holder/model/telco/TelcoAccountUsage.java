@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,13 +11,9 @@ import java.util.Objects;
 /**
  * TelcoAccountUsage
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoAccountUsage {
-    @JsonProperty("accountId")
     private String accountId;
 
-    @JsonProperty("services")
     @Valid
     private List<TelcoAccountUsageServices> services = null;
 
@@ -35,8 +30,6 @@ public class TelcoAccountUsage {
     @ApiModelProperty(required = true,
             value = "Tokenised ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements")
     @NotNull
-
-
     public String getAccountId() {
         return accountId;
     }
@@ -63,10 +56,9 @@ public class TelcoAccountUsage {
      *
      * @return services
      */
-    @ApiModelProperty(value = "List of services that are part of the account")
-
+    @ApiModelProperty(required = true, value = "List of services that are part of the account")
     @Valid
-
+    @NotNull
     public List<TelcoAccountUsageServices> getServices() {
         return services;
     }
@@ -74,7 +66,6 @@ public class TelcoAccountUsage {
     public void setServices(List<TelcoAccountUsageServices> services) {
         this.services = services;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -98,7 +89,6 @@ public class TelcoAccountUsage {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoAccountUsage {\n");
-
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    services: ").append(toIndentedString(services)).append("\n");
         sb.append("}");
@@ -116,4 +106,3 @@ public class TelcoAccountUsage {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

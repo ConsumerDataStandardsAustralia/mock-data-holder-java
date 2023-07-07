@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.client.model.telco;
 
-import au.org.consumerdatastandards.client.model.Links;
+import au.org.consumerdatastandards.client.model.LinksPaginated;
+import au.org.consumerdatastandards.client.model.MetaPaginated;
 
 import java.util.Objects;
 
@@ -10,9 +11,9 @@ import java.util.Objects;
 public class TelcoPaymentScheduleResponse {
     private TelcoPaymentScheduleResponseData data;
 
-    private Links links;
+    private LinksPaginated links;
 
-    private Object meta;
+    private MetaPaginated meta;
 
     public TelcoPaymentScheduleResponse data(TelcoPaymentScheduleResponseData data) {
         this.data = data;
@@ -32,7 +33,7 @@ public class TelcoPaymentScheduleResponse {
         this.data = data;
     }
 
-    public TelcoPaymentScheduleResponse links(Links links) {
+    public TelcoPaymentScheduleResponse links(LinksPaginated links) {
         this.links = links;
         return this;
     }
@@ -42,15 +43,15 @@ public class TelcoPaymentScheduleResponse {
      *
      * @return links
      */
-    public Links getLinks() {
+    public LinksPaginated getLinks() {
         return links;
     }
 
-    public void setLinks(Links links) {
+    public void setLinks(LinksPaginated links) {
         this.links = links;
     }
 
-    public TelcoPaymentScheduleResponse meta(Object meta) {
+    public TelcoPaymentScheduleResponse meta(MetaPaginated meta) {
         this.meta = meta;
         return this;
     }
@@ -60,11 +61,11 @@ public class TelcoPaymentScheduleResponse {
      *
      * @return meta
      */
-    public Object getMeta() {
+    public MetaPaginated getMeta() {
         return meta;
     }
 
-    public void setMeta(Object meta) {
+    public void setMeta(MetaPaginated meta) {
         this.meta = meta;
     }
 

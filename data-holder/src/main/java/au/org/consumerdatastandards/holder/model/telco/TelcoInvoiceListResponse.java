@@ -1,53 +1,85 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import au.org.consumerdatastandards.holder.model.LinksPaginated;
+import au.org.consumerdatastandards.holder.model.MetaPaginated;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
  * TelcoInvoiceListResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoInvoiceListResponse {
-    @JsonProperty("invoices")
-    @Valid
-    private List<TelcoInvoice> invoices = new ArrayList<>();
+    private TelcoInvoiceListResponseData data;
 
-    public TelcoInvoiceListResponse invoices(List<TelcoInvoice> invoices) {
-        this.invoices = invoices;
-        return this;
-    }
+    private LinksPaginated links;
 
-    public TelcoInvoiceListResponse addInvoicesItem(TelcoInvoice invoicesItem) {
-        this.invoices.add(invoicesItem);
+    private MetaPaginated meta;
+
+    public TelcoInvoiceListResponse data(TelcoInvoiceListResponseData data) {
+        this.data = data;
         return this;
     }
 
     /**
-     * Array of invoices sorted by issue date in descending order
+     * Get data
      *
-     * @return invoices
+     * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "Array of invoices sorted by issue date in descending order")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public List<TelcoInvoice> getInvoices() {
-        return invoices;
+    public TelcoInvoiceListResponseData getData() {
+        return data;
     }
 
-    public void setInvoices(List<TelcoInvoice> invoices) {
-        this.invoices = invoices;
+    public void setData(TelcoInvoiceListResponseData data) {
+        this.data = data;
     }
 
+    public TelcoInvoiceListResponse links(LinksPaginated links) {
+        this.links = links;
+        return this;
+    }
+
+    /**
+     * Get links
+     *
+     * @return links
+     */
+    @ApiModelProperty(required = true, value = "")
+    @NotNull
+    @Valid
+    public LinksPaginated getLinks() {
+        return links;
+    }
+
+    public void setLinks(LinksPaginated links) {
+        this.links = links;
+    }
+
+    public TelcoInvoiceListResponse meta(MetaPaginated meta) {
+        this.meta = meta;
+        return this;
+    }
+
+    /**
+     * Get meta
+     *
+     * @return meta
+     */
+    @ApiModelProperty(required = true, value = "")
+    @NotNull
+    @Valid
+    public MetaPaginated getMeta() {
+        return meta;
+    }
+
+    public void setMeta(MetaPaginated meta) {
+        this.meta = meta;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -58,20 +90,23 @@ public class TelcoInvoiceListResponse {
             return false;
         }
         TelcoInvoiceListResponse telcoInvoiceListResponse = (TelcoInvoiceListResponse) o;
-        return Objects.equals(this.invoices, telcoInvoiceListResponse.invoices);
+        return Objects.equals(this.data, telcoInvoiceListResponse.data) &&
+                Objects.equals(this.links, telcoInvoiceListResponse.links) &&
+                Objects.equals(this.meta, telcoInvoiceListResponse.meta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoices);
+        return Objects.hash(data, links, meta);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoInvoiceListResponse {\n");
-
-        sb.append("    invoices: ").append(toIndentedString(invoices)).append("\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    links: ").append(toIndentedString(links)).append("\n");
+        sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -87,4 +122,3 @@ public class TelcoInvoiceListResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

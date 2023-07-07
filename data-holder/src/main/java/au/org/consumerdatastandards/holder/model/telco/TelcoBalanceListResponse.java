@@ -2,7 +2,6 @@ package au.org.consumerdatastandards.holder.model.telco;
 
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,19 +11,14 @@ import java.util.Objects;
 /**
  * TelcoBalanceListResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoBalanceListResponse {
-    @JsonProperty("data")
-    private TelcoBalanceListResponseBalances data;
+    private TelcoBalanceListResponseData data;
 
-    @JsonProperty("links")
     private LinksPaginated links;
 
-    @JsonProperty("meta")
     private MetaPaginated meta;
 
-    public TelcoBalanceListResponse data(TelcoBalanceListResponseBalances data) {
+    public TelcoBalanceListResponse data(TelcoBalanceListResponseData data) {
         this.data = data;
         return this;
     }
@@ -34,17 +28,14 @@ public class TelcoBalanceListResponse {
      *
      * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public TelcoBalanceListResponseBalances getData() {
+    public TelcoBalanceListResponseData getData() {
         return data;
     }
 
-    public void setData(TelcoBalanceListResponseBalances data) {
+    public void setData(TelcoBalanceListResponseData data) {
         this.data = data;
     }
 
@@ -58,12 +49,9 @@ public class TelcoBalanceListResponse {
      *
      * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public LinksPaginated getLinks() {
         return links;
     }
@@ -82,12 +70,9 @@ public class TelcoBalanceListResponse {
      *
      * @return meta
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public MetaPaginated getMeta() {
         return meta;
     }
@@ -95,7 +80,6 @@ public class TelcoBalanceListResponse {
     public void setMeta(MetaPaginated meta) {
         this.meta = meta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -120,7 +104,6 @@ public class TelcoBalanceListResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoBalanceListResponse {\n");
-
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
@@ -139,4 +122,3 @@ public class TelcoBalanceListResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

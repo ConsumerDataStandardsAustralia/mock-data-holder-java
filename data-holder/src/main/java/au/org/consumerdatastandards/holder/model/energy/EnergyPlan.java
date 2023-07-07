@@ -163,15 +163,6 @@ public interface EnergyPlan {
     }
 
     /**
-     * The fuel types covered by the plan
-     */
-    public enum FuelTypeEnum {
-        ELECTRICITY,
-        GAS,
-        DUAL;
-    }
-
-    /**
      * The type of customer that the plan is offered to.  If absent then the plan is available to all customers
      */
     public enum CustomerTypeEnum {

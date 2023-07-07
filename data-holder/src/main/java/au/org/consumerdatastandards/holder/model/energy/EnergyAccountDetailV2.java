@@ -21,7 +21,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "EnergyAccount")
-public class EnergyAccountDetailV2 implements EnergyAccountDetailBase {
+public class EnergyAccountDetailV2 implements EnergyAccountDetail {
 
     @Id
     private String accountId;
@@ -35,7 +35,7 @@ public class EnergyAccountDetailV2 implements EnergyAccountDetailBase {
     @Valid
     @ManyToMany(cascade = CascadeType.ALL)
     private List<EnergyAccountDetailPlans> plans = new ArrayList<>();
-    private EnergyAccountBaseV2.OpenStatus openStatus;
+    private OpenStatus openStatus;
 
     public EnergyAccountDetailV2 accountId(String accountId) {
         this.accountId = accountId;
@@ -150,11 +150,11 @@ public class EnergyAccountDetailV2 implements EnergyAccountDetailBase {
         this.plans = plans;
     }
     @ApiModelProperty
-    public EnergyAccountBaseV2.OpenStatus getOpenStatus() {
+    public OpenStatus getOpenStatus() {
         return openStatus;
     }
 
-    public void setOpenStatus(EnergyAccountBaseV2.OpenStatus openStatus) {
+    public void setOpenStatus(OpenStatus openStatus) {
         this.openStatus = openStatus;
     }
 

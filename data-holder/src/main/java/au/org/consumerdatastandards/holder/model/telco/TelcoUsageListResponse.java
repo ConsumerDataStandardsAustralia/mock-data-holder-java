@@ -1,53 +1,57 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import au.org.consumerdatastandards.holder.model.Links;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
  * TelcoUsageListResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageListResponse {
-    @JsonProperty("accounts")
-    @Valid
-    private List<TelcoAccountUsage> accounts = new ArrayList<>();
+    private TelcoUsageListResponseData data;
 
-    public TelcoUsageListResponse accounts(List<TelcoAccountUsage> accounts) {
-        this.accounts = accounts;
-        return this;
+    private Links links;
+
+    private Object meta;
+
+    /**
+     * Get data
+     *
+     * @return data
+     */
+    public TelcoUsageListResponseData getData() {
+        return data;
     }
 
-    public TelcoUsageListResponse addAccountsItem(TelcoAccountUsage accountsItem) {
-        this.accounts.add(accountsItem);
-        return this;
+    public void setData(TelcoUsageListResponseData data) {
+        this.data = data;
     }
 
     /**
-     * Array of usage on accounts
+     * Get links
      *
-     * @return accounts
+     * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "Array of usage on accounts")
-    @NotNull
-
-    @Valid
-
-    public List<TelcoAccountUsage> getAccounts() {
-        return accounts;
+    public Links getLinks() {
+        return links;
     }
 
-    public void setAccounts(List<TelcoAccountUsage> accounts) {
-        this.accounts = accounts;
+    public void setLinks(Links links) {
+        this.links = links;
     }
 
+    /**
+     * Get meta
+     *
+     * @return meta
+     */
+    public Object getMeta() {
+        return meta;
+    }
+
+    public void setMeta(Object meta) {
+        this.meta = meta;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -58,20 +62,23 @@ public class TelcoUsageListResponse {
             return false;
         }
         TelcoUsageListResponse telcoUsageListResponse = (TelcoUsageListResponse) o;
-        return Objects.equals(this.accounts, telcoUsageListResponse.accounts);
+        return Objects.equals(this.data, telcoUsageListResponse.data) &&
+                Objects.equals(this.links, telcoUsageListResponse.links) &&
+                Objects.equals(this.meta, telcoUsageListResponse.meta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accounts);
+        return Objects.hash(data, links, meta);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoUsageListResponse {\n");
-
-        sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    links: ").append(toIndentedString(links)).append("\n");
+        sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -87,4 +94,3 @@ public class TelcoUsageListResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

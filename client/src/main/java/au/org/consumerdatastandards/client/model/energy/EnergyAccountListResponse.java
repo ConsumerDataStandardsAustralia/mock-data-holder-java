@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * EnergyAccountListResponse
  */
-public class EnergyAccountListResponse<T extends EnergyAccountBase>  {
+public class EnergyAccountListResponse<T extends EnergyAccount>  {
     private EnergyAccountListResponseData<T> data;
 
     private LinksPaginated links;

@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of the contract details. Required if a contract is required
+ * Summary of the contract details. Mandatory if the billing type is POST_PAID and a contract agreement is required with the service provider for the plan
  */
-@ApiModel(description = "Summary of the contract details. Required if a contract is required")
+@ApiModel(description = "Summary of the contract details. Mandatory if the billing type is POST_PAID and a contract agreement is required with the service provider for the plan")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoContract {
@@ -57,11 +57,11 @@ public class TelcoContract {
     }
 
     /**
-     * Description if the contract
+     * Description of the contract
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description if the contract")
+    @ApiModelProperty(value = "Description of the contract")
 
 
     public String getDescription() {

@@ -6,6 +6,7 @@ import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.energy.EnergyPlansAPI;
 import au.org.consumerdatastandards.client.cli.ApiCliBase;
 import au.org.consumerdatastandards.client.cli.support.JsonPrinter;
+import au.org.consumerdatastandards.client.model.energy.EnergyPlanDetail;
 import au.org.consumerdatastandards.client.model.energy.EnergyPlanListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyPlanResponse;
 import au.org.consumerdatastandards.client.model.energy.ParamEffective;
@@ -58,13 +59,14 @@ public class EnergyPlans extends ApiCliBase {
 
     @ShellMethod("Get generic Energy plan detail")
     public String getGenericEnergyPlanDetail(@ShellOption(defaultValue = "false") boolean check,
-            @ShellOption(defaultValue = ShellOption.NULL) String planId) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) String planId,
+            @ShellOption(defaultValue = "2") Integer version) throws Exception {
 
         LOGGER.info("Get generic Energy plan detail CLI initiated with planId: {}", planId);
 
         api.setApiClient(clientFactory.create(false, check));
-        ApiResult<EnergyPlanResponse> result = api.getGenericPlanDetail(planId);
-        ApiResponse<EnergyPlanResponse> response = result.getResponse();
+        ApiResult<EnergyPlanResponse<EnergyPlanDetail>> result = api.getGenericPlanDetail(planId, version);
+        ApiResponse<EnergyPlanResponse<EnergyPlanDetail>> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
             LOGGER.info("Payload validation is enabled");

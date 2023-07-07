@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,19 +11,16 @@ import java.util.Objects;
 /**
  * TelcoAccountListResponseData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoAccountListResponseData {
-    @JsonProperty("accounts")
     @Valid
-    private List<TelcoAccountResponse> accounts = new ArrayList<>();
+    private List<TelcoAccountResponseData> accounts = new ArrayList<>();
 
-    public TelcoAccountListResponseData accounts(List<TelcoAccountResponse> accounts) {
+    public TelcoAccountListResponseData accounts(List<TelcoAccountResponseData> accounts) {
         this.accounts = accounts;
         return this;
     }
 
-    public TelcoAccountListResponseData addAccountsItem(TelcoAccountResponse accountsItem) {
+    public TelcoAccountListResponseData addAccountsItem(TelcoAccountResponseData accountsItem) {
         this.accounts.add(accountsItem);
         return this;
     }
@@ -34,20 +30,16 @@ public class TelcoAccountListResponseData {
      *
      * @return accounts
      */
-    @ApiModelProperty(required = true,
-            value = "Array of accounts")
+    @ApiModelProperty(required = true, value = "Array of accounts")
     @NotNull
-
     @Valid
-
-    public List<TelcoAccountResponse> getAccounts() {
+    public List<TelcoAccountResponseData> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<TelcoAccountResponse> accounts) {
+    public void setAccounts(List<TelcoAccountResponseData> accounts) {
         this.accounts = accounts;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -70,7 +62,6 @@ public class TelcoAccountListResponseData {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoAccountListResponseData {\n");
-
         sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -87,4 +78,3 @@ public class TelcoAccountListResponseData {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

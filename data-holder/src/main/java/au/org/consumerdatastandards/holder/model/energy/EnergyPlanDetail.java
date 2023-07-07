@@ -23,8 +23,6 @@ public interface EnergyPlanDetail extends EnergyPlan {
     @ApiModelProperty(value = "")
     EnergyPlanContractFull getGasContract();
 
-    void setGasContract(EnergyPlanContractFull gasContract);
-
     /**
      * Get electricityContract
      *
@@ -32,6 +30,4 @@ public interface EnergyPlanDetail extends EnergyPlan {
      */
     @ApiModelProperty(value = "")
     EnergyPlanContractFull getElectricityContract();
-
-    void setElectricityContract(EnergyPlanContractFull electricityContract);
 }

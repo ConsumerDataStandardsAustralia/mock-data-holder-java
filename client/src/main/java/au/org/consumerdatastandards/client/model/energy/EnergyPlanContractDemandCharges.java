@@ -14,21 +14,7 @@ public class EnergyPlanContractDemandCharges {
 
     private String amount;
 
-    /**
-     * The measurement unit of charge amount. Assumed to be KWH if absent
-     */
-    public enum MeasureUnitEnum {
-        KWH,
-        KVA,
-        KVAR,
-        KVARH,
-        KW,
-        DAYS,
-        METER,
-        MONTH
-    }
-
-    private MeasureUnitEnum measureUnit;
+    private RateMeasureUnitEnum measureUnit;
 
     private String startTime;
 
@@ -130,7 +116,7 @@ public class EnergyPlanContractDemandCharges {
         this.amount = amount;
     }
 
-    public EnergyPlanContractDemandCharges measureUnit(MeasureUnitEnum measureUnit) {
+    public EnergyPlanContractDemandCharges measureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
         return this;
     }
@@ -140,11 +126,11 @@ public class EnergyPlanContractDemandCharges {
      *
      * @return measureUnit
      */
-    public MeasureUnitEnum getMeasureUnit() {
+    public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
 
-    public void setMeasureUnit(MeasureUnitEnum measureUnit) {
+    public void setMeasureUnit(RateMeasureUnitEnum measureUnit) {
         this.measureUnit = measureUnit;
     }
 

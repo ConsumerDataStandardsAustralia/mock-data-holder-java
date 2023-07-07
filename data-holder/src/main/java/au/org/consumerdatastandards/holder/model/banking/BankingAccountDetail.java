@@ -63,7 +63,7 @@ public interface BankingAccountDetail extends BankingAccount {
 
     void setLendingRate(String lendingRate);
 
-    @ApiModelProperty(value = "Fully described deposit rates for this account based on the equivalent structure in Product Reference")
+    @ApiModelProperty(value = "Fully described lending rates for this account based on the equivalent structure in Product Reference")
     List<BankingProductLendingRateV1> getLendingRates();
 
     void setLendingRates(List<BankingProductLendingRateV1> lendingRates);

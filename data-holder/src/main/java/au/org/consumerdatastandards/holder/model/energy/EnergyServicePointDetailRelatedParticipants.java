@@ -28,12 +28,12 @@ public class EnergyServicePointDetailRelatedParticipants {
     }
 
     /**
-     * The name of the party/orginsation related to this service point
+     * The name of the party/organisation related to this service point
      *
      * @return party
      */
     @ApiModelProperty(required = true,
-            value = "The name of the party/orginsation related to this service point")
+            value = "The name of the party/organisation related to this service point")
     @NotNull
     public String getParty() {
         return party;

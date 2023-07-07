@@ -7,14 +7,14 @@ import java.util.Objects;
 /**
  * EnergyPlanResponse
  */
-public class EnergyPlanResponse {
-    private EnergyPlanDetailBean data;
+public class EnergyPlanResponse<T extends EnergyPlanDetail> {
+    private T data;
 
     private Links links;
 
     private Object meta;
 
-    public EnergyPlanResponse data(EnergyPlanDetailBean data) {
+    public EnergyPlanResponse<T> data(T data) {
         this.data = data;
         return this;
     }
@@ -24,15 +24,15 @@ public class EnergyPlanResponse {
      *
      * @return data
      */
-    public EnergyPlanDetailBean getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(EnergyPlanDetailBean data) {
+    public void setData(T data) {
         this.data = data;
     }
 
-    public EnergyPlanResponse links(Links links) {
+    public EnergyPlanResponse<T> links(Links links) {
         this.links = links;
         return this;
     }
@@ -50,7 +50,7 @@ public class EnergyPlanResponse {
         this.links = links;
     }
 
-    public EnergyPlanResponse meta(Object meta) {
+    public EnergyPlanResponse<T> meta(Object meta) {
         this.meta = meta;
         return this;
     }
@@ -68,7 +68,6 @@ public class EnergyPlanResponse {
         this.meta = meta;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -77,7 +76,7 @@ public class EnergyPlanResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanResponse energyPlanResponse = (EnergyPlanResponse) o;
+        EnergyPlanResponse<T> energyPlanResponse = (EnergyPlanResponse<T>) o;
         return Objects.equals(this.data, energyPlanResponse.data) &&
                 Objects.equals(this.links, energyPlanResponse.links) &&
                 Objects.equals(this.meta, energyPlanResponse.meta);

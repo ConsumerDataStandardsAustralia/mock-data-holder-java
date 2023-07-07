@@ -27,7 +27,7 @@ public class TelcoBillingOtherTransaction {
         OTHER
     }
 
-    private TypeEnum type;
+    private TypeEnum type = TypeEnum.OTHER;
 
     private String amount;
 

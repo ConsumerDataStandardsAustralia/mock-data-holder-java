@@ -86,7 +86,7 @@ public interface BankingAccountDetail extends BankingAccount {
     void setDepositRates(List<BankingProductDepositRate> depositRates);
 
     /**
-     * Fully described deposit rates for this account based on the equivalent structure in Product Reference
+     * Fully described lending rates for this account based on the equivalent structure in Product Reference
      * @return lendingRates
      */
     List<BankingProductLendingRate> getLendingRates();

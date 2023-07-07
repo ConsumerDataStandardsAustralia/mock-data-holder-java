@@ -1,36 +1,56 @@
 package au.org.consumerdatastandards.client.model.telco;
 
-import java.util.ArrayList;
-import java.util.List;
+import au.org.consumerdatastandards.client.model.Links;
+
 import java.util.Objects;
 
 /**
  * TelcoUsageListResponse
  */
 public class TelcoUsageListResponse {
-    private List<TelcoAccountUsage> accounts = new ArrayList<>();
+    private TelcoUsageListResponseData data;
 
-    public TelcoUsageListResponse accounts(List<TelcoAccountUsage> accounts) {
-        this.accounts = accounts;
-        return this;
+    private Links links;
+
+    private Object meta;
+
+    /**
+     * Get data
+     *
+     * @return data
+     */
+    public TelcoUsageListResponseData getData() {
+        return data;
     }
 
-    public TelcoUsageListResponse addAccountsItem(TelcoAccountUsage accountsItem) {
-        this.accounts.add(accountsItem);
-        return this;
+    public void setData(TelcoUsageListResponseData data) {
+        this.data = data;
     }
 
     /**
-     * Array of usage on accounts
+     * Get links
      *
-     * @return accounts
+     * @return links
      */
-    public List<TelcoAccountUsage> getAccounts() {
-        return accounts;
+    public Links getLinks() {
+        return links;
     }
 
-    public void setAccounts(List<TelcoAccountUsage> accounts) {
-        this.accounts = accounts;
+    public void setLinks(Links links) {
+        this.links = links;
+    }
+
+    /**
+     * Get meta
+     *
+     * @return meta
+     */
+    public Object getMeta() {
+        return meta;
+    }
+
+    public void setMeta(Object meta) {
+        this.meta = meta;
     }
 
     @Override
@@ -42,19 +62,23 @@ public class TelcoUsageListResponse {
             return false;
         }
         TelcoUsageListResponse telcoUsageListResponse = (TelcoUsageListResponse) o;
-        return Objects.equals(this.accounts, telcoUsageListResponse.accounts);
+        return Objects.equals(this.data, telcoUsageListResponse.data) &&
+            Objects.equals(this.links, telcoUsageListResponse.links) &&
+            Objects.equals(this.meta, telcoUsageListResponse.meta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accounts);
+        return Objects.hash(data, links, meta);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoUsageListResponse {\n");
-        sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    links: ").append(toIndentedString(links)).append("\n");
+        sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
         sb.append("}");
         return sb.toString();
     }

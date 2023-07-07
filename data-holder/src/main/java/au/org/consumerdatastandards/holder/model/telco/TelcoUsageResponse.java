@@ -1,8 +1,6 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import au.org.consumerdatastandards.holder.model.LinksPaginated;
-import au.org.consumerdatastandards.holder.model.MetaPaginated;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import au.org.consumerdatastandards.holder.model.Links;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,17 +10,12 @@ import java.util.Objects;
 /**
  * TelcoUsageResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageResponse {
-    @JsonProperty("data")
     private TelcoAccountUsage data;
 
-    @JsonProperty("links")
-    private LinksPaginated links;
+    private Links links;
 
-    @JsonProperty("meta")
-    private MetaPaginated meta;
+    private Object meta;
 
     public TelcoUsageResponse data(TelcoAccountUsage data) {
         this.data = data;
@@ -34,12 +27,9 @@ public class TelcoUsageResponse {
      *
      * @return data
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
     public TelcoAccountUsage getData() {
         return data;
     }
@@ -48,7 +38,7 @@ public class TelcoUsageResponse {
         this.data = data;
     }
 
-    public TelcoUsageResponse links(LinksPaginated links) {
+    public TelcoUsageResponse links(Links links) {
         this.links = links;
         return this;
     }
@@ -58,21 +48,18 @@ public class TelcoUsageResponse {
      *
      * @return links
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public LinksPaginated getLinks() {
+    public Links getLinks() {
         return links;
     }
 
-    public void setLinks(LinksPaginated links) {
+    public void setLinks(Links links) {
         this.links = links;
     }
 
-    public TelcoUsageResponse meta(MetaPaginated meta) {
+    public TelcoUsageResponse meta(Object meta) {
         this.meta = meta;
         return this;
     }
@@ -82,20 +69,16 @@ public class TelcoUsageResponse {
      *
      * @return meta
      */
-    @ApiModelProperty(required = true,
-            value = "")
+    @ApiModelProperty(required = true, value = "")
     @NotNull
-
     @Valid
-
-    public MetaPaginated getMeta() {
+    public Object getMeta() {
         return meta;
     }
 
-    public void setMeta(MetaPaginated meta) {
+    public void setMeta(Object meta) {
         this.meta = meta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -120,7 +103,6 @@ public class TelcoUsageResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoUsageResponse {\n");
-
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
         sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
@@ -139,4 +121,3 @@ public class TelcoUsageResponse {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
