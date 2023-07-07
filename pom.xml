@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>au.org.consumerdatastandards</groupId>
     <artifactId>cds-java-artefacts</artifactId>
-    <version>1.22.1-SNAPSHOT</version>
+    <version>1.24.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>CDS Java Artefacts</name>
     <description>A collection of Java artefacts for Consumer Data Standards Australia</description>
