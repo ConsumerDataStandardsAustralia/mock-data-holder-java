@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @ApiModel
 @Entity
-@Table(name="BankingAccount")
+@Table(name = "b_account")
 public class BankingAccountDetailV3 implements BankingAccountDetail {
 
     /**

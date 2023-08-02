@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Entity
-@Table(name = "BankingProductDepositRate")
+@Table(name = "b_prod_deposit_rate")
 public class BankingProductDepositRateV1 extends BankingProductDepositRate {
 
     /**

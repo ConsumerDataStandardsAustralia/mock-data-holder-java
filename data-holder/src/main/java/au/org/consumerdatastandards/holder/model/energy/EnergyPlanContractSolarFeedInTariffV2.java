@@ -19,7 +19,7 @@ import java.util.Objects;
  * EnergyPlanContractSolarFeedInTariffV2
  */
 @Entity
-@Table(name="EnergySolarFeedInTariff")
+@Table(name = "e_solar_fit")
 public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContractSolarFeedInTariff {
     @Id
     @GeneratedValue(generator = "system-uuid")

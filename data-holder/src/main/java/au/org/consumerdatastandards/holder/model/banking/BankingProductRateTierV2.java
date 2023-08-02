@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * Defines the criteria and conditions for which a rate applies
  */
 @Entity
-@Table(name = "BankingProductRateTier")
+@Table(name = "b_prod_rate_tier")
 public class BankingProductRateTierV2 extends BankingProductRateTier {
 
     @ManyToOne

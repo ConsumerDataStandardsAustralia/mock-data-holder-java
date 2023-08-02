@@ -12,7 +12,7 @@ import java.util.List;
 
 @ApiModel
 @Entity
-@Table(name = "CommonPerson")
+@Table(name = "c_person")
 public class CommonPerson  {
 
     public enum OccupationCodeVersion {

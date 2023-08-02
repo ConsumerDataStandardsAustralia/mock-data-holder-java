@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 @ApiModel(description = "Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff")
 @Entity
-@Table(name = "EnergyPlanSingleTariff")
+@Table(name = "e_plan_single_tariff")
 public class EnergyPlanContractSingleTariffV2 {
     @Id
     @GeneratedValue(generator = "system-uuid")

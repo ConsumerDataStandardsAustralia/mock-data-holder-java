@@ -66,7 +66,32 @@ public interface EnergyPlanContractSolarFeedInTariff {
      * The type of the payer
      */
     public enum TariffUTypeEnum {
-        SINGLETARIFF,
-        TIMEVARYINGTARIFFS
+        SINGLETARIFF("singleTariff"),
+
+        TIMEVARYINGTARIFFS("timeVaryingTariffs");
+
+        private final String value;
+
+        TariffUTypeEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static TariffUTypeEnum fromValue(String value) {
+            for (TariffUTypeEnum b : TariffUTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 }

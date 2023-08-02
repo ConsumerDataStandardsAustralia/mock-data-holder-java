@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Objects;
  */
 @ApiModel(description = "Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff")
 @Entity
-@Table(name = "EnergyPlanSingleTariff")
+@Table(name = "e_plan_single_tariff")
 public class EnergyPlanContractSingleTariffV1 {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -46,7 +45,6 @@ public class EnergyPlanContractSingleTariffV1 {
      * @return amount
      */
     @ApiModelProperty(required = true, value = "The tariff amount")
-    @NotNull
     public String getAmount() {
         return amount;
     }

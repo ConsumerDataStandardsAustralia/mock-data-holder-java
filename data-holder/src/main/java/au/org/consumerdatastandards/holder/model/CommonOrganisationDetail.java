@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @ApiModel
 @Entity
-@Table(name = "CommonOrganisation")
+@Table(name = "c_organisation")
 public class CommonOrganisationDetail {
 
     @Id

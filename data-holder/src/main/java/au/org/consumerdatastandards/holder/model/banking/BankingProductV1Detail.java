@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "BankingProduct")
+@Table(name = "b_prod")
 public class BankingProductV1Detail implements BankingProductDetail {
 
     /**

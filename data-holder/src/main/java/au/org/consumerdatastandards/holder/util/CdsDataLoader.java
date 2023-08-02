@@ -24,6 +24,8 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingProductDeta
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -32,6 +34,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +46,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class CdsDataLoader {
+public class CdsDataLoader implements ApplicationRunner {
 
     private static final Logger LOGGER = LogManager.getLogger(CdsDataLoader.class);
     private static final String DEFAULT_PASSWORD = "password";
@@ -95,7 +99,7 @@ public class CdsDataLoader {
             .registerModule(new JavaTimeModule());
     }
 
-    public void loadAll() throws IOException {
+    private void loadAll(List<String> testdata) throws IOException {
         // Banking
         load("payloads/banking/accounts", accountDetailRepository, BankingAccountDetailV3.class);
         load("payloads/banking/balances", balanceRepository, BankingBalance.class);
@@ -104,8 +108,27 @@ public class CdsDataLoader {
         load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
 
         // Energy
+        if (!testdata.isEmpty()) {
+            String path = testdata.get(0);
+            LOGGER.info("Loading from test data file: {}", path);
+            JsonNode tree = objectMapper.readTree(new File(path));
+            JsonNode holders = tree.path("holders");
+            for (JsonNode holder : holders) {
+                LOGGER.info("Holder: {}", holder.get("holderId"));
+                loadEnergyTestData(holder);
+            }
+        } else {
+            load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
+        }
         load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
-        load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
+    }
+
+    private void loadEnergyTestData(JsonNode holder) throws JsonProcessingException {
+        for (JsonNode planJson : holder.at("/holder/unauthenticated/energy/plans")) {
+            EnergyPlanDetailV2 plan = objectMapper.treeToValue(planJson, EnergyPlanDetailV2.class);
+            LOGGER.info("Loading plan: {}", plan.getPlanId());
+            energyPlanDetailV2Repository.save(plan);
+        }
     }
 
     private <T, U> void load(String fileOrFolder, CrudRepository<T, U> repository, Class<T> dataType) throws IOException {
@@ -177,5 +200,11 @@ public class CdsDataLoader {
 
     private String generateDefaultPasswordHash() {
         return DigestUtils.sha256Hex(DEFAULT_PASSWORD);
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        LOGGER.info("Service setup in progress, performing boot time operations");
+        loadAll(args.getNonOptionArgs());
     }
 }

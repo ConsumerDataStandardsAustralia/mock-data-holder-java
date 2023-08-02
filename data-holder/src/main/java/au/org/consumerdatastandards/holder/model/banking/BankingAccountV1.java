@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 @ApiModel
 @Entity
-@Table(name="BankingAccount")
+@Table(name = "b_account")
 public class BankingAccountV1 implements BankingAccount {
 
     /**

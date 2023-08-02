@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @ApiModel
 @Entity
-@Table(name = "BankingTransaction")
+@Table(name = "b_transaction")
 public class BankingTransactionDetail {
 
     /**

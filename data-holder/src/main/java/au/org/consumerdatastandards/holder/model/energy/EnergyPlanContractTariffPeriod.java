@@ -23,7 +23,7 @@ import java.util.Objects;
  * EnergyPlanContractTariffPeriod
  */
 @Entity
-@Table(name="EnergyTariffPeriod")
+@Table(name="e_tariff_period")
 public class EnergyPlanContractTariffPeriod {
     @Id
     @GeneratedValue(generator = "system-uuid")

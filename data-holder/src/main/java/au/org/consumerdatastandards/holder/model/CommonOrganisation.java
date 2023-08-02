@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 
 @ApiModel
 @Entity
-@Table(name = "CommonOrganisation")
+@Table(name = "c_organisation")
 public class CommonOrganisation  {
 
     @Id

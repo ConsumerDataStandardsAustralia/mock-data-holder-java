@@ -15,7 +15,7 @@ import java.util.Objects;
  * EnergyPlanContractEligibility
  */
 @Entity
-@Table(name="EnergyContractEligibility")
+@Table(name = "e_contract_eligibility")
 public class EnergyPlanContractEligibility {
     @Id
     @GeneratedValue(generator = "system-uuid")
