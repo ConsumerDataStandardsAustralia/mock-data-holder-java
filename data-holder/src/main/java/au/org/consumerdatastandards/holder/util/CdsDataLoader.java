@@ -11,6 +11,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingAccountV2;
 import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
 import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
@@ -22,6 +23,7 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingAccountRepo
 import au.org.consumerdatastandards.holder.repository.banking.BankingBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -64,6 +66,7 @@ public class CdsDataLoader implements ApplicationRunner {
 
     // Energy repositories
     private final EnergyAccountV2Repository energyAccountV2Repository;
+    private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
 
     private ObjectMapper objectMapper;
@@ -78,6 +81,7 @@ public class CdsDataLoader implements ApplicationRunner {
                          CommonPersonDetailRepository commonPersonDetailRepository,
                          BankingTransactionDetailRepository transactionDetailRepository,
                          EnergyAccountV2Repository energyAccountV2Repository,
+                         EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
                          EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
                          UserRepository userRepository,
                          CommonPersonRepository commonPersonRepository,
@@ -89,6 +93,7 @@ public class CdsDataLoader implements ApplicationRunner {
         this.commonPersonDetailRepository = commonPersonDetailRepository;
         this.transactionDetailRepository = transactionDetailRepository;
         this.energyAccountV2Repository = energyAccountV2Repository;
+        this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
         this.userRepository = userRepository;
         this.commonPersonRepository = commonPersonRepository;
@@ -108,26 +113,38 @@ public class CdsDataLoader implements ApplicationRunner {
         load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
 
         // Energy
-        if (!testdata.isEmpty()) {
+        if (testdata.isEmpty()) {
+            load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
+            load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
+        } else {
             String path = testdata.get(0);
             LOGGER.info("Loading from test data file: {}", path);
             JsonNode tree = objectMapper.readTree(new File(path));
             JsonNode holders = tree.path("holders");
             for (JsonNode holder : holders) {
-                LOGGER.info("Holder: {}", holder.get("holderId"));
+                LOGGER.info("Holder id: {}", holder.get("holderId"));
                 loadEnergyTestData(holder);
             }
-        } else {
-            load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
         }
-        load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
+        LOGGER.info("Data loaded.");
     }
 
     private void loadEnergyTestData(JsonNode holder) throws JsonProcessingException {
+        // Load plans
         for (JsonNode planJson : holder.at("/holder/unauthenticated/energy/plans")) {
             EnergyPlanDetailV2 plan = objectMapper.treeToValue(planJson, EnergyPlanDetailV2.class);
             LOGGER.info("Loading plan: {}", plan.getPlanId());
             energyPlanDetailV2Repository.save(plan);
+        }
+
+        // Load accounts
+        for (JsonNode customer : holder.at("/holder/authenticated/customers")) {
+            LOGGER.info("Customer id: {}", customer.get("customerId"));
+            for (JsonNode accountEl : customer.at("/energy/accounts")) {
+                EnergyAccountDetailV3 account = objectMapper.treeToValue(accountEl.path("account"), EnergyAccountDetailV3.class);
+                LOGGER.info("Loading account: {}", account.getAccountId());
+                energyAccountDetailV3Repository.save(account);
+            }
         }
     }
 

@@ -3,7 +3,7 @@ package au.org.consumerdatastandards.client.model.energy;
 import java.util.Objects;
 
 /**
- * EnergyAccountAllOfPlanOverview
+ * EnergyAccountPlanOverview
  */
 public class EnergyAccountPlanOverview {
     private String displayName;
@@ -88,7 +88,7 @@ public class EnergyAccountPlanOverview {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountAllOfPlanOverview {\n");
+        sb.append("class EnergyAccountPlanOverview {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");

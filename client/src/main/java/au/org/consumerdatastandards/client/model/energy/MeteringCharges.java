@@ -3,7 +3,7 @@ package au.org.consumerdatastandards.client.model.energy;
 import java.util.Objects;
 
 /**
- * EnergyPlanDetailAllOfMeteringCharges
+ * MeteringCharges
  */
 public class MeteringCharges {
     private String displayName;
@@ -130,7 +130,7 @@ public class MeteringCharges {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanDetailAllOfMeteringCharges {\n");
+        sb.append("class MeteringCharges {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    minimumValue: ").append(toIndentedString(minimumValue)).append("\n");

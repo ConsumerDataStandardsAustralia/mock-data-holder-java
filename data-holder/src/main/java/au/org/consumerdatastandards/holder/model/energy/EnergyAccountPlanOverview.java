@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * EnergyAccountAllOfPlanOverview
+ * EnergyAccountPlanOverview
  */
 @Entity
 @Table(name = "e_account_plan_overview")
@@ -110,7 +110,7 @@ public class EnergyAccountPlanOverview {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountAllOfPlanOverview {\n");
+        sb.append("class EnergyAccountPlanOverview {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyAccountDetailAllOfAuthorisedContacts
+ * EnergyAccountDetailAuthorisedContacts
  */
 public class EnergyAccountDetailAuthorisedContacts {
     private String firstName;
@@ -140,7 +140,7 @@ public class EnergyAccountDetailAuthorisedContacts {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountDetailAllOfAuthorisedContacts {\n");
+        sb.append("class EnergyAccountDetailAuthorisedContacts {\n");
         sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
         sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
         sb.append("    middleNames: ").append(toIndentedString(middleNames)).append("\n");

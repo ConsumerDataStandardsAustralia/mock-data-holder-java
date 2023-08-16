@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyAccountAllOfPlans
+ * EnergyAccountPlans
  */
 public class EnergyAccountPlans {
     private String nickname;
@@ -95,7 +95,7 @@ public class EnergyAccountPlans {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountAllOfPlans {\n");
+        sb.append("class EnergyAccountPlans {\n");
         sb.append("    nickname: ").append(toIndentedString(nickname)).append("\n");
         sb.append("    servicePointIds: ").append(toIndentedString(servicePointIds)).append("\n");
         sb.append("    planOverview: ").append(toIndentedString(planOverview)).append("\n");

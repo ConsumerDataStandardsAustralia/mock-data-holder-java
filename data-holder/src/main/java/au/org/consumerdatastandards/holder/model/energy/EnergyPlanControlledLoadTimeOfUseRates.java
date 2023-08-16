@@ -55,8 +55,7 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
         PEAK,
         OFF_PEAK,
         SHOULDER,
-        SHOULDER1,
-        SHOULDER2
+        SOLAR_SPONGE
     }
 
     private TypeEnum type;

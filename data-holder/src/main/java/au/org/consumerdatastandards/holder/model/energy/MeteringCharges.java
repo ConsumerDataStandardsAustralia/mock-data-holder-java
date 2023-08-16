@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * EnergyPlanDetailAllOfMeteringCharges
+ * MeteringCharges
  */
 @Entity
 public class MeteringCharges {
@@ -161,7 +161,7 @@ public class MeteringCharges {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanDetailAllOfMeteringCharges {\n");
+        sb.append("class MeteringCharges {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
