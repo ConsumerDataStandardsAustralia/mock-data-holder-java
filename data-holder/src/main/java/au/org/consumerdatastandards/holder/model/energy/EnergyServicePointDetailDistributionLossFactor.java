@@ -1,25 +1,39 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyServicePointDetailDistributionLossFactor
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyServicePointDetailDistributionLossFactor {
-    @JsonProperty("code")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String code;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("lossValue")
     private String lossValue;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyServicePointDetailDistributionLossFactor code(String code) {
         this.code = code;
@@ -34,8 +48,6 @@ public class EnergyServicePointDetailDistributionLossFactor {
     @ApiModelProperty(required = true,
             value = "A code used to identify data loss factor for the service point values.  Refer to AEMO distribution loss factor documents for each financial year to interpret")
     @NotNull
-
-
     public String getCode() {
         return code;
     }
@@ -54,11 +66,8 @@ public class EnergyServicePointDetailDistributionLossFactor {
      *
      * @return description
      */
-    @ApiModelProperty(required = true,
-            value = "Description of the data loss factor code and value")
+    @ApiModelProperty(required = true, value = "Description of the data loss factor code and value")
     @NotNull
-
-
     public String getDescription() {
         return description;
     }
@@ -77,11 +86,8 @@ public class EnergyServicePointDetailDistributionLossFactor {
      *
      * @return lossValue
      */
-    @ApiModelProperty(required = true,
-            value = "The value associated with the loss factor code")
+    @ApiModelProperty(required = true, value = "The value associated with the loss factor code")
     @NotNull
-
-
     public String getLossValue() {
         return lossValue;
     }
@@ -89,7 +95,6 @@ public class EnergyServicePointDetailDistributionLossFactor {
     public void setLossValue(String lossValue) {
         this.lossValue = lossValue;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -114,7 +119,6 @@ public class EnergyServicePointDetailDistributionLossFactor {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyServicePointDetailDistributionLossFactor {\n");
-
         sb.append("    code: ").append(toIndentedString(code)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    lossValue: ").append(toIndentedString(lossValue)).append("\n");
@@ -133,4 +137,3 @@ public class EnergyServicePointDetailDistributionLossFactor {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

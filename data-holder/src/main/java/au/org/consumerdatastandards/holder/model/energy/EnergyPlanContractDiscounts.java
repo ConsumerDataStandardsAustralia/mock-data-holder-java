@@ -1,10 +1,12 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -55,7 +58,9 @@ public class EnergyPlanContractDiscounts {
 
     private CategoryEnum category;
 
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate endDate;   // "x-cds-type" : "DateString"
 
     /**
      * The method of calculation of the discount
@@ -196,7 +201,7 @@ public class EnergyPlanContractDiscounts {
         this.category = category;
     }
 
-    public EnergyPlanContractDiscounts endDate(String endDate) {
+    public EnergyPlanContractDiscounts endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -207,11 +212,11 @@ public class EnergyPlanContractDiscounts {
      * @return endDate
      */
     @ApiModelProperty(value = "Optional end date for the discount after which the discount is no longer available")
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

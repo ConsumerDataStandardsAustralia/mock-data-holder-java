@@ -75,7 +75,7 @@ public class EnergyServicePointDetail {
 
     private CommonPhysicalAddress location;
 
-    private EnergyServicePointDetailMeters meters;
+    private List<EnergyServicePointDetailMeters> meters;
 
     public EnergyServicePointDetail servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -298,7 +298,7 @@ public class EnergyServicePointDetail {
         this.location = location;
     }
 
-    public EnergyServicePointDetail meters(EnergyServicePointDetailMeters meters) {
+    public EnergyServicePointDetail meters(List<EnergyServicePointDetailMeters> meters) {
         this.meters = meters;
         return this;
     }
@@ -308,11 +308,11 @@ public class EnergyServicePointDetail {
      *
      * @return meters
      */
-    public EnergyServicePointDetailMeters getMeters() {
+    public List<EnergyServicePointDetailMeters> getMeters() {
         return meters;
     }
 
-    public void setMeters(EnergyServicePointDetailMeters meters) {
+    public void setMeters(List<EnergyServicePointDetailMeters> meters) {
         this.meters = meters;
     }
 

@@ -1,20 +1,46 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * EnergyServicePointDetailMeters
  */
+@Entity
 public class EnergyServicePointDetailMeters {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String meterId;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyServicePointDetailSpecifications specifications;
 
-    private EnergyServicePointDetailRegisters registers;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<EnergyServicePointDetailRegisters> registers;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyServicePointDetailMeters meterId(String meterId) {
         this.meterId = meterId;
@@ -58,11 +84,6 @@ public class EnergyServicePointDetailMeters {
         this.specifications = specifications;
     }
 
-    public EnergyServicePointDetailMeters registers(EnergyServicePointDetailRegisters registers) {
-        this.registers = registers;
-        return this;
-    }
-
     /**
      * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
      *
@@ -70,11 +91,11 @@ public class EnergyServicePointDetailMeters {
      */
     @ApiModelProperty(value = "Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point")
     @Valid
-    public EnergyServicePointDetailRegisters getRegisters() {
+    public List<EnergyServicePointDetailRegisters> getRegisters() {
         return registers;
     }
 
-    public void setRegisters(EnergyServicePointDetailRegisters registers) {
+    public void setRegisters(List<EnergyServicePointDetailRegisters> registers) {
         this.registers = registers;
     }
 

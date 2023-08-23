@@ -6,6 +6,8 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePoint;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
 import au.org.consumerdatastandards.holder.model.energy.FuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
@@ -19,11 +21,14 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repo
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -45,6 +50,8 @@ public class EnergyService {
     private final EnergyPlanRepository energyPlanRepository;
     private final EnergyPlanDetailV1Repository energyPlanDetailV1Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
+    private final EnergyServicePointRepository energyServicePointRepository;
+    private final EnergyServicePointDetailRepository energyServicePointDetailRepository;
 
     @Autowired
     public EnergyService(
@@ -53,6 +60,8 @@ public class EnergyService {
             EnergyAccountDetailV1Repository energyAccountDetailV1Repository,
             EnergyAccountDetailV2Repository energyAccountDetailV2Repository,
             EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
+            EnergyServicePointRepository energyServicePointRepository,
+            EnergyServicePointDetailRepository energyServicePointDetailRepository,
             EnergyPlanRepository energyPlanRepository,
             EnergyPlanDetailV1Repository energyPlanDetailV1Repository,
             EnergyPlanDetailV2Repository energyPlanDetailV2Repository) {
@@ -62,6 +71,8 @@ public class EnergyService {
         this.energyAccountDetailV1Repository = energyAccountDetailV1Repository;
         this.energyAccountDetailV2Repository = energyAccountDetailV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
+        this.energyServicePointRepository = energyServicePointRepository;
+        this.energyServicePointDetailRepository = energyServicePointDetailRepository;
         this.energyPlanRepository = energyPlanRepository;
         this.energyPlanDetailV1Repository = energyPlanDetailV1Repository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
@@ -143,5 +154,17 @@ public class EnergyService {
             default:
                 return energyAccountDetailV3Repository.findById(accountId).orElse(null);
         }
+    }
+
+    public Page<EnergyServicePoint> findServicePoints(Pageable pageable) {
+        LOGGER.debug("Retrieve Energy Service Points with Paging content specified as {}" , pageable);
+
+        return energyServicePointRepository.findAll(pageable);
+    }
+
+    public EnergyServicePointDetail getServicePoint(String servicePointId) {
+        LOGGER.debug("Retrieve Energy Service Point with id {}" , servicePointId);
+
+        return energyServicePointDetailRepository.findById(servicePointId).orElse(null);
     }
 }

@@ -1,8 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -12,7 +17,14 @@ import java.util.Objects;
  * Usage data registers available from the meter
  */
 @ApiModel(description = "Usage data registers available from the meter")
+@Entity
 public class EnergyServicePointDetailRegisters {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String registerId;
 
     private String registerSuffix;
@@ -68,6 +80,14 @@ public class EnergyServicePointDetailRegisters {
     }
 
     private ConsumptionTypeEnum consumptionType;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyServicePointDetailRegisters registerId(String registerId) {
         this.registerId = registerId;

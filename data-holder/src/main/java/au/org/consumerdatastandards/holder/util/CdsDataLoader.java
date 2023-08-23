@@ -14,6 +14,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetai
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
 import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonRepository;
@@ -26,6 +27,7 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingTransaction
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,22 +56,23 @@ public class CdsDataLoader implements ApplicationRunner {
     private static final String DEFAULT_PASSWORD = "password";
 
     // Banking repositories
-    private BankingProductDetailV2Repository productDetailRepository;
-    private BankingAccountDetailRepositoryV3 accountDetailRepository;
-    private BankingAccountRepositoryV2 accountRepository;
-    private BankingBalanceRepository balanceRepository;
-    private CommonPersonDetailRepository commonPersonDetailRepository;
-    private BankingTransactionDetailRepository transactionDetailRepository;
-    private UserRepository userRepository;
-    private CommonPersonRepository commonPersonRepository;
-    private CommonOrganisationRepository commonOrganisationRepository;
+    private final BankingProductDetailV2Repository productDetailRepository;
+    private final BankingAccountDetailRepositoryV3 accountDetailRepository;
+    private final BankingAccountRepositoryV2 accountRepository;
+    private final BankingBalanceRepository balanceRepository;
+    private final CommonPersonDetailRepository commonPersonDetailRepository;
+    private final BankingTransactionDetailRepository transactionDetailRepository;
+    private final UserRepository userRepository;
+    private final CommonPersonRepository commonPersonRepository;
+    private final CommonOrganisationRepository commonOrganisationRepository;
 
     // Energy repositories
     private final EnergyAccountV2Repository energyAccountV2Repository;
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
+    private final EnergyServicePointDetailRepository energyServicePointRepository;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
     private int personUserIdSeq = 0;
     private int organisationUserIdSeq = 0;
 
@@ -83,6 +86,7 @@ public class CdsDataLoader implements ApplicationRunner {
                          EnergyAccountV2Repository energyAccountV2Repository,
                          EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
                          EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
+                         EnergyServicePointDetailRepository energyServicePointRepository,
                          UserRepository userRepository,
                          CommonPersonRepository commonPersonRepository,
                          CommonOrganisationRepository commonOrganisationRepository) {
@@ -95,6 +99,7 @@ public class CdsDataLoader implements ApplicationRunner {
         this.energyAccountV2Repository = energyAccountV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
+        this.energyServicePointRepository = energyServicePointRepository;
         this.userRepository = userRepository;
         this.commonPersonRepository = commonPersonRepository;
         this.commonOrganisationRepository = commonOrganisationRepository;
@@ -137,13 +142,21 @@ public class CdsDataLoader implements ApplicationRunner {
             energyPlanDetailV2Repository.save(plan);
         }
 
-        // Load accounts
         for (JsonNode customer : holder.at("/holder/authenticated/customers")) {
             LOGGER.info("Customer id: {}", customer.get("customerId"));
+
+            // Load accounts
             for (JsonNode accountEl : customer.at("/energy/accounts")) {
                 EnergyAccountDetailV3 account = objectMapper.treeToValue(accountEl.path("account"), EnergyAccountDetailV3.class);
                 LOGGER.info("Loading account: {}", account.getAccountId());
                 energyAccountDetailV3Repository.save(account);
+            }
+
+            // Load service points
+            for (JsonNode servicePointEl : customer.at("/energy/servicePoints")) {
+                EnergyServicePointDetail servicePoint = objectMapper.treeToValue(servicePointEl.path("servicePoint"), EnergyServicePointDetail.class);
+                LOGGER.info("Loading service point: {}", servicePoint.getServicePointId());
+                energyServicePointRepository.save(servicePoint);
             }
         }
     }

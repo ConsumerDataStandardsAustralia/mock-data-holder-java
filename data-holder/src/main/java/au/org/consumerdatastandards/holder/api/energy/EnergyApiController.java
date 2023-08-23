@@ -1,8 +1,6 @@
 package au.org.consumerdatastandards.holder.api.energy;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
-import au.org.consumerdatastandards.holder.model.CommonPhysicalAddress;
-import au.org.consumerdatastandards.holder.model.CommonSimpleAddress;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
@@ -35,10 +33,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyPlanListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePoint;
-import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointConsumerProfile;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
-import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailDistributionLossFactor;
-import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailRelatedParticipants;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponseData;
@@ -202,40 +197,13 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyServicePointDetailResponse> getServicePoint(String servicePointId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyServicePointDetailResponse response = new EnergyServicePointDetailResponse();
-        EnergyServicePointDetail servicePoint = new EnergyServicePointDetail();
-        servicePoint.setServicePointId("SP12345");
-        servicePoint.setServicePointStatus(EnergyServicePointDetail.ServicePointStatusEnum.ACTIVE);
-        servicePoint.setServicePointClassification(EnergyServicePointDetail.ServicePointClassificationEnum.WHOLESALE);
-        EnergyServicePointConsumerProfile consumerProfile = new EnergyServicePointConsumerProfile();
-        consumerProfile.setClassification(EnergyServicePointConsumerProfile.ClassificationEnum.RESIDENTIAL);
-        servicePoint.setConsumerProfile(consumerProfile);
-        servicePoint.setJurisdictionCode(EnergyServicePointDetail.JurisdictionCodeEnum.NSW);
-        servicePoint.setNationalMeteringId("NMI12345");
-        servicePoint.setValidFromDate(LocalDate.now());
-        servicePoint.setLastUpdateDateTime(OffsetDateTime.now());
-        EnergyServicePointDetailDistributionLossFactor dlf = new EnergyServicePointDetailDistributionLossFactor();
-        dlf.setCode("AEMO_CODE");
-        dlf.setDescription("Distribution Loss Factor description");
-        dlf.setLossValue("LossValue123");
-        servicePoint.setDistributionLossFactor(dlf);
-        EnergyServicePointDetailRelatedParticipants relatedParticipants = new EnergyServicePointDetailRelatedParticipants();
-        relatedParticipants.setParty("Party/Organisation Name");
-        relatedParticipants.setRole(EnergyServicePointDetailRelatedParticipants.RoleEnum.LNSP);
-        servicePoint.setRelatedParticipants(Collections.singletonList(relatedParticipants));
-        CommonPhysicalAddress location = new CommonPhysicalAddress();
-        location.setAddressUType(CommonPhysicalAddress.AddressUType.simple);
-        CommonSimpleAddress sa = new CommonSimpleAddress();
-        sa.setAddressLine1("1 One St");
-        sa.setCity("Sydney");
-        sa.setState("NSW");
-        sa.setPostcode("2000");
-        location.setSimple(sa);
-        servicePoint.setLocation(location);
-        response.setData(servicePoint);
+        EnergyServicePointDetail servicePointDetail = service.getServicePoint(servicePointId);
+        response.setData(servicePointDetail);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
@@ -255,7 +223,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyAccountListResponse> listAccounts(ParamAccountOpenStatus openStatus, Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
-        validatePageSize(pageSize, WebUtil.NO_INTERACTION_ID);
+        validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
 
         EnergyAccountListResponse response = new EnergyAccountListResponse();
@@ -443,25 +411,26 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyServicePointListResponse response = new EnergyServicePointListResponse();
         EnergyServicePointListResponseData data = new EnergyServicePointListResponseData();
-        EnergyServicePoint servicePoint = new EnergyServicePoint();
-        servicePoint.setServicePointId("SP12345");
-        servicePoint.setServicePointStatus(EnergyServicePoint.ServicePointStatusEnum.ACTIVE);
-        servicePoint.setServicePointClassification(EnergyServicePoint.ServicePointClassificationEnum.WHOLESALE);
-        EnergyServicePointConsumerProfile consumerProfile = new EnergyServicePointConsumerProfile();
-        consumerProfile.setClassification(EnergyServicePointConsumerProfile.ClassificationEnum.RESIDENTIAL);
-        servicePoint.setConsumerProfile(consumerProfile);
-        servicePoint.setJurisdictionCode(EnergyServicePoint.JurisdictionCodeEnum.NSW);
-        servicePoint.setNationalMeteringId("NMI12345");
-        servicePoint.setValidFromDate(LocalDate.now());
-        servicePoint.setLastUpdateDateTime(OffsetDateTime.now());
-        data.setServicePoints(Collections.singletonList(servicePoint));
-        response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyServicePoint> plansPage = service.findServicePoints(PageRequest.of(actualPage - 1, actualPageSize));
 
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        logger.info(
+                "Returning service points listing page {} of {} (page size of {})",
+                actualPage, plansPage.getTotalPages(), actualPageSize);
+
+        validatePageRange(page, plansPage.getTotalPages(), xFapiInteractionId);
+        data.setServicePoints(plansPage.getContent());
+        response.setData(data);
+        response.setLinks(getLinkData(request, plansPage, actualPage, actualPageSize));
+        response.setMeta(getMetaData(plansPage));
+
+        logger.debug("Plan listing raw response payload is: {}", data);
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override

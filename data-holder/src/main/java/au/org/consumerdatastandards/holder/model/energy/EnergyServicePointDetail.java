@@ -5,6 +5,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -16,7 +24,10 @@ import java.util.Objects;
 /**
  * EnergyServicePointDetail
  */
+@Entity
+@Table(name = "e_service_point")
 public class EnergyServicePointDetail {
+    @Id
     private String servicePointId;
 
     private String nationalMeteringId;
@@ -76,16 +87,29 @@ public class EnergyServicePointDetail {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastUpdateDateTime;
 
+    @OneToOne(cascade = CascadeType.ALL)
+        @JoinTable(
+                name = "e_service_point_profiles",
+                joinColumns = @JoinColumn(name = "service_point_id"),
+                inverseJoinColumns = @JoinColumn(name = "consumer_profile_id"))
     private EnergyServicePointConsumerProfile consumerProfile;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyServicePointDetailDistributionLossFactor distributionLossFactor;
 
+    @OneToMany(cascade = CascadeType.ALL)
     @Valid
     private List<EnergyServicePointDetailRelatedParticipants> relatedParticipants = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_service_point_addresses",
+            joinColumns = @JoinColumn(name = "service_point_id"),
+            inverseJoinColumns = @JoinColumn(name = "common_physical_address_id"))
     private CommonPhysicalAddress location;
 
-    private EnergyServicePointDetailMeters meters;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<EnergyServicePointDetailMeters> meters;
 
     public EnergyServicePointDetail servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -340,11 +364,6 @@ public class EnergyServicePointDetail {
         this.location = location;
     }
 
-    public EnergyServicePointDetail meters(EnergyServicePointDetailMeters meters) {
-        this.meters = meters;
-        return this;
-    }
-
     /**
      * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
      *
@@ -352,11 +371,11 @@ public class EnergyServicePointDetail {
      */
     @ApiModelProperty(value = "The meters associated with the service point. This may be empty where there are no meters physically installed at the service point")
     @Valid
-    public EnergyServicePointDetailMeters getMeters() {
+    public List<EnergyServicePointDetailMeters> getMeters() {
         return meters;
     }
 
-    public void setMeters(EnergyServicePointDetailMeters meters) {
+    public void setMeters(List<EnergyServicePointDetailMeters> meters) {
         this.meters = meters;
     }
 
