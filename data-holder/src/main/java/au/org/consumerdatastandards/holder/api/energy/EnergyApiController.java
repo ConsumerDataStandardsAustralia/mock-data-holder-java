@@ -39,6 +39,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListRe
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyUsageRead;
 import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
@@ -210,14 +211,27 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyUsageListResponse> getUsageForServicePoint(String servicePointId, Integer xV, Integer xMinV,
             String oldestDate, String newestDate, ParamIntervalReadsEnum intervalReads, Integer page, Integer pageSize,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        EnergyUsageListResponse response = new EnergyUsageListResponse();
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyUsageRead> usage = service.findUsageForServicePoint(servicePointId, PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning usage for service point {} listing page {} of {} (page size of {})",
+                servicePointId, actualPage, usage.getTotalPages(), actualPageSize);
+
+        validatePageRange(page, usage.getTotalPages(), xFapiInteractionId);
         EnergyUsageListResponseData data = new EnergyUsageListResponseData();
+        data.setReads(usage.getContent());
+        EnergyUsageListResponse response = new EnergyUsageListResponse();
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, usage, actualPage, actualPageSize));
+        response.setMeta(getMetaData(usage));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override

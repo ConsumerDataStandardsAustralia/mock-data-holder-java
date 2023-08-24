@@ -8,6 +8,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePoint;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
+import au.org.consumerdatastandards.holder.model.energy.EnergyUsageRead;
 import au.org.consumerdatastandards.holder.model.energy.FuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
@@ -23,6 +24,7 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2R
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyUsageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,7 @@ public class EnergyService {
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
     private final EnergyServicePointRepository energyServicePointRepository;
     private final EnergyServicePointDetailRepository energyServicePointDetailRepository;
+    private final EnergyUsageRepository energyUsageRepository;
 
     @Autowired
     public EnergyService(
@@ -62,6 +65,7 @@ public class EnergyService {
             EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
             EnergyServicePointRepository energyServicePointRepository,
             EnergyServicePointDetailRepository energyServicePointDetailRepository,
+            EnergyUsageRepository energyUsageRepository,
             EnergyPlanRepository energyPlanRepository,
             EnergyPlanDetailV1Repository energyPlanDetailV1Repository,
             EnergyPlanDetailV2Repository energyPlanDetailV2Repository) {
@@ -73,6 +77,7 @@ public class EnergyService {
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyServicePointDetailRepository = energyServicePointDetailRepository;
+        this.energyUsageRepository = energyUsageRepository;
         this.energyPlanRepository = energyPlanRepository;
         this.energyPlanDetailV1Repository = energyPlanDetailV1Repository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
@@ -166,5 +171,11 @@ public class EnergyService {
         LOGGER.debug("Retrieve Energy Service Point with id {}" , servicePointId);
 
         return energyServicePointDetailRepository.findById(servicePointId).orElse(null);
+    }
+
+    public Page<EnergyUsageRead> findUsageForServicePoint(String servicePointId, Pageable pageable) {
+        LOGGER.debug("Retrieve Energy usage for Service Point with id {}" , servicePointId);
+
+        return energyUsageRepository.findByServicePointId(servicePointId, pageable);
     }
 }

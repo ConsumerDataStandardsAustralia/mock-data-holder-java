@@ -1,17 +1,34 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * EnergyUsageRead
  */
+@Entity
 public class EnergyUsageRead {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String servicePointId;
 
     private String registerId;
@@ -22,9 +39,14 @@ public class EnergyUsageRead {
 
     private Boolean controlledLoad;
 
-    private String readStartDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate readStartDate;   // "x-cds-type" : "DateString"
 
-    private String readEndDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate readEndDate;   // "x-cds-type" : "DateString"
+
 
     private String unitOfMeasure;
 
@@ -65,9 +87,19 @@ public class EnergyUsageRead {
 
     private ReadUTypeEnum readUType;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyUsageReadBasicRead basicRead;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyUsageReadIntervalRead intervalRead;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyUsageRead servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -167,7 +199,7 @@ public class EnergyUsageRead {
         this.controlledLoad = controlledLoad;
     }
 
-    public EnergyUsageRead readStartDate(String readStartDate) {
+    public EnergyUsageRead readStartDate(LocalDate readStartDate) {
         this.readStartDate = readStartDate;
         return this;
     }
@@ -179,15 +211,15 @@ public class EnergyUsageRead {
      */
     @ApiModelProperty(required = true, value = "Date when the meter reads start in AEST and assumed to start from 12:00 am AEST.")
     @NotNull
-    public String getReadStartDate() {
+    public LocalDate getReadStartDate() {
         return readStartDate;
     }
 
-    public void setReadStartDate(String readStartDate) {
+    public void setReadStartDate(LocalDate readStartDate) {
         this.readStartDate = readStartDate;
     }
 
-    public EnergyUsageRead readEndDate(String readEndDate) {
+    public EnergyUsageRead readEndDate(LocalDate readEndDate) {
         this.readEndDate = readEndDate;
         return this;
     }
@@ -198,11 +230,11 @@ public class EnergyUsageRead {
      * @return readEndDate
      */
     @ApiModelProperty(value = "Date when the meter reads end in AEST.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate.")
-    public String getReadEndDate() {
+    public LocalDate getReadEndDate() {
         return readEndDate;
     }
 
-    public void setReadEndDate(String readEndDate) {
+    public void setReadEndDate(LocalDate readEndDate) {
         this.readEndDate = readEndDate;
     }
 

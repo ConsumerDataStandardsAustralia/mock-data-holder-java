@@ -15,6 +15,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
+import au.org.consumerdatastandards.holder.model.energy.EnergyUsageRead;
 import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonDetailRepository;
 import au.org.consumerdatastandards.holder.repository.CommonPersonRepository;
@@ -28,6 +29,7 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetail
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyUsageRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,6 +73,7 @@ public class CdsDataLoader implements ApplicationRunner {
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
     private final EnergyServicePointDetailRepository energyServicePointRepository;
+    private final EnergyUsageRepository energyUsageRepository;
 
     private final ObjectMapper objectMapper;
     private int personUserIdSeq = 0;
@@ -87,6 +90,7 @@ public class CdsDataLoader implements ApplicationRunner {
                          EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
                          EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
                          EnergyServicePointDetailRepository energyServicePointRepository,
+                         EnergyUsageRepository energyUsageRepository,
                          UserRepository userRepository,
                          CommonPersonRepository commonPersonRepository,
                          CommonOrganisationRepository commonOrganisationRepository) {
@@ -100,6 +104,7 @@ public class CdsDataLoader implements ApplicationRunner {
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
         this.energyServicePointRepository = energyServicePointRepository;
+        this.energyUsageRepository = energyUsageRepository;
         this.userRepository = userRepository;
         this.commonPersonRepository = commonPersonRepository;
         this.commonOrganisationRepository = commonOrganisationRepository;
@@ -157,6 +162,13 @@ public class CdsDataLoader implements ApplicationRunner {
                 EnergyServicePointDetail servicePoint = objectMapper.treeToValue(servicePointEl.path("servicePoint"), EnergyServicePointDetail.class);
                 LOGGER.info("Loading service point: {}", servicePoint.getServicePointId());
                 energyServicePointRepository.save(servicePoint);
+
+                // Load service point usage
+                for (JsonNode usageEl : servicePointEl.path("usage")) {
+                    EnergyUsageRead usage = objectMapper.treeToValue(usageEl, EnergyUsageRead.class);
+                    LOGGER.info("Loading usage of service point: {}", usage.getServicePointId());
+                    energyUsageRepository.save(usage);
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTiers
  */
-@Entity(name = "EnergyFeedInRates")
+@Entity(name = "e_feed_in_rates")
 public class EnergyPlanContractFeedInRates {
     @Id
     @GeneratedValue(generator = "system-uuid")

@@ -15,7 +15,7 @@ import java.util.Objects;
 /**
  * EnergyPlanContractSingleRateRates
  */
-@Entity(name = "single_rate_rates")
+@Entity(name = "e_single_rate_rates")
 public class EnergyPlanContractSingleRateRates {
     @Id
     @GeneratedValue(generator = "system-uuid")

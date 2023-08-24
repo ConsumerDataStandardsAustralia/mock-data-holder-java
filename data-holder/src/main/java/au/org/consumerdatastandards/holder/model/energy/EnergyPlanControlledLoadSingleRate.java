@@ -18,7 +18,7 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTimeOfUseRates
  */
-@Entity(name = "ctrled_load_single_rate")
+@Entity(name = "e_ctrled_load_single_rate")
 public class EnergyPlanControlledLoadSingleRate {
     @Id
     @GeneratedValue(generator = "system-uuid")
