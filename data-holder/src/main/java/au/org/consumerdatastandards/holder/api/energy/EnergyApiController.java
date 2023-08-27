@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.holder.api.energy;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
+import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.LinksPaginated;
 import au.org.consumerdatastandards.holder.model.MetaPaginated;
@@ -65,8 +66,10 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Validated
@@ -209,7 +212,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyUsageListResponse> getUsageForServicePoint(String servicePointId, Integer xV, Integer xMinV,
-            String oldestDate, String newestDate, ParamIntervalReadsEnum intervalReads, Integer page, Integer pageSize,
+            LocalDate oldestDate, LocalDate newestDate, ParamIntervalReadsEnum intervalReads, Integer page, Integer pageSize,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
@@ -217,7 +220,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
-        Page<EnergyUsageRead> usage = service.findUsageForServicePoint(servicePointId, PageRequest.of(actualPage - 1, actualPageSize));
+        Page<EnergyUsageRead> usage = service.findUsageForServicePoints(Collections.singletonList(servicePointId),
+                oldestDate, newestDate, intervalReads, PageRequest.of(actualPage - 1, actualPageSize));
 
         logger.info(
                 "Returning usage for service point {} listing page {} of {} (page size of {})",
@@ -430,17 +434,17 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         EnergyServicePointListResponseData data = new EnergyServicePointListResponseData();
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
-        Page<EnergyServicePoint> plansPage = service.findServicePoints(PageRequest.of(actualPage - 1, actualPageSize));
+        Page<EnergyServicePoint> servicePoints = service.findServicePoints(PageRequest.of(actualPage - 1, actualPageSize));
 
         logger.info(
                 "Returning service points listing page {} of {} (page size of {})",
-                actualPage, plansPage.getTotalPages(), actualPageSize);
+                actualPage, servicePoints.getTotalPages(), actualPageSize);
 
-        validatePageRange(page, plansPage.getTotalPages(), xFapiInteractionId);
-        data.setServicePoints(plansPage.getContent());
+        validatePageRange(page, servicePoints.getTotalPages(), xFapiInteractionId);
+        data.setServicePoints(servicePoints.getContent());
         response.setData(data);
-        response.setLinks(getLinkData(request, plansPage, actualPage, actualPageSize));
-        response.setMeta(getMetaData(plansPage));
+        response.setLinks(getLinkData(request, servicePoints, actualPage, actualPageSize));
+        response.setMeta(getMetaData(servicePoints));
 
         logger.debug("Plan listing raw response payload is: {}", data);
 
@@ -448,33 +452,73 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyUsageListResponse> listUsageBulk(Integer xV, Integer xMinV, String oldestDate,
-            String newestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
+    public ResponseEntity<EnergyUsageListResponse> listUsageBulk(Integer xV, Integer xMinV, LocalDate oldestDate,
+            LocalDate newestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders, ParamIntervalReadsEnum intervalReads) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyUsageRead> usage = service.findUsageForServicePoints(null, oldestDate, newestDate,
+                intervalReads, PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning usage bulk listing page {} of {} (page size of {})",
+                actualPage, usage.getTotalPages(), actualPageSize);
+
+        validatePageRange(page, usage.getTotalPages(), xFapiInteractionId);
         EnergyUsageListResponse response = new EnergyUsageListResponse();
         EnergyUsageListResponseData data = new EnergyUsageListResponseData();
+        data.setReads(usage.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, usage, actualPage, actualPageSize));
+        response.setMeta(getMetaData(usage));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyUsageListResponse> listUsageForServicePoints(Integer xV, Integer xMinV,
-            RequestServicePointIds servicePointIdList, String oldestDate, String newestDate, Integer page,
+            RequestServicePointIds servicePointIdList, LocalDate oldestDate, LocalDate newestDate, Integer page,
             Integer pageSize,UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress,
             String xCdsClientHeaders, ParamIntervalReadsEnum intervalReads) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
-        EnergyUsageListResponse response = new EnergyUsageListResponse();
+        List<String> servicePointIds = servicePointIdList.getData().getServicePointIds();
+        validateServicePointIds(servicePointIds, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyUsageRead> usage = service.findUsageForServicePoints(servicePointIds, oldestDate, newestDate, intervalReads,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning usage for service points: {}, oldest date: {}, newest date: {}, interval reads: {} listing page {} of {} (page size of {})",
+                servicePointIds, oldestDate, newestDate, intervalReads, actualPage, usage.getTotalPages(), actualPageSize);
+
+        validatePageRange(page, usage.getTotalPages(), xFapiInteractionId);
         EnergyUsageListResponseData data = new EnergyUsageListResponseData();
+        data.setReads(usage.getContent());
+        EnergyUsageListResponse response = new EnergyUsageListResponse();
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, usage, actualPage, actualPageSize));
+        response.setMeta(getMetaData(usage));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
+    }
+
+    private void validateServicePointIds(List<String> servicePointIds, UUID interactionId) {
+        ArrayList<Error> errorList = new ArrayList<>();
+        for (String servicePointId : servicePointIds) {
+            if (!service.checkServicePointExistence(servicePointId)) {
+                errorList.add(new Error("Invalid Service Point", "urn:au-cds:error:cds-energy:Authorisation/InvalidServicePoint", servicePointId));
+            }
+        }
+        if (!errorList.isEmpty()) {
+            throwCDSUnprocessableErrors(interactionId, errorList);
+        }
     }
 }

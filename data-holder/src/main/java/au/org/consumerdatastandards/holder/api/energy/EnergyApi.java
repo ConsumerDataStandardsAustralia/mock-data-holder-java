@@ -2,7 +2,6 @@ package au.org.consumerdatastandards.holder.api.energy;
 
 import au.org.consumerdatastandards.holder.api.DateFormat;
 import au.org.consumerdatastandards.holder.model.ErrorListResponse;
-import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponse;
@@ -18,6 +17,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyPlanResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageListResponse;
+import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamIntervalReadsEnum;
@@ -42,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -917,13 +918,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
-                    String oldestDate,
+                    LocalDate oldestDate,
             @ApiParam(
                     value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
-                    String newestDate,
+                    LocalDate newestDate,
             @ApiParam(
                     value = "Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE")
             @Valid
@@ -2159,13 +2160,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
-                    String oldestDate,
+                    LocalDate oldestDate,
             @ApiParam(
                     value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
-                    String newestDate,
+                    LocalDate newestDate,
             @ApiParam(
                     value = "Page of results to request (standard pagination)")
             @Valid
@@ -2280,13 +2281,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
-                    String oldestDate,
+                    LocalDate oldestDate,
             @ApiParam(
                     value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
-                    String newestDate,
+                    LocalDate newestDate,
             @ApiParam(
                     value = "Page of results to request (standard pagination)")
             @Valid

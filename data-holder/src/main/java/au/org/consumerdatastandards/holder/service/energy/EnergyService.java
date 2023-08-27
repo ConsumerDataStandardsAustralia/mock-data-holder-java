@@ -13,6 +13,7 @@ import au.org.consumerdatastandards.holder.model.energy.FuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamAccountOpenStatus;
 import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
+import au.org.consumerdatastandards.holder.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV2Repository;
@@ -35,7 +36,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +120,7 @@ public class EnergyService {
     }
 
     public EnergyPlanDetail getPlanDetail(String planId, Integer version) {
-        LOGGER.debug("Retrieving plan detail by id {}",  planId);
+        LOGGER.debug("Retrieving plan detail by id {}", planId);
 
         switch (version) {
             case 1:
@@ -148,7 +153,7 @@ public class EnergyService {
 
     public EnergyAccountDetail getAccountDetail(String accountId, int version) {
 
-        LOGGER.debug("Retrieving energy account detail by id {}",  accountId);
+        LOGGER.debug("Retrieving energy account detail by id {}", accountId);
 
         switch (version) {
             case 1:
@@ -162,20 +167,68 @@ public class EnergyService {
     }
 
     public Page<EnergyServicePoint> findServicePoints(Pageable pageable) {
-        LOGGER.debug("Retrieve Energy Service Points with Paging content specified as {}" , pageable);
+        LOGGER.debug("Retrieve Energy Service Points with Paging content specified as {}", pageable);
 
         return energyServicePointRepository.findAll(pageable);
     }
 
     public EnergyServicePointDetail getServicePoint(String servicePointId) {
-        LOGGER.debug("Retrieve Energy Service Point with id {}" , servicePointId);
+        LOGGER.debug("Retrieve Energy Service Point with id {}", servicePointId);
 
         return energyServicePointDetailRepository.findById(servicePointId).orElse(null);
     }
 
-    public Page<EnergyUsageRead> findUsageForServicePoint(String servicePointId, Pageable pageable) {
-        LOGGER.debug("Retrieve Energy usage for Service Point with id {}" , servicePointId);
+    public Page<EnergyUsageRead> findUsageForServicePoints(List<String> servicePointIds, LocalDate oldestDate, LocalDate newestDate,
+            ParamIntervalReadsEnum intervalReads, Pageable pageable) {
+        LOGGER.debug("Retrieve Energy usage for Service Points {}, oldest date: {}, newest date: {}, interval reads: {} with Paging content specified as {}",
+                servicePointIds, oldestDate, newestDate, intervalReads, pageable);
 
-        return energyUsageRepository.findByServicePointId(servicePointId, pageable);
+        return energyUsageRepository.findAll(new EnergyUsageSpecification(servicePointIds,
+                oldestDate, newestDate, intervalReads), pageable);
+    }
+
+    public boolean checkServicePointExistence(String servicePointId) {
+        return energyServicePointDetailRepository.findById(servicePointId).isPresent();
+    }
+}
+
+class EnergyUsageSpecification implements Specification<EnergyUsageRead> {
+    private final List<String> servicePointIds;
+    private final LocalDate oldestDate;
+    private final LocalDate newestDate;
+    private final ParamIntervalReadsEnum intervalReads;
+
+    EnergyUsageSpecification(List<String> servicePointIds, LocalDate oldestDate, LocalDate newestDate, ParamIntervalReadsEnum intervalReads) {
+        this.servicePointIds = servicePointIds;
+        this.oldestDate = oldestDate;
+        this.newestDate = newestDate;
+        this.intervalReads = intervalReads;
+    }
+
+    @Override
+    public Predicate toPredicate(Root<EnergyUsageRead> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+        List<Predicate> predicates = new ArrayList<>();
+        if (servicePointIds != null) {
+            predicates.add(root.get("servicePointId").in(servicePointIds));
+            // TODO: Otherwise the current user service points need to be used from security context
+        }
+        if (oldestDate != null) {
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("readStartDate"), oldestDate));
+        }
+        if (newestDate != null) {
+            predicates.add(criteriaBuilder.or(
+                    criteriaBuilder.and(criteriaBuilder.isNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readStartDate"), oldestDate)),
+                    criteriaBuilder.and(criteriaBuilder.isNotNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate))
+                                             ));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate));
+        }
+        if (intervalReads != ParamIntervalReadsEnum.NONE) {
+            if (intervalReads == ParamIntervalReadsEnum.MIN_30) {
+                predicates.add(criteriaBuilder.ge(root.get("intervalRead").get("readIntervalLength"), 30));
+            } else {
+                predicates.add(criteriaBuilder.gt(root.get("intervalRead").get("readIntervalLength"), 0));
+            }
+        }
+        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }
