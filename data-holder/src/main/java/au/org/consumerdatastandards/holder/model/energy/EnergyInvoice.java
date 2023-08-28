@@ -1,12 +1,21 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,88 +23,69 @@ import java.util.Objects;
 /**
  * EnergyInvoice
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyInvoice {
-    @JsonProperty("accountId")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String accountId;
 
-    @JsonProperty("invoiceNumber")
     private String invoiceNumber;
 
-    @JsonProperty("issueDate")
-    private String issueDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate issueDate;    // "x-cds-type" : "DateString"
 
-    @JsonProperty("dueDate")
-    private String dueDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate dueDate;      // "x-cds-type" : "DateString"
 
-    @JsonProperty("period")
+    @Embedded
     private EnergyInvoicePeriod period;
 
-    @JsonProperty("invoiceAmount")
     private String invoiceAmount;
 
-    @JsonProperty("gstAmount")
     private String gstAmount;
 
-    @JsonProperty("payOnTimeDiscount")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyInvoicePayOnTimeDiscount payOnTimeDiscount;
 
-    @JsonProperty("balanceAtIssue")
     private String balanceAtIssue;
 
-    @JsonProperty("servicePoints")
+    @ElementCollection
     @Valid
     private List<String> servicePoints = new ArrayList<>();
 
-    @JsonProperty("gas")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyInvoiceGasUsageCharges gas;
 
-    @JsonProperty("electricity")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyInvoiceElectricityUsageCharges electricity;
 
-    @JsonProperty("accountCharges")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyInvoiceAccountCharges accountCharges;
 
     /**
      * Indicator of the payment status for the invoice
      */
     public enum PaymentStatusEnum {
-        PAID("PAID"),
-
-        PARTIALLY_PAID("PARTIALLY_PAID"),
-
-        NOT_PAID("NOT_PAID");
-
-        private String value;
-
-        PaymentStatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static PaymentStatusEnum fromValue(String value) {
-            for (PaymentStatusEnum b : PaymentStatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        PAID,
+        PARTIALLY_PAID,
+        NOT_PAID
     }
 
-    @JsonProperty("paymentStatus")
     private PaymentStatusEnum paymentStatus;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyInvoice accountId(String accountId) {
         this.accountId = accountId;
@@ -107,11 +97,8 @@ public class EnergyInvoice {
      *
      * @return accountId
      */
-    @ApiModelProperty(required = true,
-            value = "The ID of the account for which the invoice was issued")
+    @ApiModelProperty(required = true, value = "The ID of the account for which the invoice was issued")
     @NotNull
-
-
     public String getAccountId() {
         return accountId;
     }
@@ -130,11 +117,8 @@ public class EnergyInvoice {
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(required = true,
-            value = "The number assigned to this invoice by the energy Retailer")
+    @ApiModelProperty(required = true, value = "The number assigned to this invoice by the energy Retailer")
     @NotNull
-
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -143,7 +127,7 @@ public class EnergyInvoice {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public EnergyInvoice issueDate(String issueDate) {
+    public EnergyInvoice issueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
         return this;
     }
@@ -156,17 +140,15 @@ public class EnergyInvoice {
     @ApiModelProperty(required = true,
             value = "The date that the invoice was actually issued (as opposed to generated or calculated)")
     @NotNull
-
-
-    public String getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(String issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
-    public EnergyInvoice dueDate(String dueDate) {
+    public EnergyInvoice dueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
         return this;
     }
@@ -177,13 +159,11 @@ public class EnergyInvoice {
      * @return dueDate
      */
     @ApiModelProperty(value = "The date that the invoice is due to be paid")
-
-
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -198,9 +178,7 @@ public class EnergyInvoice {
      * @return period
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyInvoicePeriod getPeriod() {
         return period;
     }
@@ -220,8 +198,6 @@ public class EnergyInvoice {
      * @return invoiceAmount
      */
     @ApiModelProperty(value = "The net amount due for this invoice regardless of previous balance")
-
-
     public String getInvoiceAmount() {
         return invoiceAmount;
     }
@@ -241,8 +217,6 @@ public class EnergyInvoice {
      * @return gstAmount
      */
     @ApiModelProperty(value = "The total GST amount for this invoice.  If absent then zero is assumed")
-
-
     public String getGstAmount() {
         return gstAmount;
     }
@@ -262,9 +236,7 @@ public class EnergyInvoice {
      * @return payOnTimeDiscount
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyInvoicePayOnTimeDiscount getPayOnTimeDiscount() {
         return payOnTimeDiscount;
     }
@@ -283,11 +255,8 @@ public class EnergyInvoice {
      *
      * @return balanceAtIssue
      */
-    @ApiModelProperty(required = true,
-            value = "The account balance at the time the invoice was issued")
+    @ApiModelProperty(required = true, value = "The account balance at the time the invoice was issued")
     @NotNull
-
-
     public String getBalanceAtIssue() {
         return balanceAtIssue;
     }
@@ -314,8 +283,6 @@ public class EnergyInvoice {
     @ApiModelProperty(required = true,
             value = "Array of service point IDs to which this invoice applies. May be empty if the invoice contains no electricity usage related charges")
     @NotNull
-
-
     public List<String> getServicePoints() {
         return servicePoints;
     }
@@ -335,9 +302,7 @@ public class EnergyInvoice {
      * @return gas
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyInvoiceGasUsageCharges getGas() {
         return gas;
     }
@@ -357,9 +322,7 @@ public class EnergyInvoice {
      * @return electricity
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyInvoiceElectricityUsageCharges getElectricity() {
         return electricity;
     }
@@ -379,9 +342,7 @@ public class EnergyInvoice {
      * @return accountCharges
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyInvoiceAccountCharges getAccountCharges() {
         return accountCharges;
     }
@@ -400,11 +361,8 @@ public class EnergyInvoice {
      *
      * @return paymentStatus
      */
-    @ApiModelProperty(required = true,
-            value = "Indicator of the payment status for the invoice")
+    @ApiModelProperty(required = true, value = "Indicator of the payment status for the invoice")
     @NotNull
-
-
     public PaymentStatusEnum getPaymentStatus() {
         return paymentStatus;
     }
@@ -412,7 +370,6 @@ public class EnergyInvoice {
     public void setPaymentStatus(PaymentStatusEnum paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -448,7 +405,6 @@ public class EnergyInvoice {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyInvoice {\n");
-
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
         sb.append("    issueDate: ").append(toIndentedString(issueDate)).append("\n");
@@ -478,4 +434,3 @@ public class EnergyInvoice {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

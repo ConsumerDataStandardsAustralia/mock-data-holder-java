@@ -1,8 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -10,12 +15,27 @@ import java.util.Objects;
  * Object contains account level charges and credits related to electricity usage
  */
 @ApiModel(description = "Object contains account level charges and credits related to electricity usage")
+@Entity
 public class EnergyInvoiceAccountCharges {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String totalCharges;
 
     private String totalDiscounts;
 
     private String totalGst;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyInvoiceAccountCharges totalCharges(String totalCharges) {
         this.totalCharges = totalCharges;

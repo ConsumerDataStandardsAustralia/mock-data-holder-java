@@ -1,26 +1,30 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Object containing the start and end date for the period covered by the invoice.  Mandatory if any usage or demand based charges are included in the invoice
  */
 @ApiModel(description = "Object containing the start and end date for the period covered by the invoice.  Mandatory if any usage or demand based charges are included in the invoice")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Embeddable
 public class EnergyInvoicePeriod {
-    @JsonProperty("startDate")
-    private String startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate startDate;    // "x-cds-type" : "DateString"
 
-    @JsonProperty("endDate")
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate endDate;      // "x-cds-type" : "DateString"
 
-    public EnergyInvoicePeriod startDate(String startDate) {
+    public EnergyInvoicePeriod startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -30,20 +34,17 @@ public class EnergyInvoicePeriod {
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true,
-            value = "The start date of the period covered by this invoice")
+    @ApiModelProperty(required = true, value = "The start date of the period covered by this invoice")
     @NotNull
-
-
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyInvoicePeriod endDate(String endDate) {
+    public EnergyInvoicePeriod endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -53,19 +54,15 @@ public class EnergyInvoicePeriod {
      *
      * @return endDate
      */
-    @ApiModelProperty(required = true,
-            value = "The end date of the period covered by this invoice")
+    @ApiModelProperty(required = true, value = "The end date of the period covered by this invoice")
     @NotNull
-
-
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -89,7 +86,6 @@ public class EnergyInvoicePeriod {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyInvoicePeriod {\n");
-
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
         sb.append("}");
@@ -107,4 +103,3 @@ public class EnergyInvoicePeriod {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

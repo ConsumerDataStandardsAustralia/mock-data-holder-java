@@ -576,13 +576,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
-                    String newestDate,
+                    LocalDate newestDate,
             @ApiParam(
                     value = "Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
-                    String oldestDate,
+                    LocalDate oldestDate,
             @ApiParam(value = "Page of results to request (standard pagination)")
             @Valid
             @RequestParam(value = "page",
@@ -1740,13 +1740,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
-                    String newestDate,
+                    LocalDate newestDate,
             @ApiParam(
                     value = "Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
-                    String oldestDate,
+                    LocalDate oldestDate,
             @ApiParam(
                     value = "Page of results to request (standard pagination)")
             @Valid
@@ -1854,13 +1854,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
-                    String newestDate,
+                    LocalDate newestDate,
             @ApiParam(
                     value = "Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
-                    String oldestDate,
+                    LocalDate oldestDate,
             @ApiParam(
                     value = "Page of results to request (standard pagination)")
             @Valid

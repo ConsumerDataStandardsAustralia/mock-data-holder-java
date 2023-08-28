@@ -1,8 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -12,27 +18,35 @@ import java.util.Objects;
 /**
  * EnergyInvoiceGasUsageCharges
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyInvoiceGasUsageCharges {
-    @JsonProperty("totalUsageCharges")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String totalUsageCharges;
 
-    @JsonProperty("totalGenerationCredits")
     private String totalGenerationCredits;
 
-    @JsonProperty("totalOnceOffCharges")
     private String totalOnceOffCharges;
 
-    @JsonProperty("totalOnceOffDiscounts")
     private String totalOnceOffDiscounts;
 
-    @JsonProperty("otherCharges")
+    @OneToMany(cascade = CascadeType.ALL)
     @Valid
-    private List<EnergyInvoiceGasUsageChargesOtherCharges> otherCharges = null;
+    private List<EnergyInvoiceUsageChargesOtherCharges> otherCharges = null;
 
-    @JsonProperty("totalGst")
     private String totalGst;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyInvoiceGasUsageCharges totalUsageCharges(String totalUsageCharges) {
         this.totalUsageCharges = totalUsageCharges;
@@ -47,8 +61,6 @@ public class EnergyInvoiceGasUsageCharges {
     @ApiModelProperty(required = true,
             value = "The aggregate total of usage charges for the period covered by the invoice (exclusive of GST)")
     @NotNull
-
-
     public String getTotalUsageCharges() {
         return totalUsageCharges;
     }
@@ -70,8 +82,6 @@ public class EnergyInvoiceGasUsageCharges {
     @ApiModelProperty(required = true,
             value = "The aggregate total of generation credits for the period covered by the invoice (exclusive of GST)")
     @NotNull
-
-
     public String getTotalGenerationCredits() {
         return totalGenerationCredits;
     }
@@ -93,8 +103,6 @@ public class EnergyInvoiceGasUsageCharges {
     @ApiModelProperty(required = true,
             value = "The aggregate total of any once off charges arising from electricity usage for the period covered by the invoice (exclusive of GST)")
     @NotNull
-
-
     public String getTotalOnceOffCharges() {
         return totalOnceOffCharges;
     }
@@ -116,8 +124,6 @@ public class EnergyInvoiceGasUsageCharges {
     @ApiModelProperty(required = true,
             value = "The aggregate total of any once off discounts or credits arising from electricity usage for the period covered by the invoice (exclusive of GST)")
     @NotNull
-
-
     public String getTotalOnceOffDiscounts() {
         return totalOnceOffDiscounts;
     }
@@ -126,12 +132,12 @@ public class EnergyInvoiceGasUsageCharges {
         this.totalOnceOffDiscounts = totalOnceOffDiscounts;
     }
 
-    public EnergyInvoiceGasUsageCharges otherCharges(List<EnergyInvoiceGasUsageChargesOtherCharges> otherCharges) {
+    public EnergyInvoiceGasUsageCharges otherCharges(List<EnergyInvoiceUsageChargesOtherCharges> otherCharges) {
         this.otherCharges = otherCharges;
         return this;
     }
 
-    public EnergyInvoiceGasUsageCharges addOtherChargesItem(EnergyInvoiceGasUsageChargesOtherCharges otherChargesItem) {
+    public EnergyInvoiceGasUsageCharges addOtherChargesItem(EnergyInvoiceUsageChargesOtherCharges otherChargesItem) {
         if (this.otherCharges == null) {
             this.otherCharges = new ArrayList<>();
         }
@@ -145,14 +151,12 @@ public class EnergyInvoiceGasUsageCharges {
      * @return otherCharges
      */
     @ApiModelProperty(value = "Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&I consumers) (exclusive of GST)")
-
     @Valid
-
-    public List<EnergyInvoiceGasUsageChargesOtherCharges> getOtherCharges() {
+    public List<EnergyInvoiceUsageChargesOtherCharges> getOtherCharges() {
         return otherCharges;
     }
 
-    public void setOtherCharges(List<EnergyInvoiceGasUsageChargesOtherCharges> otherCharges) {
+    public void setOtherCharges(List<EnergyInvoiceUsageChargesOtherCharges> otherCharges) {
         this.otherCharges = otherCharges;
     }
 
@@ -167,8 +171,6 @@ public class EnergyInvoiceGasUsageCharges {
      * @return totalGst
      */
     @ApiModelProperty(value = "The total GST for all electricity usage charges.  If absent then zero is assumed")
-
-
     public String getTotalGst() {
         return totalGst;
     }
@@ -176,7 +178,6 @@ public class EnergyInvoiceGasUsageCharges {
     public void setTotalGst(String totalGst) {
         this.totalGst = totalGst;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -204,7 +205,6 @@ public class EnergyInvoiceGasUsageCharges {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyInvoiceGasUsageCharges {\n");
-
         sb.append("    totalUsageCharges: ").append(toIndentedString(totalUsageCharges)).append("\n");
         sb.append("    totalGenerationCredits: ").append(toIndentedString(totalGenerationCredits)).append("\n");
         sb.append("    totalOnceOffCharges: ").append(toIndentedString(totalOnceOffCharges)).append("\n");
@@ -226,4 +226,3 @@ public class EnergyInvoiceGasUsageCharges {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

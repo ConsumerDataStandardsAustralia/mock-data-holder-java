@@ -3,6 +3,7 @@ package au.org.consumerdatastandards.holder.service.energy;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
@@ -20,6 +21,7 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetail
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanRepository;
@@ -54,6 +56,7 @@ public class EnergyService {
     private final EnergyAccountDetailV1Repository energyAccountDetailV1Repository;
     private final EnergyAccountDetailV2Repository energyAccountDetailV2Repository;
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
+    private final EnergyInvoiceRepository energyInvoiceRepository;
     private final EnergyPlanRepository energyPlanRepository;
     private final EnergyPlanDetailV1Repository energyPlanDetailV1Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
@@ -68,6 +71,7 @@ public class EnergyService {
             EnergyAccountDetailV1Repository energyAccountDetailV1Repository,
             EnergyAccountDetailV2Repository energyAccountDetailV2Repository,
             EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
+            EnergyInvoiceRepository energyInvoiceRepository,
             EnergyServicePointRepository energyServicePointRepository,
             EnergyServicePointDetailRepository energyServicePointDetailRepository,
             EnergyUsageRepository energyUsageRepository,
@@ -80,6 +84,7 @@ public class EnergyService {
         this.energyAccountDetailV1Repository = energyAccountDetailV1Repository;
         this.energyAccountDetailV2Repository = energyAccountDetailV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
+        this.energyInvoiceRepository = energyInvoiceRepository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyServicePointDetailRepository = energyServicePointDetailRepository;
         this.energyUsageRepository = energyUsageRepository;
@@ -166,9 +171,38 @@ public class EnergyService {
         }
     }
 
+    public Page<EnergyInvoice> findInvoices(List<String> accountIds, LocalDate oldestDate, LocalDate newestDate, Pageable pageable) {
+        LOGGER.debug("Retrieve Energy invoices for accounts {}, oldest date: {}, newest date: {} with Paging content specified as {}",
+                accountIds, oldestDate, newestDate, pageable);
+
+        return energyInvoiceRepository.findAll((Root<EnergyInvoice> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (accountIds != null) {
+                predicates.add(root.get("accountId").in(accountIds));
+                // TODO: Otherwise the current user accounts need to be used from security context
+            }
+            if (oldestDate != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("readStartDate"), oldestDate));
+            }
+            if (newestDate != null) {
+                predicates.add(criteriaBuilder.or(
+                        criteriaBuilder.and(criteriaBuilder.isNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readStartDate"), oldestDate)),
+                        criteriaBuilder.and(criteriaBuilder.isNotNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate))
+               ));
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate));
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
+    }
+
+    public boolean checkAccountExistence(String accountId) {
+        return energyAccountV2Repository.existsById(accountId);
+    }
+
     public Page<EnergyServicePoint> findServicePoints(Pageable pageable) {
         LOGGER.debug("Retrieve Energy Service Points with Paging content specified as {}", pageable);
 
+        // TODO: Only current customer's service points need to be returned
         return energyServicePointRepository.findAll(pageable);
     }
 
@@ -183,52 +217,34 @@ public class EnergyService {
         LOGGER.debug("Retrieve Energy usage for Service Points {}, oldest date: {}, newest date: {}, interval reads: {} with Paging content specified as {}",
                 servicePointIds, oldestDate, newestDate, intervalReads, pageable);
 
-        return energyUsageRepository.findAll(new EnergyUsageSpecification(servicePointIds,
-                oldestDate, newestDate, intervalReads), pageable);
+        return energyUsageRepository.findAll((Root<EnergyUsageRead> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (servicePointIds != null) {
+                predicates.add(root.get("servicePointId").in(servicePointIds));
+                // TODO: Otherwise the current user service points need to be used from security context
+            }
+            if (oldestDate != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("readStartDate"), oldestDate));
+            }
+            if (newestDate != null) {
+                predicates.add(criteriaBuilder.or(
+                        criteriaBuilder.and(criteriaBuilder.isNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readStartDate"), oldestDate)),
+                        criteriaBuilder.and(criteriaBuilder.isNotNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate))
+                ));
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate));
+            }
+            if (intervalReads != ParamIntervalReadsEnum.NONE) {
+                if (intervalReads == ParamIntervalReadsEnum.MIN_30) {
+                    predicates.add(criteriaBuilder.ge(root.get("intervalRead").get("readIntervalLength"), 30));
+                } else {
+                    predicates.add(criteriaBuilder.gt(root.get("intervalRead").get("readIntervalLength"), 0));
+                }
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
     }
 
     public boolean checkServicePointExistence(String servicePointId) {
-        return energyServicePointDetailRepository.findById(servicePointId).isPresent();
-    }
-}
-
-class EnergyUsageSpecification implements Specification<EnergyUsageRead> {
-    private final List<String> servicePointIds;
-    private final LocalDate oldestDate;
-    private final LocalDate newestDate;
-    private final ParamIntervalReadsEnum intervalReads;
-
-    EnergyUsageSpecification(List<String> servicePointIds, LocalDate oldestDate, LocalDate newestDate, ParamIntervalReadsEnum intervalReads) {
-        this.servicePointIds = servicePointIds;
-        this.oldestDate = oldestDate;
-        this.newestDate = newestDate;
-        this.intervalReads = intervalReads;
-    }
-
-    @Override
-    public Predicate toPredicate(Root<EnergyUsageRead> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        List<Predicate> predicates = new ArrayList<>();
-        if (servicePointIds != null) {
-            predicates.add(root.get("servicePointId").in(servicePointIds));
-            // TODO: Otherwise the current user service points need to be used from security context
-        }
-        if (oldestDate != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("readStartDate"), oldestDate));
-        }
-        if (newestDate != null) {
-            predicates.add(criteriaBuilder.or(
-                    criteriaBuilder.and(criteriaBuilder.isNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readStartDate"), oldestDate)),
-                    criteriaBuilder.and(criteriaBuilder.isNotNull(root.get("readEndDate")), criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate))
-                                             ));
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate));
-        }
-        if (intervalReads != ParamIntervalReadsEnum.NONE) {
-            if (intervalReads == ParamIntervalReadsEnum.MIN_30) {
-                predicates.add(criteriaBuilder.ge(root.get("intervalRead").get("readIntervalLength"), 30));
-            } else {
-                predicates.add(criteriaBuilder.gt(root.get("intervalRead").get("readIntervalLength"), 0));
-            }
-        }
-        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        return energyServicePointDetailRepository.existsById(servicePointId);
     }
 }

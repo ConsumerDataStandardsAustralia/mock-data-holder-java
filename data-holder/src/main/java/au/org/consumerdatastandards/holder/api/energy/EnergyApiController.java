@@ -22,6 +22,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyDerDetailResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyDerListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyDerListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyDerRecord;
+import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoiceListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoiceListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
@@ -93,9 +94,17 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyAccountDetailResponse response = new EnergyAccountDetailResponse();
         EnergyAccountDetail energyAccountDetail = service.getAccountDetail(accountId, supportedVersion);
+        if (energyAccountDetail == null) {
+            throwInvalidAccount(accountId, xFapiInteractionId);
+        }
         response.setData(energyAccountDetail);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, headers, HttpStatus.OK);
+    }
+
+    private void throwInvalidAccount(String accountId, UUID xFapiInteractionId) {
+        throwCDSErrors(xFapiInteractionId, Collections.singletonList(
+                new Error("Invalid Energy Account", "urn:au-cds:error:cds-energy:Authorisation/InvalidEnergyAccount", accountId)), HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -152,16 +161,31 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> getInvoicesForAccount(String accountId, Integer xV, Integer xMinV,
-            String newestDate, String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
+            LocalDate newestDate, LocalDate oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        if (!service.checkAccountExistence(accountId)) {
+            throwInvalidAccount(accountId, xFapiInteractionId);
+        }
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyInvoice> invoices = service.findInvoices(Collections.singletonList(accountId), oldestDate, newestDate,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning invoices for account: {}, oldest date: {}, newest date: {} listing page {} of {} (page size of {})",
+                accountId, oldestDate, newestDate, actualPage, invoices.getTotalPages(), actualPageSize);
+
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
         EnergyInvoiceListResponseData data = new EnergyInvoiceListResponseData();
+        data.setInvoices(invoices.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, invoices, actualPage, actualPageSize));
+        response.setMeta(getMetaData(invoices));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
@@ -205,9 +229,18 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyServicePointDetailResponse response = new EnergyServicePointDetailResponse();
         EnergyServicePointDetail servicePointDetail = service.getServicePoint(servicePointId);
+        if (servicePointDetail == null) {
+            throwInvalidServicePoint(servicePointId, xFapiInteractionId);
+        }
+
         response.setData(servicePointDetail);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, headers, HttpStatus.OK);
+    }
+
+    private void throwInvalidServicePoint(String servicePointId, UUID xFapiInteractionId) {
+        throwCDSErrors(xFapiInteractionId, Collections.singletonList(
+                new Error("Invalid Service Point", "urn:au-cds:error:cds-energy:Authorisation/InvalidServicePoint", servicePointId)), HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -217,6 +250,9 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        if (!service.checkServicePointExistence(servicePointId)) {
+            throwInvalidServicePoint(servicePointId, xFapiInteractionId);
+        }
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -366,31 +402,71 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyInvoiceListResponse> listInvoicesBulk(Integer xV, Integer xMinV, String newestDate,
-            String oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
+    public ResponseEntity<EnergyInvoiceListResponse> listInvoicesBulk(Integer xV, Integer xMinV, LocalDate newestDate,
+            LocalDate oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyInvoice> invoices = service.findInvoices(null, oldestDate, newestDate,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning invoices bulk for oldest date: {}, newest date: {} listing page {} of {} (page size of {})",
+                oldestDate, newestDate, actualPage, invoices.getTotalPages(), actualPageSize);
+
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
         EnergyInvoiceListResponseData data = new EnergyInvoiceListResponseData();
+        data.setInvoices(invoices.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, invoices, actualPage, actualPageSize));
+        response.setMeta(getMetaData(invoices));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyInvoiceListResponse> listInvoicesForAccounts(Integer xV, Integer xMinV,
-            RequestAccountIds accountIdList, String newestDate, String oldestDate, Integer page, Integer pageSize,
+            RequestAccountIds accountIdList, LocalDate newestDate, LocalDate oldestDate, Integer page, Integer pageSize,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        List<String> accountIds = accountIdList.getData().getAccountIds();
+        validateAccountIds(accountIds, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyInvoice> invoices = service.findInvoices(accountIds, oldestDate, newestDate,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning invoices for accounts: {}, oldest date: {}, newest date: {} listing page {} of {} (page size of {})",
+                accountIdList, oldestDate, newestDate, actualPage, invoices.getTotalPages(), actualPageSize);
+
         EnergyInvoiceListResponse response = new EnergyInvoiceListResponse();
         EnergyInvoiceListResponseData data = new EnergyInvoiceListResponseData();
+        data.setInvoices(invoices.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, invoices, actualPage, actualPageSize));
+        response.setMeta(getMetaData(invoices));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
+    }
+
+    private void validateAccountIds(List<String> accountIds, UUID interactionId) {
+        ArrayList<Error> errorList = new ArrayList<>();
+        for (String accountId : accountIds) {
+            if (!service.checkAccountExistence(accountId)) {
+                errorList.add(new Error("Invalid Energy Account", "urn:au-cds:error:cds-energy:Authorisation/InvalidEnergyAccount", accountId));
+            }
+        }
+        if (!errorList.isEmpty()) {
+            throwCDSUnprocessableErrors(interactionId, errorList);
+        }
     }
 
     @Override
@@ -465,8 +541,8 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
                 intervalReads, PageRequest.of(actualPage - 1, actualPageSize));
 
         logger.info(
-                "Returning usage bulk listing page {} of {} (page size of {})",
-                actualPage, usage.getTotalPages(), actualPageSize);
+                "Returning usage bulk for oldest date: {}, newest date: {} listing page {} of {} (page size of {})",
+                oldestDate, newestDate, actualPage, usage.getTotalPages(), actualPageSize);
 
         validatePageRange(page, usage.getTotalPages(), xFapiInteractionId);
         EnergyUsageListResponse response = new EnergyUsageListResponse();

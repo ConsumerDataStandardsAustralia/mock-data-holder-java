@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ public class EnergyInvoicePayOnTimeDiscount {
 
     private String gstAmount;
 
-    private String date;
+    private LocalDate date;
 
     public EnergyInvoicePayOnTimeDiscount discountAmount(String discountAmount) {
         this.discountAmount = discountAmount;
@@ -48,7 +49,7 @@ public class EnergyInvoicePayOnTimeDiscount {
         this.gstAmount = gstAmount;
     }
 
-    public EnergyInvoicePayOnTimeDiscount date(String date) {
+    public EnergyInvoicePayOnTimeDiscount date(LocalDate date) {
         this.date = date;
         return this;
     }
@@ -58,11 +59,11 @@ public class EnergyInvoicePayOnTimeDiscount {
      *
      * @return date
      */
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

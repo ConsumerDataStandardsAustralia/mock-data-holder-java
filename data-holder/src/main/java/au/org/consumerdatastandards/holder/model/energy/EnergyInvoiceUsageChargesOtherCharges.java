@@ -1,11 +1,26 @@
-package au.org.consumerdatastandards.client.model.energy;
+package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * EnergyInvoiceGasUsageChargesOtherCharges
+ * EnergyInvoiceUsageChargesOtherCharges
  */
-public class EnergyInvoiceGasUsageChargesOtherCharges {
+@Entity
+public class EnergyInvoiceUsageChargesOtherCharges {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     /**
      * Type of charge. Assumed to be other if absent
      */
@@ -25,7 +40,15 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
 
     private String description;
 
-    public EnergyInvoiceGasUsageChargesOtherCharges type(TypeEnum type) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public EnergyInvoiceUsageChargesOtherCharges type(TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -35,6 +58,7 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
      *
      * @return type
      */
+    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent")
     public TypeEnum getType() {
         return type;
     }
@@ -43,7 +67,7 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
         this.type = type;
     }
 
-    public EnergyInvoiceGasUsageChargesOtherCharges amount(String amount) {
+    public EnergyInvoiceUsageChargesOtherCharges amount(String amount) {
         this.amount = amount;
         return this;
     }
@@ -53,6 +77,8 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
      *
      * @return amount
      */
+    @ApiModelProperty(required = true, value = "The aggregate total of charges for this item (exclusive of GST)")
+    @NotNull
     public String getAmount() {
         return amount;
     }
@@ -61,7 +87,7 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
         this.amount = amount;
     }
 
-    public EnergyInvoiceGasUsageChargesOtherCharges description(String description) {
+    public EnergyInvoiceUsageChargesOtherCharges description(String description) {
         this.description = description;
         return this;
     }
@@ -71,6 +97,8 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
      *
      * @return description
      */
+    @ApiModelProperty(required = true, value = "A free text description of the type of charge")
+    @NotNull
     public String getDescription() {
         return description;
     }
@@ -87,10 +115,10 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyInvoiceGasUsageChargesOtherCharges energyInvoiceGasUsageChargesOtherCharges = (EnergyInvoiceGasUsageChargesOtherCharges) o;
-        return Objects.equals(this.type, energyInvoiceGasUsageChargesOtherCharges.type) &&
-                Objects.equals(this.amount, energyInvoiceGasUsageChargesOtherCharges.amount) &&
-                Objects.equals(this.description, energyInvoiceGasUsageChargesOtherCharges.description);
+        EnergyInvoiceUsageChargesOtherCharges energyInvoiceUsageChargesOtherCharges = (EnergyInvoiceUsageChargesOtherCharges) o;
+        return Objects.equals(this.type, energyInvoiceUsageChargesOtherCharges.type) &&
+                Objects.equals(this.amount, energyInvoiceUsageChargesOtherCharges.amount) &&
+                Objects.equals(this.description, energyInvoiceUsageChargesOtherCharges.description);
     }
 
     @Override
@@ -101,7 +129,7 @@ public class EnergyInvoiceGasUsageChargesOtherCharges {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyInvoiceGasUsageChargesOtherCharges {\n");
+        sb.append("class EnergyInvoiceUsageChargesOtherCharges {\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");

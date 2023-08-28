@@ -16,7 +16,7 @@ public class EnergyInvoiceGasUsageCharges {
 
     private String totalOnceOffDiscounts;
 
-    private List<EnergyInvoiceGasUsageChargesOtherCharges> otherCharges = null;
+    private List<EnergyInvoiceUsageChargesOtherCharges> otherCharges = null;
 
     private String totalGst;
 
@@ -92,12 +92,12 @@ public class EnergyInvoiceGasUsageCharges {
         this.totalOnceOffDiscounts = totalOnceOffDiscounts;
     }
 
-    public EnergyInvoiceGasUsageCharges otherCharges(List<EnergyInvoiceGasUsageChargesOtherCharges> otherCharges) {
+    public EnergyInvoiceGasUsageCharges otherCharges(List<EnergyInvoiceUsageChargesOtherCharges> otherCharges) {
         this.otherCharges = otherCharges;
         return this;
     }
 
-    public EnergyInvoiceGasUsageCharges addOtherChargesItem(EnergyInvoiceGasUsageChargesOtherCharges otherChargesItem) {
+    public EnergyInvoiceGasUsageCharges addOtherChargesItem(EnergyInvoiceUsageChargesOtherCharges otherChargesItem) {
         if (this.otherCharges == null) {
             this.otherCharges = new ArrayList<>();
         }
@@ -110,11 +110,11 @@ public class EnergyInvoiceGasUsageCharges {
      *
      * @return otherCharges
      */
-    public List<EnergyInvoiceGasUsageChargesOtherCharges> getOtherCharges() {
+    public List<EnergyInvoiceUsageChargesOtherCharges> getOtherCharges() {
         return otherCharges;
     }
 
-    public void setOtherCharges(List<EnergyInvoiceGasUsageChargesOtherCharges> otherCharges) {
+    public void setOtherCharges(List<EnergyInvoiceUsageChargesOtherCharges> otherCharges) {
         this.otherCharges = otherCharges;
     }
 

@@ -1,27 +1,46 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * A discount for on time payment
  */
 @ApiModel(description = "A discount for on time payment")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyInvoicePayOnTimeDiscount {
-    @JsonProperty("discountAmount")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String discountAmount;
 
-    @JsonProperty("gstAmount")
     private String gstAmount;
 
-    @JsonProperty("date")
-    private String date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate date;     // "x-cds-type" : "DateString"
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyInvoicePayOnTimeDiscount discountAmount(String discountAmount) {
         this.discountAmount = discountAmount;
@@ -36,8 +55,6 @@ public class EnergyInvoicePayOnTimeDiscount {
     @ApiModelProperty(required = true,
             value = "The amount that will be discounted if the invoice is paid by the date specified")
     @NotNull
-
-
     public String getDiscountAmount() {
         return discountAmount;
     }
@@ -57,8 +74,6 @@ public class EnergyInvoicePayOnTimeDiscount {
      * @return gstAmount
      */
     @ApiModelProperty(value = "The GST amount that will be discounted if the invoice is paid by the date specified.  If absent then zero is assumed")
-
-
     public String getGstAmount() {
         return gstAmount;
     }
@@ -67,7 +82,7 @@ public class EnergyInvoicePayOnTimeDiscount {
         this.gstAmount = gstAmount;
     }
 
-    public EnergyInvoicePayOnTimeDiscount date(String date) {
+    public EnergyInvoicePayOnTimeDiscount date(LocalDate date) {
         this.date = date;
         return this;
     }
@@ -80,16 +95,13 @@ public class EnergyInvoicePayOnTimeDiscount {
     @ApiModelProperty(required = true,
             value = "The date by which the invoice must be paid to receive the pay on time discount")
     @NotNull
-
-
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -114,7 +126,6 @@ public class EnergyInvoicePayOnTimeDiscount {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyInvoicePayOnTimeDiscount {\n");
-
         sb.append("    discountAmount: ").append(toIndentedString(discountAmount)).append("\n");
         sb.append("    gstAmount: ").append(toIndentedString(gstAmount)).append("\n");
         sb.append("    date: ").append(toIndentedString(date)).append("\n");
@@ -133,4 +144,3 @@ public class EnergyInvoicePayOnTimeDiscount {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

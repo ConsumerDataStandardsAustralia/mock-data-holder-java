@@ -1,16 +1,17 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Object containing the start and end date for the period covered by the invoice.  Mandatory if any usage or demand based charges are included in the invoice
  */
 public class EnergyInvoicePeriod {
-    private String startDate;
+    private LocalDate startDate;
 
-    private String endDate;
+    private LocalDate endDate;
 
-    public EnergyInvoicePeriod startDate(String startDate) {
+    public EnergyInvoicePeriod startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -20,15 +21,15 @@ public class EnergyInvoicePeriod {
      *
      * @return startDate
      */
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyInvoicePeriod endDate(String endDate) {
+    public EnergyInvoicePeriod endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -38,11 +39,11 @@ public class EnergyInvoicePeriod {
      *
      * @return endDate
      */
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
