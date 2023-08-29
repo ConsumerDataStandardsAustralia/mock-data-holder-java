@@ -13,6 +13,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
@@ -28,6 +29,7 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingProductDeta
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
@@ -74,6 +76,7 @@ public class CdsDataLoader implements ApplicationRunner {
     private final EnergyAccountV2Repository energyAccountV2Repository;
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
+    private final EnergyBillingTransactionRepository energyBillingTransactionRepository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
     private final EnergyServicePointDetailRepository energyServicePointRepository;
     private final EnergyUsageRepository energyUsageRepository;
@@ -92,6 +95,7 @@ public class CdsDataLoader implements ApplicationRunner {
                          EnergyAccountV2Repository energyAccountV2Repository,
                          EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
                          EnergyInvoiceRepository energyInvoiceRepository,
+                         EnergyBillingTransactionRepository energyBillingTransactionRepository,
                          EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
                          EnergyServicePointDetailRepository energyServicePointRepository,
                          EnergyUsageRepository energyUsageRepository,
@@ -107,6 +111,7 @@ public class CdsDataLoader implements ApplicationRunner {
         this.energyAccountV2Repository = energyAccountV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyInvoiceRepository = energyInvoiceRepository;
+        this.energyBillingTransactionRepository = energyBillingTransactionRepository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyUsageRepository = energyUsageRepository;
@@ -161,10 +166,18 @@ public class CdsDataLoader implements ApplicationRunner {
                 LOGGER.info("Loading account: {}", account.getAccountId());
                 energyAccountDetailV3Repository.save(account);
 
+                // Load invoices
                 for (JsonNode invoiceEl : accountEl.path("invoices")) {
                     EnergyInvoice invoice = objectMapper.treeToValue(invoiceEl, EnergyInvoice.class);
                     LOGGER.info("Loading invoice number {} of account: {}", invoice.getInvoiceNumber(), invoice.getAccountId());
                     energyInvoiceRepository.save(invoice);
+                }
+
+                // Load billing
+                LOGGER.info("Loading billing transaction of account: {}", account.getAccountId());
+                for (JsonNode invoiceEl : accountEl.path("transactions")) {
+                    EnergyBillingTransaction invoice = objectMapper.treeToValue(invoiceEl, EnergyBillingTransaction.class);
+                    energyBillingTransactionRepository.save(invoice);
                 }
             }
 
@@ -175,9 +188,9 @@ public class CdsDataLoader implements ApplicationRunner {
                 energyServicePointRepository.save(servicePoint);
 
                 // Load service point usage
+                LOGGER.info("Loading usage of service point: {}", servicePoint.getServicePointId());
                 for (JsonNode usageEl : servicePointEl.path("usage")) {
                     EnergyUsageRead usage = objectMapper.treeToValue(usageEl, EnergyUsageRead.class);
-                    LOGGER.info("Loading usage of service point: {}", usage.getServicePointId());
                     energyUsageRepository.save(usage);
                 }
             }

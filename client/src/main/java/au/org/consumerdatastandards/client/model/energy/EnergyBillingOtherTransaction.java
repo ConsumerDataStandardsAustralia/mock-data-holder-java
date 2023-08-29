@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,9 +13,9 @@ public class EnergyBillingOtherTransaction {
 
     private String invoiceNumber;
 
-    private String startDate;
+    private LocalDate startDate;    // "x-cds-type" : "DateString"
 
-    private String endDate;
+    private LocalDate endDate;      // "x-cds-type" : "DateString"
 
     /**
      * Type of charge. Assumed to be other if absent
@@ -75,7 +76,7 @@ public class EnergyBillingOtherTransaction {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public EnergyBillingOtherTransaction startDate(String startDate) {
+    public EnergyBillingOtherTransaction startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -85,15 +86,15 @@ public class EnergyBillingOtherTransaction {
      *
      * @return startDate
      */
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyBillingOtherTransaction endDate(String endDate) {
+    public EnergyBillingOtherTransaction endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -103,11 +104,11 @@ public class EnergyBillingOtherTransaction {
      *
      * @return endDate
      */
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

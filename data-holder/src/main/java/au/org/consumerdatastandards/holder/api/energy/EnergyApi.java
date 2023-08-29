@@ -293,13 +293,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "newest-time",
                     required = false)
-                    String newestTime,
+                    OffsetDateTime newestTime,
             @ApiParam(
                     value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type")
             @Valid
             @RequestParam(value = "oldest-time",
                     required = false)
-                    String oldestTime,
+                    OffsetDateTime oldestTime,
             @ApiParam(value = "Page of results to request (standard pagination)")
             @Valid
             @RequestParam(value = "page",
@@ -1320,13 +1320,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "newest-time",
                     required = false)
-                    String newestTime,
+                    OffsetDateTime newestTime,
             @ApiParam(
                     value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type")
             @Valid
             @RequestParam(value = "oldest-time",
                     required = false)
-                    String oldestTime,
+                    OffsetDateTime oldestTime,
             @ApiParam(
                     value = "Page of results to request (standard pagination)")
             @Valid
@@ -1435,13 +1435,13 @@ public interface EnergyApi {
             @Valid
             @RequestParam(value = "newest-time",
                     required = false)
-                    String newestTime,
+                    OffsetDateTime newestTime,
             @ApiParam(
                     value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type")
             @Valid
             @RequestParam(value = "oldest-time",
                     required = false)
-                    String oldestTime,
+                    OffsetDateTime oldestTime,
             @ApiParam(
                     value = "Page of results to request (standard pagination)")
             @Valid

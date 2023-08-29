@@ -3,6 +3,7 @@ package au.org.consumerdatastandards.holder.service.energy;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
@@ -21,6 +22,7 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetail
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
@@ -57,6 +59,7 @@ public class EnergyService {
     private final EnergyAccountDetailV2Repository energyAccountDetailV2Repository;
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
+    private final EnergyBillingTransactionRepository energyBillingTransactionRepository;
     private final EnergyPlanRepository energyPlanRepository;
     private final EnergyPlanDetailV1Repository energyPlanDetailV1Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
@@ -72,6 +75,7 @@ public class EnergyService {
             EnergyAccountDetailV2Repository energyAccountDetailV2Repository,
             EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
             EnergyInvoiceRepository energyInvoiceRepository,
+            EnergyBillingTransactionRepository energyBillingTransactionRepository,
             EnergyServicePointRepository energyServicePointRepository,
             EnergyServicePointDetailRepository energyServicePointDetailRepository,
             EnergyUsageRepository energyUsageRepository,
@@ -85,6 +89,7 @@ public class EnergyService {
         this.energyAccountDetailV2Repository = energyAccountDetailV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyInvoiceRepository = energyInvoiceRepository;
+        this.energyBillingTransactionRepository = energyBillingTransactionRepository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyServicePointDetailRepository = energyServicePointDetailRepository;
         this.energyUsageRepository = energyUsageRepository;
@@ -191,6 +196,27 @@ public class EnergyService {
                ));
                 predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("readEndDate"), oldestDate));
             }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
+    }
+
+    public Page<EnergyBillingTransaction> findBillingTransactions(List<String> accountIds, OffsetDateTime oldestTime, OffsetDateTime newestTime, Pageable pageable) {
+        LOGGER.debug("Retrieve Energy billing transactions for accounts {}, oldest time: {}, newest time: {} with Paging content specified as {}",
+                accountIds, oldestTime, newestTime, pageable);
+
+        return energyBillingTransactionRepository.findAll((Root<EnergyBillingTransaction> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (accountIds != null) {
+                predicates.add(root.get("accountId").in(accountIds));
+                // TODO: Otherwise the current user accounts need to be used from security context
+            }
+            if (newestTime != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("executionDateTime"), newestTime));
+            }
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("executionDateTime"), (oldestTime == null
+                    ? (newestTime == null ? OffsetDateTime.now() : newestTime).minusMonths(12)
+                    : oldestTime
+            )));
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }

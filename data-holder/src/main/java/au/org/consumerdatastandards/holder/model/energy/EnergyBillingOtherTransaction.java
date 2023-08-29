@@ -1,9 +1,19 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,14 +21,25 @@ import java.util.Objects;
 /**
  * EnergyBillingOtherTransaction
  */
+@Entity
 public class EnergyBillingOtherTransaction {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String servicePointId;
 
     private String invoiceNumber;
 
-    private String startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate startDate;    // "x-cds-type" : "DateString"
 
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate endDate;      // "x-cds-type" : "DateString"
 
     /**
      * Type of charge. Assumed to be other if absent
@@ -40,10 +61,20 @@ public class EnergyBillingOtherTransaction {
     private String description;
 
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyBillingUsageTransactionCalculationFactors> calculationFactors;
 
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyBillingUsageTransactionAdjustments> adjustments;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyBillingOtherTransaction servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -83,7 +114,7 @@ public class EnergyBillingOtherTransaction {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public EnergyBillingOtherTransaction startDate(String startDate) {
+    public EnergyBillingOtherTransaction startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -94,15 +125,15 @@ public class EnergyBillingOtherTransaction {
      * @return startDate
      */
     @ApiModelProperty(value = "Optional start date for the application of the charge")
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyBillingOtherTransaction endDate(String endDate) {
+    public EnergyBillingOtherTransaction endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -113,11 +144,11 @@ public class EnergyBillingOtherTransaction {
      * @return endDate
      */
     @ApiModelProperty(value = "Optional end date for the application of the charge")
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

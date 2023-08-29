@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.client.model.energy;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,9 +35,9 @@ public class EnergyBillingDemandTransaction {
 
     private Boolean isEstimate;
 
-    private String startDate;
+    private OffsetDateTime startDate;   // "x-cds-type" : DateTimeString
 
-    private String endDate;
+    private OffsetDateTime endDate;     // "x-cds-type" : DateTimeString
 
     private BigDecimal rate;
 
@@ -136,7 +137,7 @@ public class EnergyBillingDemandTransaction {
         this.isEstimate = isEstimate;
     }
 
-    public EnergyBillingDemandTransaction startDate(String startDate) {
+    public EnergyBillingDemandTransaction startDate(OffsetDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -146,15 +147,15 @@ public class EnergyBillingDemandTransaction {
      *
      * @return startDate
      */
-    public String getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyBillingDemandTransaction endDate(String endDate) {
+    public EnergyBillingDemandTransaction endDate(OffsetDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -164,11 +165,11 @@ public class EnergyBillingDemandTransaction {
      *
      * @return endDate
      */
-    public String getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(OffsetDateTime endDate) {
         this.endDate = endDate;
     }
 

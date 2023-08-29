@@ -1,10 +1,20 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +22,14 @@ import java.util.Objects;
 /**
  * EnergyBillingUsageTransaction
  */
+@Entity
 public class EnergyBillingUsageTransaction {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String servicePointId;
 
     private String invoiceNumber;
@@ -38,9 +55,13 @@ public class EnergyBillingUsageTransaction {
 
     private Boolean isEstimate;
 
-    private String startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime startDate;   // "x-cds-type" : DateTimeString
 
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime endDate;     // "x-cds-type" : DateTimeString
 
     private RateMeasureUnitEnum measureUnit;
 
@@ -49,10 +70,20 @@ public class EnergyBillingUsageTransaction {
     private String amount;
 
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyBillingUsageTransactionCalculationFactors> calculationFactors = null;
 
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyBillingUsageTransactionAdjustments> adjustments = null;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyBillingUsageTransaction servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -150,7 +181,7 @@ public class EnergyBillingUsageTransaction {
         this.isEstimate = isEstimate;
     }
 
-    public EnergyBillingUsageTransaction startDate(String startDate) {
+    public EnergyBillingUsageTransaction startDate(OffsetDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -162,15 +193,15 @@ public class EnergyBillingUsageTransaction {
      */
     @ApiModelProperty(required = true, value = "Date and time when the usage period starts")
     @NotNull
-    public String getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyBillingUsageTransaction endDate(String endDate) {
+    public EnergyBillingUsageTransaction endDate(OffsetDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -182,11 +213,11 @@ public class EnergyBillingUsageTransaction {
      */
     @ApiModelProperty(required = true, value = "Date and time when the usage period ends")
     @NotNull
-    public String getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(OffsetDateTime endDate) {
         this.endDate = endDate;
     }
 

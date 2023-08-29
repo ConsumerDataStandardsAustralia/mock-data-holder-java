@@ -16,6 +16,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcessionsResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcessionsResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyDerDetailResponse;
@@ -120,16 +121,31 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyBillingListResponse> getBillingForAccount(String accountId, Integer xV, Integer xMinV,
-            String newestTime, String oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId,
+            OffsetDateTime newestTime, OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        if (!service.checkAccountExistence(accountId)) {
+            throwInvalidAccount(accountId, xFapiInteractionId);
+        }
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyBillingTransaction> transactions = service.findBillingTransactions(Collections.singletonList(accountId), oldestTime, newestTime,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning billing transactions for account: {}, oldest time: {}, newest time: {} listing page {} of {} (page size of {})",
+                accountId, oldestTime, newestTime, actualPage, transactions.getTotalPages(), actualPageSize);
+
         EnergyBillingListResponse response = new EnergyBillingListResponse();
         EnergyBillingListResponseData data = new EnergyBillingListResponseData();
+        data.setTransactions(transactions.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, transactions, actualPage, actualPageSize));
+        response.setMeta(getMetaData(transactions));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
@@ -346,32 +362,57 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     }
 
     @Override
-    public ResponseEntity<EnergyBillingListResponse> listBillingBulk(Integer xV, Integer xMinV, String newestTime,
-            String oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
+    public ResponseEntity<EnergyBillingListResponse> listBillingBulk(Integer xV, Integer xMinV, OffsetDateTime newestTime,
+            OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
-        validatePageSize(pageSize, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyBillingTransaction> transactions = service.findBillingTransactions(null, oldestTime, newestTime,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning billing transactions bulk for oldest time: {}, newest time: {} listing page {} of {} (page size of {})",
+                oldestTime, newestTime, actualPage, transactions.getTotalPages(), actualPageSize);
+
         EnergyBillingListResponse response = new EnergyBillingListResponse();
         EnergyBillingListResponseData data = new EnergyBillingListResponseData();
+        data.setTransactions(transactions.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, transactions, actualPage, actualPageSize));
+        response.setMeta(getMetaData(transactions));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyBillingListResponse> listBillingForAccounts(Integer xV, Integer xMinV,
-            RequestAccountIds accountIdList, String newestTime, String oldestTime, Integer page, Integer pageSize,
+            RequestAccountIds accountIdList, OffsetDateTime newestTime, OffsetDateTime oldestTime, Integer page, Integer pageSize,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders,
             ParamIntervalReadsEnum intervalReads) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        List<String> accountIds = accountIdList.getData().getAccountIds();
+        validateAccountIds(accountIds, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyBillingTransaction> transactions = service.findBillingTransactions(accountIds, oldestTime, newestTime,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning billing transactions for accounts: {}, oldest time: {}, newest time: {} listing page {} of {} (page size of {})",
+                accountIdList, oldestTime, newestTime, actualPage, transactions.getTotalPages(), actualPageSize);
+
         EnergyBillingListResponse response = new EnergyBillingListResponse();
         EnergyBillingListResponseData data = new EnergyBillingListResponseData();
+        data.setTransactions(transactions.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, transactions, actualPage, actualPageSize));
+        response.setMeta(getMetaData(transactions));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override

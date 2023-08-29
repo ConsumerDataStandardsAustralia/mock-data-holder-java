@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class EnergyBillingTransaction {
     private String accountId;
 
-    private String executionDateTime;
+    private OffsetDateTime executionDateTime;
 
     private String gst;
 
@@ -83,7 +84,7 @@ public class EnergyBillingTransaction {
         this.accountId = accountId;
     }
 
-    public EnergyBillingTransaction executionDateTime(String executionDateTime) {
+    public EnergyBillingTransaction executionDateTime(OffsetDateTime executionDateTime) {
         this.executionDateTime = executionDateTime;
         return this;
     }
@@ -93,11 +94,11 @@ public class EnergyBillingTransaction {
      *
      * @return executionDateTime
      */
-    public String getExecutionDateTime() {
+    public OffsetDateTime getExecutionDateTime() {
         return executionDateTime;
     }
 
-    public void setExecutionDateTime(String executionDateTime) {
+    public void setExecutionDateTime(OffsetDateTime executionDateTime) {
         this.executionDateTime = executionDateTime;
     }
 

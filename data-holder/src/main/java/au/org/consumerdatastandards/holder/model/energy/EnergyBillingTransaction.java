@@ -1,27 +1,40 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 /**
  * EnergyBillingTransaction
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyBillingTransaction {
-    @JsonProperty("accountId")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String accountId;
 
-    @JsonProperty("executionDateTime")
-    private String executionDateTime;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private OffsetDateTime executionDateTime;   // "x-cds-type" : DateTimeString
 
-    @JsonProperty("gst")
     private String gst;
 
     /**
@@ -38,7 +51,7 @@ public class EnergyBillingTransaction {
 
         PAYMENT("payment");
 
-        private String value;
+        private final String value;
 
         TransactionUTypeEnum(String value) {
             this.value = value;
@@ -65,23 +78,30 @@ public class EnergyBillingTransaction {
         }
     }
 
-    @JsonProperty("transactionUType")
     private TransactionUTypeEnum transactionUType;
 
-    @JsonProperty("usage")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyBillingUsageTransaction usage;
 
-    @JsonProperty("demand")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyBillingDemandTransaction demand;
 
-    @JsonProperty("onceOff")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyBillingOnceOffTransaction onceOff;
 
-    @JsonProperty("otherCharges")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyBillingOtherTransaction otherCharges;
 
-    @JsonProperty("payment")
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyBillingPaymentTransaction payment;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyBillingTransaction accountId(String accountId) {
         this.accountId = accountId;
@@ -93,11 +113,8 @@ public class EnergyBillingTransaction {
      *
      * @return accountId
      */
-    @ApiModelProperty(required = true,
-            value = "The ID of the account for which transaction applies")
+    @ApiModelProperty(required = true, value = "The ID of the account for which transaction applies")
     @NotNull
-
-
     public String getAccountId() {
         return accountId;
     }
@@ -106,7 +123,7 @@ public class EnergyBillingTransaction {
         this.accountId = accountId;
     }
 
-    public EnergyBillingTransaction executionDateTime(String executionDateTime) {
+    public EnergyBillingTransaction executionDateTime(OffsetDateTime executionDateTime) {
         this.executionDateTime = executionDateTime;
         return this;
     }
@@ -116,16 +133,13 @@ public class EnergyBillingTransaction {
      *
      * @return executionDateTime
      */
-    @ApiModelProperty(required = true,
-            value = "The date and time that the transaction occurred")
+    @ApiModelProperty(required = true, value = "The date and time that the transaction occurred")
     @NotNull
-
-
-    public String getExecutionDateTime() {
+    public OffsetDateTime getExecutionDateTime() {
         return executionDateTime;
     }
 
-    public void setExecutionDateTime(String executionDateTime) {
+    public void setExecutionDateTime(OffsetDateTime executionDateTime) {
         this.executionDateTime = executionDateTime;
     }
 
@@ -140,8 +154,6 @@ public class EnergyBillingTransaction {
      * @return gst
      */
     @ApiModelProperty(value = "The GST incurred in the transaction.  Should not be included for credits or payments.  If absent zero is assumed")
-
-
     public String getGst() {
         return gst;
     }
@@ -160,11 +172,8 @@ public class EnergyBillingTransaction {
      *
      * @return transactionUType
      */
-    @ApiModelProperty(required = true,
-            value = "Indicator of the type of transaction object present in this record")
+    @ApiModelProperty(required = true, value = "Indicator of the type of transaction object present in this record")
     @NotNull
-
-
     public TransactionUTypeEnum getTransactionUType() {
         return transactionUType;
     }
@@ -184,9 +193,7 @@ public class EnergyBillingTransaction {
      * @return usage
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyBillingUsageTransaction getUsage() {
         return usage;
     }
@@ -206,9 +213,7 @@ public class EnergyBillingTransaction {
      * @return demand
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyBillingDemandTransaction getDemand() {
         return demand;
     }
@@ -228,9 +233,7 @@ public class EnergyBillingTransaction {
      * @return onceOff
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyBillingOnceOffTransaction getOnceOff() {
         return onceOff;
     }
@@ -250,9 +253,7 @@ public class EnergyBillingTransaction {
      * @return otherCharges
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyBillingOtherTransaction getOtherCharges() {
         return otherCharges;
     }
@@ -272,9 +273,7 @@ public class EnergyBillingTransaction {
      * @return payment
      */
     @ApiModelProperty(value = "")
-
     @Valid
-
     public EnergyBillingPaymentTransaction getPayment() {
         return payment;
     }
@@ -282,7 +281,6 @@ public class EnergyBillingTransaction {
     public void setPayment(EnergyBillingPaymentTransaction payment) {
         this.payment = payment;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -313,7 +311,6 @@ public class EnergyBillingTransaction {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyBillingTransaction {\n");
-
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    executionDateTime: ").append(toIndentedString(executionDateTime)).append("\n");
         sb.append("    gst: ").append(toIndentedString(gst)).append("\n");
@@ -338,4 +335,3 @@ public class EnergyBillingTransaction {
         return o.toString().replace("\n", "\n    ");
     }
 }
-
