@@ -1,9 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -11,11 +15,23 @@ import java.util.Objects;
  * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment
  */
 @ApiModel(description = "Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyPaymentScheduleManualPayment {
-    @JsonProperty("billFrequency")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String billFrequency;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPaymentScheduleManualPayment billFrequency(String billFrequency) {
         this.billFrequency = billFrequency;
@@ -30,8 +46,6 @@ public class EnergyPaymentScheduleManualPayment {
     @ApiModelProperty(required = true,
             value = "The frequency with which a bill will be issued.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
     @NotNull
-
-
     public String getBillFrequency() {
         return billFrequency;
     }
@@ -39,7 +53,6 @@ public class EnergyPaymentScheduleManualPayment {
     public void setBillFrequency(String billFrequency) {
         this.billFrequency = billFrequency;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -62,7 +75,6 @@ public class EnergyPaymentScheduleManualPayment {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyPaymentScheduleManualPayment {\n");
-
         sb.append("    billFrequency: ").append(toIndentedString(billFrequency)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -79,4 +91,3 @@ public class EnergyPaymentScheduleManualPayment {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

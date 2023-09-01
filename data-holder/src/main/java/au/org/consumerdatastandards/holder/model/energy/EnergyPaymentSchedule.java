@@ -1,9 +1,16 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -11,7 +18,14 @@ import java.util.Objects;
 /**
  * EnergyPaymentSchedule
  */
+@Entity
 public class EnergyPaymentSchedule {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String amount;
 
     /**
@@ -55,13 +69,25 @@ public class EnergyPaymentSchedule {
 
     private PaymentScheduleUTypeEnum paymentScheduleUType;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPaymentScheduleCardDebit cardDebit;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPaymentScheduleDirectDebit directDebit;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPaymentScheduleDigitalWallet digitalWallet;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyPaymentScheduleManualPayment manualPayment;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyPaymentSchedule amount(String amount) {
         this.amount = amount;

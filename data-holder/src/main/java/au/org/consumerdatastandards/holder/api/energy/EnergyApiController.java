@@ -28,7 +28,6 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoiceListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoiceListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
-import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleCardDebit;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentScheduleResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
@@ -218,20 +217,20 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyPaymentScheduleResponse> getPaymentSchedule(String accountId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        List<EnergyPaymentSchedule> schedules = service.findPaymentSchedules(accountId);
+        if (schedules == null) {
+            throwInvalidAccount(accountId, xFapiInteractionId);
+        }
+
+        logger.info("Returning payment schedules for account: {}", accountId);
+
         EnergyPaymentScheduleResponse response = new EnergyPaymentScheduleResponse();
-        EnergyPaymentSchedule schedule = new EnergyPaymentSchedule();
-        schedule.setAmount("12.34");
-        schedule.setPaymentScheduleUType(EnergyPaymentSchedule.PaymentScheduleUTypeEnum.CARDDEBIT);
-        EnergyPaymentScheduleCardDebit cardDebit = new EnergyPaymentScheduleCardDebit();
-        cardDebit.setCardScheme(EnergyPaymentScheduleCardDebit.CardSchemeEnum.MASTERCARD);
-        cardDebit.setPaymentFrequency("P1M");
-        cardDebit.setCalculationType(EnergyPaymentScheduleCardDebit.CalculationTypeEnum.BALANCE);
-        schedule.setCardDebit(cardDebit);
         EnergyPaymentScheduleResponseData data = new EnergyPaymentScheduleResponseData();
-        data.setPaymentSchedules(Collections.singletonList(schedule));
+        data.setPaymentSchedules(schedules);
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override

@@ -16,6 +16,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageRead;
@@ -182,11 +183,19 @@ public class CdsDataLoader implements ApplicationRunner {
                 }
 
                 // Load concessions
-                LOGGER.info("Loading concessions of account: {}", account.getAccountId());
                 JsonNode concessionsEl = accountEl.path("concessions");
                 if (concessionsEl.isArray()) {
+                    LOGGER.info("Loading concessions of account: {}", account.getAccountId());
                     EnergyConcession[] concessions = objectMapper.treeToValue(concessionsEl, EnergyConcession[].class);
                     account.setConcessions(Arrays.asList(concessions));
+                }
+
+                // Load payment schedules
+                JsonNode paymentScheduleEl = accountEl.path("paymentSchedule");
+                if (paymentScheduleEl.isArray()) {
+                    LOGGER.info("Loading payment schedules of account: {}", account.getAccountId());
+                    EnergyPaymentSchedule[] paymentSchedules = objectMapper.treeToValue(paymentScheduleEl, EnergyPaymentSchedule[].class);
+                    account.setPaymentSchedules(Arrays.asList(paymentSchedules));
                 }
 
                 energyAccountDetailV3Repository.save(account);

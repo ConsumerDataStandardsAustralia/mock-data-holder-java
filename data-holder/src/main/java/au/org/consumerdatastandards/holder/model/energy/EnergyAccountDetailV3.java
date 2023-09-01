@@ -53,6 +53,14 @@ public class EnergyAccountDetailV3 implements EnergyAccountDetail {
             inverseJoinColumns = @JoinColumn(name = "concession_id"))
     private List<EnergyConcession> concessions;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_payment_schedules",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "schedule_id"))
+    private List<EnergyPaymentSchedule> paymentSchedules;
+
     public EnergyAccountDetailV3 accountId(String accountId) {
         this.accountId = accountId;
         return this;
@@ -180,6 +188,14 @@ public class EnergyAccountDetailV3 implements EnergyAccountDetail {
 
     public void setConcessions(List<EnergyConcession> concessions) {
         this.concessions = concessions;
+    }
+
+    public List<EnergyPaymentSchedule> getPaymentSchedules() {
+        return paymentSchedules;
+    }
+
+    public void setPaymentSchedules(List<EnergyPaymentSchedule> paymentSchedules) {
+        this.paymentSchedules = paymentSchedules;
     }
 
     @Override

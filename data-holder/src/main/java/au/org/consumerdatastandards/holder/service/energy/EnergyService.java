@@ -7,6 +7,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanEntity;
@@ -231,6 +232,11 @@ public class EnergyService {
     public List<EnergyConcession> findConcessions(String accountId) {
         Optional<EnergyAccountDetailV1> account = energyAccountDetailV1Repository.findById(accountId);
         return account.map(EnergyAccountDetailV1::getConcessions).orElse(null);
+    }
+
+    public List<EnergyPaymentSchedule> findPaymentSchedules(String accountId) {
+        Optional<EnergyAccountDetailV1> account = energyAccountDetailV1Repository.findById(accountId);
+        return account.map(EnergyAccountDetailV1::getPaymentSchedules).orElse(null);
     }
 
     public Page<EnergyServicePoint> findServicePoints(Pageable pageable) {
