@@ -56,7 +56,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class CdsDataLoader implements ApplicationRunner {
@@ -184,8 +183,11 @@ public class CdsDataLoader implements ApplicationRunner {
 
                 // Load concessions
                 LOGGER.info("Loading concessions of account: {}", account.getAccountId());
-                EnergyConcession[] concessions = objectMapper.treeToValue(accountEl.path("concessions"), EnergyConcession[].class);
-                account.setConcessions(Arrays.stream(concessions).peek(c -> c.setAccountId(account.getAccountId())).collect(Collectors.toList()));
+                JsonNode concessionsEl = accountEl.path("concessions");
+                if (concessionsEl.isArray()) {
+                    EnergyConcession[] concessions = objectMapper.treeToValue(concessionsEl, EnergyConcession[].class);
+                    account.setConcessions(Arrays.asList(concessions));
+                }
 
                 energyAccountDetailV3Repository.save(account);
             }

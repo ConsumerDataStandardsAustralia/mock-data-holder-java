@@ -44,7 +44,11 @@ public class EnergyAccountDetailV1 implements EnergyAccountDetail {
     private List<EnergyAccountDetailPlans> plans = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_concessions",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "concession_id"))
     private List<EnergyConcession> concessions;
 
     public EnergyAccountDetailV1 accountId(String accountId) {

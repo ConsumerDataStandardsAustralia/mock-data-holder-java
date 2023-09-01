@@ -32,9 +32,6 @@ public class EnergyConcession {
         VARIABLE
     }
 
-    @JsonIgnore
-    private String accountId;
-
     private Type type;
 
     private String displayName;
@@ -66,14 +63,6 @@ public class EnergyConcession {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     /**
