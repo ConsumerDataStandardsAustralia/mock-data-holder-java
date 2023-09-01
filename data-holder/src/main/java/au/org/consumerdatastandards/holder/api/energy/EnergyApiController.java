@@ -17,6 +17,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceResponseDat
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
+import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcessionsResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcessionsResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyDerDetailResponse;
@@ -152,11 +153,20 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyConcessionsResponse> getConcessions(String accountId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        List<EnergyConcession> concessions = service.findConcessions(accountId);
+        if (concessions == null) {
+            throwInvalidAccount(accountId, xFapiInteractionId);
+        }
+
+        logger.info("Returning concessions for account: {}", accountId);
+
         EnergyConcessionsResponse response = new EnergyConcessionsResponse();
         EnergyConcessionsResponseData data = new EnergyConcessionsResponseData();
+        data.setConcessions(concessions);
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override

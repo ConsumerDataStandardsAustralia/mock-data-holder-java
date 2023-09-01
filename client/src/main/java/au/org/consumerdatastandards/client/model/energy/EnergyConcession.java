@@ -1,5 +1,7 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,9 +22,9 @@ public class EnergyConcession {
 
     private String additionalInfoUri;
 
-    private String startDate;
+    private LocalDate startDate;   // "x-cds-type" : "DateString"
 
-    private String endDate;
+    private LocalDate endDate;   // "x-cds-type" : "DateString"
 
     private String discountFrequency;
 
@@ -30,7 +32,7 @@ public class EnergyConcession {
 
     private String percentage;
 
-    private String appliedTo;
+    private List<String> appliedTo;
 
     /**
      * Indicator of the method of concession calculation
@@ -99,7 +101,7 @@ public class EnergyConcession {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    public EnergyConcession startDate(String startDate) {
+    public EnergyConcession startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -109,15 +111,15 @@ public class EnergyConcession {
      *
      * @return startDate
      */
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyConcession endDate(String endDate) {
+    public EnergyConcession endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -127,11 +129,11 @@ public class EnergyConcession {
      *
      * @return endDate
      */
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -189,7 +191,7 @@ public class EnergyConcession {
         this.percentage = percentage;
     }
 
-    public EnergyConcession appliedTo(String appliedTo) {
+    public EnergyConcession appliedTo(List<String> appliedTo) {
         this.appliedTo = appliedTo;
         return this;
     }
@@ -199,11 +201,11 @@ public class EnergyConcession {
      *
      * @return appliedTo
      */
-    public String getAppliedTo() {
+    public List<String> getAppliedTo() {
         return appliedTo;
     }
 
-    public void setAppliedTo(String appliedTo) {
+    public void setAppliedTo(List<String> appliedTo) {
         this.appliedTo = appliedTo;
     }
 

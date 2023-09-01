@@ -1,19 +1,39 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * EnergyConcession
  */
+@Entity
 public class EnergyConcession {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     public enum Type {
         FIXED_AMOUNT,
         FIXED_PERCENTAGE,
         VARIABLE
     }
+
+    @JsonIgnore
+    private String accountId;
 
     private Type type;
 
@@ -23,9 +43,13 @@ public class EnergyConcession {
 
     private String additionalInfoUri;
 
-    private String startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate startDate;   // "x-cds-type" : "DateString"
 
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate endDate;   // "x-cds-type" : "DateString"
 
     private String discountFrequency;
 
@@ -33,7 +57,24 @@ public class EnergyConcession {
 
     private String percentage;
 
-    private String appliedTo;
+    @ElementCollection
+    private List<String> appliedTo;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
 
     /**
      * Indicator of the method of concession calculation
@@ -108,7 +149,7 @@ public class EnergyConcession {
         this.additionalInfoUri = additionalInfoUri;
     }
 
-    public EnergyConcession startDate(String startDate) {
+    public EnergyConcession startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -119,15 +160,15 @@ public class EnergyConcession {
      * @return startDate
      */
     @ApiModelProperty(value = "Optional start date for the application of the concession")
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyConcession endDate(String endDate) {
+    public EnergyConcession endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -138,11 +179,11 @@ public class EnergyConcession {
      * @return endDate
      */
     @ApiModelProperty(value = "Optional end date for the application of the concession")
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -203,7 +244,7 @@ public class EnergyConcession {
         this.percentage = percentage;
     }
 
-    public EnergyConcession appliedTo(String appliedTo) {
+    public EnergyConcession appliedTo(List<String> appliedTo) {
         this.appliedTo = appliedTo;
         return this;
     }
@@ -214,11 +255,11 @@ public class EnergyConcession {
      * @return appliedTo
      */
     @ApiModelProperty(value = "Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed")
-    public String getAppliedTo() {
+    public List<String> getAppliedTo() {
         return appliedTo;
     }
 
-    public void setAppliedTo(String appliedTo) {
+    public void setAppliedTo(List<String> appliedTo) {
         this.appliedTo = appliedTo;
     }
 

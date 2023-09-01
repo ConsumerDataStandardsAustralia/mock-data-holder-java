@@ -2,8 +2,10 @@ package au.org.consumerdatastandards.holder.service.energy;
 
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetail;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV1;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
+import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetail;
@@ -48,6 +50,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnergyService {
@@ -223,6 +226,11 @@ public class EnergyService {
 
     public boolean checkAccountExistence(String accountId) {
         return energyAccountV2Repository.existsById(accountId);
+    }
+
+    public List<EnergyConcession> findConcessions(String accountId) {
+        Optional<EnergyAccountDetailV1> account = energyAccountDetailV1Repository.findById(accountId);
+        return account.map(EnergyAccountDetailV1::getConcessions).orElse(null);
     }
 
     public Page<EnergyServicePoint> findServicePoints(Pageable pageable) {

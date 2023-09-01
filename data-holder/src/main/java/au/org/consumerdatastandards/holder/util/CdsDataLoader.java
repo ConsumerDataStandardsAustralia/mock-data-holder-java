@@ -14,6 +14,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetai
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
+import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
@@ -51,9 +52,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class CdsDataLoader implements ApplicationRunner {
@@ -164,7 +167,6 @@ public class CdsDataLoader implements ApplicationRunner {
             for (JsonNode accountEl : customer.at("/energy/accounts")) {
                 EnergyAccountDetailV3 account = objectMapper.treeToValue(accountEl.path("account"), EnergyAccountDetailV3.class);
                 LOGGER.info("Loading account: {}", account.getAccountId());
-                energyAccountDetailV3Repository.save(account);
 
                 // Load invoices
                 for (JsonNode invoiceEl : accountEl.path("invoices")) {
@@ -179,6 +181,13 @@ public class CdsDataLoader implements ApplicationRunner {
                     EnergyBillingTransaction invoice = objectMapper.treeToValue(invoiceEl, EnergyBillingTransaction.class);
                     energyBillingTransactionRepository.save(invoice);
                 }
+
+                // Load concessions
+                LOGGER.info("Loading concessions of account: {}", account.getAccountId());
+                EnergyConcession[] concessions = objectMapper.treeToValue(accountEl.path("concessions"), EnergyConcession[].class);
+                account.setConcessions(Arrays.stream(concessions).peek(c -> c.setAccountId(account.getAccountId())).collect(Collectors.toList()));
+
+                energyAccountDetailV3Repository.save(account);
             }
 
             // Load service points

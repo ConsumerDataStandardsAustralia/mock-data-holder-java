@@ -1,6 +1,7 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,6 +44,10 @@ public class EnergyAccountDetailV3 implements EnergyAccountDetail {
     private List<EnergyAccountDetailPlansV3> plans = new ArrayList<>();
 
     private OpenStatus openStatus;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL)
+    private List<EnergyConcession> concessions;
 
     public EnergyAccountDetailV3 accountId(String accountId) {
         this.accountId = accountId;
@@ -163,6 +168,14 @@ public class EnergyAccountDetailV3 implements EnergyAccountDetail {
 
     public void setOpenStatus(OpenStatus openStatus) {
         this.openStatus = openStatus;
+    }
+
+    public List<EnergyConcession> getConcessions() {
+        return concessions;
+    }
+
+    public void setConcessions(List<EnergyConcession> concessions) {
+        this.concessions = concessions;
     }
 
     @Override
