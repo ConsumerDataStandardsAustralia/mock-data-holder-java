@@ -1,22 +1,37 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyBalanceListResponseDataBalances
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity(name = "e_account_balance")
 public class EnergyBalanceListResponseDataBalances {
-    @JsonProperty("accountId")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String accountId;
 
-    @JsonProperty("balance")
     private String balance;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyBalanceListResponseDataBalances accountId(String accountId) {
         this.accountId = accountId;
@@ -28,11 +43,8 @@ public class EnergyBalanceListResponseDataBalances {
      *
      * @return accountId
      */
-    @ApiModelProperty(required = true,
-            value = "The ID of the account")
+    @ApiModelProperty(required = true, value = "The ID of the account")
     @NotNull
-
-
     public String getAccountId() {
         return accountId;
     }
@@ -54,8 +66,6 @@ public class EnergyBalanceListResponseDataBalances {
     @ApiModelProperty(required = true,
             value = "The current balance of the account.  A positive value indicates that amount is owing to be paid.  A negative value indicates that the account is in credit")
     @NotNull
-
-
     public String getBalance() {
         return balance;
     }
@@ -63,7 +73,6 @@ public class EnergyBalanceListResponseDataBalances {
     public void setBalance(String balance) {
         this.balance = balance;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -87,7 +96,6 @@ public class EnergyBalanceListResponseDataBalances {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyBalanceListResponseDataBalances {\n");
-
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
         sb.append("}");
@@ -105,4 +113,3 @@ public class EnergyBalanceListResponseDataBalances {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

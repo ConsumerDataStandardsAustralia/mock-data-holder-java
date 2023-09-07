@@ -1,8 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -11,7 +16,14 @@ import java.util.Objects;
  * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
  */
 @ApiModel(description = "Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place")
+@Entity
 public class EnergyDerRecordProtectionMode {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private BigDecimal exportLimitKva;
 
     private BigDecimal underFrequencyProtection;
@@ -41,6 +53,14 @@ public class EnergyDerRecordProtectionMode {
     private String interTripScheme;
 
     private BigDecimal neutralVoltageDisplacement;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyDerRecordProtectionMode exportLimitkva(BigDecimal exportLimitKva) {
         this.exportLimitKva = exportLimitKva;

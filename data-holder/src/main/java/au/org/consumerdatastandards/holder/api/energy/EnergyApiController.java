@@ -3,8 +3,6 @@ package au.org.consumerdatastandards.holder.api.energy;
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
 import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.Links;
-import au.org.consumerdatastandards.holder.model.LinksPaginated;
-import au.org.consumerdatastandards.holder.model.MetaPaginated;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailResponse;
@@ -12,6 +10,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListRespons
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountListResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseData;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseDataBalances;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceResponse;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceResponseData;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingListResponse;
@@ -65,7 +64,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -111,12 +109,21 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyBalanceResponse> getBalanceForAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        if (!service.checkAccountExistence(accountId)) {
+            throwInvalidAccount(accountId, xFapiInteractionId);
+        }
+        EnergyBalanceListResponseDataBalances accountBalance = service.getBalance(accountId);
+
+        logger.info("Returning balance for account: {}", accountId);
+
         EnergyBalanceResponse response = new EnergyBalanceResponse();
         EnergyBalanceResponseData data = new EnergyBalanceResponseData();
-        data.setBalance("12.34");
+        data.setBalance(accountBalance.getBalance());
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
@@ -171,17 +178,20 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyDerDetailResponse> getDERForServicePoint(String servicePointId, Integer xV, Integer xMinV,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        if (!service.checkServicePointExistence(servicePointId)) {
+            throwInvalidServicePoint(servicePointId, xFapiInteractionId);
+        }
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        EnergyDerRecord data = service.getDERForServicePoint(servicePointId);
+
+        logger.info("Returning DER for service point: {}", servicePointId);
+
         EnergyDerDetailResponse response = new EnergyDerDetailResponse();
-        EnergyDerRecord data = new EnergyDerRecord();
-        data.setServicePointId("servicePointId");
-        data.setApprovedCapacity(BigDecimal.TEN);
-        data.setInstalledPhasesCount(3);
-        data.setAvailablePhasesCount(3);
-        data.setIslandableInstallation(true);
         response.setData(data);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
@@ -317,57 +327,59 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
         data.setAccounts(energyAccountPage.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
+        response.setLinks(getLinkData(request, energyAccountPage, actualPage, actualPageSize));
+        response.setMeta(getMetaData(energyAccountPage));
         return new ResponseEntity<>(response, headers, HttpStatus.OK);
-    }
-
-    private LinksPaginated createSinglePageLinksPaginated(Integer pageSize) {
-        LinksPaginated linkData = new LinksPaginated();
-        linkData.setSelf(WebUtil.getOriginalUrl(request));
-        Integer actualPageSize = getPagingValue(pageSize, 25);
-        linkData.setFirst(WebUtil.getPaginatedLink(request, 1, actualPageSize));
-        linkData.setLast(WebUtil.getPaginatedLink(request, 1, actualPageSize));
-        return linkData;
-    }
-
-    private MetaPaginated createSinglePageMeta() {
-        MetaPaginated metaData = new MetaPaginated();
-        metaData.setTotalPages(1);
-        metaData.setTotalRecords(1);
-        return metaData;
-    }
-
-    private void populateAccount(EnergyAccount account) {
-        account.setAccountId("ACC12345");
-        account.setAccountNumber("12345");
-        account.setCreationDate(LocalDate.now());
-        account.setDisplayName("The Account");
     }
 
     @Override
     public ResponseEntity<EnergyBalanceListResponse> listBalancesBulk(Integer xV, Integer page, Integer pageSize, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyBalanceListResponseDataBalances> balances = service.findBalances(PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning balances bulk listing page {} of {} (page size of {})",
+                actualPage, balances.getTotalPages(), actualPageSize);
+
         EnergyBalanceListResponse response = new EnergyBalanceListResponse();
         EnergyBalanceListResponseData data = new EnergyBalanceListResponseData();
+        data.setBalances(balances.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, balances, actualPage, actualPageSize));
+        response.setMeta(getMetaData(balances));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EnergyBalanceListResponse> listBalancesForAccounts(Integer xV, Integer xMinV, RequestAccountIds accountIdList,
             Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        List<String> accountIds = accountIdList.getData().getAccountIds();
+        validateAccountIds(accountIds, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyBalanceListResponseDataBalances> balances = service.findBalances(accountIds, PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning balances for accounts: {} listing page {} of {} (page size of {})",
+                accountIdList, actualPage, balances.getTotalPages(), actualPageSize);
+
         EnergyBalanceListResponse response = new EnergyBalanceListResponse();
         EnergyBalanceListResponseData data = new EnergyBalanceListResponseData();
+        data.setBalances(balances.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, balances, actualPage, actualPageSize));
+        response.setMeta(getMetaData(balances));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
@@ -427,14 +439,27 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     @Override
     public ResponseEntity<EnergyDerListResponse> listDERBulk(Integer xV, Integer xMinV, Integer page, Integer pageSize,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
+
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyDerRecord> derRecords = service.findAllDER(PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning DER bulk listing page {} of {} (page size of {})",
+                actualPage, derRecords.getTotalPages(), actualPageSize);
+
+        validatePageRange(page, derRecords.getTotalPages(), xFapiInteractionId);
         EnergyDerListResponse response = new EnergyDerListResponse();
         EnergyDerListResponseData data = new EnergyDerListResponseData();
+        data.setDerRecords(derRecords.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, derRecords, actualPage, actualPageSize));
+        response.setMeta(getMetaData(derRecords));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override
@@ -443,12 +468,27 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        List<String> servicePointIds = servicePointIdList.getData().getServicePointIds();
+        validateServicePointIds(servicePointIds, xFapiInteractionId);
+        HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
+        Integer actualPage = getPagingValue(page, 1);
+        Integer actualPageSize = getPagingValue(pageSize, 25);
+        Page<EnergyDerRecord> derRecords = service.findDERForServicePoints(servicePointIds,
+                PageRequest.of(actualPage - 1, actualPageSize));
+
+        logger.info(
+                "Returning DER for service points: {} listing page {} of {} (page size of {})",
+                servicePointIds, actualPage, derRecords.getTotalPages(), actualPageSize);
+
+        validatePageRange(page, derRecords.getTotalPages(), xFapiInteractionId);
         EnergyDerListResponse response = new EnergyDerListResponse();
         EnergyDerListResponseData data = new EnergyDerListResponseData();
+        data.setDerRecords(derRecords.getContent());
         response.setData(data);
-        response.setLinks(createSinglePageLinksPaginated(pageSize));
-        response.setMeta(createSinglePageMeta());
-        return new ResponseEntity<>(response, generateResponseHeaders(xFapiInteractionId, supportedVersion), HttpStatus.OK);
+        response.setLinks(getLinkData(request, derRecords, actualPage, actualPageSize));
+        response.setMeta(getMetaData(derRecords));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @Override

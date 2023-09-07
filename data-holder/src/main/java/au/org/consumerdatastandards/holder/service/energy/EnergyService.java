@@ -4,8 +4,10 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyAccount;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV1;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseDataBalances;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
+import au.org.consumerdatastandards.holder.model.energy.EnergyDerRecord;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlan;
@@ -20,12 +22,14 @@ import au.org.consumerdatastandards.holder.model.energy.ParamEffective;
 import au.org.consumerdatastandards.holder.model.energy.ParamFuelTypeEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamIntervalReadsEnum;
 import au.org.consumerdatastandards.holder.model.energy.ParamTypeEnum;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyDerRecordRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
@@ -62,6 +66,7 @@ public class EnergyService {
     private final EnergyAccountDetailV1Repository energyAccountDetailV1Repository;
     private final EnergyAccountDetailV2Repository energyAccountDetailV2Repository;
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
+    private final EnergyAccountBalanceRepository energyAccountBalanceRepository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
     private final EnergyBillingTransactionRepository energyBillingTransactionRepository;
     private final EnergyPlanRepository energyPlanRepository;
@@ -69,6 +74,7 @@ public class EnergyService {
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
     private final EnergyServicePointRepository energyServicePointRepository;
     private final EnergyServicePointDetailRepository energyServicePointDetailRepository;
+    private final EnergyDerRecordRepository energyDerRecordRepository;
     private final EnergyUsageRepository energyUsageRepository;
 
     @Autowired
@@ -78,10 +84,12 @@ public class EnergyService {
             EnergyAccountDetailV1Repository energyAccountDetailV1Repository,
             EnergyAccountDetailV2Repository energyAccountDetailV2Repository,
             EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
+            EnergyAccountBalanceRepository energyAccountBalanceRepository,
             EnergyInvoiceRepository energyInvoiceRepository,
             EnergyBillingTransactionRepository energyBillingTransactionRepository,
             EnergyServicePointRepository energyServicePointRepository,
             EnergyServicePointDetailRepository energyServicePointDetailRepository,
+            EnergyDerRecordRepository energyDerRecordRepository,
             EnergyUsageRepository energyUsageRepository,
             EnergyPlanRepository energyPlanRepository,
             EnergyPlanDetailV1Repository energyPlanDetailV1Repository,
@@ -92,10 +100,12 @@ public class EnergyService {
         this.energyAccountDetailV1Repository = energyAccountDetailV1Repository;
         this.energyAccountDetailV2Repository = energyAccountDetailV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
+        this.energyAccountBalanceRepository = energyAccountBalanceRepository;
         this.energyInvoiceRepository = energyInvoiceRepository;
         this.energyBillingTransactionRepository = energyBillingTransactionRepository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyServicePointDetailRepository = energyServicePointDetailRepository;
+        this.energyDerRecordRepository = energyDerRecordRepository;
         this.energyUsageRepository = energyUsageRepository;
         this.energyPlanRepository = energyPlanRepository;
         this.energyPlanDetailV1Repository = energyPlanDetailV1Repository;
@@ -286,5 +296,47 @@ public class EnergyService {
 
     public boolean checkServicePointExistence(String servicePointId) {
         return energyServicePointDetailRepository.existsById(servicePointId);
+    }
+
+    public Page<EnergyDerRecord> findDERForServicePoints(List<String> servicePointIds, Pageable pageable) {
+        LOGGER.debug("Retrieving DER for service point ids {}",  servicePointIds);
+        return energyDerRecordRepository.findAll((root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(root.get("servicePointId").in(servicePointIds));
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
+    }
+
+    public EnergyDerRecord getDERForServicePoint(String servicePointId) {
+        LOGGER.debug("Retrieving DER for service point id {}",  servicePointId);
+        return energyDerRecordRepository.findByServicePointId(servicePointId);
+    }
+
+    public Page<EnergyDerRecord> findAllDER(Pageable pageable) {
+        LOGGER.debug("Retrieving DERs with Paging content specified as {}",  pageable);
+
+        // TODO: Only current customer's service point DERs need to be returned
+        return energyDerRecordRepository.findAll(pageable);
+    }
+
+    public Page<EnergyBalanceListResponseDataBalances> findBalances(List<String> accountIds, Pageable pageable) {
+        return energyAccountBalanceRepository.findAll((root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(root.get("accountId").in(accountIds));
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }, pageable);
+    }
+
+    public Page<EnergyBalanceListResponseDataBalances> findBalances(Pageable pageable) {
+        LOGGER.debug("Retrieving all energy customer balances with Paging content specified as {}",  pageable);
+
+        // TODO: Only current customer account balances need to be returned
+        return energyAccountBalanceRepository.findAll(pageable);
+    }
+
+    public EnergyBalanceListResponseDataBalances getBalance(String accountId) {
+        LOGGER.debug("Retrieving balance for energy account id {}",  accountId);
+
+        return energyAccountBalanceRepository.findByAccountId(accountId);
     }
 }

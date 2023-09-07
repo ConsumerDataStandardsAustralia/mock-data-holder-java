@@ -13,8 +13,10 @@ import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseDataBalances;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
+import au.org.consumerdatastandards.holder.model.energy.EnergyDerRecord;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
@@ -29,9 +31,11 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingAccountRepo
 import au.org.consumerdatastandards.holder.repository.banking.BankingBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyDerRecordRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
@@ -78,11 +82,13 @@ public class CdsDataLoader implements ApplicationRunner {
     // Energy repositories
     private final EnergyAccountV2Repository energyAccountV2Repository;
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
+    private final EnergyAccountBalanceRepository energyAccountBalanceRepository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
     private final EnergyBillingTransactionRepository energyBillingTransactionRepository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
     private final EnergyServicePointDetailRepository energyServicePointRepository;
     private final EnergyUsageRepository energyUsageRepository;
+    private final EnergyDerRecordRepository energyDerRecordRepository;
 
     private final ObjectMapper objectMapper;
     private int personUserIdSeq = 0;
@@ -97,11 +103,13 @@ public class CdsDataLoader implements ApplicationRunner {
                          BankingTransactionDetailRepository transactionDetailRepository,
                          EnergyAccountV2Repository energyAccountV2Repository,
                          EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
+                         EnergyAccountBalanceRepository energyAccountBalanceRepository,
                          EnergyInvoiceRepository energyInvoiceRepository,
                          EnergyBillingTransactionRepository energyBillingTransactionRepository,
                          EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
                          EnergyServicePointDetailRepository energyServicePointRepository,
                          EnergyUsageRepository energyUsageRepository,
+                         EnergyDerRecordRepository energyDerRecordRepository,
                          UserRepository userRepository,
                          CommonPersonRepository commonPersonRepository,
                          CommonOrganisationRepository commonOrganisationRepository) {
@@ -113,11 +121,13 @@ public class CdsDataLoader implements ApplicationRunner {
         this.transactionDetailRepository = transactionDetailRepository;
         this.energyAccountV2Repository = energyAccountV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
+        this.energyAccountBalanceRepository = energyAccountBalanceRepository;
         this.energyInvoiceRepository = energyInvoiceRepository;
         this.energyBillingTransactionRepository = energyBillingTransactionRepository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyUsageRepository = energyUsageRepository;
+        this.energyDerRecordRepository = energyDerRecordRepository;
         this.userRepository = userRepository;
         this.commonPersonRepository = commonPersonRepository;
         this.commonOrganisationRepository = commonOrganisationRepository;
@@ -199,6 +209,13 @@ public class CdsDataLoader implements ApplicationRunner {
                 }
 
                 energyAccountDetailV3Repository.save(account);
+
+                // Load account balance
+                LOGGER.info("Loading balance of account: {}", account.getAccountId());
+                EnergyBalanceListResponseDataBalances balance = new EnergyBalanceListResponseDataBalances();
+                balance.setBalance(accountEl.path("balance").asText());
+                balance.setAccountId(account.getAccountId());
+                energyAccountBalanceRepository.save(balance);
             }
 
             // Load service points
@@ -212,6 +229,14 @@ public class CdsDataLoader implements ApplicationRunner {
                 for (JsonNode usageEl : servicePointEl.path("usage")) {
                     EnergyUsageRead usage = objectMapper.treeToValue(usageEl, EnergyUsageRead.class);
                     energyUsageRepository.save(usage);
+                }
+
+                // Load service point DER
+                JsonNode derEl = servicePointEl.path("der");
+                if (derEl.isObject()) {
+                    LOGGER.info("Loading DER of service point: {}", servicePoint.getServicePointId());
+                    EnergyDerRecord der = objectMapper.treeToValue(derEl, EnergyDerRecord.class);
+                    energyDerRecordRepository.save(der);
                 }
             }
         }
