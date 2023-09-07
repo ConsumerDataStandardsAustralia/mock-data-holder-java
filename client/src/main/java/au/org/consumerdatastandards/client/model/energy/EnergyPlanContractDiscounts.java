@@ -40,10 +40,37 @@ public class EnergyPlanContractDiscounts {
      * The method of calculation of the discount
      */
     public enum MethodUTypeEnum {
-        PERCENTOFBILL,
-        PERCENTOFUSE,
-        FIXEDAMOUNT,
-        PERCENTOVERTHRESHOLD
+        PERCENTOFBILL("percentOfBill"),
+
+        PERCENTOFUSE("percentOfUse"),
+
+        FIXEDAMOUNT("fixedAmount"),
+
+        PERCENTOVERTHRESHOLD("percentOverThreshold");
+
+        private final String value;
+
+        MethodUTypeEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static MethodUTypeEnum fromValue(String value) {
+            for (MethodUTypeEnum b : MethodUTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
     private MethodUTypeEnum methodUType;

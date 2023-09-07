@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "energy_plan")
+@Table(name = "e_plan")
 public class EnergyPlanEntity implements EnergyPlan {
     @Id
     private String planId;

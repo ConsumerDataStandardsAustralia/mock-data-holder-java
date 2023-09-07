@@ -24,7 +24,7 @@ import java.util.Objects;
  * EnergyPlanContractFullV2
  */
 @Entity
-@Table(name = "EnergyPlanContractFull")
+@Table(name = "e_plan_contract")
 public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -49,40 +49,72 @@ public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     private List<PaymentOptionEnum> paymentOption = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_green",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "green_id"))
     private EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_ctrl_load",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ctrl_load_id"))
     private List<EnergyPlanControlledLoad> controlledLoad;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_incentives",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "incentives_id"))
     private List<EnergyPlanContractIncentives> incentives = null;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_discounts",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "discounts_id"))
     private List<EnergyPlanContractDiscounts> discounts = null;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_charges",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "green_power_charges_id"))
     private List<EnergyPlanContractGreenPowerCharges> greenPowerCharges = null;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_eligibility",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "eligibility_id"))
     private List<EnergyPlanContractEligibility> eligibility = null;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_fees",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "fees_id"))
     private List<EnergyPlanContractFees> fees = null;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_contract_solar_fit",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "solar_fit_id"))
     private List<EnergyPlanContractSolarFeedInTariffV2> solarFeedInTariff = null;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "energy_tariff_periods",
-            joinColumns = @JoinColumn(name = "energy_plan_contract_full_id"),
+            name = "e_plan_contract_tariff_periods",
+            joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "tariff_period_id"))
     private List<EnergyPlanContractTariffPeriod> tariffPeriod = new ArrayList<>();
 

@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,7 +23,7 @@ import java.util.Objects;
  * EnergyPlanDetailV1
  */
 @Entity
-@Table(name = "energy_plan")
+@Table(name = "e_plan")
 public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     @Id
     private String planId;
@@ -61,6 +63,10 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     private EnergyPlanGeography geography;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "energy_plan_metering_charges",
+            joinColumns = @JoinColumn(name = "plan_id"),
+            inverseJoinColumns = @JoinColumn(name = "metering_charges_id"))
     @Valid
     private List<MeteringCharges> meteringCharges = new ArrayList<>();
 

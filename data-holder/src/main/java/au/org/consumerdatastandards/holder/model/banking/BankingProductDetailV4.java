@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "BankingProduct")
+@Table(name = "b_prod")
 public class BankingProductDetailV4 implements BankingProductDetail {
 
     /**

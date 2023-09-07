@@ -21,7 +21,7 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "BankingProduct")
+@Table(name = "b_prod")
 public class BankingProductV1 implements BankingProduct {
 
     /**

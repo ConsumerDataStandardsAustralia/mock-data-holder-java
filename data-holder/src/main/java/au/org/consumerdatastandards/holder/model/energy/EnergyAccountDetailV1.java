@@ -20,7 +20,7 @@ import java.util.Objects;
  * EnergyAccountDetailV1
  */
 @Entity
-@Table(name = "EnergyAccount")
+@Table(name = "e_account")
 public class EnergyAccountDetailV1 implements EnergyAccountDetail {
 
     @Id

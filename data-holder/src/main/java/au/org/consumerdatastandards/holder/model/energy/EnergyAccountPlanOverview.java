@@ -15,7 +15,7 @@ import java.util.Objects;
  * EnergyAccountAllOfPlanOverview
  */
 @Entity
-@Table(name = "EnergyPlanOverview")
+@Table(name = "e_account_plan_overview")
 public class EnergyAccountPlanOverview {
 
     @Id

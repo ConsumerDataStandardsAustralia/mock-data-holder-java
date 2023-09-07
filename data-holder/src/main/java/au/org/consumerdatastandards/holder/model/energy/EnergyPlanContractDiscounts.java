@@ -1,6 +1,8 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,7 +20,7 @@ import java.util.Objects;
  * EnergyPlanContractDiscounts
  */
 @Entity
-@Table(name="EnergyContractDiscount")
+@Table(name = "e_contract_discount")
 public class EnergyPlanContractDiscounts {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -59,10 +61,39 @@ public class EnergyPlanContractDiscounts {
      * The method of calculation of the discount
      */
     public enum MethodUTypeEnum {
-        PERCENTOFBILL,
-        PERCENTOFUSE,
-        FIXEDAMOUNT,
-        PERCENTOVERTHRESHOLD
+        PERCENTOFBILL("percentOfBill"),
+
+        PERCENTOFUSE("percentOfUse"),
+
+        FIXEDAMOUNT("fixedAmount"),
+
+        PERCENTOVERTHRESHOLD("percentOverThreshold");
+
+        private final String value;
+
+        MethodUTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static MethodUTypeEnum fromValue(String value) {
+            for (MethodUTypeEnum b : MethodUTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
     private MethodUTypeEnum methodUType;

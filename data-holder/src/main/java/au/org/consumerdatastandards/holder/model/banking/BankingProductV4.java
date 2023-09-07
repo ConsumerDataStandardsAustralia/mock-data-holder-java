@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "BankingProduct")
+@Table(name = "b_prod")
 public class BankingProductV4 implements BankingProduct {
 
     /**

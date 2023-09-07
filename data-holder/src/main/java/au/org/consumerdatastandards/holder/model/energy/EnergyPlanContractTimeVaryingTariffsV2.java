@@ -23,7 +23,7 @@ import java.util.Objects;
  */
 @ApiModel(description = "Represents a tariff based on time.  Mandatory if tariffUType is set to timeVaryingTariffs")
 @Entity
-@Table(name = "EnergyPlanTimeVarTariff")
+@Table(name = "e_plan_time_var_tariff")
 public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContractTimeVaryingTariffs {
     @Id
     @GeneratedValue(generator = "system-uuid")

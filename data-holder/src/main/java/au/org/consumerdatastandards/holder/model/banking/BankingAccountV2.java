@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @ApiModel
 @Entity
-@Table(name="BankingAccount")
+@Table(name = "b_account")
 public class BankingAccountV2 implements BankingAccount {
     /**
      * A unique ID of the account adhering to the standards for ID permanence

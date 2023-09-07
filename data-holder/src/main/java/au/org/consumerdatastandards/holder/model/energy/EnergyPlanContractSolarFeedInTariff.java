@@ -1,5 +1,7 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
@@ -79,7 +81,34 @@ public interface EnergyPlanContractSolarFeedInTariff {
      * The type of the payer
      */
     public enum TariffUTypeEnum {
-        SINGLETARIFF,
-        TIMEVARYINGTARIFFS
+        SINGLETARIFF("singleTariff"),
+
+        TIMEVARYINGTARIFFS("timeVaryingTariffs");
+
+        private final String value;
+
+        TariffUTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TariffUTypeEnum fromValue(String value) {
+            for (TariffUTypeEnum b : TariffUTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 }

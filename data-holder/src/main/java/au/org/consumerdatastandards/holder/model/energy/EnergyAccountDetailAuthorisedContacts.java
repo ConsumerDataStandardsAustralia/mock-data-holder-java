@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyAccountDetailAllOfAuthorisedContacts
+ * EnergyAccountDetailAuthorisedContacts
  */
 @Entity
-@Table(name = "EnergyAuthorisedContact")
+@Table(name = "e_authorised_contact")
 public class EnergyAccountDetailAuthorisedContacts {
 
     @Id
@@ -177,7 +177,7 @@ public class EnergyAccountDetailAuthorisedContacts {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountDetailAllOfAuthorisedContacts {\n");
+        sb.append("class EnergyAccountDetailAuthorisedContacts {\n");
         sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
         sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
         sb.append("    middleNames: ").append(toIndentedString(middleNames)).append("\n");
