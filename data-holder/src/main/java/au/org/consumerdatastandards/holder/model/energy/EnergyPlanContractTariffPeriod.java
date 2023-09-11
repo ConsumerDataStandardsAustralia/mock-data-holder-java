@@ -48,9 +48,9 @@ public class EnergyPlanContractTariffPeriod {
 
     private String displayName;
 
-    private String startDate;
+    private String startDate; // mm-dd
 
-    private String endDate;
+    private String endDate; // mm-dd
 
     private String dailySupplyCharges;
 

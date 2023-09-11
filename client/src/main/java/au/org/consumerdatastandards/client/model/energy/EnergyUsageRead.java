@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -16,9 +17,9 @@ public class EnergyUsageRead {
 
     private Boolean controlledLoad;
 
-    private String readStartDate;
+    private LocalDate readStartDate;   // "x-cds-type" : "DateString"
 
-    private String readEndDate;
+    private LocalDate readEndDate;   // "x-cds-type" : "DateString"
 
     private String unitOfMeasure;
 
@@ -151,7 +152,7 @@ public class EnergyUsageRead {
         this.controlledLoad = controlledLoad;
     }
 
-    public EnergyUsageRead readStartDate(String readStartDate) {
+    public EnergyUsageRead readStartDate(LocalDate readStartDate) {
         this.readStartDate = readStartDate;
         return this;
     }
@@ -161,15 +162,15 @@ public class EnergyUsageRead {
      *
      * @return readStartDate
      */
-    public String getReadStartDate() {
+    public LocalDate getReadStartDate() {
         return readStartDate;
     }
 
-    public void setReadStartDate(String readStartDate) {
+    public void setReadStartDate(LocalDate readStartDate) {
         this.readStartDate = readStartDate;
     }
 
-    public EnergyUsageRead readEndDate(String readEndDate) {
+    public EnergyUsageRead readEndDate(LocalDate readEndDate) {
         this.readEndDate = readEndDate;
         return this;
     }
@@ -179,11 +180,11 @@ public class EnergyUsageRead {
      *
      * @return readEndDate
      */
-    public String getReadEndDate() {
+    public LocalDate getReadEndDate() {
         return readEndDate;
     }
 
-    public void setReadEndDate(String readEndDate) {
+    public void setReadEndDate(LocalDate readEndDate) {
         this.readEndDate = readEndDate;
     }
 

@@ -64,7 +64,7 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "energy_plan_metering_charges",
+            name = "e_plan_metering_charges",
             joinColumns = @JoinColumn(name = "plan_id"),
             inverseJoinColumns = @JoinColumn(name = "metering_charges_id"))
     @Valid

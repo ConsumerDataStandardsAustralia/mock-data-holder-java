@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * EnergyTimeOfUse
  */
-@Entity(name = "ctrled_load_tou")
+@Entity(name = "e_ctrled_load_tou")
 public class EnergyPlanControlledLoadTimeOfUse {
     @Id
     @GeneratedValue(generator = "system-uuid")

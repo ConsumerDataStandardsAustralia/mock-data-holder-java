@@ -1,7 +1,15 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -12,7 +20,14 @@ import java.util.Objects;
 /**
  * EnergyDerRecord
  */
+@Entity
 public class EnergyDerRecord {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String servicePointId;
 
     private BigDecimal approvedCapacity;
@@ -25,10 +40,20 @@ public class EnergyDerRecord {
 
     private Boolean hasCentralProtectionControl = false;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyDerRecordProtectionMode protectionMode;
 
     @Valid
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EnergyDerRecordAcConnections> acConnections = new ArrayList<>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyDerRecord servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;

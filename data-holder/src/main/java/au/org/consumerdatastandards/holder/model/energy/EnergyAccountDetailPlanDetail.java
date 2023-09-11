@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -38,6 +40,10 @@ public class EnergyAccountDetailPlanDetail {
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_plan_metering_charges",
+            joinColumns = @JoinColumn(name = "acct_plan_detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "metering_charge_id"))
     private List<MeteringCharges> meteringCharges = null;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -185,7 +191,7 @@ public class EnergyAccountDetailPlanDetail {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountDetailAllOfPlanDetail {\n");
+        sb.append("class EnergyAccountDetailPlanDetail {\n");
         sb.append("    fuelType: ").append(toIndentedString(fuelType)).append("\n");
         sb.append("    isContingentPlan: ").append(toIndentedString(isContingentPlan)).append("\n");
         sb.append("    meteringCharges: ").append(toIndentedString(meteringCharges)).append("\n");

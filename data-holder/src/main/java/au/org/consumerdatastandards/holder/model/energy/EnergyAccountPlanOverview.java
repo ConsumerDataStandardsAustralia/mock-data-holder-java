@@ -1,18 +1,20 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * EnergyAccountAllOfPlanOverview
+ * EnergyAccountPlanOverview
  */
 @Entity
 @Table(name = "e_account_plan_overview")
@@ -26,9 +28,13 @@ public class EnergyAccountPlanOverview {
 
     private String displayName;
 
-    private String startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate startDate;   // "x-cds-type" : "DateString"
 
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate endDate;   // "x-cds-type" : "DateString"
 
     public EnergyAccountPlanOverview displayName(String displayName) {
         this.displayName = displayName;
@@ -49,7 +55,7 @@ public class EnergyAccountPlanOverview {
         this.displayName = displayName;
     }
 
-    public EnergyAccountPlanOverview startDate(String startDate) {
+    public EnergyAccountPlanOverview startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -60,16 +66,15 @@ public class EnergyAccountPlanOverview {
      * @return startDate
      */
     @ApiModelProperty(required = true, value = "The start date of the applicability of this plan")
-    @NotNull
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyAccountPlanOverview endDate(String endDate) {
+    public EnergyAccountPlanOverview endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -80,11 +85,11 @@ public class EnergyAccountPlanOverview {
      * @return endDate
      */
     @ApiModelProperty(value = "The end date of the applicability of this plan")
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -110,7 +115,7 @@ public class EnergyAccountPlanOverview {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountAllOfPlanOverview {\n");
+        sb.append("class EnergyAccountPlanOverview {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");

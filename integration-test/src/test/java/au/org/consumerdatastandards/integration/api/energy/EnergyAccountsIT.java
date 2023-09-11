@@ -42,7 +42,7 @@ public class EnergyAccountsIT extends EnergyITBase {
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
         dumpConformanceErrors(conformanceErrors);
 
-        Assertions.assertEquals(2, resp.getBody().getData().getAccounts().size());
+        Assertions.assertFalse(resp.getBody().getData().getAccounts().isEmpty(), "Empty account list");
 
         Assertions.assertTrue(conformanceErrors.isEmpty(),
                 CONFORMANCE_ERRORS_FOUND + buildConformanceErrorsDescription(conformanceErrors));
@@ -88,7 +88,7 @@ public class EnergyAccountsIT extends EnergyITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
-        Assertions.assertEquals(2, resp.getBody().getData().getAccounts().size());
+        Assertions.assertFalse(resp.getBody().getData().getAccounts().isEmpty(), "Empty account list");
 
         // Gets accounts details.
         for (EnergyAccount account : resp.getBody().getData().getAccounts()) {

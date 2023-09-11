@@ -1,11 +1,14 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,51 +18,36 @@ import java.util.Objects;
  * Mandatory if readUType is set to basicRead
  */
 @ApiModel(description = "Mandatory if readUType is set to basicRead")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyUsageReadBasicRead {
+
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     /**
      * The quality of the read taken.  If absent then assumed to be ACTUAL
      */
     public enum QualityEnum {
-        ACTUAL("ACTUAL"),
-
-        SUBSTITUTE("SUBSTITUTE"),
-
-        FINAL_SUBSTITUTE("FINAL_SUBSTITUTE");
-
-        private String value;
-
-        QualityEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static QualityEnum fromValue(String value) {
-            for (QualityEnum b : QualityEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        ACTUAL,
+        SUBSTITUTE,
+        FINAL_SUBSTITUTE
     }
 
-    @JsonProperty("quality")
     private QualityEnum quality = QualityEnum.ACTUAL;
 
-    @JsonProperty("value")
+    @Column(name = "read_value")
     private BigDecimal value;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyUsageReadBasicRead quality(QualityEnum quality) {
         this.quality = quality;
@@ -72,8 +60,6 @@ public class EnergyUsageReadBasicRead {
      * @return quality
      */
     @ApiModelProperty(value = "The quality of the read taken.  If absent then assumed to be ACTUAL")
-
-
     public QualityEnum getQuality() {
         return quality;
     }
@@ -95,9 +81,7 @@ public class EnergyUsageReadBasicRead {
     @ApiModelProperty(required = true,
             value = "Meter read value.  If positive then it means consumption, if negative it means export")
     @NotNull
-
     @Valid
-
     public BigDecimal getValue() {
         return value;
     }
@@ -105,7 +89,6 @@ public class EnergyUsageReadBasicRead {
     public void setValue(BigDecimal value) {
         this.value = value;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -129,7 +112,6 @@ public class EnergyUsageReadBasicRead {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyUsageReadBasicRead {\n");
-
         sb.append("    quality: ").append(toIndentedString(quality)).append("\n");
         sb.append("    value: ").append(toIndentedString(value)).append("\n");
         sb.append("}");
@@ -147,4 +129,3 @@ public class EnergyUsageReadBasicRead {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

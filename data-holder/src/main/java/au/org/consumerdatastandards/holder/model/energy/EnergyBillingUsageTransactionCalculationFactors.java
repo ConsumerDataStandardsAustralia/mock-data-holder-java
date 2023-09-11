@@ -1,10 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -13,48 +16,25 @@ import java.util.Objects;
 /**
  * EnergyBillingUsageTransactionCalculationFactors
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity(name = "e_billing_usage_trans_calc_factors")
 public class EnergyBillingUsageTransactionCalculationFactors {
-    @JsonProperty("value")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
+    @Column(name = "factor_value")
     private BigDecimal value;
 
     /**
      * The type of the calculation factor
      */
     public enum TypeEnum {
-        DLF("DLF"),
-
-        MLF("MLF");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        DLF,
+        MLF
     }
 
-    @JsonProperty("type")
     private TypeEnum type;
 
     public EnergyBillingUsageTransactionCalculationFactors value(BigDecimal value) {
@@ -62,17 +42,22 @@ public class EnergyBillingUsageTransactionCalculationFactors {
         return this;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /**
      * The value of the calculation factor
      *
      * @return value
      */
-    @ApiModelProperty(required = true,
-            value = "The value of the calculation factor")
+    @ApiModelProperty(required = true, value = "The value of the calculation factor")
     @NotNull
-
     @Valid
-
     public BigDecimal getValue() {
         return value;
     }
@@ -91,11 +76,8 @@ public class EnergyBillingUsageTransactionCalculationFactors {
      *
      * @return type
      */
-    @ApiModelProperty(required = true,
-            value = "The type of the calculation factor")
+    @ApiModelProperty(required = true, value = "The type of the calculation factor")
     @NotNull
-
-
     public TypeEnum getType() {
         return type;
     }
@@ -103,7 +85,6 @@ public class EnergyBillingUsageTransactionCalculationFactors {
     public void setType(TypeEnum type) {
         this.type = type;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -127,7 +108,6 @@ public class EnergyBillingUsageTransactionCalculationFactors {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyBillingUsageTransactionCalculationFactors {\n");
-
         sb.append("    value: ").append(toIndentedString(value)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("}");
@@ -145,4 +125,3 @@ public class EnergyBillingUsageTransactionCalculationFactors {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

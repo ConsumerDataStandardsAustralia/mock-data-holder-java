@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTimeVaryingTariffsTimeVariations
  */
-@Entity(name = "time_variations")
+@Entity(name = "e_time_variations")
 public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
     @Id
     @GeneratedValue(generator = "system-uuid")

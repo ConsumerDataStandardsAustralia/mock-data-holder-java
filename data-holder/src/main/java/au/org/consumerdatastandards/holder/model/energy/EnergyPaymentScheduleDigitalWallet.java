@@ -1,8 +1,13 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -10,7 +15,14 @@ import java.util.Objects;
  * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
  */
 @ApiModel(description = "Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet")
+@Entity
 public class EnergyPaymentScheduleDigitalWallet {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String name;
 
     private String identifier;
@@ -34,6 +46,14 @@ public class EnergyPaymentScheduleDigitalWallet {
     }
 
     private CalculationTypeEnum calculationType;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * The name assigned to the digital wallet by the owner of the wallet, else the display name provided by the digital wallet provider

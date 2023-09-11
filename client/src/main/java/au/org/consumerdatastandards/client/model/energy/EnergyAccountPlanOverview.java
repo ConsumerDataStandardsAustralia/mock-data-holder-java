@@ -1,16 +1,17 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * EnergyAccountAllOfPlanOverview
+ * EnergyAccountPlanOverview
  */
 public class EnergyAccountPlanOverview {
     private String displayName;
 
-    private String startDate;
+    private LocalDate startDate;   // "x-cds-type" : "DateString"
 
-    private String endDate;
+    private LocalDate endDate;   // "x-cds-type" : "DateString"
 
     public EnergyAccountPlanOverview displayName(String displayName) {
         this.displayName = displayName;
@@ -30,7 +31,7 @@ public class EnergyAccountPlanOverview {
         this.displayName = displayName;
     }
 
-    public EnergyAccountPlanOverview startDate(String startDate) {
+    public EnergyAccountPlanOverview startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -40,15 +41,15 @@ public class EnergyAccountPlanOverview {
      *
      * @return startDate
      */
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public EnergyAccountPlanOverview endDate(String endDate) {
+    public EnergyAccountPlanOverview endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -58,11 +59,11 @@ public class EnergyAccountPlanOverview {
      *
      * @return endDate
      */
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -88,7 +89,7 @@ public class EnergyAccountPlanOverview {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountAllOfPlanOverview {\n");
+        sb.append("class EnergyAccountPlanOverview {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");

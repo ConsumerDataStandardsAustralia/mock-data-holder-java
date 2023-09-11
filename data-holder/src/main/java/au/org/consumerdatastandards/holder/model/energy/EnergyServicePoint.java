@@ -4,6 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -13,7 +20,10 @@ import java.util.Objects;
 /**
  * EnergyServicePoint
  */
+@Entity
+@Table(name = "e_service_point")
 public class EnergyServicePoint {
+    @Id
     private String servicePointId;
 
     private String nationalMeteringId;
@@ -73,6 +83,11 @@ public class EnergyServicePoint {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastUpdateDateTime;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_service_point_profiles",
+            joinColumns = @JoinColumn(name = "service_point_id"),
+            inverseJoinColumns = @JoinColumn(name = "consumer_profile_id"))
     private EnergyServicePointConsumerProfile consumerProfile;
 
     public EnergyServicePoint servicePointId(String servicePointId) {

@@ -1,13 +1,16 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -33,9 +36,30 @@ public class EnergyAccountDetailV2 implements EnergyAccountDetail {
     private LocalDate creationDate;
 
     @Valid
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_plans",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "plan_id"))
     private List<EnergyAccountDetailPlans> plans = new ArrayList<>();
+
     private OpenStatus openStatus;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_concessions",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "concession_id"))
+    private List<EnergyConcession> concessions;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_payment_schedules",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "schedule_id"))
+    private List<EnergyPaymentSchedule> paymentSchedules;
 
     public EnergyAccountDetailV2 accountId(String accountId) {
         this.accountId = accountId;
@@ -156,6 +180,22 @@ public class EnergyAccountDetailV2 implements EnergyAccountDetail {
 
     public void setOpenStatus(OpenStatus openStatus) {
         this.openStatus = openStatus;
+    }
+
+    public List<EnergyConcession> getConcessions() {
+        return concessions;
+    }
+
+    public void setConcessions(List<EnergyConcession> concessions) {
+        this.concessions = concessions;
+    }
+
+    public List<EnergyPaymentSchedule> getPaymentSchedules() {
+        return paymentSchedules;
+    }
+
+    public void setPaymentSchedules(List<EnergyPaymentSchedule> paymentSchedules) {
+        this.paymentSchedules = paymentSchedules;
     }
 
     @Override

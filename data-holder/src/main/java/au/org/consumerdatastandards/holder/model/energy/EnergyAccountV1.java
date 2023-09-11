@@ -7,7 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -33,7 +35,11 @@ public class EnergyAccountV1 implements EnergyAccount {
     private LocalDate creationDate;
 
     @Valid
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_plans",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "plan_id"))
     private List<EnergyAccountPlans> plans = new ArrayList<>();
 
     public EnergyAccountV1 accountId(String accountId) {

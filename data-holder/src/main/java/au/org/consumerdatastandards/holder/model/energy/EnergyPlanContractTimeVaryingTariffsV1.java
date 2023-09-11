@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -36,6 +38,10 @@ public class EnergyPlanContractTimeVaryingTariffsV1 implements EnergyPlanContrac
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_time_var_tariffs_time_vars",
+            joinColumns = @JoinColumn(name = "e_time_var_tariff_id"),
+            inverseJoinColumns = @JoinColumn(name = "time_var_id"))
     private List<EnergyPlanContractTimeVaryingTariffsTimeVariations> timeVariations = new ArrayList<>();
 
     public String getId() {
@@ -78,7 +84,6 @@ public class EnergyPlanContractTimeVaryingTariffsV1 implements EnergyPlanContrac
      * @return amount
      */
     @ApiModelProperty(required = true, value = "The tariff amount")
-    @NotNull
     public String getAmount() {
         return amount;
     }

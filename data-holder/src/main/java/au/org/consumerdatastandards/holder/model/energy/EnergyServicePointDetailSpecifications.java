@@ -1,17 +1,31 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Technical characteristics of the meter
  */
 @ApiModel(description = "Technical characteristics of the meter")
+@Entity
 public class EnergyServicePointDetailSpecifications {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     /**
      * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>**CURRENT** -Applies when a meter is current and not disconnected</li><li>**DISCONNECTED** - Applies when a meter is present but has been remotely disconnected</li></ul>
      */
@@ -20,7 +34,6 @@ public class EnergyServicePointDetailSpecifications {
         DISCONNECTED
     }
 
-    @JsonProperty("status")
     private StatusEnum status;
 
     /**
@@ -51,7 +64,17 @@ public class EnergyServicePointDetailSpecifications {
 
     private String readType;
 
-    private String nextScheduledReadDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate nextScheduledReadDate;   // "x-cds-type" : "DateString"
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyServicePointDetailSpecifications status(StatusEnum status) {
         this.status = status;
@@ -152,7 +175,7 @@ public class EnergyServicePointDetailSpecifications {
         this.readType = readType;
     }
 
-    public EnergyServicePointDetailSpecifications nextScheduledReadDate(String nextScheduledReadDate) {
+    public EnergyServicePointDetailSpecifications nextScheduledReadDate(LocalDate nextScheduledReadDate) {
         this.nextScheduledReadDate = nextScheduledReadDate;
         return this;
     }
@@ -163,11 +186,11 @@ public class EnergyServicePointDetailSpecifications {
      * @return nextScheduledReadDate
      */
     @ApiModelProperty(value = "This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required")
-    public String getNextScheduledReadDate() {
+    public LocalDate getNextScheduledReadDate() {
         return nextScheduledReadDate;
     }
 
-    public void setNextScheduledReadDate(String nextScheduledReadDate) {
+    public void setNextScheduledReadDate(LocalDate nextScheduledReadDate) {
         this.nextScheduledReadDate = nextScheduledReadDate;
     }
 

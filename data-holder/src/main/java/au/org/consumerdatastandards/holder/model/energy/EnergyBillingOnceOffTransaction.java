@@ -1,28 +1,41 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyBillingOnceOffTransaction
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyBillingOnceOffTransaction {
-    @JsonProperty("servicePointId")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String servicePointId;
 
-    @JsonProperty("invoiceNumber")
     private String invoiceNumber;
 
-    @JsonProperty("amount")
     private String amount;
 
-    @JsonProperty("description")
     private String description;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyBillingOnceOffTransaction servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -35,8 +48,6 @@ public class EnergyBillingOnceOffTransaction {
      * @return servicePointId
      */
     @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
-
-
     public String getServicePointId() {
         return servicePointId;
     }
@@ -56,8 +67,6 @@ public class EnergyBillingOnceOffTransaction {
      * @return invoiceNumber
      */
     @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
-
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -79,8 +88,6 @@ public class EnergyBillingOnceOffTransaction {
     @ApiModelProperty(required = true,
             value = "The amount of the charge or credit.  A positive value indicates a charge and a negative value indicates a credit")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -99,11 +106,8 @@ public class EnergyBillingOnceOffTransaction {
      *
      * @return description
      */
-    @ApiModelProperty(required = true,
-            value = "A free text description of the item")
+    @ApiModelProperty(required = true, value = "A free text description of the item")
     @NotNull
-
-
     public String getDescription() {
         return description;
     }
@@ -111,7 +115,6 @@ public class EnergyBillingOnceOffTransaction {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -137,7 +140,6 @@ public class EnergyBillingOnceOffTransaction {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyBillingOnceOffTransaction {\n");
-
         sb.append("    servicePointId: ").append(toIndentedString(servicePointId)).append("\n");
         sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
@@ -157,4 +159,3 @@ public class EnergyBillingOnceOffTransaction {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

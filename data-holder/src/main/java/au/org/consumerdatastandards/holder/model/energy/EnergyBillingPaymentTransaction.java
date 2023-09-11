@@ -1,69 +1,50 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * EnergyBillingPaymentTransaction
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-01-11T14:03:27.755+11:00[Australia/Sydney]")
+@Entity
 public class EnergyBillingPaymentTransaction {
-    @JsonProperty("amount")
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String amount;
 
     /**
      * The method of payment
      */
     public enum MethodEnum {
-        DIRECT_DEBIT("DIRECT_DEBIT"),
-
-        CARD("CARD"),
-
-        TRANSFER("TRANSFER"),
-
-        BPAY("BPAY"),
-
-        CASH("CASH"),
-
-        CHEQUE("CHEQUE"),
-
-        OTHER("OTHER");
-
-        private String value;
-
-        MethodEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static MethodEnum fromValue(String value) {
-            for (MethodEnum b : MethodEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+        DIRECT_DEBIT,
+        CARD,
+        TRANSFER,
+        BPAY,
+        CASH,
+        CHEQUE,
+        OTHER
     }
 
-    @JsonProperty("method")
     private MethodEnum method;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyBillingPaymentTransaction amount(String amount) {
         this.amount = amount;
@@ -75,11 +56,8 @@ public class EnergyBillingPaymentTransaction {
      *
      * @return amount
      */
-    @ApiModelProperty(required = true,
-            value = "The amount paid")
+    @ApiModelProperty(required = true, value = "The amount paid")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -98,11 +76,8 @@ public class EnergyBillingPaymentTransaction {
      *
      * @return method
      */
-    @ApiModelProperty(required = true,
-            value = "The method of payment")
+    @ApiModelProperty(required = true, value = "The method of payment")
     @NotNull
-
-
     public MethodEnum getMethod() {
         return method;
     }
@@ -110,7 +85,6 @@ public class EnergyBillingPaymentTransaction {
     public void setMethod(MethodEnum method) {
         this.method = method;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -134,7 +108,6 @@ public class EnergyBillingPaymentTransaction {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EnergyBillingPaymentTransaction {\n");
-
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    method: ").append(toIndentedString(method)).append("\n");
         sb.append("}");
@@ -152,4 +125,3 @@ public class EnergyBillingPaymentTransaction {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

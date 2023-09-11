@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -34,7 +35,7 @@ public class EnergyPlanContractDiscounts {
 
     private CategoryEnum category;
 
-    private String endDate;
+    private LocalDate endDate;   // "x-cds-type" : "DateString"
 
     /**
      * The method of calculation of the discount
@@ -155,7 +156,7 @@ public class EnergyPlanContractDiscounts {
         this.category = category;
     }
 
-    public EnergyPlanContractDiscounts endDate(String endDate) {
+    public EnergyPlanContractDiscounts endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -165,11 +166,11 @@ public class EnergyPlanContractDiscounts {
      *
      * @return endDate
      */
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

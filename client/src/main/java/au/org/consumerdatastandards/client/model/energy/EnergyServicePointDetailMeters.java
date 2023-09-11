@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ public class EnergyServicePointDetailMeters {
 
     private EnergyServicePointDetailSpecifications specifications;
 
-    private EnergyServicePointDetailRegisters registers;
+    private List<EnergyServicePointDetailRegisters> registers;
 
     public EnergyServicePointDetailMeters meterId(String meterId) {
         this.meterId = meterId;
@@ -48,7 +49,7 @@ public class EnergyServicePointDetailMeters {
         this.specifications = specifications;
     }
 
-    public EnergyServicePointDetailMeters registers(EnergyServicePointDetailRegisters registers) {
+    public EnergyServicePointDetailMeters registers(List<EnergyServicePointDetailRegisters> registers) {
         this.registers = registers;
         return this;
     }
@@ -58,11 +59,11 @@ public class EnergyServicePointDetailMeters {
      *
      * @return registers
      */
-    public EnergyServicePointDetailRegisters getRegisters() {
+    public List<EnergyServicePointDetailRegisters> getRegisters() {
         return registers;
     }
 
-    public void setRegisters(EnergyServicePointDetailRegisters registers) {
+    public void setRegisters(List<EnergyServicePointDetailRegisters> registers) {
         this.registers = registers;
     }
 

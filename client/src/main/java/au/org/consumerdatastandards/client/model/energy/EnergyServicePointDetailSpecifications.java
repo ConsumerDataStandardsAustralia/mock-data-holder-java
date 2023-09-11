@@ -1,5 +1,6 @@
 package au.org.consumerdatastandards.client.model.energy;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -44,7 +45,7 @@ public class EnergyServicePointDetailSpecifications {
 
     private String readType;
 
-    private String nextScheduledReadDate;
+    private LocalDate nextScheduledReadDate;   // "x-cds-type" : "DateString"
 
     public EnergyServicePointDetailSpecifications status(StatusEnum status) {
         this.status = status;
@@ -136,7 +137,7 @@ public class EnergyServicePointDetailSpecifications {
         this.readType = readType;
     }
 
-    public EnergyServicePointDetailSpecifications nextScheduledReadDate(String nextScheduledReadDate) {
+    public EnergyServicePointDetailSpecifications nextScheduledReadDate(LocalDate nextScheduledReadDate) {
         this.nextScheduledReadDate = nextScheduledReadDate;
         return this;
     }
@@ -146,11 +147,11 @@ public class EnergyServicePointDetailSpecifications {
      *
      * @return nextScheduledReadDate
      */
-    public String getNextScheduledReadDate() {
+    public LocalDate getNextScheduledReadDate() {
         return nextScheduledReadDate;
     }
 
-    public void setNextScheduledReadDate(String nextScheduledReadDate) {
+    public void setNextScheduledReadDate(LocalDate nextScheduledReadDate) {
         this.nextScheduledReadDate = nextScheduledReadDate;
     }
 
