@@ -1910,7 +1910,7 @@ public interface EnergyApi {
      * @param pageSize           Page size to request.  Default is 25 (standard pagination) (optional)
      * @param xMinV              Minimum version of the API end point requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. (optional)
      * @return Successful response (status code 200)
-     * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li><li>[422 - Invalid Page](#error-422-field-invalid-page)</li></ul> (status code 4xx)
+     * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 4xx)
      */
     @ApiOperation(value = "Get Generic Plans",
             nickname = "listPlans",
