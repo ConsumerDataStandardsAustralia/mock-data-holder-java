@@ -20,7 +20,7 @@ If you want to pass a [test data file](https://github.com/ConsumerDataStandardsA
 
     java -jar target/data-holder-x.x.x.jar /your/local/path/to/testdata-cli/samples/output/u1-output.json
 
-Where `x.x.x` is the version, say, `1.24.0`
+Where `x.x.x` is the version, say, `2.0.0`
 
 ## Docker
 
@@ -36,8 +36,8 @@ If you want to pass a [test data file](https://github.com/ConsumerDataStandardsA
 
     docker run -p 8383:8383 -v /your/local/path/to/testdata-cli/samples/output/u1-output.json:/testdata/u1-output.json consumerdatastandardsaustralia/data-holder:x.x.x /testdata/u1-output.json
 
-Where `x.x.x` is the version, say, `1.24.0`
+Where `x.x.x` is the version, say, `2.0.0`
 
 Run locally-built image:
 
-    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:1.24.1-SNAPSHOT
+    docker run -p 8383:8383 consumerdatastandardsaustralia/data-holder:2.0.1-SNAPSHOT
