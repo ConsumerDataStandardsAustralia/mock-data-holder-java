@@ -300,7 +300,7 @@ public class EnergyAccountsAPI extends ProtectedAPI {
     }
 
     public ApiResult<EnergyBillingListResponse> getBillingForAccount(String accountId,
-            OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize) throws ApiException {
+            OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize, Integer version) throws ApiException {
 
         if (accountId == null) {
             throw new ApiException("Missing the required parameter 'accountId' when calling getBillingForAccount()");
@@ -308,13 +308,14 @@ public class EnergyAccountsAPI extends ProtectedAPI {
 
         String path = "/energy/accounts/" + apiClient.escapeString(accountId) + "/billing";
 
-        logger.trace("Building Call for getBillingForAccount with path: {}, accountId: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
+        logger.trace("Building Call for getBillingForAccount with path: {}, accountId: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, version: {}",
                 path,
                 accountId,
                 oldestTime,
                 newestTime,
                 page,
-                pageSize);
+                pageSize,
+                version);
 
         List<Pair> queryParams = new ArrayList<>();
         addQueryParam(queryParams, "oldest-time", oldestTime);
@@ -322,6 +323,7 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        headerParams.put("x-v", version.toString());
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
@@ -331,16 +333,17 @@ public class EnergyAccountsAPI extends ProtectedAPI {
     }
 
     public ApiResult<EnergyBillingListResponse> listBillingBulk(
-            OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize) throws ApiException {
+            OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize, Integer version) throws ApiException {
 
         String path = "/energy/accounts/billing";
 
-        logger.trace("Building Call for listBillingBulk with path: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
+        logger.trace("Building Call for listBillingBulk with path: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, version: {}",
                 path,
                 oldestTime,
                 newestTime,
                 page,
-                pageSize);
+                pageSize,
+                version);
 
         List<Pair> queryParams = new ArrayList<>();
         addQueryParam(queryParams, "oldest-time", oldestTime);
@@ -348,6 +351,7 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         addQueryParam(queryParams, "page", page);
         addQueryParam(queryParams, "page-size", pageSize);
         Map<String, String> headerParams = new HashMap<>();
+        headerParams.put("x-v", version.toString());
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
@@ -358,18 +362,19 @@ public class EnergyAccountsAPI extends ProtectedAPI {
 
     public ApiResult<EnergyBillingListResponse> listBillingForAccounts(RequestAccountIds accountIds,
             OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize,
-            ParamIntervalReadsEnum intervalReads) throws ApiException {
+            ParamIntervalReadsEnum intervalReads, Integer version) throws ApiException {
 
         String path = "/energy/accounts/billing";
 
-        logger.trace("Building Call for listBillingForAccounts with path: {}, accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}",
+        logger.trace("Building Call for listBillingForAccounts with path: {}, accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}, version: {}",
                 path,
                 accountIds,
                 oldestTime,
                 newestTime,
                 page,
                 pageSize,
-                intervalReads);
+                intervalReads,
+                version);
 
         List<Pair> queryParams = new ArrayList<>();
         addQueryParam(queryParams, "oldest-time", oldestTime);
@@ -378,6 +383,7 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         addQueryParam(queryParams, "page-size", pageSize);
         addQueryParam(queryParams, "interval-reads", intervalReads);
         Map<String, String> headerParams = new HashMap<>();
+        headerParams.put("x-v", version.toString());
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_POST, queryParams, null, accountIds, headerParams, authNames, null);

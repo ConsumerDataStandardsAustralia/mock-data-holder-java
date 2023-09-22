@@ -282,13 +282,14 @@ public class EnergyAccounts extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestTime,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestTime,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
-            @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
+            @ShellOption(defaultValue = "2") Integer version) throws Exception {
 
-        LOGGER.info("Get billing for Energy account CLI initiated with accountId: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
-                accountId, oldestTime, newestTime, page, pageSize);
+        LOGGER.info("Get billing for Energy account CLI initiated with accountId: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, version: {}",
+                accountId, oldestTime, newestTime, page, pageSize, version);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<EnergyBillingListResponse> result = api.getBillingForAccount(accountId, oldestTime, newestTime, page, pageSize);
+        ApiResult<EnergyBillingListResponse> result = api.getBillingForAccount(accountId, oldestTime, newestTime, page, pageSize, version);
         ApiResponse<EnergyBillingListResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
@@ -307,13 +308,14 @@ public class EnergyAccounts extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime oldestTime,
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestTime,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
-            @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
+            @ShellOption(defaultValue = "2") Integer version) throws Exception {
 
-        LOGGER.info("Get Energy bulk billing CLI initiated with oldest-time: {}, newest-time: {}, page: {}, page-size: {}",
-                oldestTime, newestTime, page, pageSize);
+        LOGGER.info("Get Energy bulk billing CLI initiated with oldest-time: {}, newest-time: {}, page: {}, page-size: {}, version: {}",
+                oldestTime, newestTime, page, pageSize, version);
 
         api.setApiClient(clientFactory.create(true, check));
-        ApiResult<EnergyBillingListResponse> result = api.listBillingBulk(oldestTime, newestTime, page, pageSize);
+        ApiResult<EnergyBillingListResponse> result = api.listBillingBulk(oldestTime, newestTime, page, pageSize, version);
         ApiResponse<EnergyBillingListResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {
@@ -334,17 +336,18 @@ public class EnergyAccounts extends ApiCliBase {
             @ShellOption(defaultValue = ShellOption.NULL) OffsetDateTime newestTime,
             @ShellOption(defaultValue = ShellOption.NULL) Integer page,
             @ShellOption(defaultValue = ShellOption.NULL) Integer pageSize,
-            @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads) throws Exception {
+            @ShellOption(defaultValue = ShellOption.NULL) ParamIntervalReadsEnum intervalReads,
+            @ShellOption(defaultValue = "2") Integer version) throws Exception {
 
-        LOGGER.info("Get billing for specific Energy accounts CLI initiated with accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}",
-                accountIds, oldestTime, newestTime, page, pageSize, intervalReads);
+        LOGGER.info("Get billing for specific Energy accounts CLI initiated with accountIds: {}, oldest-time: {}, newest-time: {}, page: {}, page-size: {}, interval-reads: {}, version: {}",
+                accountIds, oldestTime, newestTime, page, pageSize, intervalReads, version);
 
         api.setApiClient(clientFactory.create(true, check));
         RequestAccountIds requestAccountIds = new RequestAccountIds();
         RequestAccountIdsData data = new RequestAccountIdsData();
         data.setAccountIds(accountIds);
         requestAccountIds.setData(data);
-        ApiResult<EnergyBillingListResponse> result = api.listBillingForAccounts(requestAccountIds, oldestTime, newestTime, page, pageSize, intervalReads);
+        ApiResult<EnergyBillingListResponse> result = api.listBillingForAccounts(requestAccountIds, oldestTime, newestTime, page, pageSize, intervalReads, version);
         ApiResponse<EnergyBillingListResponse> response = result.getResponse();
 
         if (clientFactory.isValidationEnabled() || check) {

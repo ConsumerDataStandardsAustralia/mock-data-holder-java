@@ -68,7 +68,7 @@ public class BankingAccountDetailV3 extends BankingAccountV2 implements BankingA
     }
 
     /**
-     * Optional field to indicate if this account is part of a bundle that is providing additional benefit for to the customer
+     * Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer
      * @return bundleName
      */
     @Override

@@ -31,7 +31,7 @@ public class EnergyPaymentScheduleDirectDebit {
     }
 
     /**
-     * Flag indicating that the account details are tokenised and cannot be shared.  False if absent
+     * Flag indicating that the account details are tokenised, or held in a closed system, and is not accessible through any other channels. False if absent
      *
      * @return isTokenised
      */

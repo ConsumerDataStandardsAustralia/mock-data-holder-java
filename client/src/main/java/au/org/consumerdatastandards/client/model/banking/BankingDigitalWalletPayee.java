@@ -8,6 +8,11 @@ public class BankingDigitalWalletPayee {
     private Type type;
     private Provider provider;
 
+    /**
+     * The display name of the wallet as given by the customer, else a default value defined by the data holder
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
@@ -16,6 +21,11 @@ public class BankingDigitalWalletPayee {
         this.name = name;
     }
 
+    /**
+     * The identifier of the digital wallet (dependent on type)
+     *
+     * @return identifier
+     */
     public String getIdentifier() {
         return identifier;
     }
@@ -24,6 +34,11 @@ public class BankingDigitalWalletPayee {
         this.identifier = identifier;
     }
 
+    /**
+     * The type of the digital wallet identifier
+     *
+     * @return type
+     */
     public Type getType() {
         return type;
     }
@@ -32,6 +47,11 @@ public class BankingDigitalWalletPayee {
         this.type = type;
     }
 
+    /**
+     * The provider of the digital wallet
+     *
+     * @return provider
+     */
     public Provider getProvider() {
         return provider;
     }
@@ -52,8 +72,7 @@ public class BankingDigitalWalletPayee {
         return Objects.equals(this.name, digitalWalletPayee.name) &&
                 Objects.equals(this.identifier, digitalWalletPayee.identifier) &&
                 Objects.equals(this.type, digitalWalletPayee.type) &&
-                Objects.equals(this.provider, digitalWalletPayee.provider) &&
-                super.equals(o);
+                Objects.equals(this.provider, digitalWalletPayee.provider);
     }
 
     @Override
@@ -62,8 +81,7 @@ public class BankingDigitalWalletPayee {
                 name,
                 identifier,
                 type,
-                provider,
-                super.hashCode());
+                provider);
     }
 
     @Override

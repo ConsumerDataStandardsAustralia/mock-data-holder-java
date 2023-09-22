@@ -94,7 +94,7 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     private String bsb;
 
     /**
-     * Optional field to indicate if this account is part of a bundle that is providing additional benefit for to the customer
+     * Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer
      */
     private String bundleName;
 
@@ -365,7 +365,7 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit for to the customer")
+    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer")
     public String getBundleName() {
         return bundleName;
     }

@@ -28,7 +28,7 @@ public interface BankingAccountDetail extends BankingAccount {
 
     void setBsb(String bsb);
 
-    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit for to the customer")
+    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer")
     String getBundleName();
 
     void setBundleName(String bundleName);

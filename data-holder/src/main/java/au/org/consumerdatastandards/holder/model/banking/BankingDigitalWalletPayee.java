@@ -1,11 +1,13 @@
 package au.org.consumerdatastandards.holder.model.banking;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +31,14 @@ public class BankingDigitalWalletPayee {
         this.id = id;
     }
 
+    /**
+     * The display name of the wallet as given by the customer, else a default value defined by the data holder
+     *
+     * @return name
+     */
+    @ApiModelProperty(required = true,
+            value = "The display name of the wallet as given by the customer, else a default value defined by the data holder")
+    @NotNull
     public String getName() {
         return name;
     }
@@ -37,6 +47,13 @@ public class BankingDigitalWalletPayee {
         this.name = name;
     }
 
+    /**
+     * The identifier of the digital wallet (dependent on type)
+     *
+     * @return identifier
+     */
+    @ApiModelProperty(required = true, value = "The identifier of the digital wallet (dependent on type)")
+    @NotNull
     public String getIdentifier() {
         return identifier;
     }
@@ -45,6 +62,13 @@ public class BankingDigitalWalletPayee {
         this.identifier = identifier;
     }
 
+    /**
+     * The type of the digital wallet identifier
+     *
+     * @return type
+     */
+    @ApiModelProperty(required = true, value = "The type of the digital wallet identifier")
+    @NotNull
     public Type getType() {
         return type;
     }
@@ -53,6 +77,13 @@ public class BankingDigitalWalletPayee {
         this.type = type;
     }
 
+    /**
+     * The provider of the digital wallet
+     *
+     * @return provider
+     */
+    @ApiModelProperty(required = true, value = "The provider of the digital wallet")
+    @NotNull
     public Provider getProvider() {
         return provider;
     }
@@ -73,8 +104,7 @@ public class BankingDigitalWalletPayee {
         return Objects.equals(this.name, digitalWalletPayee.name) &&
                 Objects.equals(this.identifier, digitalWalletPayee.identifier) &&
                 Objects.equals(this.type, digitalWalletPayee.type) &&
-                Objects.equals(this.provider, digitalWalletPayee.provider) &&
-                super.equals(o);
+                Objects.equals(this.provider, digitalWalletPayee.provider);
     }
 
     @Override
@@ -83,8 +113,7 @@ public class BankingDigitalWalletPayee {
                 name,
                 identifier,
                 type,
-                provider,
-                super.hashCode());
+                provider);
     }
 
     @Override
@@ -109,13 +138,13 @@ public class BankingDigitalWalletPayee {
         return o.toString().replace("\n", "\n    ");
     }
 
-    enum Type {
+    public enum Type {
         EMAIL,
         CONTACT_NAME,
         TELEPHONE
     }
 
-    enum Provider {
+    public enum Provider {
         PAYPAL_AU,
         OTHER
     }

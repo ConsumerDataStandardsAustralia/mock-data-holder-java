@@ -58,12 +58,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The name assigned to the digital wallet by the owner of the wallet, else the display name provided by the digital wallet provider
+     * The display name of the wallet as given by the customer, else a default value defined by the data holder
      *
      * @return name
      */
     @ApiModelProperty(required = true,
-            value = "The name assigned to the digital wallet by the owner of the wallet, else the display name provided by the digital wallet provider")
+            value = "The display name of the wallet as given by the customer, else a default value defined by the data holder")
     @NotNull
     public String getName() {
         return name;

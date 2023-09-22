@@ -26,7 +26,9 @@ public class EnergyBillingDemandTransaction {
         SHOULDER2,
         CONTROLLED_LOAD,
         SOLAR,
-        AGGREGATE
+        AGGREGATE,
+        ALL_DAY,
+        EXCESS
     }
 
     private TimeOfUseTypeEnum timeOfUseType;
