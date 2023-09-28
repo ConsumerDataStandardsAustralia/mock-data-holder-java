@@ -39,11 +39,11 @@ public class TelcoPaymentScheduleDirectDebit {
     }
 
     /**
-     * Flag indicating that the account details are tokenised and cannot be shared.  False if absent
+     * Flag indicating that the account details are tokenised, or held in a closed system, and is not accessible through any other channels. False if absent
      *
      * @return isTokenised
      */
-    @ApiModelProperty(value = "Flag indicating that the account details are tokenised and cannot be shared.  False if absent")
+    @ApiModelProperty(value = "Flag indicating that the account details are tokenised, or held in a closed system, and is not accessible through any other channels. False if absent")
     public Boolean getIsTokenised() {
         return isTokenised;
     }

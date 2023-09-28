@@ -130,7 +130,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyBillingListResponse> getBillingForAccount(String accountId, Integer xV, Integer xMinV,
             OffsetDateTime newestTime, OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
         validatePageSize(pageSize, xFapiInteractionId);
         if (!service.checkAccountExistence(accountId)) {
             throwInvalidAccount(accountId, xFapiInteractionId);
@@ -386,7 +386,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyBillingListResponse> listBillingBulk(Integer xV, Integer xMinV, OffsetDateTime newestTime,
             OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -412,7 +412,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             RequestAccountIds accountIdList, OffsetDateTime newestTime, OffsetDateTime oldestTime, Integer page, Integer pageSize,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders,
             ParamIntervalReadsEnum intervalReads) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
         validatePageSize(pageSize, xFapiInteractionId);
         List<String> accountIds = accountIdList.getData().getAccountIds();
         validateAccountIds(accountIds, xFapiInteractionId);

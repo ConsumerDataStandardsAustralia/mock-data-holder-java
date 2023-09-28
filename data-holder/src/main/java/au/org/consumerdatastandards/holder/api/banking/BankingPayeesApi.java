@@ -58,7 +58,7 @@ public interface BankingPayeesApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -97,7 +97,7 @@ public interface BankingPayeesApi {
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
-            value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls."
+            value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls."
         )
         @RequestHeader(value = "x-fapi-auth-date", required = false) @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
         @ApiParam(
@@ -134,7 +134,7 @@ public interface BankingPayeesApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -175,7 +175,7 @@ public interface BankingPayeesApi {
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
-            value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-R-Draft]](#nref-FAPI-R-Draft)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls."
+            value = "The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**.  Required for all resource calls (customer present and unattended). Not required for unauthenticated calls."
         )
         @RequestHeader(value = "x-fapi-auth-date", required = false) @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) Date xFapiAuthDate,
         @ApiParam(
