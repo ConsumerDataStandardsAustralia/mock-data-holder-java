@@ -3,10 +3,11 @@ package au.org.consumerdatastandards.holder.model.banking;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.net.URI;
 import java.util.Objects;
 
 @Entity
@@ -18,12 +19,34 @@ public class BankingAccountProductFeature {
     @JsonIgnore
     private String id;
 
+    /**
+     * The type of feature described
+     */
+    private BankingProductFeature.FeatureType featureType;
+
+    /**
+     * Generic field containing additional information relevant to
+     * the featureType specified. Whether mandatory or not is
+     * dependent on the value of featureType
+     */
+    @Column(length = 2048)
+    private String additionalValue;
+
+    /**
+     * Display text providing more information on the feature.
+     * Mandatory if the feature type is set to OTHER
+     */
+    @Column(length = 2048)
+    private String additionalInfo;
+
+    /**
+     * Link to a web page with more information on this feature
+     */
+    private URI additionalInfoUri;
+
 //    @JsonIgnore
 //    @ManyToOne
 //    private BankingAccountDetail bankingAccountDetail;
-
-    @ManyToOne
-    private BankingProductFeature bankingProductFeature;
 
     private Boolean isActivated;
 
@@ -43,19 +66,43 @@ public class BankingAccountProductFeature {
 //        this.bankingAccountDetail = bankingAccountDetail;
 //    }
 
-    public BankingProductFeature getBankingProductFeature() {
-        return bankingProductFeature;
+    public BankingProductFeature.FeatureType getFeatureType() {
+        return featureType;
     }
 
-    public void setBankingProductFeature(BankingProductFeature bankingProductFeature) {
-        this.bankingProductFeature = bankingProductFeature;
+    public void setFeatureType(BankingProductFeature.FeatureType featureType) {
+        this.featureType = featureType;
     }
 
-    public Boolean getActivated() {
+    public String getAdditionalValue() {
+        return additionalValue;
+    }
+
+    public void setAdditionalValue(String additionalValue) {
+        this.additionalValue = additionalValue;
+    }
+
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    public URI getAdditionalInfoUri() {
+        return additionalInfoUri;
+    }
+
+    public void setAdditionalInfoUri(URI additionalInfoUri) {
+        this.additionalInfoUri = additionalInfoUri;
+    }
+
+    public Boolean getIsActivated() {
         return isActivated;
     }
 
-    public void setActivated(Boolean activated) {
+    public void setIsActivated(Boolean activated) {
         isActivated = activated;
     }
 
@@ -64,27 +111,33 @@ public class BankingAccountProductFeature {
         if (this == o) return true;
         if (!(o instanceof BankingAccountProductFeature)) return false;
         BankingAccountProductFeature that = (BankingAccountProductFeature) o;
-        return Objects.equals(id, that.id) &&
+        return Objects.equals(featureType, that.featureType) &&
 //            Objects.equals(bankingAccountDetail, that.bankingAccountDetail) &&
-            Objects.equals(bankingProductFeature, that.bankingProductFeature) &&
+            Objects.equals(additionalInfo, that.additionalInfo) &&
+            Objects.equals(additionalInfoUri, that.additionalInfoUri) &&
+            Objects.equals(additionalValue, that.additionalValue) &&
             Objects.equals(isActivated, that.isActivated);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            id,
+            featureType,
 //            bankingAccountDetail,
-            bankingProductFeature,
+            additionalInfo,
+            additionalInfoUri,
+            additionalValue,
             isActivated);
     }
 
     @Override
     public String toString() {
         return "class BankingAccountProductFeature {" +
-            "   id: " + toIndentedString(id) + '\'' +
+            "   featureType: " + toIndentedString(featureType) + '\'' +
 //            "   bankingAccountDetail: " + toIndentedString(bankingAccountDetail) +
-            "   bankingProductFeature: " + toIndentedString(bankingProductFeature) +
+            "   additionalInfo: " + toIndentedString(additionalInfo) +
+            "   additionalInfoUri: " + toIndentedString(additionalInfoUri) +
+            "   additionalValue: " + toIndentedString(additionalValue) +
             "   isActivated: " + toIndentedString(isActivated) +
             '}';
     }

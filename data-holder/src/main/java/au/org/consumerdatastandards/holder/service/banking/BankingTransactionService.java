@@ -61,12 +61,8 @@ public class BankingTransactionService {
             if (maxAmount != null) {
                 predicates.add(criteriaBuilder.le(root.get("amount"), maxAmount));
             }
-            if (oldestTime != null) {
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("executionDateTime"), oldestTime));
-            }
-            if (newestTime != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("executionDateTime"), newestTime));
-            }
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("executionDateTime"), oldestTime));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("executionDateTime"), newestTime));
             if (StringUtils.hasText(text)) {
                 String pattern = "%" + text + "%";
                 predicates.add(

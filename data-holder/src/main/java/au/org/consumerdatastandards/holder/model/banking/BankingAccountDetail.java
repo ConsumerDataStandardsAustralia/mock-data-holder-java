@@ -43,11 +43,6 @@ public interface BankingAccountDetail extends BankingAccount {
 
     void setDepositRate(String depositRate);
 
-    @ApiModelProperty(value = "Fully described deposit rates for this account based on the equivalent structure in Product Reference")
-    List<BankingProductDepositRateV1> getDepositRates();
-
-    void setDepositRates(List<BankingProductDepositRateV1> depositRates);
-
     @ApiModelProperty(value = "Array of features of the account based on the equivalent structure in Product Reference with the following additional field")
     List<BankingAccountProductFeature> getFeatures();
 
@@ -62,11 +57,6 @@ public interface BankingAccountDetail extends BankingAccount {
     String getLendingRate();
 
     void setLendingRate(String lendingRate);
-
-    @ApiModelProperty(value = "Fully described lending rates for this account based on the equivalent structure in Product Reference")
-    List<BankingProductLendingRateV1> getLendingRates();
-
-    void setLendingRates(List<BankingProductLendingRateV1> lendingRates);
 
     @ApiModelProperty
     BankingLoanAccount getLoan();

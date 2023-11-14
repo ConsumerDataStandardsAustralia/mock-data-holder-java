@@ -31,13 +31,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static au.org.consumerdatastandards.client.ConformanceError.Type.DATA_NOT_MATCHING_CRITERIA;
 
 public class BankingAccountsIT extends BankingITBase {
     public BankingAccountsIT() throws ApiException, IOException {
-        super(new BankingAccountsAPI());
+        super();
     }
 
     @ParameterizedTest
@@ -107,15 +109,18 @@ public class BankingAccountsIT extends BankingITBase {
 
     @ParameterizedTest
     @CsvSource({
-            "RmrxLLD7blXRhplXn9S3uCq0WafZrZ1EE693WngNwB8"
+            "1"
     })
-    public void getBalance(String accountId) throws ApiException {
-        ApiResponse<ResponseBankingAccountsBalanceById> resp = ((BankingAccountsAPI)getAPI()).getBalanceWithHttpInfo(accountId);
-        Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+    public void getBalance(int numAccounts) throws ApiException {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
-        checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        checkAccountId(resp.getBody().getData().getAccountId(), accountId, conformanceErrors);
+        ResponseBankingAccountList<BankingAccount> accounts = ((BankingAccountsAPI) getAPI()).listAccounts(null, null, null, 2, 1, numAccounts);
 
+        for (BankingAccount account : accounts.getData().getAccounts()) {
+            ApiResponse<ResponseBankingAccountsBalanceById> resp = ((BankingAccountsAPI) getAPI()).getBalanceWithHttpInfo(account.getAccountId());
+            Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+            checkResponseHeaders(resp.getHeaders(), conformanceErrors);
+            checkAccountId(resp.getBody().getData().getAccountId(), account.getAccountId(), conformanceErrors);
+        }
         dumpConformanceErrors(conformanceErrors);
 
         Assertions.assertTrue(conformanceErrors.isEmpty(),
@@ -150,7 +155,7 @@ public class BankingAccountsIT extends BankingITBase {
             "1234567 2345567 3456789,,"
     })
     public void listBalancesSpecificAccounts_unavailabe(String accountIds, Integer page, Integer pageSize) {
-        RequestAccountIds accIds = getRequestAccountIds(accountIds);
+        RequestAccountIds accIds = getRequestAccountIds(Arrays.asList(accountIds.split(" ")));
         try {
             ((BankingAccountsAPI)getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
             Assertions.fail("The test should result in error");
@@ -171,11 +176,10 @@ public class BankingAccountsIT extends BankingITBase {
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "RmrxLLD7blXRhplXn9S3uCq0WafZrZ1EE693WngNwB8 DJ_GEF_28zh_cO6uxdmCecaCRgpAKtwEeTGLkd2gdgU,,"
-    })
-    public void listBalancesSpecificAccounts(String accountIds, Integer page, Integer pageSize) throws ApiException {
-        RequestAccountIds accIds = getRequestAccountIds(accountIds);
+    @CsvSource("3,,")
+    public void listBalancesSpecificAccounts(int numAccounts, Integer page, Integer pageSize) throws ApiException {
+        ResponseBankingAccountList<BankingAccount> accounts = ((BankingAccountsAPI) getAPI()).listAccounts(null, null, null, 2, 1, numAccounts);
+        RequestAccountIds accIds = getRequestAccountIds(accounts.getData().getAccounts().stream().map(BankingAccount::getAccountId).collect(Collectors.toList()));
         ApiResponse<ResponseBankingAccountsBalanceList> resp =
                 ((BankingAccountsAPI) getAPI()).listBalancesSpecificAccountsWithHttpInfo(accIds, page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
@@ -192,27 +196,27 @@ public class BankingAccountsIT extends BankingITBase {
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "1234567,,,,,,,",
-            "3F7C0D90-05CE-4225-8211-3B4F16AEAEB9,,,,,,,"
-    })
-    public void getTransactions(String accountId, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount,
+    @CsvSource("3,,,,,,,")
+    public void getTransactions(int numAccounts, OffsetDateTime oldestTime, OffsetDateTime newestTime, String minAmount,
                                 String maxAmount, String text, Integer page, Integer pageSize) throws ApiException {
-        ApiResponse<ResponseBankingTransactionList> resp =
-                ((BankingAccountsAPI)getAPI()).getTransactionsWithHttpInfo(accountId, oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
-        Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+        ResponseBankingAccountList<BankingAccount> accounts = ((BankingAccountsAPI) getAPI()).listAccounts(null, null, null, 2, 1, numAccounts);
         List<ConformanceError> conformanceErrors = new ArrayList<>();
-        checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingTransaction tx : resp.getBody().getData().getTransactions()) {
-            checkAccountId(tx.getAccountId(), accountId, conformanceErrors);
-            OffsetDateTime execTime = tx.getExecutionDateTime();
-            if (execTime != null) {
-                checkOldestTime(execTime, oldestTime, newestTime, conformanceErrors);
-                checkNewestTime(execTime, newestTime, conformanceErrors);
+        for (BankingAccount account : accounts.getData().getAccounts()) {
+            ApiResponse<ResponseBankingTransactionList> resp =
+                    ((BankingAccountsAPI)getAPI()).getTransactionsWithHttpInfo(account.getAccountId(), oldestTime, newestTime, minAmount, maxAmount, text, page, pageSize);
+            Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+            checkResponseHeaders(resp.getHeaders(), conformanceErrors);
+            for (BankingTransaction tx : resp.getBody().getData().getTransactions()) {
+                checkAccountId(tx.getAccountId(), account.getAccountId(), conformanceErrors);
+                OffsetDateTime execTime = tx.getExecutionDateTime();
+                if (execTime != null) {
+                    checkOldestTime(execTime, oldestTime, newestTime, conformanceErrors);
+                    checkNewestTime(execTime, newestTime, conformanceErrors);
+                }
+                checkMinAmount(tx.getAmount(), minAmount, conformanceErrors);
+                checkMaxAmount(tx.getAmount(), maxAmount, conformanceErrors);
+                checkText(tx.getDescription(), tx.getReference(), text, resp.getBody().getMeta().isQueryParamUnsupported(), conformanceErrors);
             }
-            checkMinAmount(tx.getAmount(), minAmount, conformanceErrors);
-            checkMaxAmount(tx.getAmount(), maxAmount, conformanceErrors);
-            checkText(tx.getDescription(), tx.getReference(), text, resp.getBody().getMeta().isQueryParamUnsupported(), conformanceErrors);
         }
 
         dumpConformanceErrors(conformanceErrors);
@@ -222,20 +226,21 @@ public class BankingAccountsIT extends BankingITBase {
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "1234567"
-    })
-    public void getTransactionDetail(String accountId) throws ApiException {
-        ResponseBankingTransactionList resp = ((BankingAccountsAPI)getAPI()).getTransactions(accountId, null, null, null, null, null, null, null);
+    @CsvSource("3,,")
+    public void getTransactionDetail(int numAccounts) throws ApiException {
+        ResponseBankingAccountList<BankingAccount> accounts = ((BankingAccountsAPI) getAPI()).listAccounts(null, null, null, 2, 1, numAccounts);
         List<ConformanceError> conformanceErrors = new ArrayList<>();
-        for (BankingTransaction tx : resp.getData().getTransactions()) {
-            ApiResponse<ResponseBankingTransactionById> detail =
-                    ((BankingAccountsAPI)getAPI()).getTransactionDetailWithHttpInfo(accountId, tx.getTransactionId());
-            Assertions.assertEquals(ResponseCode.OK.getCode(), detail.getStatusCode());
-            checkResponseHeaders(detail.getHeaders(), conformanceErrors);
-            BankingTransactionDetail transactionDetail = detail.getBody().getData();
-            checkAccountId(transactionDetail.getAccountId(), accountId, conformanceErrors);
-            checkTransactionId(transactionDetail.getTransactionId(), tx.getTransactionId(), conformanceErrors);
+        for (BankingAccount account : accounts.getData().getAccounts()) {
+            ResponseBankingTransactionList resp = ((BankingAccountsAPI) getAPI()).getTransactions(account.getAccountId(), null, null, null, null, null, null, null);
+            for (BankingTransaction tx : resp.getData().getTransactions()) {
+                ApiResponse<ResponseBankingTransactionById> detail =
+                        ((BankingAccountsAPI) getAPI()).getTransactionDetailWithHttpInfo(account.getAccountId(), tx.getTransactionId());
+                Assertions.assertEquals(ResponseCode.OK.getCode(), detail.getStatusCode());
+                checkResponseHeaders(detail.getHeaders(), conformanceErrors);
+                BankingTransactionDetail transactionDetail = detail.getBody().getData();
+                checkAccountId(transactionDetail.getAccountId(), account.getAccountId(), conformanceErrors);
+                checkTransactionId(transactionDetail.getTransactionId(), tx.getTransactionId(), conformanceErrors);
+            }
         }
 
         dumpConformanceErrors(conformanceErrors);

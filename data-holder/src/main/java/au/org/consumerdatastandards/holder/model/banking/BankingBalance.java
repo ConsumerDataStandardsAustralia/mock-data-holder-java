@@ -58,7 +58,7 @@ public class BankingBalance  {
     /**
      * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "banking_balance_purses",
         joinColumns = @JoinColumn(name = "banking_balance_id"),

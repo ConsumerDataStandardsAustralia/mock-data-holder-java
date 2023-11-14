@@ -102,6 +102,10 @@ public class BankingProductV4 implements BankingProduct {
     private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "b_prod_add_infos",
+            joinColumns = @JoinColumn(name = "prod_id"),
+            inverseJoinColumns = @JoinColumn(name = "info_id"))
     private BankingProductAdditionalInformationV2 additionalInformation;
 
     @ManyToMany(cascade = CascadeType.ALL)

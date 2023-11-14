@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "b_prod_rate_tier")
-public class BankingProductRateTierV2 extends BankingProductRateTier {
+public class BankingProductRateTierV3 extends BankingProductRateTier {
 
     @ManyToOne
     @JsonIgnore
@@ -59,6 +59,7 @@ public class BankingProductRateTierV2 extends BankingProductRateTier {
 
     @Override
     protected void stringProperties(StringBuilder sb) {
+        super.stringProperties(sb);
         sb.append("additionalInfo='").append(additionalInfo).append('\'')
                 .append(", additionalInfoUri=").append(additionalInfoUri)
                 .append(", depositRate=").append(depositRate)

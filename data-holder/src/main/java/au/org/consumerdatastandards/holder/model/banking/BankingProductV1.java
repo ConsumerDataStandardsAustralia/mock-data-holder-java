@@ -11,6 +11,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.OffsetDateTime;
@@ -98,6 +100,10 @@ public class BankingProductV1 implements BankingProduct {
     private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "b_prod_add_infos",
+            joinColumns = @JoinColumn(name = "prod_id"),
+            inverseJoinColumns = @JoinColumn(name = "info_id"))
     private BankingProductAdditionalInformationV1 additionalInformation;
 
     @Override

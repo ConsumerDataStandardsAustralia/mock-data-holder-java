@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @ApiModel(description = "Indicates that the schedule of payments is defined by a series of intervals. Mandatory if recurrenceUType is set to intervalSchedule")
-@Entity
+@Entity(name = "b_sched_paymnt_rec_int_sched")
 public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
 
     @Id
@@ -32,11 +32,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
     /**
      * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
      */
-    @OneToMany
-    @JoinTable(
-        name = "banking_scheduled_payment_intervals",
-        joinColumns = @JoinColumn(name = "interval_schedule_id"),
-        inverseJoinColumns = @JoinColumn(name = "interval_id"))
+    @OneToMany(cascade = CascadeType.ALL)
     private List<BankingScheduledPaymentInterval> intervals;
 
     /**

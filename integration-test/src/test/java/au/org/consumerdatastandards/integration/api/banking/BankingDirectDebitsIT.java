@@ -3,13 +3,13 @@ package au.org.consumerdatastandards.integration.api.banking;
 import au.org.consumerdatastandards.client.ApiException;
 import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
-import au.org.consumerdatastandards.client.api.banking.BankingAccountsAPI;
 import au.org.consumerdatastandards.client.api.banking.BankingDirectDebitsAPI;
+import au.org.consumerdatastandards.client.model.banking.BankingAccount;
 import au.org.consumerdatastandards.client.model.banking.BankingAccountDetail;
 import au.org.consumerdatastandards.client.model.banking.BankingDirectDebit;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.banking.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.client.model.banking.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.banking.ResponseBankingAccountList;
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingDirectDebitAuthorisationList;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.junit.jupiter.api.Assertions;
@@ -19,6 +19,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BankingDirectDebitsIT extends BankingITBase {
     public BankingDirectDebitsIT() throws IOException, ApiException {
@@ -27,18 +28,21 @@ public class BankingDirectDebitsIT extends BankingITBase {
 
     @ParameterizedTest
     @CsvSource({
-            "1234567 2345567 3456789,,"
+            "3,,"
     })
-    public void listDirectDebits(String accountId, Integer page, Integer pageSize) throws ApiException {
-        ApiResponse<ResponseBankingDirectDebitAuthorisationList> resp =
-                ((BankingDirectDebitsAPI)getAPI()).listDirectDebitsWithHttpInfo(accountId, page, pageSize);
-        Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+    public void listDirectDebits(int numAccounts, Integer page, Integer pageSize) throws ApiException {
+        // The test uses up to numAccounts existing accounts
+        ResponseBankingAccountList<BankingAccount> accounts = accountsAPI.listAccounts(null, null, null, 2, 1, numAccounts);
         List<ConformanceError> conformanceErrors = new ArrayList<>();
-        checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
-            checkAccountId(directDebit.getAccountId(), accountId, conformanceErrors);
+        for (BankingAccount account : accounts.getData().getAccounts()) {
+            ApiResponse<ResponseBankingDirectDebitAuthorisationList> resp =
+                    ((BankingDirectDebitsAPI) getAPI()).listDirectDebitsWithHttpInfo(account.getAccountId(), page, pageSize);
+            Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+            checkResponseHeaders(resp.getHeaders(), conformanceErrors);
+            for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
+                checkAccountId(directDebit.getAccountId(), account.getAccountId(), conformanceErrors);
+            }
         }
-
         dumpConformanceErrors(conformanceErrors);
 
         Assertions.assertTrue(conformanceErrors.isEmpty(),
@@ -57,8 +61,6 @@ public class BankingDirectDebitsIT extends BankingITBase {
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
-        BankingAccountsAPI accountsAPI = new BankingAccountsAPI();
-        accountsAPI.setApiClient(getAPI().getApiClient());
         for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
             BankingAccountDetail accountDetail = accountsAPI.getAccountDetail(directDebit.getAccountId(), 1).getData();
             checkProductCategory(accountDetail.getProductCategory(), productCategory, conformanceErrors);
@@ -74,18 +76,19 @@ public class BankingDirectDebitsIT extends BankingITBase {
 
     @ParameterizedTest
     @CsvSource({
-            "1234567 2345567 3456789,,"
+            "3,,"
     })
-    public void listDirectDebitsSpecificAccounts(String accountIds, Integer page, Integer pageSize) throws ApiException {
-        RequestAccountIds idList = getRequestAccountIds(accountIds);
+    public void listDirectDebitsSpecificAccounts(int numAccounts, Integer page, Integer pageSize) throws ApiException {
+        ResponseBankingAccountList<BankingAccount> accounts = accountsAPI.listAccounts(null, null, null, 2, 1, numAccounts);
+        List<String> ids = accounts.getData().getAccounts().stream().map(BankingAccount::getAccountId).collect(Collectors.toList());
         ApiResponse<ResponseBankingDirectDebitAuthorisationList> resp =
-                ((BankingDirectDebitsAPI) getAPI()).listDirectDebitsSpecificAccountsWithHttpInfo(idList, page, pageSize);
+                ((BankingDirectDebitsAPI) getAPI()).listDirectDebitsSpecificAccountsWithHttpInfo(getRequestAccountIds(ids), page, pageSize);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
 
         for (BankingDirectDebit directDebit : resp.getBody().getData().getDirectDebitAuthorisations()) {
-            checkAccountInList(directDebit.getAccountId(), idList.getData().getAccountIds(), conformanceErrors);
+            checkAccountInList(directDebit.getAccountId(), ids, conformanceErrors);
         }
 
         dumpConformanceErrors(conformanceErrors);

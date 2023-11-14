@@ -110,8 +110,7 @@ public class EnergyAccountDetailPlansV3 {
      *
      * @return planOverview
      */
-    @ApiModelProperty(required = true, value = "")
-    @NotNull
+    @ApiModelProperty(value = "")
     @Valid
     public EnergyAccountPlanOverview getPlanOverview() {
         return planOverview;
@@ -131,8 +130,7 @@ public class EnergyAccountDetailPlansV3 {
      *
      * @return planDetail
      */
-    @ApiModelProperty(required = true, value = "")
-    @NotNull
+    @ApiModelProperty(value = "")
     @Valid
     public EnergyAccountDetailPlanDetailV3 getPlanDetail() {
         return planDetail;

@@ -130,6 +130,46 @@ public class BankingProductAdditionalInformationV2 implements BankingProductAddi
         this.bundleUri = bundleUri;
     }
 
+    public List<AdditionalInformationUri> getAdditionalOverviewUris() {
+        return additionalOverviewUris;
+    }
+
+    public void setAdditionalOverviewUris(List<AdditionalInformationUri> additionalOverviewUris) {
+        this.additionalOverviewUris = additionalOverviewUris;
+    }
+
+    public List<AdditionalInformationUri> getAdditionalTermsUris() {
+        return additionalTermsUris;
+    }
+
+    public void setAdditionalTermsUris(List<AdditionalInformationUri> additionalTermsUris) {
+        this.additionalTermsUris = additionalTermsUris;
+    }
+
+    public List<AdditionalInformationUri> getAdditionalEligibilityUris() {
+        return additionalEligibilityUris;
+    }
+
+    public void setAdditionalEligibilityUris(List<AdditionalInformationUri> additionalEligibilityUris) {
+        this.additionalEligibilityUris = additionalEligibilityUris;
+    }
+
+    public List<AdditionalInformationUri> getAdditionalFeesAndPricingUris() {
+        return additionalFeesAndPricingUris;
+    }
+
+    public void setAdditionalFeesAndPricingUris(List<AdditionalInformationUri> additionalFeesAndPricingUris) {
+        this.additionalFeesAndPricingUris = additionalFeesAndPricingUris;
+    }
+
+    public List<AdditionalInformationUri> getAdditionalBundleUris() {
+        return additionalBundleUris;
+    }
+
+    public void setAdditionalBundleUris(List<AdditionalInformationUri> additionalBundleUris) {
+        this.additionalBundleUris = additionalBundleUris;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

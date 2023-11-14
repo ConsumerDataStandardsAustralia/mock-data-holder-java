@@ -25,11 +25,19 @@ public class CommonPhysicalAddress  {
 
     private AddressUType addressUType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private CommonPAFAddress paf;
 
     @Embedded
     private CommonSimpleAddress simple;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public CommonPhysicalAddress addressUType(AddressUType addressUType) {
         this.addressUType = addressUType;

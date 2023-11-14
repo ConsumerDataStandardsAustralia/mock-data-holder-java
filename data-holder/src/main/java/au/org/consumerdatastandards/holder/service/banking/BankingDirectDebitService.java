@@ -39,16 +39,17 @@ public class BankingDirectDebitService {
                                                            Pageable pageable) {
         LOGGER.debug("Retrieving {} banking direct-debits matching product category {} and open status {} with Paging content specified as {}",
             isOwned != null && isOwned ? "owned" : "all", category, openStatus, pageable);
-        return bankingDirectDebitRepository.findAll((Specification<BankingDirectDebit>) (root, criteriaQuery, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            if (category != null) {
-                predicates.add(criteriaBuilder.equal(root.get("bankingAccount").get("productCategory"), category));
-            }
-            if (openStatus != null) {
-                predicates.add(criteriaBuilder.equal(root.get("bankingAccount").get("openStatus"), openStatus));
-            }
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-        }, pageable);
+
+        if (openStatus != null && category != null) {
+            return bankingDirectDebitRepository.findByProductCategoryAndOpenStatus(category, openStatus, pageable);
+        }
+        if (openStatus != null) {
+            return bankingDirectDebitRepository.findByOpenStatus(openStatus, pageable);
+        }
+        if (category != null) {
+            return bankingDirectDebitRepository.findByProductCategory(category, pageable);
+        }
+        return bankingDirectDebitRepository.findAll(pageable);
     }
 
     public Page<BankingDirectDebit> getBankingDirectDebits(List<String> accountIds, Pageable pageable) {

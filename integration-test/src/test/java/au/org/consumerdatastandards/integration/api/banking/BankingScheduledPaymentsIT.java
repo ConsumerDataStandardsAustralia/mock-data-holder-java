@@ -5,12 +5,13 @@ import au.org.consumerdatastandards.client.ApiResponse;
 import au.org.consumerdatastandards.client.ConformanceError;
 import au.org.consumerdatastandards.client.api.banking.BankingAccountsAPI;
 import au.org.consumerdatastandards.client.api.banking.BankingScheduledPaymentsAPI;
+import au.org.consumerdatastandards.client.model.banking.BankingAccount;
 import au.org.consumerdatastandards.client.model.banking.BankingAccountDetail;
 import au.org.consumerdatastandards.client.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.client.model.banking.BankingScheduledPayment;
 import au.org.consumerdatastandards.client.model.banking.BankingScheduledPaymentTo;
 import au.org.consumerdatastandards.client.model.banking.ParamAccountOpenStatus;
-import au.org.consumerdatastandards.client.model.banking.RequestAccountIds;
+import au.org.consumerdatastandards.client.model.banking.ResponseBankingAccountList;
 import au.org.consumerdatastandards.client.model.banking.ResponseBankingScheduledPaymentsList;
 import au.org.consumerdatastandards.integration.utils.ResponseCode;
 import org.junit.jupiter.api.Assertions;
@@ -20,6 +21,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BankingScheduledPaymentsIT extends BankingITBase {
     public BankingScheduledPaymentsIT() throws IOException, ApiException {
@@ -55,16 +57,19 @@ public class BankingScheduledPaymentsIT extends BankingITBase {
 
     @ParameterizedTest
     @CsvSource({
-            "1234567,,"
+            "3,,"
     })
-    public void listScheduledPayments(String accountId, Integer page, Integer pageSize) throws ApiException {
-        ApiResponse<ResponseBankingScheduledPaymentsList<BankingScheduledPaymentTo>> resp = ((BankingScheduledPaymentsAPI) getAPI())
-                .listScheduledPaymentsWithHttpInfo(accountId, page, pageSize, 1);
-        Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+    public void listScheduledPayments(int numAccounts, Integer page, Integer pageSize) throws ApiException {
+        ResponseBankingAccountList<BankingAccount> accounts = accountsAPI.listAccounts(null, null, null, 2, 1, numAccounts);
         List<ConformanceError> conformanceErrors = new ArrayList<>();
-        checkResponseHeaders(resp.getHeaders(), conformanceErrors);
-        for (BankingScheduledPayment<BankingScheduledPaymentTo> scheduledPayment : resp.getBody().getData().getScheduledPayments()) {
-            checkAccountId(scheduledPayment.getFrom().getAccountId(), accountId, conformanceErrors);
+        for (BankingAccount account : accounts.getData().getAccounts()) {
+            ApiResponse<ResponseBankingScheduledPaymentsList<BankingScheduledPaymentTo>> resp = ((BankingScheduledPaymentsAPI) getAPI())
+                    .listScheduledPaymentsWithHttpInfo(account.getAccountId(), page, pageSize, 1);
+            Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
+            checkResponseHeaders(resp.getHeaders(), conformanceErrors);
+            for (BankingScheduledPayment<BankingScheduledPaymentTo> scheduledPayment : resp.getBody().getData().getScheduledPayments()) {
+                checkAccountId(scheduledPayment.getFrom().getAccountId(), account.getAccountId(), conformanceErrors);
+            }
         }
 
         dumpConformanceErrors(conformanceErrors);
@@ -75,17 +80,18 @@ public class BankingScheduledPaymentsIT extends BankingITBase {
 
     @ParameterizedTest
     @CsvSource({
-            "1234567 2345567 3456789,,"
+            "3,,"
     })
-    public void listScheduledPaymentsSpecificAccounts(String accountIds, Integer page, Integer pageSize) throws ApiException {
-        RequestAccountIds idList = getRequestAccountIds(accountIds);
+    public void listScheduledPaymentsSpecificAccounts(int numAccounts, Integer page, Integer pageSize) throws ApiException {
+        ResponseBankingAccountList<BankingAccount> accounts = accountsAPI.listAccounts(null, null, null, 2, 1, numAccounts);
+        List<String> ids = accounts.getData().getAccounts().stream().map(BankingAccount::getAccountId).collect(Collectors.toList());
         ApiResponse<ResponseBankingScheduledPaymentsList<BankingScheduledPaymentTo>> resp = ((BankingScheduledPaymentsAPI) getAPI())
-                .listScheduledPaymentsSpecificAccountsWithHttpInfo(idList, page, pageSize, 1);
+                .listScheduledPaymentsSpecificAccountsWithHttpInfo(getRequestAccountIds(ids), page, pageSize, 1);
         Assertions.assertEquals(ResponseCode.OK.getCode(), resp.getStatusCode());
         List<ConformanceError> conformanceErrors = new ArrayList<>();
         checkResponseHeaders(resp.getHeaders(), conformanceErrors);
         for (BankingScheduledPayment<BankingScheduledPaymentTo> payment : resp.getBody().getData().getScheduledPayments()) {
-            checkAccountInList(payment.getFrom().getAccountId(), idList.getData().getAccountIds(), conformanceErrors);
+            checkAccountInList(payment.getFrom().getAccountId(), ids, conformanceErrors);
         }
 
         dumpConformanceErrors(conformanceErrors);

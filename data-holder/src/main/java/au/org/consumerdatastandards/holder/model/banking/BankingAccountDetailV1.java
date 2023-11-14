@@ -122,7 +122,11 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     /**
      * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "banking_account_features",
+        joinColumns = @JoinColumn(name = "banking_account_id"),
+        inverseJoinColumns = @JoinColumn(name = "feature_id"))
     private List<BankingAccountProductFeature> features;
 
     /**
@@ -151,11 +155,19 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     private List<BankingProductLendingRateV1> lendingRates;
 
     @ManyToOne
+    @JoinTable(
+            name = "b_account_loans",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "loan_id"))
     private BankingLoanAccount loan;
 
     private SpecificAccountUType specificAccountUType;
 
     @OneToMany
+    @JoinTable(
+            name = "b_account_term_deposits",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "term_deposit_id"))
     private List<BankingTermDepositAccount> termDeposit;
 
     @Override
@@ -420,13 +432,11 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
         return this;
     }
 
-    @Override
     @ApiModelProperty(value = "Fully described deposit rates for this account based on the equivalent structure in Product Reference")
     public List<BankingProductDepositRateV1> getDepositRates() {
         return depositRates;
     }
 
-    @Override
     public void setDepositRates(List<BankingProductDepositRateV1> depositRates) {
         this.depositRates = depositRates;
     }
@@ -508,13 +518,11 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
         return this;
     }
 
-    @Override
     @ApiModelProperty(value = "Fully described lending rates for this account based on the equivalent structure in Product Reference")
     public List<BankingProductLendingRateV1> getLendingRates() {
         return lendingRates;
     }
 
-    @Override
     public void setLendingRates(List<BankingProductLendingRateV1> lendingRates) {
         this.lendingRates = lendingRates;
     }
