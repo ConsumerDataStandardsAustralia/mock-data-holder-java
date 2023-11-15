@@ -8,8 +8,12 @@ import au.org.consumerdatastandards.holder.model.PersonUser;
 import au.org.consumerdatastandards.holder.model.User;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccountV2;
+import au.org.consumerdatastandards.holder.model.banking.BankingAuthorisedEntity;
 import au.org.consumerdatastandards.holder.model.banking.BankingBalance;
-import au.org.consumerdatastandards.holder.model.banking.BankingProductV2Detail;
+import au.org.consumerdatastandards.holder.model.banking.BankingDirectDebit;
+import au.org.consumerdatastandards.holder.model.banking.BankingPayeeDetailV2;
+import au.org.consumerdatastandards.holder.model.banking.BankingProductDetailV4;
+import au.org.consumerdatastandards.holder.model.banking.BankingScheduledPaymentV2;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
@@ -28,8 +32,12 @@ import au.org.consumerdatastandards.holder.repository.CommonPersonRepository;
 import au.org.consumerdatastandards.holder.repository.UserRepository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingAccountDetailRepositoryV3;
 import au.org.consumerdatastandards.holder.repository.banking.BankingAccountRepositoryV2;
+import au.org.consumerdatastandards.holder.repository.banking.BankingAuthorisedEntityRepository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingBalanceRepository;
-import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV2Repository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingDirectDebitRepository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingPayeeDetailRepositoryV2;
+import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV4Repository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingScheduledPaymentRepositoryV2;
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
@@ -55,8 +63,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.Predicate;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -69,12 +79,17 @@ public class CdsDataLoader implements ApplicationRunner {
     private static final String DEFAULT_PASSWORD = "password";
 
     // Banking repositories
-    private final BankingProductDetailV2Repository productDetailRepository;
+    private final BankingProductDetailV4Repository productDetailRepository;
     private final BankingAccountDetailRepositoryV3 accountDetailRepository;
     private final BankingAccountRepositoryV2 accountRepository;
     private final BankingBalanceRepository balanceRepository;
     private final CommonPersonDetailRepository commonPersonDetailRepository;
     private final BankingTransactionDetailRepository transactionDetailRepository;
+    private final BankingDirectDebitRepository directDebitRepository;
+    private final BankingAuthorisedEntityRepository authorisedEntityRepository;
+    private final BankingPayeeDetailRepositoryV2 payeeDetailRepository;
+    private final BankingScheduledPaymentRepositoryV2 scheduledPaymentRepository;
+
     private final UserRepository userRepository;
     private final CommonPersonRepository commonPersonRepository;
     private final CommonOrganisationRepository commonOrganisationRepository;
@@ -95,12 +110,16 @@ public class CdsDataLoader implements ApplicationRunner {
     private int organisationUserIdSeq = 0;
 
     @Autowired
-    public CdsDataLoader(BankingProductDetailV2Repository productDetailRepository,
+    public CdsDataLoader(BankingProductDetailV4Repository productDetailRepository,
                          BankingAccountDetailRepositoryV3 accountDetailRepository,
                          BankingAccountRepositoryV2 accountRepository,
                          BankingBalanceRepository balanceRepository,
                          CommonPersonDetailRepository commonPersonDetailRepository,
                          BankingTransactionDetailRepository transactionDetailRepository,
+                         BankingDirectDebitRepository directDebitRepository,
+                         BankingAuthorisedEntityRepository authorisedEntityRepository,
+                         BankingPayeeDetailRepositoryV2 payeeDetailRepository,
+                         BankingScheduledPaymentRepositoryV2 scheduledPaymentRepository,
                          EnergyAccountV2Repository energyAccountV2Repository,
                          EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
                          EnergyAccountBalanceRepository energyAccountBalanceRepository,
@@ -119,6 +138,10 @@ public class CdsDataLoader implements ApplicationRunner {
         this.balanceRepository = balanceRepository;
         this.commonPersonDetailRepository = commonPersonDetailRepository;
         this.transactionDetailRepository = transactionDetailRepository;
+        this.directDebitRepository = directDebitRepository;
+        this.authorisedEntityRepository = authorisedEntityRepository;
+        this.payeeDetailRepository = payeeDetailRepository;
+        this.scheduledPaymentRepository = scheduledPaymentRepository;
         this.energyAccountV2Repository = energyAccountV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyAccountBalanceRepository = energyAccountBalanceRepository;
@@ -138,15 +161,15 @@ public class CdsDataLoader implements ApplicationRunner {
     }
 
     private void loadAll(List<String> testdata) throws IOException {
-        // Banking
-        load("payloads/banking/accounts", accountDetailRepository, BankingAccountDetailV3.class);
-        load("payloads/banking/balances", balanceRepository, BankingBalance.class);
-        load("payloads/banking/persons", commonPersonDetailRepository, CommonPersonDetail.class);
-        load("payloads/banking/products", productDetailRepository, BankingProductV2Detail.class);
-        load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
-
-        // Energy
         if (testdata.isEmpty()) {
+            // Banking
+            load("payloads/banking/accounts", accountDetailRepository, BankingAccountDetailV3.class);
+            load("payloads/banking/balances", balanceRepository, BankingBalance.class);
+            load("payloads/banking/persons", commonPersonDetailRepository, CommonPersonDetail.class);
+            load("payloads/banking/products", productDetailRepository, BankingProductDetailV4.class);
+            load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
+
+            // Energy
             load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
             load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
         } else {
@@ -156,13 +179,96 @@ public class CdsDataLoader implements ApplicationRunner {
             JsonNode holders = tree.path("holders");
             for (JsonNode holder : holders) {
                 LOGGER.info("Holder id: {}", holder.get("holderId"));
+                loadBankingTestData(holder);
                 loadEnergyTestData(holder);
             }
         }
         LOGGER.info("Data loaded.");
     }
 
+    private void loadBankingTestData(JsonNode holder) throws JsonProcessingException {
+        LOGGER.info("Loading Banking data...");
+        for (JsonNode planJson : holder.at("/holder/unauthenticated/banking/products")) {
+            BankingProductDetailV4 product = objectMapper.treeToValue(planJson, BankingProductDetailV4.class);
+            LOGGER.info("Loading product: {}", product.getProductId());
+            productDetailRepository.save(product);
+        }
+
+        for (JsonNode customer : holder.at("/holder/authenticated/customers")) {
+            LOGGER.info("Customer id: {}", customer.get("customerId"));
+
+            // Load accounts
+            for (JsonNode accountEl : customer.at("/banking/accounts")) {
+                BankingAccountDetailV3 account = objectMapper.treeToValue(accountEl.path("account"), BankingAccountDetailV3.class);
+                LOGGER.info("Loading account: {}", account.getAccountId());
+
+                // Load transactions
+                LOGGER.info("Loading transaction of account: {}", account.getAccountId());
+                for (JsonNode invoiceEl : accountEl.path("transactions")) {
+                    BankingTransactionDetail transaction = objectMapper.treeToValue(invoiceEl, BankingTransactionDetail.class);
+                    transaction.setAccountId(account.getAccountId());
+                    transactionDetailRepository.save(transaction);
+                }
+
+                // Load invoices
+                accountDetailRepository.save(account);
+
+                // Load balance
+                BankingBalance balance = objectMapper.treeToValue(accountEl.path("balance"), BankingBalance.class);
+                balance.setAccountId(account.getAccountId());
+                assignAccountToBalance(balance);
+                balanceRepository.save(balance);
+            }
+
+            // Load direct debits
+            for (JsonNode directDebitEl : customer.at("/banking/directDebits")) {
+                BankingDirectDebit directDebit = objectMapper.treeToValue(directDebitEl, BankingDirectDebit.class);
+                LOGGER.info("Loading direct debit for account: {}", directDebit.getAccountId());
+                directDebit.setAuthorisedEntity(findOrCreateAuthEntity(directDebit.getAuthorisedEntity()));
+                directDebitRepository.save(directDebit);
+            }
+
+            // Load payees
+            for (JsonNode payeeEl : customer.at("/banking/payees")) {
+                BankingPayeeDetailV2 payee = objectMapper.treeToValue(payeeEl, BankingPayeeDetailV2.class);
+                LOGGER.info("Loading payee: {}", payee.getPayeeId());
+                payeeDetailRepository.save(payee);
+            }
+
+            // Load payments
+            for (JsonNode paymentsEl : customer.at("/banking/payments")) {
+                BankingScheduledPaymentV2 payee = objectMapper.treeToValue(paymentsEl, BankingScheduledPaymentV2.class);
+                LOGGER.info("Loading scheduled payment: {}", payee.getScheduledPaymentId());
+                scheduledPaymentRepository.save(payee);
+            }
+        }
+    }
+
+    private BankingAuthorisedEntity findOrCreateAuthEntity(BankingAuthorisedEntity authorisedEntity) {
+        return authorisedEntityRepository.findOne((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (authorisedEntity.getDescription() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("description"), authorisedEntity.getDescription()));
+            }
+            if (authorisedEntity.getFinancialInstitution() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("financialInstitution"), authorisedEntity.getFinancialInstitution()));
+            }
+            if (authorisedEntity.getAbn() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("abn"), authorisedEntity.getAbn()));
+            }
+            if (authorisedEntity.getAcn() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("acn"), authorisedEntity.getAcn()));
+            }
+            if (authorisedEntity.getArbn() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("arbn"), authorisedEntity.getArbn()));
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        }).orElseGet(() -> authorisedEntityRepository.save(authorisedEntity));
+    }
+
     private void loadEnergyTestData(JsonNode holder) throws JsonProcessingException {
+        LOGGER.info("Loading Energy data...");
+
         // Load plans
         for (JsonNode planJson : holder.at("/holder/unauthenticated/energy/plans")) {
             EnergyPlanDetailV2 plan = objectMapper.treeToValue(planJson, EnergyPlanDetailV2.class);

@@ -3,6 +3,7 @@ package au.org.consumerdatastandards.holder.model.banking;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,11 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
 
 @ApiModel
 @Entity
+@Table(name = "b_sched_payment")
 public class BankingScheduledPaymentV2 implements BankingScheduledPayment {
 
     /**
@@ -41,14 +44,18 @@ public class BankingScheduledPaymentV2 implements BankingScheduledPayment {
      */
     private String payerReference;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "banking_scheduled_payment_sets",
         joinColumns = @JoinColumn(name = "scheduled_payment_id"),
         inverseJoinColumns = @JoinColumn(name = "payment_set_id"))
     private List<BankingScheduledPaymentSetV2> paymentSet;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "banking_scheduled_payment_recurrence",
+            joinColumns = @JoinColumn(name = "scheduled_payment_id"),
+            inverseJoinColumns = @JoinColumn(name = "payment_recurrence_id"))
     private BankingScheduledPaymentRecurrence recurrence;
 
     private Status status;

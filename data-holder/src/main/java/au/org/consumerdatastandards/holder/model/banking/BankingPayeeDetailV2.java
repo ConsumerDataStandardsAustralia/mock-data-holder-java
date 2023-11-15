@@ -8,7 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -44,16 +45,28 @@ public class BankingPayeeDetailV2 implements BankingPayeeDetail {
 
     private BankingPayee.Type type;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "b_payee_billers",
+            joinColumns = @JoinColumn(name = "payee_id"),
+            inverseJoinColumns = @JoinColumn(name = "biller_id"))
     private BankingBillerPayee biller;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "b_payee_domestics",
+            joinColumns = @JoinColumn(name = "payee_id"),
+            inverseJoinColumns = @JoinColumn(name = "domestic_id"))
     private BankingDomesticPayee domestic;
 
     @OneToOne(cascade = CascadeType.ALL)
     private BankingDigitalWalletPayee digitalWallet;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "b_payee_intnls",
+            joinColumns = @JoinColumn(name = "payee_id"),
+            inverseJoinColumns = @JoinColumn(name = "intnl_id"))
     private BankingInternationalPayee international;
 
     private PayeeUType payeeUType;

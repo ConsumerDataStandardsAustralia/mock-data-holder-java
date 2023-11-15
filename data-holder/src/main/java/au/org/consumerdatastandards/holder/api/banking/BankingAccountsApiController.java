@@ -136,6 +136,8 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
+        newestTime = (newestTime == null ? OffsetDateTime.now() : newestTime);
+        oldestTime = (oldestTime == null ? newestTime.minusDays(90) : oldestTime);
         Page<BankingTransaction> transactionPage = transactionService.findTransactions(
             accountId, maxAmount, minAmount, newestTime, oldestTime, text, PageRequest.of(actualPage - 1, actualPageSize));
         validatePageRange(actualPage, transactionPage.getTotalPages(), xFapiInteractionId);

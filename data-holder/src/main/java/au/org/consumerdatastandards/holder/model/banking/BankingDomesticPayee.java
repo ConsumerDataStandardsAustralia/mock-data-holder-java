@@ -5,10 +5,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 
 @ApiModel
@@ -21,13 +22,13 @@ public class BankingDomesticPayee  {
     @JsonIgnore
     private String id;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BankingDomesticPayeeAccount account;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BankingDomesticPayeeCard card;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BankingDomesticPayeePayId payId;
 
     private PayeeAccountUType payeeAccountUType;

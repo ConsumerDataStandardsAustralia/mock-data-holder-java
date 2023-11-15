@@ -65,7 +65,7 @@ public class ApiClient {
         json = new JSON(validating);
 
         // Set default User-Agent.
-        setUserAgent("CDS Client/2.1.0/java");
+        setUserAgent("CDS Client/2.2.0/java");
 
         addDefaultHeader("Accept", "application/json");
         addDefaultHeader("Content-Type", "application/json");

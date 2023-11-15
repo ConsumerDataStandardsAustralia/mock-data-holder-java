@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,10 +22,10 @@ public class BankingInternationalPayee  {
     @JsonIgnore
     private String id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BankingInternationalPayeeBankDetails bankDetails;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BankingInternationalPayeeBeneficiaryDetails beneficiaryDetails;
 
     public String getId() {

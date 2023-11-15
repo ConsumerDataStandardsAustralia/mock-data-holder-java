@@ -110,6 +110,14 @@ public class BankingScheduledPaymentRecurrenceLastWeekday  {
         this.paymentsRemaining = paymentsRemaining;
     }
 
+    public NonBusinessDayTreatment getNonBusinessDayTreatment() {
+        return nonBusinessDayTreatment;
+    }
+
+    public void setNonBusinessDayTreatment(NonBusinessDayTreatment nonBusinessDayTreatment) {
+        this.nonBusinessDayTreatment = nonBusinessDayTreatment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

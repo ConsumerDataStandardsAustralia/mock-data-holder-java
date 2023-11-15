@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.time.LocalDate;
 
 @ApiModel(description = "Object containing the detail of the schedule for the payment")
-@Entity
+@Entity(name = "b_sched_paymnt_rec")
 public class BankingScheduledPaymentRecurrence  {
 
     @Id
@@ -24,7 +24,7 @@ public class BankingScheduledPaymentRecurrence  {
     @Embedded
     private BankingScheduledPaymentRecurrenceEventBased eventBased;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private BankingScheduledPaymentRecurrenceIntervalSchedule intervalSchedule;
 
     @Embedded

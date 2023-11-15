@@ -1,6 +1,9 @@
 package au.org.consumerdatastandards.holder.model.banking;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -13,19 +16,23 @@ public class BankingProductLendingRateV2 extends BankingProductLendingRate {
     /**
      * Rate tiers applicable for this rate
      */
-    @OneToMany(mappedBy = "lendingRate")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "b_prod_lending_rate_tiers",
+            joinColumns = @JoinColumn(name = "prod_id"),
+            inverseJoinColumns = @JoinColumn(name = "tier_id"))
     @Valid
-    private List<BankingProductRateTierV2> tiers = null;
+    private List<BankingProductRateTierV3> tiers = null;
 
     private RepaymentType repaymentType;
 
     private LoanPurpose loanPurpose;
 
-    public List<BankingProductRateTierV2> getTiers() {
+    public List<BankingProductRateTierV3> getTiers() {
         return tiers;
     }
 
-    public void setTiers(List<BankingProductRateTierV2> tiers) {
+    public void setTiers(List<BankingProductRateTierV3> tiers) {
         this.tiers = tiers;
     }
 

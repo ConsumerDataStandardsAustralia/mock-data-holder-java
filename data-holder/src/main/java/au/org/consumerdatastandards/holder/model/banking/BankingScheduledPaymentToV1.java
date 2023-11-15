@@ -5,9 +5,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Objects;
@@ -28,13 +31,25 @@ public class BankingScheduledPaymentToV1 implements BankingScheduledPaymentTo {
      */
     private String accountId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "banking_scheduled_payment_to_biller",
+            joinColumns = @JoinColumn(name = "scheduled_payment_to_id"),
+            inverseJoinColumns = @JoinColumn(name = "biller_payee_id"))
     private BankingBillerPayee biller;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "banking_scheduled_payment_to_dom",
+            joinColumns = @JoinColumn(name = "scheduled_payment_to_id"),
+            inverseJoinColumns = @JoinColumn(name = "dom_payee_id"))
     private BankingDomesticPayee domestic;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "banking_scheduled_payment_to_intnl",
+            joinColumns = @JoinColumn(name = "scheduled_payment_to_id"),
+            inverseJoinColumns = @JoinColumn(name = "intnl_payee_id"))
     private BankingInternationalPayee international;
 
     /**

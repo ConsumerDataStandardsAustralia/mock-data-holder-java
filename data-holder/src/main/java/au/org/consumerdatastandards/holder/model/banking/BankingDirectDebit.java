@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.OffsetDateTime;
 import java.util.Objects;
@@ -30,15 +29,15 @@ public class BankingDirectDebit {
      */
     private String accountId;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(updatable = false)
-    private BankingAccountV2 bankingAccount;
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn(updatable = false)
+//    private BankingAccountV2 bankingAccount;
 
     /**
      * Get authorisedEntity
      */
-    @ManyToOne
+    @ManyToOne()
     private BankingAuthorisedEntity authorisedEntity;
 
     /**
@@ -80,13 +79,13 @@ public class BankingDirectDebit {
         return this;
     }
 
-    public BankingAccountV2 getBankingAccount() {
-        return bankingAccount;
-    }
-
-    public void setBankingAccount(BankingAccountV2 bankingAccount) {
-        this.bankingAccount = bankingAccount;
-    }
+//    public BankingAccountV2 getBankingAccount() {
+//        return bankingAccount;
+//    }
+//
+//    public void setBankingAccount(BankingAccountV2 bankingAccount) {
+//        this.bankingAccount = bankingAccount;
+//    }
 
     @ApiModelProperty(required = true)
     public BankingAuthorisedEntity getAuthorisedEntity() {

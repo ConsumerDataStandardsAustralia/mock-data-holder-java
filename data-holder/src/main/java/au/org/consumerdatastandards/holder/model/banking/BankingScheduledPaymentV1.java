@@ -9,6 +9,7 @@ import java.util.List;
 
 @ApiModel
 @Entity
+@Table(name = "b_sched_payment")
 public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
 
     /**
@@ -35,14 +36,18 @@ public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
      */
     private String payerReference;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "banking_scheduled_payment_sets",
         joinColumns = @JoinColumn(name = "scheduled_payment_id"),
         inverseJoinColumns = @JoinColumn(name = "payment_set_id"))
     private List<BankingScheduledPaymentSetV1> paymentSet;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "banking_scheduled_payment_recurrence",
+            joinColumns = @JoinColumn(name = "scheduled_payment_id"),
+            inverseJoinColumns = @JoinColumn(name = "payment_recurrence_id"))
     private BankingScheduledPaymentRecurrence recurrence;
 
     private Status status;
