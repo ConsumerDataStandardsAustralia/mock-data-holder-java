@@ -50,7 +50,7 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{accountId} : Get Telco Account Detail
-     * Obtain detailed information for a specific telco account  Other Versions: [v1](includes/obsolete/get-telco-account-detail-v1.html)
+     * Obtain detailed information for a specific telco account
      *
      * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
@@ -66,7 +66,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Account Detail",
             nickname = "getAccount",
-            notes = "Obtain detailed information for a specific telco account  Other Versions: [v1](includes/obsolete/get-telco-account-detail-v1.html)",
+            notes = "Obtain detailed information for a specific telco account",
             response = TelcoAccountDetailResponse.class,
             tags = {"Telco", "Accounts",})
     @ApiResponses(value = {
@@ -700,7 +700,7 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts : Get Telco Accounts
-     * Obtain the list of telco accounts available under the authorised consent  Other Versions: [v1](includes/obsolete/get-telco-accounts-v1.html)
+     * Obtain the list of telco accounts available under the authorised consent
      *
      * @param xV                     Version of the API end point requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [x-min-v](#request-headers) and [x-v](#request-headers). If the value of [x-min-v](#request-headers) is equal to or higher than the value of [x-v](#request-headers) then the [x-min-v](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder must respond with a 406 Not Acceptable. See [HTTP Headers](#request-headers) (required)
      * @param openStatus             Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
@@ -719,7 +719,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Accounts",
             nickname = "listAccounts",
-            notes = "Obtain the list of telco accounts available under the authorised consent  Other Versions: [v1](includes/obsolete/get-telco-accounts-v1.html)",
+            notes = "Obtain the list of telco accounts available under the authorised consent",
             response = TelcoAccountListResponse.class,
             tags = {"Telco", "Accounts",})
     @ApiResponses(value = {
