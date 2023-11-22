@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,6 +57,46 @@ public class ApiControllerBase {
                     new Error("Invalid Page Size", "urn:au-cds:error:cds-all:Field/InvalidPageSize", message)),
                     HttpStatus.BAD_REQUEST);
         }
+    }
+
+    protected void validateUpdatedSince(OffsetDateTime updatedSince, UUID interactionId) {
+        if (updatedSince != null && !updatedSince.isBefore(OffsetDateTime.now())) {
+            throwInvalidDate("updated-since is not in the past", interactionId);
+        }
+    }
+
+    protected void validateOldestNewestOffsetDateTime(OffsetDateTime oldestTime, OffsetDateTime newestTime, UUID interactionId) {
+        if (newestTime != null && !newestTime.isBefore(OffsetDateTime.now())) {
+            throwInvalidDate("newest-time is not in the past", interactionId);
+        }
+        if (oldestTime != null) {
+            if (!oldestTime.isBefore(OffsetDateTime.now())) {
+                throwInvalidDate("oldest-time is not in the past", interactionId);
+            }
+            if (newestTime != null && newestTime.isBefore(oldestTime)) {
+                throwInvalidDate("newest-time is before oldest-time", interactionId);
+            }
+        }
+    }
+
+    protected void validateOldestNewestLocalDate(LocalDate oldestDate, LocalDate newestDate, UUID interactionId) {
+        if (newestDate != null && !newestDate.isBefore(LocalDate.now())) {
+            throwInvalidDate("newest-date is not in the past", interactionId);
+        }
+        if (oldestDate != null) {
+            if (!oldestDate.isBefore(LocalDate.now())) {
+                throwInvalidDate("oldest-date is not in the past", interactionId);
+            }
+            if (newestDate != null && newestDate.isBefore(oldestDate)) {
+                throwInvalidDate("newest-date is before oldest-date", interactionId);
+            }
+        }
+    }
+
+    protected void throwInvalidDate(String message, UUID interactionId) {
+        throwCDSErrors(interactionId, Collections.singletonList(
+                new Error("Invalid Page Size", "urn:au-cds:error:cds-all:Field/InvalidDateTime", message)),
+                HttpStatus.BAD_REQUEST);
     }
 
     protected boolean hasSupportedVersion(Integer xMinV, Integer xV, int maxSupportedVersion) {

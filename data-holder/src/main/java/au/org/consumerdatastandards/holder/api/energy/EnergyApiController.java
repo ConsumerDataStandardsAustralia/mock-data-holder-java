@@ -131,6 +131,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             OffsetDateTime newestTime, OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
+        validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         if (!service.checkAccountExistence(accountId)) {
             throwInvalidAccount(accountId, xFapiInteractionId);
@@ -199,6 +200,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             LocalDate newestDate, LocalDate oldestDate, Integer page, Integer pageSize, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validateOldestNewestLocalDate(oldestDate, newestDate, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         if (!service.checkAccountExistence(accountId)) {
             throwInvalidAccount(accountId, xFapiInteractionId);
@@ -387,6 +389,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
+        validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -413,6 +416,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders,
             ParamIntervalReadsEnum intervalReads) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
+        validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         List<String> accountIds = accountIdList.getData().getAccountIds();
         validateAccountIds(accountIds, xFapiInteractionId);
@@ -497,6 +501,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validateOldestNewestLocalDate(oldestDate, newestDate, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
@@ -524,6 +529,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validateOldestNewestLocalDate(oldestDate, newestDate, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         List<String> accountIds = accountIdList.getData().getAccountIds();
         validateAccountIds(accountIds, xFapiInteractionId);
@@ -565,6 +571,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             Integer page, Integer pageSize) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 1);
+        validateUpdatedSince(updatedSince, WebUtil.NO_INTERACTION_ID);
         validatePageSize(pageSize, WebUtil.NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         EnergyPlanListResponse response = new EnergyPlanListResponse();
@@ -623,6 +630,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             String xFapiCustomerIpAddress, String xCdsClientHeaders, ParamIntervalReadsEnum intervalReads) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validateOldestNewestLocalDate(oldestDate, newestDate, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
@@ -652,6 +660,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             String xCdsClientHeaders, ParamIntervalReadsEnum intervalReads) {
 
         int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 1);
+        validateOldestNewestLocalDate(oldestDate, newestDate, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         List<String> servicePointIds = servicePointIdList.getData().getServicePointIds();
         validateServicePointIds(servicePointIds, xFapiInteractionId);

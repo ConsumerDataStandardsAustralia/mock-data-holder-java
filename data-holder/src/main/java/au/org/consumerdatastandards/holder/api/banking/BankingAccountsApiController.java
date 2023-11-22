@@ -133,6 +133,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           Integer xV) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
