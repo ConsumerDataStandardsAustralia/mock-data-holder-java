@@ -147,7 +147,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         ResponseBankingTransactionList responseBankingTransactionList = new ResponseBankingTransactionList();
         responseBankingTransactionList.setData(listData);
         responseBankingTransactionList.setLinks(getLinkData(request, transactionPage, actualPage, actualPageSize));
-        responseBankingTransactionList.setMeta(getMetaData(transactionPage));
+        responseBankingTransactionList.setMeta(getTxMetaData(transactionPage, false));
         return new ResponseEntity<>(responseBankingTransactionList, headers, HttpStatus.OK);
     }
 

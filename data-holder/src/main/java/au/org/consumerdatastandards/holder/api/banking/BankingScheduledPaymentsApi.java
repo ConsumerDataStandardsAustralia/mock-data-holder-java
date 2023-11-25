@@ -137,7 +137,7 @@ public interface BankingScheduledPaymentsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Page Size / Invalid Field / Missing Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -222,7 +222,7 @@ public interface BankingScheduledPaymentsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Page Size / Invalid Field / Missing Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),

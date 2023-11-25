@@ -99,7 +99,7 @@ public interface BankingProductsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field / Invalid Date",
+            message = "Invalid Page Size / Invalid Field / Missing Field / Invalid Date",
             response = ErrorListResponse.class
         ),
         @ApiResponse(
