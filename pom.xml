@@ -56,7 +56,7 @@
         <junit.version>5.5.0</junit.version>
         <jacoco.version>0.8.4</jacoco.version>
         <swagger-core.version>1.5.24</swagger-core.version>
-        <spring-boot.version>2.5.6</spring-boot.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <commons-validator.version>1.6</commons-validator.version>
         <commons-codec.version>1.13</commons-codec.version>
