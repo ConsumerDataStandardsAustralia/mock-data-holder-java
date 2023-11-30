@@ -83,6 +83,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
             effective, updatedSince, brand, productCategory, page, pageSize);
         int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 3);
         validatePageSize(pageSize, WebUtil.NO_INTERACTION_ID);
+        validateUpdatedSince(updatedSince, WebUtil.NO_INTERACTION_ID);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         BankingProduct bankingProduct = new BankingProductV2();
         bankingProduct.setLastUpdated(updatedSince);

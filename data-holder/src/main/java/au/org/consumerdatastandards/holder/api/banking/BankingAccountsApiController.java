@@ -133,6 +133,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                           Integer xV) {
         int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
         validatePageSize(pageSize, xFapiInteractionId);
+        validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
@@ -146,7 +147,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         ResponseBankingTransactionList responseBankingTransactionList = new ResponseBankingTransactionList();
         responseBankingTransactionList.setData(listData);
         responseBankingTransactionList.setLinks(getLinkData(request, transactionPage, actualPage, actualPageSize));
-        responseBankingTransactionList.setMeta(getMetaData(transactionPage));
+        responseBankingTransactionList.setMeta(getTxMetaData(transactionPage, false));
         return new ResponseEntity<>(responseBankingTransactionList, headers, HttpStatus.OK);
     }
 
