@@ -172,11 +172,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Start of the period
+     * Start of the period.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return startTime
      */
-    @ApiModelProperty(required = true, value = "Start of the period")
+    @ApiModelProperty(required = true, value = "Start of the period.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
     @NotNull
     public String getStartTime() {
         return startTime;
@@ -192,11 +192,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * End of the period
+     * End of the period.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return endTime
      */
-    @ApiModelProperty(required = true, value = "End of the period")
+    @ApiModelProperty(required = true, value = "End of the period.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
     @NotNull
     public String getEndTime() {
         return endTime;

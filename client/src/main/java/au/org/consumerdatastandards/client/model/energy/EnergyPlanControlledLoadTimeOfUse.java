@@ -62,7 +62,7 @@ public class EnergyPlanControlledLoadTimeOfUse {
     }
 
     /**
-     * Start of the period in HHMM format using 24 hour clock format
+     * The beginning of the time period per day for which the controlled load rate applies. Required if endTime provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return startTime
      */
@@ -80,7 +80,7 @@ public class EnergyPlanControlledLoadTimeOfUse {
     }
 
     /**
-     * End of the period in HHMM format using 24 hour clock format
+     * The end of the time period per day for which the controlled load rate applies. Required if startTime provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return endTime
      */

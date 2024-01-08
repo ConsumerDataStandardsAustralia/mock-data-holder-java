@@ -28,7 +28,8 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetail
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyDerRecordRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV1Repository;
@@ -68,7 +69,8 @@ public class EnergyService {
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyAccountBalanceRepository energyAccountBalanceRepository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
-    private final EnergyBillingTransactionRepository energyBillingTransactionRepository;
+    private final EnergyBillingTransactionV2Repository energyBillingTransactionV2Repository;
+    private final EnergyBillingTransactionV3Repository energyBillingTransactionV3Repository;
     private final EnergyPlanRepository energyPlanRepository;
     private final EnergyPlanDetailV1Repository energyPlanDetailV1Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
@@ -86,7 +88,8 @@ public class EnergyService {
             EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
             EnergyAccountBalanceRepository energyAccountBalanceRepository,
             EnergyInvoiceRepository energyInvoiceRepository,
-            EnergyBillingTransactionRepository energyBillingTransactionRepository,
+            EnergyBillingTransactionV2Repository energyBillingTransactionV2Repository,
+            EnergyBillingTransactionV3Repository energyBillingTransactionV3Repository,
             EnergyServicePointRepository energyServicePointRepository,
             EnergyServicePointDetailRepository energyServicePointDetailRepository,
             EnergyDerRecordRepository energyDerRecordRepository,
@@ -102,7 +105,8 @@ public class EnergyService {
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
         this.energyAccountBalanceRepository = energyAccountBalanceRepository;
         this.energyInvoiceRepository = energyInvoiceRepository;
-        this.energyBillingTransactionRepository = energyBillingTransactionRepository;
+        this.energyBillingTransactionV2Repository = energyBillingTransactionV2Repository;
+        this.energyBillingTransactionV3Repository = energyBillingTransactionV3Repository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyServicePointDetailRepository = energyServicePointDetailRepository;
         this.energyDerRecordRepository = energyDerRecordRepository;
@@ -214,25 +218,17 @@ public class EnergyService {
         }, pageable);
     }
 
-    public Page<EnergyBillingTransaction> findBillingTransactions(List<String> accountIds, OffsetDateTime oldestTime, OffsetDateTime newestTime, Pageable pageable) {
+    public Page<EnergyBillingTransaction> findBillingTransactions(List<String> accountIds, OffsetDateTime oldestTime, OffsetDateTime newestTime, Pageable pageable, int version) {
         LOGGER.debug("Retrieve Energy billing transactions for accounts {}, oldest time: {}, newest time: {} with Paging content specified as {}",
                 accountIds, oldestTime, newestTime, pageable);
 
-        return energyBillingTransactionRepository.findAll((Root<EnergyBillingTransaction> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            if (accountIds != null) {
-                predicates.add(root.get("accountId").in(accountIds));
-                // TODO: Otherwise the current user accounts need to be used from security context
-            }
-            if (newestTime != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("executionDateTime"), newestTime));
-            }
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("executionDateTime"), (oldestTime == null
-                    ? (newestTime == null ? OffsetDateTime.now() : newestTime).minusMonths(12)
-                    : oldestTime
-            )));
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-        }, pageable);
+        switch (version) {
+            case 1:
+            case 2:
+                return energyBillingTransactionV2Repository.findAll(new EnergyBillingTransactionSpecification<>(accountIds, newestTime, oldestTime), pageable).map(trans -> trans);
+            default:
+                return energyBillingTransactionV3Repository.findAll(new EnergyBillingTransactionSpecification<>(accountIds, newestTime, oldestTime), pageable).map(trans -> trans);
+        }
     }
 
     public boolean checkAccountExistence(String accountId) {
@@ -338,5 +334,34 @@ public class EnergyService {
         LOGGER.debug("Retrieving balance for energy account id {}",  accountId);
 
         return energyAccountBalanceRepository.findByAccountId(accountId);
+    }
+}
+
+class EnergyBillingTransactionSpecification<T extends EnergyBillingTransaction> implements Specification<T> {
+    private final List<String> accountIds;
+    private final OffsetDateTime newestTime;
+    private final OffsetDateTime oldestTime;
+
+    public EnergyBillingTransactionSpecification(List<String> accountIds, OffsetDateTime newestTime, OffsetDateTime oldestTime) {
+        this.accountIds = accountIds;
+        this.newestTime = newestTime;
+        this.oldestTime = oldestTime;
+    }
+
+    @Override
+    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+        List<Predicate> predicates = new ArrayList<>();
+        if (accountIds != null) {
+            predicates.add(root.get("accountId").in(accountIds));
+            // TODO: Otherwise the current user accounts need to be used from security context
+        }
+        if (newestTime != null) {
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("executionDateTime"), newestTime));
+        }
+        predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("executionDateTime"), (oldestTime == null
+                ? (newestTime == null ? OffsetDateTime.now() : newestTime).minusMonths(12)
+                : oldestTime
+        )));
+        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }

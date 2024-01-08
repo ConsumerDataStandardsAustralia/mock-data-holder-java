@@ -7,15 +7,15 @@ import java.util.Objects;
 /**
  * EnergyBillingListResponseData
  */
-public class EnergyBillingListResponseData {
-    private List<EnergyBillingTransaction> transactions = new ArrayList<>();
+public class EnergyBillingListResponseData<T extends EnergyBillingTransactionBase> {
+    private List<T> transactions = new ArrayList<>();
 
-    public EnergyBillingListResponseData transactions(List<EnergyBillingTransaction> transactions) {
+    public EnergyBillingListResponseData transactions(List<T> transactions) {
         this.transactions = transactions;
         return this;
     }
 
-    public EnergyBillingListResponseData addTransactionsItem(EnergyBillingTransaction transactionsItem) {
+    public EnergyBillingListResponseData addTransactionsItem(T transactionsItem) {
         this.transactions.add(transactionsItem);
         return this;
     }
@@ -25,11 +25,11 @@ public class EnergyBillingListResponseData {
      *
      * @return transactions
      */
-    public List<EnergyBillingTransaction> getTransactions() {
+    public List<T> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<EnergyBillingTransaction> transactions) {
+    public void setTransactions(List<T> transactions) {
         this.transactions = transactions;
     }
 
@@ -42,7 +42,7 @@ public class EnergyBillingListResponseData {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyBillingListResponseData energyBillingListResponseData = (EnergyBillingListResponseData) o;
+        EnergyBillingListResponseData<T> energyBillingListResponseData = (EnergyBillingListResponseData<T>) o;
         return Objects.equals(this.transactions, energyBillingListResponseData.transactions);
     }
 
