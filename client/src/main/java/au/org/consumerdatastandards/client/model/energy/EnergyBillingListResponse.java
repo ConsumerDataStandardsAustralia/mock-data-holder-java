@@ -8,14 +8,14 @@ import java.util.Objects;
 /**
  * EnergyBillingListResponse
  */
-public class EnergyBillingListResponse {
-    private EnergyBillingListResponseData data;
+public class EnergyBillingListResponse<T extends EnergyBillingTransactionBase> {
+    private EnergyBillingListResponseData<T> data;
 
     private LinksPaginated links;
 
     private MetaPaginated meta;
 
-    public EnergyBillingListResponse data(EnergyBillingListResponseData data) {
+    public EnergyBillingListResponse<T> data(EnergyBillingListResponseData<T> data) {
         this.data = data;
         return this;
     }
@@ -25,15 +25,15 @@ public class EnergyBillingListResponse {
      *
      * @return data
      */
-    public EnergyBillingListResponseData getData() {
+    public EnergyBillingListResponseData<T> getData() {
         return data;
     }
 
-    public void setData(EnergyBillingListResponseData data) {
+    public void setData(EnergyBillingListResponseData<T> data) {
         this.data = data;
     }
 
-    public EnergyBillingListResponse links(LinksPaginated links) {
+    public EnergyBillingListResponse<T> links(LinksPaginated links) {
         this.links = links;
         return this;
     }
@@ -51,7 +51,7 @@ public class EnergyBillingListResponse {
         this.links = links;
     }
 
-    public EnergyBillingListResponse meta(MetaPaginated meta) {
+    public EnergyBillingListResponse<T> meta(MetaPaginated meta) {
         this.meta = meta;
         return this;
     }
@@ -77,7 +77,7 @@ public class EnergyBillingListResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyBillingListResponse energyBillingListResponse = (EnergyBillingListResponse) o;
+        EnergyBillingListResponse<T> energyBillingListResponse = (EnergyBillingListResponse<T>) o;
         return Objects.equals(this.data, energyBillingListResponse.data) &&
                 Objects.equals(this.links, energyBillingListResponse.links) &&
                 Objects.equals(this.meta, energyBillingListResponse.meta);

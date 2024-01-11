@@ -34,7 +34,7 @@ public interface CommonCustomerApi {
     @ApiOperation(
         value = "Get Customer",
         nickname = "getCustomer",
-        notes = "Obtain basic information on the customer that has authorised the current session",
+        notes = "Obtain basic information on the customer that has authorised the current session\n\n<h3 id='cdr-common-api_get-customer_conventions'>Conventions</h3>\nIn the customer payloads relevant conventions are explained here, in one place.\n\n#### Given Names\n\n`firstName` represents the first of a person's given names.\n\n`middleNames` represents a collection of given names if the person has more than one given name.\n\nWhere a data holder holds a person's given names as a single string in source systems, it may not possible in some situations to reliably split these given names into their component first and middle names. In these situations, data holders MAY use the `firstName` field to return the single string of given names and an empty `middleNames` array.\n\nFor example, a person whose given names are \"John Paul Winston\" but the data holder cannot determine what is the first name, can return `\"firstName\": \"John Paul Winston\"`.",
         response = ResponseCommonCustomer.class,
         tags = {"Customer", "Common"}
     )

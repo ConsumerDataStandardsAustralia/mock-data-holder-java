@@ -130,7 +130,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyBillingListResponse> getBillingForAccount(String accountId, Integer xV, Integer xMinV,
             OffsetDateTime newestTime, OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId,
             Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 3);
         validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         if (!service.checkAccountExistence(accountId)) {
@@ -140,7 +140,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<EnergyBillingTransaction> transactions = service.findBillingTransactions(Collections.singletonList(accountId), oldestTime, newestTime,
-                PageRequest.of(actualPage - 1, actualPageSize));
+                PageRequest.of(actualPage - 1, actualPageSize), supportedVersion);
 
         logger.info(
                 "Returning billing transactions for account: {}, oldest time: {}, newest time: {} listing page {} of {} (page size of {})",
@@ -388,13 +388,13 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyBillingListResponse> listBillingBulk(Integer xV, Integer xMinV, OffsetDateTime newestTime,
             OffsetDateTime oldestTime, Integer page, Integer pageSize, UUID xFapiInteractionId, Date xFapiAuthDate,
             String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 3);
         validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<EnergyBillingTransaction> transactions = service.findBillingTransactions(null, oldestTime, newestTime,
-                PageRequest.of(actualPage - 1, actualPageSize));
+                PageRequest.of(actualPage - 1, actualPageSize), supportedVersion);
 
         logger.info(
                 "Returning billing transactions bulk for oldest time: {}, newest time: {} listing page {} of {} (page size of {})",
@@ -415,7 +415,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
             RequestAccountIds accountIdList, OffsetDateTime newestTime, OffsetDateTime oldestTime, Integer page, Integer pageSize,
             UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders,
             ParamIntervalReadsEnum intervalReads) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 2);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, xFapiInteractionId, 3);
         validateOldestNewestOffsetDateTime(oldestTime, newestTime, xFapiInteractionId);
         validatePageSize(pageSize, xFapiInteractionId);
         List<String> accountIds = accountIdList.getData().getAccountIds();
@@ -424,7 +424,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
         Integer actualPage = getPagingValue(page, 1);
         Integer actualPageSize = getPagingValue(pageSize, 25);
         Page<EnergyBillingTransaction> transactions = service.findBillingTransactions(accountIds, oldestTime, newestTime,
-                PageRequest.of(actualPage - 1, actualPageSize));
+                PageRequest.of(actualPage - 1, actualPageSize), supportedVersion);
 
         logger.info(
                 "Returning billing transactions for accounts: {}, oldest time: {}, newest time: {} listing page {} of {} (page size of {})",

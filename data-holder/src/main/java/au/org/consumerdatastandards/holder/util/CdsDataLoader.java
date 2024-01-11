@@ -18,7 +18,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetai
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseDataBalances;
-import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransaction;
+import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransactionV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
 import au.org.consumerdatastandards.holder.model.energy.EnergyDerRecord;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
@@ -42,7 +42,7 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingTransaction
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionRepository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyDerRecordRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
@@ -99,7 +99,7 @@ public class CdsDataLoader implements ApplicationRunner {
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
     private final EnergyAccountBalanceRepository energyAccountBalanceRepository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
-    private final EnergyBillingTransactionRepository energyBillingTransactionRepository;
+    private final EnergyBillingTransactionV3Repository energyBillingTransactionRepository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
     private final EnergyServicePointDetailRepository energyServicePointRepository;
     private final EnergyUsageRepository energyUsageRepository;
@@ -124,7 +124,7 @@ public class CdsDataLoader implements ApplicationRunner {
                          EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
                          EnergyAccountBalanceRepository energyAccountBalanceRepository,
                          EnergyInvoiceRepository energyInvoiceRepository,
-                         EnergyBillingTransactionRepository energyBillingTransactionRepository,
+                         EnergyBillingTransactionV3Repository energyBillingTransactionRepository,
                          EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
                          EnergyServicePointDetailRepository energyServicePointRepository,
                          EnergyUsageRepository energyUsageRepository,
@@ -294,7 +294,7 @@ public class CdsDataLoader implements ApplicationRunner {
                 // Load billing
                 LOGGER.info("Loading billing transaction of account: {}", account.getAccountId());
                 for (JsonNode invoiceEl : accountEl.path("transactions")) {
-                    EnergyBillingTransaction invoice = objectMapper.treeToValue(invoiceEl, EnergyBillingTransaction.class);
+                    EnergyBillingTransactionV3 invoice = objectMapper.treeToValue(invoiceEl, EnergyBillingTransactionV3.class);
                     energyBillingTransactionRepository.save(invoice);
                 }
 

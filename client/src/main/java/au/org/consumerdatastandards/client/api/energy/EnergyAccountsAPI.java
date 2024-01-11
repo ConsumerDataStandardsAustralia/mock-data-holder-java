@@ -15,6 +15,9 @@ import au.org.consumerdatastandards.client.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.client.model.energy.EnergyBalanceListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyBalanceResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyBillingListResponse;
+import au.org.consumerdatastandards.client.model.energy.EnergyBillingTransactionBase;
+import au.org.consumerdatastandards.client.model.energy.EnergyBillingTransactionV2;
+import au.org.consumerdatastandards.client.model.energy.EnergyBillingTransactionV3;
 import au.org.consumerdatastandards.client.model.energy.EnergyConcessionsResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyInvoiceListResponse;
 import au.org.consumerdatastandards.client.model.energy.EnergyPaymentScheduleResponse;
@@ -299,7 +302,7 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 
-    public ApiResult<EnergyBillingListResponse> getBillingForAccount(String accountId,
+    public <T extends EnergyBillingTransactionBase> ApiResult<EnergyBillingListResponse<T>> getBillingForAccount(String accountId,
             OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize, Integer version) throws ApiException {
 
         if (accountId == null) {
@@ -327,12 +330,22 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
-        Type returnType = new TypeToken<EnergyBillingListResponse>(){}.getType();
+
+        Type returnType;
+
+        switch (version) {
+            case 1:
+            case 2:
+                returnType = new TypeToken<EnergyBillingListResponse<EnergyBillingTransactionV2>>(){}.getType();
+                break;
+            default:
+                returnType = new TypeToken<EnergyBillingListResponse<EnergyBillingTransactionV3>>(){}.getType();
+        }
 
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 
-    public ApiResult<EnergyBillingListResponse> listBillingBulk(
+    public ApiResult<EnergyBillingListResponse<EnergyBillingTransactionBase>> listBillingBulk(
             OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize, Integer version) throws ApiException {
 
         String path = "/energy/accounts/billing";
@@ -355,12 +368,22 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_GET, queryParams, null, null, headerParams, authNames, null);
-        Type returnType = new TypeToken<EnergyBillingListResponse>(){}.getType();
+
+        Type returnType;
+
+        switch (version) {
+            case 1:
+            case 2:
+                returnType = new TypeToken<EnergyBillingListResponse<EnergyBillingTransactionV2>>(){}.getType();
+                break;
+            default:
+                returnType = new TypeToken<EnergyBillingListResponse<EnergyBillingTransactionV3>>(){}.getType();
+        }
 
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }
 
-    public ApiResult<EnergyBillingListResponse> listBillingForAccounts(RequestAccountIds accountIds,
+    public ApiResult<EnergyBillingListResponse<EnergyBillingTransactionBase>> listBillingForAccounts(RequestAccountIds accountIds,
             OffsetDateTime oldestTime, OffsetDateTime newestTime, Integer page, Integer pageSize,
             ParamIntervalReadsEnum intervalReads, Integer version) throws ApiException {
 
@@ -387,7 +410,17 @@ public class EnergyAccountsAPI extends ProtectedAPI {
         addCdsProtectedApiHeaders(headerParams);
         String[] authNames = new String[] {  };
         Call call = apiClient.buildCall(path, METHOD_POST, queryParams, null, accountIds, headerParams, authNames, null);
-        Type returnType = new TypeToken<EnergyBillingListResponse>(){}.getType();
+
+        Type returnType;
+
+        switch (version) {
+            case 1:
+            case 2:
+                returnType = new TypeToken<EnergyBillingListResponse<EnergyBillingTransactionV2>>(){}.getType();
+                break;
+            default:
+                returnType = new TypeToken<EnergyBillingListResponse<EnergyBillingTransactionV3>>(){}.getType();
+        }
 
         return new ApiResult<>(call.request().url().toString(), apiClient.execute(call, returnType));
     }

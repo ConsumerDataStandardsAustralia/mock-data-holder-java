@@ -1,5 +1,21 @@
-package au.org.consumerdatastandards.client.model.energy;
+package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -7,29 +23,20 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyBillingDemandTransaction
+ * EnergyBillingDemandTransactionV2
  */
-public class EnergyBillingDemandTransaction {
+@Entity
+@Table(name = "e_billing_demand_trans")
+public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTransaction {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
+    private String id;
+
     private String servicePointId;
 
     private String invoiceNumber;
-
-    /**
-     * The time of use type that the transaction applies to
-     */
-    public enum TimeOfUseTypeEnum {
-        PEAK,
-        OFF_PEAK,
-        OFF_PEAK_DEMAND_CHARGE,
-        SHOULDER,
-        SHOULDER1,
-        SHOULDER2,
-        CONTROLLED_LOAD,
-        SOLAR,
-        AGGREGATE,
-        ALL_DAY,
-        EXCESS
-    }
 
     private TimeOfUseTypeEnum timeOfUseType;
 
@@ -37,17 +44,41 @@ public class EnergyBillingDemandTransaction {
 
     private Boolean isEstimate;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime startDate;   // "x-cds-type" : DateTimeString
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime endDate;     // "x-cds-type" : DateTimeString
 
     private BigDecimal rate;
 
     private String amount;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_billing_demand_trans_calc_factors",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "calc_id"))
+    @Valid
     private List<EnergyBillingUsageTransactionCalculationFactors> calculationFactors = null;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_billing_demand_trans_adjustments",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "calc_id"))
+    @Valid
     private List<EnergyBillingUsageTransactionAdjustments> adjustments = null;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public EnergyBillingDemandTransaction servicePointId(String servicePointId) {
         this.servicePointId = servicePointId;
@@ -59,6 +90,8 @@ public class EnergyBillingDemandTransaction {
      *
      * @return servicePointId
      */
+    @Override
+    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
     public String getServicePointId() {
         return servicePointId;
     }
@@ -77,6 +110,8 @@ public class EnergyBillingDemandTransaction {
      *
      * @return invoiceNumber
      */
+    @Override
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -95,6 +130,9 @@ public class EnergyBillingDemandTransaction {
      *
      * @return timeOfUseType
      */
+    @Override
+    @ApiModelProperty(required = true, value = "The time of use type that the transaction applies to")
+    @NotNull
     public TimeOfUseTypeEnum getTimeOfUseType() {
         return timeOfUseType;
     }
@@ -113,6 +151,8 @@ public class EnergyBillingDemandTransaction {
      *
      * @return description
      */
+    @Override
+    @ApiModelProperty(value = "Optional description of the transaction that can be used for display purposes")
     public String getDescription() {
         return description;
     }
@@ -131,6 +171,8 @@ public class EnergyBillingDemandTransaction {
      *
      * @return isEstimate
      */
+    @Override
+    @ApiModelProperty(value = "Flag indicating if the usage is estimated or actual.  True indicates estimate.  False or absent indicates actual")
     public Boolean getIsEstimate() {
         return isEstimate;
     }
@@ -149,6 +191,9 @@ public class EnergyBillingDemandTransaction {
      *
      * @return startDate
      */
+    @Override
+    @ApiModelProperty(required = true, value = "Date and time when the demand period starts")
+    @NotNull
     public OffsetDateTime getStartDate() {
         return startDate;
     }
@@ -167,6 +212,9 @@ public class EnergyBillingDemandTransaction {
      *
      * @return endDate
      */
+    @Override
+    @ApiModelProperty(required = true, value = "Date and time when the demand period ends")
+    @NotNull
     public OffsetDateTime getEndDate() {
         return endDate;
     }
@@ -181,10 +229,14 @@ public class EnergyBillingDemandTransaction {
     }
 
     /**
-     * The rate for the demand charge in kVA.  A negative value indicates power generated
+     * The rate for the demand charge in measureUnit. Assumed to be KVA if measureUnit not provided. A negative value indicates power generated
      *
      * @return rate
      */
+    @Override
+    @ApiModelProperty(required = true,
+            value = "The rate for the demand charge in measureUnit. Assumed to be KVA if measureUnit not provided. A negative value indicates power generated")
+    @NotNull
     public BigDecimal getRate() {
         return rate;
     }
@@ -203,6 +255,10 @@ public class EnergyBillingDemandTransaction {
      *
      * @return amount
      */
+    @Override
+    @ApiModelProperty(required = true,
+            value = "The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit")
+    @NotNull
     public String getAmount() {
         return amount;
     }
@@ -229,6 +285,8 @@ public class EnergyBillingDemandTransaction {
      *
      * @return calculationFactors
      */
+    @Override
+    @ApiModelProperty(value = "Additional calculation factors that inform the transaction")
     public List<EnergyBillingUsageTransactionCalculationFactors> getCalculationFactors() {
         return calculationFactors;
     }
@@ -255,6 +313,8 @@ public class EnergyBillingDemandTransaction {
      *
      * @return adjustments
      */
+    @Override
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
     public List<EnergyBillingUsageTransactionAdjustments> getAdjustments() {
         return adjustments;
     }
@@ -262,7 +322,6 @@ public class EnergyBillingDemandTransaction {
     public void setAdjustments(List<EnergyBillingUsageTransactionAdjustments> adjustments) {
         this.adjustments = adjustments;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -272,7 +331,7 @@ public class EnergyBillingDemandTransaction {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyBillingDemandTransaction energyBillingDemandTransaction = (EnergyBillingDemandTransaction) o;
+        EnergyBillingDemandTransactionV2 energyBillingDemandTransaction = (EnergyBillingDemandTransactionV2) o;
         return Objects.equals(this.servicePointId, energyBillingDemandTransaction.servicePointId) &&
                 Objects.equals(this.invoiceNumber, energyBillingDemandTransaction.invoiceNumber) &&
                 Objects.equals(this.timeOfUseType, energyBillingDemandTransaction.timeOfUseType) &&
@@ -294,7 +353,7 @@ public class EnergyBillingDemandTransaction {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyBillingDemandTransaction {\n");
+        sb.append("class EnergyBillingDemandTransactionV2 {\n");
         sb.append("    servicePointId: ").append(toIndentedString(servicePointId)).append("\n");
         sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
         sb.append("    timeOfUseType: ").append(toIndentedString(timeOfUseType)).append("\n");

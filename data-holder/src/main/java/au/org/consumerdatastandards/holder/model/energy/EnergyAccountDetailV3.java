@@ -219,7 +219,7 @@ public class EnergyAccountDetailV3 implements EnergyAccountDetail {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountDetailV2 {\n");
+        sb.append("class EnergyAccountDetailV3 {\n");
         sb.append("    accountId: ").append(toIndentedString(getAccountId())).append("\n");
         sb.append("    accountNumber: ").append(toIndentedString(getAccountNumber())).append("\n");
         sb.append("    displayName: ").append(toIndentedString(getDisplayName())).append("\n");
