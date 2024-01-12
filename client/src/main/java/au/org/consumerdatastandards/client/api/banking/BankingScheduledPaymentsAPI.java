@@ -259,6 +259,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param <T>  Type
      * @return ResponseBankingScheduledPaymentsList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
@@ -296,6 +297,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @param isOwned Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts (optional)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param <T>  Type
      * @return ApiResponse&lt;ResponseBankingScheduledPaymentsList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
@@ -421,6 +423,7 @@ public class BankingScheduledPaymentsAPI extends ProtectedAPI {
      * @param accountIds Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned (required)
      * @param page Page of results to request (standard pagination) (optional, default to 1)
      * @param pageSize Page size to request. Default is 25 (standard pagination) (optional, default to 25)
+     * @param version endpoint version
      * @return ResponseBankingScheduledPaymentsList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * http.response.details
