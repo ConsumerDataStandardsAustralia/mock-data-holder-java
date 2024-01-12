@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>au.org.consumerdatastandards</groupId>
     <artifactId>cds-java-artefacts</artifactId>
-    <version>2.4.0</version>
+    <version>2.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>CDS Java Artefacts</name>
     <description>A collection of Java artefacts for Consumer Data Standards Australia</description>
@@ -30,7 +30,7 @@
         <url>https://github.com/ConsumerDataStandardsAustralia/java-artefacts</url>
         <connection>scm:git:https://github.com/ConsumerDataStandardsAustralia/java-artefacts.git</connection>
         <developerConnection>scm:git:https://github.com/ConsumerDataStandardsAustralia/java-artefacts.git</developerConnection>
-        <tag>cds-java-artefacts-2.4.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
