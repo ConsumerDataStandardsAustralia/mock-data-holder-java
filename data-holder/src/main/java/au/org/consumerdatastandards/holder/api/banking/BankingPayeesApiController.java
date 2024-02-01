@@ -1,7 +1,6 @@
 package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
-import au.org.consumerdatastandards.holder.model.Error;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayee;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayeeDetail;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,8 +56,7 @@ public class BankingPayeesApiController extends ApiControllerBase implements Ban
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingPayeeDetail payeeDetail = payeeService.getBankingPayeeDetail(payeeId, supportedVersion);
         if (payeeDetail == null) {
-            throwCDSErrors(xFapiInteractionId, Collections.singletonList(
-                    new Error("Invalid Resource", "urn:au-cds:error:cds-all:Resource/Invalid", payeeId)), HttpStatus.NOT_FOUND);
+            throwInvalidResource(payeeId, xFapiInteractionId);
         }
         ResponseBankingPayeeById responseBankingPayeeById = new ResponseBankingPayeeById();
         responseBankingPayeeById.setData(payeeDetail);
