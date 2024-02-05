@@ -1,11 +1,11 @@
 package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
+import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.BankingProduct;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductCategory;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductDetail;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductV2;
-import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.ParamEffective;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductById;
 import au.org.consumerdatastandards.holder.model.banking.ResponseBankingProductList;
@@ -56,7 +56,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         BankingProductDetail productDetail = service.getProductDetail(productId, supportedVersion);
         if (productDetail == null) {
-            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+            throwInvalidResource(productId);
         }
 
         ResponseBankingProductById responseProductById = new ResponseBankingProductById();

@@ -41,6 +41,15 @@ public class ApiControllerBase {
         throw new CDSException(errors, interactionId, httpStatus);
     }
 
+    protected void throwInvalidResource(String resourceId) {
+        throwInvalidResource(resourceId, UUID.randomUUID());
+    }
+
+    protected void throwInvalidResource(String resourceId, UUID interactionId) {
+        throwCDSErrors(interactionId, Collections.singletonList(new Error("Invalid Resource",
+                "urn:au-cds:error:cds-all:Resource/Invalid", resourceId)), HttpStatus.NOT_FOUND);
+    }
+
     protected void validatePageRange(Integer page, int totalPages, UUID interactionId) {
         if (totalPages > 0 && page != null && page > totalPages) {
             throwCDSUnprocessableErrors(interactionId, Collections.singletonList(

@@ -249,11 +249,11 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
     public ResponseEntity<EnergyPlanResponse> getPlan(String planId, Integer xV, Integer xMinV) {
         int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 2);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
-        EnergyPlanResponse response = new EnergyPlanResponse();
         EnergyPlanDetail planDetail = service.getPlanDetail(planId, supportedVersion);
         if (planDetail == null) {
-            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+            throwInvalidResource(planId);
         }
+        EnergyPlanResponse response = new EnergyPlanResponse();
         response.setData(planDetail);
         response.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(response, headers, HttpStatus.OK);

@@ -1,9 +1,7 @@
 package au.org.consumerdatastandards.holder.api.banking;
 
 import au.org.consumerdatastandards.holder.api.ApiControllerBase;
-import au.org.consumerdatastandards.holder.api.CDSException;
 import au.org.consumerdatastandards.holder.model.Error;
-import au.org.consumerdatastandards.holder.model.ErrorListResponse;
 import au.org.consumerdatastandards.holder.model.Links;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccount;
 import au.org.consumerdatastandards.holder.model.banking.BankingAccountDetail;
@@ -83,10 +81,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingAccountDetail bankingAccountDetail = accountService.getBankingAccountDetail(accountId, supportedVersion);
         if (bankingAccountDetail == null) {
-            ErrorListResponse errors = new ErrorListResponse();
-            errors.setErrors(Collections.singletonList(new Error("Invalid Banking Account",
-                    "urn:au-cds:error:cds-banking:Authorisation/InvalidBankingAccount", accountId)));
-            throw new CDSException(errors, xFapiInteractionId, HttpStatus.NOT_FOUND);
+            throwInvalidBankingAccount(accountId, xFapiInteractionId);
         }
 
         ResponseBankingAccountById responseBankingAccountById = new ResponseBankingAccountById();
@@ -108,12 +103,19 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingTransactionDetail transactionDetail = transactionService.getBankingTransactionDetail(transactionId);
         if (transactionDetail == null) {
-            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+            throwInvalidResource(transactionId, xFapiInteractionId);
+        } else if (!accountId.equals(transactionDetail.getAccountId())) {
+            throwInvalidBankingAccount(accountId, xFapiInteractionId);
         }
         ResponseBankingTransactionById responseBankingTransactionById = new ResponseBankingTransactionById();
         responseBankingTransactionById.setData(transactionDetail);
         responseBankingTransactionById.setLinks(new Links().self(WebUtil.getOriginalUrl(request)));
         return new ResponseEntity<>(responseBankingTransactionById, headers, HttpStatus.OK);
+    }
+
+    private void throwInvalidBankingAccount(String accountId, UUID xFapiInteractionId) {
+        throwCDSErrors(xFapiInteractionId, Collections.singletonList(new Error("Invalid Banking Account",
+                "urn:au-cds:error:cds-banking:Authorisation/InvalidBankingAccount", accountId)), HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -198,7 +200,7 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         BankingBalance balance = accountService.getBankingBalance(accountId);
         if (balance == null) {
-            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+            throwInvalidBankingAccount(accountId, xFapiInteractionId);
         }
         ResponseBankingAccountsBalanceById responseBankingAccountsBalanceById = new ResponseBankingAccountsBalanceById();
         responseBankingAccountsBalanceById.setData(balance);
