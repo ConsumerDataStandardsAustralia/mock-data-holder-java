@@ -1,5 +1,5 @@
 FROM openjdk:8-jre
-LABEL maintainer="Data Standards Body <technical@consumerdatastandards.gov.au>"
+LABEL maintainer="Data Standards Body <dev@consumerdatastandards.gov.au>"
 
 EXPOSE 8383/tcp
 
