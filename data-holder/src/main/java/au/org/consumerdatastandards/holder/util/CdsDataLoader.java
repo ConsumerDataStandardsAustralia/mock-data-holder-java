@@ -244,26 +244,14 @@ public class CdsDataLoader implements ApplicationRunner {
         }
     }
 
-    private BankingAuthorisedEntity findOrCreateAuthEntity(BankingAuthorisedEntity authorisedEntity) {
-        return authorisedEntityRepository.findOne((root, criteriaQuery, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            if (authorisedEntity.getDescription() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("description"), authorisedEntity.getDescription()));
-            }
-            if (authorisedEntity.getFinancialInstitution() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("financialInstitution"), authorisedEntity.getFinancialInstitution()));
-            }
-            if (authorisedEntity.getAbn() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("abn"), authorisedEntity.getAbn()));
-            }
-            if (authorisedEntity.getAcn() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("acn"), authorisedEntity.getAcn()));
-            }
-            if (authorisedEntity.getArbn() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("arbn"), authorisedEntity.getArbn()));
-            }
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-        }).orElseGet(() -> authorisedEntityRepository.save(authorisedEntity));
+    private BankingAuthorisedEntity findOrCreateAuthEntity(BankingAuthorisedEntity ae) {
+        return authorisedEntityRepository.findOne((root, criteriaQuery, cb) -> cb.and(
+                (ae.getDescription() == null ? cb.isNull(root.get("description")) : cb.equal(root.get("description"), ae.getDescription())),
+                (ae.getFinancialInstitution() == null ? cb.isNull(root.get("financialInstitution")) : cb.equal(root.get("financialInstitution"), ae.getFinancialInstitution())),
+                (ae.getAbn() == null ? cb.isNull(root.get("abn")) : cb.equal(root.get("abn"), ae.getAbn())),
+                (ae.getAcn() == null ? cb.isNull(root.get("acn")) : cb.equal(root.get("acn"), ae.getAcn())),
+                (ae.getArbn() == null ? cb.isNull(root.get("arbn")) : cb.equal(root.get("arbn"), ae.getArbn()))
+        )).orElseGet(() -> authorisedEntityRepository.save(ae));
     }
 
     private void loadEnergyTestData(JsonNode holder) throws JsonProcessingException {
