@@ -123,6 +123,7 @@
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
                     <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+					<skipDockerInfo>true</skipDockerInfo>
                 </configuration>
             </plugin>
 			<plugin>
