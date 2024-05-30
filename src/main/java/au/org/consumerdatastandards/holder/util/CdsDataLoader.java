@@ -63,10 +63,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.Predicate;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -173,9 +172,9 @@ public class CdsDataLoader implements ApplicationRunner {
             load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
             load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
         } else {
-            String path = testdata.get(0);
-            LOGGER.info("Loading from test data file: {}", path);
-            JsonNode tree = objectMapper.readTree(new File(path));
+            String url = testdata.get(0);
+            LOGGER.info("Loading from test data url: {}", url);
+            JsonNode tree = objectMapper.readTree(new URL(url));
             JsonNode holders = tree.path("holders");
             for (JsonNode holder : holders) {
                 LOGGER.info("Holder id: {}", holder.get("holderId"));

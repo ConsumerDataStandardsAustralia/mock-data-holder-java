@@ -38,16 +38,20 @@ This solution:
 2. If you want to pass a [test data file](https://github.com/ConsumerDataStandardsAustralia/testdata-cli) to be loaded at start up:
 
     ```
-    docker run -p 8383:8383 -v /your/local/path/to/testdata-cli/samples/output/u1-output.json:/testdata/u1-output.json consumerdatastandardsaustralia/mock-data-holder-java:x.x.x /testdata/u1-output.json
+    docker run -p 8383:8383 -v /your/local/path/to/testdata-cli/samples/output/u1-output.json:/testdata/u1-output.json consumerdatastandardsaustralia/mock-data-holder-java:x.x.x file:///testdata/u1-output.json
+    ```
+    or
+    ```
+    docker run -p 8383:8383 -v /your/local/path/to/testdata-cli/samples/output/u1-output.json:/testdata/u1-output.json consumerdatastandardsaustralia/mock-data-holder-java:x.x.x https://some.web.server/testdata/u1-output.json
     ```
 
-    Where `x.x.x` is the version, say, `2.5.0`
+    Where `x.x.x` is the version, say, `2.6.0`
 
 
 3. Run locally-built image:
 
     ```
-    docker run -p 8383:8383 consumerdatastandardsaustralia/mock-data-holder-java:2.5.1-SNAPSHOT
+    docker run -p 8383:8383 consumerdatastandardsaustralia/mock-data-holder-java:2.6.1-SNAPSHOT
     ```
 
 ## Local Setup and Customisation
@@ -104,7 +108,7 @@ mvn install
     java -jar target/mock-data-holder-java-x.x.x.jar
     ```
 
-   Where `x.x.x` is the version, say, `2.5.0`
+   Where `x.x.x` is the version, say, `2.6.0`
 
    The data will be loaded from the *payloads* directory.
 
