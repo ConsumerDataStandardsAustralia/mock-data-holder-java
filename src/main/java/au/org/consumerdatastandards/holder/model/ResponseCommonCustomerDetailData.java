@@ -12,7 +12,7 @@ public class ResponseCommonCustomerDetailData  {
         person
     }
     /**
-     * Get customerUType
+     * The type of customer object that is present.
      */
     private CustomerUType customerUType;
 
@@ -31,7 +31,7 @@ public class ResponseCommonCustomerDetailData  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The type of customer object that is present.")
     public CustomerUType getCustomerUType() {
         return customerUType;
     }

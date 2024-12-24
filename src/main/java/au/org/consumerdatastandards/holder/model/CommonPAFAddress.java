@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 
-@ApiModel(description = "Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)")
+@ApiModel(description = "Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf).")
 @Entity
 public class CommonPAFAddress  {
 
@@ -21,112 +21,112 @@ public class CommonPAFAddress  {
     private String id;
 
     /**
-     * Building/Property name 1
+     * Building/Property name 1.
      */
     private String buildingName1;
 
     /**
-     * Building/Property name 2
+     * Building/Property name 2.
      */
     private String buildingName2;
 
     /**
-     * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
+     * Unique identifier for an address as defined by Australia Post. Also known as Delivery Point Identifier.
      */
     private String dpid;
 
     /**
-     * Unit number (including suffix, if applicable)
+     * Unit number (including suffix, if applicable).
      */
     private String flatUnitNumber;
 
     /**
-     * Type of flat or unit for the address
+     * Type of flat or unit for the address.
      */
     private String flatUnitType;
 
     /**
-     * Floor or level number (including alpha characters)
+     * Floor or level number (including alpha characters).
      */
     private String floorLevelNumber;
 
     /**
-     * Type of floor or level for the address
+     * Type of floor or level for the address.
      */
     private String floorLevelType;
 
     /**
-     * Full name of locality
+     * Full name of locality.
      */
     private String localityName;
 
     /**
-     * Allotment number for the address
+     * Allotment number for the address.
      */
     private String lotNumber;
 
     /**
-     * Postal delivery number if the address is a postal delivery type
+     * Postal delivery number if the address is a postal delivery type.
      */
     private Integer postalDeliveryNumber;
 
     /**
-     * Postal delivery number prefix related to the postal delivery number
+     * Postal delivery number prefix related to the postal delivery number.
      */
     private String postalDeliveryNumberPrefix;
 
     /**
-     * Postal delivery number suffix related to the postal delivery number
+     * Postal delivery number suffix related to the postal delivery number.
      */
     private String postalDeliveryNumberSuffix;
 
     /**
-     * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
+     * Postal delivery type. (e.g., PO BOX). Valid enumeration defined by Australia Post PAF code file.
      */
     private String postalDeliveryType;
 
     /**
-     * Postcode for the locality
+     * Postcode for the locality.
      */
     private String postcode;
 
     /**
-     * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+     * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
      */
     private String state;
 
     /**
-     * The name of the street
+     * The name of the street.
      */
     private String streetName;
 
     /**
-     * The street type suffix. Valid enumeration defined by Australia Post PAF code file
+     * The street type suffix. Valid enumeration defined by Australia Post PAF code file.
      */
     private String streetSuffix;
 
     /**
-     * The street type. Valid enumeration defined by Australia Post PAF code file
+     * The street type. Valid enumeration defined by Australia Post PAF code file.
      */
     private String streetType;
 
     /**
-     * Thoroughfare number for a property (first number in a property ranged address)
+     * Thoroughfare number for a property (first number in a property ranged address).
      */
     private Integer thoroughfareNumber1;
 
     /**
-     * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
+     * Suffix for the thoroughfare number. Only relevant if _thoroughfareNumber1_ is populated.
      */
     private String thoroughfareNumber1Suffix;
 
     /**
-     * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
+     * Second thoroughfare number (only used if the property has a ranged address e.g., 23-25).
      */
     private Integer thoroughfareNumber2;
 
     /**
-     * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
+     * Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.
      */
     private String thoroughfareNumber2Suffix;
 
@@ -143,7 +143,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Building/Property name 1")
+    @ApiModelProperty(value = "Building/Property name 1.")
     public String getBuildingName1() {
         return buildingName1;
     }
@@ -156,7 +156,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Building/Property name 2")
+    @ApiModelProperty(value = "Building/Property name 2.")
     public String getBuildingName2() {
         return buildingName2;
     }
@@ -169,7 +169,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier")
+    @ApiModelProperty(value = "Unique identifier for an address as defined by Australia Post. Also known as Delivery Point Identifier.")
     public String getDpid() {
         return dpid;
     }
@@ -183,7 +183,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Unit number (including suffix, if applicable)")
+    @ApiModelProperty(value = "Unit number (including suffix, if applicable).")
     public String getFlatUnitNumber() {
         return flatUnitNumber;
     }
@@ -197,7 +197,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Type of flat or unit for the address")
+    @ApiModelProperty(value = "Type of flat or unit for the address.")
     public String getFlatUnitType() {
         return flatUnitType;
     }
@@ -211,7 +211,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Floor or level number (including alpha characters)")
+    @ApiModelProperty(value = "Floor or level number (including alpha characters).")
     public String getFloorLevelNumber() {
         return floorLevelNumber;
     }
@@ -225,7 +225,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Type of floor or level for the address")
+    @ApiModelProperty(value = "Type of floor or level for the address.")
     public String getFloorLevelType() {
         return floorLevelType;
     }
@@ -238,7 +238,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Full name of locality")
+    @ApiModelProperty(required = true, value = "Full name of locality.")
     public String getLocalityName() {
         return localityName;
     }
@@ -252,7 +252,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Allotment number for the address")
+    @ApiModelProperty(value = "Allotment number for the address.")
     public String getLotNumber() {
         return lotNumber;
     }
@@ -266,7 +266,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Postal delivery number if the address is a postal delivery type")
+    @ApiModelProperty(value = "Postal delivery number if the address is a postal delivery type.")
     public Integer getPostalDeliveryNumber() {
         return postalDeliveryNumber;
     }
@@ -279,7 +279,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Postal delivery number prefix related to the postal delivery number")
+    @ApiModelProperty(value = "Postal delivery number prefix related to the postal delivery number.")
     public String getPostalDeliveryNumberPrefix() {
         return postalDeliveryNumberPrefix;
     }
@@ -292,7 +292,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Postal delivery number suffix related to the postal delivery number")
+    @ApiModelProperty(value = "Postal delivery number suffix related to the postal delivery number.")
     public String getPostalDeliveryNumberSuffix() {
         return postalDeliveryNumberSuffix;
     }
@@ -305,7 +305,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file")
+    @ApiModelProperty(value = "Postal delivery type. (e.g., PO BOX). Valid enumeration defined by Australia Post PAF code file.")
     public String getPostalDeliveryType() {
         return postalDeliveryType;
     }
@@ -319,7 +319,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Postcode for the locality")
+    @ApiModelProperty(required = true, value = "Postcode for the locality.")
     public String getPostcode() {
         return postcode;
     }
@@ -333,7 +333,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT")
+    @ApiModelProperty(required = true, value = "State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.")
     public String getState() {
         return state;
     }
@@ -346,7 +346,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "The name of the street")
+    @ApiModelProperty(value = "The name of the street.")
     public String getStreetName() {
         return streetName;
     }
@@ -359,7 +359,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "The street type suffix. Valid enumeration defined by Australia Post PAF code file")
+    @ApiModelProperty(value = "The street type suffix. Valid enumeration defined by Australia Post PAF code file.")
     public String getStreetSuffix() {
         return streetSuffix;
     }
@@ -372,7 +372,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "The street type. Valid enumeration defined by Australia Post PAF code file")
+    @ApiModelProperty(value = "The street type. Valid enumeration defined by Australia Post PAF code file.")
     public String getStreetType() {
         return streetType;
     }
@@ -385,7 +385,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Thoroughfare number for a property (first number in a property ranged address)")
+    @ApiModelProperty(value = "Thoroughfare number for a property (first number in a property ranged address).")
     public Integer getThoroughfareNumber1() {
         return thoroughfareNumber1;
     }
@@ -399,7 +399,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated")
+    @ApiModelProperty(value = "Suffix for the thoroughfare number. Only relevant if _thoroughfareNumber1_ is populated.")
     public String getThoroughfareNumber1Suffix() {
         return thoroughfareNumber1Suffix;
     }
@@ -412,7 +412,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Second thoroughfare number (only used if the property has a ranged address eg 23-25)")
+    @ApiModelProperty(value = "Second thoroughfare number (only used if the property has a ranged address e.g., 23-25).")
     public Integer getThoroughfareNumber2() {
         return thoroughfareNumber2;
     }
@@ -426,7 +426,7 @@ public class CommonPAFAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated")
+    @ApiModelProperty(value = "Suffix for the second thoroughfare number. Only relevant if _thoroughfareNumber2_ is populated.")
     public String getThoroughfareNumber2Suffix() {
         return thoroughfareNumber2Suffix;
     }

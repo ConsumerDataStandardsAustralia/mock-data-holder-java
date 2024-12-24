@@ -24,22 +24,22 @@ public class DiscoveryOutage  {
     private String id;
 
     /**
-     * Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)
+     * Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     private String duration;
 
     /**
-     * Provides an explanation of the current outage that can be displayed to an end customer
+     * Provides an explanation of the current outage that can be displayed to an end customer.
      */
     private String explanation;
 
     /**
-     * Flag that indicates, if present and set to true, that the outage is only partial meaning that only a subset of normally available end points will be affected by the outage
+     * Flag that indicates, if present and set to `true`, that the outage is only partial meaning that only a subset of normally available endpoints will be affected by the outage.
      */
     private Boolean isPartial;
 
     /**
-     * Date and time that the outage is scheduled to begin
+     * Date and time that the outage is scheduled to begin.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -58,7 +58,7 @@ public class DiscoveryOutage  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)")
+    @ApiModelProperty(required = true, value = "Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     public String getDuration() {
         return duration;
     }
@@ -71,7 +71,7 @@ public class DiscoveryOutage  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Provides an explanation of the current outage that can be displayed to an end customer")
+    @ApiModelProperty(required = true, value = "Provides an explanation of the current outage that can be displayed to an end customer.")
     public String getExplanation() {
         return explanation;
     }
@@ -84,7 +84,7 @@ public class DiscoveryOutage  {
         return this;
     }
 
-    @ApiModelProperty(value = "Flag that indicates, if present and set to true, that the outage is only partial meaning that only a subset of normally available end points will be affected by the outage")
+    @ApiModelProperty(value = "Flag that indicates, if present and set to `true`, that the outage is only partial meaning that only a subset of normally available endpoints will be affected by the outage.")
     public Boolean getIsPartial() {
         return isPartial;
     }
@@ -97,7 +97,7 @@ public class DiscoveryOutage  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Date and time that the outage is scheduled to begin")
+    @ApiModelProperty(required = true, value = "Date and time that the outage is scheduled to begin.")
     public OffsetDateTime getOutageTime() {
         return outageTime;
     }

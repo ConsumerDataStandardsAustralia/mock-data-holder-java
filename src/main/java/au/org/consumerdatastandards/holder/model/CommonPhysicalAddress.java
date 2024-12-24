@@ -44,7 +44,7 @@ public class CommonPhysicalAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The type of address object present.")
     public AddressUType getAddressUType() {
         return addressUType;
     }

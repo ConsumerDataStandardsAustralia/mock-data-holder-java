@@ -18,7 +18,7 @@ public class Error {
     private String detail;
 
     /**
-     * Additional data for customised error codes
+     * Additional data for customised error codes.
      */
     private MetaError meta;
 
@@ -68,7 +68,7 @@ public class Error {
         return this;
     }
 
-    @ApiModelProperty(value = "Additional data for customised error codes")
+    @ApiModelProperty(value = "Additional data for customised error codes.")
     public MetaError getMeta() {
         return meta;
     }

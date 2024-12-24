@@ -9,7 +9,7 @@ import java.util.List;
 public class ResponseDiscoveryOutagesListData  {
 
     /**
-     * List of scheduled outages. Property is mandatory but may contain and empty list if no outages are scheduled
+     * List of scheduled outages. Property is mandatory but may contain an empty list if no outages are scheduled.
      */
     
     private List<DiscoveryOutage> outages;
@@ -24,7 +24,7 @@ public class ResponseDiscoveryOutagesListData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "List of scheduled outages. Property is mandatory but may contain and empty list if no outages are scheduled")
+    @ApiModelProperty(required = true, value = "List of scheduled outages. Property is mandatory but may contain an empty list if no outages are scheduled.")
     public List<DiscoveryOutage> getOutages() {
         return outages;
     }

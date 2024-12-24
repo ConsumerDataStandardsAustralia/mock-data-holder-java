@@ -40,22 +40,22 @@ public class CommonPerson  {
     private String id;
 
     /**
-     * For people with single names this field need not be present.  The single name should be in the lastName field
+     * For people with single names this field need not be present. The single name should be in the _lastName_ field. Where a data holder cannot determine first and middle names from a collection of given names, a single string representing all given names MAY be provided.
      */
     private String firstName;
 
     /**
-     * For people with single names the single name should be in this field
+     * For people with single names, the single name should be in this field.
      */
     private String lastName;
 
     /**
-     * The date and time that this record was last updated by the customer.  If no update has occurred then this date should reflect the initial creation date for the data
+     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data..
      */
     private OffsetDateTime lastUpdateTime;
 
     /**
-     * Field is mandatory but array may be empty
+     * Field is mandatory but array may be empty.
      */
     @ElementCollection
     private List<String> middleNames;
@@ -68,19 +68,17 @@ public class CommonPerson  {
     private String occupationCode;
 
     /**
-     * The applicable <a href="http://www.abs.gov.au/ANZSCO">ANZCO</a> release version of the occupation code provided.
-     * Mandatory if an occupationCode is supplied.
-     * If occupationCode is supplied but occupationCodeVersion is absent, default is ANZSCO_1220.0_2013_V1.2
+     * The applicable **[[ANZSCO]](#iref-ANZSCO)** release version of the occupation code provided. Mandatory if an _occupationCode_ is supplied. If _occupationCode_ is supplied but _occupationCodeVersion_ is absent, default is `ANZSCO_1220.0_2013_V1.2`.
      */
     private OccupationCodeVersion occupationCodeVersion;
 
     /**
-     * Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
+     * Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc.)
      */
     private String prefix;
 
     /**
-     * Used for a trailing suffix to the name (e.g. Jr)
+     * Used for a trailing suffix to the name (e.g., Jr.)
      */
     private String suffix;
 
@@ -97,7 +95,7 @@ public class CommonPerson  {
         return this;
     }
 
-    @ApiModelProperty(value = "For people with single names this field need not be present.  The single name should be in the lastName field")
+    @ApiModelProperty(value = "For people with single names this field need not be present. The single name should be in the _lastName_ field. Where a data holder cannot determine first and middle names from a collection of given names, a single string representing all given names MAY be provided.")
     public String getFirstName() {
         return firstName;
     }
@@ -111,7 +109,7 @@ public class CommonPerson  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "For people with single names the single name should be in this field")
+    @ApiModelProperty(required = true, value = "For people with single names, the single name should be in this field.")
     public String getLastName() {
         return lastName;
     }
@@ -125,7 +123,7 @@ public class CommonPerson  {
         return this;
     }
 
-    @ApiModelProperty(value = "The date and time that this record was last updated by the customer.  If no update has occurred then this date should reflect the initial creation date for the data")
+    @ApiModelProperty(value = "The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data..")
     public OffsetDateTime getLastUpdateTime() {
         return lastUpdateTime;
     }
@@ -144,7 +142,7 @@ public class CommonPerson  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Field is mandatory but array may be empty")
+    @ApiModelProperty(required = true, value = "Field is mandatory but array may be empty.")
     public List<String> getMiddleNames() {
         return middleNames;
     }
@@ -180,7 +178,7 @@ public class CommonPerson  {
         return this;
     }
 
-    @ApiModelProperty(value = "Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)")
+    @ApiModelProperty(value = "Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc.)")
     public String getPrefix() {
         return prefix;
     }
@@ -194,7 +192,7 @@ public class CommonPerson  {
         return this;
     }
 
-    @ApiModelProperty(value = "Used for a trailing suffix to the name (e.g. Jr)")
+    @ApiModelProperty(value = "Used for a trailing suffix to the name (e.g., Jr.)")
     public String getSuffix() {
         return suffix;
     }

@@ -21,15 +21,18 @@ public class CommonEmailAddress  {
     private String id;
 
     /**
-     * A correctly formatted email address, as defined by the addr-spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)
+     * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**.
      */
     private String address;
 
     /**
-     * May be true for one and only one email record in the collection. Denotes the default email address
+     * May be `true` for one and only one email record in the collection. Denotes the default email address.
      */
     private Boolean isPreferred;
 
+    /**
+     * The purpose for the email, as specified by the customer.
+     */
     private Purpose purpose;
 
     public String getId() {
@@ -45,7 +48,7 @@ public class CommonEmailAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "A correctly formatted email address, as defined by the addr-spec format in [RFC 5322](https://www.ietf.org/rfc/rfc5322.txt)")
+    @ApiModelProperty(required = true, value = "A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**.")
     public String getAddress() {
         return address;
     }
@@ -59,7 +62,7 @@ public class CommonEmailAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "May be true for one and only one email record in the collection. Denotes the default email address")
+    @ApiModelProperty(value = "May be `true` for one and only one email record in the collection. Denotes the default email address.")
     public Boolean getIsPreferred() {
         return isPreferred;
     }
@@ -73,7 +76,7 @@ public class CommonEmailAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The purpose for the email, as specified by the customer.")
     public Purpose getPurpose() {
         return purpose;
     }

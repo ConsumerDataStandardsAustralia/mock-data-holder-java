@@ -35,7 +35,7 @@ public class LinksPaginated  {
     private String prev;
 
     /**
-     * Fully qualified link that generated the current response document
+     * Fully qualified link that generated the current response document.
      */
     private String self;
 
@@ -96,7 +96,7 @@ public class LinksPaginated  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Fully qualified link that generated the current response document")
+    @ApiModelProperty(required = true, value = "Fully qualified link that generated the current response document.")
     public String getSelf() {
         return self;
     }

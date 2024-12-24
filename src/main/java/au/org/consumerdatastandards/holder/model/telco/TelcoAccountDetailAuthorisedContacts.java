@@ -58,12 +58,12 @@ public class TelcoAccountDetailAuthorisedContacts {
     }
 
     /**
-     * For people with single names the single name should be in this field
+     * For people with single names, the single name should be in this field.
      *
      * @return lastName
      */
     @ApiModelProperty(required = true,
-            value = "For people with single names the single name should be in this field")
+            value = "For people with single names, the single name should be in this field.")
     @NotNull
 
 
@@ -89,11 +89,11 @@ public class TelcoAccountDetailAuthorisedContacts {
     }
 
     /**
-     * Field is mandatory but array may be empty
+     * Field is mandatory but array may be empty.
      *
      * @return middleNames
      */
-    @ApiModelProperty(value = "Field is mandatory but array may be empty")
+    @ApiModelProperty(value = "Field is mandatory but array may be empty.")
 
 
     public List<String> getMiddleNames() {
@@ -131,11 +131,11 @@ public class TelcoAccountDetailAuthorisedContacts {
     }
 
     /**
-     * Used for a trailing suffix to the name (e.g. Jr)
+     * Used for a trailing suffix to the name (e.g., Jr.)
      *
      * @return suffix
      */
-    @ApiModelProperty(value = "Used for a trailing suffix to the name (e.g. Jr)")
+    @ApiModelProperty(value = "Used for a trailing suffix to the name (e.g., Jr.)")
 
 
     public String getSuffix() {
