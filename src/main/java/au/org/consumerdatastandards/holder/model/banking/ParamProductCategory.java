@@ -1,7 +1,7 @@
 package au.org.consumerdatastandards.holder.model.banking;
 
 /**
-* Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
+* Used to filter results on the _productCategory_ field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.
 */
 public enum ParamProductCategory {
 

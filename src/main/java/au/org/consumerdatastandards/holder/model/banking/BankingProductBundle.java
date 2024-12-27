@@ -1,9 +1,6 @@
 /*
  * Consumer Data Standards
  * Sample Data Holder to Demonstrate the Consumer Data Right APIs
- *
- * NOTE: This class is auto generated
-  * Do not edit the class manually.
  */
 package au.org.consumerdatastandards.holder.model.banking;
 
@@ -30,28 +27,27 @@ public class BankingProductBundle {
     private String bundleId;
 
     /**
-     * Name of the bundle
+     * Name of the bundle.
      */
     private String name;
 
     /**
-     * Description of the bundle
+     * Description of the bundle.
      */
     private String description;
 
     /**
-     * Display text providing more information on the bundle
+     * Display text providing more information on the bundle.
      */
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on the bundle
-     * criteria and benefits
+     * Link to a web page with more information on the bundle criteria and benefits.
      */
     private URI additionalInfoUri;
 
     /**
-     * Array of product IDs for products included in the bundle
+     * Array of product IDs for products included in the bundle that are available via the product endpoints. Note that this array is not intended to represent a comprehensive model of the products included in the bundle and some products available for the bundle may not be available via the product reference endpoints.
      */
     @ElementCollection
     @Valid

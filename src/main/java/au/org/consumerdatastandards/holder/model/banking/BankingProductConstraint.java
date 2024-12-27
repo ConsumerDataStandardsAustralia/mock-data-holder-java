@@ -27,27 +27,24 @@ public class BankingProductConstraint {
     private String constraintId;
 
     /**
-     * The type of constraint described. See the next section for
-     * an overview of valid values and their meaning
+     * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
      */
     private ConstraintType constraintType;
 
     /**
-     * Generic field containing additional information relevant to
-     * the constraintType specified. Whether mandatory or not is
-     * dependent on the value of constraintType
+     * Generic field containing additional information relevant to the [_constraintType_](#tocSproductconstrainttypedoc) specified. Whether mandatory or not is dependent on the value of [_constraintType_](#tocSproductconstrainttypedoc).
      */
     @Column(length = 2048)
     private String additionalValue;
 
     /**
-     * Display text providing more information the constraint
+     * Display text providing more information on the constraint.
      */
     @Column(length = 2048)
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on the constraint
+     * Link to a web page with more information on the constraint.
      */
     private URI additionalInfoUri;
 

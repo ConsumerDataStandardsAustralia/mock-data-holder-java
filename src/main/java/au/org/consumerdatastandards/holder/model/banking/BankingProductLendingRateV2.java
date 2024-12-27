@@ -14,7 +14,7 @@ import java.util.List;
 public class BankingProductLendingRateV2 extends BankingProductLendingRate {
 
     /**
-     * Rate tiers applicable for this rate
+     * Rate tiers applicable for this rate.
      */
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -24,8 +24,14 @@ public class BankingProductLendingRateV2 extends BankingProductLendingRate {
     @Valid
     private List<BankingProductRateTierV3> tiers = null;
 
+    /**
+     * Options in place for repayments. If absent, the lending rate is applicable to all repayment types.
+     */
     private RepaymentType repaymentType;
 
+    /**
+     * The reason for taking out the loan. If absent, the lending rate is applicable to all loan purposes.
+     */
     private LoanPurpose loanPurpose;
 
     public List<BankingProductRateTierV3> getTiers() {

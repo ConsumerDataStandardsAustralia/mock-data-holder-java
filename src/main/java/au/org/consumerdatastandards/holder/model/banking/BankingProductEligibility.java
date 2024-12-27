@@ -27,30 +27,24 @@ public class BankingProductEligibility {
     private String eligibilityId;
 
     /**
-     * The type of eligibility criteria described. See the next
-     * section for an overview of valid values and their meaning
+     * The type of eligibility criteria described. For further details, refer to [Product Eligibility Types](#tocSproducteligibilitytypedoc).
      */
     private EligibilityType eligibilityType;
 
     /**
-     * Generic field containing additional information relevant to
-     * the eligibilityType specified. Whether mandatory or not is
-     * dependent on the value of eligibilityType
+     * Generic field containing additional information relevant to the [_eligibilityType_](#tocSproducteligibilitytypedoc) specified. Whether mandatory or not is dependent on the value of [_eligibilityType_](#tocSproducteligibilitytypedoc).
      */
     @Column(length = 2048)
     private String additionalValue;
 
     /**
-     * Display text providing more information on the eligibility
-     * criteria. Mandatory if the eligibilityType field is set to
-     * OTHER
+     * Display text providing more information on the [eligibility](#tocSproducteligibilitytypedoc) criteria. Mandatory if the field is set to `OTHER`.
      */
     @Column(length = 2048)
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on this eligibility
-     * criteria
+     * Link to a web page with more information on this eligibility criteria.
      */
     private URI additionalInfoUri;
 

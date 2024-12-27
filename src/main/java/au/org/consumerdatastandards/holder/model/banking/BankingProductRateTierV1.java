@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Defines the criteria and conditions for which a rate applies
+ * Defines the criteria and conditions for which a rate applies.
  */
 @Entity
 @Table(name = "b_prod_rate_tier")

@@ -75,11 +75,11 @@ public class TelcoProduct {
     }
 
     /**
-     * The date and time from which this product is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
+     * The date and time from which this product is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate.
      *
      * @return effectiveFrom
      */
-    @ApiModelProperty(value = "The date and time from which this product is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate")
+    @ApiModelProperty(value = "The date and time from which this product is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate.")
     public String getEffectiveFrom() {
         return effectiveFrom;
     }
@@ -132,11 +132,11 @@ public class TelcoProduct {
     }
 
     /**
-     * The display name of the product
+     * The display name of the product.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "The display name of the product")
+    @ApiModelProperty(value = "The display name of the product.")
     public String getDisplayName() {
         return displayName;
     }
@@ -151,11 +151,11 @@ public class TelcoProduct {
     }
 
     /**
-     * A description of the product
+     * A description of the product.
      *
      * @return description
      */
-    @ApiModelProperty(value = "A description of the product")
+    @ApiModelProperty(value = "A description of the product.")
     public String getDescription() {
         return description;
     }

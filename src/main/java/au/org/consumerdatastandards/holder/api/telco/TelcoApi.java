@@ -504,8 +504,8 @@ public interface TelcoApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
      * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -571,12 +571,12 @@ public interface TelcoApi {
             @RequestParam(value = "oldest-time",
                     required = false)
             String oldestTime,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -703,10 +703,10 @@ public interface TelcoApi {
      * Obtain the list of telco accounts available under the authorised consent
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param openStatus             Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional, default to ALL)
+     * @param openStatus             Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed. (optional, default to ALL)
      * @param updatedSince           Only include accounts that have been updated after the specified date and time.  If absent defaults to include all plans
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -753,7 +753,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
+            @ApiParam(value = "Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed.",
                     allowableValues = "ALL, CLOSED, OPEN",
                     defaultValue = "ALL")
             @Valid
@@ -766,12 +766,12 @@ public interface TelcoApi {
             @RequestParam(value = "updated-since",
                     required = false)
             String updatedSince,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -803,8 +803,8 @@ public interface TelcoApi {
      * Obtain the current balance for all accounts
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -851,12 +851,12 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -889,8 +889,8 @@ public interface TelcoApi {
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -943,12 +943,12 @@ public interface TelcoApi {
             @Valid
             @RequestBody
             RequestAccountIds accountIdList,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -983,8 +983,8 @@ public interface TelcoApi {
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
      * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
      * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1047,12 +1047,12 @@ public interface TelcoApi {
             @RequestParam(value = "oldest-time",
                     required = false)
             String oldestTime,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1086,8 +1086,8 @@ public interface TelcoApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1144,12 +1144,12 @@ public interface TelcoApi {
             @RequestParam(value = "oldest-date",
                     required = false)
             String oldestDate,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1184,8 +1184,8 @@ public interface TelcoApi {
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1248,12 +1248,12 @@ public interface TelcoApi {
             @RequestParam(value = "oldest-date",
                     required = false)
             String oldestDate,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1290,8 +1290,8 @@ public interface TelcoApi {
      * @param effective    Allows for the filtering of productd based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to &#39;CURRENT&#39; (optional, default to CURRENT)
      * @param updatedSince Only include products that have been updated after the specified date and time.  If absent defaults to include all plans (optional)
      * @param brand        Used to filter results on the brand field. If absent, defaults to include all products. For service providers that operate a number of mobile and internet brands (optional)
-     * @param page         Page of results to request (standard pagination) (optional)
-     * @param pageSize     Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page         Page of results to request (standard pagination).
+     * @param pageSize     Page size to request. Default is 25 (standard pagination).
      * @param xMinV        Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
@@ -1362,12 +1362,12 @@ public interface TelcoApi {
             @RequestParam(value = "brand",
                     required = false)
             String brand,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1385,8 +1385,8 @@ public interface TelcoApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
      * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1443,12 +1443,12 @@ public interface TelcoApi {
             @RequestParam(value = "oldest-time",
                     required = false)
             String oldestTime,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1482,8 +1482,8 @@ public interface TelcoApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1540,12 +1540,12 @@ public interface TelcoApi {
             @RequestParam(value = "newest-date",
                     required = false)
             String newestDate,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1580,8 +1580,8 @@ public interface TelcoApi {
      * @param serviceIdList          Request payload containing list of specific Service Points to obtain data for (required)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1644,12 +1644,12 @@ public interface TelcoApi {
             @RequestParam(value = "newest-date",
                     required = false)
             String newestDate,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
             Integer page,
-            @ApiParam(value = "Page size to request.  Default is 25 (standard pagination)")
+            @ApiParam(value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)

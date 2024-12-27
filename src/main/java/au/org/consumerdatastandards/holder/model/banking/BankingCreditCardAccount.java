@@ -24,22 +24,22 @@ public class BankingCreditCardAccount  {
     private String id;
 
     /**
-     * The minimum payment amount due for the next card payment
+     * The minimum payment amount due for the next card payment.
      */
     private String minPaymentAmount;
 
     /**
-     * If absent assumes AUD
+     * If absent assumes `AUD`.
      */
     private String paymentCurrency;
 
     /**
-     * The amount due for the next card payment
+     * The amount due for the next card payment.
      */
     private String paymentDueAmount;
 
     /**
-     * Date that the next payment for the card is due
+     * Date that the next payment for the card is due.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -58,7 +58,7 @@ public class BankingCreditCardAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The minimum payment amount due for the next card payment")
+    @ApiModelProperty(required = true, value = "The minimum payment amount due for the next card payment.")
     public String getMinPaymentAmount() {
         return minPaymentAmount;
     }
@@ -66,12 +66,13 @@ public class BankingCreditCardAccount  {
     public void setMinPaymentAmount(String minPaymentAmount) {
         this.minPaymentAmount = minPaymentAmount;
     }
+
     public BankingCreditCardAccount paymentCurrency(String paymentCurrency) {
         this.paymentCurrency = paymentCurrency;
         return this;
     }
 
-    @ApiModelProperty(value = "If absent assumes AUD")
+    @ApiModelProperty(value = "If absent assumes `AUD`.")
     public String getPaymentCurrency() {
         return paymentCurrency;
     }
@@ -85,7 +86,7 @@ public class BankingCreditCardAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The amount due for the next card payment")
+    @ApiModelProperty(required = true, value = "The amount due for the next card payment.")
     public String getPaymentDueAmount() {
         return paymentDueAmount;
     }
@@ -99,7 +100,7 @@ public class BankingCreditCardAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Date that the next payment for the card is due")
+    @ApiModelProperty(required = true, value = "Date that the next payment for the card is due.")
     public LocalDate getPaymentDueDate() {
         return paymentDueDate;
     }

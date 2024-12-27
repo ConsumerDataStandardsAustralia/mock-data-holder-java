@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Defines the criteria and conditions for which a rate applies
+ * Defines the criteria and conditions for which a rate applies.
  */
 @MappedSuperclass
 public abstract class BankingProductRateTier {
@@ -20,31 +20,27 @@ public abstract class BankingProductRateTier {
     private String rateTierId;
 
     /**
-     * A display name for the tier
+     * A display name for the tier.
      */
     private String name;
 
     /**
-     * The unit of measure that applies to the minimumValue and maximumValue values e.g. a **DOLLAR** amount. **PERCENT** (in the case of loan-to-value ratio or LVR). Tier term period representing a discrete number of **MONTH**'s or **DAY**'s (in the case of term deposit tiers)
+     * The unit of measure that applies to the _minimumValue_ and _maximumValue_ values e.g.,<ul><li>`DOLLAR` amount.<li>`PERCENT` (in the case of loan-to-value ratio or LVR).<li>Tier term period representing a discrete number of `MONTH`(s) or `DAY`(s) (in the case of term deposit tiers).</ul>
      */
     private UnitOfMeasure unitOfMeasure;
 
     /**
-     * The number of unitOfMeasure units that form the lower bound of the tier. The tier should be inclusive of this value
+     * The number of _unitOfMeasure_ units that form the lower bound of the tier. The tier should be inclusive of this value.
      */
     private BigDecimal minimumValue;
 
     /**
-     * The number of unitOfMeasure units that form the upper bound of the tier or band. For a tier with a discrete value (as opposed to a range of values e.g. 1 month) this must be the same as minimumValue. Where this is the same as the minimumValue value of the next-higher tier the referenced tier should be exclusive of this value. For example a term deposit of 2 months falls into the upper tier of the following tiers: (1 – 2 months, 2 – 3 months). If absent the tier's range has no upper bound.
+     * The number of _unitOfMeasure_ units that form the upper bound of the tier or band. For a tier with a discrete value (as opposed to a range of values e.g., 1 month) this must be the same as _minimumValue_. Where this is the same as the _minimumValue_ value of the next-higher tier the referenced tier should be exclusive of this value. For example a term deposit of 2 months falls into the upper tier of the following tiers: (1 – 2 months, 2 – 3 months). If absent the tier's range has no upper bound.
      */
     private BigDecimal maximumValue;
 
     /**
-     * The method used to calculate the amount to be applied using
-     * one or more tiers. A single rate may be applied to the
-     * entire balance or each applicable tier rate is applied to
-     * the portion of the balance that falls into that tier
-     * (referred to as 'bands' or 'steps')
+     * The method used to calculate the amount to be applied using one or more tiers. A single rate may be applied to the entire balance or each applicable tier rate is applied to the portion of the balance that falls into that tier (referred to as 'bands' or 'steps').
      */
     private RateApplicationMethod rateApplicationMethod;
 

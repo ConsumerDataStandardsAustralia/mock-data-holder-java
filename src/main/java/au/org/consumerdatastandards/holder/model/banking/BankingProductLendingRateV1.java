@@ -14,7 +14,7 @@ import java.util.List;
 public class BankingProductLendingRateV1 extends BankingProductLendingRate {
 
     /**
-     * Rate tiers applicable for this rate
+     * Rate tiers applicable for this rate.
      */
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(

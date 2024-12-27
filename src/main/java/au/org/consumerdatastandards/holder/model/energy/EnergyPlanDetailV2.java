@@ -262,7 +262,7 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
      *
      * @return additionalInformation
      */
-    @ApiModelProperty(value = "Object that contains links to additional information on specific topics")
+    @ApiModelProperty(value = "Object that contains links to additional information on specific topics.")
     @Valid
     @Override
     public EnergyPlanAdditionalInformation getAdditionalInformation() {

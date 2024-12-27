@@ -47,7 +47,7 @@ public interface BankingAccountsApi {
     @ApiOperation(
         value = "Get Account Detail",
         nickname = "getAccountDetail",
-        notes = "Obtain detailed information on a single account",
+        notes = "Obtain detailed information on a single account.",
         response = ResponseBankingAccountById.class,
         tags = {"Accounts", "Banking"}
     )
@@ -60,7 +60,7 @@ public interface BankingAccountsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -84,12 +84,12 @@ public interface BankingAccountsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:accounts.detail:read')")
     ResponseEntity<ResponseBankingAccountById> getAccountDetail(
         @ApiParam(
-            value = "A tokenised identifier for the account which is unique but not shareable",
+            value = "A tokenised identifier for the account which is unique but not shareable.",
             required = true
         )
         @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -117,7 +117,7 @@ public interface BankingAccountsApi {
     @ApiOperation(
         value = "Get Transaction Detail",
         nickname = "getTransactionDetail",
-        notes = "Obtain detailed information on a transaction for a specific account",
+        notes = "Obtain detailed information on a transaction for a specific account.",
         response = ResponseBankingTransactionById.class,
         tags = {"Accounts", "Banking"}
     )
@@ -130,7 +130,7 @@ public interface BankingAccountsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Field / Missing Field / Invalid Date",
+            message = "Invalid Version / Invalid Field / Missing Required Field / Invalid Date",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -154,17 +154,17 @@ public interface BankingAccountsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:transactions:read')")
     ResponseEntity<ResponseBankingTransactionById> getTransactionDetail(
         @ApiParam(
-            value = "ID of the account to get transactions for.  Must have previously been returned by one of the account list end points",
+            value = "ID of the account to get transactions for. Must have previously been returned by one of the account list endpoints.",
             required = true
         )
         @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
-            value = "ID of the transaction obtained from a previous call to one of the other transaction end points",
+            value = "ID of the transaction obtained from a previous call to one of the other transaction endpoints.",
             required = true
         )
         @PathVariable("transactionId") @NotBlank String transactionId,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -192,7 +192,7 @@ public interface BankingAccountsApi {
     @ApiOperation(
         value = "Get Transactions For Account",
         nickname = "getTransactions",
-        notes = "Obtain transactions for a specific account.  Some general notes that apply to all end points that retrieve transactions:  - Where multiple transactions are returned, transactions should be ordered according to effective date in descending order - As the date and time for a transaction can alter depending on status and transaction type two separate date/times are included in the payload. There are still some scenarios where neither of these time stamps is available. For the purpose of filtering and ordering it is expected that the data holder will use the “effective” date/time which will be defined as:   - Posted date/time if available, then   - Execution date/time if available, then   - A reasonable date/time nominated by the data holder using internal data structures - For transaction amounts it should be assumed that a negative value indicates a reduction of the available balance on the account while a positive value indicates an increase in the available balance on the account",
+        notes = "Obtain transactions for a specific account.\n\nSome general notes that apply to all endpoints that retrieve transactions:<ul><li>Where multiple transactions are returned, transactions should be ordered according to effective date in descending order<li>As the date and time for a transaction can alter depending on status and transaction type two separate date/times are included in the payload. There are still some scenarios where neither of these time stamps is available. For the purpose of filtering and ordering it is expected that the data holder will use the \"effective\" date/time which will be defined as:<ul><li>Posted date/time if available, then<li>Execution date/time if available, then<li>A reasonable date/time nominated by the data holder using internal data structures</ul><li>For transaction amounts it should be assumed that a negative value indicates a reduction of the available balance on the account while a positive value indicates an increase in the available balance on the account<li>For aggregated transactions (i.e. groups of sub transactions reported as a single entry for the account) only the aggregated information, with as much consistent information across the subsidiary transactions as possible, is required to be shared.</ul>",
         response = ResponseBankingTransactionList.class,
         tags = {"Accounts", "Banking"}
     )
@@ -205,7 +205,7 @@ public interface BankingAccountsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Field / Missing Field / Invalid Date / Invalid Page Size",
+            message = "Invalid Field / Missing Required Field / Invalid Date / Invalid Page Size",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -235,35 +235,35 @@ public interface BankingAccountsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:transactions:read')")
     ResponseEntity<ResponseBankingTransactionList> getTransactions(
         @ApiParam(
-            value = "ID of the account to get transactions for.  Must have previously been returned by one of the account list end points.",
+            value = "ID of the account to get transactions for. Must have previously been returned by one of the account list endpoints.",
             required = true
         )
         @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
-            value = "Filter transactions to only transactions with amounts less than or equal to this amount"
+            value = "Filter transactions to only transactions with amounts less than or equal to this amount."
         ) @RequestParam(value = "max-amount", required = false) BigDecimal maxAmount,
         @ApiParam(
-            value = "Filter transactions to only transactions with amounts higher than or equal to this amount"
+            value = "Filter transactions to only transactions with amounts higher than or equal to this amount."
         ) @RequestParam(value = "min-amount", required = false) BigDecimal minAmount,
         @ApiParam(
-            value = "Constrain the transaction history request to transactions with effective time at or before this date/time.  If absent defaults to today.  Format is aligned to DateTimeString common type"
+            value = "Constrain the transaction history request to transactions with effective time at or before this date/time. If absent defaults to today. Format is aligned to [DateTimeString](#common-field-types) common type."
         ) @RequestParam(value = "newest-time", required = false) OffsetDateTime newestTime,
         @ApiParam(
-            value = "Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to newest-time minus 90 days.  Format is aligned to DateTimeString common type"
+            value = "Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to _newest-time_ minus 90 days. Format is aligned to [DateTimeString](#common-field-types) common type."
         ) @RequestParam(value = "oldest-time", required = false) OffsetDateTime oldestTime,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "Filter transactions to only transactions where this string value is found as a substring of either the reference or description fields. Format is arbitrary ASCII string. This parameter is optionally implemented by data holders. If it is not implemented then a response should be provided as normal without text filtering applied"
+            value = "Filter transactions to only transactions where this string value is found as a substring of either the _reference_ or _description_ fields. Format is arbitrary ASCII string. This parameter is optionally implemented by data holders. If it is not implemented then a response should be provided as normal without text filtering applied and an additional boolean field named _isQueryParamUnsupported_ should be included in the meta object and set to `true` (whether the text parameter is supplied or not)."
         ) @RequestParam(value = "text", required = false) String text,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -304,7 +304,7 @@ public interface BankingAccountsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -328,27 +328,27 @@ public interface BankingAccountsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountList> listAccounts(
         @ApiParam(
-            value = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts"
+            value = "Filters accounts based on whether they are owned by the authorised customer. `true` for owned accounts, `false` for unowned accounts and absent for all accounts."
         ) @RequestParam(value = "is-owned", required = false) Boolean isOwned,
         @ApiParam(
-            value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
+            value = "Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed.",
             allowableValues = "ALL, CLOSED, OPEN",
             defaultValue = "ALL"
         ) @RequestParam(value = "open-status", required = false, defaultValue = "ALL") ParamAccountOpenStatus openStatus,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
+            value = "Used to filter results on the _productCategory_ field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
             allowableValues = "BUSINESS_LOANS, CRED_AND_CHRG_CARDS, LEASES, MARGIN_LOANS, OVERDRAFTS, PERS_LOANS, REGULATED_TRUST_ACCOUNTS, RESIDENTIAL_MORTGAGES, TERM_DEPOSITS, TRADE_FINANCE, TRANS_AND_SAVINGS_ACCOUNTS, TRAVEL_CARDS"
         ) @RequestParam(value = "product-category", required = false) ParamProductCategory productCategory,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -376,7 +376,7 @@ public interface BankingAccountsApi {
     @ApiOperation(
         value = "Get Account Balance",
         nickname = "getBalance",
-        notes = "Obtain the balance for a single specified account",
+        notes = "Obtain the balance for a single specified account.",
         response = ResponseBankingAccountsBalanceById.class,
         tags = {"Accounts", "Banking"}
     )
@@ -389,7 +389,7 @@ public interface BankingAccountsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -407,12 +407,12 @@ public interface BankingAccountsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountsBalanceById> getBalance(
         @ApiParam(
-            value = "ID of the specific account requested",
+            value = "ID of the specific account requested.",
             required = true
         )
         @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -440,7 +440,7 @@ public interface BankingAccountsApi {
     @ApiOperation(
         value = "Get Bulk Balances",
         nickname = "listBalancesBulk",
-        notes = "Obtain balances for multiple, filtered accounts",
+        notes = "Obtain balances for multiple, filtered accounts.",
         response = ResponseBankingAccountsBalanceList.class,
         tags = {"Accounts", "Banking"}
     )
@@ -453,7 +453,7 @@ public interface BankingAccountsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -477,27 +477,27 @@ public interface BankingAccountsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesBulk(
         @ApiParam(
-            value = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts"
+            value = "Filters accounts based on whether they are owned by the authorised customer. `true` for owned accounts, `false` for unowned accounts and absent for all accounts."
         ) @RequestParam(value = "is-owned", required = false) Boolean isOwned,
         @ApiParam(
-            value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
+            value = "Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed.",
             allowableValues = "ALL, CLOSED, OPEN",
             defaultValue = "ALL"
         ) @RequestParam(value = "open-status", required = false, defaultValue = "ALL") ParamAccountOpenStatus paramOpenStatus,
         @ApiParam(
-            value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
+            value = "Used to filter results on the _productCategory_ field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
             allowableValues = "BUSINESS_LOANS, CRED_AND_CHRG_CARDS, LEASES, MARGIN_LOANS, OVERDRAFTS, PERS_LOANS, REGULATED_TRUST_ACCOUNTS, RESIDENTIAL_MORTGAGES, TERM_DEPOSITS, TRADE_FINANCE, TRANS_AND_SAVINGS_ACCOUNTS, TRAVEL_CARDS"
         ) @RequestParam(value = "product-category", required = false) ParamProductCategory paramProductCategory,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -525,7 +525,7 @@ public interface BankingAccountsApi {
     @ApiOperation(
         value = "Get Balances For Specific Accounts",
         nickname = "listBalancesSpecificAccounts",
-        notes = "Obtain balances for a specified list of accounts",
+        notes = "Obtain balances for a specified list of accounts.",
         response = ResponseBankingAccountsBalanceList.class,
         tags = {"Accounts", "Banking"}
     )
@@ -538,7 +538,7 @@ public interface BankingAccountsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -562,18 +562,18 @@ public interface BankingAccountsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:accounts.basic:read')")
     ResponseEntity<ResponseBankingAccountsBalanceList> listBalancesSpecificAccounts(
         @ApiParam(
-            value = "The list of account IDs to obtain balances for"
+            value = "The list of _accountId_ values to obtain balances for."
         ) @RequestBody @NotNull RequestAccountIds accountIds,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(

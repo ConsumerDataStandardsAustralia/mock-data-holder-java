@@ -79,7 +79,7 @@ public interface EnergyApi {
                     response = EnergyAccountDetailResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field",
+                    message = "Invalid Version / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -163,7 +163,7 @@ public interface EnergyApi {
                     response = EnergyBalanceResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field",
+                    message = "Invalid Version / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -226,8 +226,8 @@ public interface EnergyApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
      * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -251,7 +251,7 @@ public interface EnergyApi {
                     response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -300,13 +300,13 @@ public interface EnergyApi {
             @RequestParam(value = "oldest-time",
                     required = false)
                     OffsetDateTime oldestTime,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -362,7 +362,7 @@ public interface EnergyApi {
                     response = EnergyConcessionsResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field",
+                    message = "Invalid Version / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -446,7 +446,7 @@ public interface EnergyApi {
                     response = EnergyDerDetailResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field",
+                    message = "Invalid Version / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -509,8 +509,8 @@ public interface EnergyApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param newestDate             Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param oldestDate             Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -534,7 +534,7 @@ public interface EnergyApi {
                     response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -583,13 +583,13 @@ public interface EnergyApi {
             @RequestParam(value = "oldest-date",
                     required = false)
                     LocalDate oldestDate,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -649,7 +649,7 @@ public interface EnergyApi {
                     response = EnergyPaymentScheduleResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field",
+                    message = "Invalid Version / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -726,7 +726,7 @@ public interface EnergyApi {
                     message = "Successful response",
                     response = EnergyPlanResponse.class),
             @ApiResponse(code = 400,
-                    message = "Invalid Version / Missing Field / Invalid Field",
+                    message = "Invalid Version / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     message = "Unsupported Version",
@@ -786,7 +786,7 @@ public interface EnergyApi {
                     response = EnergyServicePointDetailResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field",
+                    message = "Invalid Version / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -851,8 +851,8 @@ public interface EnergyApi {
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param intervalReads          Type of interval reads. Any one of the valid values for this field can be supplied. If absent defaults to NONE
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -876,7 +876,7 @@ public interface EnergyApi {
                     response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -931,13 +931,13 @@ public interface EnergyApi {
             @RequestParam(value = "interval-reads",
                     defaultValue = "NONE")
                     ParamIntervalReadsEnum intervalReads,
-            @ApiParam(value = "Page of results to request (standard pagination)")
+            @ApiParam(value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -967,10 +967,10 @@ public interface EnergyApi {
      * GET /energy/accounts : Get Energy Accounts
      * Obtain the list of energy accounts available under the authorised consent
      *
-     * @param openStatus             Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed (optional)
+     * @param openStatus             Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed. (optional)
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -994,7 +994,7 @@ public interface EnergyApi {
                     response = EnergyAccountListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1013,7 +1013,7 @@ public interface EnergyApi {
     @PreAuthorize("hasAuthority('SCOPE_energy:accounts.basic:read')")
     ResponseEntity<EnergyAccountListResponse> listAccounts(
             @ApiParam(
-                    value="Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed")
+                    value="Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed.")
             @RequestParam(value = "open-status",
                     required = false,
                     defaultValue = "ALL")
@@ -1024,13 +1024,13 @@ public interface EnergyApi {
             @RequestHeader(value = "x-v", required = false)
                     Integer xV,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1067,8 +1067,8 @@ public interface EnergyApi {
      * Obtain the current balance for all accounts
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1092,7 +1092,7 @@ public interface EnergyApi {
                     response = EnergyBalanceListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1121,13 +1121,13 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1160,8 +1160,8 @@ public interface EnergyApi {
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1185,7 +1185,7 @@ public interface EnergyApi {
                     response = EnergyBalanceListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Invalid Page Size / Missing Field / Invalid Field",
+                    message = "Invalid Version / Invalid Page Size / Missing Required Field / Invalid Field",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1221,13 +1221,13 @@ public interface EnergyApi {
             @RequestBody
                     RequestAccountIds accountIdList,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1262,8 +1262,8 @@ public interface EnergyApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
      * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1287,7 +1287,7 @@ public interface EnergyApi {
                     response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1328,13 +1328,13 @@ public interface EnergyApi {
                     required = false)
                     OffsetDateTime oldestTime,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1369,8 +1369,8 @@ public interface EnergyApi {
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
      * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
      * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1395,7 +1395,7 @@ public interface EnergyApi {
                     response = EnergyBillingListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1443,13 +1443,13 @@ public interface EnergyApi {
                     required = false)
                     OffsetDateTime oldestTime,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1488,8 +1488,8 @@ public interface EnergyApi {
      * Obtain DER data for all service points associated with the customer
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1513,7 +1513,7 @@ public interface EnergyApi {
                     response = EnergyDerListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1542,13 +1542,13 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1581,8 +1581,8 @@ public interface EnergyApi {
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param servicePointIdList     Request payload containing list of specific Service Points to obtain data for (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1606,7 +1606,7 @@ public interface EnergyApi {
                     response = EnergyDerListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1642,13 +1642,13 @@ public interface EnergyApi {
             @RequestBody
                     RequestServicePointIds servicePointIdList,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1682,8 +1682,8 @@ public interface EnergyApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param newestDate             Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param oldestDate             Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1707,7 +1707,7 @@ public interface EnergyApi {
                     response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1748,13 +1748,13 @@ public interface EnergyApi {
                     required = false)
                     LocalDate oldestDate,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1789,8 +1789,8 @@ public interface EnergyApi {
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
      * @param newestDate             Constrain the request to records with issue date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
      * @param oldestDate             Constrain the request to records with issue date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -1814,7 +1814,7 @@ public interface EnergyApi {
                     response = EnergyInvoiceListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -1862,13 +1862,13 @@ public interface EnergyApi {
                     required = false)
                     LocalDate oldestDate,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -1906,8 +1906,8 @@ public interface EnergyApi {
      * @param effective          Allows for the filtering of plans based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to 'CURRENT' (optional, default to CURRENT)
      * @param updatedSince       Only include plans that have been updated after the specified date and time.  If absent defaults to include all plans (optional)
      * @param brand              Used to filter results on the brand field.  If absent defaults to include all plans (optional)
-     * @param page               Page of results to request (standard pagination) (optional)
-     * @param pageSize           Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page               Page of results to request (standard pagination).
+     * @param pageSize           Page size to request. Default is 25 (standard pagination).
      * @param xMinV              Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li><li>[422 - Invalid Page](#error-422-field-invalid-page)</li></ul> (status code 4xx)
@@ -1923,7 +1923,7 @@ public interface EnergyApi {
                     message = "Successful response",
                     response = EnergyPlanListResponse.class),
             @ApiResponse(code = 400,
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     message = "Unsupported Version",
@@ -1988,13 +1988,13 @@ public interface EnergyApi {
                     required = false)
                     String brand,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -2006,8 +2006,8 @@ public interface EnergyApi {
      * Obtain a list of service points owned by the customer that has authorised the current session
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -2031,7 +2031,7 @@ public interface EnergyApi {
                     response = EnergyServicePointListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -2060,13 +2060,13 @@ public interface EnergyApi {
                     required = false)
                     Integer xMinV,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -2101,8 +2101,8 @@ public interface EnergyApi {
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
@@ -2127,7 +2127,7 @@ public interface EnergyApi {
                     response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Missing Field / Invalid Field / Invalid Page Size / Invalid Date",
+                    message = "Invalid Version / Missing Required Field / Invalid Field / Invalid Page Size / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -2168,13 +2168,13 @@ public interface EnergyApi {
                     required = false)
                     LocalDate newestDate,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)
@@ -2216,8 +2216,8 @@ public interface EnergyApi {
      * @param servicePointIdList     Request payload containing list of specific Service Points to obtain data for (required)
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
      * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param page                   Page of results to request (standard pagination) (optional)
-     * @param pageSize               Page size to request.  Default is 25 (standard pagination) (optional)
+     * @param page                   Page of results to request (standard pagination).
+     * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xFapiInteractionId     An [RFC4122](https://tools.ietf.org/html/rfc4122) UUID used as a correlation id. If provided, the data holder must play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction. (optional)
      * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
      * @param xFapiCustomerIpAddress The customer's original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
@@ -2241,7 +2241,7 @@ public interface EnergyApi {
                     response = EnergyUsageListResponse.class),
             @ApiResponse(code = 400,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
-                    message = "Invalid Version / Invalid Page Size / Missing Field / Invalid Field / Invalid Date",
+                    message = "Invalid Version / Invalid Page Size / Missing Required Field / Invalid Field / Invalid Date",
                     response = ErrorListResponse.class),
             @ApiResponse(code = 406,
                     responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
@@ -2289,13 +2289,13 @@ public interface EnergyApi {
                     required = false)
                     LocalDate newestDate,
             @ApiParam(
-                    value = "Page of results to request (standard pagination)")
+                    value = "Page of results to request (standard pagination).")
             @Valid
             @RequestParam(value = "page",
                     required = false)
                     Integer page,
             @ApiParam(
-                    value = "Page size to request.  Default is 25 (standard pagination)")
+                    value = "Page size to request. Default is 25 (standard pagination).")
             @Valid
             @RequestParam(value = "page-size",
                     required = false)

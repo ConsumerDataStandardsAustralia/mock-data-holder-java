@@ -49,9 +49,7 @@ public class BankingProductV2Detail implements BankingProductDetail {
     private OffsetDateTime effectiveTo;
 
     /**
-     * The last date and time that the information for this product
-     * was changed (or the creation date for the product if it has
-     * never been altered)
+     * The last date and time that the information for this The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered).
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -60,25 +58,23 @@ public class BankingProductV2Detail implements BankingProductDetail {
     private BankingProductCategory productCategory;
 
     /**
-     * The display name of the product
+     * The display name of the product.
      */
     private String name;
 
     /**
-     * A description of the product
+     * A description of the product.
      */
     @Column(length = 2048)
     private String description;
 
     /**
-     * A label of the brand for the product. Able to be used for
-     * filtering. For data providers with single brands this value
-     * is still required
+     * A label of the brand for the product. A label of the brand for the product. Able to be used for filtering. For data holders with single brands this value is still required.
      */
     private String brand;
 
     /**
-     * An optional display name of the brand
+     * An optional display name of the brand.
      */
     private String brandName;
 
@@ -89,18 +85,16 @@ public class BankingProductV2Detail implements BankingProductDetail {
     private String applicationUri;
 
     /**
-     * Indicates whether the product is specifically tailored to a
-     * circumstance.  In this case fees and prices are
-     * significantly negotiated depending on context. While all
-     * products are open to a degree of tailoring this flag
-     * indicates that tailoring is expected and thus that the
-     * provision of specific fees and rates is not applicable
+     * Indicates whether the product is specifically tailored to Indicates whether the product is specifically tailored to a circumstance. In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable.
      */
     private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
     private BankingProductAdditionalInformationV1 additionalInformation;
 
+    /**
+     * An array of card art images.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_cardarts",

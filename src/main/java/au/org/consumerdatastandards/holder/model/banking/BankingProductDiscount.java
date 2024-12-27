@@ -32,87 +32,60 @@ public class BankingProductDiscount {
     private String discountId;
 
     /**
-     * Description of the discount
+     * Description of the discount.
      */
     @Column(length = 2048)
     private String description;
 
     /**
-     * The type of discount. See the next section for an overview
-     * of valid values and their meaning
+     * The type of discount. For further details, refer to [Product Discount Types](#tocSproductdiscounttypedoc).
      */
     private DiscountType discountType;
 
     /**
-     * Dollar value of the discount.
-     * One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory.
+     * Dollar value of the discount. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
      */
     private String amount;
 
     /**
-     * A discount rate calculated based on a proportion of the
-     * balance. Note that the currency of the fee discount is
-     * expected to be the same as the currency of the fee itself.
-     * One of amount, balanceRate, transactionRate, accruedRate and
-     * feeRate is mandatory. Unless noted in additionalInfo,
-     * assumes the application and calculation frequency are the
-     * same as the corresponding fee
+     * A discount rate calculated based on a proportion of the balance. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
      */
     private String balanceRate;
 
     /**
-     * A discount rate calculated based on a proportion of a
-     * transaction. Note that the currency of the fee discount is
-     * expected to be the same as the currency of the fee itself.
-     * One of amount, balanceRate, transactionRate, accruedRate and
-     * feeRate is mandatory
+     * A discount rate calculated based on a proportion of a transaction. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory.
      */
     private String transactionRate;
 
     /**
-     * A discount rate calculated based on a proportion of the
-     * calculated interest accrued on the account. Note that the
-     * currency of the fee discount is expected to be the same as
-     * the currency of the fee itself. One of amount, balanceRate,
-     * transactionRate, accruedRate and feeRate is mandatory.
-     * Unless noted in additionalInfo, assumes the application and
-     * calculation frequency are the same as the corresponding fee
+     * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
      */
     private String accruedRate;
 
     /**
-     * A discount rate calculated based on a proportion of the fee
-     * to which this discount is attached. Note that the currency
-     * of the fee discount is expected to be the same as the
-     * currency of the fee itself. One of amount, balanceRate,
-     * transactionRate, accruedRate and feeRate is mandatory.
-     * Unless noted in additionalInfo, assumes the application and
-     * calculation frequency are the same as the corresponding fee
+     * A discount rate calculated based on a proportion of the fee to which this discount is attached. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of _amount_, _balanceRate_, _transactionRate_, _accruedRate_ and _feeRate_ is mandatory. Unless noted in _additionalInfo_, assumes the application and calculation frequency are the same as the corresponding fee.
      */
     private String feeRate;
 
     /**
-     * Generic field containing additional information relevant to
-     * the discountType specified. Whether mandatory or not is
-     * dependent on the value of discountType
+     * Generic field containing additional information relevant to the [_discountType_](#tocSproductdiscounttypedoc) specified. Whether mandatory or not is dependent on the value of [_discountType_](#tocSproductdiscounttypedoc).
      */
     @Column(length = 2048)
     private String additionalValue;
 
     /**
-     * Display text providing more information on the discount
+     * Display text providing more information on the discount.
      */
     @Column(length = 2048)
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on this discount
+     * Link to a web page with more information on this discount.
      */
     private URI additionalInfoUri;
 
     /**
-     * Eligibility constraints that apply to this discount.
-     * Mandatory if discountType is ELIGIBILITY_ONLY.
+     * Eligibility constraints that apply to this discount. Mandatory if _discountType_ is `ELIGIBILITY_ONLY`.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

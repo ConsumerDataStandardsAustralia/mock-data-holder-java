@@ -27,21 +27,18 @@ public class BankingProductFeature {
     private String featureId;
 
     /**
-     * The type of feature described
+     * The type of feature described. For further details, refer to [Product Feature Types](#tocSproductfeaturetypedoc).
      */
     private FeatureType featureType;
 
     /**
-     * Generic field containing additional information relevant to
-     * the featureType specified. Whether mandatory or not is
-     * dependent on the value of featureType
+     * Generic field containing additional information relevant to the [_featureType_](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [_featureType_](#tocSproductfeaturetypedoc).
      */
     @Column(length = 2048)
     private String additionalValue;
 
     /**
-     * Display text providing more information on the feature.
-     * Mandatory if the feature type is set to OTHER
+     * Display text providing more information on the feature. Mandatory if [_featureType_](#tocSproductfeaturetypedoc) is set to `OTHER`.
      */
     @Column(length = 2048)
     private String additionalInfo;

@@ -11,9 +11,9 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 /**
- * Object that contains links to additional information on specific topics
+ * Object that contains links to additional information on specific topics.
  */
-@ApiModel(description = "Object that contains links to additional information on specific topics")
+@ApiModel(description = "Object that contains links to additional information on specific topics.")
 @Entity
 public class EnergyPlanAdditionalInformation {
 

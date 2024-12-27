@@ -40,7 +40,7 @@ public interface BankingScheduledPaymentsApi {
     @ApiOperation(
         value = "Get Scheduled Payments for Account",
         nickname = "listScheduledPayments",
-        notes = "Obtain scheduled, outgoing payments for a specific account",
+        notes = "Obtain scheduled, outgoing payments for a specific account.",
         response = ResponseBankingScheduledPaymentsList.class,
         tags = {"ScheduledPayments", "Banking"}
     )
@@ -53,7 +53,7 @@ public interface BankingScheduledPaymentsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -83,20 +83,20 @@ public interface BankingScheduledPaymentsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingScheduledPaymentsList> listScheduledPayments(
         @ApiParam(
-            value = "ID of the account to get scheduled payments for. Must have previously been returned by one of the account list end points. The account specified is the source account for the payment",
+            value = "ID of the account to get scheduled payments for. Must have previously been returned by one of the account list endpoints. The account specified is the source account for the payment.",
             required = true
         )
         @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -124,7 +124,7 @@ public interface BankingScheduledPaymentsApi {
     @ApiOperation(
         value = "Get Scheduled Payments Bulk",
         nickname = "listScheduledPaymentsSpecificAccounts",
-        notes = "Obtain scheduled payments for multiple, filtered accounts that are the source of funds for the payments",
+        notes = "Obtain scheduled payments for multiple, filtered accounts that are the source of funds for the payments.",
         response = ResponseBankingScheduledPaymentsList.class,
         tags = {"ScheduledPayments", "Banking"}
     )
@@ -137,7 +137,7 @@ public interface BankingScheduledPaymentsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -161,26 +161,26 @@ public interface BankingScheduledPaymentsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingScheduledPaymentsList> listScheduledPaymentsBulk(
         @ApiParam(
-            value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned."
+            value = "Used to filter results on the _productCategory_ field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned."
         ) @RequestParam(value = "product-category", required = false) ParamProductCategory productCategory,
         @ApiParam(
-            value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed.",
+            value = "Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed..",
             allowableValues = "OPEN, CLOSED, ALL",
             defaultValue = "ALL"
         ) @RequestParam(value = "open-status", required = false, defaultValue = "ALL") ParamAccountOpenStatus openStatus,
         @ApiParam(
-            value = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts."
+            value = "Filters accounts based on whether they are owned by the authorised customer. `true` for owned accounts, `false` for unowned accounts and absent for all accounts.."
         ) @RequestParam(value = "is-owned", required = false) Boolean isOwned,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -209,7 +209,7 @@ public interface BankingScheduledPaymentsApi {
     @ApiOperation(
         value = "Get Scheduled Payments For Specific Accounts",
         nickname = "listScheduledPaymentsSpecificAccounts",
-        notes = "Obtain scheduled payments for a specified list of accounts",
+        notes = "Obtain scheduled payments for a specified list of accounts.",
         response = ResponseBankingScheduledPaymentsList.class,
         tags = {"ScheduledPayments", "Banking"}
     )
@@ -222,7 +222,7 @@ public interface BankingScheduledPaymentsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -246,19 +246,19 @@ public interface BankingScheduledPaymentsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingScheduledPaymentsList> listScheduledPaymentsSpecificAccounts(
         @ApiParam(
-            value = "Array of specific accountIds to obtain scheduled payments for.  The accounts specified are the source of funds for the payments returned"
+            value = "Array of _accountId_ values to obtain scheduled payments for. The accounts specified are the source of funds for the payments returned."
         )
         @RequestBody @NotNull RequestAccountIds accountIds,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(

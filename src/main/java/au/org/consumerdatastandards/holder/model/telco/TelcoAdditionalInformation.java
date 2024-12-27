@@ -7,9 +7,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 /**
- * Object that contains links to additional information on specific topics
+ * Object that contains links to additional information on specific topics.
  */
-@ApiModel(description = "Object that contains links to additional information on specific topics")
+@ApiModel(description = "Object that contains links to additional information on specific topics.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoAdditionalInformation {

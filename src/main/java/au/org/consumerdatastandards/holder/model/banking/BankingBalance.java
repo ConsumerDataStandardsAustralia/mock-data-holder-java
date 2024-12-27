@@ -21,7 +21,7 @@ public class BankingBalance  {
     private String id;
 
     /**
-     * A unique ID of the account adhering to the standards for ID permanence
+     * A unique ID of the account adhering to the standards for ID permanence.
      */
     private String accountId;
 
@@ -78,7 +78,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence")
+    @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence.")
     public String getAccountId() {
         return accountId;
     }

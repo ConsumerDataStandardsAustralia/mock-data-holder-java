@@ -19,6 +19,9 @@ public class AdditionalInformationUri {
 
     private String description;
 
+    /**
+     * The URI describing the additional information.
+     */
     private URI additionalInfoUri;
 
     public String getId() {

@@ -40,7 +40,7 @@ public interface BankingDirectDebitsApi {
     @ApiOperation(
         value = "Get Direct Debits For Account",
         nickname = "listDirectDebits",
-        notes = "Obtain direct debit authorisations for a specific account",
+        notes = "Obtain direct debit authorisations for a specific account.",
         response = ResponseBankingDirectDebitAuthorisationList.class,
         tags = {"DirectDebits", "Banking"}
     )
@@ -53,7 +53,7 @@ public interface BankingDirectDebitsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -83,20 +83,20 @@ public interface BankingDirectDebitsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebits(
         @ApiParam(
-            value = "ID of the account to get direct debit authorisations for.  Must have previously been returned by one of the account list end points.",
+            value = "ID of the account to get direct debit authorisations for. Must have previously been returned by one of the account list endpoints.",
             required = true
         )
         @PathVariable("accountId") @NotBlank String accountId,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -124,7 +124,7 @@ public interface BankingDirectDebitsApi {
     @ApiOperation(
         value = "Get Bulk Direct Debits",
         nickname = "listDirectDebitsBulk",
-        notes = "Obtain direct debit authorisations for multiple, filtered accounts",
+        notes = "Obtain direct debit authorisations for multiple, filtered accounts.",
         response = ResponseBankingDirectDebitAuthorisationList.class,
         tags = {"DirectDebits", "Banking"}
     )
@@ -137,7 +137,7 @@ public interface BankingDirectDebitsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -161,27 +161,27 @@ public interface BankingDirectDebitsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsBulk(
         @ApiParam(
-            value = "Filters accounts based on whether they are owned by the authorised customer.  True for owned accounts, false for unowned accounts and absent for all accounts"
+            value = "Filters accounts based on whether they are owned by the authorised customer. `true` for owned accounts, `false` for unowned accounts and absent for all accounts."
         ) @RequestParam(value = "is-owned", required = false) Boolean isOwned,
         @ApiParam(
-            value = "Used to filter results according to open/closed status. Values can be OPEN, CLOSED or ALL. If absent then ALL is assumed",
+            value = "Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed.",
             allowableValues = "ALL, CLOSED, OPEN",
             defaultValue = "ALL"
         ) @RequestParam(value = "open-status", required = false, defaultValue = "ALL") ParamAccountOpenStatus paramOpenStatus,
         @ApiParam(
-            value = "Used to filter results on the productCategory field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
+            value = "Used to filter results on the _productCategory_ field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned.",
             allowableValues = "BUSINESS_LOANS, CRED_AND_CHRG_CARDS, LEASES, MARGIN_LOANS, OVERDRAFTS, PERS_LOANS, REGULATED_TRUST_ACCOUNTS, RESIDENTIAL_MORTGAGES, TERM_DEPOSITS, TRADE_FINANCE, TRANS_AND_SAVINGS_ACCOUNTS, TRAVEL_CARDS"
         ) @RequestParam(value = "product-category", required = false) ParamProductCategory paramProductCategory,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(
@@ -209,7 +209,7 @@ public interface BankingDirectDebitsApi {
     @ApiOperation(
         value = "Get Direct Debits For Specific Accounts",
         nickname = "listDirectDebitsSpecificAccounts",
-        notes = "Obtain direct debit authorisations for a specified list of accounts",
+        notes = "Obtain direct debit authorisations for a specified list of accounts.",
         response = ResponseBankingDirectDebitAuthorisationList.class,
         tags = {"DirectDebits", "Banking"}
     )
@@ -222,7 +222,7 @@ public interface BankingDirectDebitsApi {
         ),
         @ApiResponse(
             code = 400,
-            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Field",
+            message = "Invalid Version / Invalid Page Size / Invalid Field / Missing Required Field",
             responseHeaders = @ResponseHeader(name = "x-fapi-interaction-id", response = UUID.class, description = "An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction."),
             response = ErrorListResponse.class
         ),
@@ -246,18 +246,18 @@ public interface BankingDirectDebitsApi {
     @PreAuthorize("hasAuthority('SCOPE_bank:regular_payments:read')")
     ResponseEntity<ResponseBankingDirectDebitAuthorisationList> listDirectDebitsSpecificAccounts(
         @ApiParam(
-            value = "Array of specific accountIds to obtain authorisations for"
+            value = "Array of _accountId_ values to obtain authorisations for."
         ) @RequestBody RequestAccountIds accountIds,
         @ApiParam(
-            value = "Page of results to request (standard pagination)",
+            value = "Page of results to request (standard pagination).",
             defaultValue = "1"
         ) @RequestParam(value = "page", required = false, defaultValue = "1") @Min(1) Integer page,
         @ApiParam(
-            value = "Page size to request. Default is 25 (standard pagination)",
+            value = "Page size to request. Default is 25 (standard pagination).",
             defaultValue = "25"
         ) @RequestParam(value = "page-size", required = false, defaultValue = "25") @Min(1) Integer pageSize,
         @ApiParam(
-            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
+            value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
         )
         @RequestHeader(value = "x-cds-client-headers", required = false) String xCdsClientHeaders,
         @ApiParam(

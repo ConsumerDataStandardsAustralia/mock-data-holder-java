@@ -128,7 +128,7 @@ public interface EnergyPlan {
      *
      * @return additionalInformation
      */
-    @ApiModelProperty(value = "Object that contains links to additional information on specific topics")
+    @ApiModelProperty(value = "Object that contains links to additional information on specific topics.")
     EnergyPlanAdditionalInformation getAdditionalInformation();
 
     void setAdditionalInformation(EnergyPlanAdditionalInformation additionalInformation);

@@ -28,7 +28,7 @@ import java.util.Objects;
 public class BankingAccountDetailV1 implements BankingAccountDetail {
 
     /**
-     * A unique ID of the account adhering to the standards for ID permanence
+     * A unique ID of the account adhering to the standards for ID permanence.
      */
     @Id
     private String accountId;
@@ -44,23 +44,23 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     private LocalDate creationDate;
 
     /**
-     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
+     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the [MaskedAccountString](#common-field-types) common type.
      */
     private String displayName;
 
     /**
-     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
+     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then `true` is assumed.
      */
     @Transient
     private Boolean isOwned;
 
     /**
-     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
+     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number.
      */
     private String maskedNumber;
 
     /**
-     * A customer supplied nick name for the account
+     * A customer supplied nickname for the account.
      */
     private String nickname;
 
@@ -69,7 +69,7 @@ public class BankingAccountDetailV1 implements BankingAccountDetail {
     private BankingProductCategory productCategory;
 
     /**
-     * The unique identifier of the account as defined by the account holder (akin to model number for the account)
+     * The unique identifier of the account as defined by the data holder (akin to model number for the account).
      */
     private String productName;
 
