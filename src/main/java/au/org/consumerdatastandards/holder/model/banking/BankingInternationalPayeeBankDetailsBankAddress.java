@@ -21,7 +21,7 @@ public class BankingInternationalPayeeBankDetailsBankAddress  {
     private String id;
 
     /**
-     * Address of the recipient Bank
+     * Address of the recipient Bank.
      */
     private String address;
 
@@ -43,7 +43,7 @@ public class BankingInternationalPayeeBankDetailsBankAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Address of the recipient Bank")
+    @ApiModelProperty(required = true, value = "Address of the recipient Bank.")
     public String getAddress() {
         return address;
     }

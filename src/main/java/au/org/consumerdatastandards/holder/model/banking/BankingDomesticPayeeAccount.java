@@ -21,17 +21,17 @@ public class BankingDomesticPayeeAccount  {
     private String id;
 
     /**
-     * Name of the account to pay to
+     * Name of the account to pay to.
      */
     private String accountName;
 
     /**
-     * Number of the account to pay to
+     * Number of the account to pay to.
      */
     private String accountNumber;
 
     /**
-     * BSB of the account to pay to
+     * BSB of the account to pay to.
      */
     private String bsb;
 
@@ -48,7 +48,7 @@ public class BankingDomesticPayeeAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Name of the account to pay to")
+    @ApiModelProperty(required = true, value = "Name of the account to pay to.")
     public String getAccountName() {
         return accountName;
     }
@@ -61,7 +61,7 @@ public class BankingDomesticPayeeAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Number of the account to pay to")
+    @ApiModelProperty(required = true, value = "Number of the account to pay to.")
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -74,7 +74,7 @@ public class BankingDomesticPayeeAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "BSB of the account to pay to")
+    @ApiModelProperty(required = true, value = "BSB of the account to pay to.")
     public String getBsb() {
         return bsb;
     }

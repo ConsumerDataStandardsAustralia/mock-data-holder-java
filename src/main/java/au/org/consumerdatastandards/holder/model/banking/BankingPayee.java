@@ -17,30 +17,31 @@ import java.util.Objects;
 public class BankingPayee  {
 
     /**
-     * ID of the payee adhering to the rules of ID permanence
+     * ID of the payee adhering to the rules of ID permanence.
      */
     @Id
     private String payeeId;
 
     /**
-     * The date the payee was created by the customer
+     * The date the payee was created by the customer.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
     /**
-     * A description of the payee provided by the customer
+     * A description of the payee provided by the customer.
      */
     private String description;
 
     /**
-     * The short display name of the payee as provided by the customer.
-     * Where a customer has not provided a nickname, a display name derived by the bank for the payee consistent
-     * with existing digital banking channels
+     * The short display name of the payee as provided by the customer. Where a customer has not provided a nickname, a display name derived by the bank for the payee consistent with existing digital banking channels.
      */
     private String nickname;
 
+    /**
+     * The type of payee.<ul><li>`DOMESTIC` means a registered payee for domestic payments including NPP.<li>`INTERNATIONAL` means a registered payee for international payments.<li>`BILLER` means a registered payee for BPAY.<li>`DIGITAL_WALLET` means a registered payee for a bank's digital wallet.</ul
+     */
     private Type type;
 
     public BankingPayee creationDate(LocalDate creationDate) {
@@ -48,7 +49,7 @@ public class BankingPayee  {
         return this;
     }
 
-    @ApiModelProperty(value = "The date the payee was created by the customer")
+    @ApiModelProperty(value = "The date the payee was created by the customer.")
     public LocalDate getCreationDate() {
         return creationDate;
     }
@@ -61,7 +62,7 @@ public class BankingPayee  {
         return this;
     }
 
-    @ApiModelProperty(value = "A description of the payee provided by the customer")
+    @ApiModelProperty(value = "A description of the payee provided by the customer.")
     public String getDescription() {
         return description;
     }
@@ -74,7 +75,7 @@ public class BankingPayee  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The short display name of the payee as provided by the customer")
+    @ApiModelProperty(required = true, value = "The short display name of the payee as provided by the customer. Where a customer has not provided a nickname, a display name derived by the bank for the payee consistent with existing digital banking channels.")
     public String getNickname() {
         return nickname;
     }
@@ -87,7 +88,7 @@ public class BankingPayee  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "ID of the payee adhering to the rules of ID permanence")
+    @ApiModelProperty(required = true, value = "ID of the payee adhering to the rules of ID permanence.")
     public String getPayeeId() {
         return payeeId;
     }
@@ -100,7 +101,7 @@ public class BankingPayee  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The type of payee.<br/>DOMESTIC means a registered payee for domestic payments including NPP. <br/>INTERNATIONAL means a registered payee for international payments. <br/>BILLER means a registered payee for BPAY. <br/>DIGITAL_WALLET means a registered payee for a bank's digital wallet")
+    @ApiModelProperty(required = true, value = "The type of payee.<ul><li>`DOMESTIC` means a registered payee for domestic payments including NPP.<li>`INTERNATIONAL` means a registered payee for international payments.<li>`BILLER` means a registered payee for BPAY.<li>`DIGITAL_WALLET` means a registered payee for a bank's digital wallet.</ul")
     public Type getType() {
         return type;
     }

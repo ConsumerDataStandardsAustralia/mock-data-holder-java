@@ -31,6 +31,9 @@ public class BankingDomesticPayee  {
     @OneToOne(cascade = CascadeType.ALL)
     private BankingDomesticPayeePayId payId;
 
+    /**
+     * Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>
+     */
     private PayeeAccountUType payeeAccountUType;
 
     public String getId() {
@@ -54,6 +57,7 @@ public class BankingDomesticPayee  {
     public void setAccount(BankingDomesticPayeeAccount account) {
         this.account = account;
     }
+
     public BankingDomesticPayee card(BankingDomesticPayeeCard card) {
         this.card = card;
         return this;
@@ -67,6 +71,7 @@ public class BankingDomesticPayee  {
     public void setCard(BankingDomesticPayeeCard card) {
         this.card = card;
     }
+
     public BankingDomesticPayee payId(BankingDomesticPayeePayId payId) {
         this.payId = payId;
         return this;
@@ -80,12 +85,13 @@ public class BankingDomesticPayee  {
     public void setPayId(BankingDomesticPayeePayId payId) {
         this.payId = payId;
     }
+
     public BankingDomesticPayee payeeAccountUType(PayeeAccountUType payeeAccountUType) {
         this.payeeAccountUType = payeeAccountUType;
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Type of account object included. Valid values are: <ul><li>`account` A standard Australian account defined by BSB/Account Number.<li>`card` A credit or charge card to pay to (note that PANs are masked).<li>`payId` A PayID recognised by NPP.</ul>")
     public PayeeAccountUType getPayeeAccountUType() {
         return payeeAccountUType;
     }

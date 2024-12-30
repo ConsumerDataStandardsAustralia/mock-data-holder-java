@@ -9,9 +9,8 @@ import java.util.List;
 public class ResponseBankingAccountListData  {
 
     /**
-     * The list of accounts returned. If the filter results in an empty set then this array may have no records
+     * The list of accounts returned. If the filter results in an empty set then this array may have no records.
      */
-    
     private List<BankingAccount> accounts;
 
     public ResponseBankingAccountListData accounts(List<BankingAccount> accounts) {
@@ -24,7 +23,7 @@ public class ResponseBankingAccountListData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The list of accounts returned. If the filter results in an empty set then this array may have no records")
+    @ApiModelProperty(required = true, value = "The list of accounts returned. If the filter results in an empty set then this array may have no records.")
     public List<BankingAccount> getAccounts() {
         return accounts;
     }

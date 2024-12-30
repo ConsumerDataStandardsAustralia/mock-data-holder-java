@@ -8,9 +8,8 @@
 package au.org.consumerdatastandards.holder.model.banking;
 
 /**
-* The category to which a product or account belongs. See
-* [here](#product-categories) for more details
-*/
+ * The category to which a product or account belongs. See [here](#product-categories) for more details.
+ */
 public enum BankingProductCategory {
     BUSINESS_LOANS,
     CRED_AND_CHRG_CARDS,

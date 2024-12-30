@@ -92,6 +92,9 @@ public class BankingProductV1Detail implements BankingProductDetail {
     @Valid
     private List<BankingProductBundle> bundles = null;
 
+    /**
+     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds..
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_constraints",
@@ -100,6 +103,9 @@ public class BankingProductV1Detail implements BankingProductDetail {
     @Valid
     private List<BankingProductConstraint> constraints = null;
 
+    /**
+     * Interest rates available for deposits..
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_deposit_rates",
@@ -108,6 +114,9 @@ public class BankingProductV1Detail implements BankingProductDetail {
     @Valid
     private List<BankingProductDepositRateV1> depositRates = null;
 
+    /**
+     * Eligibility criteria for the product..
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_eligibility",
@@ -124,6 +133,9 @@ public class BankingProductV1Detail implements BankingProductDetail {
     @Valid
     private List<BankingProductFeature> features = null;
 
+    /**
+     * Fees applicable to the product.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_fees",
@@ -132,6 +144,9 @@ public class BankingProductV1Detail implements BankingProductDetail {
     @Valid
     private List<BankingProductFee> fees = null;
 
+    /**
+     * Interest rates charged against lending balances..
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_lending_rates",
@@ -338,7 +353,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     }
 
     /**
-     * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
+     * An array of bundles that this product participates in. Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle. It is assumed that the current product is included in the bundle also.
      *
      * @return bundles
      */
@@ -365,7 +380,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     }
 
     /**
-     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
+     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds.
      *
      * @return constraints
      */
@@ -392,7 +407,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     }
 
     /**
-     * Interest rates available for deposits
+     * Interest rates available for deposits.
      *
      * @return depositRates
      */
@@ -419,7 +434,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     }
 
     /**
-     * Eligibility criteria for the product
+     * Eligibility criteria for the product.
      *
      * @return eligibility
      */
@@ -446,7 +461,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     }
 
     /**
-     * Array of features available for the product
+     * Array of features available for the product.
      *
      * @return features
      */
@@ -473,7 +488,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     }
 
     /**
-     * Fees applicable for the product
+     * Fees applicable to the product.
      *
      * @return fees
      */
@@ -500,7 +515,7 @@ public class BankingProductV1Detail implements BankingProductDetail {
     }
 
     /**
-     * Interest rates charged against lending balances
+     * Interest rates charged against lending balances.
      *
      * @return lendingRates
      */

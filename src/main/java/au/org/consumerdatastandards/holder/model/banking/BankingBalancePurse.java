@@ -21,12 +21,12 @@ public class BankingBalancePurse  {
     private String id;
 
     /**
-     * The balance available for this additional currency purse
+     * The balance available for this additional currency purse.
      */
     private String amount;
 
     /**
-     * The currency for the purse
+     * The currency for the purse.
      */
     private String currency;
 
@@ -43,7 +43,7 @@ public class BankingBalancePurse  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The balance available for this additional currency purse")
+    @ApiModelProperty(required = true, value = "The balance available for this additional currency purse.")
     public String getAmount() {
         return amount;
     }
@@ -56,7 +56,7 @@ public class BankingBalancePurse  {
         return this;
     }
 
-    @ApiModelProperty(value = "The currency for the purse")
+    @ApiModelProperty(value = "The currency for the purse.")
     public String getCurrency() {
         return currency;
     }

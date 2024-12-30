@@ -21,27 +21,27 @@ public class BankingAuthorisedEntity  {
     private String id;
 
     /**
-     * Australian Business Number for the authorised entity
+     * Australian Business Number for the authorised entity.
      */
     private String abn;
 
     /**
-     * Australian Company Number for the authorised entity
+     * Australian Company Number for the authorised entity.
      */
     private String acn;
 
     /**
-     * Australian Registered Body Number for the authorised entity
+     * Australian Registered Body Number for the authorised entity.
      */
     private String arbn;
 
     /**
-     * Description of the authorised entity derived from previously executed direct debits
+     * Description of the authorised entity derived from previously executed direct debits.
      */
     private String description;
 
     /**
-     * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme
+     * Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme.
      */
     private String financialInstitution;
 
@@ -58,7 +58,7 @@ public class BankingAuthorisedEntity  {
         return this;
     }
 
-    @ApiModelProperty(value = "Australian Business Number for the authorised entity")
+    @ApiModelProperty(value = "Australian Business Number for the authorised entity.")
     public String getAbn() {
         return abn;
     }
@@ -71,7 +71,7 @@ public class BankingAuthorisedEntity  {
         return this;
     }
 
-    @ApiModelProperty(value = "Australian Company Number for the authorised entity")
+    @ApiModelProperty(value = "Australian Company Number for the authorised entity.")
     public String getAcn() {
         return acn;
     }
@@ -85,7 +85,7 @@ public class BankingAuthorisedEntity  {
         return this;
     }
 
-    @ApiModelProperty(value = "Australian Registered Body Number for the authorised entity")
+    @ApiModelProperty(value = "Australian Registered Body Number for the authorised entity.")
     public String getArbn() {
         return arbn;
     }
@@ -98,7 +98,7 @@ public class BankingAuthorisedEntity  {
         return this;
     }
 
-    @ApiModelProperty(value = "Description of the authorised entity derived from previously executed direct debits")
+    @ApiModelProperty(value = "Description of the authorised entity derived from previously executed direct debits.")
     public String getDescription() {
         return description;
     }
@@ -112,7 +112,7 @@ public class BankingAuthorisedEntity  {
         return this;
     }
 
-    @ApiModelProperty(value = "Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme")
+    @ApiModelProperty(value = "Name of the financial institution through which the direct debit will be executed. Is required unless the payment is made via a credit card scheme.")
     public String getFinancialInstitution() {
         return financialInstitution;
     }

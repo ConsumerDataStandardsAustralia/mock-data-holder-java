@@ -17,8 +17,14 @@ public class BankingProductV2CardArt {
     @JsonIgnore
     private String id;
 
+    /**
+     * Display label for the specific image.
+     */
     private String title;
 
+    /**
+     * URI reference to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels. The URI reference may be a link or url-encoded data URI according to **[[RFC2397]](#nref-RFC2397)**.
+     */
     private String imageUri;
 
     public String getId() {

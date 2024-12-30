@@ -21,7 +21,7 @@ public class BankingDomesticPayeeCard  {
     private String id;
 
     /**
-     * Name of the account to pay to
+     * Name of the account to pay to.
      */
     private String cardNumber;
 
@@ -38,7 +38,7 @@ public class BankingDomesticPayeeCard  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Name of the account to pay to")
+    @ApiModelProperty(required = true, value = "Name of the account to pay to.")
     public String getCardNumber() {
         return cardNumber;
     }

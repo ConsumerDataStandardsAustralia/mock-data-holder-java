@@ -19,18 +19,18 @@ import java.util.Objects;
 public class BankingTransactionDetail {
 
     /**
-     * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type
+     * A unique ID of the transaction adhering to the standards for ID permanence. This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type. It is mandatory if _isDetailAvailable_ is set to `true`.
      */
     @Id
     private String transactionId;
 
     /**
-     * ID of the account for which transactions are provided
+     * ID of the account for which transactions are provided.
      */
     private String accountId;
 
     /**
-     * The value of the transaction. Negative values mean money was outgoing from the account
+     * The value of the transaction. Negative values mean money was outgoing from the account.
      */
     private String amount;
 
@@ -40,61 +40,61 @@ public class BankingTransactionDetail {
     private String apcaNumber;
 
     /**
-     * BPAY Biller Code for the transaction (if available)
+     * BPAY Biller Code for the transaction (if available).
      */
     private String billerCode;
 
     /**
-     * Name of the BPAY biller for the transaction (if available)
+     * Name of the BPAY biller for the transaction (if available).
      */
     private String billerName;
 
     /**
-     * BPAY CRN for the transaction (if available).<br>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+     * BPAY CRN for the transaction (if available).<br>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for [MaskedPANString](#common-field-types). If the contents are otherwise sensitive, then it should be masked using the rules applicable for the [MaskedAccountString](#common-field-types) common type.
      */
     private String crn;
 
     /**
-     * The currency for the transaction amount. AUD assumed if not present
+     * The currency for the transaction amount. `AUD` assumed if not present.
      */
     private String currency;
 
     /**
-     * The transaction description as applied by the financial institution
+     * The transaction description as applied by the financial institution.
      */
     private String description;
 
     /**
-     * The time the transaction was executed by the originating customer, if available
+     * The time the transaction was executed by the originating customer, if available.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime executionDateTime;
 
     /**
-     * True if extended information is available using the transaction detail end point. False if extended data is not available
+     * `true` if extended information is available using the transaction detail endpoint. `false` if extended data is not available.
      */
     private Boolean isDetailAvailable;
 
     /**
-     * The merchant category code (or MCC) for an outgoing payment to a merchant
+     * The merchant category code (or MCC) for an outgoing payment to a merchant.
      */
     private String merchantCategoryCode;
 
     /**
-     * Name of the merchant for an outgoing payment to a merchant
+     * Name of the merchant for an outgoing payment to a merchant.
      */
     private String merchantName;
 
     /**
-     * The time the transaction was posted. This field is Mandatory if the transaction has status POSTED.  This is the time that appears on a standard statement
+     * The time the transaction was posted. This field is Mandatory if the transaction has status `POSTED`. This is the time that appears on a standard statement.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private OffsetDateTime postingDateTime;
 
     /**
-     * The reference for the transaction provided by the originating institution. Empty string if no data provided
+     * The reference for the transaction provided by the originating institution. Empty string if no data provided.
      */
     private String reference;
 
@@ -103,7 +103,7 @@ public class BankingTransactionDetail {
     private BankingTransaction.Type type;
 
     /**
-     * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry
+     * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
      */
     private OffsetDateTime valueDateTime;
 

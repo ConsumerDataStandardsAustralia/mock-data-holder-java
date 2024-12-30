@@ -9,9 +9,8 @@ import java.util.List;
 public class ResponseBankingScheduledPaymentsListData  {
 
     /**
-     * The list of scheduled payments to return
+     * The list of scheduled payments to return.
      */
-    
     private List<BankingScheduledPayment> scheduledPayments;
 
     public ResponseBankingScheduledPaymentsListData scheduledPayments(List<BankingScheduledPayment> scheduledPayments) {
@@ -24,7 +23,7 @@ public class ResponseBankingScheduledPaymentsListData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The list of scheduled payments to return")
+    @ApiModelProperty(required = true, value = "The list of scheduled payments to return.")
     public List<BankingScheduledPayment> getScheduledPayments() {
         return scheduledPayments;
     }

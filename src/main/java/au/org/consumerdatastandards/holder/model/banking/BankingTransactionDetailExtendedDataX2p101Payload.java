@@ -6,22 +6,22 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-@ApiModel
+@ApiModel(description = "Required if the _extensionUType_ value is `nppPayload`.")
 @Embeddable
 public class BankingTransactionDetailExtendedDataX2p101Payload  {
 
     /**
-     * An end to end ID for the payment created at initiation
+     * An end to end ID for the payment created at initiation.
      */
     private String endToEndId;
 
     /**
-     * An extended string description. Required if the extensionUType field is `x2p101Payload`
+     * An extended string description. Required if the _extensionUType_ value is `nppPayload`.
      */
     private String extendedDescription;
 
     /**
-     * Purpose of the payment.  Format is defined by NPP standards for the x2p1.01 overlay service
+     * Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).
      */
     private String purposeCode;
 
@@ -30,7 +30,7 @@ public class BankingTransactionDetailExtendedDataX2p101Payload  {
         return this;
     }
 
-    @ApiModelProperty(value = "An end to end ID for the payment created at initiation")
+    @ApiModelProperty(value = "An end to end ID for the payment created at initiation.")
     public String getEndToEndId() {
         return endToEndId;
     }
@@ -43,7 +43,7 @@ public class BankingTransactionDetailExtendedDataX2p101Payload  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "An extended string description. Required if the extensionUType field is `x2p101Payload`")
+    @ApiModelProperty(required = true, value = "An extended string description. Required if the _extensionUType_ value is `nppPayload`.")
     public String getExtendedDescription() {
         return extendedDescription;
     }
@@ -56,7 +56,7 @@ public class BankingTransactionDetailExtendedDataX2p101Payload  {
         return this;
     }
 
-    @ApiModelProperty(value = "Purpose of the payment.  Format is defined by NPP standards for the x2p1.01 overlay service")
+    @ApiModelProperty(value = "Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).")
     public String getPurposeCode() {
         return purposeCode;
     }

@@ -13,22 +13,22 @@ public interface BankingAccountDetail extends BankingAccount {
         termDeposit
     }
 
-    @ApiModelProperty(value = "The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces")
+    @ApiModelProperty(value = "The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.")
     String getAccountNumber();
 
     void setAccountNumber(String accountNumber);
 
-    @ApiModelProperty(value = "The addresses for the account to be used for correspondence")
+    @ApiModelProperty(value = "The addresses for the account to be used for correspondence.")
     List<CommonPhysicalAddress> getAddresses();
 
     void setAddresses(List<CommonPhysicalAddress> addresses);
 
-    @ApiModelProperty(value = "The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces")
+    @ApiModelProperty(value = "The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.")
     String getBsb();
 
     void setBsb(String bsb);
 
-    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer")
+    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer.")
     String getBundleName();
 
     void setBundleName(String bundleName);
@@ -38,22 +38,22 @@ public interface BankingAccountDetail extends BankingAccount {
 
     void setCreditCard(BankingCreditCardAccount creditCard);
 
-    @ApiModelProperty(value = "current rate to calculate interest earned being applied to deposit balances as it stands at the time of the API call")
+    @ApiModelProperty(value = "Current rate to calculate interest earned being applied to deposit balances as it stands at the time of the API call.")
     String getDepositRate();
 
     void setDepositRate(String depositRate);
 
-    @ApiModelProperty(value = "Array of features of the account based on the equivalent structure in Product Reference with the following additional field")
+    @ApiModelProperty(value = "Array of features of the account based on the equivalent structure in Product Reference with the following additional field.")
     List<BankingAccountProductFeature> getFeatures();
 
     void setFeatures(List<BankingAccountProductFeature> features);
 
-    @ApiModelProperty(value = "Fees and charges applicable to the account based on the equivalent structure in Product Reference")
+    @ApiModelProperty(value = "Fees and charges applicable to the account based on the equivalent structure in Product Reference.")
     List<BankingProductFee> getFees();
 
     void setFees(List<BankingProductFee> fees);
 
-    @ApiModelProperty(value = "The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call")
+    @ApiModelProperty(value = "The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call.")
     String getLendingRate();
 
     void setLendingRate(String lendingRate);

@@ -33,17 +33,17 @@ public class BankingTransactionDetailExtendedData  {
     }
 
     /**
-     * Optional extended data specific to transactions originated via NPP
+     * Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.
      */
     private ExtensionUType extensionUType;
 
     /**
-     * Label of the target PayID.  Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID)
+     * Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).
      */
     private String payee;
 
     /**
-     * Label of the originating payer. Mandatory for inbound payment
+     * Label of the originating payer. Mandatory for inbound payment.
      */
     private String payer;
 
@@ -60,7 +60,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty("Optional extended data specific to transactions originated via NPP")
+    @ApiModelProperty("Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.")
     public ExtensionUType getExtensionUType() {
         return extensionUType;
     }
@@ -73,7 +73,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty(value = "Label of the target PayID.  Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID)")
+    @ApiModelProperty(value = "Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).")
     public String getPayee() {
         return payee;
     }
@@ -87,7 +87,7 @@ public class BankingTransactionDetailExtendedData  {
         return this;
     }
 
-    @ApiModelProperty(value = "Label of the originating payer. Mandatory for inbound payment")
+    @ApiModelProperty(value = "Label of the originating payer. Mandatory for inbound payment.")
     public String getPayer() {
         return payer;
     }

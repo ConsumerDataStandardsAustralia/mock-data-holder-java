@@ -13,7 +13,7 @@ import java.util.List;
 public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
 
     /**
-     * A unique ID of the scheduled payment adhering to the standards for ID permanence
+     * A unique ID of the scheduled payment adhering to the standards for ID permanence.
      */
     @Id
     private String scheduledPaymentId;
@@ -22,17 +22,17 @@ public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
     private BankingScheduledPaymentFrom from;
 
     /**
-     * The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels
+     * The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels.
      */
     private String nickname;
 
     /**
-     * The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided
+     * The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided.
      */
     private String payeeReference;
 
     /**
-     * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
+     * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided.
      */
     private String payerReference;
 
@@ -73,7 +73,7 @@ public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
     }
 
     @Override
-    @ApiModelProperty(value = "The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels")
+    @ApiModelProperty(value = "The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels.")
     public String getNickname() {
         return nickname;
     }
@@ -88,7 +88,7 @@ public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
     }
 
     @Override
-    @ApiModelProperty(required = true, value = "The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided")
+    @ApiModelProperty(required = true, value = "The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided.")
     public String getPayeeReference() {
         return payeeReference;
     }
@@ -103,7 +103,7 @@ public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
     }
 
     @Override
-    @ApiModelProperty(required = true, value = "The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided")
+    @ApiModelProperty(required = true, value = "The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided.")
     public String getPayerReference() {
         return payerReference;
     }
@@ -152,7 +152,7 @@ public class BankingScheduledPaymentV1 implements BankingScheduledPayment {
     }
 
     @Override
-    @ApiModelProperty(required = true, value = "A unique ID of the scheduled payment adhering to the standards for ID permanence")
+    @ApiModelProperty(required = true, value = "A unique ID of the scheduled payment adhering to the standards for ID permanence.")
     public String getScheduledPaymentId() {
         return scheduledPaymentId;
     }

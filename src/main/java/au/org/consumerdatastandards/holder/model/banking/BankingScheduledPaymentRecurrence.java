@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.time.LocalDate;
 
-@ApiModel(description = "Object containing the detail of the schedule for the payment")
+@ApiModel(description = "Object containing the detail of the schedule for the payment.")
 @Entity(name = "b_sched_paymnt_rec")
 public class BankingScheduledPaymentRecurrence  {
 
@@ -31,7 +31,7 @@ public class BankingScheduledPaymentRecurrence  {
     private BankingScheduledPaymentRecurrenceLastWeekday lastWeekDay;
 
     /**
-     * The date of the next payment under the recurrence schedule
+     * The date of the next payment under the recurrence schedule.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -40,6 +40,9 @@ public class BankingScheduledPaymentRecurrence  {
     @Embedded
     private BankingScheduledPaymentRecurrenceOnceOff onceOff;
 
+    /**
+     * The type of recurrence used to define the schedule.
+     */
     private RecurrenceUType recurrenceUType;
 
     public String getId() {
@@ -94,7 +97,7 @@ public class BankingScheduledPaymentRecurrence  {
         return this;
     }
 
-    @ApiModelProperty(value = "The date of the next payment under the recurrence schedule")
+    @ApiModelProperty(value = "The date of the next payment under the recurrence schedule.")
     public LocalDate getNextPaymentDate() {
         return nextPaymentDate;
     }
@@ -102,6 +105,7 @@ public class BankingScheduledPaymentRecurrence  {
     public void setNextPaymentDate(LocalDate nextPaymentDate) {
         this.nextPaymentDate = nextPaymentDate;
     }
+
     public BankingScheduledPaymentRecurrence onceOff(BankingScheduledPaymentRecurrenceOnceOff onceOff) {
         this.onceOff = onceOff;
         return this;
@@ -115,12 +119,13 @@ public class BankingScheduledPaymentRecurrence  {
     public void setOnceOff(BankingScheduledPaymentRecurrenceOnceOff onceOff) {
         this.onceOff = onceOff;
     }
+
     public BankingScheduledPaymentRecurrence recurrenceUType(RecurrenceUType recurrenceUType) {
         this.recurrenceUType = recurrenceUType;
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The type of recurrence used to define the schedule.")
     public RecurrenceUType getRecurrenceUType() {
         return recurrenceUType;
     }

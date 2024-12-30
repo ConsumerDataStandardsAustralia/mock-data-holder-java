@@ -40,7 +40,7 @@ public interface BankingPayeeDetail {
 
     void setInternational(BankingInternationalPayee international);
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Type of object included that describes the payee in detail.")
     PayeeUType getPayeeUType();
 
     void setPayeeUType(PayeeUType payeeUType);

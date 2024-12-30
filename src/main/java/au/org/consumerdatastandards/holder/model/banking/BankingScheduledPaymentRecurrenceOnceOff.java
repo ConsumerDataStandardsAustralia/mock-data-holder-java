@@ -9,12 +9,12 @@ import javax.persistence.Embeddable;
 import java.util.Objects;
 import java.time.LocalDate;
 
-@ApiModel(description = "Indicates that the payment is a once off payment on a specific future date. Mandatory if recurrenceUType is set to onceOff")
+@ApiModel(description = "Indicates that the payment is a once off payment on a specific future date. Mandatory if _recurrenceUType_ is set to `onceOff`.")
 @Embeddable
 public class BankingScheduledPaymentRecurrenceOnceOff  {
 
     /**
-     * The scheduled date for the once off payment
+     * The scheduled date for the once off payment.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -25,7 +25,7 @@ public class BankingScheduledPaymentRecurrenceOnceOff  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The scheduled date for the once off payment")
+    @ApiModelProperty(required = true, value = "The scheduled date for the once off payment.")
     public LocalDate getPaymentDate() {
         return paymentDate;
     }

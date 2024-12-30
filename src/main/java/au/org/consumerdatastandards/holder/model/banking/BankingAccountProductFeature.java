@@ -48,6 +48,9 @@ public class BankingAccountProductFeature {
 //    @ManyToOne
 //    private BankingAccountDetail bankingAccountDetail;
 
+    /**
+     * `true` if the feature is already activated and `false` if the feature is available for activation. Defaults to `true` if absent.<br>Note: this is an additional field appended to the feature object defined in the Product Reference payload.
+     */
     private Boolean isActivated;
 
     public String getId() {

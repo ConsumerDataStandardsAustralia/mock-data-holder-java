@@ -9,9 +9,8 @@ import java.util.List;
 public class ResponseBankingPayeeListData  {
 
     /**
-     * The list of payees returned
+     * The list of payees returned.
      */
-    
     private List<BankingPayee> payees;
 
     public ResponseBankingPayeeListData payees(List<BankingPayee> payees) {
@@ -24,7 +23,7 @@ public class ResponseBankingPayeeListData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The list of payees returned")
+    @ApiModelProperty(required = true, value = "The list of payees returned.")
     public List<BankingPayee> getPayees() {
         return payees;
     }
