@@ -17,6 +17,10 @@ import javax.persistence.Id;
 import java.net.URI;
 import java.util.Objects;
 
+/**
+ * BankingProductConstraint
+ * AKA BankingProductConstraintV2
+ */
 @Entity
 public class BankingProductConstraint {
 
@@ -105,10 +109,12 @@ public class BankingProductConstraint {
     }
 
     public enum ConstraintType {
-        MIN_BALANCE,
-        MIN_LIMIT,
         MAX_BALANCE,
+        MIN_LIMIT,
+        MAX_LVR,
+        MIN_BALANCE,
         MAX_LIMIT,
+        MIN_LVR,
         OPENING_BALANCE
     }
 }

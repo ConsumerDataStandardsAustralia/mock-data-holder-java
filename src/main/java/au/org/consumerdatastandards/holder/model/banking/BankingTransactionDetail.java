@@ -2,20 +2,17 @@ package au.org.consumerdatastandards.holder.model.banking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.MappedSuperclass;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @ApiModel
 @Entity
-@Table(name = "b_transaction")
+@MappedSuperclass
 public class BankingTransactionDetail {
 
     /**
@@ -106,10 +103,6 @@ public class BankingTransactionDetail {
      * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
      */
     private OffsetDateTime valueDateTime;
-
-
-    @Embedded @NotNull
-    private BankingTransactionDetailExtendedData extendedData;
 
     public String getTransactionId() {
         return transactionId;
@@ -345,20 +338,6 @@ public class BankingTransactionDetail {
         return this;
     }
 
-    public BankingTransactionDetail extendedData(BankingTransactionDetailExtendedData extendedData) {
-        this.extendedData = extendedData;
-        return this;
-    }
-
-    @ApiModelProperty(required = true)
-    public BankingTransactionDetailExtendedData getExtendedData() {
-        return extendedData;
-    }
-
-    public void setExtendedData(BankingTransactionDetailExtendedData extendedData) {
-        this.extendedData = extendedData;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -367,48 +346,63 @@ public class BankingTransactionDetail {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingTransactionDetail bankingTransactionDetail = (BankingTransactionDetail) o;
-        return Objects.equals(this.extendedData, bankingTransactionDetail.extendedData) &&
-            super.equals(o);
+        BankingTransactionDetail that = (BankingTransactionDetail) o;
+        return status == that.status && type == that.type &&
+                Objects.equals(transactionId, that.transactionId) && Objects.equals(accountId, that.accountId) &&
+                Objects.equals(amount, that.amount) && Objects.equals(apcaNumber, that.apcaNumber) &&
+                Objects.equals(billerCode, that.billerCode) && Objects.equals(billerName, that.billerName) &&
+                Objects.equals(crn, that.crn) && Objects.equals(currency, that.currency) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(executionDateTime, that.executionDateTime) &&
+                Objects.equals(isDetailAvailable, that.isDetailAvailable) &&
+                Objects.equals(merchantCategoryCode, that.merchantCategoryCode) &&
+                Objects.equals(merchantName, that.merchantName) &&
+                Objects.equals(postingDateTime, that.postingDateTime) &&
+                Objects.equals(reference, that.reference) &&
+                Objects.equals(valueDateTime, that.valueDateTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            extendedData,
-            super.hashCode());
+        return Objects.hash(transactionId, accountId, amount, apcaNumber, billerCode, billerName, crn, currency,
+                description, executionDateTime, isDetailAvailable, merchantCategoryCode, merchantName, postingDateTime,
+                reference, status, type, valueDateTime);
     }
 
     @Override
     public String toString() {
-        return "class BankingTransactionDetail {\n" +
-            "   accountId: " + toIndentedString(getAccountId()) + "\n" + 
-            "   amount: " + toIndentedString(getAmount()) + "\n" + 
-            "   apcaNumber: " + toIndentedString(getApcaNumber()) + "\n" + 
-            "   billerCode: " + toIndentedString(getBillerCode()) + "\n" + 
-            "   billerName: " + toIndentedString(getBillerName()) + "\n" + 
-            "   crn: " + toIndentedString(getCrn()) + "\n" + 
-            "   currency: " + toIndentedString(getCurrency()) + "\n" + 
-            "   description: " + toIndentedString(getDescription()) + "\n" + 
-            "   executionDateTime: " + toIndentedString(getExecutionDateTime()) + "\n" + 
-            "   isDetailAvailable: " + toIndentedString(getIsDetailAvailable()) + "\n" + 
-            "   merchantCategoryCode: " + toIndentedString(getMerchantCategoryCode()) + "\n" + 
-            "   merchantName: " + toIndentedString(getMerchantName()) + "\n" + 
-            "   postingDateTime: " + toIndentedString(getPostingDateTime()) + "\n" + 
-            "   reference: " + toIndentedString(getReference()) + "\n" + 
-            "   status: " + toIndentedString(getStatus()) + "\n" + 
-            "   transactionId: " + toIndentedString(getTransactionId()) + "\n" + 
-            "   type: " + toIndentedString(getType()) + "\n" + 
-            "   valueDateTime: " + toIndentedString(getValueDateTime()) + "\n" + 
-            "   extendedData: " + toIndentedString(extendedData) + "\n" + 
-            "}";
+        StringBuilder sb = new StringBuilder(getClass().getSimpleName()).append("{");
+        stringProperties(sb);
+        return sb.append("\n}").toString();
+    }
+
+    protected void stringProperties(StringBuilder sb) {
+        sb
+                .append("\n   accountId: ").append(toIndentedString(accountId))
+                .append("\n   amount: ").append(toIndentedString(amount))
+                .append("\n   apcaNumber: ").append(toIndentedString(apcaNumber))
+                .append("\n   billerCode: ").append(toIndentedString(billerCode))
+                .append("\n   billerName: ").append(toIndentedString(billerName))
+                .append("\n   crn: ").append(toIndentedString(crn))
+                .append("\n   currency: ").append(toIndentedString(currency))
+                .append("\n   description: ").append(toIndentedString(description))
+                .append("\n   executionDateTime: ").append(toIndentedString(executionDateTime))
+                .append("\n   isDetailAvailable: ").append(toIndentedString(isDetailAvailable))
+                .append("\n   merchantCategoryCode: ").append(toIndentedString(merchantCategoryCode))
+                .append("\n   merchantName: ").append(toIndentedString(merchantName))
+                .append("\n   postingDateTime: ").append(toIndentedString(postingDateTime))
+                .append("\n   reference: ").append(toIndentedString(reference))
+                .append("\n   status: ").append(toIndentedString(status))
+                .append("\n   transactionId: ").append(toIndentedString(transactionId))
+                .append("\n   type: ").append(toIndentedString(type))
+                .append("\n   valueDateTime: ").append(toIndentedString(valueDateTime));
     }
 
     /**
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(Object o) {
+    static String toIndentedString(Object o) {
         if (o == null) {
             return "null";
         }

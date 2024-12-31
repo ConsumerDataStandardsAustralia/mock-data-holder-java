@@ -17,6 +17,10 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * BankingProductDetailV4
+ * AKA BankingProductDetailV5
+ */
 @Entity
 @Table(name = "b_prod")
 public class BankingProductDetailV4 implements BankingProductDetail {
