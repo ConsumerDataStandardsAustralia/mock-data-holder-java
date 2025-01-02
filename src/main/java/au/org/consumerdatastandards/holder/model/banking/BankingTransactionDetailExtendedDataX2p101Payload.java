@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-@ApiModel(description = "Required if the _extensionUType_ value is `nppPayload`.")
+@ApiModel(description = "Required if the _extensionUType_ value is `x2p101Payload`.")
 @Embeddable
 public class BankingTransactionDetailExtendedDataX2p101Payload  {
 
@@ -16,12 +16,12 @@ public class BankingTransactionDetailExtendedDataX2p101Payload  {
     private String endToEndId;
 
     /**
-     * An extended string description. Required if the _extensionUType_ value is `nppPayload`.
+     * An extended string description. Required if the _extensionUType_ value is `x2p101Payload`.
      */
     private String extendedDescription;
 
     /**
-     * Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).
+     * Purpose of the payment. Format is defined by NPP standards for the x2p1.01 overlay service.
      */
     private String purposeCode;
 
@@ -56,7 +56,7 @@ public class BankingTransactionDetailExtendedDataX2p101Payload  {
         return this;
     }
 
-    @ApiModelProperty(value = "Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).")
+    @ApiModelProperty(value = "Purpose of the payment. Format is defined by NPP standards for the x2p1.01 overlay service.")
     public String getPurposeCode() {
         return purposeCode;
     }

@@ -12,22 +12,22 @@ import java.util.Objects;
 @ApiModel
 @Entity
 @Table(name = "b_transaction")
-public class BankingTransactionDetailV1 extends BankingTransactionDetail {
+public class BankingTransactionDetailV2 extends BankingTransactionDetail {
 
     @Embedded @NotNull
-    private BankingTransactionDetailV1ExtendedData extendedData;
+    private BankingTransactionDetailV2ExtendedData extendedData;
 
-    public BankingTransactionDetailV1 extendedData(BankingTransactionDetailV1ExtendedData extendedData) {
+    public BankingTransactionDetailV2 extendedData(BankingTransactionDetailV2ExtendedData extendedData) {
         this.extendedData = extendedData;
         return this;
     }
 
     @ApiModelProperty(required = true)
-    public BankingTransactionDetailV1ExtendedData getExtendedData() {
+    public BankingTransactionDetailV2ExtendedData getExtendedData() {
         return extendedData;
     }
 
-    public void setExtendedData(BankingTransactionDetailV1ExtendedData extendedData) {
+    public void setExtendedData(BankingTransactionDetailV2ExtendedData extendedData) {
         this.extendedData = extendedData;
     }
 
@@ -39,7 +39,7 @@ public class BankingTransactionDetailV1 extends BankingTransactionDetail {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingTransactionDetailV1 bankingTransactionDetail = (BankingTransactionDetailV1) o;
+        BankingTransactionDetailV2 bankingTransactionDetail = (BankingTransactionDetailV2) o;
         return Objects.equals(this.extendedData, bankingTransactionDetail.extendedData) &&
             super.equals(o);
     }

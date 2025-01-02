@@ -2,7 +2,8 @@ package au.org.consumerdatastandards.holder.service.banking;
 
 import au.org.consumerdatastandards.holder.model.banking.BankingTransaction;
 import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
-import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailV1Repository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BankingTransactionService {
@@ -27,21 +27,29 @@ public class BankingTransactionService {
 
     private final BankingTransactionRepository bankingTransactionRepository;
 
-    private final BankingTransactionDetailRepository bankingTransactionDetailRepository;
+    private final BankingTransactionDetailV1Repository bankingTransactionDetailV1Repository;
+
+    private final BankingTransactionDetailV2Repository bankingTransactionDetailV2Repository;
 
     @Autowired
     public BankingTransactionService(
         BankingTransactionRepository bankingTransactionRepository,
-        BankingTransactionDetailRepository bankingTransactionDetailRepository)
+        BankingTransactionDetailV1Repository bankingTransactionDetailV1Repository,
+        BankingTransactionDetailV2Repository bankingTransactionDetailV2Repository)
     {
         this.bankingTransactionRepository = bankingTransactionRepository;
-        this.bankingTransactionDetailRepository = bankingTransactionDetailRepository;
+        this.bankingTransactionDetailV1Repository = bankingTransactionDetailV1Repository;
+        this.bankingTransactionDetailV2Repository = bankingTransactionDetailV2Repository;
     }
 
-    public BankingTransactionDetail getBankingTransactionDetail(String transactionId) {
+    public BankingTransactionDetail getBankingTransactionDetail(String transactionId, Integer version) {
         LOGGER.debug("Retrieving transaction detail by id {}",  transactionId);
-        Optional<BankingTransactionDetail> byId = bankingTransactionDetailRepository.findById(transactionId);
-        return byId.orElse(null);
+        switch (version) {
+            case 2:
+                return bankingTransactionDetailV2Repository.findById(transactionId).orElse(null);
+            default:
+                return bankingTransactionDetailV1Repository.findById(transactionId).orElse(null);
+        }
     }
 
     public Page<BankingTransaction> findTransactions(String accountId,

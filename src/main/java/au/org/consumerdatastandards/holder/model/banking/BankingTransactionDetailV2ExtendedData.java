@@ -1,40 +1,26 @@
 package au.org.consumerdatastandards.holder.model.banking;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Objects;
 
 @ApiModel
 @Embeddable
-public class BankingTransactionDetailExtendedData  {
+public class BankingTransactionDetailV2ExtendedData {
 
     public enum ExtensionUType {
-        x2p101Payload
-    }
-
-    public enum Service {
-        X2P1_01("X2P1.01");
-
-        private final String value;
-
-        Service(String value) {
-            this.value = value;
-        }
-
-        @Override
-        @JsonValue
-        public String toString() {
-            return value;
-        }
+        nppPayload
     }
 
     /**
      * Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.
      */
+    @Enumerated(EnumType.STRING)
     private ExtensionUType extensionUType;
 
     /**
@@ -47,15 +33,10 @@ public class BankingTransactionDetailExtendedData  {
      */
     private String payer;
 
-    /**
-     * Identifier of the applicable overlay service. Valid values are: X2P1.01
-     */
-    private Service service;
-
     @Embedded
-    private BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload;
+    private BankingTransactionDetailV2ExtendedDataNppPayload nppPayload;
 
-    public BankingTransactionDetailExtendedData extensionUType(ExtensionUType extensionUType) {
+    public BankingTransactionDetailV2ExtendedData extensionUType(ExtensionUType extensionUType) {
         this.extensionUType = extensionUType;
         return this;
     }
@@ -68,7 +49,7 @@ public class BankingTransactionDetailExtendedData  {
     public void setExtensionUType(ExtensionUType extensionUType) {
         this.extensionUType = extensionUType;
     }
-    public BankingTransactionDetailExtendedData payee(String payee) {
+    public BankingTransactionDetailV2ExtendedData payee(String payee) {
         this.payee = payee;
         return this;
     }
@@ -82,7 +63,7 @@ public class BankingTransactionDetailExtendedData  {
         this.payee = payee;
     }
 
-    public BankingTransactionDetailExtendedData payer(String payer) {
+    public BankingTransactionDetailV2ExtendedData payer(String payer) {
         this.payer = payer;
         return this;
     }
@@ -95,31 +76,19 @@ public class BankingTransactionDetailExtendedData  {
     public void setPayer(String payer) {
         this.payer = payer;
     }
-    public BankingTransactionDetailExtendedData service(Service service) {
-        this.service = service;
-        return this;
-    }
 
-    @ApiModelProperty(required = true, value = "Identifier of the applicable overlay service. Valid values are: X2P1.01")
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-    public BankingTransactionDetailExtendedData x2p101Payload(BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload) {
-        this.x2p101Payload = x2p101Payload;
+    public BankingTransactionDetailV2ExtendedData nppPayload(BankingTransactionDetailV2ExtendedDataNppPayload nppPayload) {
+        this.nppPayload = nppPayload;
         return this;
     }
 
     @ApiModelProperty
-    public BankingTransactionDetailExtendedDataX2p101Payload getX2p101Payload() {
-        return x2p101Payload;
+    public BankingTransactionDetailV2ExtendedDataNppPayload getNppPayload() {
+        return nppPayload;
     }
 
-    public void setX2p101Payload(BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload) {
-        this.x2p101Payload = x2p101Payload;
+    public void setNppPayload(BankingTransactionDetailV2ExtendedDataNppPayload nppPayload) {
+        this.nppPayload = nppPayload;
     }
 
     @Override
@@ -130,12 +99,11 @@ public class BankingTransactionDetailExtendedData  {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingTransactionDetailExtendedData bankingTransactionDetailExtendedData = (BankingTransactionDetailExtendedData) o;
+        BankingTransactionDetailV2ExtendedData bankingTransactionDetailExtendedData = (BankingTransactionDetailV2ExtendedData) o;
         return Objects.equals(this.extensionUType, bankingTransactionDetailExtendedData.extensionUType) &&
             Objects.equals(this.payee, bankingTransactionDetailExtendedData.payee) &&
             Objects.equals(this.payer, bankingTransactionDetailExtendedData.payer) &&
-            Objects.equals(this.service, bankingTransactionDetailExtendedData.service) &&
-            Objects.equals(this.x2p101Payload, bankingTransactionDetailExtendedData.x2p101Payload);
+            Objects.equals(this.nppPayload, bankingTransactionDetailExtendedData.nppPayload);
     }
 
     @Override
@@ -144,8 +112,7 @@ public class BankingTransactionDetailExtendedData  {
             extensionUType,
             payee,
             payer,
-            service,
-            x2p101Payload);
+                nppPayload);
     }
 
     @Override
@@ -154,8 +121,7 @@ public class BankingTransactionDetailExtendedData  {
             "   extensionUType: " + toIndentedString(extensionUType) + "\n" + 
             "   payee: " + toIndentedString(payee) + "\n" + 
             "   payer: " + toIndentedString(payer) + "\n" + 
-            "   service: " + toIndentedString(service) + "\n" + 
-            "   x2p101Payload: " + toIndentedString(x2p101Payload) + "\n" + 
+            "   nppPayload: " + toIndentedString(nppPayload) + "\n" +
             "}";
     }
 

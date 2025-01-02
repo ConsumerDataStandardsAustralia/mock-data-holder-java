@@ -99,9 +99,9 @@ public class BankingAccountsApiController extends ApiControllerBase implements B
                                                                                UUID xFapiInteractionId,
                                                                                Integer xMinV,
                                                                                Integer xV) {
-        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 1);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 2);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
-        BankingTransactionDetail transactionDetail = transactionService.getBankingTransactionDetail(transactionId);
+        BankingTransactionDetail transactionDetail = transactionService.getBankingTransactionDetail(transactionId, supportedVersion);
         if (transactionDetail == null) {
             throwInvalidResource(transactionId, xFapiInteractionId);
         } else if (!accountId.equals(transactionDetail.getAccountId())) {

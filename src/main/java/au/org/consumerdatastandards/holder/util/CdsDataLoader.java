@@ -14,7 +14,7 @@ import au.org.consumerdatastandards.holder.model.banking.BankingDirectDebit;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayeeDetailV2;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductDetailV4;
 import au.org.consumerdatastandards.holder.model.banking.BankingScheduledPaymentV2;
-import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
+import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetailV1;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseDataBalances;
@@ -38,7 +38,7 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingDirectDebit
 import au.org.consumerdatastandards.holder.repository.banking.BankingPayeeDetailRepositoryV2;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV4Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingScheduledPaymentRepositoryV2;
-import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountBalanceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
@@ -83,7 +83,7 @@ public class CdsDataLoader implements ApplicationRunner {
     private final BankingAccountRepositoryV2 accountRepository;
     private final BankingBalanceRepository balanceRepository;
     private final CommonPersonDetailRepository commonPersonDetailRepository;
-    private final BankingTransactionDetailRepository transactionDetailRepository;
+    private final BankingTransactionDetailV1Repository transactionDetailRepository;
     private final BankingDirectDebitRepository directDebitRepository;
     private final BankingAuthorisedEntityRepository authorisedEntityRepository;
     private final BankingPayeeDetailRepositoryV2 payeeDetailRepository;
@@ -114,7 +114,7 @@ public class CdsDataLoader implements ApplicationRunner {
                          BankingAccountRepositoryV2 accountRepository,
                          BankingBalanceRepository balanceRepository,
                          CommonPersonDetailRepository commonPersonDetailRepository,
-                         BankingTransactionDetailRepository transactionDetailRepository,
+                         BankingTransactionDetailV1Repository transactionDetailRepository,
                          BankingDirectDebitRepository directDebitRepository,
                          BankingAuthorisedEntityRepository authorisedEntityRepository,
                          BankingPayeeDetailRepositoryV2 payeeDetailRepository,
@@ -166,7 +166,7 @@ public class CdsDataLoader implements ApplicationRunner {
             load("payloads/banking/balances", balanceRepository, BankingBalance.class);
             load("payloads/banking/persons", commonPersonDetailRepository, CommonPersonDetail.class);
             load("payloads/banking/products", productDetailRepository, BankingProductDetailV4.class);
-            load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
+            load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetailV1.class);
 
             // Energy
             load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
@@ -204,7 +204,7 @@ public class CdsDataLoader implements ApplicationRunner {
                 // Load transactions
                 LOGGER.info("Loading transaction of account: {}", account.getAccountId());
                 for (JsonNode invoiceEl : accountEl.path("transactions")) {
-                    BankingTransactionDetail transaction = objectMapper.treeToValue(invoiceEl, BankingTransactionDetail.class);
+                    BankingTransactionDetailV1 transaction = objectMapper.treeToValue(invoiceEl, BankingTransactionDetailV1.class);
                     transaction.setAccountId(account.getAccountId());
                     transactionDetailRepository.save(transaction);
                 }
