@@ -52,7 +52,7 @@ public class BankingProductsApiController extends ApiControllerBase implements B
     public ResponseEntity<ResponseBankingProductById> getProductDetail(String productId,
                                                                        Integer xMinV,
                                                                        Integer xV) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 4);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 5);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         BankingProductDetail productDetail = service.getProductDetail(productId, supportedVersion);
         if (productDetail == null) {

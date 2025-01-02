@@ -78,6 +78,7 @@ public class BankingProductService {
             case 3:
                 return productDetailV3Repository.findById(productId).orElse(null);
             case 4:
+            case 5:
                 return productDetailV4Repository.findById(productId).orElse(null);
             default:
                 return productDetailV1Repository.findById(productId).orElse(null);
