@@ -63,11 +63,11 @@ public class EnergyPlanContractSingleRateRates {
     }
 
     /**
-     * The measurement unit of rate. Assumed to be KWH if absent
+     * The measurement unit of rate. Assumed to be `KWH` if absent.
      *
      * @return measureUnit
      */
-    @ApiModelProperty(value = "The measurement unit of rate. Assumed to be KWH if absent")
+    @ApiModelProperty(value = "The measurement unit of rate. Assumed to be `KWH` if absent.")
     public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
@@ -82,11 +82,11 @@ public class EnergyPlanContractSingleRateRates {
     }
 
     /**
-     * Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
+     * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
      *
      * @return volume
      */
-    @ApiModelProperty(value = "Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period")
+    @ApiModelProperty(value = "Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.")
     @Valid
     public BigDecimal getVolume() {
         return volume;

@@ -77,11 +77,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     private EnergyPlanContractFullV1 electricityContract;
 
     /**
-     * The ID of the specific plan
+     * The ID of the specific plan.
      *
      * @return planId
      */
-    @ApiModelProperty(required = true,value  = "The ID of the specific plan")
+    @ApiModelProperty(required = true,value  = "The ID of the specific plan.")
     @NotNull
     public String getPlanId() {
         return planId;
@@ -92,11 +92,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The date and time from which this plan is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
+     * The date and time from which this plan is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate.
      *
      * @return effectiveFrom
      */
-    @ApiModelProperty(value = "The date and time from which this plan is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate")
+    @ApiModelProperty(value = "The date and time from which this plan is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate.")
     @Override
     public OffsetDateTime getEffectiveFrom() {
         return effectiveFrom;
@@ -108,11 +108,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The date and time at which this plan will be retired and will no longer be offered. Used to enable the managed deprecation of plans
+     * The date and time at which this plan will be retired and will no longer be offered. Used to enable the managed deprecation of plans.
      *
      * @return effectiveTo
      */
-    @ApiModelProperty(value = "The date and time at which this plan will be retired and will no longer be offered. Used to enable the managed deprecation of plans")
+    @ApiModelProperty(value = "The date and time at which this plan will be retired and will no longer be offered. Used to enable the managed deprecation of plans.")
     @Override
     public OffsetDateTime getEffectiveTo() {
         return effectiveTo;
@@ -124,12 +124,12 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)
+     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
      *
      * @return lastUpdated
      */
     @ApiModelProperty(required = true,
-            value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)")
+            value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).")
     @NotNull
     @Override
     public OffsetDateTime getLastUpdated() {
@@ -142,11 +142,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The display name of the plan
+     * The display name of the plan.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "The display name of the plan")
+    @ApiModelProperty(value = "The display name of the plan.")
     @Override
     public String getDisplayName() {
         return displayName;
@@ -158,11 +158,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * A description of the plan
+     * A description of the plan.
      *
      * @return description
      */
-    @ApiModelProperty(value = "A description of the plan")
+    @ApiModelProperty(value = "A description of the plan.")
     @Override
     public String getDescription() {
         return description;
@@ -174,11 +174,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The type of the plan
+     * The type of the plan.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of the plan")
+    @ApiModelProperty(required = true, value = "The type of the plan.")
     @NotNull
     @Override
     public TypeEnum getType() {
@@ -191,11 +191,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The fuel types covered by the plan
+     * The fuel types covered by the plan.
      *
      * @return fuelType
      */
-    @ApiModelProperty(required = true, value = "The fuel types covered by the plan")
+    @ApiModelProperty(required = true, value = "The fuel types covered by the plan.")
     @NotNull
     @Override
     public FuelTypeEnum getFuelType() {
@@ -208,11 +208,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The ID of the brand under which this plan is offered
+     * The ID of the brand under which this plan is offered.
      *
      * @return brand
      */
-    @ApiModelProperty(required = true, value = "The ID of the brand under which this plan is offered")
+    @ApiModelProperty(required = true, value = "The ID of the brand under which this plan is offered.")
     @NotNull
     @Override
     public String getBrand() {
@@ -225,11 +225,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The display name of the brand under which this plan is offered
+     * The display name of the brand under which this plan is offered.
      *
      * @return brandName
      */
-    @ApiModelProperty(required = true, value = "The display name of the brand under which this plan is offered")
+    @ApiModelProperty(required = true, value = "The display name of the brand under which this plan is offered.")
     @NotNull
     @Override
     public String getBrandName() {
@@ -242,11 +242,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * A link to an application web page where this plan can be applied for
+     * A link to an application web page where this plan can be applied for.
      *
      * @return applicationUri
      */
-    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for")
+    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for.")
     @Override
     public String getApplicationUri() {
         return applicationUri;
@@ -258,7 +258,7 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * Get additionalInformation
+     * Object that contains links to additional information on specific topics.
      *
      * @return additionalInformation
      */
@@ -275,11 +275,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * The type of customer that the plan is offered to.  If absent then the plan is available to all customers
+     * The type of customer that the plan is offered to. If absent then the plan is available to all customers.
      *
      * @return customerType
      */
-    @ApiModelProperty("The type of customer that the plan is offered to.  If absent then the plan is available to all customers")
+    @ApiModelProperty("The type of customer that the plan is offered to. If absent then the plan is available to all customers.")
     @Override
     public CustomerTypeEnum getCustomerType() {
         return customerType;
@@ -291,11 +291,11 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * Get geography
+     * Describes the geographical area that the plan is available for. If absent then it is assumed the plan is not geographically limited
      *
      * @return geography
      */
-    @ApiModelProperty("Describes the geographical area that the plan is available for. If absent then it is assumed the plan is not geographically limited")
+    @ApiModelProperty("Describes the geographical area that the plan is available for. If absent then it is assumed the plan is not geographically limited.")
     @Valid
     @Override
     public EnergyPlanGeography getGeography() {
@@ -321,12 +321,12 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * Charges for metering included in the plan
+     * Charges for metering included in the plan.
      *
      * @return meteringCharges
      */
     @Override
-    @ApiModelProperty(value = "Charges for metering included in the plan")
+    @ApiModelProperty(value = "Charges for metering included in the plan.")
     @Valid
     public List<MeteringCharges> getMeteringCharges() {
         return meteringCharges;
@@ -343,7 +343,7 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * Get gasContract
+     * Get gasContract.
      *
      * @return gasContract
      */
@@ -364,7 +364,7 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * Get electricityContract
+     * Get electricityContract.
      *
      * @return electricityContract
      */

@@ -117,11 +117,11 @@ public class EnergyPlanContractSingleRate {
     }
 
     /**
-     * Array of controlled load rates in order of usage volume
+     * Array of controlled load rates in order of usage volume.
      *
      * @return rates
      */
-    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume")
+    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume.")
     @NotNull
     @Valid
     public List<EnergyPlanContractSingleRateRates> getRates() {

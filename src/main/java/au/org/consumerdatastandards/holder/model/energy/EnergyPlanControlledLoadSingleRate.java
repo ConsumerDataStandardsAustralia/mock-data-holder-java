@@ -50,11 +50,11 @@ public class EnergyPlanControlledLoadSingleRate {
     }
 
     /**
-     * Display name of the controlled load rate
+     * Display name of the controlled load rate.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "Display name of the controlled load rate")
+    @ApiModelProperty(required = true, value = "Display name of the controlled load rate.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -70,11 +70,11 @@ public class EnergyPlanControlledLoadSingleRate {
     }
 
     /**
-     * Description of the controlled load rate
+     * Description of the controlled load rate.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the controlled load rate")
+    @ApiModelProperty(value = "Description of the controlled load rate.")
     public String getDescription() {
         return description;
     }
@@ -84,11 +84,11 @@ public class EnergyPlanControlledLoadSingleRate {
     }
 
     /**
-     * The daily supply charge (exclusive of GST) for this controlled load tier
+     * The daily supply charge (exclusive of GST) for this controlled load tier.
      *
      * @return dailySupplyCharge
      */
-    @ApiModelProperty(value = "The daily supply charge (exclusive of GST) for this controlled load tier")
+    @ApiModelProperty(value = "The daily supply charge (exclusive of GST) for this controlled load tier.")
     public String getDailySupplyCharge() {
         return dailySupplyCharge;
     }
@@ -108,11 +108,11 @@ public class EnergyPlanControlledLoadSingleRate {
     }
 
     /**
-     * Array of controlled load rates in order of usage volume
+     * Array of controlled load rates in order of usage volume.
      *
      * @return rates
      */
-    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume")
+    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume.")
     @NotNull
     @Valid
     public List<EnergyRates> getRates() {

@@ -47,7 +47,7 @@ public class EnergyPlanContractTimeOfUseRates {
     }
 
     /**
-     * The type of usage that the rate applies to
+     * The type of usage that the rate applies to.
      */
     public enum TypeEnum {
         PEAK,
@@ -109,11 +109,11 @@ public class EnergyPlanContractTimeOfUseRates {
     }
 
     /**
-     * Array of controlled load rates in order of usage volume
+     * Array of controlled load rates in order of usage volume.
      *
      * @return rates
      */
-    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume")
+    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume.")
     @NotNull
     @Valid
     public List<EnergyRates> getRates() {
@@ -156,11 +156,11 @@ public class EnergyPlanContractTimeOfUseRates {
     }
 
     /**
-     * The type of usage that the rate applies to
+     * The type of usage that the rate applies to.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of usage that the rate applies to")
+    @ApiModelProperty(required = true, value = "The type of usage that the rate applies to.")
     @NotNull
     public TypeEnum getType() {
         return type;

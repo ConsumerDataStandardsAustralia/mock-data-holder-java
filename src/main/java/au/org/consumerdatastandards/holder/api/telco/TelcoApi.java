@@ -52,13 +52,13 @@ public interface TelcoApi {
      * GET /telco/accounts/{accountId} : Get Telco Account Detail
      * Obtain detailed information for a specific telco account
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Unavailable Telco Account](#error-404-unavailable-telco-account)</li><li>[404 - Invalid Telco Account](#error-404-invalid-telco-account)</li></ul> (status code 404)
@@ -120,7 +120,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -128,15 +128,15 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{accountId}/balance : Get Balance For Telco Account
-     * Obtain the current balance for a specific account
+     * Obtain the current balance for a specific account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Unavailable Telco Account](#error-404-unavailable-telco-account)</li><li>[404 - Invalid Telco Account](#error-404-invalid-telco-account)</li></ul> (status code 404)
@@ -144,7 +144,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Balance For Telco Account",
             nickname = "getBalanceForAccount",
-            notes = "Obtain the current balance for a specific account",
+            notes = "Obtain the current balance for a specific account.",
             response = TelcoBalanceResponse.class,
             tags = {"Telco", "Billing", "Balance",})
     @ApiResponses(value = {
@@ -198,7 +198,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -208,13 +208,13 @@ public interface TelcoApi {
      * GET /telco/accounts/{accountId}/concessions : Get Telco Concessions
      * Obtain the details of any concessions or arrangements applied to a specific telco account
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Unavailable Telco Account](#error-404-unavailable-telco-account)</li><li>[404 - Invalid Telco Account](#error-404-invalid-telco-account)</li></ul> (status code 404)
@@ -276,7 +276,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -284,15 +284,15 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{accountId}/invoices : Get Invoices For Telco Account
-     * Obtain the invoices for a specific account
+     * Obtain the invoices for a specific account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Unavailable Telco Account](#error-404-unavailable-telco-account)</li><li>[404 - Invalid Telco Account](#error-404-invalid-telco-account)</li></ul> (status code 404)
@@ -301,7 +301,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Invoices For Telco Account",
             nickname = "getInvoicesForAccount",
-            notes = "Obtain the invoices for a specific account",
+            notes = "Obtain the invoices for a specific account.",
             response = TelcoInvoiceResponse.class,
             tags = {"Telco", "Billing", "Invoices",})
     @ApiResponses(value = {
@@ -360,7 +360,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -370,13 +370,13 @@ public interface TelcoApi {
      * GET /telco/accounts/{accountId}/payment-schedule : Get Telco Agreed Payment Schedule
      * Obtain the agreed payment schedule and details, if any, for a specific telco account.   Some general notes about this end point:   &lt;ul&gt;&lt;li&gt;This API describes how the consumer has elected to pay for their account&lt;/li&gt;&lt;li&gt;Payments initiated by the consumer are classified as manual payments. The billing frequency is captured for manual payments. The consumer may choose to pay on a different schedule/frequency. The payment method and frequency is not captured for manual payments&lt;/li&gt;&lt;li&gt;Payments that can be initiated by the retailer, based on a consumer&#39;s preferences and permission, include payments based on a direct debit, card debit or digital wallet setup. Each of these requires a payment frequency to be provided along with other relevant fields&lt;/li&gt;&lt;li&gt;Information about payment plans related to debt repayments or arrangements due to hardship is not captured within this API&lt;/li&gt;&lt;/ul&gt;
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Unavailable Telco Account](#error-404-unavailable-telco-account)</li><li>[404 - Invalid Telco Account](#error-404-invalid-telco-account)</li></ul> (status code 404)
@@ -438,7 +438,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -448,9 +448,9 @@ public interface TelcoApi {
      * GET /telco/products/{productId} : Get Telco Product Detail
      * Obtain detailed information on a single telco prouct offered openly to the market
      *
-     * @param productId ID of the specific product requested (required)
-     * @param xV        Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param xMinV     Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
+     * @param productId ID of the specific product requested
+     * @param xV        Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param xMinV     Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Invalid Resource](#error-404-resource-invalid)</li></ul> (status code 404)
@@ -498,19 +498,19 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{accountId}/transactions : Get Transactions For Telco Account
-     * Obtain the billing transactions for a specific account
+     * Obtain the billing transactions for a specific account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
-     * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param newestTime             Constrain the request to records with effective time at or before this date/time. If absent defaults to current date/time. Format is aligned to DateTimeString common type.
+     * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to _newest-time_ minus 12 months. Format is aligned to DateTimeString common type.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Unavailable Telco Account](#error-404-unavailable-telco-account)</li><li>[404 - Invalid Telco Account](#error-404-invalid-telco-account)</li></ul> (status code 404)
@@ -519,7 +519,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Transactions For Telco Account",
             nickname = "getTransactionsForAccount",
-            notes = "Obtain the billing transactions for a specific account",
+            notes = "Obtain the billing transactions for a specific account.",
             response = TelcoTransactionListResponse.class,
             tags = {"Telco", "Billing", "Transactions",})
     @ApiResponses(value = {
@@ -561,12 +561,12 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type")
+            @ApiParam(value = "Constrain the request to records with effective time at or before this date/time. If absent defaults to current date/time. Format is aligned to DateTimeString common type.")
             @Valid
             @RequestParam(value = "newest-time",
                     required = false)
             String newestTime,
-            @ApiParam(value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type")
+            @ApiParam(value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to _newest-time_ minus 12 months. Format is aligned to DateTimeString common type.")
             @Valid
             @RequestParam(value = "oldest-time",
                     required = false)
@@ -597,7 +597,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -607,15 +607,15 @@ public interface TelcoApi {
      * GET /telco/accounts/{serviceId}/usage : Get Usage For Telco Service
      * Obtain a usage data from a particular service Id
      *
-     * @param serviceId              ID of the specific service requested. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). This is a tokenised ID returned from the account. In accordance with [CDR ID permanence](#id-permanence) requirements (required)
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param serviceId              ID of the specific service requested. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). This is a tokenised ID returned from the account. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
+     * @param newestDate             Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[404 - Unavailable Service Point](#error-404-unavailable-service-point)</li><li>[404 - Invalid Service Point](#error-404-invalid-service-point)</li></ul> (status code 404)
@@ -666,12 +666,12 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
             String oldestDate,
-            @ApiParam(value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
@@ -692,7 +692,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -702,16 +702,16 @@ public interface TelcoApi {
      * GET /telco/accounts : Get Telco Accounts
      * Obtain the list of telco accounts available under the authorised consent
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param openStatus             Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed. (optional, default to ALL)
      * @param updatedSince           Only include accounts that have been updated after the specified date and time.  If absent defaults to include all plans
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -792,7 +792,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -800,16 +800,16 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/balance : Get Bulk Telco Balances
-     * Obtain the current balance for all accounts
+     * Obtain the current balance for all account.s
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -817,7 +817,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Bulk Telco Balances",
             nickname = "listBalance",
-            notes = "Obtain the current balance for all accounts",
+            notes = "Obtain the current balance for all account.s",
             response = TelcoBalanceListResponse.class,
             tags = {"Telco", "Billing", "Balance",})
     @ApiResponses(value = {
@@ -877,7 +877,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -885,17 +885,17 @@ public interface TelcoApi {
 
     /**
      * POST /telco/accounts/balance : Get Balances For Specific Telco Accounts
-     * Obtain the current balance for a specified set of accounts
+     * Obtain the current balance for a specified set of accounts.
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param accountIdList          Request payload containing list of specific Accounts to obtain data for.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -903,7 +903,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Balances For Specific Telco Accounts",
             nickname = "listBalancesForAccounts",
-            notes = "Obtain the current balance for a specified set of accounts",
+            notes = "Obtain the current balance for a specified set of accounts.",
             response = TelcoBalanceListResponse.class,
             tags = {"Telco", "Billing", "Balance",})
     @ApiResponses(value = {
@@ -938,7 +938,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for",
+            @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for.",
                     required = true)
             @Valid
             @RequestBody
@@ -969,7 +969,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -979,17 +979,17 @@ public interface TelcoApi {
      * POST /telco/accounts/transactions : Get Transactions For Specific Telco Accounts
      * Obtain transactions for a specified set of accounts
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
-     * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
-     * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param accountIdList          Request payload containing list of specific Accounts to obtain data for.
+     * @param newestTime             Constrain the request to records with effective time at or before this date/time. If absent defaults to current date/time. Format is aligned to DateTimeString common type.
+     * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to _newest-time_ minus 12 months. Format is aligned to DateTimeString common type.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -1032,17 +1032,17 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for",
+            @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for.",
                     required = true)
             @Valid
             @RequestBody
             RequestAccountIds accountIdList,
-            @ApiParam(value = "Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type")
+            @ApiParam(value = "Constrain the request to records with effective time at or before this date/time. If absent defaults to current date/time. Format is aligned to DateTimeString common type.")
             @Valid
             @RequestParam(value = "newest-time",
                     required = false)
             String newestTime,
-            @ApiParam(value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type")
+            @ApiParam(value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to _newest-time_ minus 12 months. Format is aligned to DateTimeString common type.")
             @Valid
             @RequestParam(value = "oldest-time",
                     required = false)
@@ -1073,7 +1073,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -1081,18 +1081,18 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/invoices : Get Telco Invoices
-     * Obtain the invoices for all accounts
+     * Obtain the invoices for all accounts.
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param newestDate             Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -1100,7 +1100,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Invoices",
             nickname = "listInvoices",
-            notes = "Obtain the invoices for all accounts",
+            notes = "Obtain the invoices for all accounts.",
             response = TelcoInvoiceListResponse.class,
             tags = {"Telco", "Billing", "Invoices",})
     @ApiResponses(value = {
@@ -1134,12 +1134,12 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
             String newestDate,
-            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1170,7 +1170,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -1178,19 +1178,19 @@ public interface TelcoApi {
 
     /**
      * POST /telco/accounts/invoices : Get Invoices For Specific Telco Accounts
-     * Obtain invoices for a specified set of accounts
+     * Obtain invoices for a specified set of accounts.
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param accountIdList          Request payload containing list of specific Accounts to obtain data for (required)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param accountIdList          Request payload containing list of specific Accounts to obtain data for.
+     * @param newestDate             Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -1198,7 +1198,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Invoices For Specific Telco Accounts",
             nickname = "listInvoicesForAccounts",
-            notes = "Obtain invoices for a specified set of accounts",
+            notes = "Obtain invoices for a specified set of accounts.",
             response = TelcoInvoiceListResponse.class,
             tags = {"Telco", "Billing", "Invoices",})
     @ApiResponses(value = {
@@ -1233,17 +1233,17 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for",
+            @ApiParam(value = "Request payload containing list of specific Accounts to obtain data for.",
                     required = true)
             @Valid
             @RequestBody
             RequestAccountIds accountIdList,
-            @ApiParam(value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
             String newestDate,
-            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
@@ -1274,7 +1274,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -1284,15 +1284,15 @@ public interface TelcoApi {
      * GET /telco/products : Get Telco Products
      * Obtain a list of telco products that are currently offered to the market.  Note that the results returned by this end point are expected to be ordered in descending order according to &#x60;lastUpdated&#x60;.
      *
-     * @param xV           Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
+     * @param xV           Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param type         Used to filter results on the type field. Any one of the valid values for this field can be supplied. If absent, defaults to include ALL products. Valid values are [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service. BROADBAND fixed internet service or ALL (optional, default to MOBILE)
      * @param billingType  Used to filter results on the billing-type field.  Any one of the valid values for this field can be supplied. If absent, defaults to include all billing types. Valid values are ‘PRE_PAID’, ‘POST_PAID’, &#39;UPFRONT_PAID&#39;, &#39;OTHER&#39; (optional, default to PRE_PAID)
      * @param effective    Allows for the filtering of productd based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to &#39;CURRENT&#39; (optional, default to CURRENT)
-     * @param updatedSince Only include products that have been updated after the specified date and time.  If absent defaults to include all plans (optional)
-     * @param brand        Used to filter results on the brand field. If absent, defaults to include all products. For service providers that operate a number of mobile and internet brands (optional)
+     * @param updatedSince Only include products that have been updated after the specified date and time.  If absent defaults to include all plans
+     * @param brand        Used to filter results on the brand field. If absent, defaults to include all products. For service providers that operate a number of mobile and internet brands
      * @param page         Page of results to request (standard pagination).
      * @param pageSize     Page size to request. Default is 25 (standard pagination).
-     * @param xMinV        Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
+     * @param xMinV        Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -1380,18 +1380,18 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/transactions : Get Telco Transactions
-     * Obtain billing transactions for all accounts
+     * Obtain billing transactions for all accounts.
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param newestTime             Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type (optional)
-     * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type (optional)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param newestTime             Constrain the request to records with effective time at or before this date/time. If absent defaults to current date/time. Format is aligned to DateTimeString common type.
+     * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to _newest-time_ minus 12 months. Format is aligned to DateTimeString common type.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -1399,7 +1399,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Transactions",
             nickname = "listTransactions",
-            notes = "Obtain billing transactions for all accounts",
+            notes = "Obtain billing transactions for all accounts.",
             response = TelcoTransactionListResponse.class,
             tags = {"Telco", "Billing", "Transactions",})
     @ApiResponses(value = {
@@ -1433,12 +1433,12 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Constrain the request to records with effective time at or before this date/time.  If absent defaults to current date/time.  Format is aligned to DateTimeString common type")
+            @ApiParam(value = "Constrain the request to records with effective time at or before this date/time. If absent defaults to current date/time. Format is aligned to DateTimeString common type.")
             @Valid
             @RequestParam(value = "newest-time",
                     required = false)
             String newestTime,
-            @ApiParam(value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to newest-time minus 12 months.  Format is aligned to DateTimeString common type")
+            @ApiParam(value = "Constrain the request to records with effective time at or after this date/time. If absent defaults to _newest-time_ minus 12 months. Format is aligned to DateTimeString common type.")
             @Valid
             @RequestParam(value = "oldest-time",
                     required = false)
@@ -1469,7 +1469,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -1479,16 +1479,16 @@ public interface TelcoApi {
      * GET /telco/accounts/usage : Get Usage
      * Obtain usage data for all services associated with the customer
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
+     * @param newestDate             Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -1530,12 +1530,12 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
             String oldestDate,
-            @ApiParam(value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
@@ -1566,7 +1566,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);
@@ -1576,17 +1576,17 @@ public interface TelcoApi {
      * POST /telco/accounts/usage : Get Usage For Specific Telco Service
      * Obtain usage data for a specific service
      *
-     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers). (required)
-     * @param serviceIdList          Request payload containing list of specific Service Points to obtain data for (required)
-     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type (optional)
-     * @param newestDate             Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type (optional)
+     * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
+     * @param serviceIdList          Request payload containing list of specific Service Points to obtain data for
+     * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
+     * @param newestDate             Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
-     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. (optional)
-     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction. (optional)
-     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls. (optional)
-     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls. (optional)
-     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls. (optional)
+     * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
+     * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
+     * @param xFapiAuthDate          The time when the customer last logged in to the Data Recipient Software Product as described in **[[FAPI-1.0-Baseline]](#nref-FAPI-1-0-Baseline)**. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls.
+     * @param xFapiCustomerIpAddress The customer&#39;s original IP address if the customer is currently logged in to the data recipient. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls.
+     * @param xCdsClientHeaders      The customer&#39;s original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.
      * @return Successful response (status code 200)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[400 - Invalid Field](#error-400-field-invalid)</li><li>[400 - Missing Required Field](#error-400-field-missing)</li><li>[400 - Invalid Page Size](#error-400-field-invalid-page-size)</li><li>[400 - Invalid Version](#error-400-header-invalid-version)</li></ul> (status code 400)
      * or The following error codes MUST be supported:<br><ul class="error-code-list"><li>[406 - Unsupported Version](#error-406-header-unsupported-version)</li></ul> (status code 406)
@@ -1634,12 +1634,12 @@ public interface TelcoApi {
             @Valid
             @RequestBody
             RequestServiceIds serviceIdList,
-            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to newest-date minus 24 months.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "oldest-date",
                     required = false)
             String oldestDate,
-            @ApiParam(value = "Constrain the request to records with effective date at or before this date.  If absent defaults to current date.  Format is aligned to DateString common type")
+            @ApiParam(value = "Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.")
             @Valid
             @RequestParam(value = "newest-date",
                     required = false)
@@ -1670,7 +1670,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-fapi-customer-ip-address",
                     required = false)
             String xFapiCustomerIpAddress,
-            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls.  Not required for unattended or unauthenticated calls.")
+            @ApiParam(value = "The customer's original standard http headers [Base64](#common-field-types) encoded, including the original User-Agent header, if the customer is currently logged in to the data recipient. Mandatory for customer present calls. Not required for unattended or unauthenticated calls.")
             @RequestHeader(value = "x-cds-client-headers",
                     required = false)
             String xCdsClientHeaders);

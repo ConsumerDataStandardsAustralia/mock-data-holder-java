@@ -49,7 +49,7 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
     }
 
     /**
-     * The type of usage that the rate applies to
+     * The type of usage that the rate applies to.
      */
     public enum TypeEnum {
         PEAK,
@@ -66,11 +66,11 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
     }
 
     /**
-     * Display name of the controlled load rate
+     * Display name of the controlled load rate.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "Display name of the controlled load rate")
+    @ApiModelProperty(required = true, value = "Display name of the controlled load rate.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -86,11 +86,11 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
     }
 
     /**
-     * Description of the controlled load rate
+     * Description of the controlled load rate.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the controlled load rate")
+    @ApiModelProperty(value = "Description of the controlled load rate.")
     public String getDescription() {
         return description;
     }
@@ -100,11 +100,11 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
     }
 
     /**
-     * The daily supply charge (exclusive of GST) for this controlled load tier
+     * The daily supply charge (exclusive of GST) for this controlled load tier.
      *
      * @return dailySupplyCharge
      */
-    @ApiModelProperty(value = "The daily supply charge (exclusive of GST) for this controlled load tier")
+    @ApiModelProperty(value = "The daily supply charge (exclusive of GST) for this controlled load tier.")
     public String getDailySupplyCharge() {
         return dailySupplyCharge;
     }
@@ -124,11 +124,11 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
     }
 
     /**
-     * Array of controlled load rates in order of usage volume
+     * Array of controlled load rates in order of usage volume.
      *
      * @return rates
      */
-    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume")
+    @ApiModelProperty(required = true, value = "Array of controlled load rates in order of usage volume.")
     @NotNull
     @Valid
     public List<EnergyRates> getRates() {
@@ -171,11 +171,11 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
     }
 
     /**
-     * The type of usage that the rate applies to
+     * The type of usage that the rate applies to.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of usage that the rate applies to")
+    @ApiModelProperty(required = true, value = "The type of usage that the rate applies to.")
     @NotNull
     public TypeEnum getType() {
         return type;

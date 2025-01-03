@@ -228,11 +228,11 @@ public class EnergyBillingUsageTransaction {
     }
 
     /**
-     * The measurement unit of rate. Assumed to be KWH if absent
+     * The measurement unit of rate. Assumed to be `KWH` if absent.
      *
      * @return measureUnit
      */
-    @ApiModelProperty(value = "The measurement unit of rate. Assumed to be KWH if absent")
+    @ApiModelProperty(value = "The measurement unit of rate. Assumed to be `KWH` if absent.")
     public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }

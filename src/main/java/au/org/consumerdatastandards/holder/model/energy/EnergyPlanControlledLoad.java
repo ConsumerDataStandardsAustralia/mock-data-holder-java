@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
+ * Required if pricing model is `SINGLE_RATE_CONT_LOAD` or `TIME_OF_USE_CONT_LOAD` or `FLEXIBLE_CONT_LOAD`.
  */
-@ApiModel(description = "Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD")
+@ApiModel(description = "Required if pricing model is `SINGLE_RATE_CONT_LOAD` or `TIME_OF_USE_CONT_LOAD` or `FLEXIBLE_CONT_LOAD`.")
 @Entity
 public class EnergyPlanControlledLoad {
     @Id
@@ -97,11 +97,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * A display name for the controlled load
+     * A display name for the controlled load.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "A display name for the controlled load")
+    @ApiModelProperty(required = true, value = "A display name for the controlled load.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -112,11 +112,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * Specifies the type of controlled load rate
+     * Specifies the type of controlloed load rate.
      *
      * @return rateBlockUType
      */
-    @ApiModelProperty(required = true, value = "Specifies the type of controlled load rate")
+    @ApiModelProperty(required = true, value = "Specifies the type of controlloed load rate.")
     @NotNull
     public RateBlockUTypeEnum getRateBlockUType() {
         return rateBlockUType;
@@ -127,11 +127,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * Optional start date of the application of the controlled load rate
+     * Optional start date of the application of the controlled load rate..
      *
      * @return startDate
      */
-    @ApiModelProperty("Optional start date of the application of the controlled load rate")
+    @ApiModelProperty("Optional start date of the application of the controlled load rate..")
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -141,11 +141,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * Optional end date of the application of the controlled load rate
+     * Optional end date of the application of the controlled load rate.
      *
      * @return endDate
      */
-    @ApiModelProperty("Optional end date of the application of the controlled load rate")
+    @ApiModelProperty("Optional end date of the application of the controlled load rate.")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -155,11 +155,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * Object representing a single controlled load rate.  Required if rateBlockUType is singleRate
+     * Object representing a single controlled load rate. Required if _rateBlockUType_ is `singleRate`.
      *
      * @return singleRate
      */
-    @ApiModelProperty("Object representing a single controlled load rate.  Required if rateBlockUType is singleRate")
+    @ApiModelProperty("Object representing a single controlled load rate. Required if _rateBlockUType_ is `singleRate`.")
     public EnergyPlanControlledLoadSingleRate getSingleRate() {
         return singleRate;
     }
@@ -169,11 +169,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
+     * Array of objects representing time of use rates. Required if _rateBlockUType_ is `timeOfUseRates`.
      *
      * @return timeOfUseRates
      */
-    @ApiModelProperty("Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates")
+    @ApiModelProperty("Array of objects representing time of use rates. Required if _rateBlockUType_ is `timeOfUseRates`.")
     public List<EnergyPlanControlledLoadTimeOfUseRates> getTimeOfUseRates() {
         return timeOfUseRates;
     }

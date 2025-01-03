@@ -291,11 +291,11 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
+     * Array of objects representing time of use rates. Required if _rateBlockUType_ is `timeOfUseRates`.
      *
      * @return timeOfUseRates
      */
-    @ApiModelProperty(value = "Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates")
+    @ApiModelProperty(value = "Array of objects representing time of use rates. Required if _rateBlockUType_ is `timeOfUseRates`.")
     @Valid
     public List<EnergyPlanContractTimeOfUseRates> getTimeOfUseRates() {
         return timeOfUseRates;
