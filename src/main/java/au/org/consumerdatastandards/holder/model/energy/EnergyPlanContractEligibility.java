@@ -75,7 +75,7 @@ public class EnergyPlanContractEligibility {
      * @return type
      */
     @ApiModelProperty(required = true,
-            value = "The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)")
+            value = "The type of the eligibility restriction.<br/>The `CONTINGENT_PLAN` value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the _fuelType_ is `ELECTRICITY` then a `GAS` plan from the same retailer must be taken up).")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -91,12 +91,12 @@ public class EnergyPlanContractEligibility {
     }
 
     /**
-     * Information of the eligibility restriction specific to the type of the restriction
+     * Information of the eligibility restriction specific to the type of the restriction.
      *
      * @return information
      */
     @ApiModelProperty(required = true,
-            value = "Information of the eligibility restriction specific to the type of the restriction")
+            value = "Information of the eligibility restriction specific to the type of the restriction.")
     @NotNull
     public String getInformation() {
         return information;
@@ -112,11 +112,11 @@ public class EnergyPlanContractEligibility {
     }
 
     /**
-     * A description of the eligibility restriction
+     * A description of the eligibility restriction.
      *
      * @return description
      */
-    @ApiModelProperty(value = "A description of the eligibility restriction")
+    @ApiModelProperty(value = "A description of the eligibility restriction.")
     public String getDescription() {
         return description;
     }

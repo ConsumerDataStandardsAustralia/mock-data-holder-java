@@ -36,11 +36,11 @@ public class EnergyPlanContractFeedInRates {
     }
 
     /**
-     * Unit price of usage per measure unit (exclusive of GST)
+     * Unit price of usage per measure unit (exclusive of GST).
      *
      * @return unitPrice
      */
-    @ApiModelProperty(required = true, value = "Unit price of usage per measure unit (exclusive of GST)")
+    @ApiModelProperty(required = true, value = "Unit price of usage per measure unit (exclusive of GST).")
     @NotNull
     public String getUnitPrice() {
         return unitPrice;
@@ -52,11 +52,11 @@ public class EnergyPlanContractFeedInRates {
     }
 
     /**
-     * The amount of the charge if the type implies the application of a fixed amount
+     * The amount of the charge if the type implies the application of a fixed amount.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "The amount of the charge if the type implies the application of a fixed amount")
+    @ApiModelProperty(value = "The amount of the charge if the type implies the application of a fixed amount.")
     public String getAmount() {
         return amount;
     }

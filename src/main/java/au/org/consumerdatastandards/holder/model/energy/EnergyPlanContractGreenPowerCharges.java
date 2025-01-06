@@ -33,7 +33,7 @@ public class EnergyPlanContractGreenPowerCharges {
     private String description;
 
     /**
-     * The applicable green power scheme
+     * The applicable green power scheme.
      */
     public enum SchemeEnum {
         GREENPOWER,
@@ -43,7 +43,7 @@ public class EnergyPlanContractGreenPowerCharges {
     private SchemeEnum scheme;
 
     /**
-     * The type of charge
+     * The type of charge.
      */
     public enum TypeEnum {
         FIXED_PER_DAY,
@@ -74,11 +74,11 @@ public class EnergyPlanContractGreenPowerCharges {
     }
 
     /**
-     * The display name of the charge
+     * The display name of the charge.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The display name of the charge")
+    @ApiModelProperty(required = true, value = "The display name of the charge.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -94,11 +94,11 @@ public class EnergyPlanContractGreenPowerCharges {
     }
 
     /**
-     * The description of the charge
+     * The description of the charge.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The description of the charge")
+    @ApiModelProperty(value = "The description of the charge.")
     public String getDescription() {
         return description;
     }
@@ -113,11 +113,11 @@ public class EnergyPlanContractGreenPowerCharges {
     }
 
     /**
-     * The applicable green power scheme
+     * The applicable green power scheme.
      *
      * @return scheme
      */
-    @ApiModelProperty(required = true, value = "The applicable green power scheme")
+    @ApiModelProperty(required = true, value = "The applicable green power scheme.")
     @NotNull
     public SchemeEnum getScheme() {
         return scheme;
@@ -133,11 +133,11 @@ public class EnergyPlanContractGreenPowerCharges {
     }
 
     /**
-     * The type of charge
+     * The type of charge.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of charge")
+    @ApiModelProperty(required = true, value = "The type of charge.")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -158,12 +158,12 @@ public class EnergyPlanContractGreenPowerCharges {
     }
 
     /**
-     * Array of charge tiers based on the percentage of green power used for the period implied by the type.  Array is in order of increasing percentage of green power
+     * Array of charge tiers based on the percentage of green power used for the period implied by the type. Array is in order of increasing percentage of green power.
      *
      * @return tiers
      */
     @ApiModelProperty(required = true,
-            value = "Array of charge tiers based on the percentage of green power used for the period implied by the type.  Array is in order of increasing percentage of green power")
+            value = "Array of charge tiers based on the percentage of green power used for the period implied by the type. Array is in order of increasing percentage of green power.")
     @NotNull
     @Valid
     public List<EnergyPlanContractTiers> getTiers() {

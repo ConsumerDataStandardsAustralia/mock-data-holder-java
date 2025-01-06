@@ -67,11 +67,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The name of the tariff
+     * The name of the tariff.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The name of the tariff")
+    @ApiModelProperty(required = true, value = "The name of the tariff.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -87,11 +87,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * A description of the tariff
+     * A description of the tariff.
      *
      * @return description
      */
-    @ApiModelProperty(value = "A description of the tariff")
+    @ApiModelProperty(value = "A description of the tariff.")
     public String getDescription() {
         return description;
     }
@@ -101,11 +101,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The start date of the application of the feed in tariff
+     * The start date of the application of the feed in tariff.
      *
      * @return startDate
      */
-    @ApiModelProperty("The start date of the application of the feed in tariff")
+    @ApiModelProperty("The start date of the application of the feed in tariff.")
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -115,11 +115,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The end date of the application of the feed in tariff
+     * The end date of the application of the feed in tariff.
      *
      * @return endDate
      */
-    @ApiModelProperty("The end date of the application of the feed in tariff")
+    @ApiModelProperty("The end date of the application of the feed in tariff.")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -134,11 +134,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The applicable scheme
+     * The applicable scheme.
      *
      * @return scheme
      */
-    @ApiModelProperty(required = true, value = "The applicable scheme")
+    @ApiModelProperty(required = true, value = "The applicable scheme.")
     @NotNull
     public SchemeEnum getScheme() {
         return scheme;
@@ -154,11 +154,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The type of the payer
+     * The type of the payer.
      *
      * @return payerType
      */
-    @ApiModelProperty(required = true, value = "The type of the payer")
+    @ApiModelProperty(required = true, value = "The type of the payer.")
     @NotNull
     public PayerTypeEnum getPayerType() {
         return payerType;
@@ -174,11 +174,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The type of the payer
+     * Reference to the applicable tariff structure.
      *
      * @return tariffUType
      */
-    @ApiModelProperty(required = true, value = "The type of the payer")
+    @ApiModelProperty(required = true, value = "Reference to the applicable tariff structure.")
     @NotNull
     public TariffUTypeEnum getTariffUType() {
         return tariffUType;

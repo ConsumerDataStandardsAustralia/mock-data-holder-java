@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a tariff based on time.  Mandatory if tariffUType is set to timeVaryingTariffs
+ * Represents a tariff based on time. Mandatory if _tariffUType_ is set to `timeVaryingTariffs`.
  * V2 - since 1.24.0
  */
-@ApiModel(description = "Represents a tariff based on time.  Mandatory if tariffUType is set to timeVaryingTariffs")
+@ApiModel(description = "Represents a tariff based on time. Mandatory if _tariffUType_ is set to `timeVaryingTariffs`.")
 @Entity
 @Table(name = "e_plan_time_var_tariff")
 public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContractTimeVaryingTariffs {
@@ -61,12 +61,12 @@ public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContrac
     }
 
     /**
-     * The type of the charging time period. If absent applies to all periods
+     * The type of the charging time period. If absent applies to all periods.
      *
      * @return type
      */
     @Override
-    @ApiModelProperty(value = "The type of the charging time period. If absent applies to all periods")
+    @ApiModelProperty(value = "The type of the charging time period. If absent applies to all periods.")
     public TypeEnum getType() {
         return type;
     }
@@ -77,11 +77,11 @@ public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContrac
     }
 
     /**
-     * Array of feed in rates
+     * Array of feed in rates.
      *
      * @return rates
      */
-    @ApiModelProperty(required = true, value = "Array of feed in rates")
+    @ApiModelProperty(required = true, value = "Array of feed in rates.")
     @Valid
     public List<EnergyRates> getRates() {
         return rates;
@@ -102,12 +102,12 @@ public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContrac
     }
 
     /**
-     * Array of time periods for which this tariff is applicable
+     * Array of time periods for which this tariff is applicable.
      *
      * @return timeVariations
      */
     @Override
-    @ApiModelProperty(required = true, value = "Array of time periods for which this tariff is applicable")
+    @ApiModelProperty(required = true, value = "Array of time periods for which this tariff is applicable.")
     @NotNull
     @Valid
     public List<EnergyPlanContractTimeVaryingTariffsTimeVariations> getTimeVariations() {

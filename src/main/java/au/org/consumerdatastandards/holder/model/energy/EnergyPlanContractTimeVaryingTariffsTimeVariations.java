@@ -57,11 +57,11 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
     }
 
     /**
-     * The days that the tariff applies to. At least one entry required
+     * The days that the tariff applies to. At least one entry required.
      *
      * @return days
      */
-    @ApiModelProperty(required = true, value = "The days that the tariff applies to. At least one entry required")
+    @ApiModelProperty(required = true, value = "The days that the tariff applies to. At least one entry required.")
     @Valid
     @NotNull
     public List<DaysEnum> getDays() {
@@ -78,11 +78,11 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
     }
 
     /**
-     * The beginning of the time period per day for which the tariff applies.  If absent assumes start of day (ie. midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
+     * The beginning of the time period per day for which the tariff applies. If absent assumes start of day (i.e. midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return startTime
      */
-    @ApiModelProperty(value = "The beginning of the time period per day for which the tariff applies.  If absent assumes start of day (ie. midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
+    @ApiModelProperty(value = "The beginning of the time period per day for which the tariff applies. If absent assumes start of day (i.e. midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
     public String getStartTime() {
         return startTime;
     }
@@ -97,11 +97,11 @@ public class EnergyPlanContractTimeVaryingTariffsTimeVariations {
     }
 
     /**
-     * The end of the time period per day for which the tariff applies.  If absent assumes end of day (ie. one second before midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
+     * The end of the time period per day for which the tariff applies. If absent assumes end of day (i.e. one second before midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return endTime
      */
-    @ApiModelProperty(value = "The end of the time period per day for which the tariff applies.  If absent assumes end of day (ie. one second before midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
+    @ApiModelProperty(value = "The end of the time period per day for which the tariff applies. If absent assumes end of day (i.e. one second before midnight).\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
     public String getEndTime() {
         return endTime;
     }

@@ -82,11 +82,11 @@ public class EnergyRates {
     }
 
     /**
-     * Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
+     * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
      *
      * @return volume
      */
-    @ApiModelProperty(value = "Volume in kWh that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.")
+    @ApiModelProperty(value = "Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.")
     @Valid
     public BigDecimal getVolume() {
         return volume;

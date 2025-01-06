@@ -101,51 +101,51 @@ public interface EnergyPlanContract {
     void setControlledLoad(List<EnergyPlanControlledLoad> controlledLoad);
 
     /**
-     * Optional list of incentives available for the contract
+     * Optional list of incentives available for the contract.
      *
      * @return incentives
      */
-    @ApiModelProperty(value = "Optional list of incentives available for the contract")
+    @ApiModelProperty(value = "Optional list of incentives available for the contract.")
     List<EnergyPlanContractIncentives> getIncentives();
 
     void setIncentives(List<EnergyPlanContractIncentives> incentives);
 
     /**
-     * Optional list of discounts available for the contract
+     * Optional list of discounts available for the contract.
      *
      * @return discounts
      */
-    @ApiModelProperty(value = "Optional list of discounts available for the contract")
+    @ApiModelProperty(value = "Optional list of discounts available for the contract.")
     List<EnergyPlanContractDiscounts> getDiscounts();
 
     void setDiscounts(List<EnergyPlanContractDiscounts> discounts);
 
     /**
-     * Optional list of charges applicable to green power
+     * Optional list of charges applicable to green power.
      *
      * @return greenPowerCharges
      */
-    @ApiModelProperty(value = "Optional list of charges applicable to green power")
+    @ApiModelProperty(value = "Optional list of charges applicable to green power.")
     List<EnergyPlanContractGreenPowerCharges> getGreenPowerCharges();
 
     void setGreenPowerCharges(List<EnergyPlanContractGreenPowerCharges> greenPowerCharges);
 
     /**
-     * Eligibility restrictions or requirements
+     * Eligibility restrictions or requirements.
      *
      * @return eligibility
      */
-    @ApiModelProperty(value = "Eligibility restrictions or requirements")
+    @ApiModelProperty(value = "Eligibility restrictions or requirements.")
     List<EnergyPlanContractEligibility> getEligibility();
 
     void setEligibility(List<EnergyPlanContractEligibility> eligibility);
 
     /**
-     * An array of fees applicable to the plan
+     * An array of fees applicable to the plan.
      *
      * @return fees
      */
-    @ApiModelProperty(value = "An array of fees applicable to the plan")
+    @ApiModelProperty(value = "An array of fees applicable to the plan.")
     List<EnergyPlanContractFees> getFees();
 
     void setFees(List<EnergyPlanContractFees> fees);

@@ -355,12 +355,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
     }
 
     /**
-     * Optional list of incentives available for the contract
+     * Optional list of incentives available for the contract.
      *
      * @return incentives
      */
     @Override
-    @ApiModelProperty(value = "Optional list of incentives available for the contract")
+    @ApiModelProperty(value = "Optional list of incentives available for the contract.")
     @Valid
     public List<EnergyPlanContractIncentives> getIncentives() {
         return incentives;
@@ -385,12 +385,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
     }
 
     /**
-     * Optional list of discounts available for the contract
+     * Optional list of discounts available for the contract.
      *
      * @return discounts
      */
     @Override
-    @ApiModelProperty(value = "Optional list of discounts available for the contract")
+    @ApiModelProperty(value = "Optional list of discounts available for the contract.")
     @Valid
     public List<EnergyPlanContractDiscounts> getDiscounts() {
         return discounts;
@@ -415,12 +415,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
     }
 
     /**
-     * Optional list of charges applicable to green power
+     * Optional list of charges applicable to green power.
      *
      * @return greenPowerCharges
      */
     @Override
-    @ApiModelProperty(value = "Optional list of charges applicable to green power")
+    @ApiModelProperty(value = "Optional list of charges applicable to green power.")
     @Valid
     public List<EnergyPlanContractGreenPowerCharges> getGreenPowerCharges() {
         return greenPowerCharges;
@@ -445,12 +445,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
     }
 
     /**
-     * Eligibility restrictions or requirements
+     * Eligibility restrictions or requirements.
      *
      * @return eligibility
      */
     @Override
-    @ApiModelProperty(value = "Eligibility restrictions or requirements")
+    @ApiModelProperty(value = "Eligibility restrictions or requirements.")
     @Valid
     public List<EnergyPlanContractEligibility> getEligibility() {
         return eligibility;
@@ -475,12 +475,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
     }
 
     /**
-     * An array of fees applicable to the plan
+     * An array of fees applicable to the plan.
      *
      * @return fees
      */
     @Override
-    @ApiModelProperty(value = "An array of fees applicable to the plan")
+    @ApiModelProperty(value = "An array of fees applicable to the plan.")
     @Valid
     public List<EnergyPlanContractFees> getFees() {
         return fees;
@@ -505,11 +505,11 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
     }
 
     /**
-     * Array of feed in tariffs for solar power
+     * Array of feed in tariffs for solar power.
      *
      * @return solarFeedInTariff
      */
-    @ApiModelProperty(value = "Array of feed in tariffs for solar power")
+    @ApiModelProperty(value = "Array of feed in tariffs for solar power.")
     @Valid
     public List<EnergyPlanContractSolarFeedInTariffV1> getSolarFeedInTariff() {
         return solarFeedInTariff;

@@ -147,11 +147,11 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * The name of the tariff period
+     * The name of the tariff. period
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The name of the tariff period")
+    @ApiModelProperty(required = true, value = "The name of the tariff. period")
     @NotNull
     public String getDisplayName() {
         return displayName;

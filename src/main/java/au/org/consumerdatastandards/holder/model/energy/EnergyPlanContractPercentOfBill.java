@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Required if methodUType is percentOfBill
+ * Required if _methodUType_ is `percentOfBill`.
  */
-@ApiModel(description = "Required if methodUType is percentOfBill")
+@ApiModel(description = "Required if _methodUType_ is `percentOfBill`.")
 @Entity
 public class EnergyPlanContractPercentOfBill {
     @Id
@@ -39,11 +39,11 @@ public class EnergyPlanContractPercentOfBill {
     }
 
     /**
-     * The rate of the discount applied to the bill amount
+     * The rate of the discount applied to the bill amount.
      *
      * @return rate
      */
-    @ApiModelProperty(required = true, value = "The rate of the discount applied to the bill amount")
+    @ApiModelProperty(required = true, value = "The rate of the discount applied to the bill amount.")
     @NotNull
     public String getRate() {
         return rate;
