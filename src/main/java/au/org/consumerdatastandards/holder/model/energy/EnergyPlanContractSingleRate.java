@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Object representing a single rate.  Required if rateBlockUType is singleRate
+ * Object representing a single rate. Required if _rateBlockUType_ is `singleRate`.
  */
-@ApiModel(description = "Object representing a single rate.  Required if rateBlockUType is singleRate")
+@ApiModel(description = "Object representing a single rate. Required if _rateBlockUType_ is `singleRate`.")
 @Entity
 public class EnergyPlanContractSingleRate {
     @Id
@@ -54,11 +54,11 @@ public class EnergyPlanContractSingleRate {
     }
 
     /**
-     * Display name of the rate
+     * Display name of the rate.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "Display name of the rate")
+    @ApiModelProperty(required = true, value = "Display name of the rate.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -74,11 +74,11 @@ public class EnergyPlanContractSingleRate {
     }
 
     /**
-     * Description of the rate
+     * Description of the rate.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the rate")
+    @ApiModelProperty(value = "Description of the rate.")
     public String getDescription() {
         return description;
     }
@@ -93,11 +93,11 @@ public class EnergyPlanContractSingleRate {
     }
 
     /**
-     * The block rate (unit price) for any usage above the included fixed usage, in dollars per kWh inclusive of GST.  Only required if pricingModel field is ‘QUOTA’
+     * The block rate (unit price) for any usage above the included fixed usage, in dollars per kWh inclusive of GST. Only required if _pricingModel_ field is `QUOTA`.
      *
      * @return generalUnitPrice
      */
-    @ApiModelProperty(value = "The block rate (unit price) for any usage above the included fixed usage, in dollars per kWh inclusive of GST.  Only required if pricingModel field is ‘QUOTA’")
+    @ApiModelProperty(value = "The block rate (unit price) for any usage above the included fixed usage, in dollars per kWh inclusive of GST. Only required if _pricingModel_ field is `QUOTA`.")
     public String getGeneralUnitPrice() {
         return generalUnitPrice;
     }
@@ -138,11 +138,11 @@ public class EnergyPlanContractSingleRate {
     }
 
     /**
-     * Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return period
      */
-    @ApiModelProperty(value = "Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+    @ApiModelProperty(value = "Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     public String getPeriod() {
         return period;
     }

@@ -32,7 +32,7 @@ public class EnergyPlanContractTariffPeriod {
     private String id;
 
     /**
-     * Type of charge. Assumed to be other if absent
+     * Type of charge. Assumed to be other if absent.
      */
     public enum TypeEnum {
         ENVIRONMENTAL,
@@ -44,8 +44,14 @@ public class EnergyPlanContractTariffPeriod {
         OTHER
     }
 
+    /**
+     * Type of charge. Assumed to be other if absent.
+     */
     private TypeEnum type;
 
+    /**
+     * The name of the tariff period.
+     */
     private String displayName;
 
     private String startDate; // mm-dd
@@ -65,7 +71,7 @@ public class EnergyPlanContractTariffPeriod {
     private TimeZone timeZone;
 
     /**
-     * Specifies the type of rate applicable to this tariff period
+     * Specifies the type of rate applicable to this tariff period.
      */
     public enum RateBlockUTypeEnum {
         SINGLERATE("singleRate"),
@@ -128,11 +134,11 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * Type of charge. Assumed to be other if absent
+     * Type of charge. Assumed to be other if absent.
      *
      * @return type
      */
-    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent")
+    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent.")
     public TypeEnum getType() {
         return type;
     }
@@ -147,11 +153,11 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * The name of the tariff. period
+     * The name of the tariff period.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The name of the tariff. period")
+    @ApiModelProperty(required = true, value = "The name of the tariff period.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -167,12 +173,12 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * The start date of the tariff period in a calendar year.  Formatted in mm-dd format
+     * The start date of the tariff period in a calendar year. Formatted in mm-dd format.
      *
      * @return startDate
      */
     @ApiModelProperty(required = true,
-            value = "The start date of the tariff period in a calendar year.  Formatted in mm-dd format")
+            value = "The start date of the tariff period in a calendar year. Formatted in mm-dd format.")
     @NotNull
     public String getStartDate() {
         return startDate;
@@ -188,12 +194,12 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * The end date of the tariff period in a calendar year.  Formatted in mm-dd format
+     * The end date of the tariff period in a calendar year. Formatted in mm-dd format.
      *
      * @return endDate
      */
     @ApiModelProperty(required = true,
-            value = "The end date of the tariff period in a calendar year.  Formatted in mm-dd format")
+            value = "The end date of the tariff period in a calendar year. Formatted in mm-dd format.")
     @NotNull
     public String getEndDate() {
         return endDate;
@@ -242,12 +248,12 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * Specifies the type of rate applicable to this tariff period
+     * Specifies the type of rate applicable to this tariff period.
      *
      * @return rateBlockUType
      */
     @ApiModelProperty(required = true,
-            value = "Specifies the type of rate applicable to this tariff period")
+            value = "Specifies the type of rate applicable to this tariff period.")
     @NotNull
     public RateBlockUTypeEnum getRateBlockUType() {
         return rateBlockUType;
@@ -319,11 +325,11 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * Array of demand charges.  Required if rateBlockUType is demandCharges
+     * Array of demand charges. Required if _rateBlockUType_ is `demandCharges`.
      *
      * @return demandCharges
      */
-    @ApiModelProperty(value = "Array of demand charges.  Required if rateBlockUType is demandCharges")
+    @ApiModelProperty(value = "Array of demand charges. Required if _rateBlockUType_ is `demandCharges`.")
     @Valid
     public List<EnergyPlanContractDemandCharges> getDemandCharges() {
         return demandCharges;

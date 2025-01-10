@@ -65,11 +65,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -189,11 +189,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Optional array of adjustments arising for this transaction
+     * Optional array of adjustments arising for this transaction.
      *
      * @return adjustments
      */
-    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction.")
     @Valid
     public List<TelcoBillingAccountTransactionAdjustments> getAdjustments() {
         return adjustments;

@@ -61,12 +61,12 @@ public class EnergyDerRecord {
     }
 
     /**
-     * Tokenised ID of the service point to be used for referring to the service point in the CDR API suite.  To be created in accordance with CDR ID permanence requirements
+     * Tokenised ID of the service point to be used for referring to the service point in the CDR API suite. To be created in accordance with CDR ID permanence requirements.
      *
      * @return servicePointId
      */
     @ApiModelProperty(required = true,
-            value = "Tokenised ID of the service point to be used for referring to the service point in the CDR API suite.  To be created in accordance with CDR ID permanence requirements")
+            value = "Tokenised ID of the service point to be used for referring to the service point in the CDR API suite. To be created in accordance with CDR ID permanence requirements.")
     @NotNull
     public String getServicePointId() {
         return servicePointId;
@@ -82,12 +82,12 @@ public class EnergyDerRecord {
     }
 
     /**
-     * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId
+     * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of `0` indicates no DER record exists for the given _servicePointId_.
      *
      * @return approvedCapacity
      */
     @ApiModelProperty(required = true,
-            value = "Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of 0 indicates no DER record exists for the given servicePointId")
+            value = "Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA. Value of `0` indicates no DER record exists for the given _servicePointId_.")
     @NotNull
     @Valid
     public BigDecimal getApprovedCapacity() {
@@ -104,11 +104,11 @@ public class EnergyDerRecord {
     }
 
     /**
-     * The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
+     * The number of phases available for the installation of DER. Acceptable values are `0`, `1`, `2` or `3`. Value of `0` indicates no DER record exists for the given _servicePointId_.
      *
      * @return availablePhasesCount
      */
-    @ApiModelProperty(required = true, value = "The number of phases available for the installation of DER. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId")
+    @ApiModelProperty(required = true, value = "The number of phases available for the installation of DER. Acceptable values are `0`, `1`, `2` or `3`. Value of `0` indicates no DER record exists for the given _servicePointId_.")
     public int getAvailablePhasesCount() {
         return availablePhasesCount;
     }
@@ -123,11 +123,11 @@ public class EnergyDerRecord {
     }
 
     /**
-     * The number of phases that DER is connected to. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId
+     * The number of phases that DER is connected to. Acceptable values are `0`, `1`, `2` or `3`. Value of `0` indicates no DER record exists for the given _servicePointId_.
      *
      * @return installedPhasesCount
      */
-    @ApiModelProperty(required = true, value = "The number of phases that DER is connected to. Acceptable values are 0, 1, 2 or 3. Value of 0 indicates no DER record exists for the given servicePointId")
+    @ApiModelProperty(required = true, value = "The number of phases that DER is connected to. Acceptable values are `0`, `1`, `2` or `3`. Value of `0` indicates no DER record exists for the given _servicePointId_.")
     public int getInstalledPhasesCount() {
         return installedPhasesCount;
     }
@@ -142,12 +142,12 @@ public class EnergyDerRecord {
     }
 
     /**
-     * For identification of small generating units designed with the ability to operate in an islanded mode
+     * For identification of small generating units designed with the ability to operate in an islanded mode.
      *
      * @return islandableInstallation
      */
     @ApiModelProperty(required = true,
-            value = "For identification of small generating units designed with the ability to operate in an islanded mode")
+            value = "For identification of small generating units designed with the ability to operate in an islanded mode.")
     public boolean getIslandableInstallation() {
         return islandableInstallation;
     }
@@ -162,11 +162,11 @@ public class EnergyDerRecord {
     }
 
     /**
-     * For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter.  If absent then assumed to be false
+     * For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter. If absent then assumed to be `false`.
      *
      * @return hasCentralProtectionControl
      */
-    @ApiModelProperty(value = "For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter.  If absent then assumed to be false")
+    @ApiModelProperty(value = "For DER installations where NSPs specify the need for additional forms of protection above those inbuilt in an inverter. If absent then assumed to be `false`.")
     public Boolean getHasCentralProtectionControl() {
         return hasCentralProtectionControl;
     }

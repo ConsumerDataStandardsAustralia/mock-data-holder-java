@@ -151,11 +151,11 @@ public interface EnergyPlanContract {
     void setFees(List<EnergyPlanContractFees> fees);
 
     /**
-     * Array of tariff periods
+     * Array of tariff periods.
      *
      * @return tariffPeriod
      */
-    @ApiModelProperty(required = true, value = "Array of tariff periods")
+    @ApiModelProperty(required = true, value = "Array of tariff periods.")
     @NotNull
     List<EnergyPlanContractTariffPeriod> getTariffPeriod();
 

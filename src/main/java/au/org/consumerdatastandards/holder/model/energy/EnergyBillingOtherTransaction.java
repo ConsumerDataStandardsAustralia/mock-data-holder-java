@@ -82,11 +82,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * The ID of the service point to which this transaction applies if any
+     * The ID of the service point to which this transaction applies if any..
      *
      * @return servicePointId
      */
-    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
+    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any..")
     public String getServicePointId() {
         return servicePointId;
     }
@@ -101,11 +101,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -220,11 +220,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * Additional calculation factors that inform the transaction
+     * Additional calculation factors that inform the transaction.
      *
      * @return calculationFactors
      */
-    @ApiModelProperty(value = "Additional calculation factors that inform the transaction")
+    @ApiModelProperty(value = "Additional calculation factors that inform the transaction.")
     @Valid
     public List<EnergyBillingUsageTransactionCalculationFactors> getCalculationFactors() {
         return calculationFactors;
@@ -248,11 +248,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * Optional array of adjustments arising for this transaction
+     * Optional array of adjustments arising for this transaction.
      *
      * @return adjustments
      */
-    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction.")
     @Valid
     public List<EnergyBillingUsageTransactionAdjustments> getAdjustments() {
         return adjustments;

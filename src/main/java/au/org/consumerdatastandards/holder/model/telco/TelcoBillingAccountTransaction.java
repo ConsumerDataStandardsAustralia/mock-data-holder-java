@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
@@ -12,28 +11,19 @@ import java.util.Objects;
 /**
  * TelcoBillingAccountTransaction
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoBillingAccountTransaction {
-    @JsonProperty("serviceIds")
     private String serviceIds;
 
-    @JsonProperty("invoiceNumber")
     private String invoiceNumber;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
-    @JsonProperty("amount")
     private String amount;
 
-    @JsonProperty("adjustments")
     @Valid
     private List<TelcoBillingAccountTransactionAdjustments> adjustments = null;
 
@@ -48,8 +38,6 @@ public class TelcoBillingAccountTransaction {
      * @return serviceIds
      */
     @ApiModelProperty(value = "Array list of services identifiers to which this transaction applies if any. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements")
-
-
     public String getServiceIds() {
         return serviceIds;
     }
@@ -64,13 +52,11 @@ public class TelcoBillingAccountTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
-
-
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -85,13 +71,11 @@ public class TelcoBillingAccountTransaction {
     }
 
     /**
-     * Optional description of the transaction that can be used for display purposes
+     * Optional description of the transaction that can be used for display purposes.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Optional description of the transaction that can be used for display purposes")
-
-
+    @ApiModelProperty(value = "Optional description of the transaction that can be used for display purposes.")
     public String getDescription() {
         return description;
     }
@@ -106,15 +90,12 @@ public class TelcoBillingAccountTransaction {
     }
 
     /**
-     * Date and time when the usage period starts
+     * Date and time when the usage period starts.
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true,
-            value = "Date and time when the usage period starts")
+    @ApiModelProperty(required = true, value = "Date and time when the usage period starts.")
     @NotNull
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -133,11 +114,8 @@ public class TelcoBillingAccountTransaction {
      *
      * @return endDate
      */
-    @ApiModelProperty(required = true,
-            value = "Date and time when the usage period ends")
+    @ApiModelProperty(required = true, value = "Date and time when the usage period ends.")
     @NotNull
-
-
     public String getEndDate() {
         return endDate;
     }
@@ -152,15 +130,13 @@ public class TelcoBillingAccountTransaction {
     }
 
     /**
-     * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
+     * The amount charged or credited for this transaction prior to any adjustments being applied. A negative value indicates a credit.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit")
+            value = "The amount charged or credited for this transaction prior to any adjustments being applied. A negative value indicates a credit.")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -183,14 +159,12 @@ public class TelcoBillingAccountTransaction {
     }
 
     /**
-     * Optional array of adjustments arising for this transaction
+     * Optional array of adjustments arising for this transaction.
      *
      * @return adjustments
      */
-    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
-
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction.")
     @Valid
-
     public List<TelcoBillingAccountTransactionAdjustments> getAdjustments() {
         return adjustments;
     }
@@ -198,7 +172,6 @@ public class TelcoBillingAccountTransaction {
     public void setAdjustments(List<TelcoBillingAccountTransactionAdjustments> adjustments) {
         this.adjustments = adjustments;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -227,7 +200,6 @@ public class TelcoBillingAccountTransaction {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoBillingAccountTransaction {\n");
-
         sb.append("    serviceIds: ").append(toIndentedString(serviceIds)).append("\n");
         sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -250,4 +222,3 @@ public class TelcoBillingAccountTransaction {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

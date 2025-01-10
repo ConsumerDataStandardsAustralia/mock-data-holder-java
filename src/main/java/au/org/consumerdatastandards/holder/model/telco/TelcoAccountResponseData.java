@@ -25,7 +25,7 @@ public class TelcoAccountResponseData {
     private String brand;
 
     /**
-     * Open or closed status for the account. If not present then OPEN is assumed
+     * Open or closed status for the account. If not present then `OPEN` is assumed.
      */
     public enum OpenStatusEnum {
         CLOSED,
@@ -100,11 +100,11 @@ public class TelcoAccountResponseData {
     }
 
     /**
-     * The date that the account was created or opened. Mandatory if openStatus is OPEN
+     * The date that the account was created or opened. Mandatory if _openStatus_ is `OPEN`.
      *
      * @return creationDate
      */
-    @ApiModelProperty(value = "The date that the account was created or opened. Mandatory if openStatus is OPEN")
+    @ApiModelProperty(value = "The date that the account was created or opened. Mandatory if _openStatus_ is `OPEN`.")
     public String getCreationDate() {
         return creationDate;
     }
@@ -157,11 +157,11 @@ public class TelcoAccountResponseData {
     }
 
     /**
-     * Open or closed status for the account. If not present then OPEN is assumed
+     * Open or closed status for the account. If not present then `OPEN` is assumed.
      *
      * @return openStatus
      */
-    @ApiModelProperty(value = "Open or closed status for the account. If not present then OPEN is assumed")
+    @ApiModelProperty(value = "Open or closed status for the account. If not present then `OPEN` is assumed.")
     public OpenStatusEnum getOpenStatus() {
         return openStatus;
     }

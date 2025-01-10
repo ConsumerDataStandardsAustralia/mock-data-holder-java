@@ -51,11 +51,11 @@ public class TelcoBillingOnceOffTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
 
 
     public String getInvoiceNumber() {

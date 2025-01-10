@@ -149,12 +149,12 @@ public class TelcoConcession {
     }
 
     /**
-     * The display name of the concession
+     * The display name of the concession.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the concession")
+            value = "The display name of the concession.")
     @NotNull
 
 
@@ -193,11 +193,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Optional link to additional information regarding the concession
+     * Optional link to additional information regarding the concession.
      *
      * @return additionalInfoUri
      */
-    @ApiModelProperty(value = "Optional link to additional information regarding the concession")
+    @ApiModelProperty(value = "Optional link to additional information regarding the concession.")
 
 
     public String getAdditionalInfoUri() {
@@ -214,12 +214,12 @@ public class TelcoConcession {
     }
 
     /**
-     * Optional start date for the application of the concession
+     * Optional start date for the application of the concession.
      *
      * @return startDate
      */
     @ApiModelProperty(required = true,
-            value = "Optional start date for the application of the concession")
+            value = "Optional start date for the application of the concession.")
     @NotNull
 
 
@@ -237,11 +237,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Optional end date for the application of the concession
+     * Optional end date for the application of the concession.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Optional end date for the application of the concession")
+    @ApiModelProperty(value = "Optional end date for the application of the concession.")
 
 
     public String getEndDate() {
@@ -258,11 +258,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * Conditional attribute for frequency at which a concession is applied. Required if type is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return discountFrequency
      */
-    @ApiModelProperty(value = "Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+    @ApiModelProperty(value = "Conditional attribute for frequency at which a concession is applied. Required if type is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
 
 
     public String getDiscountFrequency() {
@@ -279,11 +279,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Conditional attribute for the amount of discount for the concession- required if type is FIXED_AMOUNT
+     * Conditional attribute for the amount of discount for the concession- required if type is `FIXED_AMOUNT`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Conditional attribute for the amount of discount for the concession- required if type is FIXED_AMOUNT")
+    @ApiModelProperty(value = "Conditional attribute for the amount of discount for the concession- required if type is `FIXED_AMOUNT`.")
 
 
     public String getAmount() {
@@ -300,11 +300,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Conditional attribute for the percentage of discount of concession - required if type is FIXED_PERCENTAGE
+     * Conditional attribute for the percentage of discount of concession - required if type is `FIXED_PERCENTAGE`.
      *
      * @return percentage
      */
-    @ApiModelProperty(value = "Conditional attribute for the percentage of discount of concession - required if type is FIXED_PERCENTAGE")
+    @ApiModelProperty(value = "Conditional attribute for the percentage of discount of concession - required if type is `FIXED_PERCENTAGE`.")
 
 
     public String getPercentage() {
@@ -329,11 +329,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed
+     * Array of ENUMs to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.
      *
      * @return appliedTo
      */
-    @ApiModelProperty(value = "Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed")
+    @ApiModelProperty(value = "Array of ENUMs to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.")
 
 
     public List<AppliedToEnum> getAppliedTo() {

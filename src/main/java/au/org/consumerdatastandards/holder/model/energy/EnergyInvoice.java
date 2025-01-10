@@ -69,7 +69,7 @@ public class EnergyInvoice {
     private EnergyInvoiceAccountCharges accountCharges;
 
     /**
-     * Indicator of the payment status for the invoice
+     * Indicator of the payment status for the invoice.
      */
     public enum PaymentStatusEnum {
         PAID,
@@ -93,11 +93,11 @@ public class EnergyInvoice {
     }
 
     /**
-     * The ID of the account for which the invoice was issued
+     * The ID of the account for which the invoice was issued.
      *
      * @return accountId
      */
-    @ApiModelProperty(required = true, value = "The ID of the account for which the invoice was issued")
+    @ApiModelProperty(required = true, value = "The ID of the account for which the invoice was issued.")
     @NotNull
     public String getAccountId() {
         return accountId;
@@ -113,11 +113,11 @@ public class EnergyInvoice {
     }
 
     /**
-     * The number assigned to this invoice by the energy Retailer
+     * The number assigned to this invoice by the energy Retailer.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(required = true, value = "The number assigned to this invoice by the energy Retailer")
+    @ApiModelProperty(required = true, value = "The number assigned to this invoice by the energy Retailer.")
     @NotNull
     public String getInvoiceNumber() {
         return invoiceNumber;
@@ -133,12 +133,12 @@ public class EnergyInvoice {
     }
 
     /**
-     * The date that the invoice was actually issued (as opposed to generated or calculated)
+     * The date that the invoice was actually issued (as opposed to generated or calculated).
      *
      * @return issueDate
      */
     @ApiModelProperty(required = true,
-            value = "The date that the invoice was actually issued (as opposed to generated or calculated)")
+            value = "The date that the invoice was actually issued (as opposed to generated or calculated).")
     @NotNull
     public LocalDate getIssueDate() {
         return issueDate;
@@ -154,11 +154,11 @@ public class EnergyInvoice {
     }
 
     /**
-     * The date that the invoice is due to be paid
+     * The date that the invoice is due to be paid.
      *
      * @return dueDate
      */
-    @ApiModelProperty(value = "The date that the invoice is due to be paid")
+    @ApiModelProperty(value = "The date that the invoice is due to be paid.")
     public LocalDate getDueDate() {
         return dueDate;
     }
@@ -193,11 +193,11 @@ public class EnergyInvoice {
     }
 
     /**
-     * The net amount due for this invoice regardless of previous balance
+     * The net amount due for this invoice regardless of previous balance.
      *
      * @return invoiceAmount
      */
-    @ApiModelProperty(value = "The net amount due for this invoice regardless of previous balance")
+    @ApiModelProperty(value = "The net amount due for this invoice regardless of previous balance.")
     public String getInvoiceAmount() {
         return invoiceAmount;
     }
@@ -212,11 +212,11 @@ public class EnergyInvoice {
     }
 
     /**
-     * The total GST amount for this invoice.  If absent then zero is assumed
+     * The total GST amount for this invoice. If absent then zero is assumed.
      *
      * @return gstAmount
      */
-    @ApiModelProperty(value = "The total GST amount for this invoice.  If absent then zero is assumed")
+    @ApiModelProperty(value = "The total GST amount for this invoice. If absent then zero is assumed.")
     public String getGstAmount() {
         return gstAmount;
     }
@@ -251,11 +251,11 @@ public class EnergyInvoice {
     }
 
     /**
-     * The account balance at the time the invoice was issued
+     * The account balance at the time the invoice was issued.
      *
      * @return balanceAtIssue
      */
-    @ApiModelProperty(required = true, value = "The account balance at the time the invoice was issued")
+    @ApiModelProperty(required = true, value = "The account balance at the time the invoice was issued.")
     @NotNull
     public String getBalanceAtIssue() {
         return balanceAtIssue;
@@ -276,12 +276,12 @@ public class EnergyInvoice {
     }
 
     /**
-     * Array of service point IDs to which this invoice applies. May be empty if the invoice contains no electricity usage related charges
+     * Array of service point IDs to which this invoice applies. May be empty if the invoice contains no electricity usage related charges.
      *
      * @return servicePoints
      */
     @ApiModelProperty(required = true,
-            value = "Array of service point IDs to which this invoice applies. May be empty if the invoice contains no electricity usage related charges")
+            value = "Array of service point IDs to which this invoice applies. May be empty if the invoice contains no electricity usage related charges.")
     @NotNull
     public List<String> getServicePoints() {
         return servicePoints;
@@ -357,11 +357,11 @@ public class EnergyInvoice {
     }
 
     /**
-     * Indicator of the payment status for the invoice
+     * Indicator of the payment status for the invoice.
      *
      * @return paymentStatus
      */
-    @ApiModelProperty(required = true, value = "Indicator of the payment status for the invoice")
+    @ApiModelProperty(required = true, value = "Indicator of the payment status for the invoice.")
     @NotNull
     public PaymentStatusEnum getPaymentStatus() {
         return paymentStatus;

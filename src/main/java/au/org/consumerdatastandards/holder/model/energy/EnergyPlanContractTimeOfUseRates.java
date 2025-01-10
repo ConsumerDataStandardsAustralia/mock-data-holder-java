@@ -65,11 +65,11 @@ public class EnergyPlanContractTimeOfUseRates {
     }
 
     /**
-     * Display name of the rate
+     * Display name of the rate.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "Display name of the rate")
+    @ApiModelProperty(required = true, value = "Display name of the rate.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -85,11 +85,11 @@ public class EnergyPlanContractTimeOfUseRates {
     }
 
     /**
-     * Description of the rate
+     * Description of the rate.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the rate")
+    @ApiModelProperty(value = "Description of the rate.")
     public String getDescription() {
         return description;
     }
@@ -135,11 +135,11 @@ public class EnergyPlanContractTimeOfUseRates {
     }
 
     /**
-     * Array of times of use
+     * Array of times of use.
      *
      * @return timeOfUse
      */
-    @ApiModelProperty(required = true, value = "Array of times of use")
+    @ApiModelProperty(required = true, value = "Array of times of use.")
     @NotNull
     @Valid
     public List<EnergyTimeOfUse> getTimeOfUse() {

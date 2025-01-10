@@ -66,12 +66,12 @@ public class EnergyBillingTransactionV2 implements EnergyBillingTransaction {
     }
 
     /**
-     * The ID of the account for which transaction applies
+     * The ID of the account for which transaction applies.
      *
      * @return accountId
      */
     @Override
-    @ApiModelProperty(required = true, value = "The ID of the account for which transaction applies")
+    @ApiModelProperty(required = true, value = "The ID of the account for which transaction applies.")
     @NotNull
     public String getAccountId() {
         return accountId;
@@ -87,12 +87,12 @@ public class EnergyBillingTransactionV2 implements EnergyBillingTransaction {
     }
 
     /**
-     * The date and time that the transaction occurred
+     * The date and time that the transaction occurred.
      *
      * @return executionDateTime
      */
     @Override
-    @ApiModelProperty(required = true, value = "The date and time that the transaction occurred")
+    @ApiModelProperty(required = true, value = "The date and time that the transaction occurred.")
     @NotNull
     public OffsetDateTime getExecutionDateTime() {
         return executionDateTime;
@@ -108,12 +108,12 @@ public class EnergyBillingTransactionV2 implements EnergyBillingTransaction {
     }
 
     /**
-     * The GST incurred in the transaction.  Should not be included for credits or payments.  If absent zero is assumed
+     * The GST incurred in the transaction. Should not be included for credits or payments. If absent zero is assumed.
      *
      * @return gst
      */
     @Override
-    @ApiModelProperty(value = "The GST incurred in the transaction.  Should not be included for credits or payments.  If absent zero is assumed")
+    @ApiModelProperty(value = "The GST incurred in the transaction. Should not be included for credits or payments. If absent zero is assumed.")
     public String getGst() {
         return gst;
     }
@@ -128,12 +128,12 @@ public class EnergyBillingTransactionV2 implements EnergyBillingTransaction {
     }
 
     /**
-     * Indicator of the type of transaction object present in this record
+     * Indicator of the type of transaction object present in this record.
      *
      * @return transactionUType
      */
     @Override
-    @ApiModelProperty(required = true, value = "Indicator of the type of transaction object present in this record")
+    @ApiModelProperty(required = true, value = "Indicator of the type of transaction object present in this record.")
     @NotNull
     public TransactionUTypeEnum getTransactionUType() {
         return transactionUType;

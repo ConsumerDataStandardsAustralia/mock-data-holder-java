@@ -43,11 +43,11 @@ public class EnergyBillingOnceOffTransaction {
     }
 
     /**
-     * The ID of the service point to which this transaction applies if any
+     * The ID of the service point to which this transaction applies if any..
      *
      * @return servicePointId
      */
-    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
+    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any..")
     public String getServicePointId() {
         return servicePointId;
     }
@@ -62,11 +62,11 @@ public class EnergyBillingOnceOffTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }

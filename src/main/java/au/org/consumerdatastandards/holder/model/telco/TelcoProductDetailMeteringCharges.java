@@ -33,12 +33,12 @@ public class TelcoProductDetailMeteringCharges {
     }
 
     /**
-     * Display name of the charge
+     * Display name of the charge.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "Display name of the charge")
+            value = "Display name of the charge.")
     @NotNull
 
 
@@ -56,11 +56,11 @@ public class TelcoProductDetailMeteringCharges {
     }
 
     /**
-     * Description of the charge
+     * Description of the charge.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the charge")
+    @ApiModelProperty(value = "Description of the charge.")
 
 
     public String getDescription() {

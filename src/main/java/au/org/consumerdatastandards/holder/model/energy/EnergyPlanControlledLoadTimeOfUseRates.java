@@ -150,11 +150,11 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
     }
 
     /**
-     * Array of times of use
+     * Array of times of use.
      *
      * @return timeOfUse
      */
-    @ApiModelProperty(required = true, value = "Array of times of use")
+    @ApiModelProperty(required = true, value = "Array of times of use.")
     @NotNull
     @Valid
     public List<EnergyPlanControlledLoadTimeOfUse> getTimeOfUse() {

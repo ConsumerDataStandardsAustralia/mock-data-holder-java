@@ -45,11 +45,11 @@ public class MeteringCharges {
     }
 
     /**
-     * Display name of the charge
+     * Display name of the charge.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "Display name of the charge")
+    @ApiModelProperty(required = true, value = "Display name of the charge.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -65,11 +65,11 @@ public class MeteringCharges {
     }
 
     /**
-     * Description of the charge
+     * Description of the charge.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the charge")
+    @ApiModelProperty(value = "Description of the charge.")
     public String getDescription() {
         return description;
     }

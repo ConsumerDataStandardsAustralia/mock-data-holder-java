@@ -36,12 +36,12 @@ public class TelcoInvoiceAccountCharges {
     }
 
     /**
-     * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST)
+     * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
      *
      * @return totalUsageCharges
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of usage charges for the period covered by the invoice (exclusive of GST)")
+            value = "The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).")
     @NotNull
 
 
@@ -82,12 +82,12 @@ public class TelcoInvoiceAccountCharges {
     }
 
     /**
-     * The aggregate total of account level discounts or credits for the period covered by the invoice
+     * The aggregate total of account level discounts or credits for the period covered by the invoice.
      *
      * @return totalDiscounts
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of account level discounts or credits for the period covered by the invoice")
+            value = "The aggregate total of account level discounts or credits for the period covered by the invoice.")
     @NotNull
 
 
@@ -127,11 +127,11 @@ public class TelcoInvoiceAccountCharges {
     }
 
     /**
-     * The total GST for all account level charges.  If absent then zero is assumed
+     * The total GST for all account level charges. If absent then zero is assumed.
      *
      * @return totalGst
      */
-    @ApiModelProperty(value = "The total GST for all account level charges.  If absent then zero is assumed")
+    @ApiModelProperty(value = "The total GST for all account level charges. If absent then zero is assumed.")
 
 
     public String getTotalGst() {

@@ -65,12 +65,12 @@ public class EnergyAccountDetailV1 implements EnergyAccountDetail {
     }
 
     /**
-     * The ID of the account.  To be created in accordance with CDR ID permanence requirements
+     * The ID of the account. To be created in accordance with CDR ID permanence requirements.
      *
      * @return accountId
      */
     @ApiModelProperty(required = true,
-            value = "The ID of the account.  To be created in accordance with CDR ID permanence requirements")
+            value = "The ID of the account. To be created in accordance with CDR ID permanence requirements.")
     @NotNull
     @Override
     public String getAccountId() {
@@ -88,11 +88,11 @@ public class EnergyAccountDetailV1 implements EnergyAccountDetail {
     }
 
     /**
-     * Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId
+     * Optional identifier of the account as defined by the data holder. This must be the value presented on physical statements (if it exists) and must not be used for the value of _accountId_.
      *
      * @return accountNumber
      */
-    @ApiModelProperty(value = "Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId")
+    @ApiModelProperty(value = "Optional identifier of the account as defined by the data holder. This must be the value presented on physical statements (if it exists) and must not be used for the value of _accountId_.")
     @Override
     public String getAccountNumber() {
         return accountNumber;
@@ -109,11 +109,11 @@ public class EnergyAccountDetailV1 implements EnergyAccountDetail {
     }
 
     /**
-     * An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder
+     * An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder")
+    @ApiModelProperty(value = "An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder.")
     @Override
     public String getDisplayName() {
         return displayName;

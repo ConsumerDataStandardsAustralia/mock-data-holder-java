@@ -86,12 +86,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * The ID of the service point to which this transaction applies if any
+     * The ID of the service point to which this transaction applies if any..
      *
      * @return servicePointId
      */
     @Override
-    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
+    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any..")
     public String getServicePointId() {
         return servicePointId;
     }
@@ -106,12 +106,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
     @Override
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -126,12 +126,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * The time of use type that the transaction applies to
+     * The time of use type that the transaction applies to.
      *
      * @return timeOfUseType
      */
     @Override
-    @ApiModelProperty(required = true, value = "The time of use type that the transaction applies to")
+    @ApiModelProperty(required = true, value = "The time of use type that the transaction applies to.")
     @NotNull
     public TimeOfUseTypeEnum getTimeOfUseType() {
         return timeOfUseType;
@@ -147,12 +147,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * Optional description of the transaction that can be used for display purposes
+     * Optional description of the transaction that can be used for display purposes.
      *
      * @return description
      */
     @Override
-    @ApiModelProperty(value = "Optional description of the transaction that can be used for display purposes")
+    @ApiModelProperty(value = "Optional description of the transaction that can be used for display purposes.")
     public String getDescription() {
         return description;
     }
@@ -167,12 +167,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * Flag indicating if the usage is estimated or actual.  True indicates estimate.  False or absent indicates actual
+     * Flag indicating if the usage is estimated or actual. `true` indicates estimate. `false` or absent indicates actual.
      *
      * @return isEstimate
      */
     @Override
-    @ApiModelProperty(value = "Flag indicating if the usage is estimated or actual.  True indicates estimate.  False or absent indicates actual")
+    @ApiModelProperty(value = "Flag indicating if the usage is estimated or actual. `true` indicates estimate. `false` or absent indicates actual.")
     public Boolean getIsEstimate() {
         return isEstimate;
     }
@@ -187,12 +187,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * Date and time when the demand period starts
+     * Date and time when the demand period starts.
      *
      * @return startDate
      */
     @Override
-    @ApiModelProperty(required = true, value = "Date and time when the demand period starts")
+    @ApiModelProperty(required = true, value = "Date and time when the demand period starts.")
     @NotNull
     public OffsetDateTime getStartDate() {
         return startDate;
@@ -208,12 +208,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * Date and time when the demand period ends
+     * Date and time when the demand period ends.
      *
      * @return endDate
      */
     @Override
-    @ApiModelProperty(required = true, value = "Date and time when the demand period ends")
+    @ApiModelProperty(required = true, value = "Date and time when the demand period ends.")
     @NotNull
     public OffsetDateTime getEndDate() {
         return endDate;
@@ -229,13 +229,13 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * The rate for the demand charge in measureUnit. Assumed to be KVA if measureUnit not provided. A negative value indicates power generated
+     * The rate for the demand charge in _measureUnit_. Assumed to be `KVA` if _measureUnit_ not provided. A negative value indicates power generated.
      *
      * @return rate
      */
     @Override
     @ApiModelProperty(required = true,
-            value = "The rate for the demand charge in measureUnit. Assumed to be KVA if measureUnit not provided. A negative value indicates power generated")
+            value = "The rate for the demand charge in _measureUnit_. Assumed to be `KVA` if _measureUnit_ not provided. A negative value indicates power generated.")
     @NotNull
     public BigDecimal getRate() {
         return rate;
@@ -251,13 +251,13 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
+     * The amount charged or credited for this transaction prior to any adjustments being applied. A negative value indicates a credit.
      *
      * @return amount
      */
     @Override
     @ApiModelProperty(required = true,
-            value = "The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit")
+            value = "The amount charged or credited for this transaction prior to any adjustments being applied. A negative value indicates a credit.")
     @NotNull
     public String getAmount() {
         return amount;
@@ -281,12 +281,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * Additional calculation factors that inform the transaction
+     * Additional calculation factors that inform the transaction.
      *
      * @return calculationFactors
      */
     @Override
-    @ApiModelProperty(value = "Additional calculation factors that inform the transaction")
+    @ApiModelProperty(value = "Additional calculation factors that inform the transaction.")
     public List<EnergyBillingUsageTransactionCalculationFactors> getCalculationFactors() {
         return calculationFactors;
     }
@@ -309,12 +309,12 @@ public class EnergyBillingDemandTransactionV2 implements EnergyBillingDemandTran
     }
 
     /**
-     * Optional array of adjustments arising for this transaction
+     * Optional array of adjustments arising for this transaction.
      *
      * @return adjustments
      */
     @Override
-    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction.")
     public List<EnergyBillingUsageTransactionAdjustments> getAdjustments() {
         return adjustments;
     }

@@ -29,7 +29,7 @@ public class EnergyPaymentSchedule {
     private String amount;
 
     /**
-     * The type of object present in this response
+     * The type of object present in this response.
      */
     public enum PaymentScheduleUTypeEnum {
         CARDDEBIT("cardDebit"),
@@ -95,11 +95,11 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios)
+     * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios).
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios)")
+    @ApiModelProperty(value = "Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios).")
     public String getAmount() {
         return amount;
     }
@@ -114,11 +114,11 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * The type of object present in this response
+     * The type of object present in this response.
      *
      * @return paymentScheduleUType
      */
-    @ApiModelProperty(required = true, value = "The type of object present in this response")
+    @ApiModelProperty(required = true, value = "The type of object present in this response.")
     @NotNull
     public PaymentScheduleUTypeEnum getPaymentScheduleUType() {
         return paymentScheduleUType;

@@ -25,7 +25,7 @@ public class TelcoBillingTransaction {
     private String gst;
 
     /**
-     * Indicator of the type of transaction object present in this record
+     * Indicator of the type of transaction object present in this record.
      */
     public enum TransactionUTypeEnum {
         ACCOUNT("account"),
@@ -107,12 +107,12 @@ public class TelcoBillingTransaction {
     }
 
     /**
-     * The date and time that the transaction occurred
+     * The date and time that the transaction occurred.
      *
      * @return executionDateTime
      */
     @ApiModelProperty(required = true,
-            value = "The date and time that the transaction occurred")
+            value = "The date and time that the transaction occurred.")
     @NotNull
 
 
@@ -130,11 +130,11 @@ public class TelcoBillingTransaction {
     }
 
     /**
-     * The GST incurred in the transaction.  Should not be included for credits or payments.  If absent zero is assumed
+     * The GST incurred in the transaction. Should not be included for credits or payments. If absent zero is assumed.
      *
      * @return gst
      */
-    @ApiModelProperty(value = "The GST incurred in the transaction.  Should not be included for credits or payments.  If absent zero is assumed")
+    @ApiModelProperty(value = "The GST incurred in the transaction. Should not be included for credits or payments. If absent zero is assumed.")
 
 
     public String getGst() {
@@ -151,12 +151,12 @@ public class TelcoBillingTransaction {
     }
 
     /**
-     * Indicator of the type of transaction object present in this record
+     * Indicator of the type of transaction object present in this record.
      *
      * @return transactionUType
      */
     @ApiModelProperty(required = true,
-            value = "Indicator of the type of transaction object present in this record")
+            value = "Indicator of the type of transaction object present in this record.")
     @NotNull
 
 

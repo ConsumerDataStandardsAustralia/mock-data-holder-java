@@ -54,12 +54,12 @@ public class EnergyInvoiceGasUsageCharges {
     }
 
     /**
-     * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST)
+     * The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).
      *
      * @return totalUsageCharges
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of usage charges for the period covered by the invoice (exclusive of GST)")
+            value = "The aggregate total of usage charges for the period covered by the invoice (exclusive of GST).")
     @NotNull
     public String getTotalUsageCharges() {
         return totalUsageCharges;
@@ -75,12 +75,12 @@ public class EnergyInvoiceGasUsageCharges {
     }
 
     /**
-     * The aggregate total of generation credits for the period covered by the invoice (exclusive of GST)
+     * The aggregate total of generation credits for the period covered by the invoice (exclusive of GST).
      *
      * @return totalGenerationCredits
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of generation credits for the period covered by the invoice (exclusive of GST)")
+            value = "The aggregate total of generation credits for the period covered by the invoice (exclusive of GST).")
     @NotNull
     public String getTotalGenerationCredits() {
         return totalGenerationCredits;
@@ -96,12 +96,12 @@ public class EnergyInvoiceGasUsageCharges {
     }
 
     /**
-     * The aggregate total of any once off charges arising from gas usage for the period covered by the invoice (exclusive of GST)
+     * The aggregate total of any once off charges arising from gas usage for the period covered by the invoice (exclusive of GST).
      *
      * @return totalOnceOffCharges
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of any once off charges arising from gas usage for the period covered by the invoice (exclusive of GST)")
+            value = "The aggregate total of any once off charges arising from gas usage for the period covered by the invoice (exclusive of GST).")
     @NotNull
     public String getTotalOnceOffCharges() {
         return totalOnceOffCharges;
@@ -117,12 +117,12 @@ public class EnergyInvoiceGasUsageCharges {
     }
 
     /**
-     * The aggregate total of any once off discounts or credits arising from gas usage for the period covered by the invoice (exclusive of GST)
+     * The aggregate total of any once off discounts or credits arising from gas usage for the period covered by the invoice (exclusive of GST).
      *
      * @return totalOnceOffDiscounts
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of any once off discounts or credits arising from gas usage for the period covered by the invoice (exclusive of GST)")
+            value = "The aggregate total of any once off discounts or credits arising from gas usage for the period covered by the invoice (exclusive of GST).")
     @NotNull
     public String getTotalOnceOffDiscounts() {
         return totalOnceOffDiscounts;
@@ -150,7 +150,7 @@ public class EnergyInvoiceGasUsageCharges {
      *
      * @return otherCharges
      */
-    @ApiModelProperty(value = "Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&I consumers) (exclusive of GST)")
+    @ApiModelProperty(value = "Optional array of charges that may be part of the invoice (for e.g., environmental charges for C&I consumers) (exclusive of GST).")
     @Valid
     public List<EnergyInvoiceUsageChargesOtherCharges> getOtherCharges() {
         return otherCharges;
@@ -166,11 +166,11 @@ public class EnergyInvoiceGasUsageCharges {
     }
 
     /**
-     * The total GST for all gas usage charges.  If absent then zero is assumed
+     * The total GST for all gas usage charges. If absent then zero is assumed.
      *
      * @return totalGst
      */
-    @ApiModelProperty(value = "The total GST for all gas usage charges.  If absent then zero is assumed")
+    @ApiModelProperty(value = "The total GST for all gas usage charges. If absent then zero is assumed.")
     public String getTotalGst() {
         return totalGst;
     }

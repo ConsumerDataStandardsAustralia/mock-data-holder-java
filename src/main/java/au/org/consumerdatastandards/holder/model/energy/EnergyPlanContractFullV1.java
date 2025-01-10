@@ -530,12 +530,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
     }
 
     /**
-     * Array of tariff periods
+     * Array of tariff periods.
      *
      * @return tariffPeriod
      */
     @Override
-    @ApiModelProperty(required = true, value = "Array of tariff periods")
+    @ApiModelProperty(required = true, value = "Array of tariff periods.")
     @NotNull
     @Valid
     public List<EnergyPlanContractTariffPeriod> getTariffPeriod() {

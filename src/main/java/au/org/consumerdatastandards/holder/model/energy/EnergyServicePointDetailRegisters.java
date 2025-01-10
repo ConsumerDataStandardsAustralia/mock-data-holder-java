@@ -116,11 +116,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * Register suffix of the meter register where the meter reads are obtained
+     * Register suffix of the meter register where the meter reads are obtained.
      *
      * @return registerSuffix
      */
-    @ApiModelProperty(value = "Register suffix of the meter register where the meter reads are obtained")
+    @ApiModelProperty(value = "Register suffix of the meter register where the meter reads are obtained.")
     public String getRegisterSuffix() {
         return registerSuffix;
     }
@@ -252,11 +252,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * Indicates whether the energy recorded by this register is created under a Controlled Load regime
+     * Indicates whether the energy recorded by this register is created under a Controlled Load regime.
      *
      * @return controlledLoad
      */
-    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime")
+    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime.")
     public Boolean getControlledLoad() {
         return controlledLoad;
     }

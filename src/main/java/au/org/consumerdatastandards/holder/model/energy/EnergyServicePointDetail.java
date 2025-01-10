@@ -33,7 +33,7 @@ public class EnergyServicePointDetail {
     private String nationalMeteringId;
 
     /**
-     * The classification of the service point as defined in MSATS procedures
+     * The classification of the service point as defined in MSATS procedures.
      */
     public enum ServicePointClassificationEnum {
         EXTERNAL_PROFILE,
@@ -49,7 +49,7 @@ public class EnergyServicePointDetail {
     private ServicePointClassificationEnum servicePointClassification;
 
     /**
-     * Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>**ACTIVE** - An active, energised, service point</li><li>**DE_ENERGISED** - The service point exists but is deenergised</li><li>**EXTINCT** - The service point has been permanently decommissioned</li><li>**GREENFIELD** - Applies to a service point that has never been energised</li><li>**OFF_MARKET** - Applies when the service point is no longer settled in the NEM</li></ul>
+     * Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>`ACTIVE`: An active, energised, service point</li><li>`DE_ENERGISED`: The service point exists but is deenergised</li><li>`EXTINCT`: The service point has been permanently decommissioned</li><li>`GREENFIELD`: Applies to a service point that has never been energised</li><li>`OFF_MARKET`: Applies when the service point is no longer settled in the NEM.</li></ul>
      */
     public enum ServicePointStatusEnum {
         ACTIVE,
@@ -62,7 +62,7 @@ public class EnergyServicePointDetail {
     private ServicePointStatusEnum servicePointStatus;
 
     /**
-     * Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>**ALL** - All Jurisdictions</li><li>**ACT** - Australian Capital Territory</li><li>**NEM** - National Electricity Market</li><li>**NSW** - New South Wales</li><li>**QLD** - Queensland</li><li>**SA** - South Australia</li><li>**TAS** - Tasmania</li><li>**VIC** - Victoria</li></ul>
+     * Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>`ALL`: All Jurisdictions</li><li>`ACT`: Australian Capital Territory</li><li>`NEM`: National Electricity Market</li><li>`NSW`: New South Wales</li><li>`QLD`: Queensland</li><li>`SA`: South Australia</li><li>`TAS`: Tasmania</li><li>`VIC`: Victoria.</li></ul>
      */
     public enum JurisdictionCodeEnum {
         ALL,
@@ -117,12 +117,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * The tokenised ID of the service point for use in the CDR APIs.  Created according to the CDR rules for ID permanence
+     * The tokenised ID of the service point for use in the CDR APIs. Created according to the CDR rules for ID permanence.
      *
      * @return servicePointId
      */
     @ApiModelProperty(required = true,
-            value = "The tokenised ID of the service point for use in the CDR APIs.  Created according to the CDR rules for ID permanence")
+            value = "The tokenised ID of the service point for use in the CDR APIs. Created according to the CDR rules for ID permanence.")
     @NotNull
     public String getServicePointId() {
         return servicePointId;
@@ -138,12 +138,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * The independent ID of the service point, known in the industry as the NMI
+     * The independent ID of the service point, known in the industry as the NMI.
      *
      * @return nationalMeteringId
      */
     @ApiModelProperty(required = true,
-            value = "The independent ID of the service point, known in the industry as the NMI")
+            value = "The independent ID of the service point, known in the industry as the NMI.")
     @NotNull
     public String getNationalMeteringId() {
         return nationalMeteringId;
@@ -159,12 +159,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * The classification of the service point as defined in MSATS procedures
+     * The classification of the service point as defined in MSATS procedures.
      *
      * @return servicePointClassification
      */
     @ApiModelProperty(required = true,
-            value = "The classification of the service point as defined in MSATS procedures")
+            value = "The classification of the service point as defined in MSATS procedures.")
     @NotNull
     public ServicePointClassificationEnum getServicePointClassification() {
         return servicePointClassification;
@@ -180,12 +180,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>**ACTIVE** - An active, energised, service point</li><li>**DE_ENERGISED** - The service point exists but is deenergised</li><li>**EXTINCT** - The service point has been permanently decommissioned</li><li>**GREENFIELD** - Applies to a service point that has never been energised</li><li>**OFF_MARKET** - Applies when the service point is no longer settled in the NEM</li></ul>
+     * Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>`ACTIVE`: An active, energised, service point</li><li>`DE_ENERGISED`: The service point exists but is deenergised</li><li>`EXTINCT`: The service point has been permanently decommissioned</li><li>`GREENFIELD`: Applies to a service point that has never been energised</li><li>`OFF_MARKET`: Applies when the service point is no longer settled in the NEM.</li></ul>
      *
      * @return servicePointStatus
      */
     @ApiModelProperty(required = true,
-            value = "Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>**ACTIVE** - An active, energised, service point</li><li>**DE_ENERGISED** - The service point exists but is deenergised</li><li>**EXTINCT** - The service point has been permanently decommissioned</li><li>**GREENFIELD** - Applies to a service point that has never been energised</li><li>**OFF_MARKET** - Applies when the service point is no longer settled in the NEM</li></ul> ")
+            value = "Code used to indicate the status of the service point. Note the details for the enumeration values below:<ul><li>`ACTIVE`: An active, energised, service point</li><li>`DE_ENERGISED`: The service point exists but is deenergised</li><li>`EXTINCT`: The service point has been permanently decommissioned</li><li>`GREENFIELD`: Applies to a service point that has never been energised</li><li>`OFF_MARKET`: Applies when the service point is no longer settled in the NEM.</li></ul>")
     @NotNull
     public ServicePointStatusEnum getServicePointStatus() {
         return servicePointStatus;
@@ -201,12 +201,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>**ALL** - All Jurisdictions</li><li>**ACT** - Australian Capital Territory</li><li>**NEM** - National Electricity Market</li><li>**NSW** - New South Wales</li><li>**QLD** - Queensland</li><li>**SA** - South Australia</li><li>**TAS** - Tasmania</li><li>**VIC** - Victoria</li></ul>
+     * Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>`ALL`: All Jurisdictions</li><li>`ACT`: Australian Capital Territory</li><li>`NEM`: National Electricity Market</li><li>`NSW`: New South Wales</li><li>`QLD`: Queensland</li><li>`SA`: South Australia</li><li>`TAS`: Tasmania</li><li>`VIC`: Victoria.</li></ul>
      *
      * @return jurisdictionCode
      */
     @ApiModelProperty(required = true,
-            value = "Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>**ALL** - All Jurisdictions</li><li>**ACT** - Australian Capital Territory</li><li>**NEM** - National Electricity Market</li><li>**NSW** - New South Wales</li><li>**QLD** - Queensland</li><li>**SA** - South Australia</li><li>**TAS** - Tasmania</li><li>**VIC** - Victoria</li></ul>")
+            value = "Jurisdiction code to which the service point belongs.This code defines the jurisdictional rules which apply to the service point. Note the details of enumeration values below:<ul><li>`ALL`: All Jurisdictions</li><li>`ACT`: Australian Capital Territory</li><li>`NEM`: National Electricity Market</li><li>`NSW`: New South Wales</li><li>`QLD`: Queensland</li><li>`SA`: South Australia</li><li>`TAS`: Tasmania</li><li>`VIC`: Victoria.</li></ul>")
     @NotNull
     public JurisdictionCodeEnum getJurisdictionCode() {
         return jurisdictionCode;
@@ -222,11 +222,11 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer
+     * This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.
      *
      * @return isGenerator
      */
-    @ApiModelProperty(value = "This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit(this may include generator auxiliary loads). If absent defaults to false. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer")
+    @ApiModelProperty(value = "This flag determines whether the energy at this connection point is to be treated as consumer load or as a generating unit (this may include generator auxiliary loads). If absent defaults to `false`. <br>**Note:** Only applicable for scheduled or semischeduled generators, does not indicate on site generation by consumer.")
     public Boolean getIsGenerator() {
         return isGenerator;
     }
@@ -241,12 +241,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * The latest start date from which the constituent data sets of this service point became valid
+     * The latest start date from which the constituent data sets of this service point became valid.
      *
      * @return validFromDate
      */
     @ApiModelProperty(required = true,
-            value = "The latest start date from which the constituent data sets of this service point became valid")
+            value = "The latest start date from which the constituent data sets of this service point became valid.")
     public LocalDate getValidFromDate() {
         return validFromDate;
     }
@@ -261,12 +261,12 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * The date and time that the information for this service point was modified
+     * The date and time that the information for this service point was modified.
      *
      * @return lastUpdateDateTime
      */
     @ApiModelProperty(required = true,
-            value = "The date and time that the information for this service point was modified")
+            value = "The date and time that the information for this service point was modified.")
     @NotNull
     public OffsetDateTime getLastUpdateDateTime() {
         return lastUpdateDateTime;
@@ -365,11 +365,11 @@ public class EnergyServicePointDetail {
     }
 
     /**
-     * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
+     * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point.
      *
      * @return meters
      */
-    @ApiModelProperty(value = "The meters associated with the service point. This may be empty where there are no meters physically installed at the service point")
+    @ApiModelProperty(value = "The meters associated with the service point. This may be empty where there are no meters physically installed at the service point.")
     @Valid
     public List<EnergyServicePointDetailMeters> getMeters() {
         return meters;
