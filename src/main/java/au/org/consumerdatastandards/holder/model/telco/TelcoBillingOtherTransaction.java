@@ -84,11 +84,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Optional start date for the application of the charge
+     * Optional start date for the application of the charge.
      *
      * @return startDate
      */
-    @ApiModelProperty(value = "Optional start date for the application of the charge")
+    @ApiModelProperty(value = "Optional start date for the application of the charge.")
     public String getStartDate() {
         return startDate;
     }
@@ -103,11 +103,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Optional end date for the application of the charge
+     * Optional end date for the application of the charge.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Optional end date for the application of the charge")
+    @ApiModelProperty(value = "Optional end date for the application of the charge.")
     public String getEndDate() {
         return endDate;
     }
@@ -141,11 +141,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * The amount of the charge
+     * The amount of the charge.
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The amount of the charge")
+    @ApiModelProperty(required = true, value = "The amount of the charge.")
     @NotNull
     public String getAmount() {
         return amount;
@@ -161,11 +161,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * A free text description of the item
+     * A free text description of the item.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "A free text description of the item")
+    @ApiModelProperty(required = true, value = "A free text description of the item.")
     @NotNull
     public String getDescription() {
         return description;

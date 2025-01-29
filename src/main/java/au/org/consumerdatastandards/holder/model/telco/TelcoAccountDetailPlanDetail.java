@@ -32,12 +32,12 @@ public class TelcoAccountDetailPlanDetail {
     }
 
     /**
-     * Charges for metering included in the plan
+     * Charges for metering included in the plan.
      *
      * @return charges
      */
     @ApiModelProperty(required = true,
-            value = "Charges for metering included in the plan")
+            value = "Charges for metering included in the plan.")
     @NotNull
 
     @Valid

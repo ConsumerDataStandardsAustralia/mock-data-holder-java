@@ -15,22 +15,22 @@ import java.util.Objects;
 public class LinksPaginated  {
 
     /**
-     * URI to the first page of this set. Mandatory if this response is not the first page
+     * URI to the first page of this set. Mandatory if this response is not the first page.
      */
     private String first;
 
     /**
-     * URI to the last page of this set. Mandatory if this response is not the last page
+     * URI to the last page of this set. Mandatory if this response is not the last page.
      */
     private String last;
 
     /**
-     * URI to the next page of this set. Mandatory if this response is not the last page
+     * URI to the next page of this set. Mandatory if this response is not the last page.
      */
     private String next;
 
     /**
-     * URI to the previous page of this set. Mandatory if this response is not the first page
+     * URI to the previous page of this set. Mandatory if this response is not the first page.
      */
     private String prev;
 
@@ -44,7 +44,7 @@ public class LinksPaginated  {
         return this;
     }
 
-    @ApiModelProperty(value = "URI to the first page of this set. Mandatory if this response is not the first page")
+    @ApiModelProperty(value = "URI to the first page of this set. Mandatory if this response is not the first page.")
     public String getFirst() {
         return first;
     }
@@ -57,7 +57,7 @@ public class LinksPaginated  {
         return this;
     }
 
-    @ApiModelProperty(value = "URI to the last page of this set. Mandatory if this response is not the last page")
+    @ApiModelProperty(value = "URI to the last page of this set. Mandatory if this response is not the last page.")
     public String getLast() {
         return last;
     }
@@ -70,7 +70,7 @@ public class LinksPaginated  {
         return this;
     }
 
-    @ApiModelProperty(value = "URI to the next page of this set. Mandatory if this response is not the last page")
+    @ApiModelProperty(value = "URI to the next page of this set. Mandatory if this response is not the last page.")
     public String getNext() {
         return next;
     }
@@ -83,7 +83,7 @@ public class LinksPaginated  {
         return this;
     }
 
-    @ApiModelProperty(value = "URI to the previous page of this set. Mandatory if this response is not the first page")
+    @ApiModelProperty(value = "URI to the previous page of this set. Mandatory if this response is not the first page.")
     public String getPrev() {
         return prev;
     }

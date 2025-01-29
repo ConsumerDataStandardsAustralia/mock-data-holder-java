@@ -321,12 +321,12 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * Charges for metering included in the plan
+     * Charges for metering included in the plan.
      *
      * @return meteringCharges
      */
     @Override
-    @ApiModelProperty(value = "Charges for metering included in the plan")
+    @ApiModelProperty(value = "Charges for metering included in the plan.")
     @Valid
     public List<MeteringCharges> getMeteringCharges() {
         return meteringCharges;

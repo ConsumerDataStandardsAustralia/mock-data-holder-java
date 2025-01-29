@@ -72,12 +72,12 @@ public class TelcoBillingOnceOffTransaction {
     }
 
     /**
-     * The amount of the charge or credit.  A positive value indicates a charge and a negative value indicates a credit
+     * The amount of the charge. or credit. A positive value indicates a charge and a negative value indicates a credit.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The amount of the charge or credit.  A positive value indicates a charge and a negative value indicates a credit")
+            value = "The amount of the charge. or credit. A positive value indicates a charge and a negative value indicates a credit.")
     @NotNull
 
 
@@ -95,12 +95,12 @@ public class TelcoBillingOnceOffTransaction {
     }
 
     /**
-     * A free text description of the item
+     * A free text description of the item.
      *
      * @return description
      */
     @ApiModelProperty(required = true,
-            value = "A free text description of the item")
+            value = "A free text description of the item.")
     @NotNull
 
 

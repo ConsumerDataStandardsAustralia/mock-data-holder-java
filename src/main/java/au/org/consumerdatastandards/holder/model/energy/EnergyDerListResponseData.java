@@ -30,12 +30,12 @@ public class EnergyDerListResponseData {
     }
 
     /**
-     * Array of meter reads
+     * Array of meter reads.
      *
      * @return derRecords
      */
     @ApiModelProperty(required = true,
-            value = "Array of meter reads")
+            value = "Array of meter reads.")
     @NotNull
 
     @Valid

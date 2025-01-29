@@ -30,12 +30,12 @@ public class EnergyPlanListResponseData {
     }
 
     /**
-     * Array of plans
+     * Array of plans.
      *
      * @return plans
      */
     @ApiModelProperty(required = true,
-            value = "Array of plans")
+            value = "Array of plans.")
     @NotNull
 
     @Valid

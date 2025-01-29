@@ -555,12 +555,12 @@ public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     }
 
     /**
-     * The term for the contract.  If absent assumes no specified term
+     * The term for the contract. If absent assumes no specified term.
      *
      * @return termType
      */
     @Override
-    @ApiModelProperty(value = "The term for the contract.  If absent assumes no specified term")
+    @ApiModelProperty(value = "The term for the contract. If absent assumes no specified term.")
     public TermTypeEnum getTermType() {
         return termType;
     }
@@ -576,12 +576,12 @@ public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     }
 
     /**
-     * Description of the benefit period.  Should only be present if termType has the value ONGOING
+     * Description of the benefit period. Should only be present if termType has the value `ONGOING`.
      *
      * @return benefitPeriod
      */
     @Override
-    @ApiModelProperty(value = "Description of the benefit period.  Should only be present if termType has the value ONGOING")
+    @ApiModelProperty(value = "Description of the benefit period. Should only be present if termType has the value `ONGOING`.")
     public String getBenefitPeriod() {
         return benefitPeriod;
     }
@@ -597,12 +597,12 @@ public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     }
 
     /**
-     * Free text description of the terms for the contract
+     * Free text description of the terms for the contract.
      *
      * @return terms
      */
     @Override
-    @ApiModelProperty(value = "Free text description of the terms for the contract")
+    @ApiModelProperty(value = "Free text description of the terms for the contract.")
     public String getTerms() {
         return terms;
     }
@@ -626,12 +626,12 @@ public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     }
 
     /**
-     * An array of the meter types that this contract is available for
+     * An array of the meter types that this contract is available for.
      *
      * @return meterTypes
      */
     @Override
-    @ApiModelProperty(value = "An array of the meter types that this contract is available for")
+    @ApiModelProperty(value = "An array of the meter types that this contract is available for.")
     public List<String> getMeterTypes() {
         return meterTypes;
     }
@@ -647,12 +647,12 @@ public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     }
 
     /**
-     * Number of days in the cooling off period for the contract.  Mandatory for plans with type of MARKET
+     * Number of days in the cooling off period for the contract. Mandatory for plans with type of `MARKET`.
      *
      * @return coolingOffDays
      */
     @Override
-    @ApiModelProperty(value = "Number of days in the cooling off period for the contract.  Mandatory for plans with type of MARKET ")
+    @ApiModelProperty(value = "Number of days in the cooling off period for the contract. Mandatory for plans with type of `MARKET`.")
     public Integer getCoolingOffDays() {
         return coolingOffDays;
     }
@@ -673,13 +673,13 @@ public class EnergyPlanContractFullV2 implements EnergyPlanContractFull {
     }
 
     /**
-     * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return billFrequency
      */
     @Override
     @ApiModelProperty(required = true,
-            value = "An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+            value = "An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     @NotNull
     public List<String> getBillFrequency() {
         return billFrequency;

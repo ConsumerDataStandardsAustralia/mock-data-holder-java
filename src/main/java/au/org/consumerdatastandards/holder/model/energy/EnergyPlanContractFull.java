@@ -10,68 +10,68 @@ import java.util.List;
 public interface EnergyPlanContractFull extends EnergyPlanContract {
 
     /**
-     * The term for the contract.  If absent assumes no specified term
+     * The term for the contract. If absent assumes no specified term.
      *
      * @return termType
      */
-    @ApiModelProperty(value = "The term for the contract.  If absent assumes no specified term")
+    @ApiModelProperty(value = "The term for the contract. If absent assumes no specified term.")
     TermTypeEnum getTermType();
 
     void setTermType(TermTypeEnum termType);
 
     /**
-     * Description of the benefit period.  Should only be present if termType has the value ONGOING
+     * Description of the benefit period. Should only be present if termType has the value `ONGOING`.
      *
      * @return benefitPeriod
      */
-    @ApiModelProperty(value = "Description of the benefit period.  Should only be present if termType has the value ONGOING")
+    @ApiModelProperty(value = "Description of the benefit period. Should only be present if termType has the value `ONGOING`.")
     String getBenefitPeriod();
 
     void setBenefitPeriod(String benefitPeriod);
 
     /**
-     * Free text description of the terms for the contract
+     * Free text description of the terms for the contract.
      *
      * @return terms
      */
-    @ApiModelProperty(value = "Free text description of the terms for the contract")
+    @ApiModelProperty(value = "Free text description of the terms for the contract.")
     String getTerms();
 
     void setTerms(String terms);
 
     /**
-     * An array of the meter types that this contract is available for
+     * An array of the meter types that this contract is available for.
      *
      * @return meterTypes
      */
-    @ApiModelProperty(value = "An array of the meter types that this contract is available for")
+    @ApiModelProperty(value = "An array of the meter types that this contract is available for.")
     List<String> getMeterTypes();
 
     void setMeterTypes(List<String> meterTypes);
 
     /**
-     * Number of days in the cooling off period for the contract.  Mandatory for plans with type of MARKET
+     * Number of days in the cooling off period for the contract. Mandatory for plans with type of `MARKET`.
      *
      * @return coolingOffDays
      */
-    @ApiModelProperty(value = "Number of days in the cooling off period for the contract.  Mandatory for plans with type of MARKET ")
+    @ApiModelProperty(value = "Number of days in the cooling off period for the contract. Mandatory for plans with type of `MARKET`.")
     Integer getCoolingOffDays();
 
     void setCoolingOffDays(Integer coolingOffDays);
 
     /**
-     * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return billFrequency
      */
     @ApiModelProperty(required = true,
-            value = "An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
-    @NotNull List<String> getBillFrequency();
-
+            value = "An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
+    @NotNull
+    List<String> getBillFrequency();
     void setBillFrequency(List<String> billFrequency);
 
     /**
-     * The term for the contract.  If absent assumes no specified term
+     * The term for the contract. If absent assumes no specified term.
      */
     public enum TermTypeEnum {
         _1_YEAR("1_YEAR"),

@@ -88,12 +88,12 @@ public class EnergyBillingDemandTransactionV3 implements EnergyBillingDemandTran
     }
 
     /**
-     * The ID of the service point to which this transaction applies if any..
+     * The ID of the service point to which this transaction applies if any.
      *
      * @return servicePointId
      */
     @Override
-    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any..")
+    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any.")
     public String getServicePointId() {
         return servicePointId;
     }

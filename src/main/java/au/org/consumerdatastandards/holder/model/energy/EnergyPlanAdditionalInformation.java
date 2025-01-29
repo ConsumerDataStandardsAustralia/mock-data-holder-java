@@ -47,11 +47,11 @@ public class EnergyPlanAdditionalInformation {
     }
 
     /**
-     * A link to a general overview of the plan
+     * A link to a general overview of the plan.
      *
      * @return overviewUri
      */
-    @ApiModelProperty(value = "A link to a general overview of the plan")
+    @ApiModelProperty(value = "A link to a general overview of the plan.")
     public String getOverviewUri() {
         return overviewUri;
     }
@@ -66,11 +66,11 @@ public class EnergyPlanAdditionalInformation {
     }
 
     /**
-     * A link to terms and conditions for the plan
+     * A link to terms and conditions for the plan.
      *
      * @return termsUri
      */
-    @ApiModelProperty(value = "A link to terms and conditions for the plan")
+    @ApiModelProperty(value = "A link to terms and conditions for the plan.")
     public String getTermsUri() {
         return termsUri;
     }
@@ -85,11 +85,11 @@ public class EnergyPlanAdditionalInformation {
     }
 
     /**
-     * A link to detail on eligibility criteria for the plan
+     * A link to detail on eligibility criteria for the plan.
      *
      * @return eligibilityUri
      */
-    @ApiModelProperty(value = "A link to detail on eligibility criteria for the plan")
+    @ApiModelProperty(value = "A link to detail on eligibility criteria for the plan.")
     public String getEligibilityUri() {
         return eligibilityUri;
     }
@@ -104,11 +104,11 @@ public class EnergyPlanAdditionalInformation {
     }
 
     /**
-     * A link to detail on pricing for the plan
+     * A link to detail on pricing for the plan.
      *
      * @return pricingUri
      */
-    @ApiModelProperty(value = "A link to detail on pricing for the plan")
+    @ApiModelProperty(value = "A link to detail on pricing for the plan.")
     public String getPricingUri() {
         return pricingUri;
     }
@@ -123,11 +123,11 @@ public class EnergyPlanAdditionalInformation {
     }
 
     /**
-     * A link to detail on bundles that this plan can be a part of
+     * A link to detail on bundles that this plan can be a part of.
      *
      * @return bundleUri
      */
-    @ApiModelProperty(value = "A link to detail on bundles that this plan can be a part of")
+    @ApiModelProperty(value = "A link to detail on bundles that this plan can be a part of.")
     public String getBundleUri() {
         return bundleUri;
     }

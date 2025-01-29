@@ -52,11 +52,11 @@ public class EnergyPlanContractFeedInRates {
     }
 
     /**
-     * The amount of the charge if the type implies the application of a fixed amount.
+     * The amount of the charge. if the type implies the application of a fixed amount.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "The amount of the charge if the type implies the application of a fixed amount.")
+    @ApiModelProperty(value = "The amount of the charge. if the type implies the application of a fixed amount.")
     public String getAmount() {
         return amount;
     }

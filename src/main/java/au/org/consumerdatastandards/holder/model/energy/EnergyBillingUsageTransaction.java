@@ -92,11 +92,11 @@ public class EnergyBillingUsageTransaction {
     }
 
     /**
-     * The ID of the service point to which this transaction applies if any..
+     * The ID of the service point to which this transaction applies if any.
      *
      * @return servicePointId
      */
-    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any..")
+    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any.")
     public String getServicePointId() {
         return servicePointId;
     }

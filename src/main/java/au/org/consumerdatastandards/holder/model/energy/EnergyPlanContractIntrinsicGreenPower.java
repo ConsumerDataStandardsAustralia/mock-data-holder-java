@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Describes intrinsic green power for the plan.  If present then the plan includes a percentage of green power in the base plan. Should not be present for gas contracts
+ * Describes intrinsic green power for the plan. If present then the plan includes a percentage of green power in the base plan. Should not be present for gas contracts.
  */
-@ApiModel(description = "Describes intrinsic green power for the plan.  If present then the plan includes a percentage of green power in the base plan. Should not be present for gas contracts")
+@ApiModel(description = "Describes intrinsic green power for the plan. If present then the plan includes a percentage of green power in the base plan. Should not be present for gas contracts.")
 @Entity
 public class EnergyPlanContractIntrinsicGreenPower {
     @Id
@@ -39,11 +39,11 @@ public class EnergyPlanContractIntrinsicGreenPower {
     }
 
     /**
-     * Percentage of green power intrinsically included in the plan
+     * Percentage of green power intrinsically included in the plan.
      *
      * @return greenPercentage
      */
-    @ApiModelProperty(required = true, value = "Percentage of green power intrinsically included in the plan")
+    @ApiModelProperty(required = true, value = "Percentage of green power intrinsically included in the plan.")
     @NotNull
     public String getGreenPercentage() {
         return greenPercentage;

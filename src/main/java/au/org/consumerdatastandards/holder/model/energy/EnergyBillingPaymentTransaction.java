@@ -24,7 +24,7 @@ public class EnergyBillingPaymentTransaction {
     private String amount;
 
     /**
-     * The method of payment
+     * The method of payment.
      */
     public enum MethodEnum {
         DIRECT_DEBIT,
@@ -52,11 +52,11 @@ public class EnergyBillingPaymentTransaction {
     }
 
     /**
-     * The amount paid
+     * The amount paid.
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The amount paid")
+    @ApiModelProperty(required = true, value = "The amount paid.")
     @NotNull
     public String getAmount() {
         return amount;
@@ -72,11 +72,11 @@ public class EnergyBillingPaymentTransaction {
     }
 
     /**
-     * The method of payment
+     * The method of payment.
      *
      * @return method
      */
-    @ApiModelProperty(required = true, value = "The method of payment")
+    @ApiModelProperty(required = true, value = "The method of payment.")
     @NotNull
     public MethodEnum getMethod() {
         return method;

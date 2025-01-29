@@ -18,7 +18,7 @@ public class TelcoBillingPaymentTransaction {
     private String amount;
 
     /**
-     * The method of payment
+     * The method of payment.
      */
     public enum MethodEnum {
         DIRECT_DEBIT("DIRECT_DEBIT"),
@@ -73,12 +73,12 @@ public class TelcoBillingPaymentTransaction {
     }
 
     /**
-     * The amount paid
+     * The amount paid.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The amount paid")
+            value = "The amount paid.")
     @NotNull
 
 
@@ -96,12 +96,12 @@ public class TelcoBillingPaymentTransaction {
     }
 
     /**
-     * The method of payment
+     * The method of payment.
      *
      * @return method
      */
     @ApiModelProperty(required = true,
-            value = "The method of payment")
+            value = "The method of payment.")
     @NotNull
 
 
