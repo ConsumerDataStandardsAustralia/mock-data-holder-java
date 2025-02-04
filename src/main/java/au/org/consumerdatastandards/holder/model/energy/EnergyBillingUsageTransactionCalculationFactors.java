@@ -28,7 +28,7 @@ public class EnergyBillingUsageTransactionCalculationFactors {
     private BigDecimal value;
 
     /**
-     * The type of the calculation factor
+     * The type of the calculation factor.
      */
     public enum TypeEnum {
         DLF,
@@ -51,11 +51,11 @@ public class EnergyBillingUsageTransactionCalculationFactors {
     }
 
     /**
-     * The value of the calculation factor
+     * The value of the calculation factor.
      *
      * @return value
      */
-    @ApiModelProperty(required = true, value = "The value of the calculation factor")
+    @ApiModelProperty(required = true, value = "The value of the calculation factor.")
     @NotNull
     @Valid
     public BigDecimal getValue() {
@@ -72,11 +72,11 @@ public class EnergyBillingUsageTransactionCalculationFactors {
     }
 
     /**
-     * The type of the calculation factor
+     * The type of the calculation factor.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of the calculation factor")
+    @ApiModelProperty(required = true, value = "The type of the calculation factor.")
     @NotNull
     public TypeEnum getType() {
         return type;

@@ -32,7 +32,7 @@ public class EnergyPlanContractTariffPeriod {
     private String id;
 
     /**
-     * Type of charge. Assumed to be other if absent..
+     * Type of charge. Assumed to be other if absent.
      */
     public enum TypeEnum {
         ENVIRONMENTAL,
@@ -45,7 +45,7 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * Type of charge. Assumed to be other if absent..
+     * Type of charge. Assumed to be other if absent.
      */
     private TypeEnum type;
 
@@ -134,11 +134,11 @@ public class EnergyPlanContractTariffPeriod {
     }
 
     /**
-     * Type of charge. Assumed to be other if absent..
+     * Type of charge. Assumed to be other if absent.
      *
      * @return type
      */
-    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent..")
+    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent.")
     public TypeEnum getType() {
         return type;
     }

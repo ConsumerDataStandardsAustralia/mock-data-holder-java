@@ -66,11 +66,11 @@ public class EnergyAccountDetailPlanDetailV3 {
     }
 
     /**
-     * The fuel types covered by the plan
+     * The fuel types covered by the plan.
      *
      * @return fuelType
      */
-    @ApiModelProperty(required = true, value = "The fuel types covered by the plan")
+    @ApiModelProperty(required = true, value = "The fuel types covered by the plan.")
     @NotNull
     public FuelTypeEnum getFuelType() {
         return fuelType;
@@ -86,11 +86,11 @@ public class EnergyAccountDetailPlanDetailV3 {
     }
 
     /**
-     * Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up). Has no meaning if the plan has a fuelType of DUAL. If absent the value is assumed to be false
+     * Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the _fuelType_ is `ELECTRICITY` then a `GAS` plan from the same retailer must be taken up). Has no meaning if the plan has a _fuelType_ of `DUAL`. If absent the value is assumed to be `false`.
      *
      * @return isContingentPlan
      */
-    @ApiModelProperty(value = "Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up). Has no meaning if the plan has a fuelType of DUAL. If absent the value is assumed to be false")
+    @ApiModelProperty(value = "Flag that indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the _fuelType_ is `ELECTRICITY` then a `GAS` plan from the same retailer must be taken up). Has no meaning if the plan has a _fuelType_ of `DUAL`. If absent the value is assumed to be `false`.")
     public Boolean getIsContingentPlan() {
         return isContingentPlan;
     }

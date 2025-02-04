@@ -15,9 +15,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Mandatory if readUType is set to basicRead
+ * Mandatory if _readUType_ is set to `basicRead`.
  */
-@ApiModel(description = "Mandatory if readUType is set to basicRead")
+@ApiModel(description = "Mandatory if _readUType_ is set to `basicRead`.")
 @Entity
 public class EnergyUsageReadBasicRead {
 
@@ -28,7 +28,7 @@ public class EnergyUsageReadBasicRead {
     private String id;
 
     /**
-     * The quality of the read taken.  If absent then assumed to be ACTUAL
+     * The quality of the read taken. If absent then assumed to be `ACTUAL`.
      */
     public enum QualityEnum {
         ACTUAL,
@@ -55,11 +55,11 @@ public class EnergyUsageReadBasicRead {
     }
 
     /**
-     * The quality of the read taken.  If absent then assumed to be ACTUAL
+     * The quality of the read taken. If absent then assumed to be `ACTUAL`.
      *
      * @return quality
      */
-    @ApiModelProperty(value = "The quality of the read taken.  If absent then assumed to be ACTUAL")
+    @ApiModelProperty(value = "The quality of the read taken. If absent then assumed to be `ACTUAL`.")
     public QualityEnum getQuality() {
         return quality;
     }
@@ -74,12 +74,12 @@ public class EnergyUsageReadBasicRead {
     }
 
     /**
-     * Meter read value.  If positive then it means consumption, if negative it means export
+     * Meter read value. If positive then it means consumption, if negative it means export.
      *
      * @return value
      */
     @ApiModelProperty(required = true,
-            value = "Meter read value.  If positive then it means consumption, if negative it means export")
+            value = "Meter read value. If positive then it means consumption, if negative it means export.")
     @NotNull
     @Valid
     public BigDecimal getValue() {

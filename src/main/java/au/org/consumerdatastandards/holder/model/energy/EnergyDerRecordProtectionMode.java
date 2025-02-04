@@ -13,9 +13,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
+ * Required only when the _hasCentralProtectionControl_ flag is set to `true`. One or more of the object fields will be provided to describe the protection modes in place.
  */
-@ApiModel(description = "Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place")
+@ApiModel(description = "Required only when the _hasCentralProtectionControl_ flag is set to `true`. One or more of the object fields will be provided to describe the protection modes in place.")
 @Entity
 public class EnergyDerRecordProtectionMode {
     @Id
@@ -68,11 +68,11 @@ public class EnergyDerRecordProtectionMode {
     }
 
     /**
-     * Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit
+     * Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control/relay function. An absent value indicates no limit.
      *
      * @return exportLimitKva
      */
-    @ApiModelProperty(value = "Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit")
+    @ApiModelProperty(value = "Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control/relay function. An absent value indicates no limit.")
     @Valid
     public BigDecimal getExportLimitKva() {
         return exportLimitKva;
@@ -328,11 +328,11 @@ public class EnergyDerRecordProtectionMode {
     }
 
     /**
-     * Description of the form of inter-trip (e.g. 'from local substation').
+     * Description of the form of inter-trip (e.g., 'from local substation').
      *
      * @return interTripScheme
      */
-    @ApiModelProperty(value = "Description of the form of inter-trip (e.g. 'from local substation').")
+    @ApiModelProperty(value = "Description of the form of inter-trip (e.g., 'from local substation').")
     public String getInterTripScheme() {
         return interTripScheme;
     }

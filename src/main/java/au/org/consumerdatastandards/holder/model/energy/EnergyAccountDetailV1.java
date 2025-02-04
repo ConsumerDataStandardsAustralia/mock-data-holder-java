@@ -156,12 +156,12 @@ public class EnergyAccountDetailV1 implements EnergyAccountDetail {
     }
 
     /**
-     * The array of plans containing service points and associated plan details
+     * The array of plans containing service points and associated plan details.
      *
      * @return plans
      */
     @ApiModelProperty(required = true,
-            value = "The array of plans containing service points and associated plan details")
+            value = "The array of plans containing service points and associated plan details.")
     @NotNull
     @Valid
     public List<EnergyAccountDetailPlans> getPlans() {

@@ -80,12 +80,12 @@ public class TelcoInvoiceAccountChargesOtherCharges {
     }
 
     /**
-     * The aggregate total of charges for this item (exclusive of GST)
+     * The aggregate total of charges for this item (exclusive of GST).
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of charges for this item (exclusive of GST)")
+            value = "The aggregate total of charges for this item (exclusive of GST).")
     @NotNull
 
 

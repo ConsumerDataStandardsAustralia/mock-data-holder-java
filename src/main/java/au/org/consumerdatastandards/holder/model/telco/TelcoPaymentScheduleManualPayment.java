@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment
+ * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.
  */
-@ApiModel(description = "Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment")
+@ApiModel(description = "Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoPaymentScheduleManualPayment {
@@ -23,12 +23,12 @@ public class TelcoPaymentScheduleManualPayment {
     }
 
     /**
-     * The frequency with which a bill will be issued.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * The frequency with which a bill will be issued. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return billFrequency
      */
     @ApiModelProperty(required = true,
-            value = "The frequency with which a bill will be issued.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+            value = "The frequency with which a bill will be issued. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     @NotNull
 
 

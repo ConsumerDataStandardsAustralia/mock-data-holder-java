@@ -32,7 +32,7 @@ public class EnergyDerRecordDerDevices {
     private String modelNumber;
 
     /**
-     * Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned
+     * Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned.
      */
     public enum StatusEnum {
         ACTIVE,
@@ -43,7 +43,7 @@ public class EnergyDerRecordDerDevices {
     private StatusEnum status;
 
     /**
-     * Used to indicate the primary technology used in the DER device
+     * Used to indicate the primary technology used in the DER device.
      */
     public enum TypeEnum {
         FOSSIL,
@@ -78,12 +78,12 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Unique identifier for a single DER device or a group of DER devices with the same attributes. Does not align with CDR ID permanence standards
+     * Unique identifier for a single DER device or a group of DER devices with the same attributes. Does not align with CDR ID permanence standards.
      *
      * @return deviceIdentifier
      */
     @ApiModelProperty(required = true,
-            value = "Unique identifier for a single DER device or a group of DER devices with the same attributes. Does not align with CDR ID permanence standards")
+            value = "Unique identifier for a single DER device or a group of DER devices with the same attributes. Does not align with CDR ID permanence standards.")
     @NotNull
     @Valid
     public BigDecimal getDeviceIdentifier() {
@@ -121,11 +121,11 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * The name of the device manufacturer. If absent then assumed to be “unknown”
+     * The name of the device manufacturer. If absent then assumed to be \"unknown\".
      *
      * @return manufacturer
      */
-    @ApiModelProperty(value = "The name of the device manufacturer. If absent then assumed to be “unknown”")
+    @ApiModelProperty(value = "The name of the device manufacturer. If absent then assumed to be \"unknown\".")
     public String getManufacturer() {
         return manufacturer;
     }
@@ -140,11 +140,11 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * The model number of the device. If absent then assumed to be “unknown”
+     * The model number of the device. If absent then assumed to be \"unknown\".
      *
      * @return modelNumber
      */
-    @ApiModelProperty(value = "The model number of the device. If absent then assumed to be “unknown”")
+    @ApiModelProperty(value = "The model number of the device. If absent then assumed to be \"unknown\".")
     public String getModelNumber() {
         return modelNumber;
     }
@@ -159,11 +159,11 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned
+     * Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned.
      *
      * @return status
      */
-    @ApiModelProperty(value = "Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned")
+    @ApiModelProperty(value = "Code used to indicate the status of the device. This will be used to identify if an inverter is active or inactive or decommissioned.")
     public StatusEnum getStatus() {
         return status;
     }
@@ -178,12 +178,12 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Used to indicate the primary technology used in the DER device
+     * Used to indicate the primary technology used in the DER device.
      *
      * @return type
      */
     @ApiModelProperty(required = true,
-            value = "Used to indicate the primary technology used in the DER device")
+            value = "Used to indicate the primary technology used in the DER device.")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -199,11 +199,11 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Used to indicate the primary technology used in the DER device. This field is also used to record for example the battery chemistry, or the type of PV panel. It is also used to record if a battery is contained in an electric vehicle connected in a vehicle-to-grid arrangement. If absent then assumed to be “other”
+     * Used to indicate the primary technology used in the DER device. This field is also used to record for example the battery chemistry, or the type of PV panel. It is also used to record if a battery is contained in an electric vehicle connected in a vehicle-to-grid arrangement. If absent then assumed to be \"other\".
      *
      * @return subtype
      */
-    @ApiModelProperty(value = "Used to indicate the primary technology used in the DER device. This field is also used to record for example the battery chemistry, or the type of PV panel. It is also used to record if a battery is contained in an electric vehicle connected in a vehicle-to-grid arrangement. If absent then assumed to be “other”")
+    @ApiModelProperty(value = "Used to indicate the primary technology used in the DER device. This field is also used to record for example the battery chemistry, or the type of PV panel. It is also used to record if a battery is contained in an electric vehicle connected in a vehicle-to-grid arrangement. If absent then assumed to be \"other\".")
     public String getSubtype() {
         return subtype;
     }
@@ -218,12 +218,12 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group. Default is 0 if value not known
+     * Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group. Default is `0` if value not known.
      *
      * @return nominalRatedCapacity
      */
     @ApiModelProperty(required = true,
-            value = "Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group. Default is 0 if value not known")
+            value = "Maximum output in kVA that is listed in the product specification by the manufacturer. This refers to the capacity of each unit within the device group. Default is `0` if value not known.")
     @NotNull
     @Valid
     public BigDecimal getNominalRatedCapacity() {
@@ -240,11 +240,11 @@ public class EnergyDerRecordDerDevices {
     }
 
     /**
-     * Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to “STORAGE”. Default is 0 if value not known
+     * Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to `STORAGE`. Default is `0` if value not known.
      *
      * @return nominalStorageCapacity
      */
-    @ApiModelProperty(value = "Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to “STORAGE”. Default is 0 if value not known")
+    @ApiModelProperty(value = "Maximum storage capacity in kVAh. This refers to the capacity of each storage module within the device group. Mandatory if type is equal to `STORAGE`. Default is `0` if value not known.")
     @Valid
     public BigDecimal getNominalStorageCapacity() {
         return nominalStorageCapacity;

@@ -36,6 +36,9 @@ public class EnergyAccountPlans {
     @ElementCollection
     private List<String> servicePointIds = new ArrayList<>();
 
+    /**
+     * Mandatory if _openStatus_ is `OPEN`.
+     */
     @OneToOne(cascade = CascadeType.ALL)
     private EnergyAccountPlanOverview planOverview;
 
@@ -45,11 +48,11 @@ public class EnergyAccountPlans {
     }
 
     /**
-     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+     * Optional display name for the plan provided by the customer to help differentiate multiple plans.
      *
      * @return nickname
      */
-    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans")
+    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans.")
     public String getNickname() {
         return nickname;
     }
@@ -69,12 +72,12 @@ public class EnergyAccountPlans {
     }
 
     /**
-     * An array of servicePointIds, representing NMIs, that this plan is linked to.  If there are no service points allocated to this plan then an empty array would be expected
+     * An array of _servicePointId_ values, representing NMIs, that this plan is linked to. If there are no service points allocated to this plan then an empty array would be expected.
      *
      * @return servicePointIds
      */
     @ApiModelProperty(required = true,
-            value = "An array of servicePointIds, representing NMIs, that this plan is linked to.  If there are no service points allocated to this plan then an empty array would be expected")
+            value = "An array of _servicePointId_ values, representing NMIs, that this plan is linked to. If there are no service points allocated to this plan then an empty array would be expected.")
     @NotNull
     public List<String> getServicePointIds() {
         return servicePointIds;
@@ -90,12 +93,11 @@ public class EnergyAccountPlans {
     }
 
     /**
-     * Get planOverview
+     * Mandatory if _openStatus_ is `OPEN`.
      *
      * @return planOverview
      */
-    @ApiModelProperty(required = true, value = "")
-    @NotNull
+    @ApiModelProperty(value = "Mandatory if _openStatus_ is `OPEN`.")
     @Valid
     public EnergyAccountPlanOverview getPlanOverview() {
         return planOverview;

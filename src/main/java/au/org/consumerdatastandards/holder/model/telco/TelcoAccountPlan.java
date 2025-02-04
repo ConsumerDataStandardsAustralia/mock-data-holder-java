@@ -47,11 +47,11 @@ public class TelcoAccountPlan {
     }
 
     /**
-     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+     * Optional display name for the plan provided by the customer to help differentiate multiple plans.
      *
      * @return nickname
      */
-    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans")
+    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans.")
     public String getNickname() {
         return nickname;
     }

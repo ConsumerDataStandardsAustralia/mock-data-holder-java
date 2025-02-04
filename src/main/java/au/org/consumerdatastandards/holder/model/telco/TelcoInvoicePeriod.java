@@ -26,12 +26,12 @@ public class TelcoInvoicePeriod {
     }
 
     /**
-     * The start date of the period covered by this invoice
+     * The start date of the period covered by this invoice.
      *
      * @return startDate
      */
     @ApiModelProperty(required = true,
-            value = "The start date of the period covered by this invoice")
+            value = "The start date of the period covered by this invoice.")
     @NotNull
 
 
@@ -49,12 +49,12 @@ public class TelcoInvoicePeriod {
     }
 
     /**
-     * The end date of the period covered by this invoice
+     * The end date of the period covered by this invoice.
      *
      * @return endDate
      */
     @ApiModelProperty(required = true,
-            value = "The end date of the period covered by this invoice")
+            value = "The end date of the period covered by this invoice.")
     @NotNull
 
 

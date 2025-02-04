@@ -32,7 +32,7 @@ public class EnergyDerRecordAcConnections {
     private Integer count;
 
     /**
-     * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
+     * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g., rotating machine). If absent, assume equipment type to be `OTHER`.
      */
     public enum EquipmentTypeEnum {
         INVERTER,
@@ -50,7 +50,7 @@ public class EnergyDerRecordAcConnections {
     private String commissioningDate;
 
     /**
-     * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned
+     * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned.
      */
     public enum StatusEnum {
         ACTIVE,
@@ -80,12 +80,12 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * AC Connection ID as defined in the DER register.  Does not align with CDR ID permanence standards
+     * AC Connection ID as defined in the DER register. Does not align with CDR ID permanence standards.
      *
      * @return connectionIdentifier
      */
     @ApiModelProperty(required = true,
-            value = "AC Connection ID as defined in the DER register.  Does not align with CDR ID permanence standards")
+            value = "AC Connection ID as defined in the DER register. Does not align with CDR ID permanence standards.")
     @NotNull
     @Valid
     public BigDecimal getConnectionIdentifier() {
@@ -102,12 +102,12 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes
+     * Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes.
      *
      * @return count
      */
     @ApiModelProperty(required = true,
-            value = "Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes")
+            value = "Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes.")
     public Integer getCount() {
         return count;
     }
@@ -122,11 +122,11 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
+     * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g., rotating machine). If absent, assume equipment type to be `OTHER`.
      *
      * @return equipmentType
      */
-    @ApiModelProperty(value = "Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.")
+    @ApiModelProperty(value = "Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g., rotating machine). If absent, assume equipment type to be `OTHER`.")
     public EquipmentTypeEnum getEquipmentType() {
         return equipmentType;
     }
@@ -141,11 +141,11 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * The name of the inverter manufacturer. Mandatory if equipmentType is INVERTER
+     * The name of the inverter manufacturer. Mandatory if _equipmentType_ is `INVERTER`.
      *
      * @return manufacturerName
      */
-    @ApiModelProperty(value = "The name of the inverter manufacturer. Mandatory if equipmentType is INVERTER")
+    @ApiModelProperty(value = "The name of the inverter manufacturer. Mandatory if _equipmentType_ is `INVERTER`.")
     public String getManufacturerName() {
         return manufacturerName;
     }
@@ -160,11 +160,11 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * The inverter series. Mandatory if equipmentType is INVERTER
+     * The inverter series. Mandatory if _equipmentType_ is `INVERTER`.
      *
      * @return inverterSeries
      */
-    @ApiModelProperty(value = "The inverter series. Mandatory if equipmentType is INVERTER")
+    @ApiModelProperty(value = "The inverter series. Mandatory if _equipmentType_ is `INVERTER`.")
     public String getInverterSeries() {
         return inverterSeries;
     }
@@ -179,11 +179,11 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * The inverter model number. Mandatory if equipmentType is INVERTER
+     * The inverter model number. Mandatory if _equipmentType_ is `INVERTER`.
      *
      * @return inverterModelNumber
      */
-    @ApiModelProperty(value = "The inverter model number. Mandatory if equipmentType is INVERTER")
+    @ApiModelProperty(value = "The inverter model number. Mandatory if _equipmentType_ is `INVERTER`.")
     public String getInverterModelNumber() {
         return inverterModelNumber;
     }
@@ -198,11 +198,11 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * The date that the DER installation is commissioned
+     * The date that the DER installation is commissioned.
      *
      * @return commissioningDate
      */
-    @ApiModelProperty(required = true, value = "The date that the DER installation is commissioned")
+    @ApiModelProperty(required = true, value = "The date that the DER installation is commissioned.")
     @NotNull
     public String getCommissioningDate() {
         return commissioningDate;
@@ -218,12 +218,12 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned
+     * Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned.
      *
      * @return status
      */
     @ApiModelProperty(required = true,
-            value = "Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned")
+            value = "Code used to indicate the status of the Inverter. This will be used to identify if an inverter is active or inactive or decommissioned.")
     @NotNull
     public StatusEnum getStatus() {
         return status;
@@ -239,11 +239,11 @@ public class EnergyDerRecordAcConnections {
     }
 
     /**
-     * The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER. Default is 0 if value not known
+     * The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if _equipmentType_ is `INVERTER`. Default is `0` if value not known.
      *
      * @return inverterDeviceCapacity
      */
-    @ApiModelProperty(value = "The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if equipmentType is INVERTER. Default is 0 if value not known")
+    @ApiModelProperty(value = "The rated AC output power that is listed in the product specified by the manufacturer. Mandatory if _equipmentType_ is `INVERTER`. Default is `0` if value not known.")
     @Valid
     public BigDecimal getInverterDeviceCapacity() {
         return inverterDeviceCapacity;

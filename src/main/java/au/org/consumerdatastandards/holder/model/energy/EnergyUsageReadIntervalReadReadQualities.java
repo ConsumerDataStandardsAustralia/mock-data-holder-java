@@ -18,7 +18,7 @@ import java.util.Objects;
  * If not present, all quality of all reads are assumed to be actual.
  * Required when interval-reads query parameter equals FULL or MIN_30
  */
-@ApiModel(description = "Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30")
+@ApiModel(description = "Specifies quality of reads that are not `ACTUAL`. For read indices that are not specified, quality is assumed to be `ACTUAL`. If not present, all quality of all reads are assumed to be actual. Required when _interval-reads_ query parameter equals `FULL` or `MIN_30`.")
 @Entity(name = "e_read_qualities")
 public class EnergyUsageReadIntervalReadReadQualities {
 
@@ -48,11 +48,11 @@ public class EnergyUsageReadIntervalReadReadQualities {
     private QualityEnum quality;
 
     /**
-     * Start interval for read quality flag. First read begins at 1
+     * Start interval for read quality flag. First read begins at `1`.
      *
      * @return startInterval
      */
-    @ApiModelProperty(required = true, value = "Start interval for read quality flag. First read begins at 1")
+    @ApiModelProperty(required = true, value = "Start interval for read quality flag. First read begins at `1`.")
     @NotNull
     @Valid
     public Integer getStartInterval() {
@@ -64,11 +64,11 @@ public class EnergyUsageReadIntervalReadReadQualities {
     }
 
     /**
-     * End interval for read quality flag
+     * End interval for read quality flag.
      *
      * @return endInterval
      */
-    @ApiModelProperty(required = true, value = "End interval for read quality flag")
+    @ApiModelProperty(required = true, value = "End interval for read quality flag.")
     @NotNull
     @Valid
     public Integer getEndInterval() {
@@ -85,11 +85,11 @@ public class EnergyUsageReadIntervalReadReadQualities {
     }
 
     /**
-     * The quality of the read taken
+     * The quality of the read taken.
      *
      * @return quality
      */
-    @ApiModelProperty(value = "The quality of the read taken")
+    @ApiModelProperty(value = "The quality of the read taken.")
     public QualityEnum getQuality() {
         return quality;
     }

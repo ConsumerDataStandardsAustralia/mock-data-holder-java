@@ -10,7 +10,7 @@ import java.util.Objects;
 public class RequestAccountIdsData {
 
     /**
-     * Array of _accountId_ values.
+     * Array of specific _accountId_ values to obtain data for.
      */
     private List<String> accountIds;
 
@@ -24,7 +24,7 @@ public class RequestAccountIdsData {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Array of _accountId_ values.")
+    @ApiModelProperty(required = true, value = "Array of specific _accountId_ values to obtain data for.")
     public List<String> getAccountIds() {
         return accountIds;
     }

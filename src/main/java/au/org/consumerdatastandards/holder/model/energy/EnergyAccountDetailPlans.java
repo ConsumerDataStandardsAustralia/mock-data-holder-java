@@ -61,11 +61,11 @@ public class EnergyAccountDetailPlans {
     }
 
     /**
-     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+     * Optional display name for the plan provided by the customer to help differentiate multiple plans.
      *
      * @return nickname
      */
-    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans")
+    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans.")
     public String getNickname() {
         return nickname;
     }
@@ -85,12 +85,12 @@ public class EnergyAccountDetailPlans {
     }
 
     /**
-     * An array of servicePointIds, representing NMIs, that this account is linked to
+     * An array of _servicePointId_ values, representing NMIs, that this account is linked to.
      *
      * @return servicePointIds
      */
     @ApiModelProperty(required = true,
-            value = "An array of servicePointIds, representing NMIs, that this account is linked to")
+            value = "An array of _servicePointId_ values, representing NMIs, that this account is linked to.")
     @NotNull
     public List<String> getServicePointIds() {
         return servicePointIds;
@@ -156,11 +156,11 @@ public class EnergyAccountDetailPlans {
     }
 
     /**
-     * An array of additional contacts that are authorised to act on this account
+     * An array of additional contacts that are authorised to act on this account.
      *
      * @return authorisedContacts
      */
-    @ApiModelProperty(value = "An array of additional contacts that are authorised to act on this account")
+    @ApiModelProperty(value = "An array of additional contacts that are authorised to act on this account.")
     @Valid
     public List<EnergyAccountDetailAuthorisedContacts> getAuthorisedContacts() {
         return authorisedContacts;

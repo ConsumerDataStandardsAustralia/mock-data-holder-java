@@ -191,11 +191,11 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * The fuel types covered by the plan
+     * The fuel types covered by the plan.
      *
      * @return fuelType
      */
-    @ApiModelProperty(required = true, value = "The fuel types covered by the plan")
+    @ApiModelProperty(required = true, value = "The fuel types covered by the plan.")
     @NotNull
     @Override
     public FuelTypeEnum getFuelType() {

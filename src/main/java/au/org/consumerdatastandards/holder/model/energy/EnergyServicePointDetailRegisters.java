@@ -32,7 +32,7 @@ public class EnergyServicePointDetailRegisters {
     private BigDecimal averagedDailyLoad;
 
     /**
-     * Indicates the consumption type of register
+     * Indicates the consumption type of register.
      */
     public enum RegisterConsumptionTypeEnum {
         INTERVAL,
@@ -51,7 +51,7 @@ public class EnergyServicePointDetailRegisters {
     private String unitOfMeasure;
 
     /**
-     * Code to identify the time validity of register contents
+     * Code to identify the time validity of register contents.
      */
     public enum TimeOfDayEnum {
         ALLDAY,
@@ -72,7 +72,7 @@ public class EnergyServicePointDetailRegisters {
     private Boolean controlledLoad;
 
     /**
-     * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>
+     * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>`ACTUAL`: implies volume of energy actually metered between two dates</li><li>`CUMULATIVE`: indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates.</li></ul>
      */
     public enum ConsumptionTypeEnum {
         ACTUAL,
@@ -95,12 +95,12 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * Unique identifier of the register within this service point.  Is not globally unique
+     * Unique identifier of the register within this service point. Is not globally unique.
      *
      * @return registerId
      */
     @ApiModelProperty(required = true,
-            value = "Unique identifier of the register within this service point.  Is not globally unique")
+            value = "Unique identifier of the register within this service point. Is not globally unique.")
     @NotNull
     public String getRegisterId() {
         return registerId;
@@ -155,11 +155,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * Indicates the consumption type of register
+     * Indicates the consumption type of register.
      *
      * @return registerConsumptionType
      */
-    @ApiModelProperty(required = true, value = "Indicates the consumption type of register")
+    @ApiModelProperty(required = true, value = "Indicates the consumption type of register.")
     @NotNull
     public RegisterConsumptionTypeEnum getRegisterConsumptionType() {
         return registerConsumptionType;
@@ -175,11 +175,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider
+     * The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider.
      *
      * @return networkTariffCode
      */
-    @ApiModelProperty(value = "The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider")
+    @ApiModelProperty(value = "The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider.")
     public String getNetworkTariffCode() {
         return networkTariffCode;
     }
@@ -194,11 +194,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * The unit of measure for data held in this register
+     * The unit of measure for data held in this register.
      *
      * @return unitOfMeasure
      */
-    @ApiModelProperty(value = "The unit of measure for data held in this register")
+    @ApiModelProperty(value = "The unit of measure for data held in this register.")
     public String getUnitOfMeasure() {
         return unitOfMeasure;
     }
@@ -213,11 +213,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * Code to identify the time validity of register contents
+     * Code to identify the time validity of register contents.
      *
      * @return timeOfDay
      */
-    @ApiModelProperty(value = "Code to identify the time validity of register contents")
+    @ApiModelProperty(value = "Code to identify the time validity of register contents.")
     public TimeOfDayEnum getTimeOfDay() {
         return timeOfDay;
     }
@@ -232,11 +232,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * Multiplier required to take a register value and turn it into a value representing billable energy
+     * Multiplier required to take a register value and turn it into a value representing billable energy.
      *
      * @return multiplier
      */
-    @ApiModelProperty(value = "Multiplier required to take a register value and turn it into a value representing billable energy")
+    @ApiModelProperty(value = "Multiplier required to take a register value and turn it into a value representing billable energy.")
     @Valid
     public BigDecimal getMultiplier() {
         return multiplier;
@@ -271,11 +271,11 @@ public class EnergyServicePointDetailRegisters {
     }
 
     /**
-     * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>
+     * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>`ACTUAL`: implies volume of energy actually metered between two dates</li><li>`CUMULATIVE`: indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates.</li></ul>
      *
      * @return consumptionType
      */
-    @ApiModelProperty(value = "Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>")
+    @ApiModelProperty(value = "Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>`ACTUAL`: implies volume of energy actually metered between two dates</li><li>`CUMULATIVE`: indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates.</li></ul>")
     public ConsumptionTypeEnum getConsumptionType() {
         return consumptionType;
     }

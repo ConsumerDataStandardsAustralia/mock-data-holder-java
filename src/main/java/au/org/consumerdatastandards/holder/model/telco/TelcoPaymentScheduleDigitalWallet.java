@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
+ * Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.
  */
-@ApiModel(description = "Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet")
+@ApiModel(description = "Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.")
 public class TelcoPaymentScheduleDigitalWallet {
     private String name;
 
@@ -42,7 +42,7 @@ public class TelcoPaymentScheduleDigitalWallet {
     private String paymentFrequency;
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      */
     public enum CalculationTypeEnum {
         STATIC,
@@ -141,12 +141,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return paymentFrequency
      */
     @ApiModelProperty(required = true,
-            value = "The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+            value = "The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     @NotNull
     public String getPaymentFrequency() {
         return paymentFrequency;
@@ -162,12 +162,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      *
      * @return calculationType
      */
     @ApiModelProperty(required = true,
-            value = "The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>")
+            value = "The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br/><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>")
     @NotNull
     public CalculationTypeEnum getCalculationType() {
         return calculationType;

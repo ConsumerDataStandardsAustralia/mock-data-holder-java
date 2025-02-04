@@ -21,7 +21,7 @@ public class TelcoBillingOtherTransaction {
     private String endDate;
 
     /**
-     * Type of charge. Assumed to be OTHER if absent
+     * Type of charge. Assumed to be other if absent.
      */
     public enum TypeEnum {
         SERVICE,
@@ -122,11 +122,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Type of charge. Assumed to be OTHER if absent
+     * Type of charge. Assumed to be other if absent.
      *
      * @return type
      */
-    @ApiModelProperty(value = "Type of charge. Assumed to be OTHER if absent")
+    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent.")
     public TypeEnum getType() {
         return type;
     }

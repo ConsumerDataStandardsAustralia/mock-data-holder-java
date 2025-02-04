@@ -73,11 +73,11 @@ public class EnergyInvoiceUsageChargesOtherCharges {
     }
 
     /**
-     * The aggregate total of charges for this item (exclusive of GST)
+     * The aggregate total of charges for this item (exclusive of GST).
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The aggregate total of charges for this item (exclusive of GST)")
+    @ApiModelProperty(required = true, value = "The aggregate total of charges for this item (exclusive of GST).")
     @NotNull
     public String getAmount() {
         return amount;
@@ -93,11 +93,11 @@ public class EnergyInvoiceUsageChargesOtherCharges {
     }
 
     /**
-     * A free text description of the type of charge
+     * A free text description of the type of charge.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "A free text description of the type of charge")
+    @ApiModelProperty(required = true, value = "A free text description of the type of charge.")
     @NotNull
     public String getDescription() {
         return description;
