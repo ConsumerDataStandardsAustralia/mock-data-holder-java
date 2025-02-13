@@ -116,11 +116,11 @@ public class EnergyPlanControlledLoad {
     }
 
     /**
-     * Optional start date of the application of the controlled load rate..
+     * Optional start date of the application of the controlled load rate.
      *
      * @return startDate
      */
-    @ApiModelProperty("Optional start date of the application of the controlled load rate..")
+    @ApiModelProperty("Optional start date of the application of the controlled load rate.")
     public LocalDate getStartDate() {
         return startDate;
     }

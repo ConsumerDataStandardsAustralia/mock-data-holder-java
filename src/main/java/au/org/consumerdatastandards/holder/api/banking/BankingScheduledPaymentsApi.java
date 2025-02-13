@@ -164,12 +164,12 @@ public interface BankingScheduledPaymentsApi {
             value = "Used to filter results on the _productCategory_ field applicable to accounts. Any one of the valid values for this field can be supplied. If absent then all accounts returned."
         ) @RequestParam(value = "product-category", required = false) ParamProductCategory productCategory,
         @ApiParam(
-            value = "Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed..",
+            value = "Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed.",
             allowableValues = "OPEN, CLOSED, ALL",
             defaultValue = "ALL"
         ) @RequestParam(value = "open-status", required = false, defaultValue = "ALL") ParamAccountOpenStatus openStatus,
         @ApiParam(
-            value = "Filters accounts based on whether they are owned by the authorised customer. `true` for owned accounts, `false` for unowned accounts and absent for all accounts.."
+            value = "Filters accounts based on whether they are owned by the authorised customer. `true` for owned accounts, `false` for unowned accounts and absent for all accounts."
         ) @RequestParam(value = "is-owned", required = false) Boolean isOwned,
         @ApiParam(
             value = "Page of results to request (standard pagination).",

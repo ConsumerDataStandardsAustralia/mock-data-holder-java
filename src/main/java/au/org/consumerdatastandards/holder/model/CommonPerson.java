@@ -50,7 +50,7 @@ public class CommonPerson  {
     private String lastName;
 
     /**
-     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data..
+     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data.
      */
     private OffsetDateTime lastUpdateTime;
 
@@ -123,7 +123,7 @@ public class CommonPerson  {
         return this;
     }
 
-    @ApiModelProperty(value = "The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data..")
+    @ApiModelProperty(value = "The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data.")
     public OffsetDateTime getLastUpdateTime() {
         return lastUpdateTime;
     }

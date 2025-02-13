@@ -115,7 +115,7 @@ public class BankingProductDetailV4 implements BankingProductDetail {
     private List<BankingProductBundle> bundles = null;
 
     /**
-     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds..
+     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -126,7 +126,7 @@ public class BankingProductDetailV4 implements BankingProductDetail {
     private List<BankingProductConstraint> constraints = null;
 
     /**
-     * Interest rates available for deposits..
+     * Interest rates available for deposits.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -137,7 +137,7 @@ public class BankingProductDetailV4 implements BankingProductDetail {
     private List<BankingProductDepositRateV2> depositRates = null;
 
     /**
-     * Eligibility criteria for the product..
+     * Eligibility criteria for the product.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -167,7 +167,7 @@ public class BankingProductDetailV4 implements BankingProductDetail {
     private List<BankingProductFee> fees = null;
 
     /**
-     * Interest rates charged against lending balances..
+     * Interest rates charged against lending balances.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
