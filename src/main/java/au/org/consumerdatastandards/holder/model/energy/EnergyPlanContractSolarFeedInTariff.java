@@ -66,6 +66,8 @@ public interface EnergyPlanContractSolarFeedInTariff {
      */
     public enum SchemeEnum {
         PREMIUM,
+        CURRENT,
+        VARIABLE,
         OTHER
     }
 

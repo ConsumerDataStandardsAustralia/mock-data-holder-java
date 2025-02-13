@@ -21,12 +21,12 @@ import java.util.Objects;
 
 /**
  * Represents a tariff based on time. Mandatory if _tariffUType_ is set to `timeVaryingTariffs`.
- * V2 - since 1.24.0
+ * V3 - since 1.30.0
  */
 @ApiModel(description = "Represents a tariff based on time. Mandatory if _tariffUType_ is set to `timeVaryingTariffs`.")
 @Entity
 @Table(name = "e_plan_time_var_tariff")
-public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContractTimeVaryingTariffs {
+public class EnergyPlanContractTimeVaryingTariffsV3 implements EnergyPlanContractTimeVaryingTariffs {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
@@ -50,6 +50,10 @@ public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContrac
             joinColumns = @JoinColumn(name = "e_time_var_tariff_id"),
             inverseJoinColumns = @JoinColumn(name = "time_var_id"))
     private List<EnergyPlanContractTimeVaryingTariffsTimeVariations> timeVariations = new ArrayList<>();
+
+    private String displayName;
+
+    private String period;
 
     public String getId() {
         return id;
@@ -123,6 +127,35 @@ public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContrac
         this.timeVariations = timeVariations;
     }
 
+    /**
+     * Display name of the tariff.
+     *
+     * @return displayName
+     */
+    @ApiModelProperty(required = true, value = "Display name of the tariff.")
+    @NotNull
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax). Defaults to `P1Y` if absent.
+     *
+     * @return period
+     */
+    @ApiModelProperty(value = "Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax). Defaults to `P1Y` if absent.")
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -131,15 +164,17 @@ public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContrac
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanContractTimeVaryingTariffsV2 energyPlanContractTimeVaryingTariffs = (EnergyPlanContractTimeVaryingTariffsV2) o;
+        EnergyPlanContractTimeVaryingTariffsV3 energyPlanContractTimeVaryingTariffs = (EnergyPlanContractTimeVaryingTariffsV3) o;
         return Objects.equals(this.type, energyPlanContractTimeVaryingTariffs.type) &&
                 Objects.equals(this.rates, energyPlanContractTimeVaryingTariffs.rates) &&
-                Objects.equals(this.timeVariations, energyPlanContractTimeVaryingTariffs.timeVariations);
+                Objects.equals(this.timeVariations, energyPlanContractTimeVaryingTariffs.timeVariations) &&
+                Objects.equals(this.displayName, energyPlanContractTimeVaryingTariffs.displayName) &&
+                Objects.equals(this.period, energyPlanContractTimeVaryingTariffs.period);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, rates, timeVariations);
+        return Objects.hash(type, rates, timeVariations, displayName, period);
     }
 
     @Override
@@ -149,6 +184,8 @@ public class EnergyPlanContractTimeVaryingTariffsV2 implements EnergyPlanContrac
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
         sb.append("    timeVariations: ").append(toIndentedString(timeVariations)).append("\n");
+        sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+        sb.append("    period: ").append(toIndentedString(period)).append("\n");
         sb.append("}");
         return sb.toString();
     }

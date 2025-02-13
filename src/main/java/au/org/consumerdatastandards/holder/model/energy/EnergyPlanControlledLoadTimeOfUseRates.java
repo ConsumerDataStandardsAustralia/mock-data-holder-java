@@ -8,6 +8,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,7 +21,7 @@ import java.util.Objects;
 /**
  * EnergyPlanControlledLoadTimeOfUseRates
  */
-@Entity(name = "e_ctrled_load_tow_rates")
+@MappedSuperclass
 public class EnergyPlanControlledLoadTimeOfUseRates {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -34,10 +37,18 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_c_l_rates_rates",
+            joinColumns = @JoinColumn(name = "c_l_rate_id"),
+            inverseJoinColumns = @JoinColumn(name = "e_rate_id"))
     private List<EnergyRates> rates = new ArrayList<>();
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_c_l_rates_tou",
+            joinColumns = @JoinColumn(name = "c_l_rate_id"),
+            inverseJoinColumns = @JoinColumn(name = "e_tou_id"))
     private List<EnergyPlanControlledLoadTimeOfUse> timeOfUse = new ArrayList<>();
 
     public String getId() {
@@ -209,16 +220,18 @@ public class EnergyPlanControlledLoadTimeOfUseRates {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanControlledLoadTimeOfUseRates {\n");
+        StringBuilder sb = new StringBuilder(getClass().getSimpleName()).append("{\n");
+        stringProperties(sb);
+        return sb.append("}").toString();
+    }
+
+    protected void stringProperties(StringBuilder sb) {
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    dailySupplyCharge: ").append(toIndentedString(dailySupplyCharge)).append("\n");
         sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
         sb.append("    timeOfUse: ").append(toIndentedString(timeOfUse)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("}");
-        return sb.toString();
     }
 
     /**

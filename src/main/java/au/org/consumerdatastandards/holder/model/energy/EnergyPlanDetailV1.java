@@ -71,9 +71,17 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     private List<MeteringCharges> meteringCharges = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_gas_contract",
+            joinColumns = @JoinColumn(name = "plan_id"),
+            inverseJoinColumns = @JoinColumn(name = "gas_contract_id"))
     private EnergyPlanContractFullV1 gasContract;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_el_contract",
+            joinColumns = @JoinColumn(name = "plan_id"),
+            inverseJoinColumns = @JoinColumn(name = "el_contract_id"))
     private EnergyPlanContractFullV1 electricityContract;
 
     /**
@@ -291,7 +299,7 @@ public class EnergyPlanDetailV1 implements EnergyPlanDetail {
     }
 
     /**
-     * Describes the geographical area that the plan is available for. If absent then it is assumed the plan is not geographically limited
+     * Describes the geographical area that the plan is available for. If absent then it is assumed the plan is not geographically limited.
      *
      * @return geography
      */

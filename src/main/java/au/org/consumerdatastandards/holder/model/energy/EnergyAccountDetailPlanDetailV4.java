@@ -26,7 +26,7 @@ import java.util.Objects;
 @ApiModel(description = "Detail on the plan applicable to this account")
 @Entity
 @Table(name = "e_account_plan_detail")
-public class EnergyAccountDetailPlanDetailV3 {
+public class EnergyAccountDetailPlanDetailV4 {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -51,16 +51,16 @@ public class EnergyAccountDetailPlanDetailV3 {
             name = "e_account_plan_gas_contract",
             joinColumns = @JoinColumn(name = "acct_plan_detail_id"),
             inverseJoinColumns = @JoinColumn(name = "gas_contract_id"))
-    private EnergyPlanContractV2 gasContract;
+    private EnergyPlanContractV3 gasContract;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(
             name = "e_account_plan_el_contract",
             joinColumns = @JoinColumn(name = "acct_plan_detail_id"),
             inverseJoinColumns = @JoinColumn(name = "el_contract_id"))
-    private EnergyPlanContractV2 electricityContract;
+    private EnergyPlanContractV3 electricityContract;
 
-    public EnergyAccountDetailPlanDetailV3 fuelType(FuelTypeEnum fuelType) {
+    public EnergyAccountDetailPlanDetailV4 fuelType(FuelTypeEnum fuelType) {
         this.fuelType = fuelType;
         return this;
     }
@@ -88,7 +88,7 @@ public class EnergyAccountDetailPlanDetailV3 {
         this.fuelType = fuelType;
     }
 
-    public EnergyAccountDetailPlanDetailV3 isContingentPlan(Boolean isContingentPlan) {
+    public EnergyAccountDetailPlanDetailV4 isContingentPlan(Boolean isContingentPlan) {
         this.isContingentPlan = isContingentPlan;
         return this;
     }
@@ -107,12 +107,12 @@ public class EnergyAccountDetailPlanDetailV3 {
         this.isContingentPlan = isContingentPlan;
     }
 
-    public EnergyAccountDetailPlanDetailV3 meteringCharges(List<MeteringCharges> meteringCharges) {
+    public EnergyAccountDetailPlanDetailV4 meteringCharges(List<MeteringCharges> meteringCharges) {
         this.meteringCharges = meteringCharges;
         return this;
     }
 
-    public EnergyAccountDetailPlanDetailV3 addMeteringChargesItem(MeteringCharges meteringChargesItem) {
+    public EnergyAccountDetailPlanDetailV4 addMeteringChargesItem(MeteringCharges meteringChargesItem) {
         if (this.meteringCharges == null) {
             this.meteringCharges = new ArrayList<>();
         }
@@ -135,7 +135,7 @@ public class EnergyAccountDetailPlanDetailV3 {
         this.meteringCharges = meteringCharges;
     }
 
-    public EnergyAccountDetailPlanDetailV3 gasContract(EnergyPlanContractV2 gasContract) {
+    public EnergyAccountDetailPlanDetailV4 gasContract(EnergyPlanContractV3 gasContract) {
         this.gasContract = gasContract;
         return this;
     }
@@ -147,15 +147,15 @@ public class EnergyAccountDetailPlanDetailV3 {
      */
     @ApiModelProperty(value = "")
     @Valid
-    public EnergyPlanContractV2 getGasContract() {
+    public EnergyPlanContractV3 getGasContract() {
         return gasContract;
     }
 
-    public void setGasContract(EnergyPlanContractV2 gasContract) {
+    public void setGasContract(EnergyPlanContractV3 gasContract) {
         this.gasContract = gasContract;
     }
 
-    public EnergyAccountDetailPlanDetailV3 electricityContract(EnergyPlanContractV2 electricityContract) {
+    public EnergyAccountDetailPlanDetailV4 electricityContract(EnergyPlanContractV3 electricityContract) {
         this.electricityContract = electricityContract;
         return this;
     }
@@ -167,11 +167,11 @@ public class EnergyAccountDetailPlanDetailV3 {
      */
     @ApiModelProperty(value = "")
     @Valid
-    public EnergyPlanContractV2 getElectricityContract() {
+    public EnergyPlanContractV3 getElectricityContract() {
         return electricityContract;
     }
 
-    public void setElectricityContract(EnergyPlanContractV2 electricityContract) {
+    public void setElectricityContract(EnergyPlanContractV3 electricityContract) {
         this.electricityContract = electricityContract;
     }
 
@@ -183,7 +183,7 @@ public class EnergyAccountDetailPlanDetailV3 {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccountDetailPlanDetailV3 energyAccountDetailPlanDetail = (EnergyAccountDetailPlanDetailV3) o;
+        EnergyAccountDetailPlanDetailV4 energyAccountDetailPlanDetail = (EnergyAccountDetailPlanDetailV4) o;
         return Objects.equals(this.fuelType, energyAccountDetailPlanDetail.fuelType) &&
                 Objects.equals(this.isContingentPlan, energyAccountDetailPlanDetail.isContingentPlan) &&
                 Objects.equals(this.meteringCharges, energyAccountDetailPlanDetail.meteringCharges) &&
@@ -199,7 +199,7 @@ public class EnergyAccountDetailPlanDetailV3 {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountDetailPlanDetailV3 {\n");
+        sb.append("class EnergyAccountDetailPlanDetailV4 {\n");
         sb.append("    fuelType: ").append(toIndentedString(fuelType)).append("\n");
         sb.append("    isContingentPlan: ").append(toIndentedString(isContingentPlan)).append("\n");
         sb.append("    meteringCharges: ").append(toIndentedString(meteringCharges)).append("\n");

@@ -21,12 +21,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyPlanContractV2
+ * EnergyPlanContractFullV3
  */
 @Entity
 @Table(name = "e_plan_contract")
-public class EnergyPlanContractV2 implements EnergyPlanContract {
-
+public class EnergyPlanContractFullV3 implements EnergyPlanContractFull {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
@@ -61,7 +60,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
             name = "e_plan_contract_ctrl_load",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "ctrl_load_id"))
-    private List<EnergyPlanControlledLoadV1> controlledLoad;
+    private List<EnergyPlanControlledLoadV2> controlledLoad;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
@@ -109,7 +108,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
             name = "e_plan_contract_solar_fit",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "solar_fit_id"))
-    private List<EnergyPlanContractSolarFeedInTariffV2> solarFeedInTariff = null;
+    private List<EnergyPlanContractSolarFeedInTariffV3> solarFeedInTariff = null;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
@@ -117,7 +116,23 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
             name = "e_plan_contract_tariff_periods",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "tariff_period_id"))
-    private List<EnergyPlanContractTariffPeriodV1> tariffPeriod = new ArrayList<>();
+    private List<EnergyPlanContractTariffPeriodV2> tariffPeriod = new ArrayList<>();
+
+    private TermTypeEnum termType;
+
+    private String benefitPeriod;
+
+    private String terms;
+
+    @Valid
+    @ElementCollection
+    private List<String> meterTypes = null;
+
+    private Integer coolingOffDays;
+
+    @Valid
+    @ElementCollection
+    private List<String> billFrequency = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -127,7 +142,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.id = id;
     }
 
-    public EnergyPlanContract additionalFeeInformation(String additionalFeeInformation) {
+    public EnergyPlanContractFull additionalFeeInformation(String additionalFeeInformation) {
         this.additionalFeeInformation = additionalFeeInformation;
         return this;
     }
@@ -148,7 +163,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.additionalFeeInformation = additionalFeeInformation;
     }
 
-    public EnergyPlanContract pricingModel(PricingModelEnum pricingModel) {
+    public EnergyPlanContractFull pricingModel(PricingModelEnum pricingModel) {
         this.pricingModel = pricingModel;
         return this;
     }
@@ -171,7 +186,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.pricingModel = pricingModel;
     }
 
-    public EnergyPlanContract timeZone(TimeZoneEnum timeZone) {
+    public EnergyPlanContractFull timeZone(TimeZoneEnum timeZone) {
         this.timeZone = timeZone;
         return this;
     }
@@ -192,7 +207,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.timeZone = timeZone;
     }
 
-    public EnergyPlanContract isFixed(Boolean isFixed) {
+    public EnergyPlanContractFull isFixed(Boolean isFixed) {
         this.isFixed = isFixed;
         return this;
     }
@@ -203,7 +218,8 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
      * @return isFixed
      */
     @Override
-    @ApiModelProperty(required = true, value = "Flag indicating whether prices are fixed or variable.")
+    @ApiModelProperty(required = true,
+            value = "Flag indicating whether prices are fixed or variable.")
     @NotNull
     public Boolean getIsFixed() {
         return isFixed;
@@ -214,7 +230,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.isFixed = isFixed;
     }
 
-    public EnergyPlanContract variation(String variation) {
+    public EnergyPlanContractFull variation(String variation) {
         this.variation = variation;
         return this;
     }
@@ -235,7 +251,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.variation = variation;
     }
 
-    public EnergyPlanContract onExpiryDescription(String onExpiryDescription) {
+    public EnergyPlanContractFull onExpiryDescription(String onExpiryDescription) {
         this.onExpiryDescription = onExpiryDescription;
         return this;
     }
@@ -256,12 +272,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.onExpiryDescription = onExpiryDescription;
     }
 
-    public EnergyPlanContract paymentOption(List<PaymentOptionEnum> paymentOption) {
+    public EnergyPlanContractFull paymentOption(List<PaymentOptionEnum> paymentOption) {
         this.paymentOption = paymentOption;
         return this;
     }
 
-    public EnergyPlanContract addPaymentOptionItem(PaymentOptionEnum paymentOptionItem) {
+    public EnergyPlanContractFull addPaymentOptionItem(PaymentOptionEnum paymentOptionItem) {
         this.paymentOption.add(paymentOptionItem);
         return this;
     }
@@ -272,7 +288,8 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
      * @return paymentOption
      */
     @Override
-    @ApiModelProperty(required = true, value = "Payment options for this contract.")
+    @ApiModelProperty(required = true,
+            value = "Payment options for this contract.")
     @NotNull
     public List<PaymentOptionEnum> getPaymentOption() {
         return paymentOption;
@@ -283,7 +300,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.paymentOption = paymentOption;
     }
 
-    public EnergyPlanContract intrinsicGreenPower(EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower) {
+    public EnergyPlanContractFull intrinsicGreenPower(EnergyPlanContractIntrinsicGreenPower intrinsicGreenPower) {
         this.intrinsicGreenPower = intrinsicGreenPower;
         return this;
     }
@@ -305,7 +322,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.intrinsicGreenPower = intrinsicGreenPower;
     }
 
-    public EnergyPlanContract controlledLoad(List<EnergyPlanControlledLoadV1> controlledLoad) {
+    public EnergyPlanContractFull controlledLoad(List<EnergyPlanControlledLoadV2> controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -316,20 +333,20 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
      * @return controlledLoad
      */
     @ApiModelProperty(value = "")
-    public List<EnergyPlanControlledLoadV1> getControlledLoad() {
+    public List<EnergyPlanControlledLoadV2> getControlledLoad() {
         return controlledLoad;
     }
 
-    public void setControlledLoad(List<EnergyPlanControlledLoadV1> controlledLoad) {
+    public void setControlledLoad(List<EnergyPlanControlledLoadV2> controlledLoad) {
         this.controlledLoad = controlledLoad;
     }
 
-    public EnergyPlanContract incentives(List<EnergyPlanContractIncentives> incentives) {
+    public EnergyPlanContractFull incentives(List<EnergyPlanContractIncentives> incentives) {
         this.incentives = incentives;
         return this;
     }
 
-    public EnergyPlanContract addIncentivesItem(EnergyPlanContractIncentives incentivesItem) {
+    public EnergyPlanContractFull addIncentivesItem(EnergyPlanContractIncentives incentivesItem) {
         if (this.incentives == null) {
             this.incentives = new ArrayList<>();
         }
@@ -354,12 +371,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.incentives = incentives;
     }
 
-    public EnergyPlanContract discounts(List<EnergyPlanContractDiscounts> discounts) {
+    public EnergyPlanContractFull discounts(List<EnergyPlanContractDiscounts> discounts) {
         this.discounts = discounts;
         return this;
     }
 
-    public EnergyPlanContract addDiscountsItem(EnergyPlanContractDiscounts discountsItem) {
+    public EnergyPlanContractFull addDiscountsItem(EnergyPlanContractDiscounts discountsItem) {
         if (this.discounts == null) {
             this.discounts = new ArrayList<>();
         }
@@ -384,12 +401,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.discounts = discounts;
     }
 
-    public EnergyPlanContract greenPowerCharges(List<EnergyPlanContractGreenPowerCharges> greenPowerCharges) {
+    public EnergyPlanContractFull greenPowerCharges(List<EnergyPlanContractGreenPowerCharges> greenPowerCharges) {
         this.greenPowerCharges = greenPowerCharges;
         return this;
     }
 
-    public EnergyPlanContract addGreenPowerChargesItem(EnergyPlanContractGreenPowerCharges greenPowerChargesItem) {
+    public EnergyPlanContractFull addGreenPowerChargesItem(EnergyPlanContractGreenPowerCharges greenPowerChargesItem) {
         if (this.greenPowerCharges == null) {
             this.greenPowerCharges = new ArrayList<>();
         }
@@ -414,12 +431,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.greenPowerCharges = greenPowerCharges;
     }
 
-    public EnergyPlanContract eligibility(List<EnergyPlanContractEligibility> eligibility) {
+    public EnergyPlanContractFull eligibility(List<EnergyPlanContractEligibility> eligibility) {
         this.eligibility = eligibility;
         return this;
     }
 
-    public EnergyPlanContract addEligibilityItem(EnergyPlanContractEligibility eligibilityItem) {
+    public EnergyPlanContractFull addEligibilityItem(EnergyPlanContractEligibility eligibilityItem) {
         if (this.eligibility == null) {
             this.eligibility = new ArrayList<>();
         }
@@ -444,12 +461,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.eligibility = eligibility;
     }
 
-    public EnergyPlanContract fees(List<EnergyPlanContractFees> fees) {
+    public EnergyPlanContractFull fees(List<EnergyPlanContractFees> fees) {
         this.fees = fees;
         return this;
     }
 
-    public EnergyPlanContract addFeesItem(EnergyPlanContractFees feesItem) {
+    public EnergyPlanContractFull addFeesItem(EnergyPlanContractFees feesItem) {
         if (this.fees == null) {
             this.fees = new ArrayList<>();
         }
@@ -474,12 +491,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.fees = fees;
     }
 
-    public EnergyPlanContract solarFeedInTariff(List<EnergyPlanContractSolarFeedInTariffV2> solarFeedInTariff) {
+    public EnergyPlanContractFull solarFeedInTariff(List<EnergyPlanContractSolarFeedInTariffV3> solarFeedInTariff) {
         this.solarFeedInTariff = solarFeedInTariff;
         return this;
     }
 
-    public EnergyPlanContract addSolarFeedInTariffItem(EnergyPlanContractSolarFeedInTariffV2 solarFeedInTariffItem) {
+    public EnergyPlanContractFull addSolarFeedInTariffItem(EnergyPlanContractSolarFeedInTariffV3 solarFeedInTariffItem) {
         if (this.solarFeedInTariff == null) {
             this.solarFeedInTariff = new ArrayList<>();
         }
@@ -494,20 +511,20 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
      */
     @ApiModelProperty(value = "Array of feed in tariffs for solar power.")
     @Valid
-    public List<EnergyPlanContractSolarFeedInTariffV2> getSolarFeedInTariff() {
+    public List<EnergyPlanContractSolarFeedInTariffV3> getSolarFeedInTariff() {
         return solarFeedInTariff;
     }
 
-    public void setSolarFeedInTariff(List<EnergyPlanContractSolarFeedInTariffV2> solarFeedInTariff) {
+    public void setSolarFeedInTariff(List<EnergyPlanContractSolarFeedInTariffV3> solarFeedInTariff) {
         this.solarFeedInTariff = solarFeedInTariff;
     }
 
-    public EnergyPlanContract tariffPeriod(List<EnergyPlanContractTariffPeriodV1> tariffPeriod) {
+    public EnergyPlanContractFull tariffPeriod(List<EnergyPlanContractTariffPeriodV2> tariffPeriod) {
         this.tariffPeriod = tariffPeriod;
         return this;
     }
 
-    public EnergyPlanContract addTariffPeriodItem(EnergyPlanContractTariffPeriodV1 tariffPeriodItem) {
+    public EnergyPlanContractFull addTariffPeriodItem(EnergyPlanContractTariffPeriodV2 tariffPeriodItem) {
         this.tariffPeriod.add(tariffPeriodItem);
         return this;
     }
@@ -520,12 +537,153 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     @ApiModelProperty(required = true, value = "Array of tariff periods.")
     @NotNull
     @Valid
-    public List<EnergyPlanContractTariffPeriodV1> getTariffPeriod() {
+    public List<EnergyPlanContractTariffPeriodV2> getTariffPeriod() {
         return tariffPeriod;
     }
 
-    public void setTariffPeriod(List<EnergyPlanContractTariffPeriodV1> tariffPeriod) {
+    public void setTariffPeriod(List<EnergyPlanContractTariffPeriodV2> tariffPeriod) {
         this.tariffPeriod = tariffPeriod;
+    }
+
+    public EnergyPlanContractFull termType(TermTypeEnum termType) {
+        this.termType = termType;
+        return this;
+    }
+
+    /**
+     * The term for the contract. If absent assumes no specified term.
+     *
+     * @return termType
+     */
+    @Override
+    @ApiModelProperty(value = "The term for the contract. If absent assumes no specified term.")
+    public TermTypeEnum getTermType() {
+        return termType;
+    }
+
+    @Override
+    public void setTermType(TermTypeEnum termType) {
+        this.termType = termType;
+    }
+
+    public EnergyPlanContractFull benefitPeriod(String benefitPeriod) {
+        this.benefitPeriod = benefitPeriod;
+        return this;
+    }
+
+    /**
+     * Description of the benefit period. Should only be present if termType has the value `ONGOING`.
+     *
+     * @return benefitPeriod
+     */
+    @Override
+    @ApiModelProperty(value = "Description of the benefit period. Should only be present if termType has the value `ONGOING`.")
+    public String getBenefitPeriod() {
+        return benefitPeriod;
+    }
+
+    @Override
+    public void setBenefitPeriod(String benefitPeriod) {
+        this.benefitPeriod = benefitPeriod;
+    }
+
+    public EnergyPlanContractFull terms(String terms) {
+        this.terms = terms;
+        return this;
+    }
+
+    /**
+     * Free text description of the terms for the contract.
+     *
+     * @return terms
+     */
+    @Override
+    @ApiModelProperty(value = "Free text description of the terms for the contract.")
+    public String getTerms() {
+        return terms;
+    }
+
+    @Override
+    public void setTerms(String terms) {
+        this.terms = terms;
+    }
+
+    public EnergyPlanContractFull meterTypes(List<String> meterTypes) {
+        this.meterTypes = meterTypes;
+        return this;
+    }
+
+    public EnergyPlanContractFull addMeterTypesItem(String meterTypesItem) {
+        if (this.meterTypes == null) {
+            this.meterTypes = new ArrayList<>();
+        }
+        this.meterTypes.add(meterTypesItem);
+        return this;
+    }
+
+    /**
+     * An array of the meter types that this contract is available for.
+     *
+     * @return meterTypes
+     */
+    @Override
+    @ApiModelProperty(value = "An array of the meter types that this contract is available for.")
+    public List<String> getMeterTypes() {
+        return meterTypes;
+    }
+
+    @Override
+    public void setMeterTypes(List<String> meterTypes) {
+        this.meterTypes = meterTypes;
+    }
+
+    public EnergyPlanContractFull coolingOffDays(Integer coolingOffDays) {
+        this.coolingOffDays = coolingOffDays;
+        return this;
+    }
+
+    /**
+     * Number of days in the cooling off period for the contract. Mandatory for plans with type of `MARKET`.
+     *
+     * @return coolingOffDays
+     */
+    @Override
+    @ApiModelProperty(value = "Number of days in the cooling off period for the contract. Mandatory for plans with type of `MARKET`.")
+    public Integer getCoolingOffDays() {
+        return coolingOffDays;
+    }
+
+    @Override
+    public void setCoolingOffDays(Integer coolingOffDays) {
+        this.coolingOffDays = coolingOffDays;
+    }
+
+    public EnergyPlanContractFull billFrequency(List<String> billFrequency) {
+        this.billFrequency = billFrequency;
+        return this;
+    }
+
+    public EnergyPlanContractFull addBillFrequencyItem(String billFrequencyItem) {
+        this.billFrequency.add(billFrequencyItem);
+        return this;
+    }
+
+    /**
+     * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
+     *
+     * @return billFrequency
+     */
+    @Override
+    @ApiModelProperty(required = true,
+            value = "An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
+    @NotNull
+    public List<String> getBillFrequency() {
+        return billFrequency;
+    }
+
+    @Override
+    public void setBillFrequency(List<String> billFrequency) {
+        this.billFrequency = billFrequency;
     }
 
     @Override
@@ -536,34 +694,41 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanContractV2 energyPlanContract = (EnergyPlanContractV2) o;
-        return Objects.equals(this.additionalFeeInformation, energyPlanContract.additionalFeeInformation) &&
-                Objects.equals(this.pricingModel, energyPlanContract.pricingModel) &&
-                Objects.equals(this.timeZone, energyPlanContract.timeZone) &&
-                Objects.equals(this.isFixed, energyPlanContract.isFixed) &&
-                Objects.equals(this.variation, energyPlanContract.variation) &&
-                Objects.equals(this.onExpiryDescription, energyPlanContract.onExpiryDescription) &&
-                Objects.equals(this.paymentOption, energyPlanContract.paymentOption) &&
-                Objects.equals(this.intrinsicGreenPower, energyPlanContract.intrinsicGreenPower) &&
-                Objects.equals(this.controlledLoad, energyPlanContract.controlledLoad) &&
-                Objects.equals(this.incentives, energyPlanContract.incentives) &&
-                Objects.equals(this.discounts, energyPlanContract.discounts) &&
-                Objects.equals(this.greenPowerCharges, energyPlanContract.greenPowerCharges) &&
-                Objects.equals(this.eligibility, energyPlanContract.eligibility) &&
-                Objects.equals(this.fees, energyPlanContract.fees) &&
-                Objects.equals(this.solarFeedInTariff, energyPlanContract.solarFeedInTariff) &&
-                Objects.equals(this.tariffPeriod, energyPlanContract.tariffPeriod);
+        EnergyPlanContractFullV3 energyPlanContractFull = (EnergyPlanContractFullV3) o;
+        return Objects.equals(this.additionalFeeInformation, energyPlanContractFull.additionalFeeInformation) &&
+                Objects.equals(this.pricingModel, energyPlanContractFull.pricingModel) &&
+                Objects.equals(this.timeZone, energyPlanContractFull.timeZone) &&
+                Objects.equals(this.isFixed, energyPlanContractFull.isFixed) &&
+                Objects.equals(this.variation, energyPlanContractFull.variation) &&
+                Objects.equals(this.onExpiryDescription, energyPlanContractFull.onExpiryDescription) &&
+                Objects.equals(this.paymentOption, energyPlanContractFull.paymentOption) &&
+                Objects.equals(this.intrinsicGreenPower, energyPlanContractFull.intrinsicGreenPower) &&
+                Objects.equals(this.controlledLoad, energyPlanContractFull.controlledLoad) &&
+                Objects.equals(this.incentives, energyPlanContractFull.incentives) &&
+                Objects.equals(this.discounts, energyPlanContractFull.discounts) &&
+                Objects.equals(this.greenPowerCharges, energyPlanContractFull.greenPowerCharges) &&
+                Objects.equals(this.eligibility, energyPlanContractFull.eligibility) &&
+                Objects.equals(this.fees, energyPlanContractFull.fees) &&
+                Objects.equals(this.solarFeedInTariff, energyPlanContractFull.solarFeedInTariff) &&
+                Objects.equals(this.tariffPeriod, energyPlanContractFull.tariffPeriod) &&
+                Objects.equals(this.termType, energyPlanContractFull.termType) &&
+                Objects.equals(this.benefitPeriod, energyPlanContractFull.benefitPeriod) &&
+                Objects.equals(this.terms, energyPlanContractFull.terms) &&
+                Objects.equals(this.meterTypes, energyPlanContractFull.meterTypes) &&
+                Objects.equals(this.coolingOffDays, energyPlanContractFull.coolingOffDays) &&
+                Objects.equals(this.billFrequency, energyPlanContractFull.billFrequency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(additionalFeeInformation, pricingModel, timeZone, isFixed, variation, onExpiryDescription, paymentOption, intrinsicGreenPower, controlledLoad, incentives, discounts, greenPowerCharges, eligibility, fees, solarFeedInTariff, tariffPeriod);
+        return Objects.hash(additionalFeeInformation, pricingModel, timeZone, isFixed, variation, onExpiryDescription, paymentOption, intrinsicGreenPower, controlledLoad, incentives, discounts, greenPowerCharges, eligibility, fees, solarFeedInTariff, tariffPeriod, termType, benefitPeriod, terms, meterTypes, coolingOffDays, billFrequency);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractV2 {\n");
+        sb.append("class EnergyPlanContractFullV3 {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    additionalFeeInformation: ").append(toIndentedString(additionalFeeInformation)).append("\n");
         sb.append("    pricingModel: ").append(toIndentedString(pricingModel)).append("\n");
         sb.append("    timeZone: ").append(toIndentedString(timeZone)).append("\n");
@@ -580,6 +745,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
         sb.append("    solarFeedInTariff: ").append(toIndentedString(solarFeedInTariff)).append("\n");
         sb.append("    tariffPeriod: ").append(toIndentedString(tariffPeriod)).append("\n");
+        sb.append("    termType: ").append(toIndentedString(termType)).append("\n");
+        sb.append("    benefitPeriod: ").append(toIndentedString(benefitPeriod)).append("\n");
+        sb.append("    terms: ").append(toIndentedString(terms)).append("\n");
+        sb.append("    meterTypes: ").append(toIndentedString(meterTypes)).append("\n");
+        sb.append("    coolingOffDays: ").append(toIndentedString(coolingOffDays)).append("\n");
+        sb.append("    billFrequency: ").append(toIndentedString(billFrequency)).append("\n");
         sb.append("}");
         return sb.toString();
     }

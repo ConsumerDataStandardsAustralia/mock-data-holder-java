@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyAccountDetailPlans (EnergyAccountDetailPlansV1 and EnergyAccountDetailPlansV2)
+ * EnergyAccountDetailPlansV4
  */
 @Entity
 @Table(name = "e_account_plan")
-public class EnergyAccountDetailPlans {
+public class EnergyAccountDetailPlansV4 {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -51,7 +51,7 @@ public class EnergyAccountDetailPlans {
             name = "e_acc_detail_plan",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "acc_plan_id"))
-    private EnergyAccountDetailPlanDetail planDetail;
+    private EnergyAccountDetailPlanDetailV4 planDetail;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
@@ -69,7 +69,7 @@ public class EnergyAccountDetailPlans {
         this.id = id;
     }
 
-    public EnergyAccountDetailPlans nickname(String nickname) {
+    public EnergyAccountDetailPlansV4 nickname(String nickname) {
         this.nickname = nickname;
         return this;
     }
@@ -88,12 +88,12 @@ public class EnergyAccountDetailPlans {
         this.nickname = nickname;
     }
 
-    public EnergyAccountDetailPlans servicePointIds(List<String> servicePointIds) {
+    public EnergyAccountDetailPlansV4 servicePointIds(List<String> servicePointIds) {
         this.servicePointIds = servicePointIds;
         return this;
     }
 
-    public EnergyAccountDetailPlans addServicePointIdsItem(String servicePointIdsItem) {
+    public EnergyAccountDetailPlansV4 addServicePointIdsItem(String servicePointIdsItem) {
         this.servicePointIds.add(servicePointIdsItem);
         return this;
     }
@@ -114,18 +114,17 @@ public class EnergyAccountDetailPlans {
         this.servicePointIds = servicePointIds;
     }
 
-    public EnergyAccountDetailPlans planOverview(EnergyAccountPlanOverview planOverview) {
+    public EnergyAccountDetailPlansV4 planOverview(EnergyAccountPlanOverview planOverview) {
         this.planOverview = planOverview;
         return this;
     }
 
     /**
-     * Get planOverview
+     * Mandatory if _openStatus_ is `OPEN`.
      *
      * @return planOverview
      */
-    @ApiModelProperty(required = true, value = "")
-    @NotNull
+    @ApiModelProperty(value = "Mandatory if _openStatus_ is `OPEN`.")
     @Valid
     public EnergyAccountPlanOverview getPlanOverview() {
         return planOverview;
@@ -135,7 +134,7 @@ public class EnergyAccountDetailPlans {
         this.planOverview = planOverview;
     }
 
-    public EnergyAccountDetailPlans planDetail(EnergyAccountDetailPlanDetail planDetail) {
+    public EnergyAccountDetailPlansV4 planDetail(EnergyAccountDetailPlanDetailV4 planDetail) {
         this.planDetail = planDetail;
         return this;
     }
@@ -145,23 +144,22 @@ public class EnergyAccountDetailPlans {
      *
      * @return planDetail
      */
-    @ApiModelProperty(required = true, value = "")
-    @NotNull
+    @ApiModelProperty(value = "")
     @Valid
-    public EnergyAccountDetailPlanDetail getPlanDetail() {
+    public EnergyAccountDetailPlanDetailV4 getPlanDetail() {
         return planDetail;
     }
 
-    public void setPlanDetail(EnergyAccountDetailPlanDetail planDetail) {
+    public void setPlanDetail(EnergyAccountDetailPlanDetailV4 planDetail) {
         this.planDetail = planDetail;
     }
 
-    public EnergyAccountDetailPlans authorisedContacts(List<EnergyAccountDetailAuthorisedContacts> authorisedContacts) {
+    public EnergyAccountDetailPlansV4 authorisedContacts(List<EnergyAccountDetailAuthorisedContacts> authorisedContacts) {
         this.authorisedContacts = authorisedContacts;
         return this;
     }
 
-    public EnergyAccountDetailPlans addAuthorisedContactsItem(EnergyAccountDetailAuthorisedContacts authorisedContactsItem) {
+    public EnergyAccountDetailPlansV4 addAuthorisedContactsItem(EnergyAccountDetailAuthorisedContacts authorisedContactsItem) {
         if (this.authorisedContacts == null) {
             this.authorisedContacts = new ArrayList<>();
         }
@@ -192,7 +190,7 @@ public class EnergyAccountDetailPlans {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyAccountDetailPlans energyAccountDetailPlans = (EnergyAccountDetailPlans) o;
+        EnergyAccountDetailPlansV4 energyAccountDetailPlans = (EnergyAccountDetailPlansV4) o;
         return Objects.equals(this.nickname, energyAccountDetailPlans.nickname) &&
                 Objects.equals(this.servicePointIds, energyAccountDetailPlans.servicePointIds) &&
                 Objects.equals(this.planOverview, energyAccountDetailPlans.planOverview) &&
@@ -208,7 +206,7 @@ public class EnergyAccountDetailPlans {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyAccountDetailPlans {\n");
+        sb.append("class EnergyAccountDetailPlansV4 {\n");
         sb.append("    nickname: ").append(toIndentedString(nickname)).append("\n");
         sb.append("    servicePointIds: ").append(toIndentedString(servicePointIds)).append("\n");
         sb.append("    planOverview: ").append(toIndentedString(planOverview)).append("\n");

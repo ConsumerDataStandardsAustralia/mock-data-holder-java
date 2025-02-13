@@ -23,7 +23,7 @@ import java.util.Objects;
 @ApiModel(description = "Represents a constant tariff. Mandatory if _tariffUType_ is set to `singleTariff`.")
 @Entity
 @Table(name = "e_plan_single_tariff")
-public class EnergyPlanContractSingleTariffV2 {
+public class EnergyPlanContractSingleTariffV3 {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
@@ -37,6 +37,8 @@ public class EnergyPlanContractSingleTariffV2 {
             joinColumns = @JoinColumn(name = "s_tariff_id"),
             inverseJoinColumns = @JoinColumn(name = "e_rate_id"))
     private List<EnergyRates> rates;
+
+    private String period;
 
     public String getId() {
         return id;
@@ -61,6 +63,20 @@ public class EnergyPlanContractSingleTariffV2 {
         this.rates = rates;
     }
 
+    /**
+     * Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax). Defaults to `P1Y` if absent.
+     *
+     * @return period
+     */
+    @ApiModelProperty(value = "Usage period for which the block rate applies. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax). Defaults to `P1Y` if absent.")
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,20 +85,22 @@ public class EnergyPlanContractSingleTariffV2 {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanContractSingleTariffV2 energyPlanContractSingleTariff = (EnergyPlanContractSingleTariffV2) o;
-        return Objects.equals(this.rates, energyPlanContractSingleTariff.rates);
+        EnergyPlanContractSingleTariffV3 energyPlanContractSingleTariff = (EnergyPlanContractSingleTariffV3) o;
+        return Objects.equals(this.rates, energyPlanContractSingleTariff.rates) &&
+            Objects.equals(this.period, energyPlanContractSingleTariff.period);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rates);
+        return Objects.hash(rates, period);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractSingleTariffV2 {\n");
+        sb.append("class EnergyPlanContractSingleTariffV3 {\n");
         sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
+        sb.append("    period: ").append(toIndentedString(period)).append("\n");
         sb.append("}");
         return sb.toString();
     }

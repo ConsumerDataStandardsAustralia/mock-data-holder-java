@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @ApiModel
-@Entity
 @MappedSuperclass
 public class BankingTransactionDetail {
 

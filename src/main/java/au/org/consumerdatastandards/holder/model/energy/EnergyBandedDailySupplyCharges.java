@@ -12,11 +12,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-/**
- * EnergyRates
- */
-@Entity(name = "e_rates")
-public class EnergyRates {
+@Entity
+public class EnergyBandedDailySupplyCharges {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
@@ -37,17 +34,12 @@ public class EnergyRates {
         this.id = id;
     }
 
-    public EnergyRates unitPrice(String unitPrice) {
-        this.unitPrice = unitPrice;
-        return this;
-    }
-
     /**
-     * Unit price of usage per  measure unit (exclusive of GST).
+     * The amount of daily supply charge for the band, in dollars per day exclusive of GST.
      *
      * @return unitPrice
      */
-    @ApiModelProperty(required = true, value = "Unit price of usage per  measure unit (exclusive of GST).")
+    @ApiModelProperty(required = true, value = "The amount of daily supply charge for the band, in dollars per day exclusive of GST.")
     @NotNull
     public String getUnitPrice() {
         return unitPrice;
@@ -57,17 +49,12 @@ public class EnergyRates {
         this.unitPrice = unitPrice;
     }
 
-    public EnergyRates measureUnit(RateMeasureUnitEnum measureUnit) {
-        this.measureUnit = measureUnit;
-        return this;
-    }
-
     /**
-     * The measurement unit of rate. Assumed to be `KWH` if absent.
+     * The measurement unit of rate. Assumed to be `DAYS` if absent.
      *
      * @return measureUnit
      */
-    @ApiModelProperty(value = "The measurement unit of rate. Assumed to be `KWH` if absent.")
+    @ApiModelProperty(value = "The measurement unit of rate. Assumed to be `DAYS` if absent.")
     public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
@@ -76,17 +63,12 @@ public class EnergyRates {
         this.measureUnit = measureUnit;
     }
 
-    public EnergyRates volume(BigDecimal volume) {
-        this.volume = volume;
-        return this;
-    }
-
     /**
-     * Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.
+     * Volume the charge applies to.
      *
      * @return volume
      */
-    @ApiModelProperty(value = "Volume that this rate applies to. Only applicable for 'stepped' rates where different rates apply for different volumes of usage in a period.")
+    @ApiModelProperty(value = "Volume the charge applies to.")
     @Valid
     public BigDecimal getVolume() {
         return volume;
@@ -104,10 +86,10 @@ public class EnergyRates {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyRates energyRates = (EnergyRates) o;
-        return Objects.equals(this.unitPrice, energyRates.unitPrice) &&
-                Objects.equals(this.measureUnit, energyRates.measureUnit) &&
-                Objects.equals(this.volume, energyRates.volume);
+        EnergyBandedDailySupplyCharges energyBandedDailySupplyCharges = (EnergyBandedDailySupplyCharges) o;
+        return Objects.equals(this.unitPrice, energyBandedDailySupplyCharges.unitPrice) &&
+                Objects.equals(this.measureUnit, energyBandedDailySupplyCharges.measureUnit) &&
+                Objects.equals(this.volume, energyBandedDailySupplyCharges.volume);
     }
 
     @Override
@@ -118,7 +100,7 @@ public class EnergyRates {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyRates {\n");
+        sb.append("class EnergyBandedDailySupplyCharges {\n");
         sb.append("    unitPrice: ").append(toIndentedString(unitPrice)).append("\n");
         sb.append("    measureUnit: ").append(toIndentedString(measureUnit)).append("\n");
         sb.append("    volume: ").append(toIndentedString(volume)).append("\n");

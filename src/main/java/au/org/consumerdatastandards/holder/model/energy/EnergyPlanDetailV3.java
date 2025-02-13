@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "e_plan")
-public class EnergyPlanDetailV2 implements EnergyPlanDetail {
+public class EnergyPlanDetailV3 implements EnergyPlanDetail {
     @Id
     private String planId;
 
@@ -75,14 +75,14 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
             name = "e_plan_gas_contract",
             joinColumns = @JoinColumn(name = "plan_id"),
             inverseJoinColumns = @JoinColumn(name = "gas_contract_id"))
-    private EnergyPlanContractFullV2 gasContract;
+    private EnergyPlanContractFullV3 gasContract;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(
             name = "e_plan_el_contract",
             joinColumns = @JoinColumn(name = "plan_id"),
             inverseJoinColumns = @JoinColumn(name = "el_contract_id"))
-    private EnergyPlanContractFullV2 electricityContract;
+    private EnergyPlanContractFullV3 electricityContract;
 
     /**
      * The ID of the specific plan
@@ -315,12 +315,12 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
         this.geography = geography;
     }
 
-    public EnergyPlanDetailV2 meteringCharges(List<MeteringCharges> meteringCharges) {
+    public EnergyPlanDetailV3 meteringCharges(List<MeteringCharges> meteringCharges) {
         this.meteringCharges = meteringCharges;
         return this;
     }
 
-    public EnergyPlanDetailV2 addMeteringChargesItem(MeteringCharges meteringChargesItem) {
+    public EnergyPlanDetailV3 addMeteringChargesItem(MeteringCharges meteringChargesItem) {
         if (this.meteringCharges == null) {
             this.meteringCharges = new ArrayList<>();
         }
@@ -345,7 +345,7 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
         this.meteringCharges = meteringCharges;
     }
 
-    public EnergyPlanDetailV2 gasContract(EnergyPlanContractFullV2 gasContract) {
+    public EnergyPlanDetailV3 gasContract(EnergyPlanContractFullV3 gasContract) {
         this.gasContract = gasContract;
         return this;
     }
@@ -358,15 +358,15 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     @Override
     @ApiModelProperty(value = "")
     @Valid
-    public EnergyPlanContractFullV2 getGasContract() {
+    public EnergyPlanContractFullV3 getGasContract() {
         return gasContract;
     }
 
-    public void setGasContract(EnergyPlanContractFullV2 gasContract) {
+    public void setGasContract(EnergyPlanContractFullV3 gasContract) {
         this.gasContract = gasContract;
     }
 
-    public EnergyPlanDetailV2 electricityContract(EnergyPlanContractFullV2 electricityContract) {
+    public EnergyPlanDetailV3 electricityContract(EnergyPlanContractFullV3 electricityContract) {
         this.electricityContract = electricityContract;
         return this;
     }
@@ -379,11 +379,11 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     @Override
     @ApiModelProperty(value = "")
     @Valid
-    public EnergyPlanContractFullV2 getElectricityContract() {
+    public EnergyPlanContractFullV3 getElectricityContract() {
         return electricityContract;
     }
 
-    public void setElectricityContract(EnergyPlanContractFullV2 electricityContract) {
+    public void setElectricityContract(EnergyPlanContractFullV3 electricityContract) {
         this.electricityContract = electricityContract;
     }
 
@@ -395,7 +395,7 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanDetailV2 energyPlanDetail = (EnergyPlanDetailV2) o;
+        EnergyPlanDetailV3 energyPlanDetail = (EnergyPlanDetailV3) o;
         return Objects.equals(this.planId, energyPlanDetail.planId) &&
                 Objects.equals(this.effectiveFrom, energyPlanDetail.effectiveFrom) &&
                 Objects.equals(this.effectiveTo, energyPlanDetail.effectiveTo) &&

@@ -60,7 +60,7 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
             name = "e_plan_contract_ctrl_load",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "ctrl_load_id"))
-    private List<EnergyPlanControlledLoad> controlledLoad;
+    private List<EnergyPlanControlledLoadV1> controlledLoad;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
@@ -116,7 +116,7 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
             name = "e_plan_contract_tariff_periods",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "tariff_period_id"))
-    private List<EnergyPlanContractTariffPeriod> tariffPeriod = new ArrayList<>();
+    private List<EnergyPlanContractTariffPeriodV1> tariffPeriod = new ArrayList<>();
 
     private TermTypeEnum termType;
 
@@ -320,7 +320,7 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
         this.intrinsicGreenPower = intrinsicGreenPower;
     }
 
-    public EnergyPlanContractFull controlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
+    public EnergyPlanContractFull controlledLoad(List<EnergyPlanControlledLoadV1> controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -330,14 +330,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
      *
      * @return controlledLoad
      */
-    @Override
     @ApiModelProperty(value = "")
-    public List<EnergyPlanControlledLoad> getControlledLoad() {
+    public List<EnergyPlanControlledLoadV1> getControlledLoad() {
         return controlledLoad;
     }
 
-    @Override
-    public void setControlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
+    public void setControlledLoad(List<EnergyPlanControlledLoadV1> controlledLoad) {
         this.controlledLoad = controlledLoad;
     }
 
@@ -519,12 +517,12 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
         this.solarFeedInTariff = solarFeedInTariff;
     }
 
-    public EnergyPlanContractFull tariffPeriod(List<EnergyPlanContractTariffPeriod> tariffPeriod) {
+    public EnergyPlanContractFull tariffPeriod(List<EnergyPlanContractTariffPeriodV1> tariffPeriod) {
         this.tariffPeriod = tariffPeriod;
         return this;
     }
 
-    public EnergyPlanContractFull addTariffPeriodItem(EnergyPlanContractTariffPeriod tariffPeriodItem) {
+    public EnergyPlanContractFull addTariffPeriodItem(EnergyPlanContractTariffPeriodV1 tariffPeriodItem) {
         this.tariffPeriod.add(tariffPeriodItem);
         return this;
     }
@@ -534,16 +532,14 @@ public class EnergyPlanContractFullV1 implements EnergyPlanContractFull {
      *
      * @return tariffPeriod
      */
-    @Override
     @ApiModelProperty(required = true, value = "Array of tariff periods.")
     @NotNull
     @Valid
-    public List<EnergyPlanContractTariffPeriod> getTariffPeriod() {
+    public List<EnergyPlanContractTariffPeriodV1> getTariffPeriod() {
         return tariffPeriod;
     }
 
-    @Override
-    public void setTariffPeriod(List<EnergyPlanContractTariffPeriod> tariffPeriod) {
+    public void setTariffPeriod(List<EnergyPlanContractTariffPeriodV1> tariffPeriod) {
         this.tariffPeriod = tariffPeriod;
     }
 

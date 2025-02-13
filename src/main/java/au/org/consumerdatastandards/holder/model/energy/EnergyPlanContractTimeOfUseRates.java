@@ -5,9 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,7 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTimeOfUseRates
  */
-@Entity
+@MappedSuperclass
 public class EnergyPlanContractTimeOfUseRates {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -32,10 +34,18 @@ public class EnergyPlanContractTimeOfUseRates {
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_p_c_tou_rates_rates",
+            joinColumns = @JoinColumn(name = "tou_rates_id"),
+            inverseJoinColumns = @JoinColumn(name = "rate_id"))
     private List<EnergyRates> rates = new ArrayList<>();
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_p_c_tou_rates_tou",
+            joinColumns = @JoinColumn(name = "tou_rates_id"),
+            inverseJoinColumns = @JoinColumn(name = "tou_id"))
     private List<EnergyTimeOfUse> timeOfUse = new ArrayList<>();
 
     public String getId() {
@@ -193,15 +203,17 @@ public class EnergyPlanContractTimeOfUseRates {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractTimeOfUseRates {\n");
+        StringBuilder sb = new StringBuilder(getClass().getSimpleName()).append("{\n");
+        stringProperties(sb);
+        return sb.append("}").toString();
+    }
+
+    protected void stringProperties(StringBuilder sb) {
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
         sb.append("    timeOfUse: ").append(toIndentedString(timeOfUse)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("}");
-        return sb.toString();
     }
 
     /**

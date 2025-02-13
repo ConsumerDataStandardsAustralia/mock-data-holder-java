@@ -7,12 +7,13 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -22,8 +23,7 @@ import java.util.Objects;
 /**
  * EnergyPlanContractTariffPeriod
  */
-@Entity
-@Table(name="e_tariff_period")
+@MappedSuperclass
 public class EnergyPlanContractTariffPeriod {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -57,8 +57,6 @@ public class EnergyPlanContractTariffPeriod {
     private String startDate; // mm-dd
 
     private String endDate; // mm-dd
-
-    private String dailySupplyCharges;
 
     /**
      * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
@@ -110,14 +108,18 @@ public class EnergyPlanContractTariffPeriod {
     private RateBlockUTypeEnum rateBlockUType;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_tariff_period_single_rate",
+            joinColumns = @JoinColumn(name = "t_period_id"),
+            inverseJoinColumns = @JoinColumn(name = "s_rate_id"))
     private EnergyPlanContractSingleRate singleRate;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
-    private List<EnergyPlanContractTimeOfUseRates> timeOfUseRates = null;
-
-    @Valid
-    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_tariff_period_demand_charges",
+            joinColumns = @JoinColumn(name = "t_period_id"),
+            inverseJoinColumns = @JoinColumn(name = "d_charge_id"))
     private List<EnergyPlanContractDemandCharges> demandCharges = null;
 
     public String getId() {
@@ -209,25 +211,6 @@ public class EnergyPlanContractTariffPeriod {
         this.endDate = endDate;
     }
 
-    public EnergyPlanContractTariffPeriod dailySupplyCharges(String dailySupplyCharges) {
-        this.dailySupplyCharges = dailySupplyCharges;
-        return this;
-    }
-
-    /**
-     * The amount of access charge for the tariff period, in dollars per day exclusive of GST.
-     *
-     * @return dailySupplyCharges
-     */
-    @ApiModelProperty(value = "The amount of access charge for the tariff period, in dollars per day exclusive of GST.")
-    public String getDailySupplyCharges() {
-        return dailySupplyCharges;
-    }
-
-    public void setDailySupplyCharges(String dailySupplyCharges) {
-        this.dailySupplyCharges = dailySupplyCharges;
-    }
-
     /**
      * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
      *
@@ -283,34 +266,6 @@ public class EnergyPlanContractTariffPeriod {
         this.singleRate = singleRate;
     }
 
-    public EnergyPlanContractTariffPeriod timeOfUseRates(List<EnergyPlanContractTimeOfUseRates> timeOfUseRates) {
-        this.timeOfUseRates = timeOfUseRates;
-        return this;
-    }
-
-    public EnergyPlanContractTariffPeriod addTimeOfUseRatesItem(EnergyPlanContractTimeOfUseRates timeOfUseRatesItem) {
-        if (this.timeOfUseRates == null) {
-            this.timeOfUseRates = new ArrayList<>();
-        }
-        this.timeOfUseRates.add(timeOfUseRatesItem);
-        return this;
-    }
-
-    /**
-     * Array of objects representing time of use rates. Required if _rateBlockUType_ is `timeOfUseRates`.
-     *
-     * @return timeOfUseRates
-     */
-    @ApiModelProperty(value = "Array of objects representing time of use rates. Required if _rateBlockUType_ is `timeOfUseRates`.")
-    @Valid
-    public List<EnergyPlanContractTimeOfUseRates> getTimeOfUseRates() {
-        return timeOfUseRates;
-    }
-
-    public void setTimeOfUseRates(List<EnergyPlanContractTimeOfUseRates> timeOfUseRates) {
-        this.timeOfUseRates = timeOfUseRates;
-    }
-
     public EnergyPlanContractTariffPeriod demandCharges(List<EnergyPlanContractDemandCharges> demandCharges) {
         this.demandCharges = demandCharges;
         return this;
@@ -352,35 +307,33 @@ public class EnergyPlanContractTariffPeriod {
                 Objects.equals(this.displayName, energyPlanContractTariffPeriod.displayName) &&
                 Objects.equals(this.startDate, energyPlanContractTariffPeriod.startDate) &&
                 Objects.equals(this.endDate, energyPlanContractTariffPeriod.endDate) &&
-                Objects.equals(this.dailySupplyCharges, energyPlanContractTariffPeriod.dailySupplyCharges) &&
                 Objects.equals(this.timeZone, energyPlanContractTariffPeriod.timeZone) &&
                 Objects.equals(this.rateBlockUType, energyPlanContractTariffPeriod.rateBlockUType) &&
                 Objects.equals(this.singleRate, energyPlanContractTariffPeriod.singleRate) &&
-                Objects.equals(this.timeOfUseRates, energyPlanContractTariffPeriod.timeOfUseRates) &&
                 Objects.equals(this.demandCharges, energyPlanContractTariffPeriod.demandCharges);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, displayName, startDate, endDate, dailySupplyCharges, timeZone, rateBlockUType, singleRate, timeOfUseRates, demandCharges);
+        return Objects.hash(type, displayName, startDate, endDate, timeZone, rateBlockUType, singleRate, demandCharges);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractTariffPeriod {\n");
+        StringBuilder sb = new StringBuilder(getClass().getSimpleName()).append("{\n");
+        stringProperties(sb);
+        return sb.append("}").toString();
+    }
+
+    protected void stringProperties(StringBuilder sb) {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
-        sb.append("    dailySupplyCharges: ").append(toIndentedString(dailySupplyCharges)).append("\n");
         sb.append("    timeZone: ").append(toIndentedString(timeZone)).append("\n");
         sb.append("    rateBlockUType: ").append(toIndentedString(rateBlockUType)).append("\n");
         sb.append("    singleRate: ").append(toIndentedString(singleRate)).append("\n");
-        sb.append("    timeOfUseRates: ").append(toIndentedString(timeOfUseRates)).append("\n");
         sb.append("    demandCharges: ").append(toIndentedString(demandCharges)).append("\n");
-        sb.append("}");
-        return sb.toString();
     }
 
     /**

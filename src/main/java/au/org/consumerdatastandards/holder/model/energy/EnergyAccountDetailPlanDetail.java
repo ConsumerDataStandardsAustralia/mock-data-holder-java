@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * EnergyAccountDetailPlanDetail (EnergyAccountDetailPlanDetailV1 and EnergyAccountDetailPlanDetailV2)
  * Detail on the plan applicable to this account
  */
 @ApiModel(description = "Detail on the plan applicable to this account")
@@ -47,9 +48,17 @@ public class EnergyAccountDetailPlanDetail {
     private List<MeteringCharges> meteringCharges = null;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_plan_gas_contract",
+            joinColumns = @JoinColumn(name = "acct_plan_detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "gas_contract_id"))
     private EnergyPlanContractV1 gasContract;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_account_plan_el_contract",
+            joinColumns = @JoinColumn(name = "acct_plan_detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "el_contract_id"))
     private EnergyPlanContractV1 electricityContract;
 
     public String getId() {

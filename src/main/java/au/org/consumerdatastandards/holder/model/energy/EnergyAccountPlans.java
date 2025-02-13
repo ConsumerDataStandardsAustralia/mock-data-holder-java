@@ -9,6 +9,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -40,6 +42,10 @@ public class EnergyAccountPlans {
      * Mandatory if _openStatus_ is `OPEN`.
      */
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_acc_plan_overview",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "plan_overview_id"))
     private EnergyAccountPlanOverview planOverview;
 
     public EnergyAccountPlans nickname(String nickname) {

@@ -1,9 +1,7 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,24 +18,19 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyPlanContractSolarFeedInTariffV2
+ * EnergyPlanContractSolarFeedInTariffV3
  */
 @Entity
 @Table(name = "e_solar_fit")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY,
-        setterVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY
-)
-public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContractSolarFeedInTariff {
+public class EnergyPlanContractSolarFeedInTariffV3 implements EnergyPlanContractSolarFeedInTariff {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @JsonIgnore
     private String id;
 
     private String displayName;
@@ -63,26 +56,24 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
             name = "e_s_fit_s_tariff",
             joinColumns = @JoinColumn(name = "fit_tariff_id"),
             inverseJoinColumns = @JoinColumn(name = "s_tariff_id"))
-    private EnergyPlanContractSingleTariffV2 singleTariff;
+    private EnergyPlanContractSingleTariffV3 singleTariff;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "e_s_fit_tv_tariffs",
             joinColumns = @JoinColumn(name = "fit_tariff_id"),
             inverseJoinColumns = @JoinColumn(name = "tv_tariff_id"))
-    private List<EnergyPlanContractTimeVaryingTariffsV2> timeVaryingTariffs;
+    private List<EnergyPlanContractTimeVaryingTariffsV3> timeVaryingTariffs;
 
-    @JsonIgnore
     public String getId() {
         return id;
     }
 
-    @JsonIgnore
     public void setId(String id) {
         this.id = id;
     }
 
-    public EnergyPlanContractSolarFeedInTariffV2 displayName(String displayName) {
+    public EnergyPlanContractSolarFeedInTariffV3 displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -102,7 +93,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
         this.displayName = displayName;
     }
 
-    public EnergyPlanContractSolarFeedInTariffV2 description(String description) {
+    public EnergyPlanContractSolarFeedInTariffV3 description(String description) {
         this.description = description;
         return this;
     }
@@ -149,7 +140,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
         this.endDate = endDate;
     }
 
-    public EnergyPlanContractSolarFeedInTariffV2 scheme(SchemeEnum scheme) {
+    public EnergyPlanContractSolarFeedInTariffV3 scheme(SchemeEnum scheme) {
         this.scheme = scheme;
         return this;
     }
@@ -169,7 +160,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
         this.scheme = scheme;
     }
 
-    public EnergyPlanContractSolarFeedInTariffV2 payerType(PayerTypeEnum payerType) {
+    public EnergyPlanContractSolarFeedInTariffV3 payerType(PayerTypeEnum payerType) {
         this.payerType = payerType;
         return this;
     }
@@ -189,7 +180,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
         this.payerType = payerType;
     }
 
-    public EnergyPlanContractSolarFeedInTariffV2 tariffUType(TariffUTypeEnum tariffUType) {
+    public EnergyPlanContractSolarFeedInTariffV3 tariffUType(TariffUTypeEnum tariffUType) {
         this.tariffUType = tariffUType;
         return this;
     }
@@ -209,7 +200,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
         this.tariffUType = tariffUType;
     }
 
-    public EnergyPlanContractSolarFeedInTariffV2 singleTariff(EnergyPlanContractSingleTariffV2 singleTariff) {
+    public EnergyPlanContractSolarFeedInTariffV3 singleTariff(EnergyPlanContractSingleTariffV3 singleTariff) {
         this.singleTariff = singleTariff;
         return this;
     }
@@ -220,16 +211,16 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
      * @return singleTariff
      */
     @ApiModelProperty(value = "")
-    public EnergyPlanContractSingleTariffV2 getSingleTariff() {
+    public EnergyPlanContractSingleTariffV3 getSingleTariff() {
         return singleTariff;
     }
 
-    public void setSingleTariff(EnergyPlanContractSingleTariffV2 singleTariff) {
+    public void setSingleTariff(EnergyPlanContractSingleTariffV3 singleTariff) {
         this.singleTariff = singleTariff;
     }
 
-    public EnergyPlanContractSolarFeedInTariffV2 timeVaryingTariffs(EnergyPlanContractTimeVaryingTariffsV2 timeVaryingTariffs) {
-        setSingleTimeVaryingTariffs(timeVaryingTariffs);
+    public EnergyPlanContractSolarFeedInTariffV3 timeVaryingTariffs(List<EnergyPlanContractTimeVaryingTariffsV3> timeVaryingTariffs) {
+        this.timeVaryingTariffs = timeVaryingTariffs;
         return this;
     }
 
@@ -239,32 +230,13 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
      * @return timeVaryingTariffs
      */
     @ApiModelProperty(value = "")
-    @JsonIgnore
     @Valid
-    public List<EnergyPlanContractTimeVaryingTariffsV2> getTimeVaryingTariffs() {
+    public List<EnergyPlanContractTimeVaryingTariffsV3> getTimeVaryingTariffs() {
         return timeVaryingTariffs;
     }
 
-    @JsonIgnore
-    public void setTimeVaryingTariffs(List<EnergyPlanContractTimeVaryingTariffsV2> timeVaryingTariffs) {
+    public void setTimeVaryingTariffs(List<EnergyPlanContractTimeVaryingTariffsV3> timeVaryingTariffs) {
         this.timeVaryingTariffs = timeVaryingTariffs;
-    }
-
-    /**
-     * Get timeVaryingTariffs
-     *
-     * @return timeVaryingTariffs
-     */
-    @ApiModelProperty(value = "")
-    @JsonProperty("timeVaryingTariffs")
-    @Valid
-    public EnergyPlanContractTimeVaryingTariffsV2 getSingleTimeVaryingTariffs() {
-        return (timeVaryingTariffs == null || timeVaryingTariffs.isEmpty() ? null : timeVaryingTariffs.get(0));
-    }
-
-    @JsonProperty("timeVaryingTariffs")
-    public void setSingleTimeVaryingTariffs(EnergyPlanContractTimeVaryingTariffsV2 timeVaryingTariffs) {
-        this.timeVaryingTariffs = Collections.singletonList(timeVaryingTariffs);
     }
 
     @Override
@@ -275,7 +247,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnergyPlanContractSolarFeedInTariffV2 energyPlanContractSolarFeedInTariff = (EnergyPlanContractSolarFeedInTariffV2) o;
+        EnergyPlanContractSolarFeedInTariffV3 energyPlanContractSolarFeedInTariff = (EnergyPlanContractSolarFeedInTariffV3) o;
         return Objects.equals(this.displayName, energyPlanContractSolarFeedInTariff.displayName) &&
                 Objects.equals(this.description, energyPlanContractSolarFeedInTariff.description) &&
                 Objects.equals(this.startDate, energyPlanContractSolarFeedInTariff.startDate) &&
@@ -295,7 +267,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContractSolarFeedInTariffV2 {\n");
+        sb.append("class EnergyPlanContractSolarFeedInTariffV3 {\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");

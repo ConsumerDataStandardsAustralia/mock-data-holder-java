@@ -8,6 +8,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,9 +19,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyPlanContractTimeOfUseRates
+ * EnergyPlanControlledLoadSingleRate
  */
-@Entity(name = "e_ctrled_load_single_rate")
+@MappedSuperclass
 public class EnergyPlanControlledLoadSingleRate {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -34,6 +37,10 @@ public class EnergyPlanControlledLoadSingleRate {
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_s_rate_rates",
+            joinColumns = @JoinColumn(name = "s_rate_id"),
+            inverseJoinColumns = @JoinColumn(name = "e_rate_id"))
     private List<EnergyRates> rates = new ArrayList<>();
 
     public String getId() {
@@ -145,14 +152,16 @@ public class EnergyPlanControlledLoadSingleRate {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanControlledLoadSingleRate {\n");
+        StringBuilder sb = new StringBuilder(getClass().getSimpleName()).append("{\n");
+        stringProperties(sb);
+        return sb.append("}").toString();
+    }
+
+    protected void stringProperties(StringBuilder sb) {
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    dailySupplyCharge: ").append(toIndentedString(dailySupplyCharge)).append("\n");
         sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
-        sb.append("}");
-        return sb.toString();
     }
 
     /**
