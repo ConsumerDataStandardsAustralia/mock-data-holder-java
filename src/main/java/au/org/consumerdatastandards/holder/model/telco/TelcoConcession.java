@@ -18,7 +18,7 @@ import java.util.Objects;
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoConcession {
     /**
-     * The concession type
+     * The concession type.
      */
     public enum TypeEnum {
         CONCESSION("CONCESSION"),
@@ -126,12 +126,12 @@ public class TelcoConcession {
     }
 
     /**
-     * The concession type
+     * The concession type.
      *
      * @return type
      */
     @ApiModelProperty(required = true,
-            value = "The concession type")
+            value = "The concession type.")
     @NotNull
 
 
@@ -172,11 +172,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Display text providing more information on the concession
+     * Display text providing more information on the concession.
      *
      * @return additionalInfo
      */
-    @ApiModelProperty(value = "Display text providing more information on the concession")
+    @ApiModelProperty(value = "Display text providing more information on the concession.")
 
 
     public String getAdditionalInfo() {
@@ -258,11 +258,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Conditional attribute for frequency at which a concession is applied. Required if type is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
+     * Conditional attribute for frequency at which a concession is applied. Required if _type_ is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return discountFrequency
      */
-    @ApiModelProperty(value = "Conditional attribute for frequency at which a concession is applied. Required if type is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
+    @ApiModelProperty(value = "Conditional attribute for frequency at which a concession is applied. Required if _type_ is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
 
 
     public String getDiscountFrequency() {
@@ -279,11 +279,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Conditional attribute for the amount of discount for the concession- required if type is `FIXED_AMOUNT`.
+     * Conditional attribute for the amount of discount for the concession - required if _type_ is `FIXED_AMOUNT`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Conditional attribute for the amount of discount for the concession- required if type is `FIXED_AMOUNT`.")
+    @ApiModelProperty(value = "Conditional attribute for the amount of discount for the concession - required if _type_ is `FIXED_AMOUNT`.")
 
 
     public String getAmount() {
@@ -300,11 +300,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Conditional attribute for the percentage of discount of concession - required if type is `FIXED_PERCENTAGE`.
+     * Conditional attribute for the percentage of discount of concession - required if _type_ is `FIXED_PERCENTAGE`.
      *
      * @return percentage
      */
-    @ApiModelProperty(value = "Conditional attribute for the percentage of discount of concession - required if type is `FIXED_PERCENTAGE`.")
+    @ApiModelProperty(value = "Conditional attribute for the percentage of discount of concession - required if _type_ is `FIXED_PERCENTAGE`.")
 
 
     public String getPercentage() {
@@ -329,11 +329,11 @@ public class TelcoConcession {
     }
 
     /**
-     * Array of ENUMs to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.
+     * Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.
      *
      * @return appliedTo
      */
-    @ApiModelProperty(value = "Array of ENUMs to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.")
+    @ApiModelProperty(value = "Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.")
 
 
     public List<AppliedToEnum> getAppliedTo() {

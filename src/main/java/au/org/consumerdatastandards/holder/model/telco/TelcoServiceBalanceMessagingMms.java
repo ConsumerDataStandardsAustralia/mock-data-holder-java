@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of MMS Balance. Required if the service plan supports MMS messaging
+ * Summary of MMS Balance. Required if the service plan supports MMS messaging.
  */
-@ApiModel(description = "Summary of MMS Balance. Required if the service plan supports MMS messaging")
+@ApiModel(description = "Summary of MMS Balance. Required if the service plan supports MMS messaging.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalanceMessagingMms {
@@ -36,11 +36,11 @@ public class TelcoServiceBalanceMessagingMms {
     }
 
     /**
-     * An overview of plan limits. Required unless planType is UNSUPPORTED
+     * An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.
      *
      * @return description
      */
-    @ApiModelProperty(value = "An overview of plan limits. Required unless planType is UNSUPPORTED")
+    @ApiModelProperty(value = "An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.")
 
 
     public String getDescription() {
@@ -57,11 +57,11 @@ public class TelcoServiceBalanceMessagingMms {
     }
 
     /**
-     * Number of national MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED
+     * Number of national MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return national
      */
-    @ApiModelProperty(value = "Number of national MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Number of national MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
     @Valid
 
@@ -79,11 +79,11 @@ public class TelcoServiceBalanceMessagingMms {
     }
 
     /**
-     * Number of international MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED
+     * Number of international MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return international
      */
-    @ApiModelProperty(value = "Number of international MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Number of international MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
     @Valid
 
@@ -101,11 +101,11 @@ public class TelcoServiceBalanceMessagingMms {
     }
 
     /**
-     * Number of roaming MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED
+     * Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return roaming
      */
-    @ApiModelProperty(value = "Number of roaming MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Number of roaming MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
     @Valid
 
@@ -123,11 +123,11 @@ public class TelcoServiceBalanceMessagingMms {
     }
 
     /**
-     * Amount value of MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED
+     * Amount value of MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Amount value of MMS messages remaining. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Amount value of MMS messages remaining. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
 
     public String getAmount() {

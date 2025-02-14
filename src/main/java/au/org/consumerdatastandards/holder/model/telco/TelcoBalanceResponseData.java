@@ -24,11 +24,11 @@ public class TelcoBalanceResponseData {
     }
 
     /**
-     * The ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * The ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return accountId
      */
-    @ApiModelProperty(value = "The ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements")
+    @ApiModelProperty(value = "The ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements.")
 
 
     public String getAccountId() {

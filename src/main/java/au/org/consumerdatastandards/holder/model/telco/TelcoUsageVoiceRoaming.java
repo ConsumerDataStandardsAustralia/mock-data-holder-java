@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Roaming voice calls, Required if roaming is supported
+ * Roaming voice calls, Required if roaming is supported.
  */
-@ApiModel(description = "Roaming voice calls, Required if roaming is supported")
+@ApiModel(description = "Roaming voice calls, Required if roaming is supported.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageVoiceRoaming {
@@ -31,12 +31,12 @@ public class TelcoUsageVoiceRoaming {
     }
 
     /**
-     * Total duration (hours, minutes, and seconds) of roaming voice calls. Not limited to 24hrs
+     * Total duration (hours, minutes, and seconds) of roaming voice calls. Not limited to 24hrs.
      *
      * @return duration
      */
     @ApiModelProperty(required = true,
-            value = "Total duration (hours, minutes, and seconds) of roaming voice calls. Not limited to 24hrs")
+            value = "Total duration (hours, minutes, and seconds) of roaming voice calls. Not limited to 24hrs.")
     @NotNull
 
 
@@ -54,12 +54,12 @@ public class TelcoUsageVoiceRoaming {
     }
 
     /**
-     * Number of roaming voice calls
+     * Number of roaming voice calls.
      *
      * @return number
      */
     @ApiModelProperty(required = true,
-            value = "Number of roaming voice calls")
+            value = "Number of roaming voice calls.")
     @NotNull
 
     @Valid
@@ -78,12 +78,12 @@ public class TelcoUsageVoiceRoaming {
     }
 
     /**
-     * Cost amount of roaming voice calls
+     * Cost amount of roaming voice calls.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "Cost amount of roaming voice calls")
+            value = "Cost amount of roaming voice calls.")
     @NotNull
 
 

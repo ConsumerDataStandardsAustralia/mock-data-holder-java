@@ -1060,7 +1060,7 @@ public interface EnergyApi {
 
     /**
      * GET /energy/accounts/balances : Get Bulk Balances for Energy
-     * Obtain the current balance for all account.s
+     * Obtain the current balance for all accounts.
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param page                   Page of results to request (standard pagination).
@@ -1075,7 +1075,7 @@ public interface EnergyApi {
      */
     @ApiOperation(value = "Get Bulk Balances for Energy",
             nickname = "listBalancesBulk",
-            notes = "Obtain the current balance for all account.s",
+            notes = "Obtain the current balance for all accounts.",
             response = EnergyBalanceListResponse.class,
             tags = {"Energy", "Billing",})
     @ApiResponses(value = {

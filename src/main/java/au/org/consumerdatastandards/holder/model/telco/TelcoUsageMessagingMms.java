@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of MMS usage
+ * Summary of MMS usage.
  */
-@ApiModel(description = "Summary of MMS usage")
+@ApiModel(description = "Summary of MMS usage.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageMessagingMms {
@@ -34,12 +34,12 @@ public class TelcoUsageMessagingMms {
     }
 
     /**
-     * Number of national MMS messages sent
+     * Number of national MMS messages sent.
      *
      * @return national
      */
     @ApiModelProperty(required = true,
-            value = "Number of national MMS messages sent")
+            value = "Number of national MMS messages sent.")
     @NotNull
 
     @Valid
@@ -58,11 +58,11 @@ public class TelcoUsageMessagingMms {
     }
 
     /**
-     * ber of international MMS messages sent
+     * Number of international MMS messages sent.
      *
      * @return international
      */
-    @ApiModelProperty(value = "ber of international MMS messages sent")
+    @ApiModelProperty(value = "Number of international MMS messages sent.")
 
     @Valid
 
@@ -80,11 +80,11 @@ public class TelcoUsageMessagingMms {
     }
 
     /**
-     * Number of roaming SMS messages sent. Including premium SMS services
+     * Number of roaming SMS messages sent. Including premium SMS services.
      *
      * @return roaming
      */
-    @ApiModelProperty(value = "Number of roaming SMS messages sent. Including premium SMS services")
+    @ApiModelProperty(value = "Number of roaming SMS messages sent. Including premium SMS services.")
 
     @Valid
 
@@ -102,12 +102,12 @@ public class TelcoUsageMessagingMms {
     }
 
     /**
-     * Cost amount of MMS messages
+     * Cost amount of MMS messages.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "Cost amount of MMS messages")
+            value = "Cost amount of MMS messages.")
     @NotNull
 
 

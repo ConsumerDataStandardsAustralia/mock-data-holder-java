@@ -84,12 +84,12 @@ public class TelcoBillingTransaction {
     }
 
     /**
-     * The ID of the account for which the transaction occurred. accountId must comply in accordance with [CDR ID permanence](#id-permanence)
+     * The ID of the account for which the transaction occurred. _accountId_ must comply in accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return accountId
      */
     @ApiModelProperty(required = true,
-            value = "The ID of the account for which the transaction occurred. accountId must comply in accordance with [CDR ID permanence](#id-permanence)")
+            value = "The ID of the account for which the transaction occurred. _accountId_ must comply in accordance with [CDR ID permanence](#id-permanence) requirements.")
     @NotNull
 
 

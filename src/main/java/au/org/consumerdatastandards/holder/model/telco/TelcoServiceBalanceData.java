@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of data balances
+ * Summary of data balances.
  */
-@ApiModel(description = "Summary of data balances")
+@ApiModel(description = "Summary of data balances.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalanceData {
@@ -64,11 +64,11 @@ public class TelcoServiceBalanceData {
     }
 
     /**
-     * An overview of plan limits. Required unless planType is UNSUPPORTED
+     * An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.
      *
      * @return description
      */
-    @ApiModelProperty(value = "An overview of plan limits. Required unless planType is UNSUPPORTED")
+    @ApiModelProperty(value = "An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.")
 
 
     public String getDescription() {
@@ -85,11 +85,11 @@ public class TelcoServiceBalanceData {
     }
 
     /**
-     * Remaining upload data in megabytes (MB). Required unless planType is UNSUPPORTED or UNMETERED
+     * Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return upload
      */
-    @ApiModelProperty(value = "Remaining upload data in megabytes (MB). Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Remaining upload data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
     @Valid
 
@@ -107,11 +107,11 @@ public class TelcoServiceBalanceData {
     }
 
     /**
-     * Remaining download data in megabytes (MB). Required unless planType is UNSUPPORTED or UNMETERED
+     * Remaining download data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return download
      */
-    @ApiModelProperty(value = "Remaining download data in megabytes (MB). Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Remaining download data in megabytes (MB). Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
     @Valid
 
@@ -129,11 +129,11 @@ public class TelcoServiceBalanceData {
     }
 
     /**
-     * Remaining value amount of data available. Required unless planType is UNSUPPORTED or UNMETERED
+     * Remaining value amount of data available. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Remaining value amount of data available. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Remaining value amount of data available. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
 
     public String getAmount() {

@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of SMS usage
+ * Summary of SMS usage.
  */
-@ApiModel(description = "Summary of SMS usage")
+@ApiModel(description = "Summary of SMS usage.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageMessagingSms {
@@ -34,12 +34,12 @@ public class TelcoUsageMessagingSms {
     }
 
     /**
-     * Number of national SMS messages sent. Including premium SMS services
+     * Number of national SMS messages sent. Including premium SMS services.
      *
      * @return national
      */
     @ApiModelProperty(required = true,
-            value = "Number of national SMS messages sent. Including premium SMS services")
+            value = "Number of national SMS messages sent. Including premium SMS services.")
     @NotNull
 
     @Valid
@@ -58,11 +58,11 @@ public class TelcoUsageMessagingSms {
     }
 
     /**
-     * Number of international SMS messages sent. Including premium SMS services
+     * Number of international SMS messages sent. Including premium SMS services.
      *
      * @return international
      */
-    @ApiModelProperty(value = "Number of international SMS messages sent. Including premium SMS services")
+    @ApiModelProperty(value = "Number of international SMS messages sent. Including premium SMS services.")
 
     @Valid
 
@@ -80,11 +80,11 @@ public class TelcoUsageMessagingSms {
     }
 
     /**
-     * Number of roaming SMS messages sent. Including premium SMS services
+     * Number of roaming SMS messages sent. Including premium SMS services.
      *
      * @return roaming
      */
-    @ApiModelProperty(value = "Number of roaming SMS messages sent. Including premium SMS services")
+    @ApiModelProperty(value = "Number of roaming SMS messages sent. Including premium SMS services.")
 
     @Valid
 
@@ -102,12 +102,12 @@ public class TelcoUsageMessagingSms {
     }
 
     /**
-     * Cost amount of SMS messages. Including premium SMS services
+     * Cost amount of SMS messages. Including premium SMS services.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "Cost amount of SMS messages. Including premium SMS services")
+            value = "Cost amount of SMS messages. Including premium SMS services.")
     @NotNull
 
 

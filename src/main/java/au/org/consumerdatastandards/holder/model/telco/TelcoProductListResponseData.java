@@ -30,12 +30,12 @@ public class TelcoProductListResponseData {
     }
 
     /**
-     * Array of Products
+     * Array of Products.
      *
      * @return plans
      */
     @ApiModelProperty(required = true,
-            value = "Array of Products")
+            value = "Array of Products.")
     @NotNull
 
     @Valid

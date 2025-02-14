@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The array of plans containing services and associated plan details
+ * The array of plans containing services and associated plan details.
  */
-@ApiModel(description = "The array of plans containing services and associated plan details")
+@ApiModel(description = "The array of plans containing services and associated plan details.")
 public class TelcoAccountDetail {
     private String accountId;
 
@@ -32,11 +32,11 @@ public class TelcoAccountDetail {
     private List<TelcoAccountDetailPlan> plans = new ArrayList<>();
 
     /**
-     * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
+     * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return accountId
      */
-    @ApiModelProperty(value = "The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements")
+    @ApiModelProperty(value = "The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements.")
     public String getAccountId() {
         return accountId;
     }
@@ -46,11 +46,11 @@ public class TelcoAccountDetail {
     }
 
     /**
-     * Masked identifier of the account as defined by the data holder. This must be the value presented on physical statements (required if it exists) and must not be used for the value of the accountId
+     * Masked identifier of the account as defined by the data holder. This must be the value presented on physical statements (required if it exists) and must not be used for the value of the _accountId_.
      *
      * @return accountNumber
      */
-    @ApiModelProperty(value = "Masked identifier of the account as defined by the data holder. This must be the value presented on physical statements (required if it exists) and must not be used for the value of the accountId")
+    @ApiModelProperty(value = "Masked identifier of the account as defined by the data holder. This must be the value presented on physical statements (required if it exists) and must not be used for the value of the _accountId_.")
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -60,11 +60,11 @@ public class TelcoAccountDetail {
     }
 
     /**
-     * An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder
+     * An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder")
+    @ApiModelProperty(value = "An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder.")
     public String getDisplayName() {
         return displayName;
     }
@@ -88,11 +88,11 @@ public class TelcoAccountDetail {
     }
 
     /**
-     * The date and time which the account was last updated
+     * The date and time which the account was last updated.
      *
      * @return lastUpdated
      */
-    @ApiModelProperty(value = "The date and time which the account was last updated")
+    @ApiModelProperty(value = "The date and time which the account was last updated.")
     public String getLastUpdated() {
         return lastUpdated;
     }
@@ -102,11 +102,11 @@ public class TelcoAccountDetail {
     }
 
     /**
-     * The retail name of the brand
+     * The retail name of the brand.
      *
      * @return brand
      */
-    @ApiModelProperty(value = "The retail name of the brand")
+    @ApiModelProperty(value = "The retail name of the brand.")
     public String getBrand() {
         return brand;
     }
@@ -140,11 +140,11 @@ public class TelcoAccountDetail {
     }
 
     /**
-     * The array of plans containing services and associated plan details
+     * The array of plans containing services and associated plan details.
      *
      * @return plans
      */
-    @ApiModelProperty(required = true, value = "The array of plans containing services and associated plan details")
+    @ApiModelProperty(required = true, value = "The array of plans containing services and associated plan details.")
     @NotNull
     @Valid
     public List<TelcoAccountDetailPlan> getPlans() {

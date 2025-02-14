@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of the contract details. Mandatory if the billing type is POST_PAID and a contract agreement is required with the service provider for the plan
+ * Summary of the contract details. Mandatory if the billing type is `POST_PAID` and a contract agreement is required with the service provider for the plan.
  */
-@ApiModel(description = "Summary of the contract details. Mandatory if the billing type is POST_PAID and a contract agreement is required with the service provider for the plan")
+@ApiModel(description = "Summary of the contract details. Mandatory if the billing type is `POST_PAID` and a contract agreement is required with the service provider for the plan.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoContract {
@@ -34,12 +34,12 @@ public class TelcoContract {
     }
 
     /**
-     * Name of the contract
+     * Name of the contract.
      *
      * @return name
      */
     @ApiModelProperty(required = true,
-            value = "Name of the contract")
+            value = "Name of the contract.")
     @NotNull
 
 
@@ -57,11 +57,11 @@ public class TelcoContract {
     }
 
     /**
-     * Description of the contract
+     * Description of the contract.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the contract")
+    @ApiModelProperty(value = "Description of the contract.")
 
 
     public String getDescription() {
@@ -78,12 +78,12 @@ public class TelcoContract {
     }
 
     /**
-     * Minimum contract duration in months
+     * Minimum contract duration in months.
      *
      * @return duration
      */
     @ApiModelProperty(required = true,
-            value = "Minimum contract duration in months")
+            value = "Minimum contract duration in months.")
     @NotNull
 
     @Valid
@@ -102,11 +102,11 @@ public class TelcoContract {
     }
 
     /**
-     * URI of the contract conditions
+     * URI of the contract conditions.
      *
      * @return contractUri
      */
-    @ApiModelProperty(value = "URI of the contract conditions")
+    @ApiModelProperty(value = "URI of the contract conditions.")
 
 
     public String getContractUri() {

@@ -74,7 +74,7 @@ public class EnergyPlanContractIncentives {
     }
 
     /**
-     * The description of the incentive
+     * The description of the incentive.
      *
      * @return description
      */

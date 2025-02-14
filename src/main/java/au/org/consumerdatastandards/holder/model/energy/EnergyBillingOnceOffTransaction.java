@@ -81,12 +81,12 @@ public class EnergyBillingOnceOffTransaction {
     }
 
     /**
-     * The amount of the charge. or credit. A positive value indicates a charge and a negative value indicates a credit.
+     * The amount of the charge or credit. A positive value indicates a charge and a negative value indicates a credit.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The amount of the charge. or credit. A positive value indicates a charge and a negative value indicates a credit.")
+            value = "The amount of the charge or credit. A positive value indicates a charge and a negative value indicates a credit.")
     @NotNull
     public String getAmount() {
         return amount;

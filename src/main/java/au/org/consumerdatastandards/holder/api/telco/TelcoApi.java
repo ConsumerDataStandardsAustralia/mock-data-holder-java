@@ -50,9 +50,9 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{accountId} : Get Telco Account Detail
-     * Obtain detailed information for a specific telco account
+     * Obtain detailed information for a specific telco account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
@@ -66,7 +66,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Account Detail",
             nickname = "getAccount",
-            notes = "Obtain detailed information for a specific telco account",
+            notes = "Obtain detailed information for a specific telco account.",
             response = TelcoAccountDetailResponse.class,
             tags = {"Telco", "Accounts",})
     @ApiResponses(value = {
@@ -95,7 +95,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoAccountDetailResponse> getAccount(
-            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements",
+            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.",
                     required = true)
             @PathVariable("accountId")
             String accountId,
@@ -130,7 +130,7 @@ public interface TelcoApi {
      * GET /telco/accounts/{accountId}/balance : Get Balance For Telco Account
      * Obtain the current balance for a specific account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
@@ -173,7 +173,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoBalanceResponse> getBalanceForAccount(
-            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements",
+            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.",
                     required = true)
             @PathVariable("accountId")
             String accountId,
@@ -206,9 +206,9 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{accountId}/concessions : Get Telco Concessions
-     * Obtain the details of any concessions or arrangements applied to a specific telco account
+     * Obtain the details of any concessions or arrangements applied to a specific telco account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
@@ -222,7 +222,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Concessions",
             nickname = "getConcessions",
-            notes = "Obtain the details of any concessions or arrangements applied to a specific telco account",
+            notes = "Obtain the details of any concessions or arrangements applied to a specific telco account.",
             response = TelcoConcessionsResponse.class,
             tags = {"Telco", "Accounts",})
     @ApiResponses(value = {
@@ -251,7 +251,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoConcessionsResponse> getConcessions(
-            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements",
+            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.",
                     required = true)
             @PathVariable("accountId")
             String accountId,
@@ -286,7 +286,7 @@ public interface TelcoApi {
      * GET /telco/accounts/{accountId}/invoices : Get Invoices For Telco Account
      * Obtain the invoices for a specific account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
@@ -334,7 +334,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoInvoiceResponse> getInvoicesForAccount(
-            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements",
+            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.",
                     required = true)
             @PathVariable("accountId")
             String accountId,
@@ -368,9 +368,9 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{accountId}/payment-schedule : Get Telco Agreed Payment Schedule
-     * Obtain the agreed payment schedule and details, if any, for a specific telco account.   Some general notes about this end point:   &lt;ul&gt;&lt;li&gt;This API describes how the consumer has elected to pay for their account&lt;/li&gt;&lt;li&gt;Payments initiated by the consumer are classified as manual payments. The billing frequency is captured for manual payments. The consumer may choose to pay on a different schedule/frequency. The payment method and frequency is not captured for manual payments&lt;/li&gt;&lt;li&gt;Payments that can be initiated by the retailer, based on a consumer&#39;s preferences and permission, include payments based on a direct debit, card debit or digital wallet setup. Each of these requires a payment frequency to be provided along with other relevant fields&lt;/li&gt;&lt;li&gt;Information about payment plans related to debt repayments or arrangements due to hardship is not captured within this API&lt;/li&gt;&lt;/ul&gt;
+     * Obtain the agreed payment schedule and details, if any, for a specific telco account.\n\nSome general notes about this endpoint:\n\n<ul><li>This API describes how the consumer has elected to pay for their account</li><li>Payments initiated by the consumer are classified as manual payments. The billing frequency is captured for manual payments. The consumer may choose to pay on a different schedule/frequency. The payment method and frequency is not captured for manual payments</li><li>Payments that can be initiated by the retailer, based on a consumer's preferences and permission, include payments based on a direct debit, card debit or digital wallet setup. Each of these requires a payment frequency to be provided along with other relevant fields</li><li>Information about payment plans related to debt repayments or arrangements due to hardship is not captured within this API.</li></ul>
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @param xFapiInteractionId     An **[[RFC4122]](#nref-RFC4122)** UUID used as a correlation id. If provided, the data holder **MUST** play back this value in the _x-fapi-interaction-id_ response header. If not provided a **[[RFC4122]](#nref-RFC4122)** UUID value is required to be provided in the response header to track the interaction.
@@ -384,7 +384,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Agreed Payment Schedule",
             nickname = "getPaymentSchedule",
-            notes = "Obtain the agreed payment schedule and details, if any, for a specific telco account.   Some general notes about this end point:   <ul><li>This API describes how the consumer has elected to pay for their account</li><li>Payments initiated by the consumer are classified as manual payments. The billing frequency is captured for manual payments. The consumer may choose to pay on a different schedule/frequency. The payment method and frequency is not captured for manual payments</li><li>Payments that can be initiated by the retailer, based on a consumer's preferences and permission, include payments based on a direct debit, card debit or digital wallet setup. Each of these requires a payment frequency to be provided along with other relevant fields</li><li>Information about payment plans related to debt repayments or arrangements due to hardship is not captured within this API</li></ul>",
+            notes = "Obtain the agreed payment schedule and details, if any, for a specific telco account.\n\nSome general notes about this endpoint:\n\n<ul><li>This API describes how the consumer has elected to pay for their account</li><li>Payments initiated by the consumer are classified as manual payments. The billing frequency is captured for manual payments. The consumer may choose to pay on a different schedule/frequency. The payment method and frequency is not captured for manual payments</li><li>Payments that can be initiated by the retailer, based on a consumer's preferences and permission, include payments based on a direct debit, card debit or digital wallet setup. Each of these requires a payment frequency to be provided along with other relevant fields</li><li>Information about payment plans related to debt repayments or arrangements due to hardship is not captured within this API.</li></ul>",
             response = TelcoPaymentScheduleResponse.class,
             tags = {"Telco", "Accounts",})
     @ApiResponses(value = {
@@ -413,7 +413,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoPaymentScheduleResponse> getPaymentSchedule(
-            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements",
+            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.",
                     required = true)
             @PathVariable("accountId")
             String accountId,
@@ -446,9 +446,9 @@ public interface TelcoApi {
 
     /**
      * GET /telco/products/{productId} : Get Telco Product Detail
-     * Obtain detailed information on a single telco prouct offered openly to the market
+     * Obtain detailed information on a single telco prouct offered openly to the market.
      *
-     * @param productId ID of the specific product requested
+     * @param productId ID of the specific product requested.
      * @param xV        Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param xMinV     Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
      * @return Successful response (status code 200)
@@ -458,7 +458,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Product Detail",
             nickname = "getProduct",
-            notes = "Obtain detailed information on a single telco prouct offered openly to the market",
+            notes = "Obtain detailed information on a single telco prouct offered openly to the market.",
             response = TelcoProductResponse.class,
             tags = {"Telco", "Products",})
     @ApiResponses(value = {
@@ -481,7 +481,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoProductResponse> getProduct(
-            @ApiParam(value = "ID of the specific product requested",
+            @ApiParam(value = "ID of the specific product requested.",
                     required = true)
             @PathVariable("productId")
             String productId,
@@ -500,7 +500,7 @@ public interface TelcoApi {
      * GET /telco/accounts/{accountId}/transactions : Get Transactions For Telco Account
      * Obtain the billing transactions for a specific account.
      *
-     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param accountId              ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param newestTime             Constrain the request to records with effective time at or before this date/time. If absent defaults to current date/time. Format is aligned to DateTimeString common type.
      * @param oldestTime             Constrain the request to records with effective time at or after this date/time. If absent defaults to _newest-time_ minus 12 months. Format is aligned to DateTimeString common type.
@@ -552,7 +552,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoTransactionListResponse> getTransactionsForAccount(
-            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List end point. In accordance with [CDR ID permanence](#id-permanence) requirements",
+            @ApiParam(value = "ID of a specific account to obtain data for. This is a tokenised ID previously obtained from the Account List endpoint. In accordance with [CDR ID permanence](#id-permanence) requirements.",
                     required = true)
             @PathVariable("accountId")
             String accountId,
@@ -605,9 +605,9 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/{serviceId}/usage : Get Usage For Telco Service
-     * Obtain a usage data from a particular service Id
+     * Obtain a usage data from a particular service Id.
      *
-     * @param serviceId              ID of the specific service requested. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). This is a tokenised ID returned from the account. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * @param serviceId              ID of the specific service requested. E.g., a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). This is a tokenised ID returned from the account. In accordance with [CDR ID permanence](#id-permanence) requirements.
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
      * @param newestDate             Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.
@@ -624,7 +624,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Usage For Telco Service",
             nickname = "getUsageForService",
-            notes = "Obtain a usage data from a particular service Id",
+            notes = "Obtain a usage data from a particular service Id.",
             response = TelcoServiceUsageResponse.class,
             tags = {"Telco", "Billing", "Usage",})
     @ApiResponses(value = {
@@ -657,7 +657,7 @@ public interface TelcoApi {
             produces = {"application/json"}
     )
     ResponseEntity<TelcoServiceUsageResponse> getUsageForService(
-            @ApiParam(value = "ID of the specific service requested. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). This is a tokenised ID returned from the account. In accordance with [CDR ID permanence](#id-permanence) requirements",
+            @ApiParam(value = "ID of the specific service requested. E.g., a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). This is a tokenised ID returned from the account. In accordance with [CDR ID permanence](#id-permanence) requirements.",
                     required = true)
             @PathVariable("serviceId")
             String serviceId,
@@ -700,11 +700,11 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts : Get Telco Accounts
-     * Obtain the list of telco accounts available under the authorised consent
+     * Obtain the list of telco accounts available under the authorised consent.
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param openStatus             Used to filter results according to open/closed status. Values can be `OPEN`, `CLOSED` or `ALL`. If absent then `ALL` is assumed. (optional, default to ALL)
-     * @param updatedSince           Only include accounts that have been updated after the specified date and time.  If absent defaults to include all plans
+     * @param updatedSince           Only include accounts that have been updated after the specified date and time. If absent defaults to include all plans.
      * @param page                   Page of results to request (standard pagination).
      * @param pageSize               Page size to request. Default is 25 (standard pagination).
      * @param xMinV                  Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
@@ -719,7 +719,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Accounts",
             nickname = "listAccounts",
-            notes = "Obtain the list of telco accounts available under the authorised consent",
+            notes = "Obtain the list of telco accounts available under the authorised consent.",
             response = TelcoAccountListResponse.class,
             tags = {"Telco", "Accounts",})
     @ApiResponses(value = {
@@ -761,7 +761,7 @@ public interface TelcoApi {
                     required = false,
                     defaultValue = "ALL")
             String openStatus,
-            @ApiParam(value = "Only include accounts that have been updated after the specified date and time.  If absent defaults to include all plans")
+            @ApiParam(value = "Only include accounts that have been updated after the specified date and time. If absent defaults to include all plans.")
             @Valid
             @RequestParam(value = "updated-since",
                     required = false)
@@ -800,7 +800,7 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/balance : Get Bulk Telco Balances
-     * Obtain the current balance for all account.s
+     * Obtain the current balance for all accounts.
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param page                   Page of results to request (standard pagination).
@@ -817,7 +817,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Bulk Telco Balances",
             nickname = "listBalance",
-            notes = "Obtain the current balance for all account.s",
+            notes = "Obtain the current balance for all accounts.",
             response = TelcoBalanceListResponse.class,
             tags = {"Telco", "Billing", "Balance",})
     @ApiResponses(value = {
@@ -977,7 +977,7 @@ public interface TelcoApi {
 
     /**
      * POST /telco/accounts/transactions : Get Transactions For Specific Telco Accounts
-     * Obtain transactions for a specified set of accounts
+     * Obtain transactions for a specified set of accounts.
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param accountIdList          Request payload containing list of specific Accounts to obtain data for.
@@ -997,7 +997,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Transactions For Specific Telco Accounts",
             nickname = "listBillingForAccounts",
-            notes = "Obtain transactions for a specified set of accounts",
+            notes = "Obtain transactions for a specified set of accounts.",
             response = TelcoTransactionListResponse.class,
             tags = {"Telco", "Billing", "Transactions",})
     @ApiResponses(value = {
@@ -1282,14 +1282,14 @@ public interface TelcoApi {
 
     /**
      * GET /telco/products : Get Telco Products
-     * Obtain a list of telco products that are currently offered to the market.  Note that the results returned by this end point are expected to be ordered in descending order according to &#x60;lastUpdated&#x60;.
+     * Obtain a list of telco products that are currently offered to the market.\n\nNote that the results returned by this endpoint are expected to be ordered in descending order according to _lastUpdated_.
      *
      * @param xV           Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
-     * @param type         Used to filter results on the type field. Any one of the valid values for this field can be supplied. If absent, defaults to include ALL products. Valid values are [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service. BROADBAND fixed internet service or ALL (optional, default to MOBILE)
+     * @param type         Used to filter results on the type field. Any one of the valid values for this field can be supplied. If absent, defaults to include `ALL` products. Valid values are [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service, `BROADBAND` fixed internet service, or `ALL`. (optional, default to MOBILE)
      * @param billingType  Used to filter results on the billing-type field.  Any one of the valid values for this field can be supplied. If absent, defaults to include all billing types. Valid values are ‘PRE_PAID’, ‘POST_PAID’, &#39;UPFRONT_PAID&#39;, &#39;OTHER&#39; (optional, default to PRE_PAID)
      * @param effective    Allows for the filtering of productd based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to &#39;CURRENT&#39; (optional, default to CURRENT)
-     * @param updatedSince Only include products that have been updated after the specified date and time.  If absent defaults to include all plans
-     * @param brand        Used to filter results on the brand field. If absent, defaults to include all products. For service providers that operate a number of mobile and internet brands
+     * @param updatedSince Only include products that have been updated after the specified date and time. If absent defaults to include all plans.
+     * @param brand        Used to filter results on the brand field. If absent, defaults to include all products. For service providers that operate a number of mobile and internet brands.
      * @param page         Page of results to request (standard pagination).
      * @param pageSize     Page size to request. Default is 25 (standard pagination).
      * @param xMinV        Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`.
@@ -1300,7 +1300,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Telco Products",
             nickname = "listProducts",
-            notes = "Obtain a list of telco products that are currently offered to the market.  Note that the results returned by this end point are expected to be ordered in descending order according to `lastUpdated`.",
+            notes = "Obtain a list of telco products that are currently offered to the market.\n\nNote that the results returned by this endpoint are expected to be ordered in descending order according to _lastUpdated_.",
             response = TelcoProductListResponse.class,
             tags = {"Telco", "Products",})
     @ApiResponses(value = {
@@ -1328,7 +1328,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Used to filter results on the type field. Any one of the valid values for this field can be supplied. If absent, defaults to include ALL products. Valid values are [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service. BROADBAND fixed internet service or ALL",
+            @ApiParam(value = "Used to filter results on the type field. Any one of the valid values for this field can be supplied. If absent, defaults to include `ALL` products. Valid values are [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service, `BROADBAND` fixed internet service, or `ALL`.",
                     allowableValues = "MOBILE, BROADBAND",
                     defaultValue = "MOBILE")
             @Valid
@@ -1336,7 +1336,7 @@ public interface TelcoApi {
                     required = false,
                     defaultValue = "MOBILE")
             TypeEnum type,
-            @ApiParam(value = "Used to filter results on the billing-type field.  Any one of the valid values for this field can be supplied. If absent, defaults to include all billing types. Valid values are ‘PRE_PAID’, ‘POST_PAID’, 'UPFRONT_PAID', 'ALL'",
+            @ApiParam(value = "Used to filter results on the _billing-type_ field. Any one of the valid values for this field can be supplied. If absent, defaults to include all billing types. Valid values are `PRE_PAID`, `POST_PAID`, `UPFRONT_PAID`, `ALL`",
                     allowableValues = "PRE_PAID, POST_PAID, UPFRONT_PAID, OTHER",
                     defaultValue = "PRE_PAID")
             @Valid
@@ -1344,7 +1344,7 @@ public interface TelcoApi {
                     required = false,
                     defaultValue = "PRE_PAID")
             BillingTypeEnum billingType,
-            @ApiParam(value = "Allows for the filtering of productd based on whether the current time is within the period of time defined as effective by the effectiveFrom and effectiveTo fields. Valid values are ‘CURRENT’, ‘FUTURE’ and ‘ALL’. If absent defaults to 'CURRENT'",
+            @ApiParam(value = "Allows for the filtering of products based on whether the current time is within the period of time defined as effective by the _effectiveFrom_ and _effectiveTo_ fields. Valid values are `CURRENT`, `FUTURE` and `ALL`. If absent defaults to `CURRENT`.",
                     allowableValues = "CURRENT, FUTURE, ALL",
                     defaultValue = "CURRENT")
             @Valid
@@ -1352,12 +1352,12 @@ public interface TelcoApi {
                     required = false,
                     defaultValue = "CURRENT")
             String effective,
-            @ApiParam(value = "Only include products that have been updated after the specified date and time.  If absent defaults to include all plans")
+            @ApiParam(value = "Only include products that have been updated after the specified date and time. If absent defaults to include all plans.")
             @Valid
             @RequestParam(value = "updated-since",
                     required = false)
             String updatedSince,
-            @ApiParam(value = "Used to filter results on the brand field. If absent, defaults to include all products. For service providers that operate a number of mobile and internet brands")
+            @ApiParam(value = "Used to filter results on the brand field. If absent, defaults to include all products. For service providers that operate a number of mobile and internet brands.")
             @Valid
             @RequestParam(value = "brand",
                     required = false)
@@ -1477,7 +1477,7 @@ public interface TelcoApi {
 
     /**
      * GET /telco/accounts/usage : Get Usage
-     * Obtain usage data for all services associated with the customer
+     * Obtain usage data for all services associated with the customer.
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
@@ -1496,7 +1496,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Usage",
             nickname = "listUsage",
-            notes = "Obtain usage data for all services associated with the customer",
+            notes = "Obtain usage data for all services associated with the customer.",
             response = TelcoUsageListResponse.class,
             tags = {"Telco", "Billing", "Usage",})
     @ApiResponses(value = {
@@ -1574,10 +1574,10 @@ public interface TelcoApi {
 
     /**
      * POST /telco/accounts/usage : Get Usage For Specific Telco Service
-     * Obtain usage data for a specific service
+     * Obtain usage data for a specific service.
      *
      * @param xV                     Version of the API endpoint requested by the client. Must be set to a positive integer. The data holder should respond with the highest supported version between [_x-min-v_](#request-headers) and [_x-v_](#request-headers). If the value of [_x-min-v_](#request-headers) is equal to or higher than the value of [_x-v_](#request-headers) then the [_x-min-v_](#request-headers) header should be treated as absent. If all versions requested are not supported then the data holder **MUST** respond with a `406 Not Acceptable`. See [HTTP Headers](#request-headers).
-     * @param serviceIdList          Request payload containing list of specific Service Points to obtain data for
+     * @param serviceIdList          Request payload containing list of specific _serviceId_ values to obtain data for.
      * @param oldestDate             Constrain the request to records with effective date at or after this date. If absent defaults to _newest-date_ minus 24 months. Format is aligned to DateString common type.
      * @param newestDate             Constrain the request to records with effective date at or before this date. If absent defaults to current date. Format is aligned to DateString common type.
      * @param page                   Page of results to request (standard pagination).
@@ -1594,7 +1594,7 @@ public interface TelcoApi {
      */
     @ApiOperation(value = "Get Usage For Specific Telco Service",
             nickname = "listUsageForService",
-            notes = "Obtain usage data for a specific service",
+            notes = "Obtain usage data for a specific service.",
             response = TelcoServiceUsageListResponse.class,
             tags = {"Telco", "Usage",})
     @ApiResponses(value = {
@@ -1629,7 +1629,7 @@ public interface TelcoApi {
             @RequestHeader(value = "x-v",
                     required = true)
             Integer xV,
-            @ApiParam(value = "Request payload containing list of specific Service Points to obtain data for",
+            @ApiParam(value = "Request payload containing list of specific _serviceId_ values to obtain data for.",
                     required = true)
             @Valid
             @RequestBody

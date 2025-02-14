@@ -8,9 +8,9 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 /**
- * Object containing usage summary
+ * Object containing usage summary.
  */
-@ApiModel(description = "Object containing usage summary")
+@ApiModel(description = "Object containing usage summary.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsage {

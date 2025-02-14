@@ -208,7 +208,7 @@ public class EnergyBillingUsageTransaction {
     }
 
     /**
-     * Date and time when the usage period ends
+     * Date and time when the usage period ends.
      *
      * @return endDate
      */

@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * International voice calls
+ * International voice calls.
  */
-@ApiModel(description = "International voice calls")
+@ApiModel(description = "International voice calls.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalanceVoiceInternational {
@@ -33,11 +33,11 @@ public class TelcoServiceBalanceVoiceInternational {
     }
 
     /**
-     * An overview of plan limits. Required unless planType is UNSUPPORTED
+     * An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.
      *
      * @return description
      */
-    @ApiModelProperty(value = "An overview of plan limits. Required unless planType is UNSUPPORTED")
+    @ApiModelProperty(value = "An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.")
 
 
     public String getDescription() {
@@ -54,11 +54,11 @@ public class TelcoServiceBalanceVoiceInternational {
     }
 
     /**
-     * Total duration (hours, minutes, and seconds) of international voice calls available. Not limited to 24hrs. Required unless planType is UNSUPPORTED or UNMETERED
+     * Total duration (hours, minutes, and seconds) of international voice calls available. Not limited to 24hrs. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return duration
      */
-    @ApiModelProperty(value = "Total duration (hours, minutes, and seconds) of international voice calls available. Not limited to 24hrs. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Total duration (hours, minutes, and seconds) of international voice calls available. Not limited to 24hrs. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
 
     public String getDuration() {
@@ -75,11 +75,11 @@ public class TelcoServiceBalanceVoiceInternational {
     }
 
     /**
-     * Number of international voice calls available Required unless planType is UNSUPPORTED or UNMETERED
+     * Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return number
      */
-    @ApiModelProperty(value = "Number of international voice calls available Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Number of international voice calls available Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
     @Valid
 
@@ -97,11 +97,11 @@ public class TelcoServiceBalanceVoiceInternational {
     }
 
     /**
-     * Amount value of international calls available. Required unless planType is UNSUPPORTED or UNMETERED
+     * Amount value of international calls available. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Amount value of international calls available. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Amount value of international calls available. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
 
     public String getAmount() {

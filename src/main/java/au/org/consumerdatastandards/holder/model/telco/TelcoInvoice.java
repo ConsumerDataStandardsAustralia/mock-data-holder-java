@@ -100,12 +100,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * The ID of the account for which the invoice was issued. accountId must comply in accordance with [CDR ID permanence](#id-permanence)
+     * The ID of the account for which the invoice was issued. _accountId_ must comply in accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return accountId
      */
     @ApiModelProperty(required = true,
-            value = "The ID of the account for which the invoice was issued. accountId must comply in accordance with [CDR ID permanence](#id-permanence)")
+            value = "The ID of the account for which the invoice was issued. _accountId_ must comply in accordance with [CDR ID permanence](#id-permanence) requirements.")
     @NotNull
 
 
@@ -123,12 +123,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * The number assigned to this invoice by the telco Retailer
+     * The number assigned to this invoice by the telco Retailer.
      *
      * @return invoiceNumber
      */
     @ApiModelProperty(required = true,
-            value = "The number assigned to this invoice by the telco Retailer")
+            value = "The number assigned to this invoice by the telco Retailer.")
     @NotNull
 
 
@@ -304,12 +304,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges
+     * An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges.
      *
      * @return services
      */
     @ApiModelProperty(required = true,
-            value = "An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges")
+            value = "An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges.")
     @NotNull
 
 

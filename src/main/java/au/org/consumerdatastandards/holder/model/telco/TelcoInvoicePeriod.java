@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Object containing the start and end date for the period covered by the invoice. Mandatory if any usage based charges are included in the invoice
+ * Object containing the start and end date for the period covered by the invoice. Mandatory if any usage based charges are included in the invoice.
  */
-@ApiModel(description = "Object containing the start and end date for the period covered by the invoice. Mandatory if any usage based charges are included in the invoice")
+@ApiModel(description = "Object containing the start and end date for the period covered by the invoice. Mandatory if any usage based charges are included in the invoice.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoInvoicePeriod {

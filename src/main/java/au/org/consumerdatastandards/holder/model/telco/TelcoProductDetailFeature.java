@@ -21,7 +21,7 @@ public class TelcoProductDetailFeature {
     private String description;
 
     /**
-     * The type of the feature
+     * The type of the feature.
      */
     public enum CategoryEnum {
         DATA("DATA"),
@@ -80,12 +80,12 @@ public class TelcoProductDetailFeature {
     }
 
     /**
-     * The display name of the feature
+     * The display name of the feature.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the feature")
+            value = "The display name of the feature.")
     @NotNull
 
 
@@ -103,11 +103,11 @@ public class TelcoProductDetailFeature {
     }
 
     /**
-     * The description of the feature
+     * The description of the feature.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The description of the feature")
+    @ApiModelProperty(value = "The description of the feature.")
 
 
     public String getDescription() {
@@ -124,11 +124,11 @@ public class TelcoProductDetailFeature {
     }
 
     /**
-     * The type of the feature
+     * The type of the feature.
      *
      * @return category
      */
-    @ApiModelProperty(value = "The type of the feature")
+    @ApiModelProperty(value = "The type of the feature.")
 
 
     public CategoryEnum getCategory() {

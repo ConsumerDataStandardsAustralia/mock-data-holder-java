@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Object containing account service usage summary
+ * Object containing account service usage summary.
  */
-@ApiModel(description = "Object containing account service usage summary")
+@ApiModel(description = "Object containing account service usage summary.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoBalance {
@@ -32,12 +32,12 @@ public class TelcoBalance {
     }
 
     /**
-     * Summary of balances
+     * Summary of balances.
      *
      * @return services
      */
     @ApiModelProperty(required = true,
-            value = "Summary of balances")
+            value = "Summary of balances.")
     @NotNull
 
     @Valid

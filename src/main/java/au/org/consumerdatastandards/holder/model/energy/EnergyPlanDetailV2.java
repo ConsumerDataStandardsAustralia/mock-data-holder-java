@@ -132,12 +132,12 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)
+     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
      *
      * @return lastUpdated
      */
     @ApiModelProperty(required = true,
-            value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)")
+            value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).")
     @NotNull
     @Override
     public OffsetDateTime getLastUpdated() {
@@ -250,11 +250,11 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * A link to an application web page where this plan can be applied for
+     * A link to an application web page where this plan can be applied for.
      *
      * @return applicationUri
      */
-    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for")
+    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for.")
     @Override
     public String getApplicationUri() {
         return applicationUri;

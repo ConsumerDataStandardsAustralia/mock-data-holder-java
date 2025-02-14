@@ -23,12 +23,12 @@ public class TelcoAccountUsage {
     }
 
     /**
-     * Tokenised ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements
+     * Tokenised ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return accountId
      */
     @ApiModelProperty(required = true,
-            value = "Tokenised ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements")
+            value = "Tokenised ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements.")
     @NotNull
     public String getAccountId() {
         return accountId;
@@ -52,11 +52,11 @@ public class TelcoAccountUsage {
     }
 
     /**
-     * List of services that are part of the account
+     * List of services that are part of the account.
      *
      * @return services
      */
-    @ApiModelProperty(required = true, value = "List of services that are part of the account")
+    @ApiModelProperty(required = true, value = "List of services that are part of the account.")
     @Valid
     @NotNull
     public List<TelcoAccountUsageServices> getServices() {

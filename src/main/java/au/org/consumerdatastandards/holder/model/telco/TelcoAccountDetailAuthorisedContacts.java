@@ -58,12 +58,12 @@ public class TelcoAccountDetailAuthorisedContacts {
     }
 
     /**
-     * For people with single names, the single name should be in this field.
+     * For people with single names the single name should be in this field.
      *
      * @return lastName
      */
     @ApiModelProperty(required = true,
-            value = "For people with single names, the single name should be in this field.")
+            value = "For people with single names the single name should be in this field.")
     @NotNull
 
 
@@ -110,11 +110,11 @@ public class TelcoAccountDetailAuthorisedContacts {
     }
 
     /**
-     * Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc).
+     * Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc.)
      *
      * @return prefix
      */
-    @ApiModelProperty(value = "Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc).")
+    @ApiModelProperty(value = "Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc.)")
 
 
     public String getPrefix() {

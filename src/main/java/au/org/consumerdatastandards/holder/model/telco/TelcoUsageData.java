@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Summary of data usage
+ * Summary of data usage.
  */
-@ApiModel(description = "Summary of data usage")
+@ApiModel(description = "Summary of data usage.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageData {
@@ -37,12 +37,12 @@ public class TelcoUsageData {
     }
 
     /**
-     * Amount of data uploaded in megabytes (MB)
+     * Amount of data uploaded in megabytes (MB).
      *
      * @return upload
      */
     @ApiModelProperty(required = true,
-            value = "Amount of data uploaded in megabytes (MB)")
+            value = "Amount of data uploaded in megabytes (MB).")
     @NotNull
 
     @Valid
@@ -61,12 +61,12 @@ public class TelcoUsageData {
     }
 
     /**
-     * Amount of data downloaded in megabytes (MB)
+     * Amount of data downloaded in megabytes (MB).
      *
      * @return download
      */
     @ApiModelProperty(required = true,
-            value = "Amount of data downloaded in megabytes (MB)")
+            value = "Amount of data downloaded in megabytes (MB).")
     @NotNull
 
     @Valid
@@ -85,11 +85,11 @@ public class TelcoUsageData {
     }
 
     /**
-     * Number of data sessions
+     * Number of data sessions.
      *
      * @return sessions
      */
-    @ApiModelProperty(value = "Number of data sessions")
+    @ApiModelProperty(value = "Number of data sessions.")
 
     @Valid
 
@@ -107,12 +107,12 @@ public class TelcoUsageData {
     }
 
     /**
-     * Cost amount of data usage
+     * Cost amount of data usage.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "Cost amount of data usage")
+            value = "Cost amount of data usage.")
     @NotNull
 
 
