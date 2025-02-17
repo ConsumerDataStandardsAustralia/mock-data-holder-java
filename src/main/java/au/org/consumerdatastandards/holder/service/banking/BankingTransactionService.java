@@ -64,10 +64,10 @@ public class BankingTransactionService {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(criteriaBuilder.equal(root.get("accountId"), accountId));
             if (minAmount != null) {
-                predicates.add(criteriaBuilder.ge(root.get("amount"), minAmount));
+                predicates.add(criteriaBuilder.ge(root.get("amount").as(BigDecimal.class), minAmount));
             }
             if (maxAmount != null) {
-                predicates.add(criteriaBuilder.le(root.get("amount"), maxAmount));
+                predicates.add(criteriaBuilder.le(root.get("amount").as(BigDecimal.class), maxAmount));
             }
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("executionDateTime"), oldestTime));
             predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("executionDateTime"), newestTime));

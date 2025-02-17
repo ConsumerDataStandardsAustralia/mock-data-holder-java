@@ -247,10 +247,10 @@ public interface BankingAccountsApi {
         ) @RequestParam(value = "min-amount", required = false) BigDecimal minAmount,
         @ApiParam(
             value = "Constrain the transaction history request to transactions with effective time at or before this date/time. If absent defaults to today. Format is aligned to [DateTimeString](#common-field-types) common type."
-        ) @RequestParam(value = "newest-time", required = false) OffsetDateTime newestTime,
+        ) @RequestParam(value = "newest-time", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) OffsetDateTime newestTime,
         @ApiParam(
             value = "Constrain the transaction history request to transactions with effective time at or after this date/time. If absent defaults to _newest-time_ minus 90 days. Format is aligned to [DateTimeString](#common-field-types) common type."
-        ) @RequestParam(value = "oldest-time", required = false) OffsetDateTime oldestTime,
+        ) @RequestParam(value = "oldest-time", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, fallbackPatterns = DateFormat.HTTP) OffsetDateTime oldestTime,
         @ApiParam(
             value = "Page of results to request (standard pagination).",
             defaultValue = "1"
