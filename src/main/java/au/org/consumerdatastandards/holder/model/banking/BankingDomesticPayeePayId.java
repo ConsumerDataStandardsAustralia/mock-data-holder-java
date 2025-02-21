@@ -21,15 +21,18 @@ public class BankingDomesticPayeePayId  {
     private String id;
 
     /**
-     * The identifier of the PayID (dependent on type)
+     * The identifier of the PayID (dependent on type).
      */
     private String identifier;
 
     /**
-     * The name assigned to the PayID by the owner of the PayID
+     * The name assigned to the PayID by the owner of the PayID.
      */
     private String name;
 
+    /**
+     * The type of the PayID.
+     */
     private Type type;
 
     public String getId() {
@@ -45,7 +48,7 @@ public class BankingDomesticPayeePayId  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The identifier of the PayID (dependent on type)")
+    @ApiModelProperty(required = true, value = "The identifier of the PayID (dependent on type).")
     public String getIdentifier() {
         return identifier;
     }
@@ -59,7 +62,7 @@ public class BankingDomesticPayeePayId  {
         return this;
     }
 
-    @ApiModelProperty(value = "The name assigned to the PayID by the owner of the PayID")
+    @ApiModelProperty(value = "The name assigned to the PayID by the owner of the PayID.")
     public String getName() {
         return name;
     }
@@ -72,7 +75,7 @@ public class BankingDomesticPayeePayId  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The type of the PayID.")
     public Type getType() {
         return type;
     }

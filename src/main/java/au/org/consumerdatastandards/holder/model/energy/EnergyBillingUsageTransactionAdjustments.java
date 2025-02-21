@@ -39,11 +39,11 @@ public class EnergyBillingUsageTransactionAdjustments {
     }
 
     /**
-     * The amount of the adjustment
+     * The amount of the adjustment.
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The amount of the adjustment")
+    @ApiModelProperty(required = true, value = "The amount of the adjustment.")
     @NotNull
     public String getAmount() {
         return amount;
@@ -59,11 +59,11 @@ public class EnergyBillingUsageTransactionAdjustments {
     }
 
     /**
-     * A free text description of the adjustment
+     * A free text description of the adjustment.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "A free text description of the adjustment")
+    @ApiModelProperty(required = true, value = "A free text description of the adjustment.")
     @NotNull
     public String getDescription() {
         return description;

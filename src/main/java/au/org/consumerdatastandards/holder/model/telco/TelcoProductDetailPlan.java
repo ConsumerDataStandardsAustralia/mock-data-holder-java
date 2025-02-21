@@ -34,12 +34,12 @@ public class TelcoProductDetailPlan {
     }
 
     /**
-     * The display name of the product plan
+     * The display name of the product plan.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the product plan")
+            value = "The display name of the product plan.")
     @NotNull
 
 
@@ -57,11 +57,11 @@ public class TelcoProductDetailPlan {
     }
 
     /**
-     * The display name of the product plan
+     * The display name of the product plan.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The display name of the product plan")
+    @ApiModelProperty(value = "The display name of the product plan.")
 
 
     public String getDescription() {
@@ -78,11 +78,11 @@ public class TelcoProductDetailPlan {
     }
 
     /**
-     * The URI of the product plan
+     * The URI of the product plan.
      *
      * @return planUri
      */
-    @ApiModelProperty(value = "The URI of the product plan")
+    @ApiModelProperty(value = "The URI of the product plan.")
 
 
     public String getPlanUri() {
@@ -107,11 +107,11 @@ public class TelcoProductDetailPlan {
     }
 
     /**
-     * Optional list of features of the plan
+     * Optional list of features of the plan.
      *
      * @return features
      */
-    @ApiModelProperty(value = "Optional list of features of the plan")
+    @ApiModelProperty(value = "Optional list of features of the plan.")
 
     @Valid
 

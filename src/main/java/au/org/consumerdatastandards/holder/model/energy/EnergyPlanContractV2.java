@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyPlanContract
+ * EnergyPlanContractV2
  */
 @Entity
 @Table(name = "e_plan_contract")
@@ -61,7 +61,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
             name = "e_plan_contract_ctrl_load",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "ctrl_load_id"))
-    private List<EnergyPlanControlledLoad> controlledLoad;
+    private List<EnergyPlanControlledLoadV1> controlledLoad;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
@@ -117,7 +117,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
             name = "e_plan_contract_tariff_periods",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "tariff_period_id"))
-    private List<EnergyPlanContractTariffPeriod> tariffPeriod = new ArrayList<>();
+    private List<EnergyPlanContractTariffPeriodV1> tariffPeriod = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -133,12 +133,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Free text field containing additional information of the fees for this contract
+     * Free text field containing additional information of the fees for this contract.
      *
      * @return additionalFeeInformation
      */
     @Override
-    @ApiModelProperty(value = "Free text field containing additional information of the fees for this contract")
+    @ApiModelProperty(value = "Free text field containing additional information of the fees for this contract.")
     public String getAdditionalFeeInformation() {
         return additionalFeeInformation;
     }
@@ -154,13 +154,13 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
+     * The pricing model for the contract. Contracts for gas must use `SINGLE_RATE`. Note that the detail for the enumeration values are:<ul><li>`SINGLE_RATE`: all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a 'block' or 'step' tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.)</li><li>`SINGLE_RATE_CONT_LOAD`: as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>`TIME_OF_USE`: energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>`TIME_OF_USE_CONT_LOAD`: as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>`FLEXIBLE`: energy usage is charged at unit rates that vary based on external factors</li><li>`FLEXIBLE_CONT_LOAD`: as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>`QUOTA`: all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate. i.e. $50/month for up to 150kWh included usage.</li></ul>
      *
      * @return pricingModel
      */
     @Override
     @ApiModelProperty(required = true,
-            value = "The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>")
+            value = "The pricing model for the contract. Contracts for gas must use `SINGLE_RATE`. Note that the detail for the enumeration values are:<ul><li>`SINGLE_RATE`: all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a 'block' or 'step' tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.)</li><li>`SINGLE_RATE_CONT_LOAD`: as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>`TIME_OF_USE`: energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>`TIME_OF_USE_CONT_LOAD`: as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>`FLEXIBLE`: energy usage is charged at unit rates that vary based on external factors</li><li>`FLEXIBLE_CONT_LOAD`: as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>`QUOTA`: all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate. i.e. $50/month for up to 150kWh included usage.</li></ul>")
     @NotNull
     public PricingModelEnum getPricingModel() {
         return pricingModel;
@@ -177,12 +177,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent
+     * Required if _pricingModel_ is set to `TIME_OF_USE`. Defines the time zone to use for calculation of the time of use thresholds. Defaults to `AEST` if absent.
      *
      * @return timeZone
      */
     @Override
-    @ApiModelProperty(value = "Required if pricingModel is set to TIME_OF_USE.  Defines the time zone to use for calculation of the time of use thresholds. Defaults to AEST if absent")
+    @ApiModelProperty(value = "Required if _pricingModel_ is set to `TIME_OF_USE`. Defines the time zone to use for calculation of the time of use thresholds. Defaults to `AEST` if absent.")
     public TimeZoneEnum getTimeZone() {
         return timeZone;
     }
@@ -198,12 +198,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Flag indicating whether prices are fixed or variable
+     * Flag indicating whether prices are fixed or variable.
      *
      * @return isFixed
      */
     @Override
-    @ApiModelProperty(required = true, value = "Flag indicating whether prices are fixed or variable")
+    @ApiModelProperty(required = true, value = "Flag indicating whether prices are fixed or variable.")
     @NotNull
     public Boolean getIsFixed() {
         return isFixed;
@@ -220,12 +220,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false
+     * Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.
      *
      * @return variation
      */
     @Override
-    @ApiModelProperty(value = "Free text description of price variation policy and conditions for the contract.  Mandatory if `isFixed` is false")
+    @ApiModelProperty(value = "Free text description of price variation policy and conditions for the contract. Mandatory if _isFixed_ is `false`.")
     public String getVariation() {
         return variation;
     }
@@ -241,12 +241,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Free text field that describes what will occur on or prior to expiry of the fixed contract term or benefit period
+     * Free text field that describes what will occur on or prior to expiry of the fixed contract term or benefit period.
      *
      * @return onExpiryDescription
      */
     @Override
-    @ApiModelProperty(value = "Free text field that describes what will occur on or prior to expiry of the fixed contract term or benefit period")
+    @ApiModelProperty(value = "Free text field that describes what will occur on or prior to expiry of the fixed contract term or benefit period.")
     public String getOnExpiryDescription() {
         return onExpiryDescription;
     }
@@ -267,12 +267,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Payment options for this contract
+     * Payment options for this contract.
      *
      * @return paymentOption
      */
     @Override
-    @ApiModelProperty(required = true, value = "Payment options for this contract")
+    @ApiModelProperty(required = true, value = "Payment options for this contract.")
     @NotNull
     public List<PaymentOptionEnum> getPaymentOption() {
         return paymentOption;
@@ -305,7 +305,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.intrinsicGreenPower = intrinsicGreenPower;
     }
 
-    public EnergyPlanContract controlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
+    public EnergyPlanContract controlledLoad(List<EnergyPlanControlledLoadV1> controlledLoad) {
         this.controlledLoad = controlledLoad;
         return this;
     }
@@ -315,14 +315,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
      *
      * @return controlledLoad
      */
-    @Override
     @ApiModelProperty(value = "")
-    public List<EnergyPlanControlledLoad> getControlledLoad() {
+    public List<EnergyPlanControlledLoadV1> getControlledLoad() {
         return controlledLoad;
     }
 
-    @Override
-    public void setControlledLoad(List<EnergyPlanControlledLoad> controlledLoad) {
+    public void setControlledLoad(List<EnergyPlanControlledLoadV1> controlledLoad) {
         this.controlledLoad = controlledLoad;
     }
 
@@ -340,12 +338,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Optional list of incentives available for the contract
+     * Optional list of incentives available for the contract.
      *
      * @return incentives
      */
     @Override
-    @ApiModelProperty(value = "Optional list of incentives available for the contract")
+    @ApiModelProperty(value = "Optional list of incentives available for the contract.")
     @Valid
     public List<EnergyPlanContractIncentives> getIncentives() {
         return incentives;
@@ -370,12 +368,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Optional list of discounts available for the contract
+     * Optional list of discounts available for the contract.
      *
      * @return discounts
      */
     @Override
-    @ApiModelProperty(value = "Optional list of discounts available for the contract")
+    @ApiModelProperty(value = "Optional list of discounts available for the contract.")
     @Valid
     public List<EnergyPlanContractDiscounts> getDiscounts() {
         return discounts;
@@ -400,12 +398,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Optional list of charges applicable to green power
+     * Optional list of charges applicable to green power.
      *
      * @return greenPowerCharges
      */
     @Override
-    @ApiModelProperty(value = "Optional list of charges applicable to green power")
+    @ApiModelProperty(value = "Optional list of charges applicable to green power.")
     @Valid
     public List<EnergyPlanContractGreenPowerCharges> getGreenPowerCharges() {
         return greenPowerCharges;
@@ -430,12 +428,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Eligibility restrictions or requirements
+     * Eligibility restrictions or requirements.
      *
      * @return eligibility
      */
     @Override
-    @ApiModelProperty(value = "Eligibility restrictions or requirements")
+    @ApiModelProperty(value = "Eligibility restrictions or requirements.")
     @Valid
     public List<EnergyPlanContractEligibility> getEligibility() {
         return eligibility;
@@ -460,12 +458,12 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * An array of fees applicable to the plan
+     * An array of fees applicable to the plan.
      *
      * @return fees
      */
     @Override
-    @ApiModelProperty(value = "An array of fees applicable to the plan")
+    @ApiModelProperty(value = "An array of fees applicable to the plan.")
     @Valid
     public List<EnergyPlanContractFees> getFees() {
         return fees;
@@ -490,11 +488,11 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     }
 
     /**
-     * Array of feed in tariffs for solar power
+     * Array of feed in tariffs for solar power.
      *
      * @return solarFeedInTariff
      */
-    @ApiModelProperty(value = "Array of feed in tariffs for solar power")
+    @ApiModelProperty(value = "Array of feed in tariffs for solar power.")
     @Valid
     public List<EnergyPlanContractSolarFeedInTariffV2> getSolarFeedInTariff() {
         return solarFeedInTariff;
@@ -504,31 +502,29 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
         this.solarFeedInTariff = solarFeedInTariff;
     }
 
-    public EnergyPlanContract tariffPeriod(List<EnergyPlanContractTariffPeriod> tariffPeriod) {
+    public EnergyPlanContract tariffPeriod(List<EnergyPlanContractTariffPeriodV1> tariffPeriod) {
         this.tariffPeriod = tariffPeriod;
         return this;
     }
 
-    public EnergyPlanContract addTariffPeriodItem(EnergyPlanContractTariffPeriod tariffPeriodItem) {
+    public EnergyPlanContract addTariffPeriodItem(EnergyPlanContractTariffPeriodV1 tariffPeriodItem) {
         this.tariffPeriod.add(tariffPeriodItem);
         return this;
     }
 
     /**
-     * Array of tariff periods
+     * Array of tariff periods.
      *
      * @return tariffPeriod
      */
-    @Override
-    @ApiModelProperty(required = true, value = "Array of tariff periods")
+    @ApiModelProperty(required = true, value = "Array of tariff periods.")
     @NotNull
     @Valid
-    public List<EnergyPlanContractTariffPeriod> getTariffPeriod() {
+    public List<EnergyPlanContractTariffPeriodV1> getTariffPeriod() {
         return tariffPeriod;
     }
 
-    @Override
-    public void setTariffPeriod(List<EnergyPlanContractTariffPeriod> tariffPeriod) {
+    public void setTariffPeriod(List<EnergyPlanContractTariffPeriodV1> tariffPeriod) {
         this.tariffPeriod = tariffPeriod;
     }
 
@@ -567,7 +563,7 @@ public class EnergyPlanContractV2 implements EnergyPlanContract {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EnergyPlanContract {\n");
+        sb.append("class EnergyPlanContractV2 {\n");
         sb.append("    additionalFeeInformation: ").append(toIndentedString(additionalFeeInformation)).append("\n");
         sb.append("    pricingModel: ").append(toIndentedString(pricingModel)).append("\n");
         sb.append("    timeZone: ").append(toIndentedString(timeZone)).append("\n");

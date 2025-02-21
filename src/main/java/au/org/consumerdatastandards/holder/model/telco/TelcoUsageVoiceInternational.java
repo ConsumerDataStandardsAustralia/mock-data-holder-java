@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * International voice calls. Requied if international calling is supported
+ * International voice calls. Requied if international calling is supported.
  */
-@ApiModel(description = "International voice calls. Requied if international calling is supported")
+@ApiModel(description = "International voice calls. Requied if international calling is supported.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageVoiceInternational {
@@ -31,12 +31,12 @@ public class TelcoUsageVoiceInternational {
     }
 
     /**
-     * Total duration (hours, minutes, and seconds) of international voice calls. Not limited to 24hrs
+     * Total duration (hours, minutes, and seconds) of international voice calls. Not limited to 24hrs.
      *
      * @return duration
      */
     @ApiModelProperty(required = true,
-            value = "Total duration (hours, minutes, and seconds) of international voice calls. Not limited to 24hrs")
+            value = "Total duration (hours, minutes, and seconds) of international voice calls. Not limited to 24hrs.")
     @NotNull
 
 
@@ -54,12 +54,12 @@ public class TelcoUsageVoiceInternational {
     }
 
     /**
-     * Number of international voice calls
+     * Number of international voice calls.
      *
      * @return number
      */
     @ApiModelProperty(required = true,
-            value = "Number of international voice calls")
+            value = "Number of international voice calls.")
     @NotNull
 
     @Valid
@@ -78,12 +78,12 @@ public class TelcoUsageVoiceInternational {
     }
 
     /**
-     * Cost amount of international voice calls
+     * Cost amount of international voice calls.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "Cost amount of international voice calls")
+            value = "Cost amount of international voice calls.")
     @NotNull
 
 

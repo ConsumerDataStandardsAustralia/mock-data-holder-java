@@ -34,12 +34,12 @@ public class TelcoProductDetailDiscounts {
     }
 
     /**
-     * The display name of the product plan
+     * The display name of the product plan.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the product plan")
+            value = "The display name of the product plan.")
     @NotNull
 
 
@@ -57,11 +57,11 @@ public class TelcoProductDetailDiscounts {
     }
 
     /**
-     * The description name of the product plan
+     * The description name of the product plan.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The description name of the product plan")
+    @ApiModelProperty(value = "The description name of the product plan.")
 
 
     public String getDescription() {
@@ -78,11 +78,11 @@ public class TelcoProductDetailDiscounts {
     }
 
     /**
-     * The URI of the discount
+     * The URI of the discount.
      *
      * @return discountUri
      */
-    @ApiModelProperty(value = "The URI of the discount")
+    @ApiModelProperty(value = "The URI of the discount.")
 
 
     public String getDiscountUri() {
@@ -107,11 +107,11 @@ public class TelcoProductDetailDiscounts {
     }
 
     /**
-     * Optional list of features of the discount
+     * Optional list of features of the discount.
      *
      * @return features
      */
-    @ApiModelProperty(value = "Optional list of features of the discount")
+    @ApiModelProperty(value = "Optional list of features of the discount.")
 
     @Valid
 

@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * A discount for on time payment
+ * A discount for on time payment.
  */
-@ApiModel(description = "A discount for on time payment")
+@ApiModel(description = "A discount for on time payment.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoInvoicePayOnTimeDiscount {
@@ -29,12 +29,12 @@ public class TelcoInvoicePayOnTimeDiscount {
     }
 
     /**
-     * The amount that will be discounted if the invoice is paid by the date specified
+     * The amount that will be discounted if the invoice is paid by the date specified.
      *
      * @return discountAmount
      */
     @ApiModelProperty(required = true,
-            value = "The amount that will be discounted if the invoice is paid by the date specified")
+            value = "The amount that will be discounted if the invoice is paid by the date specified.")
     @NotNull
 
 
@@ -52,11 +52,11 @@ public class TelcoInvoicePayOnTimeDiscount {
     }
 
     /**
-     * The GST amount that will be discounted if the invoice is paid by the date specified.  If absent then zero is assumed
+     * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
      *
      * @return gstAmount
      */
-    @ApiModelProperty(value = "The GST amount that will be discounted if the invoice is paid by the date specified.  If absent then zero is assumed")
+    @ApiModelProperty(value = "The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.")
 
 
     public String getGstAmount() {
@@ -73,12 +73,12 @@ public class TelcoInvoicePayOnTimeDiscount {
     }
 
     /**
-     * The date by which the invoice must be paid to receive the pay on time discount
+     * The date by which the invoice must be paid to receive the pay on time discount.
      *
      * @return date
      */
     @ApiModelProperty(required = true,
-            value = "The date by which the invoice must be paid to receive the pay on time discount")
+            value = "The date by which the invoice must be paid to receive the pay on time discount.")
     @NotNull
 
 

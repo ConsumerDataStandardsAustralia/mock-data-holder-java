@@ -26,11 +26,11 @@ public class TelcoAccountListResponseData {
     }
 
     /**
-     * Array of accounts
+     * Array of accounts.
      *
      * @return accounts
      */
-    @ApiModelProperty(required = true, value = "Array of accounts")
+    @ApiModelProperty(required = true, value = "Array of accounts.")
     @NotNull
     @Valid
     public List<TelcoAccountResponseData> getAccounts() {

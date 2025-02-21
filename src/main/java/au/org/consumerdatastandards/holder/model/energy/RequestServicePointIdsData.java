@@ -10,9 +10,8 @@ import java.util.Objects;
 public class RequestServicePointIdsData {
 
     /**
-     * Get servicePointIds
+     * Array of specific _servicePointId_ values to obtain data for.
      */
-
     private List<String> servicePointIds;
 
     public RequestServicePointIdsData servicePointIds(List<String> servicePointIds) {
@@ -25,7 +24,7 @@ public class RequestServicePointIdsData {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Array of specific _servicePointId_ values to obtain data for.")
     public List<String> getServicePointIds() {
         return servicePointIds;
     }

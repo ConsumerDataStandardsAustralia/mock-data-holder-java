@@ -11,6 +11,10 @@ import au.org.consumerdatastandards.holder.model.BaseResponse;
 
 import java.util.Objects;
 
+/**
+ * ResponseBankingProductById
+ * AKA ResponseBankingProductByIdV{2-5}
+ */
 public class ResponseBankingProductById extends BaseResponse {
 
     private BankingProductDetail data;

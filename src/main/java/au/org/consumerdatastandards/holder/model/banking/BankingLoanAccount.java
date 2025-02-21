@@ -16,6 +16,10 @@ import java.util.Objects;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * BankingLoanAccount
+ * AKA BankingLoanAccountV2
+ */
 @ApiModel
 @Entity
 public class BankingLoanAccount  {
@@ -27,72 +31,72 @@ public class BankingLoanAccount  {
     private String id;
 
     /**
-     * Date that the loan is due to be repaid in full
+     * Date that the loan is due to be repaid in full.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate loanEndDate;
 
     /**
-     * Maximum amount of funds that can be redrawn. If not present redraw is not available even if the feature exists for the account
+     * Maximum amount of funds that can be redrawn. If not present redraw is not available even if the feature exists for the account.
      */
     private String maxRedraw;
 
     /**
-     * If absent assumes AUD
+     * If absent assumes `AUD`.
      */
     private String maxRedrawCurrency;
 
     /**
-     * Minimum amount of next instalment
+     * Minimum amount of next instalment.
      */
     private String minInstalmentAmount;
 
     /**
-     * If absent assumes AUD
+     * If absent assumes `AUD`.
      */
     private String minInstalmentCurrency;
 
     /**
-     * Minimum redraw amount
+     * Minimum redraw amount.
      */
     private String minRedraw;
 
     /**
-     * If absent assumes AUD
+     * If absent assumes `AUD`.
      */
     private String minRedrawCurrency;
 
     /**
-     * Next date that an instalment is required
+     * Next date that an instalment is required.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate nextInstalmentDate;
 
     /**
-     * Set to true if one or more offset accounts are configured for this loan account
+     * Set to `true` if one or more offset accounts are configured for this loan account.
      */
     private Boolean offsetAccountEnabled;
 
     /**
-     * The accountIDs of the configured offset accounts attached to this loan. Only offset accounts that can be accessed under the current authorisation should be included. It is expected behaviour that offsetAccountEnabled is set to true but the offsetAccountIds field is absent or empty. This represents a situation where an offset account exists but details can not be accessed under the current authorisation
+     * The _accountId_ values of the configured offset accounts attached to this loan. Only offset accounts that can be accessed under the current authorisation should be included. It is expected behaviour that _offsetAccountEnabled_ is set to `true` but the _offsetAccountIds_ field is absent or empty. This represents a situation where an offset account exists but details can not be accessed under the current authorisation.
      */
     @ElementCollection
     private List<String> offsetAccountIds;
 
     /**
-     * Optional original loan value
+     * Optional original loan value.
      */
     private String originalLoanAmount;
 
     /**
-     * If absent assumes AUD
+     * If absent assumes `AUD`.
      */
     private String originalLoanCurrency;
 
     /**
-     * Optional original start date for the loan
+     * Optional original start date for the loan.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -104,7 +108,7 @@ public class BankingLoanAccount  {
     private String repaymentFrequency;
 
     /**
-     * Get repaymentType
+     * Options in place for repayments. If absent defaults to `PRINCIPAL_AND_INTEREST`.
      */
     private RepaymentType repaymentType;
 
@@ -113,7 +117,7 @@ public class BankingLoanAccount  {
         return this;
     }
 
-    @ApiModelProperty(value = "Date that the loan is due to be repaid in full")
+    @ApiModelProperty(value = "Date that the loan is due to be repaid in full.")
     public LocalDate getLoanEndDate() {
         return loanEndDate;
     }
@@ -121,12 +125,13 @@ public class BankingLoanAccount  {
     public void setLoanEndDate(LocalDate loanEndDate) {
         this.loanEndDate = loanEndDate;
     }
+
     public BankingLoanAccount maxRedraw(String maxRedraw) {
         this.maxRedraw = maxRedraw;
         return this;
     }
 
-    @ApiModelProperty(value = "Maximum amount of funds that can be redrawn. If not present redraw is not available even if the feature exists for the account")
+    @ApiModelProperty(value = "Maximum amount of funds that can be redrawn. If not present redraw is not available even if the feature exists for the account.")
     public String getMaxRedraw() {
         return maxRedraw;
     }
@@ -134,12 +139,13 @@ public class BankingLoanAccount  {
     public void setMaxRedraw(String maxRedraw) {
         this.maxRedraw = maxRedraw;
     }
+
     public BankingLoanAccount maxRedrawCurrency(String maxRedrawCurrency) {
         this.maxRedrawCurrency = maxRedrawCurrency;
         return this;
     }
 
-    @ApiModelProperty(value = "If absent assumes AUD")
+    @ApiModelProperty(value = "If absent assumes `AUD`.")
     public String getMaxRedrawCurrency() {
         return maxRedrawCurrency;
     }
@@ -147,12 +153,13 @@ public class BankingLoanAccount  {
     public void setMaxRedrawCurrency(String maxRedrawCurrency) {
         this.maxRedrawCurrency = maxRedrawCurrency;
     }
+
     public BankingLoanAccount minInstalmentAmount(String minInstalmentAmount) {
         this.minInstalmentAmount = minInstalmentAmount;
         return this;
     }
 
-    @ApiModelProperty(value = "Minimum amount of next instalment")
+    @ApiModelProperty(value = "Minimum amount of next instalment.")
     public String getMinInstalmentAmount() {
         return minInstalmentAmount;
     }
@@ -160,12 +167,13 @@ public class BankingLoanAccount  {
     public void setMinInstalmentAmount(String minInstalmentAmount) {
         this.minInstalmentAmount = minInstalmentAmount;
     }
+
     public BankingLoanAccount minInstalmentCurrency(String minInstalmentCurrency) {
         this.minInstalmentCurrency = minInstalmentCurrency;
         return this;
     }
 
-    @ApiModelProperty(value = "If absent assumes AUD")
+    @ApiModelProperty(value = "If absent assumes `AUD`.")
     public String getMinInstalmentCurrency() {
         return minInstalmentCurrency;
     }
@@ -173,12 +181,13 @@ public class BankingLoanAccount  {
     public void setMinInstalmentCurrency(String minInstalmentCurrency) {
         this.minInstalmentCurrency = minInstalmentCurrency;
     }
+
     public BankingLoanAccount minRedraw(String minRedraw) {
         this.minRedraw = minRedraw;
         return this;
     }
 
-    @ApiModelProperty(value = "Minimum redraw amount")
+    @ApiModelProperty(value = "Minimum redraw amount.")
     public String getMinRedraw() {
         return minRedraw;
     }
@@ -186,12 +195,13 @@ public class BankingLoanAccount  {
     public void setMinRedraw(String minRedraw) {
         this.minRedraw = minRedraw;
     }
+
     public BankingLoanAccount minRedrawCurrency(String minRedrawCurrency) {
         this.minRedrawCurrency = minRedrawCurrency;
         return this;
     }
 
-    @ApiModelProperty(value = "If absent assumes AUD")
+    @ApiModelProperty(value = "If absent assumes `AUD`.")
     public String getMinRedrawCurrency() {
         return minRedrawCurrency;
     }
@@ -199,12 +209,13 @@ public class BankingLoanAccount  {
     public void setMinRedrawCurrency(String minRedrawCurrency) {
         this.minRedrawCurrency = minRedrawCurrency;
     }
+
     public BankingLoanAccount nextInstalmentDate(LocalDate nextInstalmentDate) {
         this.nextInstalmentDate = nextInstalmentDate;
         return this;
     }
 
-    @ApiModelProperty(value = "Next date that an instalment is required")
+    @ApiModelProperty(value = "Next date that an instalment is required.")
     public LocalDate getNextInstalmentDate() {
         return nextInstalmentDate;
     }
@@ -212,12 +223,13 @@ public class BankingLoanAccount  {
     public void setNextInstalmentDate(LocalDate nextInstalmentDate) {
         this.nextInstalmentDate = nextInstalmentDate;
     }
+
     public BankingLoanAccount offsetAccountEnabled(Boolean offsetAccountEnabled) {
         this.offsetAccountEnabled = offsetAccountEnabled;
         return this;
     }
 
-    @ApiModelProperty(value = "Set to true if one or more offset accounts are configured for this loan account")
+    @ApiModelProperty(value = "Set to `true` if one or more offset accounts are configured for this loan account.")
     public Boolean getOffsetAccountEnabled() {
         return offsetAccountEnabled;
     }
@@ -225,6 +237,7 @@ public class BankingLoanAccount  {
     public void setOffsetAccountEnabled(Boolean offsetAccountEnabled) {
         this.offsetAccountEnabled = offsetAccountEnabled;
     }
+
     public BankingLoanAccount offsetAccountIds(List<String> offsetAccountIds) {
         this.offsetAccountIds = offsetAccountIds;
         return this;
@@ -238,7 +251,7 @@ public class BankingLoanAccount  {
         return this;
     }
 
-    @ApiModelProperty(value = "The accountIDs of the configured offset accounts attached to this loan. Only offset accounts that can be accessed under the current authorisation should be included. It is expected behaviour that offsetAccountEnabled is set to true but the offsetAccountIds field is absent or empty. This represents a situation where an offset account exists but details can not be accessed under the current authorisation")
+    @ApiModelProperty(value = "The _accountId_ values of the configured offset accounts attached to this loan. Only offset accounts that can be accessed under the current authorisation should be included. It is expected behaviour that _offsetAccountEnabled_ is set to `true` but the _offsetAccountIds_ field is absent or empty. This represents a situation where an offset account exists but details can not be accessed under the current authorisation.")
     public List<String> getOffsetAccountIds() {
         return offsetAccountIds;
     }
@@ -246,12 +259,13 @@ public class BankingLoanAccount  {
     public void setOffsetAccountIds(List<String> offsetAccountIds) {
         this.offsetAccountIds = offsetAccountIds;
     }
+
     public BankingLoanAccount originalLoanAmount(String originalLoanAmount) {
         this.originalLoanAmount = originalLoanAmount;
         return this;
     }
 
-    @ApiModelProperty(value = "Optional original loan value")
+    @ApiModelProperty(value = "Optional original loan value.")
     public String getOriginalLoanAmount() {
         return originalLoanAmount;
     }
@@ -259,12 +273,13 @@ public class BankingLoanAccount  {
     public void setOriginalLoanAmount(String originalLoanAmount) {
         this.originalLoanAmount = originalLoanAmount;
     }
+
     public BankingLoanAccount originalLoanCurrency(String originalLoanCurrency) {
         this.originalLoanCurrency = originalLoanCurrency;
         return this;
     }
 
-    @ApiModelProperty(value = "If absent assumes AUD")
+    @ApiModelProperty(value = "If absent assumes `AUD`.")
     public String getOriginalLoanCurrency() {
         return originalLoanCurrency;
     }
@@ -272,12 +287,13 @@ public class BankingLoanAccount  {
     public void setOriginalLoanCurrency(String originalLoanCurrency) {
         this.originalLoanCurrency = originalLoanCurrency;
     }
+
     public BankingLoanAccount originalStartDate(LocalDate originalStartDate) {
         this.originalStartDate = originalStartDate;
         return this;
     }
 
-    @ApiModelProperty(value = "Optional original start date for the loan")
+    @ApiModelProperty(value = "Optional original start date for the loan.")
     public LocalDate getOriginalStartDate() {
         return originalStartDate;
     }
@@ -285,6 +301,7 @@ public class BankingLoanAccount  {
     public void setOriginalStartDate(LocalDate originalStartDate) {
         this.originalStartDate = originalStartDate;
     }
+
     public BankingLoanAccount repaymentFrequency(String repaymentFrequency) {
         this.repaymentFrequency = repaymentFrequency;
         return this;
@@ -298,12 +315,13 @@ public class BankingLoanAccount  {
     public void setRepaymentFrequency(String repaymentFrequency) {
         this.repaymentFrequency = repaymentFrequency;
     }
+
     public BankingLoanAccount repaymentType(RepaymentType repaymentType) {
         this.repaymentType = repaymentType;
         return this;
     }
 
-    @ApiModelProperty
+    @ApiModelProperty(value = "Options in place for repayments. If absent defaults to `PRINCIPAL_AND_INTEREST`.")
     public RepaymentType getRepaymentType() {
         return repaymentType;
     }

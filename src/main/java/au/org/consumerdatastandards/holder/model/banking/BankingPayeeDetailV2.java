@@ -21,25 +21,25 @@ import java.util.Objects;
 public class BankingPayeeDetailV2 implements BankingPayeeDetail {
 
     /**
-     * ID of the payee adhering to the rules of ID permanence
+     * ID of the payee adhering to the rules of ID permanence.
      */
     @Id
     private String payeeId;
 
     /**
-     * The date the payee was created by the customer
+     * The date the payee was created by the customer.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
     /**
-     * A description of the payee provided by the customer
+     * A description of the payee provided by the customer.
      */
     private String description;
 
     /**
-     * The short display name of the payee as provided by the customer
+     * The short display name of the payee as provided by the customer. Where a customer has not provided a nickname, a display name derived by the bank for the payee consistent with existing digital banking channels.
      */
     private String nickname;
 
@@ -69,6 +69,9 @@ public class BankingPayeeDetailV2 implements BankingPayeeDetail {
             inverseJoinColumns = @JoinColumn(name = "intnl_id"))
     private BankingInternationalPayee international;
 
+    /**
+     * Type of object included that describes the payee in detail.
+     */
     private PayeeUType payeeUType;
 
     @Override
@@ -207,7 +210,7 @@ public class BankingPayeeDetailV2 implements BankingPayeeDetail {
     }
 
     @Override
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Type of object included that describes the payee in detail.")
     public PayeeUType getPayeeUType() {
         return payeeUType;
     }

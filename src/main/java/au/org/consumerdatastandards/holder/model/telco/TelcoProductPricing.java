@@ -23,11 +23,11 @@ public class TelcoProductPricing {
     }
 
     /**
-     * The display name of the pricing
+     * The display name of the pricing.
      *
      * @return name
      */
-    @ApiModelProperty(required = true, value = "The display name of the pricing")
+    @ApiModelProperty(required = true, value = "The display name of the pricing.")
     @NotNull
     public String getName() {
         return name;
@@ -43,11 +43,11 @@ public class TelcoProductPricing {
     }
 
     /**
-     * The description of the pricing
+     * The description of the pricing.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "The description of the pricing")
+    @ApiModelProperty(required = true, value = "The description of the pricing.")
     @NotNull
     public String getDescription() {
         return description;
@@ -63,11 +63,11 @@ public class TelcoProductPricing {
     }
 
     /**
-     * The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return period
      */
-    @ApiModelProperty(value = "The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+    @ApiModelProperty(value = "The duration that occurs on a pricing schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     public String getPeriod() {
         return period;
     }
@@ -82,11 +82,11 @@ public class TelcoProductPricing {
     }
 
     /**
-     * The amount charged for the duration period
+     * The amount charged for the duration period.
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The amount charged for the duration period")
+    @ApiModelProperty(required = true, value = "The amount charged for the duration period.")
     @NotNull
     public String getAmount() {
         return amount;

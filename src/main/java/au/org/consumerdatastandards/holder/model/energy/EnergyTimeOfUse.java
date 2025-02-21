@@ -66,11 +66,11 @@ public class EnergyTimeOfUse {
     }
 
     /**
-     * The days that the rate applies to
+     * The days that the rate applies to.
      *
      * @return days
      */
-    @ApiModelProperty(required = true, value = "The days that the rate applies to")
+    @ApiModelProperty(required = true, value = "The days that the rate applies to.")
     @NotNull
     public List<DaysEnum> getDays() {
         return days;

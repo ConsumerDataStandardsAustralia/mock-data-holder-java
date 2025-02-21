@@ -9,9 +9,8 @@ import java.util.List;
 public class ResponseBankingDirectDebitAuthorisationListData  {
 
     /**
-     * The list of authorisations returned
+     * The list of authorisations returned.
      */
-    
     private List<BankingDirectDebit> directDebitAuthorisations;
 
     public ResponseBankingDirectDebitAuthorisationListData directDebitAuthorisations(List<BankingDirectDebit> directDebitAuthorisations) {
@@ -24,7 +23,7 @@ public class ResponseBankingDirectDebitAuthorisationListData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The list of authorisations returned")
+    @ApiModelProperty(required = true, value = "The list of authorisations returned.")
     public List<BankingDirectDebit> getDirectDebitAuthorisations() {
         return directDebitAuthorisations;
     }

@@ -10,37 +10,37 @@ import java.time.OffsetDateTime;
 
 public interface EnergyBillingTransaction {
     /**
-     * The ID of the account for which transaction applies
+     * The ID of the account for which transaction applies.
      *
      * @return accountId
      */
-    @ApiModelProperty(required = true, value = "The ID of the account for which transaction applies")
+    @ApiModelProperty(required = true, value = "The ID of the account for which transaction applies.")
     @NotNull
     String getAccountId();
 
     /**
-     * The date and time that the transaction occurred
+     * The date and time that the transaction occurred.
      *
      * @return executionDateTime
      */
-    @ApiModelProperty(required = true, value = "The date and time that the transaction occurred")
+    @ApiModelProperty(required = true, value = "The date and time that the transaction occurred.")
     @NotNull
     OffsetDateTime getExecutionDateTime();
 
     /**
-     * The GST incurred in the transaction.  Should not be included for credits or payments.  If absent zero is assumed
+     * The GST incurred in the transaction. Should not be included for credits or payments. If absent zero is assumed.
      *
      * @return gst
      */
-    @ApiModelProperty(value = "The GST incurred in the transaction.  Should not be included for credits or payments.  If absent zero is assumed")
+    @ApiModelProperty(value = "The GST incurred in the transaction. Should not be included for credits or payments. If absent zero is assumed.")
     String getGst();
 
     /**
-     * Indicator of the type of transaction object present in this record
+     * Indicator of the type of transaction object present in this record.
      *
      * @return transactionUType
      */
-    @ApiModelProperty(required = true, value = "Indicator of the type of transaction object present in this record")
+    @ApiModelProperty(required = true, value = "Indicator of the type of transaction object present in this record.")
     @NotNull
     TransactionUTypeEnum getTransactionUType();
 
@@ -81,7 +81,7 @@ public interface EnergyBillingTransaction {
     EnergyBillingPaymentTransaction getPayment();
 
     /**
-     * Indicator of the type of transaction object present in this record
+     * Indicator of the type of transaction object present in this record.
      */
     public enum TransactionUTypeEnum {
         USAGE("usage"),

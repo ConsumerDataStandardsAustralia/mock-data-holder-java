@@ -9,11 +9,11 @@ import java.util.Objects;
 public class MetaError {
 
 	/**
-	 * The CDR error code URN which the application-specific error code extends. Mandatory if the error `code` is an application-specific error rather than a standardised error code.
+	 * The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.
 	 */
 	private String urn;
 
-	@ApiModelProperty(value = "The CDR error code URN which the application-specific error code extends. Mandatory if the error `code` is an application-specific error rather than a standardised error code")
+	@ApiModelProperty(value = "The CDR error code URN which the application-specific error code extends. Mandatory if the error _code_ is an application-specific error rather than a standardised error code.")
 	public String getUrn() {
 		return urn;
 	}

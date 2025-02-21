@@ -39,11 +39,11 @@ public class EnergyBalanceListResponseDataBalances {
     }
 
     /**
-     * The ID of the account
+     * The ID of the account.
      *
      * @return accountId
      */
-    @ApiModelProperty(required = true, value = "The ID of the account")
+    @ApiModelProperty(required = true, value = "The ID of the account.")
     @NotNull
     public String getAccountId() {
         return accountId;
@@ -59,12 +59,12 @@ public class EnergyBalanceListResponseDataBalances {
     }
 
     /**
-     * The current balance of the account.  A positive value indicates that amount is owing to be paid.  A negative value indicates that the account is in credit
+     * The current balance of the account. A positive value indicates that amount is owing to be paid. A negative value indicates that the account is in credit.
      *
      * @return balance
      */
     @ApiModelProperty(required = true,
-            value = "The current balance of the account.  A positive value indicates that amount is owing to be paid.  A negative value indicates that the account is in credit")
+            value = "The current balance of the account. A positive value indicates that amount is owing to be paid. A negative value indicates that the account is in credit.")
     @NotNull
     public String getBalance() {
         return balance;

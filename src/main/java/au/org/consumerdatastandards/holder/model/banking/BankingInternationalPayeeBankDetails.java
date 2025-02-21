@@ -23,7 +23,7 @@ public class BankingInternationalPayeeBankDetails  {
     private String id;
 
     /**
-     * Account Targeted for payment
+     * Account Targeted for payment.
      */
     private String accountNumber;
 
@@ -31,37 +31,37 @@ public class BankingInternationalPayeeBankDetails  {
     private BankingInternationalPayeeBankDetailsBankAddress bankAddress;
 
     /**
-     * Swift bank code.  Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html)
+     * Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).
      */
     private String beneficiaryBankBIC;
 
     /**
-     * Number for the Clearing House Interbank Payments System
+     * Number for the Clearing House Interbank Payments System.
      */
     private String chipNumber;
 
     /**
-     * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+     * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code.
      */
     private String country;
 
     /**
-     * Number for Fedwire payment (Federal Reserve Wire Network)
+     * Number for Fedwire payment (Federal Reserve Wire Network).
      */
     private String fedWireNumber;
 
     /**
-     * The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)
+     * The legal entity identifier (LEI) for the beneficiary. Aligns with [ISO 17442](https://www.iso.org/standard/59771.html).
      */
     private String legalEntityIdentifier;
 
     /**
-     * International bank routing number
+     * International bank routing number.
      */
     private String routingNumber;
 
     /**
-     * Sort code used for account identification in some jurisdictions
+     * Sort code used for account identification in some jurisdictions.
      */
     private String sortCode;
 
@@ -78,7 +78,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Account Targeted for payment")
+    @ApiModelProperty(required = true, value = "Account Targeted for payment.")
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -105,7 +105,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "Swift bank code.  Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html)")
+    @ApiModelProperty(value = "Swift bank code. Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html).")
     public String getBeneficiaryBankBIC() {
         return beneficiaryBankBIC;
     }
@@ -119,7 +119,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "Number for the Clearing House Interbank Payments System")
+    @ApiModelProperty(value = "Number for the Clearing House Interbank Payments System.")
     public String getChipNumber() {
         return chipNumber;
     }
@@ -133,7 +133,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code")
+    @ApiModelProperty(required = true, value = "Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code.")
     public String getCountry() {
         return country;
     }
@@ -146,7 +146,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "Number for Fedwire payment (Federal Reserve Wire Network)")
+    @ApiModelProperty(value = "Number for Fedwire payment (Federal Reserve Wire Network).")
     public String getFedWireNumber() {
         return fedWireNumber;
     }
@@ -160,7 +160,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)")
+    @ApiModelProperty(value = "The legal entity identifier (LEI) for the beneficiary. Aligns with [ISO 17442](https://www.iso.org/standard/59771.html).")
     public String getLegalEntityIdentifier() {
         return legalEntityIdentifier;
     }
@@ -174,7 +174,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "International bank routing number")
+    @ApiModelProperty(value = "International bank routing number.")
     public String getRoutingNumber() {
         return routingNumber;
     }
@@ -188,7 +188,7 @@ public class BankingInternationalPayeeBankDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "Sort code used for account identification in some jurisdictions")
+    @ApiModelProperty(value = "Sort code used for account identification in some jurisdictions.")
     public String getSortCode() {
         return sortCode;
     }

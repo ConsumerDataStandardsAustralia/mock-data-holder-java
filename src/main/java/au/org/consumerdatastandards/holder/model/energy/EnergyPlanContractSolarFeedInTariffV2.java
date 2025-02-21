@@ -1,7 +1,9 @@
 package au.org.consumerdatastandards.holder.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,11 +12,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,11 +29,15 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "e_solar_fit")
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.NONE,
+        getterVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY,
+        setterVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY
+)
 public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContractSolarFeedInTariff {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    @JsonIgnore
     private String id;
 
     private String displayName;
@@ -48,15 +59,25 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     private TariffUTypeEnum tariffUType;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_s_fit_s_tariff",
+            joinColumns = @JoinColumn(name = "fit_tariff_id"),
+            inverseJoinColumns = @JoinColumn(name = "s_tariff_id"))
     private EnergyPlanContractSingleTariffV2 singleTariff;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private EnergyPlanContractTimeVaryingTariffsV2 timeVaryingTariffs;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_s_fit_tv_tariffs",
+            joinColumns = @JoinColumn(name = "fit_tariff_id"),
+            inverseJoinColumns = @JoinColumn(name = "tv_tariff_id"))
+    private List<EnergyPlanContractTimeVaryingTariffsV2> timeVaryingTariffs;
 
+    @JsonIgnore
     public String getId() {
         return id;
     }
 
+    @JsonIgnore
     public void setId(String id) {
         this.id = id;
     }
@@ -67,11 +88,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The name of the tariff
+     * The name of the tariff.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The name of the tariff")
+    @ApiModelProperty(required = true, value = "The name of the tariff.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -87,11 +108,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * A description of the tariff
+     * A description of the tariff.
      *
      * @return description
      */
-    @ApiModelProperty(value = "A description of the tariff")
+    @ApiModelProperty(value = "A description of the tariff.")
     public String getDescription() {
         return description;
     }
@@ -101,11 +122,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The start date of the application of the feed in tariff
+     * The start date of the application of the feed in tariff.
      *
      * @return startDate
      */
-    @ApiModelProperty("The start date of the application of the feed in tariff")
+    @ApiModelProperty("The start date of the application of the feed in tariff.")
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -115,11 +136,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The end date of the application of the feed in tariff
+     * The end date of the application of the feed in tariff.
      *
      * @return endDate
      */
-    @ApiModelProperty("The end date of the application of the feed in tariff")
+    @ApiModelProperty("The end date of the application of the feed in tariff.")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -134,11 +155,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The applicable scheme
+     * The applicable scheme.
      *
      * @return scheme
      */
-    @ApiModelProperty(required = true, value = "The applicable scheme")
+    @ApiModelProperty(required = true, value = "The applicable scheme.")
     @NotNull
     public SchemeEnum getScheme() {
         return scheme;
@@ -154,11 +175,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The type of the payer
+     * The type of the payer.
      *
      * @return payerType
      */
-    @ApiModelProperty(required = true, value = "The type of the payer")
+    @ApiModelProperty(required = true, value = "The type of the payer.")
     @NotNull
     public PayerTypeEnum getPayerType() {
         return payerType;
@@ -174,11 +195,11 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     /**
-     * The type of the payer
+     * Reference to the applicable tariff structure.
      *
      * @return tariffUType
      */
-    @ApiModelProperty(required = true, value = "The type of the payer")
+    @ApiModelProperty(required = true, value = "Reference to the applicable tariff structure.")
     @NotNull
     public TariffUTypeEnum getTariffUType() {
         return tariffUType;
@@ -208,7 +229,7 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
     }
 
     public EnergyPlanContractSolarFeedInTariffV2 timeVaryingTariffs(EnergyPlanContractTimeVaryingTariffsV2 timeVaryingTariffs) {
-        this.timeVaryingTariffs = timeVaryingTariffs;
+        setSingleTimeVaryingTariffs(timeVaryingTariffs);
         return this;
     }
 
@@ -218,13 +239,32 @@ public class EnergyPlanContractSolarFeedInTariffV2 implements EnergyPlanContract
      * @return timeVaryingTariffs
      */
     @ApiModelProperty(value = "")
+    @JsonIgnore
     @Valid
-    public EnergyPlanContractTimeVaryingTariffs getTimeVaryingTariffs() {
+    public List<EnergyPlanContractTimeVaryingTariffsV2> getTimeVaryingTariffs() {
         return timeVaryingTariffs;
     }
 
-    public void setTimeVaryingTariffs(EnergyPlanContractTimeVaryingTariffsV2 timeVaryingTariffs) {
+    @JsonIgnore
+    public void setTimeVaryingTariffs(List<EnergyPlanContractTimeVaryingTariffsV2> timeVaryingTariffs) {
         this.timeVaryingTariffs = timeVaryingTariffs;
+    }
+
+    /**
+     * Get timeVaryingTariffs
+     *
+     * @return timeVaryingTariffs
+     */
+    @ApiModelProperty(value = "")
+    @JsonProperty("timeVaryingTariffs")
+    @Valid
+    public EnergyPlanContractTimeVaryingTariffsV2 getSingleTimeVaryingTariffs() {
+        return (timeVaryingTariffs == null || timeVaryingTariffs.isEmpty() ? null : timeVaryingTariffs.get(0));
+    }
+
+    @JsonProperty("timeVaryingTariffs")
+    public void setSingleTimeVaryingTariffs(EnergyPlanContractTimeVaryingTariffsV2 timeVaryingTariffs) {
+        this.timeVaryingTariffs = Collections.singletonList(timeVaryingTariffs);
     }
 
     @Override

@@ -25,37 +25,37 @@ public class CommonOrganisation  {
     private String id;
 
     /**
-     * Australian Business Number for the organisation
+     * Australian Business Number for the organisation.
      */
     private String abn;
 
     /**
-     * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type
+     * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type.
      */
     private String acn;
 
     /**
-     * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present.  The single name should be in the lastName field
+     * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present. The single name should be in the _lastName_ field.
      */
     private String agentFirstName;
 
     /**
-     * The last name of the individual providing access on behalf of the organisation. For people with single names the single name should be in this field
+     * The last name of the individual providing access on behalf of the organisation. For people with single names, the single name should be in this field.
      */
     private String agentLastName;
 
     /**
-     * The role of the individual identified as the agent who is providing authorisation.  Expected to be used for display.  Default to “Unspecified” if the role is not known
+     * The role of the individual identified as the agent who is providing authorisation. Expected to be used for display. Default to \"Unspecified\" if the role is not known.
      */
     private String agentRole;
 
     /**
-     * Name of the organisation
+     * Name of the organisation.
      */
     private String businessName;
 
     /**
-     * The date the organisation described was established
+     * The date the organisation described was established.
      */
     private LocalDate establishmentDate;
 
@@ -74,32 +74,32 @@ public class CommonOrganisation  {
     private IndustryCodeVersion industryCodeVersion;
 
     /**
-     * True if registered with the ACNC.  False if not. Absent or null if not confirmed.
+     * `true` if registered with the ACNC. `false` if not. Absent or `null` if not confirmed.
      */
     private Boolean isACNCRegistered;
 
     /**
-     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data
+     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data.
      */
     private OffsetDateTime lastUpdateTime;
 
     /**
-     * Legal name, if different to the business name
+     * Legal name, if different to the business name.
      */
     private String legalName;
 
     /**
-     * Get organisationType
+     * Legal organisation type.
      */
     private OrganisationType organisationType;
 
     /**
-     * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.  Assumed to be AUS if absent
+     * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes. Assumed to be `AUS` if absent.
      */
     private String registeredCountry;
 
     /**
-     * Short name used for communication, if  different to the business name
+     * Short name used for communication, if different to the business name.
      */
     private String shortName;
 
@@ -116,7 +116,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "Australian Business Number for the organisation")
+    @ApiModelProperty(value = "Australian Business Number for the organisation.")
     public String getAbn() {
         return abn;
     }
@@ -129,7 +129,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type")
+    @ApiModelProperty(value = "Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type.")
     public String getAcn() {
         return acn;
     }
@@ -142,7 +142,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present.  The single name should be in the lastName field")
+    @ApiModelProperty(value = "The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present. The single name should be in the _lastName_ field.")
     public String getAgentFirstName() {
         return agentFirstName;
     }
@@ -155,7 +155,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The last name of the individual providing access on behalf of the organisation. For people with single names the single name should be in this field")
+    @ApiModelProperty(required = true, value = "The last name of the individual providing access on behalf of the organisation. For people with single names, the single name should be in this field.")
     public String getAgentLastName() {
         return agentLastName;
     }
@@ -168,7 +168,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The role of the individual identified as the agent who is providing authorisation.  Expected to be used for display.  Default to “Unspecified” if the role is not known")
+    @ApiModelProperty(required = true, value = "The role of the individual identified as the agent who is providing authorisation. Expected to be used for display. Default to \"Unspecified\" if the role is not known.")
     public String getAgentRole() {
         return agentRole;
     }
@@ -181,7 +181,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Name of the organisation")
+    @ApiModelProperty(required = true, value = "Name of the organisation.")
     public String getBusinessName() {
         return businessName;
     }
@@ -194,7 +194,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "The date the organisation described was established")
+    @ApiModelProperty(value = "The date the organisation described was established.")
     public LocalDate getEstablishmentDate() {
         return establishmentDate;
     }
@@ -216,7 +216,7 @@ public class CommonOrganisation  {
         this.industryCode = industryCode;
     }
 
-    @ApiModelProperty(value = "The applicable [ANZSIC](http://www.abs.gov.au/ANZSIC) release version of the industry code provided. Should only be supplied if industryCode is also supplied. If industryCode is supplied but industryCodeVersion is absent, default is ANZSIC_1292.0_2006_V2.0")
+    @ApiModelProperty(value = "The applicable [ANZSIC](http://www.abs.gov.au/ANZSIC) release version of the industry code provided. Should only be supplied if _industryCode_ is also supplied. If _industryCode_ is supplied but _industryCodeVersion_ is absent, default is `ANZSIC_1292.0_2006_V2.0`.")
     public IndustryCodeVersion getIndustryCodeVersion() {
         return industryCodeVersion;
     }
@@ -230,7 +230,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "True if registered with the ACNC.  False if not. Absent or null if not confirmed.")
+    @ApiModelProperty(value = "`true` if registered with the ACNC. `false` if not. Absent or `null` if not confirmed.")
     public Boolean getIsACNCRegistered() {
         return isACNCRegistered;
     }
@@ -243,7 +243,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data")
+    @ApiModelProperty(value = "The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data.")
     public OffsetDateTime getLastUpdateTime() {
         return lastUpdateTime;
     }
@@ -256,7 +256,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "Legal name, if different to the business name")
+    @ApiModelProperty(value = "Legal name, if different to the business name.")
     public String getLegalName() {
         return legalName;
     }
@@ -269,7 +269,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Legal organisation type.")
     public OrganisationType getOrganisationType() {
         return organisationType;
     }
@@ -282,7 +282,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.  Assumed to be AUS if absent")
+    @ApiModelProperty(value = "Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes. Assumed to be `AUS` if absent.")
     public String getRegisteredCountry() {
         return registeredCountry;
     }
@@ -295,7 +295,7 @@ public class CommonOrganisation  {
         return this;
     }
 
-    @ApiModelProperty(value = "Short name used for communication, if  different to the business name")
+    @ApiModelProperty(value = "Short name used for communication, if different to the business name.")
     public String getShortName() {
         return shortName;
     }

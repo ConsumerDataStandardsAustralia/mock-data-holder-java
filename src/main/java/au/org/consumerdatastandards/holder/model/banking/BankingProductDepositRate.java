@@ -20,51 +20,39 @@ public class BankingProductDepositRate {
     private String depositRateId;
 
     /**
-     * The type of rate (base, bonus, etc). See the next section
-     * for an overview of valid values and their meaning
+     * The type of rate (`FIXED`, `VARIABLE`, `BONUS`, etc.) For further details, refer to [Product Deposit Rate Types](#tocSproductdepositratetypedoc).
      */
     private DepositRateType depositRateType;
 
     /**
-     * The rate to be applied
+     * The rate to be applied.
      */
     private String rate;
 
     /**
-     * The period after which the rate is applied to the balance to
-     * calculate the amount due for the period. Calculation of the
-     * amount is often daily (as balances may change) but
-     * accumulated until the total amount is 'applied' to the
-     * account (see applicationFrequency). Formatted according to
-     * [ISO 8601
-     * Durations](https:*en.wikipedia.org/wiki/ISO_8601#Durations)
+     * The period after which the rate is applied to the balance to calculate the amount due for the period. Calculation of the amount is often daily (as balances may change) but accumulated until the total amount is 'applied' to the account (see _applicationFrequency_). Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     private String calculationFrequency;
 
     /**
-     * The period after which the calculated amount(s) (see
-     * calculationFrequency) are 'applied' (i.e. debited or
-     * credited) to the account. Formatted according to [ISO 8601
-     * Durations](https:*en.wikipedia.org/wiki/ISO_8601#Durations)
+     * The period after which the calculated amount(s) (see _calculationFrequency_) are 'applied' (i.e. debited or credited) to the account. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     private String applicationFrequency;
 
     /**
-     * Generic field containing additional information relevant to
-     * the depositRateType specified. Whether mandatory or not is
-     * dependent on the value of depositRateType
+     * Generic field containing additional information relevant to the [_depositRateType_](#tocSproductdepositratetypedoc) specified. Whether mandatory or not is dependent on the value of [_depositRateType_](#tocSproductdepositratetypedoc).
      */
     @Column(length = 2048)
     private String additionalValue;
 
     /**
-     * Display text providing more information on the rate
+     * Display text providing more information on the rate.
      */
     @Column(length = 2048)
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on this rate
+     * Link to a web page with more information on this rate.
      */
     private URI additionalInfoUri;
 

@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Mandatory if readUType is set to intervalRead
+ * Mandatory if _readUType_ is set to `intervalRead`.
  */
-@ApiModel(description = "Mandatory if readUType is set to intervalRead")
+@ApiModel(description = "Mandatory if _readUType_ is set to `intervalRead`.")
 @Entity
 public class EnergyUsageReadIntervalRead {
 
@@ -55,11 +55,11 @@ public class EnergyUsageReadIntervalRead {
     }
 
     /**
-     * Read interval length in minutes. Required when interval-reads query parameter equals FULL or MIN_30
+     * Read interval length in minutes. Required when _interval-reads_ query parameter equals `FULL` or `MIN_30`.
      *
      * @return readIntervalLength
      */
-    @ApiModelProperty("Read interval length in minutes. Required when interval-reads query parameter equals FULL or MIN_30")
+    @ApiModelProperty("Read interval length in minutes. Required when _interval-reads_ query parameter equals `FULL` or `MIN_30`.")
     public Integer getReadIntervalLength() {
         return readIntervalLength;
     }
@@ -74,12 +74,12 @@ public class EnergyUsageReadIntervalRead {
     }
 
     /**
-     * The aggregate sum of the interval read values. If positive then it means net consumption, if negative it means net export
+     * The aggregate sum of the interval read values. If positive then it means net consumption, if negative it means net export.
      *
      * @return aggregateValue
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate sum of the interval read values. If positive then it means net consumption, if negative it means net export")
+            value = "The aggregate sum of the interval read values. If positive then it means net consumption, if negative it means net export.")
     @NotNull
     @Valid
     public BigDecimal getAggregateValue() {
@@ -101,11 +101,11 @@ public class EnergyUsageReadIntervalRead {
     }
 
     /**
-     * Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)
+     * Array of Interval read values. If positive then it means consumption, if negative it means export. Required when _interval-reads_ query parameter equals `FULL` or `MIN_30`.<br>Each read value indicates the read for the interval specified by _readIntervalLength_ beginning at midnight of _readStartDate_ (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval).
      *
      * @return intervalReads
      */
-    @ApiModelProperty("Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)")
+    @ApiModelProperty("Array of Interval read values. If positive then it means consumption, if negative it means export. Required when _interval-reads_ query parameter equals `FULL` or `MIN_30`.<br>Each read value indicates the read for the interval specified by _readIntervalLength_ beginning at midnight of _readStartDate_ (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval).")
     public List<BigDecimal> getIntervalReads() {
         return intervalReads;
     }
@@ -115,11 +115,11 @@ public class EnergyUsageReadIntervalRead {
     }
 
     /**
-     * Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
+     * Specifies quality of reads that are not `ACTUAL`. For read indices that are not specified, quality is assumed to be `ACTUAL`. If not present, all quality of all reads are assumed to be actual. Required when _interval-reads_ query parameter equals `FULL` or `MIN_30`.
      *
      * @return readQualities
      */
-    @ApiModelProperty("Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30")
+    @ApiModelProperty("Specifies quality of reads that are not `ACTUAL`. For read indices that are not specified, quality is assumed to be `ACTUAL`. If not present, all quality of all reads are assumed to be actual. Required when _interval-reads_ query parameter equals `FULL` or `MIN_30`.")
     public List<EnergyUsageReadIntervalReadReadQualities> getReadQualities() {
         return readQualities;
     }

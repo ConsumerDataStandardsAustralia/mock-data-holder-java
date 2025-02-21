@@ -11,9 +11,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Object containing the start and end date for the period covered by the invoice.  Mandatory if any usage or demand based charges are included in the invoice
+ * Object containing the start and end date for the period covered by the invoice. Mandatory if any usage or demand based charges are included in the invoice.
  */
-@ApiModel(description = "Object containing the start and end date for the period covered by the invoice.  Mandatory if any usage or demand based charges are included in the invoice")
+@ApiModel(description = "Object containing the start and end date for the period covered by the invoice. Mandatory if any usage or demand based charges are included in the invoice.")
 @Embeddable
 public class EnergyInvoicePeriod {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -30,11 +30,11 @@ public class EnergyInvoicePeriod {
     }
 
     /**
-     * The start date of the period covered by this invoice
+     * The start date of the period covered by this invoice.
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true, value = "The start date of the period covered by this invoice")
+    @ApiModelProperty(required = true, value = "The start date of the period covered by this invoice.")
     @NotNull
     public LocalDate getStartDate() {
         return startDate;
@@ -50,11 +50,11 @@ public class EnergyInvoicePeriod {
     }
 
     /**
-     * The end date of the period covered by this invoice
+     * The end date of the period covered by this invoice.
      *
      * @return endDate
      */
-    @ApiModelProperty(required = true, value = "The end date of the period covered by this invoice")
+    @ApiModelProperty(required = true, value = "The end date of the period covered by this invoice.")
     @NotNull
     public LocalDate getEndDate() {
         return endDate;

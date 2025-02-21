@@ -4,6 +4,9 @@ import java.util.Objects;
 
 public class TxMetaPaginated extends MetaPaginated {
 
+    /**
+     * `true` if _text_ query parameter is not supported.
+     */
     private Boolean isQueryParamUnsupported;
 
     public Boolean getIsQueryParamUnsupported() {

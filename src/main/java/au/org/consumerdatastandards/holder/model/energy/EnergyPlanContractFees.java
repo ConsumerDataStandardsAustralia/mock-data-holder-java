@@ -26,7 +26,7 @@ public class EnergyPlanContractFees {
     private String id;
 
     /**
-     * The type of the fee
+     * The type of the fee.
      */
     public enum TypeEnum {
         EXIT,
@@ -50,7 +50,7 @@ public class EnergyPlanContractFees {
     private TypeEnum type;
 
     /**
-     * The term of the fee
+     * The term of the fee.
      */
     public enum TermEnum {
         FIXED("FIXED"),
@@ -116,11 +116,11 @@ public class EnergyPlanContractFees {
     }
 
     /**
-     * The type of the fee
+     * The type of the fee.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of the fee")
+    @ApiModelProperty(required = true, value = "The type of the fee.")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -136,11 +136,11 @@ public class EnergyPlanContractFees {
     }
 
     /**
-     * The term of the fee
+     * The term of the fee.
      *
      * @return term
      */
-    @ApiModelProperty(required = true, value = "The term of the fee")
+    @ApiModelProperty(required = true, value = "The term of the fee.")
     @NotNull
     public TermEnum getTerm() {
         return term;
@@ -156,11 +156,11 @@ public class EnergyPlanContractFees {
     }
 
     /**
-     * The fee amount. Required if term is not PERCENT_OF_BILL
+     * The fee amount. Required if _term_ is not `PERCENT_OF_BILL`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "The fee amount. Required if term is not PERCENT_OF_BILL")
+    @ApiModelProperty(value = "The fee amount. Required if _term_ is not `PERCENT_OF_BILL`.")
     public String getAmount() {
         return amount;
     }
@@ -175,11 +175,11 @@ public class EnergyPlanContractFees {
     }
 
     /**
-     * The fee rate. Required if term is PERCENT_OF_BILL
+     * The fee rate. Required if _term_ is `PERCENT_OF_BILL`.
      *
      * @return rate
      */
-    @ApiModelProperty(value = "The fee rate. Required if term is PERCENT_OF_BILL")
+    @ApiModelProperty(value = "The fee rate. Required if _term_ is `PERCENT_OF_BILL`.")
     public String getRate() {
         return rate;
     }
@@ -194,11 +194,11 @@ public class EnergyPlanContractFees {
     }
 
     /**
-     * A description of the fee
+     * A description of the fee.
      *
      * @return description
      */
-    @ApiModelProperty(value = "A description of the fee")
+    @ApiModelProperty(value = "A description of the fee.")
     public String getDescription() {
         return description;
     }

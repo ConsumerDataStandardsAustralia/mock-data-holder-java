@@ -58,7 +58,7 @@ public class EnergyPlanContractDemandCharges {
     private String maxDemand;
 
     /**
-     * Application period for the demand tariff
+     * Application period for the demand tariff.
      */
     public enum MeasurementPeriodEnum {
         DAY,
@@ -69,7 +69,7 @@ public class EnergyPlanContractDemandCharges {
     private MeasurementPeriodEnum measurementPeriod;
 
     /**
-     * Charge period for the demand tariff
+     * Charge period for the demand tariff.
      */
     public enum ChargePeriodEnum {
         DAY,
@@ -93,11 +93,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Display name of the charge
+     * Display name of the charge.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "Display name of the charge")
+    @ApiModelProperty(required = true, value = "Display name of the charge.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -113,11 +113,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Description of the charge
+     * Description of the charge.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the charge")
+    @ApiModelProperty(value = "Description of the charge.")
     public String getDescription() {
         return description;
     }
@@ -132,12 +132,12 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * The charge amount per  measure unit exclusive of GST
+     * The charge amount per  measure unit exclusive of GST.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The charge amount per  measure unit exclusive of GST")
+            value = "The charge amount per  measure unit exclusive of GST.")
     @NotNull
     public String getAmount() {
         return amount;
@@ -153,11 +153,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * The measurement unit of charge amount. Assumed to be KWH if absent
+     * The measurement unit of charge amount. Assumed to be `KWH` if absent.
      *
      * @return measureUnit
      */
-    @ApiModelProperty(value = "The measurement unit of charge amount. Assumed to be KWH if absent")
+    @ApiModelProperty(value = "The measurement unit of charge amount. Assumed to be `KWH` if absent.")
     public RateMeasureUnitEnum getMeasureUnit() {
         return measureUnit;
     }
@@ -212,11 +212,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * The days that the demand tariff applies to
+     * The days that the demand tariff applies to.
      *
      * @return days
      */
-    @ApiModelProperty(value = "The days that the demand tariff applies to")
+    @ApiModelProperty(value = "The days that the demand tariff applies to.")
     public List<DaysEnum> getDays() {
         return days;
     }
@@ -231,11 +231,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Minimum demand for this demand tariff in kW.  If absent then 0 is assumed
+     * Minimum demand for this demand tariff in kW. If absent then `0` is assumed.
      *
      * @return minDemand
      */
-    @ApiModelProperty(value = "Minimum demand for this demand tariff in kW.  If absent then 0 is assumed")
+    @ApiModelProperty(value = "Minimum demand for this demand tariff in kW. If absent then `0` is assumed.")
     public String getMinDemand() {
         return minDemand;
     }
@@ -250,11 +250,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Maximum demand for this demand tariff in kW.  If present, must be higher than the value of the minDemand field
+     * Maximum demand for this demand tariff in kW. If present, must be higher than the value of the _minDemand_ field.
      *
      * @return maxDemand
      */
-    @ApiModelProperty(value = "Maximum demand for this demand tariff in kW.  If present, must be higher than the value of the minDemand field")
+    @ApiModelProperty(value = "Maximum demand for this demand tariff in kW. If present, must be higher than the value of the _minDemand_ field.")
     public String getMaxDemand() {
         return maxDemand;
     }
@@ -269,11 +269,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Application period for the demand tariff
+     * Application period for the demand tariff.
      *
      * @return measurementPeriod
      */
-    @ApiModelProperty(required = true, value = "Application period for the demand tariff")
+    @ApiModelProperty(required = true, value = "Application period for the demand tariff.")
     @NotNull
     public MeasurementPeriodEnum getMeasurementPeriod() {
         return measurementPeriod;
@@ -289,11 +289,11 @@ public class EnergyPlanContractDemandCharges {
     }
 
     /**
-     * Charge period for the demand tariff
+     * Charge period for the demand tariff.
      *
      * @return chargePeriod
      */
-    @ApiModelProperty(required = true, value = "Charge period for the demand tariff")
+    @ApiModelProperty(required = true, value = "Charge period for the demand tariff.")
     @NotNull
     public ChargePeriodEnum getChargePeriod() {
         return chargePeriod;

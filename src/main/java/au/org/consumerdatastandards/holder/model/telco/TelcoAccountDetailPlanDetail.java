@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Detail on the plan applicable to this account. Mandatory if openStatus is OPEN
+ * Detail on the plan applicable to this account. Mandatory if _openStatus_ is `OPEN`.
  */
-@ApiModel(description = "Detail on the plan applicable to this account. Mandatory if openStatus is OPEN")
+@ApiModel(description = "Detail on the plan applicable to this account. Mandatory if _openStatus_ is `OPEN`.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoAccountDetailPlanDetail {
@@ -32,12 +32,12 @@ public class TelcoAccountDetailPlanDetail {
     }
 
     /**
-     * Charges for metering included in the plan
+     * Charges for metering included in the plan.
      *
      * @return charges
      */
     @ApiModelProperty(required = true,
-            value = "Charges for metering included in the plan")
+            value = "Charges for metering included in the plan.")
     @NotNull
 
     @Valid

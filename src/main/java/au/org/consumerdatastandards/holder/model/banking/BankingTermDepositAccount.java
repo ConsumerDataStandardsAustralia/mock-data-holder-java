@@ -28,29 +28,32 @@ public class BankingTermDepositAccount  {
 //    private BankingAccountDetail bankingAccountDetail;
 
     /**
-     * The lodgement date of the original deposit
+     * The lodgement date of the original deposit.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate lodgementDate;
 
     /**
-     * Amount to be paid upon maturity. If absent it implies the amount to paid is variable and cannot currently be calculated
+     * Amount to be paid upon maturity. If absent it implies the amount to paid is variable and cannot currently be calculated.
      */
     private String maturityAmount;
 
     /**
-     * If absent assumes AUD
+     * If absent assumes `AUD`.
      */
     private String maturityCurrency;
 
     /**
-     * Maturity date for the term deposit
+     * Maturity date for the term deposit.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate maturityDate;
 
+    /**
+     * Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.
+     */
     private MaturityInstructions maturityInstructions;
 
 //    public BankingAccountDetail getBankingAccountDetail() {
@@ -66,7 +69,7 @@ public class BankingTermDepositAccount  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The lodgement date of the original deposit")
+    @ApiModelProperty(required = true, value = "The lodgement date of the original deposit.")
     public LocalDate getLodgementDate() {
         return lodgementDate;
     }
@@ -80,7 +83,7 @@ public class BankingTermDepositAccount  {
         return this;
     }
 
-    @ApiModelProperty(value = "Amount to be paid upon maturity. If absent it implies the amount to paid is variable and cannot currently be calculated")
+    @ApiModelProperty(value = "Amount to be paid upon maturity. If absent it implies the amount to paid is variable and cannot currently be calculated.")
     public String getMaturityAmount() {
         return maturityAmount;
     }
@@ -88,12 +91,13 @@ public class BankingTermDepositAccount  {
     public void setMaturityAmount(String maturityAmount) {
         this.maturityAmount = maturityAmount;
     }
+
     public BankingTermDepositAccount maturityCurrency(String maturityCurrency) {
         this.maturityCurrency = maturityCurrency;
         return this;
     }
 
-    @ApiModelProperty(value = "If absent assumes AUD")
+    @ApiModelProperty(value = "If absent assumes `AUD`.")
     public String getMaturityCurrency() {
         return maturityCurrency;
     }
@@ -101,12 +105,13 @@ public class BankingTermDepositAccount  {
     public void setMaturityCurrency(String maturityCurrency) {
         this.maturityCurrency = maturityCurrency;
     }
+
     public BankingTermDepositAccount maturityDate(LocalDate maturityDate) {
         this.maturityDate = maturityDate;
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Maturity date for the term deposit")
+    @ApiModelProperty(required = true, value = "Maturity date for the term deposit.")
     public LocalDate getMaturityDate() {
         return maturityDate;
     }
@@ -114,12 +119,13 @@ public class BankingTermDepositAccount  {
     public void setMaturityDate(LocalDate maturityDate) {
         this.maturityDate = maturityDate;
     }
+
     public BankingTermDepositAccount maturityInstructions(MaturityInstructions maturityInstructions) {
         this.maturityInstructions = maturityInstructions;
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Current instructions on action to be taken at maturity. This includes default actions that may be specified in the terms and conditions for the product e.g., roll-over to the same term and frequency of interest payments.")
     public MaturityInstructions getMaturityInstructions() {
         return maturityInstructions;
     }

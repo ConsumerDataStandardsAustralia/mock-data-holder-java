@@ -19,7 +19,7 @@ import java.util.Objects;
 public class BankingAccountDetailV3 implements BankingAccountDetail {
 
     /**
-     * A unique ID of the account adhering to the standards for ID permanence
+     * A unique ID of the account adhering to the standards for ID permanence.
      */
     @Id
     private String accountId;
@@ -35,12 +35,12 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private LocalDate creationDate;
 
     /**
-     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
+     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the [MaskedAccountString](#common-field-types) common type.
      */
     private String displayName;
 
     /**
-     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
+     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then `true` is assumed.
      */
     @Transient
     private Boolean isOwned;
@@ -48,12 +48,12 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private BankingAccount.AccountOwnershipEnum accountOwnership;
 
     /**
-     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
+     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number.
      */
     private String maskedNumber;
 
     /**
-     * A customer supplied nick name for the account
+     * A customer supplied nickname for the account.
      */
     private String nickname;
 
@@ -62,17 +62,17 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private BankingProductCategory productCategory;
 
     /**
-     * The unique identifier of the account as defined by the account holder (akin to model number for the account)
+     * The unique identifier of the account as defined by the data holder (akin to model number for the account).
      */
     private String productName;
 
     /**
-     * The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
+     * The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.
      */
     private String accountNumber;
 
     /**
-     * The addresses for the account to be used for correspondence
+     * The addresses for the account to be used for correspondence.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -82,12 +82,12 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private List<CommonPhysicalAddress> addresses;
 
     /**
-     * The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
+     * The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.
      */
     private String bsb;
 
     /**
-     * Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer
+     * Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer.
      */
     private String bundleName;
 
@@ -98,12 +98,12 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private BankingCreditCardAccount creditCard;
 
     /**
-     * current rate to calculate interest earned being applied to deposit balances as it stands at the time of the API call
+     * Current rate to calculate interest earned being applied to deposit balances as it stands at the time of the API call.
      */
     private String depositRate;
 
     /**
-     * Fully described deposit rates for this account based on the equivalent structure in Product Reference
+     * Fully described deposit rates for this account based on the equivalent structure in Product Reference.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -113,7 +113,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private List<BankingProductDepositRateV2> depositRates;
 
     /**
-     * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
+     * Array of features of the account based on the equivalent structure in Product Reference with the following additional field.
      */
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -123,7 +123,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private List<BankingAccountProductFeature> features;
 
     /**
-     * Fees and charges applicable to the account based on the equivalent structure in Product Reference
+     * Fees and charges applicable to the account based on the equivalent structure in Product Reference.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -133,12 +133,12 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     private List<BankingProductFee> fees;
 
     /**
-     * The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call
+     * The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call.
      */
     private String lendingRate;
 
     /**
-     * Fully described lending rates for this account based on the equivalent structure in Product Reference
+     * Fully described lending rates for this account based on the equivalent structure in Product Reference.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -322,7 +322,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces")
+    @ApiModelProperty(value = "The unmasked account number for the account. Should not be supplied if the account number is a PAN requiring PCI compliance. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.")
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -346,7 +346,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "The addresses for the account to be used for correspondence")
+    @ApiModelProperty(value = "The addresses for the account to be used for correspondence.")
     public List<CommonPhysicalAddress> getAddresses() {
         return addresses;
     }
@@ -362,7 +362,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces")
+    @ApiModelProperty(value = "The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.")
     public String getBsb() {
         return bsb;
     }
@@ -378,7 +378,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer")
+    @ApiModelProperty(value = "Optional field to indicate if this account is part of a bundle that is providing additional benefit to the customer.")
     public String getBundleName() {
         return bundleName;
     }
@@ -410,7 +410,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "current rate to calculate interest earned being applied to deposit balances as it stands at the time of the API call")
+    @ApiModelProperty(value = "Current rate to calculate interest earned being applied to deposit balances as it stands at the time of the API call.")
     public String getDepositRate() {
         return depositRate;
     }
@@ -433,7 +433,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
         return this;
     }
 
-    @ApiModelProperty(value = "Fully described deposit rates for this account based on the equivalent structure in Product Reference")
+    @ApiModelProperty(value = "Fully described deposit rates for this account based on the equivalent structure in Product Reference.")
     public List<BankingProductDepositRateV2> getDepositRates() {
         return depositRates;
     }
@@ -456,7 +456,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "Array of features of the account based on the equivalent structure in Product Reference with the following additional field")
+    @ApiModelProperty(value = "Array of features of the account based on the equivalent structure in Product Reference with the following additional field.")
     public List<BankingAccountProductFeature> getFeatures() {
         return features;
     }
@@ -480,7 +480,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "Fees and charges applicable to the account based on the equivalent structure in Product Reference")
+    @ApiModelProperty(value = "Fees and charges applicable to the account based on the equivalent structure in Product Reference.")
     public List<BankingProductFee> getFees() {
         return fees;
     }
@@ -496,7 +496,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
     }
 
     @Override
-    @ApiModelProperty(value = "The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call")
+    @ApiModelProperty(value = "The current rate to calculate interest payable being applied to lending balances as it stands at the time of the API call.")
     public String getLendingRate() {
         return lendingRate;
     }
@@ -519,7 +519,7 @@ public class BankingAccountDetailV3 implements BankingAccountDetail {
         return this;
     }
 
-    @ApiModelProperty(value = "Fully described lending rates for this account based on the equivalent structure in Product Reference")
+    @ApiModelProperty(value = "Fully described lending rates for this account based on the equivalent structure in Product Reference.")
     public List<BankingProductLendingRateV2> getLendingRates() {
         return lendingRates;
     }

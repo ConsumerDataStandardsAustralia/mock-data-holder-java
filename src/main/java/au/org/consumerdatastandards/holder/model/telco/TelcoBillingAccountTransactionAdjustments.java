@@ -24,12 +24,12 @@ public class TelcoBillingAccountTransactionAdjustments {
     }
 
     /**
-     * The amount of the adjustment
+     * The amount of the adjustment.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The amount of the adjustment")
+            value = "The amount of the adjustment.")
     @NotNull
 
 
@@ -47,12 +47,12 @@ public class TelcoBillingAccountTransactionAdjustments {
     }
 
     /**
-     * A free text description of the adjustment
+     * A free text description of the adjustment.
      *
      * @return description
      */
     @ApiModelProperty(required = true,
-            value = "A free text description of the adjustment")
+            value = "A free text description of the adjustment.")
     @NotNull
 
 

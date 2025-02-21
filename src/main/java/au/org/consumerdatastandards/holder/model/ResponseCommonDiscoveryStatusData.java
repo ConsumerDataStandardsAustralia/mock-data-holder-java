@@ -9,20 +9,23 @@ import java.time.OffsetDateTime;
 public class ResponseCommonDiscoveryStatusData {
 
     /**
-     * The date and time that the current outage was detected. Should only be present if the status property is PARTIAL_FAILURE or UNAVAILABLE
+     * The date and time that the current outage was detected. Should only be present if the status property is `PARTIAL_FAILURE` or `UNAVAILABLE`.
      */
     private OffsetDateTime detectionTime;
 
     /**
-     * The date and time that full service is expected to resume (if known). Should not be present if the status property has a value of OK.
+     * The date and time that full service is expected to resume (if known). Should not be present if the status property has a value of `OK`.
      */
     private OffsetDateTime expectedResolutionTime;
 
     /**
-     * Provides an explanation of the current outage that can be displayed to an end customer. Mandatory if the status property is any value other than OK
+     * Provides an explanation of the current outage that can be displayed to an end customer. Mandatory if the status property is any value other than `OK`.
      */
     private String explanation;
 
+    /**
+     * Enumeration with values: <ul><li>`OK`: (implementation is fully functional).<li>`PARTIAL_FAILURE`: (one or more endpoints are unexpectedly unavailable).<li>`UNAVAILABLE`: (the full implementation is unexpectedly unavailable).<li>`SCHEDULED_OUTAGE`: (an advertised outage is in effect).</ul>
+     */
     private Status status;
 
     /**
@@ -35,7 +38,7 @@ public class ResponseCommonDiscoveryStatusData {
         return this;
     }
 
-    @ApiModelProperty(value = "The date and time that the current outage was detected. Should only be present if the status property is PARTIAL_FAILURE or UNAVAILABLE")
+    @ApiModelProperty(value = "The date and time that the current outage was detected. Should only be present if the status property is `PARTIAL_FAILURE` or `UNAVAILABLE`.")
     public OffsetDateTime getDetectionTime() {
         return detectionTime;
     }
@@ -48,7 +51,7 @@ public class ResponseCommonDiscoveryStatusData {
         return this;
     }
 
-    @ApiModelProperty(value = "The date and time that full service is expected to resume (if known). Should not be present if the status property has a value of OK.")
+    @ApiModelProperty(value = "The date and time that full service is expected to resume (if known). Should not be present if the status property has a value of `OK`.")
     public OffsetDateTime getExpectedResolutionTime() {
         return expectedResolutionTime;
     }
@@ -61,7 +64,7 @@ public class ResponseCommonDiscoveryStatusData {
         return this;
     }
 
-    @ApiModelProperty(value = "Provides an explanation of the current outage that can be displayed to an end customer. Mandatory if the status property is any value other than OK")
+    @ApiModelProperty(value = "Provides an explanation of the current outage that can be displayed to an end customer. Mandatory if the status property is any value other than `OK`.")
     public String getExplanation() {
         return explanation;
     }
@@ -74,7 +77,7 @@ public class ResponseCommonDiscoveryStatusData {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Enumeration with values: <ul><li>`OK`: (implementation is fully functional).<li>`PARTIAL_FAILURE`: (one or more endpoints are unexpectedly unavailable).<li>`UNAVAILABLE`: (the full implementation is unexpectedly unavailable).<li>`SCHEDULED_OUTAGE`: (an advertised outage is in effect).</ul>")
     public Status getStatus() {
         return status;
     }

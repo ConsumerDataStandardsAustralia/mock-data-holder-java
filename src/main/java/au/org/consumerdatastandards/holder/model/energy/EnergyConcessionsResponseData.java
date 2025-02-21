@@ -30,12 +30,12 @@ public class EnergyConcessionsResponseData {
     }
 
     /**
-     * Array may be empty if no concessions exist
+     * Array may be empty if no concessions exist.
      *
      * @return concessions
      */
     @ApiModelProperty(required = true,
-            value = "Array may be empty if no concessions exist")
+            value = "Array may be empty if no concessions exist.")
     @NotNull
 
     @Valid

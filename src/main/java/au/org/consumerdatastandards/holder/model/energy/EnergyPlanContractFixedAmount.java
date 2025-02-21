@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Required if methodUType is fixedAmount
+ * Required if _methodUType_ is `fixedAmount`.
  */
-@ApiModel(description = "Required if methodUType is fixedAmount")
+@ApiModel(description = "Required if _methodUType_ is `fixedAmount`.")
 @Entity
 public class EnergyPlanContractFixedAmount {
     @Id
@@ -39,11 +39,11 @@ public class EnergyPlanContractFixedAmount {
     }
 
     /**
-     * The amount of the discount
+     * The amount of the discount.
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The amount of the discount")
+    @ApiModelProperty(required = true, value = "The amount of the discount.")
     @NotNull
     public String getAmount() {
         return amount;

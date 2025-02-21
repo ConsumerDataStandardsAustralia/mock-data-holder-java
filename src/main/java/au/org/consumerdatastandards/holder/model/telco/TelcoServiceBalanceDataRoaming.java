@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Balance of data roaming charges. Required unless planType is UNSUPPORTED
+ * Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
  */
-@ApiModel(description = "Balance of data roaming charges. Required unless planType is UNSUPPORTED")
+@ApiModel(description = "Balance of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalanceDataRoaming {
@@ -30,11 +30,11 @@ public class TelcoServiceBalanceDataRoaming {
     }
 
     /**
-     * An overview of plan limits. Required unless planType is UNSUPPORTED
+     * An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.
      *
      * @return description
      */
-    @ApiModelProperty(value = "An overview of plan limits. Required unless planType is UNSUPPORTED")
+    @ApiModelProperty(value = "An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.")
 
 
     public String getDescription() {
@@ -51,11 +51,11 @@ public class TelcoServiceBalanceDataRoaming {
     }
 
     /**
-     * Amount of data used overseas in megabytes (MB). Required unless planType is UNSUPPORTED
+     * Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.
      *
      * @return download
      */
-    @ApiModelProperty(value = "Amount of data used overseas in megabytes (MB). Required unless planType is UNSUPPORTED")
+    @ApiModelProperty(value = "Amount of data used overseas in megabytes (MB). Required unless _planType_ is `UNSUPPORTED`.")
 
     @Valid
 
@@ -73,11 +73,11 @@ public class TelcoServiceBalanceDataRoaming {
     }
 
     /**
-     * Amount value of data roaming charges. Required unless planType is UNSUPPORTED
+     * Amount value of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Amount value of data roaming charges. Required unless planType is UNSUPPORTED")
+    @ApiModelProperty(value = "Amount value of data roaming charges. Required unless _planType_ is `UNSUPPORTED`.")
 
 
     public String getAmount() {

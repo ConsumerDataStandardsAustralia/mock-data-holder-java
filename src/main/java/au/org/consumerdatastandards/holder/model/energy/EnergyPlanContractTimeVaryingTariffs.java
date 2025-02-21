@@ -8,7 +8,7 @@ import java.util.List;
 public interface EnergyPlanContractTimeVaryingTariffs {
 
     /**
-     * The type of the charging time period. If absent applies to all periods
+     * The type of the charging time period. If absent applies to all periods.
      */
     public enum TypeEnum {
         PEAK,
@@ -17,21 +17,21 @@ public interface EnergyPlanContractTimeVaryingTariffs {
     }
 
     /**
-     * The type of the charging time period. If absent applies to all periods
+     * The type of the charging time period. If absent applies to all periods.
      *
      * @return type
      */
-    @ApiModelProperty(value = "The type of the charging time period. If absent applies to all periods")
+    @ApiModelProperty(value = "The type of the charging time period. If absent applies to all periods.")
     TypeEnum getType();
 
     void setType(TypeEnum type);
 
     /**
-     * Array of time periods for which this tariff is applicable
+     * Array of time periods for which this tariff is applicable.
      *
      * @return timeVariations
      */
-    @ApiModelProperty(required = true, value = "Array of time periods for which this tariff is applicable")
+    @ApiModelProperty(required = true, value = "Array of time periods for which this tariff is applicable.")
     @NotNull
     List<EnergyPlanContractTimeVaryingTariffsTimeVariations> getTimeVariations();
 

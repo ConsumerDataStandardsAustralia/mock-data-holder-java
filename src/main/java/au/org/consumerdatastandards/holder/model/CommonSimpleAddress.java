@@ -6,47 +6,47 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-@ApiModel
+@ApiModel(description = "Required if _addressUType_ is set to `simple`.")
 @Embeddable
 public class CommonSimpleAddress  {
 
     /**
-     * First line of the standard address object
+     * First line of the standard address object.
      */
     private String addressLine1;
 
     /**
-     * Second line of the standard address object
+     * Second line of the standard address object.
      */
     private String addressLine2;
 
     /**
-     * Third line of the standard address object
+     * Third line of the standard address object.
      */
     private String addressLine3;
 
     /**
-     * Name of the city or locality
+     * Name of the city or locality.
      */
     private String city;
 
     /**
-     * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
+     * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (`AUS`) is assumed if country is not present.
      */
     private String country;
 
     /**
-     * Name of the individual or business formatted for inclusion in an address used for physical mail
+     * Name of the individual or business formatted for inclusion in an address used for physical mail.
      */
     private String mailingName;
 
     /**
-     * Mandatory for Australian addresses
+     * Mandatory for Australian addresses.
      */
     private String postcode;
 
     /**
-     * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+     * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.
      */
     private String state;
 
@@ -55,7 +55,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "First line of the standard address object")
+    @ApiModelProperty(required = true, value = "First line of the standard address object.")
     public String getAddressLine1() {
         return addressLine1;
     }
@@ -68,7 +68,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Second line of the standard address object")
+    @ApiModelProperty(value = "Second line of the standard address object.")
     public String getAddressLine2() {
         return addressLine2;
     }
@@ -82,7 +82,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Third line of the standard address object")
+    @ApiModelProperty(value = "Third line of the standard address object.")
     public String getAddressLine3() {
         return addressLine3;
     }
@@ -96,7 +96,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Name of the city or locality")
+    @ApiModelProperty(required = true, value = "Name of the city or locality.")
     public String getCity() {
         return city;
     }
@@ -110,7 +110,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.")
+    @ApiModelProperty(value = "A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (`AUS`) is assumed if country is not present.")
     public String getCountry() {
         return country;
     }
@@ -124,7 +124,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Name of the individual or business formatted for inclusion in an address used for physical mail")
+    @ApiModelProperty(value = "Name of the individual or business formatted for inclusion in an address used for physical mail.")
     public String getMailingName() {
         return mailingName;
     }
@@ -138,7 +138,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(value = "Mandatory for Australian addresses")
+    @ApiModelProperty(value = "Mandatory for Australian addresses.")
     public String getPostcode() {
         return postcode;
     }
@@ -152,7 +152,7 @@ public class CommonSimpleAddress  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT")
+    @ApiModelProperty(required = true, value = "Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. `NSW`, `QLD`, `VIC`, `NT`, `WA`, `SA`, `TAS`, `ACT`, `AAT`.")
     public String getState() {
         return state;
     }

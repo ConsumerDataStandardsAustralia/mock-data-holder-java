@@ -34,12 +34,12 @@ public class TelcoProductDetailIncentives {
     }
 
     /**
-     * The display name of the incentive
+     * The display name of the incentive.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the incentive")
+            value = "The display name of the incentive.")
     @NotNull
 
 
@@ -57,11 +57,11 @@ public class TelcoProductDetailIncentives {
     }
 
     /**
-     * The description of the incentive
+     * The description of the incentive.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The description of the incentive")
+    @ApiModelProperty(value = "The description of the incentive.")
 
 
     public String getDescription() {
@@ -78,11 +78,11 @@ public class TelcoProductDetailIncentives {
     }
 
     /**
-     * The URI of the incentive
+     * The URI of the incentive.
      *
      * @return incentiveUri
      */
-    @ApiModelProperty(value = "The URI of the incentive")
+    @ApiModelProperty(value = "The URI of the incentive.")
 
 
     public String getIncentiveUri() {
@@ -107,11 +107,11 @@ public class TelcoProductDetailIncentives {
     }
 
     /**
-     * Optional list of features of the incentive
+     * Optional list of features of the incentive.
      *
      * @return features
      */
-    @ApiModelProperty(value = "Optional list of features of the incentive")
+    @ApiModelProperty(value = "Optional list of features of the incentive.")
 
     @Valid
 

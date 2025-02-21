@@ -65,11 +65,11 @@ public class TelcoProductDetail {
     private List<TelcoProductDetailIncentives> incentives = null;
 
     /**
-     * The ID of the specific product
+     * The ID of the specific product.
      *
      * @return productId
      */
-    @ApiModelProperty(required = true, value = "The ID of the specific product")
+    @ApiModelProperty(required = true, value = "The ID of the specific product.")
     @NotNull
     public String getProductId() {
         return productId;
@@ -80,11 +80,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The date and time from which this product is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate
+     * The date and time from which this product is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate.
      *
      * @return effectiveFrom
      */
-    @ApiModelProperty(value = "The date and time from which this product is effective (ie. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate")
+    @ApiModelProperty(value = "The date and time from which this product is effective (i.e. is available for origination). Used to enable the articulation of products to the regime before they are available for customers to originate.")
     public String getEffectiveFrom() {
         return effectiveFrom;
     }
@@ -94,11 +94,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The date and time at which this product will be retired and will no longer be offered. Used to enable the managed deprecation of plans
+     * The date and time at which this product will be retired and will no longer be offered. Used to enable the managed deprecation of plans.
      *
      * @return effectiveTo
      */
-    @ApiModelProperty(value = "The date and time at which this product will be retired and will no longer be offered. Used to enable the managed deprecation of plans")
+    @ApiModelProperty(value = "The date and time at which this product will be retired and will no longer be offered. Used to enable the managed deprecation of plans.")
     public String getEffectiveTo() {
         return effectiveTo;
     }
@@ -108,11 +108,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)
+     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
      *
      * @return lastUpdated
      */
-    @ApiModelProperty(value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)")
+    @ApiModelProperty(value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).")
     public String getLastUpdated() {
         return lastUpdated;
     }
@@ -122,11 +122,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The display name of the product
+     * The display name of the product.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "The display name of the product")
+    @ApiModelProperty(value = "The display name of the product.")
     public String getDisplayName() {
         return displayName;
     }
@@ -136,11 +136,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * A description of the product
+     * A description of the product.
      *
      * @return description
      */
-    @ApiModelProperty(value = "A description of the product")
+    @ApiModelProperty(value = "A description of the product.")
     public String getDescription() {
         return description;
     }
@@ -150,11 +150,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The type of product. [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
+     * The type of product. [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of product. [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service")
+    @ApiModelProperty(required = true, value = "The type of product. [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -179,11 +179,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The type of product
+     * The type of product.
      *
      * @return billingType
      */
-    @ApiModelProperty(required = true, value = "The type of product")
+    @ApiModelProperty(required = true, value = "The type of product.")
     @NotNull
     public BillingTypeEnum getBillingType() {
         return billingType;
@@ -209,11 +209,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * Required if part of a bundle. If not present FALSE is assumed
+     * Required if part of a bundle. If not present `false` is assumed.
      *
      * @return bundle
      */
-    @ApiModelProperty(value = "Required if part of a bundle. If not present FALSE is assumed")
+    @ApiModelProperty(value = "Required if part of a bundle. If not present `false` is assumed.")
     public Boolean getBundle() {
         return bundle;
     }
@@ -223,11 +223,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The ID of the brand under which this product is offered
+     * The ID of the brand under which this product is offered.
      *
      * @return brand
      */
-    @ApiModelProperty(required = true, value = "The ID of the brand under which this product is offered")
+    @ApiModelProperty(required = true, value = "The ID of the brand under which this product is offered.")
     @NotNull
     public String getBrand() {
         return brand;
@@ -238,11 +238,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The display name of the brand under which this product is offered
+     * The display name of the brand under which this product is offered.
      *
      * @return brandName
      */
-    @ApiModelProperty(required = true, value = "The display name of the brand under which this product is offered")
+    @ApiModelProperty(required = true, value = "The display name of the brand under which this product is offered.")
     @NotNull
     public String getBrandName() {
         return brandName;
@@ -253,11 +253,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * List of pricing details for the product plan
+     * List of pricing details for the product plan.
      *
      * @return pricing
      */
-    @ApiModelProperty(required = true, value = "List of pricing details for the product plan")
+    @ApiModelProperty(required = true, value = "List of pricing details for the product plan.")
     @NotNull
     @Valid
     public List<TelcoProductPricing> getPricing() {
@@ -269,11 +269,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The ID of the Third Party through which this product may be originated
+     * The ID of the Third-Party through which this product may be originated.
      *
      * @return thirdPartyAgentId
      */
-    @ApiModelProperty(value = "The ID of the Third Party through which this product may be originated")
+    @ApiModelProperty(value = "The ID of the Third-Party through which this product may be originated.")
     public String getThirdPartyAgentId() {
         return thirdPartyAgentId;
     }
@@ -283,11 +283,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * The display name of the Third Party through which this product may be originated
+     * The display name of the Third-Party through which this product may be originated.
      *
      * @return thirdPartyAgentName
      */
-    @ApiModelProperty(value = "The display name of the Third Party through which this product may be originated")
+    @ApiModelProperty(value = "The display name of the Third-Party through which this product may be originated.")
     public String getThirdPartyAgentName() {
         return thirdPartyAgentName;
     }
@@ -297,11 +297,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * A link to an application web page where this plan can be applied for
+     * A link to an application web page where this plan can be applied for.
      *
      * @return applicationUri
      */
-    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for")
+    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for.")
     public String getApplicationUri() {
         return applicationUri;
     }
@@ -339,11 +339,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * Charges for metering included in the plan
+     * Charges for metering included in the plan.
      *
      * @return meteringCharges
      */
-    @ApiModelProperty(value = "Charges for metering included in the plan")
+    @ApiModelProperty(value = "Charges for metering included in the plan.")
     @Valid
     public List<TelcoProductDetailMeteringCharges> getMeteringCharges() {
         return meteringCharges;
@@ -367,11 +367,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * Bundles the product can be part of
+     * Bundles the product can be part of.
      *
      * @return bundles
      */
-    @ApiModelProperty(value = "Bundles the product can be part of")
+    @ApiModelProperty(value = "Bundles the product can be part of.")
     @Valid
     public List<TelcoProductDetailBundles> getBundles() {
         return bundles;
@@ -395,11 +395,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * Plans associated to the product
+     * Plans associated to the product.
      *
      * @return plans
      */
-    @ApiModelProperty(value = "Plans associated to the product")
+    @ApiModelProperty(value = "Plans associated to the product.")
     @Valid
     public List<TelcoProductDetailPlan> getPlans() {
         return plans;
@@ -423,11 +423,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * Discounts associated to the product
+     * Discounts associated to the product.
      *
      * @return discounts
      */
-    @ApiModelProperty(value = "Discounts associated to the product")
+    @ApiModelProperty(value = "Discounts associated to the product.")
     @Valid
     public List<TelcoProductDetailDiscounts> getDiscounts() {
         return discounts;
@@ -451,11 +451,11 @@ public class TelcoProductDetail {
     }
 
     /**
-     * Incentives associated to the product
+     * Incentives associated to the product.
      *
      * @return incentives
      */
-    @ApiModelProperty(value = "Incentives associated to the product")
+    @ApiModelProperty(value = "Incentives associated to the product.")
     @Valid
     public List<TelcoProductDetailIncentives> getIncentives() {
         return incentives;

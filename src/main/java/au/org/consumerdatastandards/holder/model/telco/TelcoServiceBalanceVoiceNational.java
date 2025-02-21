@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * National voice calls
+ * National voice calls.
  */
-@ApiModel(description = "National voice calls")
+@ApiModel(description = "National voice calls.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalanceVoiceNational {
@@ -33,11 +33,11 @@ public class TelcoServiceBalanceVoiceNational {
     }
 
     /**
-     * An overview of plan limits. Required unless planType is UNSUPPORTED
+     * An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.
      *
      * @return description
      */
-    @ApiModelProperty(value = "An overview of plan limits. Required unless planType is UNSUPPORTED")
+    @ApiModelProperty(value = "An overview of plan limits. Required unless _planType_ is `UNSUPPORTED`.")
 
 
     public String getDescription() {
@@ -54,11 +54,11 @@ public class TelcoServiceBalanceVoiceNational {
     }
 
     /**
-     * Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs. Required unless planType is UNSUPPORTED or UNMETERED
+     * Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return duration
      */
-    @ApiModelProperty(value = "Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
 
     public String getDuration() {
@@ -75,11 +75,11 @@ public class TelcoServiceBalanceVoiceNational {
     }
 
     /**
-     * Number of national voice calls. Required unless planType is UNSUPPORTED or UNMETERED
+     * Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return number
      */
-    @ApiModelProperty(value = "Number of national voice calls. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Number of national voice calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
     @Valid
 
@@ -97,11 +97,11 @@ public class TelcoServiceBalanceVoiceNational {
     }
 
     /**
-     * Amount balance of national calls. Required unless planType is UNSUPPORTED or UNMETERED
+     * Amount balance of national calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Amount balance of national calls. Required unless planType is UNSUPPORTED or UNMETERED")
+    @ApiModelProperty(value = "Amount balance of national calls. Required unless _planType_ is `UNSUPPORTED` or `UNMETERED`.")
 
 
     public String getAmount() {

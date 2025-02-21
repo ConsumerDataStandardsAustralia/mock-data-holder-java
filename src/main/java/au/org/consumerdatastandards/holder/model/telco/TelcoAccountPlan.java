@@ -15,7 +15,7 @@ public class TelcoAccountPlan {
     private String nickname;
 
     /**
-     * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
+     * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
      */
     public enum TypeEnum {
         MOBILE,
@@ -25,7 +25,7 @@ public class TelcoAccountPlan {
     private TypeEnum type = TypeEnum.MOBILE;
 
     /**
-     * The billing type of then plan
+     * The billing type of then plan.
      */
     public enum BillingTypeEnum {
         PRE_PAID,
@@ -47,11 +47,11 @@ public class TelcoAccountPlan {
     }
 
     /**
-     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+     * Optional display name for the plan provided by the customer to help differentiate multiple plans.
      *
      * @return nickname
      */
-    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans")
+    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans.")
     public String getNickname() {
         return nickname;
     }
@@ -66,12 +66,12 @@ public class TelcoAccountPlan {
     }
 
     /**
-     * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
+     * The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.
      *
      * @return type
      */
     @ApiModelProperty(required = true,
-            value = "The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service")
+            value = "The type of the plan. The type of plan. A [`MOBILE`](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or `BROADBAND` fixed internet service.")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -87,11 +87,11 @@ public class TelcoAccountPlan {
     }
 
     /**
-     * The billing type of then plan
+     * The billing type of then plan.
      *
      * @return billingType
      */
-    @ApiModelProperty(required = true, value = "The billing type of then plan")
+    @ApiModelProperty(required = true, value = "The billing type of then plan.")
     @NotNull
     public BillingTypeEnum getBillingType() {
         return billingType;
@@ -112,12 +112,12 @@ public class TelcoAccountPlan {
     }
 
     /**
-     * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
+     * The _serviceId_ representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return serviceIds
      */
     @ApiModelProperty(required = true,
-            value = "The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement")
+            value = "The _serviceId_ representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.")
     @NotNull
     public List<String> getServiceIds() {
         return serviceIds;

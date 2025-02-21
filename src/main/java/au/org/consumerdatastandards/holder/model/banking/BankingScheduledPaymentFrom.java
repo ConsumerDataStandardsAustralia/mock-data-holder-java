@@ -8,12 +8,12 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.util.Objects;
 
-@ApiModel(description = "Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object")
+@ApiModel(description = "Object containing details of the source of the payment. Currently only specifies an _accountId_ but provided as an object to facilitate future extensibility and consistency with the _to_ object.")
 @Embeddable
 public class BankingScheduledPaymentFrom  {
 
     /**
-     * ID of the account that is the source of funds for the payment
+     * _accountId_ of the account that is the source of funds for the payment.
      */
     private String accountId;
 
@@ -26,7 +26,7 @@ public class BankingScheduledPaymentFrom  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "ID of the account that is the source of funds for the payment")
+    @ApiModelProperty(required = true, value = "_accountId_ of the account that is the source of funds for the payment.")
     public String getAccountId() {
         return accountId;
     }

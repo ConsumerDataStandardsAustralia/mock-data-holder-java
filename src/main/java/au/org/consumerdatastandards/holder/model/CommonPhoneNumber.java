@@ -21,35 +21,38 @@ public class CommonPhoneNumber  {
     private String id;
 
     /**
-     * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
+     * Required for non Mobile Phones, if field is present and refers to Australian code - the leading `0` should be omitted.
      */
     private String areaCode;
 
     /**
-     * If absent, assumed to be Australia (+61). The + should be included
+     * If absent, assumed to be Australia (`+61`). The `+` should be included.
      */
     private String countryCode;
 
     /**
-     * An extension number (if applicable)
+     * An extension number (if applicable).
      */
     private String extension;
 
     /**
-     * Fully formatted phone number with country code, area code, number and extension incorporated. Formatted according to section 5.1.4. of [RFC 3966](https://www.ietf.org/rfc/rfc3966.txt)
+     * Fully formatted phone number with country code, area code, number and extension incorporated. Formatted according to section 5.1.4. of **[[RFC3966]](#iref-RFC3966)**.
      */
     private String fullNumber;
 
     /**
-     * May be true for one and only one entry to indicate the preferred phone number. Assumed to be 'false' if not present
+     * May be `true` for one and only one entry to indicate the preferred phone number. Assumed to be `false` if not present.
      */
     private Boolean isPreferred;
 
     /**
-     * The actual phone number, with leading zeros as appropriate
+     * The actual phone number, with leading zeros as appropriate.
      */
     private String number;
 
+    /**
+     * The purpose of the number as specified by the customer.
+     */
     private Purpose purpose;
 
     public String getId() {
@@ -65,7 +68,7 @@ public class CommonPhoneNumber  {
         return this;
     }
 
-    @ApiModelProperty(value = "Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.")
+    @ApiModelProperty(value = "Required for non Mobile Phones, if field is present and refers to Australian code - the leading `0` should be omitted.")
     public String getAreaCode() {
         return areaCode;
     }
@@ -79,7 +82,7 @@ public class CommonPhoneNumber  {
         return this;
     }
 
-    @ApiModelProperty(value = "If absent, assumed to be Australia (+61). The + should be included")
+    @ApiModelProperty(value = "If absent, assumed to be Australia (`+61`). The `+` should be included.")
     public String getCountryCode() {
         return countryCode;
     }
@@ -93,7 +96,7 @@ public class CommonPhoneNumber  {
         return this;
     }
 
-    @ApiModelProperty(value = "An extension number (if applicable)")
+    @ApiModelProperty(value = "An extension number (if applicable).")
     public String getExtension() {
         return extension;
     }
@@ -107,7 +110,7 @@ public class CommonPhoneNumber  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Fully formatted phone number with country code, area code, number and extension incorporated. Formatted according to section 5.1.4. of [RFC 3966](https://www.ietf.org/rfc/rfc3966.txt)")
+    @ApiModelProperty(required = true, value = "Fully formatted phone number with country code, area code, number and extension incorporated. Formatted according to section 5.1.4. of **[[RFC3966]](#iref-RFC3966)**.")
     public String getFullNumber() {
         return fullNumber;
     }
@@ -121,7 +124,7 @@ public class CommonPhoneNumber  {
         return this;
     }
 
-    @ApiModelProperty(value = "May be true for one and only one entry to indicate the preferred phone number. Assumed to be 'false' if not present")
+    @ApiModelProperty(value = "May be `true` for one and only one entry to indicate the preferred phone number. Assumed to be `false` if not present.")
     public Boolean getIsPreferred() {
         return isPreferred;
     }
@@ -135,7 +138,7 @@ public class CommonPhoneNumber  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The actual phone number, with leading zeros as appropriate")
+    @ApiModelProperty(required = true, value = "The actual phone number, with leading zeros as appropriate.")
     public String getNumber() {
         return number;
     }
@@ -149,7 +152,7 @@ public class CommonPhoneNumber  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The purpose of the number as specified by the customer.")
     public Purpose getPurpose() {
         return purpose;
     }

@@ -26,11 +26,11 @@ public class TelcoBalanceListResponseData {
     }
 
     /**
-     * Array of account balances
+     * Array of account balances.
      *
      * @return balances
      */
-    @ApiModelProperty(required = true, value = "Array of account balances")
+    @ApiModelProperty(required = true, value = "Array of account balances.")
     @NotNull
     @Valid
     public List<TelcoBalanceResponseData> getBalances() {

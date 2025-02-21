@@ -28,7 +28,7 @@ public class EnergyPlanContractIncentives {
     private String description;
 
     /**
-     * The type of the incentive
+     * The type of the incentive.
      */
     public enum CategoryEnum {
         GIFT,
@@ -54,11 +54,11 @@ public class EnergyPlanContractIncentives {
     }
 
     /**
-     * The display name of the incentive
+     * The display name of the incentive.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The display name of the incentive")
+    @ApiModelProperty(required = true, value = "The display name of the incentive.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -74,11 +74,11 @@ public class EnergyPlanContractIncentives {
     }
 
     /**
-     * The description of the incentive
+     * The description of the incentive.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "The description of the incentive")
+    @ApiModelProperty(required = true, value = "The description of the incentive.")
     @NotNull
     public String getDescription() {
         return description;
@@ -94,11 +94,11 @@ public class EnergyPlanContractIncentives {
     }
 
     /**
-     * The type of the incentive
+     * The type of the incentive.
      *
      * @return category
      */
-    @ApiModelProperty(required = true, value = "The type of the incentive")
+    @ApiModelProperty(required = true, value = "The type of the incentive.")
     @NotNull
     public CategoryEnum getCategory() {
         return category;
@@ -114,11 +114,11 @@ public class EnergyPlanContractIncentives {
     }
 
     /**
-     * A display message outlining an eligibility criteria that may apply
+     * A display message outlining an eligibility criteria that may apply.
      *
      * @return eligibility
      */
-    @ApiModelProperty(value = "A display message outlining an eligibility criteria that may apply")
+    @ApiModelProperty(value = "A display message outlining an eligibility criteria that may apply.")
     public String getEligibility() {
         return eligibility;
     }

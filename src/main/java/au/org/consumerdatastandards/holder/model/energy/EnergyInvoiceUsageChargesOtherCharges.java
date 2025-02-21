@@ -22,7 +22,7 @@ public class EnergyInvoiceUsageChargesOtherCharges {
     private String id;
 
     /**
-     * Type of charge. Assumed to be other if absent
+     * Type of charge. Assumed to be other if absent.
      */
     public enum TypeEnum {
         ENVIRONMENTAL,
@@ -54,11 +54,11 @@ public class EnergyInvoiceUsageChargesOtherCharges {
     }
 
     /**
-     * Type of charge. Assumed to be other if absent
+     * Type of charge. Assumed to be other if absent.
      *
      * @return type
      */
-    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent")
+    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent.")
     public TypeEnum getType() {
         return type;
     }
@@ -73,11 +73,11 @@ public class EnergyInvoiceUsageChargesOtherCharges {
     }
 
     /**
-     * The aggregate total of charges for this item (exclusive of GST)
+     * The aggregate total of charges for this item (exclusive of GST).
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The aggregate total of charges for this item (exclusive of GST)")
+    @ApiModelProperty(required = true, value = "The aggregate total of charges for this item (exclusive of GST).")
     @NotNull
     public String getAmount() {
         return amount;
@@ -93,11 +93,11 @@ public class EnergyInvoiceUsageChargesOtherCharges {
     }
 
     /**
-     * A free text description of the type of charge
+     * A free text description of the type of charge.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "A free text description of the type of charge")
+    @ApiModelProperty(required = true, value = "A free text description of the type of charge.")
     @NotNull
     public String getDescription() {
         return description;

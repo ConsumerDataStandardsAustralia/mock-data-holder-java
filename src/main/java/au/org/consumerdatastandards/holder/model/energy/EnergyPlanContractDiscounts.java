@@ -36,7 +36,7 @@ public class EnergyPlanContractDiscounts {
     private String description;
 
     /**
-     * The type of the discount
+     * The type of the discount.
      */
     public enum TypeEnum {
         CONDITIONAL,
@@ -47,7 +47,7 @@ public class EnergyPlanContractDiscounts {
     private TypeEnum type;
 
     /**
-     * The type of the discount.  Mandatory if the discount type is CONDITIONAL
+     * The type of the discount. Mandatory if the discount _type_ is `CONDITIONAL`.
      */
     public enum CategoryEnum {
         PAY_ON_TIME,
@@ -63,7 +63,7 @@ public class EnergyPlanContractDiscounts {
     private LocalDate endDate;   // "x-cds-type" : "DateString"
 
     /**
-     * The method of calculation of the discount
+     * The method of calculation of the discount.
      */
     public enum MethodUTypeEnum {
         PERCENTOFBILL("percentOfBill"),
@@ -129,11 +129,11 @@ public class EnergyPlanContractDiscounts {
     }
 
     /**
-     * The display name of the discount
+     * The display name of the discount.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The display name of the discount")
+    @ApiModelProperty(required = true, value = "The display name of the discount.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -149,11 +149,11 @@ public class EnergyPlanContractDiscounts {
     }
 
     /**
-     * The description of the discount
+     * The description of the discount.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The description of the discount")
+    @ApiModelProperty(value = "The description of the discount.")
     public String getDescription() {
         return description;
     }
@@ -168,11 +168,11 @@ public class EnergyPlanContractDiscounts {
     }
 
     /**
-     * The type of the discount
+     * The type of the discount.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of the discount")
+    @ApiModelProperty(required = true, value = "The type of the discount.")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -188,11 +188,11 @@ public class EnergyPlanContractDiscounts {
     }
 
     /**
-     * The type of the discount.  Mandatory if the discount type is CONDITIONAL
+     * The type of the discount. Mandatory if the discount _type_ is `CONDITIONAL`.
      *
      * @return category
      */
-    @ApiModelProperty(value = "The type of the discount.  Mandatory if the discount type is CONDITIONAL")
+    @ApiModelProperty(value = "The type of the discount. Mandatory if the discount _type_ is `CONDITIONAL`.")
     public CategoryEnum getCategory() {
         return category;
     }
@@ -207,11 +207,11 @@ public class EnergyPlanContractDiscounts {
     }
 
     /**
-     * Optional end date for the discount after which the discount is no longer available
+     * Optional end date for the discount after which the discount is no longer available.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Optional end date for the discount after which the discount is no longer available")
+    @ApiModelProperty(value = "Optional end date for the discount after which the discount is no longer available.")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -226,11 +226,11 @@ public class EnergyPlanContractDiscounts {
     }
 
     /**
-     * The method of calculation of the discount
+     * The method of calculation of the discount.
      *
      * @return methodUType
      */
-    @ApiModelProperty(required = true, value = "The method of calculation of the discount")
+    @ApiModelProperty(required = true, value = "The method of calculation of the discount.")
     @NotNull
     public MethodUTypeEnum getMethodUType() {
         return methodUType;

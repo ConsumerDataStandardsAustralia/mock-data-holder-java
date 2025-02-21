@@ -42,11 +42,11 @@ public class EnergyAccountPlanOverview {
     }
 
     /**
-     * The name of the plan if one exists
+     * The name of the plan if one exists.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "The name of the plan if one exists")
+    @ApiModelProperty(value = "The name of the plan if one exists.")
     public String getDisplayName() {
         return displayName;
     }
@@ -61,11 +61,11 @@ public class EnergyAccountPlanOverview {
     }
 
     /**
-     * The start date of the applicability of this plan
+     * The start date of the applicability of this plan.
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true, value = "The start date of the applicability of this plan")
+    @ApiModelProperty(required = true, value = "The start date of the applicability of this plan.")
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -80,11 +80,11 @@ public class EnergyAccountPlanOverview {
     }
 
     /**
-     * The end date of the applicability of this plan
+     * The end date of the applicability of this plan.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "The end date of the applicability of this plan")
+    @ApiModelProperty(value = "The end date of the applicability of this plan.")
     public LocalDate getEndDate() {
         return endDate;
     }

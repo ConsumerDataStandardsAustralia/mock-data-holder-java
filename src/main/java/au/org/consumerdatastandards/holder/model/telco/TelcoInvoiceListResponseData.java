@@ -26,11 +26,11 @@ public class TelcoInvoiceListResponseData {
     }
 
     /**
-     * Array of invoices sorted by issue date in descending order
+     * Array of invoices sorted by issue date in descending order.
      *
      * @return invoices
      */
-    @ApiModelProperty(required = true, value = "Array of invoices sorted by issue date in descending order")
+    @ApiModelProperty(required = true, value = "Array of invoices sorted by issue date in descending order.")
     @NotNull
     @Valid
     public List<TelcoInvoice> getInvoices() {

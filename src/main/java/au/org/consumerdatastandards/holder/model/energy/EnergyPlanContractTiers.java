@@ -41,11 +41,11 @@ public class EnergyPlanContractTiers {
     }
 
     /**
-     * The upper percentage of green power used applicable for this tier
+     * The upper percentage of green power used applicable for this tier.
      *
      * @return percentGreen
      */
-    @ApiModelProperty(required = true, value = "The upper percentage of green power used applicable for this tier")
+    @ApiModelProperty(required = true, value = "The upper percentage of green power used applicable for this tier.")
     @NotNull
     public String getPercentGreen() {
         return percentGreen;
@@ -61,11 +61,11 @@ public class EnergyPlanContractTiers {
     }
 
     /**
-     * The rate of the charge if the type implies the application of a rate
+     * The rate of the charge if the type implies the application of a rate.
      *
      * @return rate
      */
-    @ApiModelProperty(value = "The rate of the charge if the type implies the application of a rate")
+    @ApiModelProperty(value = "The rate of the charge if the type implies the application of a rate.")
     public String getRate() {
         return rate;
     }
@@ -80,11 +80,11 @@ public class EnergyPlanContractTiers {
     }
 
     /**
-     * The amount of the charge if the type implies the application of a fixed amount
+     * The amount of the charge. if the type implies the application of a fixed amount.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "The amount of the charge if the type implies the application of a fixed amount")
+    @ApiModelProperty(value = "The amount of the charge. if the type implies the application of a fixed amount.")
     public String getAmount() {
         return amount;
     }

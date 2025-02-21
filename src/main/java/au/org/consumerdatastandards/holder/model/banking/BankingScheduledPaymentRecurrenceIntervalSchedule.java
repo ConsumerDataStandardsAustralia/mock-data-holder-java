@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.time.LocalDate;
 import java.util.List;
 
-@ApiModel(description = "Indicates that the schedule of payments is defined by a series of intervals. Mandatory if recurrenceUType is set to intervalSchedule")
+@ApiModel(description = "Indicates that the schedule of payments is defined by a series of intervals. Mandatory if _recurrenceUType_ is set to `intervalSchedule`.")
 @Entity(name = "b_sched_paymnt_rec_int_sched")
 public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
 
@@ -23,25 +23,25 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
     private String id;
 
     /**
-     * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+     * The limit date after which no more payments should be made using this schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate finalPaymentDate;
 
     /**
-     * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
+     * An array of interval objects defining the payment schedule. Each entry in the array is additive, in that it adds payments to the overall payment schedule. If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry.
      */
     @OneToMany(cascade = CascadeType.ALL)
     private List<BankingScheduledPaymentInterval> intervals;
 
     /**
-     * Get nonBusinessDayTreatment
+     * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be `ON`.<ul><li>`AFTER` - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<li>`BEFORE` - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<li>`ON` - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<li>`ONLY` - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored.</ul>
      */
     private NonBusinessDayTreatment nonBusinessDayTreatment;
 
     /**
-     * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely
+     * Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely.
      */
     private Integer paymentsRemaining;
 
@@ -58,7 +58,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
         return this;
     }
 
-    @ApiModelProperty(value = "The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely")
+    @ApiModelProperty(value = "The limit date after which no more payments should be made using this schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely.")
     public LocalDate getFinalPaymentDate() {
         return finalPaymentDate;
     }
@@ -77,7 +77,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry")
+    @ApiModelProperty(required = true, value = "An array of interval objects defining the payment schedule. Each entry in the array is additive, in that it adds payments to the overall payment schedule. If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry.")
     public List<BankingScheduledPaymentInterval> getIntervals() {
         return intervals;
     }
@@ -91,7 +91,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
         return this;
     }
 
-    @ApiModelProperty
+    @ApiModelProperty(value = "Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be `ON`.<ul><li>`AFTER` - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<li>`BEFORE` - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<li>`ON` - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<li>`ONLY` - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored.</ul>")
     public NonBusinessDayTreatment getNonBusinessDayTreatment() {
         return nonBusinessDayTreatment;
     }
@@ -105,7 +105,7 @@ public class BankingScheduledPaymentRecurrenceIntervalSchedule  {
         return this;
     }
 
-    @ApiModelProperty(value = "Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely")
+    @ApiModelProperty(value = "Indicates the number of payments remaining in the schedule. If both _finalPaymentDate_ and _paymentsRemaining_ are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely.")
     public Integer getPaymentsRemaining() {
         return paymentsRemaining;
     }

@@ -2,6 +2,7 @@ package au.org.consumerdatastandards.holder.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Objects;
 
 @ApiModel
@@ -12,6 +13,9 @@ public class ResponseCommonCustomerData  {
         person
     }
 
+    /**
+     * The type of customer object that is present.
+     */
     private CustomerUType customerUType;
 
     private CommonOrganisation organisation;
@@ -23,7 +27,7 @@ public class ResponseCommonCustomerData  {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The type of customer object that is present.")
     public CustomerUType getCustomerUType() {
         return customerUType;
     }

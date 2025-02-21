@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Summary of voice balances. Required if voice calls are included in product plan
+ * Summary of voice balances. Required if voice calls are included in product plan.
  */
-@ApiModel(description = "Summary of voice balances. Required if voice calls are included in product plan")
+@ApiModel(description = "Summary of voice balances. Required if voice calls are included in product plan.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalanceVoice {

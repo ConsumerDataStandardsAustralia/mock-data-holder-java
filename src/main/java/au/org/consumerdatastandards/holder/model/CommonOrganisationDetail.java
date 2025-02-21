@@ -23,37 +23,37 @@ public class CommonOrganisationDetail {
     private String id;
 
     /**
-     * Australian Business Number for the organisation
+     * Australian Business Number for the organisation.
      */
     private String abn;
 
     /**
-     * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type
+     * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type.
      */
     private String acn;
 
     /**
-     * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present.  The single name should be in the lastName field
+     * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present. The single name should be in the _lastName_ field.
      */
     private String agentFirstName;
 
     /**
-     * The last name of the individual providing access on behalf of the organisation. For people with single names the single name should be in this field
+     * The last name of the individual providing access on behalf of the organisation. For people with single names, the single name should be in this field.
      */
     private String agentLastName;
 
     /**
-     * The role of the individual identified as the agent who is providing authorisation.  Expected to be used for display.  Default to “Unspecified” if the role is not known
+     * The role of the individual identified as the agent who is providing authorisation. Expected to be used for display. Default to \"Unspecified\" if the role is not known.
      */
     private String agentRole;
 
     /**
-     * Name of the organisation
+     * Name of the organisation.
      */
     private String businessName;
 
     /**
-     * The date the organisation described was established
+     * The date the organisation described was established.
      */
     private LocalDate establishmentDate;
 
@@ -63,37 +63,37 @@ public class CommonOrganisationDetail {
     private String industryCode;
 
     /**
-     * True if registered with the ACNC.  False if not. Absent or null if not confirmed.
+     * `true` if registered with the ACNC. `false` if not. Absent or `null` if not confirmed.
      */
     private Boolean isACNCRegistered;
 
     /**
-     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data
+     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data.
      */
     private OffsetDateTime lastUpdateTime;
 
     /**
-     * Legal name, if different to the business name
+     * Legal name, if different to the business name.
      */
     private String legalName;
 
     /**
-     * Get organisationType
+     * Legal organisation type.
      */
     private CommonOrganisation.OrganisationType organisationType;
 
     /**
-     * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.  Assumed to be AUS if absent
+     * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes. Assumed to be `AUS` if absent.
      */
     private String registeredCountry;
 
     /**
-     * Short name used for communication, if  different to the business name
+     * Short name used for communication, if different to the business name.
      */
     private String shortName;
 
     /**
-     * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
+     * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of `REGISTERED`. Zero or one, and no more than one, record may have the purpose of `MAIL`. If zero then the `REGISTERED` address is to be used for mail.
      */
     @OneToMany
     @JoinTable(
@@ -302,7 +302,7 @@ public class CommonOrganisationDetail {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail")
+    @ApiModelProperty(required = true, value = "Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of `REGISTERED`. Zero or one, and no more than one, record may have the purpose of `MAIL`. If zero then the `REGISTERED` address is to be used for mail.")
     public List<CommonPhysicalAddressWithPurpose> getPhysicalAddresses() {
         return physicalAddresses;
     }

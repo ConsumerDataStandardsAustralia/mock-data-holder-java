@@ -29,7 +29,7 @@ public class EnergyPaymentSchedule {
     private String amount;
 
     /**
-     * The type of object present in this response
+     * The type of object present in this response.
      */
     public enum PaymentScheduleUTypeEnum {
         CARDDEBIT("cardDebit"),
@@ -95,11 +95,11 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios)
+     * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios).
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios)")
+    @ApiModelProperty(value = "Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smoothing scenarios).")
     public String getAmount() {
         return amount;
     }
@@ -114,11 +114,11 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * The type of object present in this response
+     * The type of object present in this response.
      *
      * @return paymentScheduleUType
      */
-    @ApiModelProperty(required = true, value = "The type of object present in this response")
+    @ApiModelProperty(required = true, value = "The type of object present in this response.")
     @NotNull
     public PaymentScheduleUTypeEnum getPaymentScheduleUType() {
         return paymentScheduleUType;
@@ -134,11 +134,11 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit
+     * Represents a regular credit card payment schedule. Mandatory if _paymentScheduleUType_ is set to `cardDebit`.
      *
      * @return cardDebit
      */
-    @ApiModelProperty(value = "Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit")
+    @ApiModelProperty(value = "Represents a regular credit card payment schedule. Mandatory if _paymentScheduleUType_ is set to `cardDebit`.")
     @Valid
     public EnergyPaymentScheduleCardDebit getCardDebit() {
         return cardDebit;
@@ -154,11 +154,11 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Represents a regular direct debit from a specified bank account. Mandatory if paymentScheduleUType is set to directDebit
+     * Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.
      *
      * @return directDebit
      */
-    @ApiModelProperty(value = "Represents a regular direct debit from a specified bank account. Mandatory if paymentScheduleUType is set to directDebit")
+    @ApiModelProperty(value = "Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.")
     @Valid
     public EnergyPaymentScheduleDirectDebit getDirectDebit() {
         return directDebit;
@@ -169,7 +169,7 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
+     * Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.
      *
      * @return digitalWallet
      */
@@ -187,11 +187,11 @@ public class EnergyPaymentSchedule {
     }
 
     /**
-     * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment
+     * Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.
      *
      * @return manualPayment
      */
-    @ApiModelProperty(value = "Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if paymentScheduleUType is set to manualPayment")
+    @ApiModelProperty(value = "Represents a manual payment schedule where the customer pays in response to a delivered statement. Mandatory if _paymentScheduleUType_ is set to `manualPayment`.")
     @Valid
     public EnergyPaymentScheduleManualPayment getManualPayment() {
         return manualPayment;

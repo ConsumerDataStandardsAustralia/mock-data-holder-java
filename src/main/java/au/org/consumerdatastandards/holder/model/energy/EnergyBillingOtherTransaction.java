@@ -42,7 +42,7 @@ public class EnergyBillingOtherTransaction {
     private LocalDate endDate;      // "x-cds-type" : "DateString"
 
     /**
-     * Type of charge. Assumed to be other if absent
+     * Type of charge. Assumed to be other if absent.
      */
     public enum TypeEnum {
         ENVIRONMENTAL,
@@ -82,11 +82,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * The ID of the service point to which this transaction applies if any
+     * The ID of the service point to which this transaction applies if any.
      *
      * @return servicePointId
      */
-    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any")
+    @ApiModelProperty(value = "The ID of the service point to which this transaction applies if any.")
     public String getServicePointId() {
         return servicePointId;
     }
@@ -101,11 +101,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -120,11 +120,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * Optional start date for the application of the charge
+     * Optional start date for the application of the charge.
      *
      * @return startDate
      */
-    @ApiModelProperty(value = "Optional start date for the application of the charge")
+    @ApiModelProperty(value = "Optional start date for the application of the charge.")
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -139,11 +139,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * Optional end date for the application of the charge
+     * Optional end date for the application of the charge.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Optional end date for the application of the charge")
+    @ApiModelProperty(value = "Optional end date for the application of the charge.")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -158,11 +158,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * Type of charge. Assumed to be other if absent
+     * Type of charge. Assumed to be other if absent.
      *
      * @return type
      */
-    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent")
+    @ApiModelProperty(value = "Type of charge. Assumed to be other if absent.")
     public TypeEnum getType() {
         return type;
     }
@@ -177,11 +177,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * The amount of the charge
+     * The amount of the charge.
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The amount of the charge")
+    @ApiModelProperty(required = true, value = "The amount of the charge.")
     @NotNull
     public String getAmount() {
         return amount;
@@ -197,11 +197,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * A free text description of the item
+     * A free text description of the item.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "A free text description of the item")
+    @ApiModelProperty(required = true, value = "A free text description of the item.")
     @NotNull
     public String getDescription() {
         return description;
@@ -220,11 +220,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * Additional calculation factors that inform the transaction
+     * Additional calculation factors that inform the transaction.
      *
      * @return calculationFactors
      */
-    @ApiModelProperty(value = "Additional calculation factors that inform the transaction")
+    @ApiModelProperty(value = "Additional calculation factors that inform the transaction.")
     @Valid
     public List<EnergyBillingUsageTransactionCalculationFactors> getCalculationFactors() {
         return calculationFactors;
@@ -248,11 +248,11 @@ public class EnergyBillingOtherTransaction {
     }
 
     /**
-     * Optional array of adjustments arising for this transaction
+     * Optional array of adjustments arising for this transaction.
      *
      * @return adjustments
      */
-    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction.")
     @Valid
     public List<EnergyBillingUsageTransactionAdjustments> getAdjustments() {
         return adjustments;

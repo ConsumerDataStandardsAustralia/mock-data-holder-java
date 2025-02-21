@@ -6,18 +6,32 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Objects;
 
 @ApiModel
 @Embeddable
-public class BankingTransactionDetailExtendedData  {
+public class BankingTransactionDetailV1ExtendedData {
 
     public enum ExtensionUType {
-        x2p101Payload
+        nppPayload("x2p101Payload");
+
+        private final String value;
+
+        ExtensionUType(String value) {
+            this.value = value;
+        }
+
+        @Override
+        @JsonValue
+        public String toString() {
+            return value;
+        }
     }
 
     public enum Service {
-        X2P1_01("X2P1.01");
+        X2P1("X2P1.01");
 
         private final String value;
 
@@ -33,34 +47,36 @@ public class BankingTransactionDetailExtendedData  {
     }
 
     /**
-     * Optional extended data specific to transactions originated via NPP
+     * Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.
      */
+    @Enumerated(EnumType.STRING)
     private ExtensionUType extensionUType;
 
     /**
-     * Label of the target PayID.  Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID)
+     * Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).
      */
     private String payee;
 
     /**
-     * Label of the originating payer. Mandatory for inbound payment
+     * Label of the originating payer. Mandatory for inbound payment.
      */
     private String payer;
 
     /**
      * Identifier of the applicable overlay service. Valid values are: X2P1.01
      */
+    @Enumerated(EnumType.STRING)
     private Service service;
 
     @Embedded
     private BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload;
 
-    public BankingTransactionDetailExtendedData extensionUType(ExtensionUType extensionUType) {
+    public BankingTransactionDetailV1ExtendedData extensionUType(ExtensionUType extensionUType) {
         this.extensionUType = extensionUType;
         return this;
     }
 
-    @ApiModelProperty("Optional extended data specific to transactions originated via NPP")
+    @ApiModelProperty("Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.")
     public ExtensionUType getExtensionUType() {
         return extensionUType;
     }
@@ -68,12 +84,12 @@ public class BankingTransactionDetailExtendedData  {
     public void setExtensionUType(ExtensionUType extensionUType) {
         this.extensionUType = extensionUType;
     }
-    public BankingTransactionDetailExtendedData payee(String payee) {
+    public BankingTransactionDetailV1ExtendedData payee(String payee) {
         this.payee = payee;
         return this;
     }
 
-    @ApiModelProperty(value = "Label of the target PayID.  Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID)")
+    @ApiModelProperty(value = "Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).")
     public String getPayee() {
         return payee;
     }
@@ -82,12 +98,12 @@ public class BankingTransactionDetailExtendedData  {
         this.payee = payee;
     }
 
-    public BankingTransactionDetailExtendedData payer(String payer) {
+    public BankingTransactionDetailV1ExtendedData payer(String payer) {
         this.payer = payer;
         return this;
     }
 
-    @ApiModelProperty(value = "Label of the originating payer. Mandatory for inbound payment")
+    @ApiModelProperty(value = "Label of the originating payer. Mandatory for inbound payment.")
     public String getPayer() {
         return payer;
     }
@@ -95,7 +111,7 @@ public class BankingTransactionDetailExtendedData  {
     public void setPayer(String payer) {
         this.payer = payer;
     }
-    public BankingTransactionDetailExtendedData service(Service service) {
+    public BankingTransactionDetailV1ExtendedData service(Service service) {
         this.service = service;
         return this;
     }
@@ -108,7 +124,7 @@ public class BankingTransactionDetailExtendedData  {
     public void setService(Service service) {
         this.service = service;
     }
-    public BankingTransactionDetailExtendedData x2p101Payload(BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload) {
+    public BankingTransactionDetailV1ExtendedData x2p101Payload(BankingTransactionDetailExtendedDataX2p101Payload x2p101Payload) {
         this.x2p101Payload = x2p101Payload;
         return this;
     }
@@ -130,7 +146,7 @@ public class BankingTransactionDetailExtendedData  {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        BankingTransactionDetailExtendedData bankingTransactionDetailExtendedData = (BankingTransactionDetailExtendedData) o;
+        BankingTransactionDetailV1ExtendedData bankingTransactionDetailExtendedData = (BankingTransactionDetailV1ExtendedData) o;
         return Objects.equals(this.extensionUType, bankingTransactionDetailExtendedData.extensionUType) &&
             Objects.equals(this.payee, bankingTransactionDetailExtendedData.payee) &&
             Objects.equals(this.payer, bankingTransactionDetailExtendedData.payer) &&

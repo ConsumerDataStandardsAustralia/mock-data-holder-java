@@ -7,7 +7,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Defines the criteria and conditions for which a rate applies
+ * Defines the criteria and conditions for which a rate applies.
+ * Incorporates BankingProductRateTierV2.
  */
 @Entity
 @Table(name = "b_prod_rate_tier")
@@ -21,8 +22,14 @@ public class BankingProductRateTierV3 extends BankingProductRateTier {
     @JsonIgnore
     private BankingProductLendingRateV2 lendingRate;
 
+    /**
+     * Display text providing more information on the rate tier.
+     */
     private String additionalInfo;
 
+    /**
+     * Link to a web page with more information on this rate tier.
+     */
     private String additionalInfoUri;
 
     public BankingProductDepositRateV2 getDepositRate() {

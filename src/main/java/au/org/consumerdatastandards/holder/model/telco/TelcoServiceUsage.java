@@ -35,12 +35,12 @@ public class TelcoServiceUsage {
     }
 
     /**
-     * Tokenised ID of the service identifier. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). To be created in accordance with [CDR ID permanence](#id-permanence) requirements
+     * Tokenised ID of the service identifier. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). To be created in accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return serviceId
      */
     @ApiModelProperty(required = true,
-            value = "Tokenised ID of the service identifier. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). To be created in accordance with [CDR ID permanence](#id-permanence) requirements")
+            value = "Tokenised ID of the service identifier. E.g. a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). To be created in accordance with [CDR ID permanence](#id-permanence) requirements.")
     @NotNull
     public String getServiceId() {
         return serviceId;
@@ -56,11 +56,11 @@ public class TelcoServiceUsage {
     }
 
     /**
-     * Optional description of the service used for display purposes
+     * Optional description of the service used for display purposes.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "Optional description of the service used for display purposes")
+    @ApiModelProperty(value = "Optional description of the service used for display purposes.")
     public String getDisplayName() {
         return displayName;
     }
@@ -75,11 +75,11 @@ public class TelcoServiceUsage {
     }
 
     /**
-     * Required if the service includes a phone number
+     * Required if the service includes a phone number.
      *
      * @return phoneNumber
      */
-    @ApiModelProperty(value = "Required if the service includes a phone number")
+    @ApiModelProperty(value = "Required if the service includes a phone number.")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -94,11 +94,11 @@ public class TelcoServiceUsage {
     }
 
     /**
-     * Date when the usage period started
+     * Date when the usage period started.
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true, value = "Date when the usage period started")
+    @ApiModelProperty(required = true, value = "Date when the usage period started.")
     public OffsetDateTime getStartDate() {
         return startDate;
     }
@@ -113,11 +113,11 @@ public class TelcoServiceUsage {
     }
 
     /**
-     * Date when the usage period ends
+     * Date when the usage period ends.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Date when the usage period ends")
+    @ApiModelProperty(value = "Date when the usage period ends.")
     public OffsetDateTime getEndDate() {
         return endDate;
     }

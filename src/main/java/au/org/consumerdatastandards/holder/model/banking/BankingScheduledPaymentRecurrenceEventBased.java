@@ -6,12 +6,12 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-@ApiModel(description = "Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if recurrenceUType is set to eventBased")
+@ApiModel(description = "Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if _recurrenceUType_ is set to `eventBased`.")
 @Embeddable
 public class BankingScheduledPaymentRecurrenceEventBased  {
 
     /**
-     * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer
+     * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer.
      */
     private String description;
 
@@ -20,7 +20,7 @@ public class BankingScheduledPaymentRecurrenceEventBased  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer")
+    @ApiModelProperty(required = true, value = "Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer.")
     public String getDescription() {
         return description;
     }

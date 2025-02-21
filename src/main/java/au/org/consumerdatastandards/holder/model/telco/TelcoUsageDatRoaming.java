@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Roaming Data Usage
+ * Roaming Data Usage.
  */
-@ApiModel(description = "Roaming Data Usage")
+@ApiModel(description = "Roaming Data Usage.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageDatRoaming {
@@ -27,11 +27,11 @@ public class TelcoUsageDatRoaming {
     }
 
     /**
-     * Amount of data used while roaming in megabytes (MB)
+     * Amount of data used while roaming in megabytes (MB).
      *
      * @return download
      */
-    @ApiModelProperty(value = "Amount of data used while roaming in megabytes (MB)")
+    @ApiModelProperty(value = "Amount of data used while roaming in megabytes (MB).")
 
     @Valid
 
@@ -49,11 +49,11 @@ public class TelcoUsageDatRoaming {
     }
 
     /**
-     * Amount value of data roaming charges
+     * Amount value of data roaming charges.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Amount value of data roaming charges")
+    @ApiModelProperty(value = "Amount value of data roaming charges.")
 
 
     public String getAmount() {

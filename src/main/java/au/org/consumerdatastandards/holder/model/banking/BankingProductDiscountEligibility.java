@@ -26,29 +26,24 @@ public class BankingProductDiscountEligibility {
     private String discountEligibilityId;
 
     /**
-     * The type of the specific eligibility constraint for a
-     * discount
+     * The type of the specific eligibility constraint for a discount. For further details, refer to [Product Discount Eligibility Types](#tocSproductdiscounteligibilitydoc).
      */
     private DiscountEligibilityType discountEligibilityType;
 
     /**
-     * Generic field containing additional information relevant to
-     * the discountEligibilityType specified. Whether mandatory or
-     * not is dependent on the value of discountEligibilityType
+     * Generic field containing additional information relevant to the [_discountEligibilityType_](#tocSproductdiscounteligibilitydoc) specified. Whether mandatory or not is dependent on the value of [_discountEligibilityType_](#tocSproductdiscounteligibilitydoc).
      */
     @Column(length = 2048)
     private String additionalValue;
 
     /**
-     * Display text providing more information on this eligibility constraint.
-     * Whether mandatory or not is dependent on the value of discountEligibilityType
+     * Display text providing more information on this eligibility constraint. Whether mandatory or not is dependent on the value of [_discountEligibilityType_](#tocSproductdiscounteligibilitydoc).
      */
     @Column(length = 2048)
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on this eligibility
-     * constraint
+     * Link to a web page with more information on this eligibility constraint.
      */
     private URI additionalInfoUri;
 

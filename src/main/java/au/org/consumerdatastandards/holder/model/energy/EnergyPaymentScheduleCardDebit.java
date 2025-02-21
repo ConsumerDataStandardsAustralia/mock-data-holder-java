@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Represents a regular credit card payment schedule. Mandatory if paymentScheduleUType is set to cardDebit
+ * Represents a regular credit card payment schedule. Mandatory if _paymentScheduleUType_ is set to `cardDebit`.
  */
 @Entity
 public class EnergyPaymentScheduleCardDebit {
@@ -22,7 +22,7 @@ public class EnergyPaymentScheduleCardDebit {
     private String id;
 
     /**
-     * The type of credit card held on file
+     * The type of credit card held on file.
      */
     public enum CardSchemeEnum {
         VISA,
@@ -38,7 +38,7 @@ public class EnergyPaymentScheduleCardDebit {
     private String paymentFrequency;
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      */
     public enum CalculationTypeEnum {
         STATIC,
@@ -62,11 +62,11 @@ public class EnergyPaymentScheduleCardDebit {
     }
 
     /**
-     * The type of credit card held on file
+     * The type of credit card held on file.
      *
      * @return cardScheme
      */
-    @ApiModelProperty(required = true, value = "The type of credit card held on file")
+    @ApiModelProperty(required = true, value = "The type of credit card held on file.")
     @NotNull
     public CardSchemeEnum getCardScheme() {
         return cardScheme;
@@ -82,12 +82,12 @@ public class EnergyPaymentScheduleCardDebit {
     }
 
     /**
-     * The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return paymentFrequency
      */
     @ApiModelProperty(required = true,
-            value = "The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+            value = "The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     @NotNull
     public String getPaymentFrequency() {
         return paymentFrequency;
@@ -103,12 +103,12 @@ public class EnergyPaymentScheduleCardDebit {
     }
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      *
      * @return calculationType
      */
     @ApiModelProperty(required = true,
-            value = "The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>")
+            value = "The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br/><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>")
     @NotNull
     public CalculationTypeEnum getCalculationType() {
         return calculationType;

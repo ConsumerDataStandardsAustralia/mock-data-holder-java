@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Represents a regular direct debit from a specified bank account. Mandatory if paymentScheduleUType is set to directDebit
+ * Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.
  */
-@ApiModel(description = "Represents a regular direct debit from a specified bank account. Mandatory if paymentScheduleUType is set to directDebit")
+@ApiModel(description = "Represents a regular direct debit from a specified bank account. Mandatory if _paymentScheduleUType_ is set to `directDebit`.")
 @Entity
 public class EnergyPaymentScheduleDirectDebit {
     @Id
@@ -32,7 +32,7 @@ public class EnergyPaymentScheduleDirectDebit {
     private String paymentFrequency;
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      */
     public enum CalculationTypeEnum {
         STATIC,
@@ -56,11 +56,11 @@ public class EnergyPaymentScheduleDirectDebit {
     }
 
     /**
-     * Flag indicating that the account details are tokenised, or held in a closed system, and is not accessible through any other channels. False if absent
+     * Flag indicating that the account details are tokenised, or held in a closed system, and is not accessible through any other channels. `false` if absent.
      *
      * @return isTokenised
      */
-    @ApiModelProperty(value = "Flag indicating that the account details are tokenised, or held in a closed system, and is not accessible through any other channels. False if absent")
+    @ApiModelProperty(value = "Flag indicating that the account details are tokenised, or held in a closed system, and is not accessible through any other channels. `false` if absent.")
     public boolean getIsTokenised() {
         return isTokenised;
     }
@@ -75,11 +75,11 @@ public class EnergyPaymentScheduleDirectDebit {
     }
 
     /**
-     * The unmasked BSB for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.  Is required if isTokenised is absent or false
+     * The unmasked BSB for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces. Is required if _isTokenised_ is absent or `false`.
      *
      * @return bsb
      */
-    @ApiModelProperty(value = "The unmasked BSB for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.  Is required if isTokenised is absent or false")
+    @ApiModelProperty(value = "The unmasked BSB for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces. Is required if _isTokenised_ is absent or `false`.")
     public String getBsb() {
         return bsb;
     }
@@ -94,11 +94,11 @@ public class EnergyPaymentScheduleDirectDebit {
     }
 
     /**
-     * The unmasked account number for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.  Is required if isTokenised is absent or false
+     * The unmasked account number for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces. Is required if _isTokenised_ is absent or `false`.
      *
      * @return accountNumber
      */
-    @ApiModelProperty(value = "The unmasked account number for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces.  Is required if isTokenised is absent or false")
+    @ApiModelProperty(value = "The unmasked account number for the account to be debited. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces. Is required if _isTokenised_ is absent or `false`.")
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -113,12 +113,12 @@ public class EnergyPaymentScheduleDirectDebit {
     }
 
     /**
-     * The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return paymentFrequency
      */
     @ApiModelProperty(required = true,
-            value = "The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+            value = "The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     @NotNull
     public String getPaymentFrequency() {
         return paymentFrequency;
@@ -134,12 +134,12 @@ public class EnergyPaymentScheduleDirectDebit {
     }
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      *
      * @return calculationType
      */
     @ApiModelProperty(required = true,
-            value = "The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>")
+            value = "The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br/><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>")
     @NotNull
     public CalculationTypeEnum getCalculationType() {
         return calculationType;

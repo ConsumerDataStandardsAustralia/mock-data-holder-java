@@ -30,11 +30,11 @@ public class TelcoBillingOnceOffTransaction {
     }
 
     /**
-     * The ID of the service identifier to which this transaction applies if any. E.g a [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements
+     * The ID of the service identifier to which this transaction applies if any. E.g a [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return serviceId
      */
-    @ApiModelProperty(value = "The ID of the service identifier to which this transaction applies if any. E.g a [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements")
+    @ApiModelProperty(value = "The ID of the service identifier to which this transaction applies if any. E.g a [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.")
 
 
     public String getServiceId() {
@@ -51,11 +51,11 @@ public class TelcoBillingOnceOffTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
 
 
     public String getInvoiceNumber() {
@@ -72,15 +72,13 @@ public class TelcoBillingOnceOffTransaction {
     }
 
     /**
-     * The amount of the charge or credit.  A positive value indicates a charge and a negative value indicates a credit
+     * The amount of the charge or credit. A positive value indicates a charge and a negative value indicates a credit.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The amount of the charge or credit.  A positive value indicates a charge and a negative value indicates a credit")
+            value = "The amount of the charge or credit. A positive value indicates a charge and a negative value indicates a credit.")
     @NotNull
-
-
     public String getAmount() {
         return amount;
     }
@@ -95,12 +93,12 @@ public class TelcoBillingOnceOffTransaction {
     }
 
     /**
-     * A free text description of the item
+     * A free text description of the item.
      *
      * @return description
      */
     @ApiModelProperty(required = true,
-            value = "A free text description of the item")
+            value = "A free text description of the item.")
     @NotNull
 
 

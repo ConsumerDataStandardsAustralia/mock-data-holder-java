@@ -12,9 +12,9 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 /**
- * Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff
+ * Represents a constant tariff. Mandatory if _tariffUType_ is set to `singleTariff`.
  */
-@ApiModel(description = "Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff")
+@ApiModel(description = "Represents a constant tariff. Mandatory if _tariffUType_ is set to `singleTariff`.")
 @Entity
 @Table(name = "e_plan_single_tariff")
 public class EnergyPlanContractSingleTariffV1 {

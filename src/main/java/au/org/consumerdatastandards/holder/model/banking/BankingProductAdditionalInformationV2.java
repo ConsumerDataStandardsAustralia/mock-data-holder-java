@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Object that contains links to additional information on
- * specific topics
+ * Object that contains links to additional information on specific topics.
  */
 @Entity
 @Table(name = "b_prod_add_info")
@@ -32,43 +31,57 @@ public class BankingProductAdditionalInformationV2 implements BankingProductAddi
     private String additionalInformationId;
 
     /**
-     * General overview of the product
+     * General overview of the product. Mandatory if _additionalOverviewUris_ includes one or more supporting documents.
      */
     private URI overviewUri;
 
     /**
-     * Terms and conditions for the product
+     * Terms and conditions for the product. Mandatory if _additionalTermsUris_ includes one or more supporting documents.
      */
     private URI termsUri;
 
     /**
-     * Eligibility rules and criteria for the product
+     * Eligibility rules and criteria for the product. Mandatory if _additionalEligibilityUris_ includes one or more supporting documents.
      */
     private URI eligibilityUri;
 
     /**
-     * Description of fees, pricing, discounts, exemptions and
-     * bonuses for the product
+     * Description of fees, pricing, discounts, exemptions and bonuses for the product. Mandatory if _additionalFeesAndPricingUris_ includes one or more supporting documents.
      */
     private URI feesAndPricingUri;
 
     /**
-     * Description of a bundle that this product can be part of
+     * Description of a bundle that this product can be part of. Mandatory if _additionalBundleUris_ includes one or more supporting documents.
      */
     private URI bundleUri;
 
+    /**
+     * An array of additional general overviews for the product or features of the product, if applicable. To be treated as secondary documents to the _overviewUri_. Only to be used if there is a primary _overviewUri_.
+     */
     @OneToMany(cascade = CascadeType.ALL)
     private List<AdditionalInformationUri> additionalOverviewUris;
 
+    /**
+     * An array of additional terms and conditions for the product, if applicable. To be treated as secondary documents to the _termsUri_. Only to be used if there is a primary _termsUri_.
+     */
     @OneToMany(cascade = CascadeType.ALL)
     private List<AdditionalInformationUri> additionalTermsUris;
 
+    /**
+     * An array of additional eligibility rules and criteria for the product, if applicable. To be treated as secondary documents to the _eligibilityUri_. Only to be used if there is a primary _eligibilityUri_.
+     */
     @OneToMany(cascade = CascadeType.ALL)
     private List<AdditionalInformationUri> additionalEligibilityUris;
 
+    /**
+     * An array of additional fees, pricing, discounts, exemptions and bonuses for the product, if applicable. To be treated as secondary documents to the _feesAndPricingUri_. Only to be used if there is a primary _feesAndPricingUri_.
+     */
     @OneToMany(cascade = CascadeType.ALL)
     private List<AdditionalInformationUri> additionalFeesAndPricingUris;
 
+    /**
+     * An array of additional bundles for the product, if applicable. To be treated as secondary documents to the _bundleUri_. Only to be used if there is a primary _bundleUri_.
+     */
     @OneToMany(cascade = CascadeType.ALL)
     private List<AdditionalInformationUri> additionalBundleUris;
 

@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Links  {
 
     /**
-     * Fully qualified link that generated the current response document
+     * Fully qualified link that generated the current response document.
      */
     private String self;
 
@@ -24,7 +24,7 @@ public class Links  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Fully qualified link that generated the current response document")
+    @ApiModelProperty(required = true, value = "Fully qualified link that generated the current response document.")
     public String getSelf() {
         return self;
     }

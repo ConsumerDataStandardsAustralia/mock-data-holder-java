@@ -30,12 +30,12 @@ public class EnergyBillingListResponseData {
     }
 
     /**
-     * Array of transactions sorted by date and time in descending order
+     * Array of transactions sorted by date and time in descending order.
      *
      * @return transactions
      */
     @ApiModelProperty(required = true,
-            value = "Array of transactions sorted by date and time in descending order")
+            value = "Array of transactions sorted by date and time in descending order.")
     @NotNull
 
     @Valid

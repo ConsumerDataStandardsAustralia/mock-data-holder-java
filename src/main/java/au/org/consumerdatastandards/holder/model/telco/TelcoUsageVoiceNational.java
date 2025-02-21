@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * National voice calls
+ * National voice calls.
  */
-@ApiModel(description = "National voice calls")
+@ApiModel(description = "National voice calls.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoUsageVoiceNational {
@@ -31,12 +31,12 @@ public class TelcoUsageVoiceNational {
     }
 
     /**
-     * Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs
+     * Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs.
      *
      * @return duration
      */
     @ApiModelProperty(required = true,
-            value = "Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs")
+            value = "Total duration (hours, minutes, and seconds) of national voice calls. Not limited to 24hrs.")
     @NotNull
 
 
@@ -54,12 +54,12 @@ public class TelcoUsageVoiceNational {
     }
 
     /**
-     * Number of national voice calls
+     * Number of national voice calls.
      *
      * @return number
      */
     @ApiModelProperty(required = true,
-            value = "Number of national voice calls")
+            value = "Number of national voice calls.")
     @NotNull
 
     @Valid
@@ -78,12 +78,12 @@ public class TelcoUsageVoiceNational {
     }
 
     /**
-     * Cost amount of national calls
+     * Cost amount of national calls.
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "Cost amount of national calls")
+            value = "Cost amount of national calls.")
     @NotNull
 
 

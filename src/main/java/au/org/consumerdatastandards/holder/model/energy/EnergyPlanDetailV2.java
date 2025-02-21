@@ -71,9 +71,17 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     private List<MeteringCharges> meteringCharges = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_gas_contract",
+            joinColumns = @JoinColumn(name = "plan_id"),
+            inverseJoinColumns = @JoinColumn(name = "gas_contract_id"))
     private EnergyPlanContractFullV2 gasContract;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_plan_el_contract",
+            joinColumns = @JoinColumn(name = "plan_id"),
+            inverseJoinColumns = @JoinColumn(name = "el_contract_id"))
     private EnergyPlanContractFullV2 electricityContract;
 
     /**
@@ -124,12 +132,12 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)
+     * The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).
      *
      * @return lastUpdated
      */
     @ApiModelProperty(required = true,
-            value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered)")
+            value = "The last date and time that the information for this plan was changed (or the creation date for the plan if it has never been altered).")
     @NotNull
     @Override
     public OffsetDateTime getLastUpdated() {
@@ -191,11 +199,11 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * The fuel types covered by the plan
+     * The fuel types covered by the plan.
      *
      * @return fuelType
      */
-    @ApiModelProperty(required = true, value = "The fuel types covered by the plan")
+    @ApiModelProperty(required = true, value = "The fuel types covered by the plan.")
     @NotNull
     @Override
     public FuelTypeEnum getFuelType() {
@@ -242,11 +250,11 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * A link to an application web page where this plan can be applied for
+     * A link to an application web page where this plan can be applied for.
      *
      * @return applicationUri
      */
-    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for")
+    @ApiModelProperty(value = "A link to an application web page where this plan can be applied for.")
     @Override
     public String getApplicationUri() {
         return applicationUri;
@@ -262,7 +270,7 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
      *
      * @return additionalInformation
      */
-    @ApiModelProperty(value = "Object that contains links to additional information on specific topics")
+    @ApiModelProperty(value = "Object that contains links to additional information on specific topics.")
     @Valid
     @Override
     public EnergyPlanAdditionalInformation getAdditionalInformation() {
@@ -321,12 +329,12 @@ public class EnergyPlanDetailV2 implements EnergyPlanDetail {
     }
 
     /**
-     * Charges for metering included in the plan
+     * Charges for metering included in the plan.
      *
      * @return meteringCharges
      */
     @Override
-    @ApiModelProperty(value = "Charges for metering included in the plan")
+    @ApiModelProperty(value = "Charges for metering included in the plan.")
     @Valid
     public List<MeteringCharges> getMeteringCharges() {
         return meteringCharges;

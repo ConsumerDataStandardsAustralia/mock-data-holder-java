@@ -66,11 +66,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Indicator of the method of concession calculation
+     * Indicator of the method of concession calculation.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "Indicator of the method of concession calculation")
+    @ApiModelProperty(required = true, value = "Indicator of the method of concession calculation.")
     @NotNull
     public Type getType() {
         return type;
@@ -86,11 +86,11 @@ public class EnergyConcession {
     }
 
     /**
-     * The display name of the concession
+     * The display name of the concession.
      *
      * @return displayName
      */
-    @ApiModelProperty(required = true, value = "The display name of the concession")
+    @ApiModelProperty(required = true, value = "The display name of the concession.")
     @NotNull
     public String getDisplayName() {
         return displayName;
@@ -106,11 +106,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Display text providing more information on the concession. Mandatory if type is VARIABLE
+     * Display text providing more information on the concession. Mandatory if _type_ is `VARIABLE`.
      *
      * @return additionalInfo
      */
-    @ApiModelProperty(value = "Display text providing more information on the concession. Mandatory if type is VARIABLE")
+    @ApiModelProperty(value = "Display text providing more information on the concession. Mandatory if _type_ is `VARIABLE`.")
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -125,11 +125,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Optional link to additional information regarding the concession
+     * Optional link to additional information regarding the concession.
      *
      * @return additionalInfoUri
      */
-    @ApiModelProperty(value = "Optional link to additional information regarding the concession")
+    @ApiModelProperty(value = "Optional link to additional information regarding the concession.")
     public String getAdditionalInfoUri() {
         return additionalInfoUri;
     }
@@ -144,11 +144,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Optional start date for the application of the concession
+     * Optional start date for the application of the concession.
      *
      * @return startDate
      */
-    @ApiModelProperty(value = "Optional start date for the application of the concession")
+    @ApiModelProperty(value = "Optional start date for the application of the concession.")
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -163,11 +163,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Optional end date for the application of the concession
+     * Optional end date for the application of the concession.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Optional end date for the application of the concession")
+    @ApiModelProperty(value = "Optional end date for the application of the concession.")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -182,11 +182,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * Conditional attribute for frequency at which a concession is applied. Required if type is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return discountFrequency
      */
-    @ApiModelProperty(value = "Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+    @ApiModelProperty(value = "Conditional attribute for frequency at which a concession is applied. Required if type is `FIXED_AMOUNT` or `FIXED_PERCENTAGE`. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     public String getDiscountFrequency() {
         return discountFrequency;
     }
@@ -201,11 +201,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Conditional attribute for the amount of discount for the concession- required if type is FIXED_AMOUNT
+     * Conditional attribute for the amount of discount for the concession- required if type is `FIXED_AMOUNT`.
      *
      * @return amount
      */
-    @ApiModelProperty(value = "Conditional attribute for the amount of discount for the concession- required if type is FIXED_AMOUNT")
+    @ApiModelProperty(value = "Conditional attribute for the amount of discount for the concession- required if type is `FIXED_AMOUNT`.")
     public String getAmount() {
         return amount;
     }
@@ -220,11 +220,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Conditional attribute for the percentage of discount of concession - required if type is FIXED_PERCENTAGE
+     * Conditional attribute for the percentage of discount of concession - required if type is `FIXED_PERCENTAGE`.
      *
      * @return percentage
      */
-    @ApiModelProperty(value = "Conditional attribute for the percentage of discount of concession - required if type is FIXED_PERCENTAGE")
+    @ApiModelProperty(value = "Conditional attribute for the percentage of discount of concession - required if type is `FIXED_PERCENTAGE`.")
     public String getPercentage() {
         return percentage;
     }
@@ -239,11 +239,11 @@ public class EnergyConcession {
     }
 
     /**
-     * Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed
+     * Array of ENUMs to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.
      *
      * @return appliedTo
      */
-    @ApiModelProperty(value = "Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed")
+    @ApiModelProperty(value = "Array of ENUMs to specify what the concession applies to. Multiple ENUM values can be provided. If absent, `USAGE` is assumed.")
     public List<String> getAppliedTo() {
         return appliedTo;
     }

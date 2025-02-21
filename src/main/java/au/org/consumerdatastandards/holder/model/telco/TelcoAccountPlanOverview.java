@@ -1,6 +1,5 @@
 package au.org.consumerdatastandards.holder.model.telco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -8,19 +7,14 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Mandatory if openStatus is OPEN
+ * Mandatory if _openStatus_ is `OPEN`.
  */
-@ApiModel(description = "Mandatory if openStatus is OPEN")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
-        date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
+@ApiModel(description = "Mandatory if _openStatus_ is `OPEN`.")
 public class TelcoAccountPlanOverview {
-    @JsonProperty("displayName")
     private String displayName;
 
-    @JsonProperty("startDate")
     private String startDate;
 
-    @JsonProperty("endDate")
     private String endDate;
 
     public TelcoAccountPlanOverview displayName(String displayName) {
@@ -29,13 +23,11 @@ public class TelcoAccountPlanOverview {
     }
 
     /**
-     * The name of the plan if one exists
+     * The name of the plan if one exists.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "The name of the plan if one exists")
-
-
+    @ApiModelProperty(value = "The name of the plan if one exists.")
     public String getDisplayName() {
         return displayName;
     }
@@ -50,15 +42,12 @@ public class TelcoAccountPlanOverview {
     }
 
     /**
-     * The start date of the applicability of this plan
+     * The start date of the applicability of this plan.
      *
      * @return startDate
      */
-    @ApiModelProperty(required = true,
-            value = "The start date of the applicability of this plan")
+    @ApiModelProperty(required = true, value = "The start date of the applicability of this plan.")
     @NotNull
-
-
     public String getStartDate() {
         return startDate;
     }
@@ -73,13 +62,11 @@ public class TelcoAccountPlanOverview {
     }
 
     /**
-     * The end date of the applicability of this plan
+     * The end date of the applicability of this plan.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "The end date of the applicability of this plan")
-
-
+    @ApiModelProperty(value = "The end date of the applicability of this plan.")
     public String getEndDate() {
         return endDate;
     }
@@ -87,7 +74,6 @@ public class TelcoAccountPlanOverview {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -112,7 +98,6 @@ public class TelcoAccountPlanOverview {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TelcoAccountPlanOverview {\n");
-
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
         sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
         sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
@@ -131,4 +116,3 @@ public class TelcoAccountPlanOverview {
         return o.toString().replace("\n", "\n    ");
     }
 }
-

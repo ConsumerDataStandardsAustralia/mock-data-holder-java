@@ -21,7 +21,7 @@ public class BankingBalance  {
     private String id;
 
     /**
-     * A unique ID of the account adhering to the standards for ID permanence
+     * A unique ID of the account adhering to the standards for ID permanence.
      */
     private String accountId;
 
@@ -31,32 +31,32 @@ public class BankingBalance  {
     private BankingAccountV2 bankingAccount;
 
     /**
-     * Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent
+     * Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent.
      */
     private String amortisedLimit;
 
     /**
-     * Balance representing the amount of funds available for transfer. Assumed to be zero or positive
+     * Balance representing the amount of funds available for transfer. Assumed to be zero or positive.
      */
     private String availableBalance;
 
     /**
-     * Object representing the maximum amount of credit that is available for this account. Assumed to be zero if absent
+     * Object representing the maximum amount of credit that is available for this account. Assumed to be zero if absent.
      */
     private String creditLimit;
 
     /**
-     * The currency for the balance amounts. If absent assumed to be AUD
+     * The currency for the balance amounts. If absent assumed to be `AUD`.
      */
     private String currency;
 
     /**
-     * The balance of the account at this time. Should align to the balance available via other channels such as Internet Banking. Assumed to be negative if the customer has money owing
+     * The balance of the account at this time. Should align to the balance available via other channels such as Internet Banking. Assumed to be negative if the customer has money owing.
      */
     private String currentBalance;
 
     /**
-     * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards
+     * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards.
      */
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -78,7 +78,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence")
+    @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence.")
     public String getAccountId() {
         return accountId;
     }
@@ -99,7 +99,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(value = "Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent")
+    @ApiModelProperty(value = "Object representing the available limit amortised according to payment schedule. Assumed to be zero if absent.")
     public String getAmortisedLimit() {
         return amortisedLimit;
     }
@@ -112,7 +112,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Balance representing the amount of funds available for transfer. Assumed to be zero or positive")
+    @ApiModelProperty(required = true, value = "Balance representing the amount of funds available for transfer. Assumed to be zero or positive.")
     public String getAvailableBalance() {
         return availableBalance;
     }
@@ -126,7 +126,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(value = "Object representing the maximum amount of credit that is available for this account. Assumed to be zero if absent")
+    @ApiModelProperty(value = "Object representing the maximum amount of credit that is available for this account. Assumed to be zero if absent.")
     public String getCreditLimit() {
         return creditLimit;
     }
@@ -140,7 +140,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(value = "The currency for the balance amounts. If absent assumed to be AUD")
+    @ApiModelProperty(value = "The currency for the balance amounts. If absent assumed to be `AUD`.")
     public String getCurrency() {
         return currency;
     }
@@ -154,7 +154,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The balance of the account at this time. Should align to the balance available via other channels such as Internet Banking. Assumed to be negative if the customer has money owing")
+    @ApiModelProperty(required = true, value = "The balance of the account at this time. Should align to the balance available via other channels such as Internet Banking. Assumed to be negative if the customer has money owing.")
     public String getCurrentBalance() {
         return currentBalance;
     }
@@ -176,7 +176,7 @@ public class BankingBalance  {
         return this;
     }
 
-    @ApiModelProperty(value = "Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards")
+    @ApiModelProperty(value = "Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards.")
     public List<BankingBalancePurse> getPurses() {
         return purses;
     }

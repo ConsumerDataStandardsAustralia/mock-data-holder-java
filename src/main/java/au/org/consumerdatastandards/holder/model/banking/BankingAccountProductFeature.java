@@ -20,7 +20,7 @@ public class BankingAccountProductFeature {
     private String id;
 
     /**
-     * The type of feature described
+     * The type of feature described. For further details, refer to [Product Feature Types](#tocSproductfeaturetypedoc).
      */
     private BankingProductFeature.FeatureType featureType;
 
@@ -40,7 +40,7 @@ public class BankingAccountProductFeature {
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on this feature
+     * Link to a web page with more information on this feature.
      */
     private URI additionalInfoUri;
 
@@ -48,6 +48,9 @@ public class BankingAccountProductFeature {
 //    @ManyToOne
 //    private BankingAccountDetail bankingAccountDetail;
 
+    /**
+     * `true` if the feature is already activated and `false` if the feature is available for activation. Defaults to `true` if absent.<br>Note: this is an additional field appended to the feature object defined in the Product Reference payload.
+     */
     private Boolean isActivated;
 
     public String getId() {

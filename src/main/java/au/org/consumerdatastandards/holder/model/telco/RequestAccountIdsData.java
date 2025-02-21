@@ -10,9 +10,8 @@ import java.util.Objects;
 public class RequestAccountIdsData {
 
     /**
-     * Get accountIds
+     * Array of specific _accountId_ values to obtain data for. In accordance with [CDR ID permanence](#id-permanence) requirements.
      */
-
     private List<String> accountIds;
 
     public RequestAccountIdsData accountIds(List<String> accountIds) {
@@ -25,7 +24,7 @@ public class RequestAccountIdsData {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "Array of specific _accountId_ values to obtain data for. In accordance with [CDR ID permanence](#id-permanence) requirements.")
     public List<String> getAccountIds() {
         return accountIds;
     }

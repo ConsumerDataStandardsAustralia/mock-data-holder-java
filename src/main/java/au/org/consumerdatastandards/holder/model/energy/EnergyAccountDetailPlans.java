@@ -9,6 +9,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,10 +21,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * EnergyAccountDetailPlans
+ * EnergyAccountDetailPlans (EnergyAccountDetailPlansV1 and EnergyAccountDetailPlansV2)
  */
 @Entity
-@Table(name = "e_account_detail_plan")
+@Table(name = "e_account_plan")
 public class EnergyAccountDetailPlans {
 
     @Id
@@ -38,13 +40,25 @@ public class EnergyAccountDetailPlans {
     private List<String> servicePointIds = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_acc_plan_overview",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "plan_overview_id"))
     private EnergyAccountPlanOverview planOverview;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_acc_detail_plan",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "acc_plan_id"))
     private EnergyAccountDetailPlanDetail planDetail;
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_acc_detail_auth_contacts",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "auth_contact_id"))
     private List<EnergyAccountDetailAuthorisedContacts> authorisedContacts = null;
 
     public String getId() {
@@ -61,11 +75,11 @@ public class EnergyAccountDetailPlans {
     }
 
     /**
-     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+     * Optional display name for the plan provided by the customer to help differentiate multiple plans.
      *
      * @return nickname
      */
-    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans")
+    @ApiModelProperty(value = "Optional display name for the plan provided by the customer to help differentiate multiple plans.")
     public String getNickname() {
         return nickname;
     }
@@ -85,12 +99,12 @@ public class EnergyAccountDetailPlans {
     }
 
     /**
-     * An array of servicePointIds, representing NMIs, that this account is linked to
+     * An array of _servicePointId_ values, representing NMIs, that this account is linked to.
      *
      * @return servicePointIds
      */
     @ApiModelProperty(required = true,
-            value = "An array of servicePointIds, representing NMIs, that this account is linked to")
+            value = "An array of _servicePointId_ values, representing NMIs, that this account is linked to.")
     @NotNull
     public List<String> getServicePointIds() {
         return servicePointIds;
@@ -156,11 +170,11 @@ public class EnergyAccountDetailPlans {
     }
 
     /**
-     * An array of additional contacts that are authorised to act on this account
+     * An array of additional contacts that are authorised to act on this account.
      *
      * @return authorisedContacts
      */
-    @ApiModelProperty(value = "An array of additional contacts that are authorised to act on this account")
+    @ApiModelProperty(value = "An array of additional contacts that are authorised to act on this account.")
     @Valid
     public List<EnergyAccountDetailAuthorisedContacts> getAuthorisedContacts() {
         return authorisedContacts;

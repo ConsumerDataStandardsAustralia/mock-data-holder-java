@@ -49,9 +49,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     private OffsetDateTime effectiveTo;
 
     /**
-     * The last date and time that the information for this product
-     * was changed (or the creation date for the product if it has
-     * never been altered)
+     * The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered).
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -60,25 +58,23 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     private BankingProductCategory productCategory;
 
     /**
-     * The display name of the product
+     * The display name of the product.
      */
     private String name;
 
     /**
-     * A description of the product
+     * A description of the product.
      */
     @Column(length = 2048)
     private String description;
 
     /**
-     * A label of the brand for the product. Able to be used for
-     * filtering. For data providers with single brands this value
-     * is still required
+     * A label of the brand for the product. Able to be used for filtering. For data holders with single brands this value is still required.
      */
     private String brand;
 
     /**
-     * An optional display name of the brand
+     * An optional display name of the brand.
      */
     private String brandName;
 
@@ -89,18 +85,16 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     private String applicationUri;
 
     /**
-     * Indicates whether the product is specifically tailored to a
-     * circumstance.  In this case fees and prices are
-     * significantly negotiated depending on context. While all
-     * products are open to a degree of tailoring this flag
-     * indicates that tailoring is expected and thus that the
-     * provision of specific fees and rates is not applicable
+     * Indicates whether the product is specifically tailored to a circumstance. In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable.
      */
     private Boolean isTailored;
 
     @OneToOne(cascade = CascadeType.ALL)
     private BankingProductAdditionalInformationV1 additionalInformation;
 
+    /**
+     * An array of card art images.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_cardarts",
@@ -116,6 +110,9 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     @Valid
     private List<BankingProductBundle> bundles = null;
 
+    /**
+     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_constraints",
@@ -124,6 +121,9 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     @Valid
     private List<BankingProductConstraint> constraints = null;
 
+    /**
+     * Interest rates available for deposits.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_deposit_rates",
@@ -132,6 +132,9 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     @Valid
     private List<BankingProductDepositRateV2> depositRates = null;
 
+    /**
+     * Eligibility criteria for the product.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_eligibility",
@@ -148,6 +151,9 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     @Valid
     private List<BankingProductFeature> features = null;
 
+    /**
+     * Fees applicable to the product.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_fees",
@@ -156,6 +162,9 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     @Valid
     private List<BankingProductFee> fees = null;
 
+    /**
+     * Interest rates charged against lending balances.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "product_lending_rates",
@@ -370,7 +379,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     }
 
     /**
-     * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
+     * An array of bundles that this product participates in. Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle. It is assumed that the current product is included in the bundle also.
      *
      * @return bundles
      */
@@ -397,7 +406,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     }
 
     /**
-     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
+     * Constraints on the application for or operation of the product such as minimum balances or limit thresholds.
      *
      * @return constraints
      */
@@ -424,7 +433,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     }
 
     /**
-     * Interest rates available for deposits
+     * Interest rates available for deposits.
      *
      * @return depositRates
      */
@@ -451,7 +460,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     }
 
     /**
-     * Eligibility criteria for the product
+     * Eligibility criteria for the product.
      *
      * @return eligibility
      */
@@ -478,7 +487,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     }
 
     /**
-     * Array of features available for the product
+     * Array of features available for the product.
      *
      * @return features
      */
@@ -505,7 +514,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     }
 
     /**
-     * Fees applicable for the product
+     * Fees applicable to the product.
      *
      * @return fees
      */
@@ -532,7 +541,7 @@ public class BankingProductDetailV3 implements BankingProductDetail {
     }
 
     /**
-     * Interest rates charged against lending balances
+     * Interest rates charged against lending balances.
      *
      * @return lendingRates
      */

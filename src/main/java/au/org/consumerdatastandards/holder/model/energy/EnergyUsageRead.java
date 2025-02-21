@@ -51,7 +51,7 @@ public class EnergyUsageRead {
     private String unitOfMeasure;
 
     /**
-     * Specify the type of the meter read data
+     * Specify the type of the meter read data.
      */
     public enum ReadUTypeEnum {
         BASIC_READ("basicRead"),
@@ -107,12 +107,12 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Tokenised ID of the service point to be used for referring to the service point in the CDR API suite.  To be created in accordance with CDR ID permanence requirements
+     * Tokenised ID of the service point to be used for referring to the service point in the CDR API suite. To be created in accordance with CDR ID permanence requirements.
      *
      * @return servicePointId
      */
     @ApiModelProperty(required = true,
-            value = "Tokenised ID of the service point to be used for referring to the service point in the CDR API suite.  To be created in accordance with CDR ID permanence requirements")
+            value = "Tokenised ID of the service point to be used for referring to the service point in the CDR API suite. To be created in accordance with CDR ID permanence requirements.")
     @NotNull
     public String getServicePointId() {
         return servicePointId;
@@ -128,11 +128,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Register ID of the meter register where the meter reads are obtained
+     * Register ID of the meter register where the meter reads are obtained.
      *
      * @return registerId
      */
-    @ApiModelProperty(value = "Register ID of the meter register where the meter reads are obtained")
+    @ApiModelProperty(value = "Register ID of the meter register where the meter reads are obtained.")
     public String getRegisterId() {
         return registerId;
     }
@@ -147,11 +147,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Register suffix of the meter register where the meter reads are obtained
+     * Register suffix of the meter register where the meter reads are obtained.
      *
      * @return registerSuffix
      */
-    @ApiModelProperty(required = true, value = "Register suffix of the meter register where the meter reads are obtained")
+    @ApiModelProperty(required = true, value = "Register suffix of the meter register where the meter reads are obtained.")
     @NotNull
     public String getRegisterSuffix() {
         return registerSuffix;
@@ -167,11 +167,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Meter id/serial number as it appears in customer’s bill. ID permanence rules do not apply.
+     * Meter id/serial number as it appears in customer's bill. ID permanence rules do not apply.
      *
      * @return meterId
      */
-    @ApiModelProperty(value = "Meter id/serial number as it appears in customer’s bill. ID permanence rules do not apply.")
+    @ApiModelProperty(value = "Meter id/serial number as it appears in customer's bill. ID permanence rules do not apply.")
     public String getMeterId() {
         return meterId;
     }
@@ -186,11 +186,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Indicates whether the energy recorded by this register is created under a Controlled Load regime
+     * Indicates whether the energy recorded by this register is created under a Controlled Load regime.
      *
      * @return controlledLoad
      */
-    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime")
+    @ApiModelProperty(value = "Indicates whether the energy recorded by this register is created under a Controlled Load regime.")
     public Boolean getControlledLoad() {
         return controlledLoad;
     }
@@ -205,11 +205,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Date when the meter reads start in AEST and assumed to start from 12:00 am AEST.
+     * Date when the meter reads start in AEST and assumed to start from 12:00am AEST.
      *
      * @return readStartDate
      */
-    @ApiModelProperty(required = true, value = "Date when the meter reads start in AEST and assumed to start from 12:00 am AEST.")
+    @ApiModelProperty(required = true, value = "Date when the meter reads start in AEST and assumed to start from 12:00am AEST.")
     @NotNull
     public LocalDate getReadStartDate() {
         return readStartDate;
@@ -225,11 +225,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Date when the meter reads end in AEST.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate.
+     * Date when the meter reads end in AEST. If absent then assumed to be equal to _readStartDate_. In this case the entry represents data for a single date specified by _readStartDate_.
      *
      * @return readEndDate
      */
-    @ApiModelProperty(value = "Date when the meter reads end in AEST.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate.")
+    @ApiModelProperty(value = "Date when the meter reads end in AEST. If absent then assumed to be equal to _readStartDate_. In this case the entry represents data for a single date specified by _readStartDate_.")
     public LocalDate getReadEndDate() {
         return readEndDate;
     }
@@ -263,11 +263,11 @@ public class EnergyUsageRead {
     }
 
     /**
-     * Specify the type of the meter read data
+     * Specify the type of the meter read data.
      *
      * @return readUType
      */
-    @ApiModelProperty(required = true, value = "Specify the type of the meter read data")
+    @ApiModelProperty(required = true, value = "Specify the type of the meter read data.")
     @NotNull
     public ReadUTypeEnum getReadUType() {
         return readUType;

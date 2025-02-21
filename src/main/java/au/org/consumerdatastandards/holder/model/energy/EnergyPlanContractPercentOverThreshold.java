@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Required if methodUType is percentOverThreshold
+ * Required if _methodUType_ is `percentOverThreshold`.
  */
-@ApiModel(description = "Required if methodUType is percentOverThreshold")
+@ApiModel(description = "Required if _methodUType_ is `percentOverThreshold`.")
 @Entity
 public class EnergyPlanContractPercentOverThreshold {
     @Id
@@ -41,11 +41,11 @@ public class EnergyPlanContractPercentOverThreshold {
     }
 
     /**
-     * The rate of the discount over the usage amount
+     * The rate of the discount over the usage amount.
      *
      * @return rate
      */
-    @ApiModelProperty(required = true, value = "The rate of the discount over the usage amount")
+    @ApiModelProperty(required = true, value = "The rate of the discount over the usage amount.")
     @NotNull
     public String getRate() {
         return rate;
@@ -61,11 +61,11 @@ public class EnergyPlanContractPercentOverThreshold {
     }
 
     /**
-     * The usage amount threshold above which the discount applies
+     * The usage amount threshold above which the discount applies.
      *
      * @return usageAmount
      */
-    @ApiModelProperty(required = true, value = "The usage amount threshold above which the discount applies")
+    @ApiModelProperty(required = true, value = "The usage amount threshold above which the discount applies.")
     @NotNull
     public String getUsageAmount() {
         return usageAmount;

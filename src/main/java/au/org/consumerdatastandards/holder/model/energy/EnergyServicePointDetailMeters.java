@@ -48,12 +48,12 @@ public class EnergyServicePointDetailMeters {
     }
 
     /**
-     * The meter ID uniquely identifies a meter for a given service point.  It is unique in the context of the service point.  It is not globally unique
+     * The meter ID uniquely identifies a meter for a given service point. It is unique in the context of the service point. It is not globally unique.
      *
      * @return meterId
      */
     @ApiModelProperty(required = true,
-            value = "The meter ID uniquely identifies a meter for a given service point.  It is unique in the context of the service point.  It is not globally unique")
+            value = "The meter ID uniquely identifies a meter for a given service point. It is unique in the context of the service point. It is not globally unique.")
     @NotNull
     public String getMeterId() {
         return meterId;
@@ -85,11 +85,11 @@ public class EnergyServicePointDetailMeters {
     }
 
     /**
-     * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
+     * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point.
      *
      * @return registers
      */
-    @ApiModelProperty(value = "Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point")
+    @ApiModelProperty(value = "Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point.")
     @Valid
     public List<EnergyServicePointDetailRegisters> getRegisters() {
         return registers;

@@ -33,12 +33,12 @@ public class TelcoProductDetailMeteringCharges {
     }
 
     /**
-     * Display name of the charge
+     * Display name of the charge.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "Display name of the charge")
+            value = "Display name of the charge.")
     @NotNull
 
 
@@ -56,11 +56,11 @@ public class TelcoProductDetailMeteringCharges {
     }
 
     /**
-     * Description of the charge
+     * Description of the charge.
      *
      * @return description
      */
-    @ApiModelProperty(value = "Description of the charge")
+    @ApiModelProperty(value = "Description of the charge.")
 
 
     public String getDescription() {
@@ -77,12 +77,12 @@ public class TelcoProductDetailMeteringCharges {
     }
 
     /**
-     * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
+     * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified.
      *
      * @return minimumValue
      */
     @ApiModelProperty(required = true,
-            value = "Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified")
+            value = "Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified.")
     @NotNull
 
 
@@ -100,11 +100,11 @@ public class TelcoProductDetailMeteringCharges {
     }
 
     /**
-     * The upper limit of the charge if the charge could occur in a range
+     * The upper limit of the charge if the charge could occur in a range.
      *
      * @return maximumValue
      */
-    @ApiModelProperty(value = "The upper limit of the charge if the charge could occur in a range")
+    @ApiModelProperty(value = "The upper limit of the charge if the charge could occur in a range.")
 
 
     public String getMaximumValue() {
@@ -121,11 +121,11 @@ public class TelcoProductDetailMeteringCharges {
     }
 
     /**
-     * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return period
      */
-    @ApiModelProperty(value = "The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+    @ApiModelProperty(value = "The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
 
 
     public String getPeriod() {

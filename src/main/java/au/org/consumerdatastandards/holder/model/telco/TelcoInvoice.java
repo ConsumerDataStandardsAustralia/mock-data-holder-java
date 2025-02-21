@@ -55,7 +55,7 @@ public class TelcoInvoice {
     private TelcoUsage accountUsage;
 
     /**
-     * Indicator of the payment status for the invoice
+     * Indicator of the payment status for the invoice.
      */
     public enum PaymentStatusEnum {
         PAID("PAID"),
@@ -100,12 +100,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * The ID of the account for which the invoice was issued. accountId must comply in accordance with [CDR ID permanence](#id-permanence)
+     * The ID of the account for which the invoice was issued. _accountId_ must comply in accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return accountId
      */
     @ApiModelProperty(required = true,
-            value = "The ID of the account for which the invoice was issued. accountId must comply in accordance with [CDR ID permanence](#id-permanence)")
+            value = "The ID of the account for which the invoice was issued. _accountId_ must comply in accordance with [CDR ID permanence](#id-permanence) requirements.")
     @NotNull
 
 
@@ -123,12 +123,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * The number assigned to this invoice by the telco Retailer
+     * The number assigned to this invoice by the telco Retailer.
      *
      * @return invoiceNumber
      */
     @ApiModelProperty(required = true,
-            value = "The number assigned to this invoice by the telco Retailer")
+            value = "The number assigned to this invoice by the telco Retailer.")
     @NotNull
 
 
@@ -146,12 +146,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * The date that the invoice was actually issued (as opposed to generated or calculated)
+     * The date that the invoice was actually issued (as opposed to generated or calculated).
      *
      * @return issueDate
      */
     @ApiModelProperty(required = true,
-            value = "The date that the invoice was actually issued (as opposed to generated or calculated)")
+            value = "The date that the invoice was actually issued (as opposed to generated or calculated).")
     @NotNull
 
 
@@ -169,11 +169,11 @@ public class TelcoInvoice {
     }
 
     /**
-     * The date that the invoice is due to be paid
+     * The date that the invoice is due to be paid.
      *
      * @return dueDate
      */
-    @ApiModelProperty(value = "The date that the invoice is due to be paid")
+    @ApiModelProperty(value = "The date that the invoice is due to be paid.")
 
 
     public String getDueDate() {
@@ -212,11 +212,11 @@ public class TelcoInvoice {
     }
 
     /**
-     * The net amount due for this invoice regardless of previous balance
+     * The net amount due for this invoice regardless of previous balance.
      *
      * @return invoiceAmount
      */
-    @ApiModelProperty(value = "The net amount due for this invoice regardless of previous balance")
+    @ApiModelProperty(value = "The net amount due for this invoice regardless of previous balance.")
 
 
     public String getInvoiceAmount() {
@@ -233,11 +233,11 @@ public class TelcoInvoice {
     }
 
     /**
-     * The total GST amount for this invoice.  If absent then zero is assumed
+     * The total GST amount for this invoice. If absent then zero is assumed.
      *
      * @return gstAmount
      */
-    @ApiModelProperty(value = "The total GST amount for this invoice.  If absent then zero is assumed")
+    @ApiModelProperty(value = "The total GST amount for this invoice. If absent then zero is assumed.")
 
 
     public String getGstAmount() {
@@ -276,12 +276,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * The account balance at the time the invoice was issued
+     * The account balance at the time the invoice was issued.
      *
      * @return balanceAtIssue
      */
     @ApiModelProperty(required = true,
-            value = "The account balance at the time the invoice was issued")
+            value = "The account balance at the time the invoice was issued.")
     @NotNull
 
 
@@ -304,12 +304,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges
+     * An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges.
      *
      * @return services
      */
     @ApiModelProperty(required = true,
-            value = "An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges")
+            value = "An array of service IDs to which this invoice applies. May be empty if the invoice contains no usage related charges.")
     @NotNull
 
 
@@ -371,12 +371,12 @@ public class TelcoInvoice {
     }
 
     /**
-     * Indicator of the payment status for the invoice
+     * Indicator of the payment status for the invoice.
      *
      * @return paymentStatus
      */
     @ApiModelProperty(required = true,
-            value = "Indicator of the payment status for the invoice")
+            value = "Indicator of the payment status for the invoice.")
     @NotNull
 
 

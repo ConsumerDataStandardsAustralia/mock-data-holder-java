@@ -13,8 +13,7 @@ import java.util.Objects;
 public class ResponseBankingProductListData {
 
     /**
-     * The list of products returned.  If the filter results in an
-     * empty set then this array may have no records
+     * The list of products returned. If the filter results in an empty set then this array may have no records.
      */
     private List<BankingProduct> products;
 

@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -16,9 +18,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff
+ * Represents a constant tariff. Mandatory if _tariffUType_ is set to `singleTariff`.
  */
-@ApiModel(description = "Represents a constant tariff.  Mandatory if tariffUType is set to singleTariff")
+@ApiModel(description = "Represents a constant tariff. Mandatory if _tariffUType_ is set to `singleTariff`.")
 @Entity
 @Table(name = "e_plan_single_tariff")
 public class EnergyPlanContractSingleTariffV2 {
@@ -30,6 +32,10 @@ public class EnergyPlanContractSingleTariffV2 {
 
     @Valid
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "e_p_c_s_tariff_rates",
+            joinColumns = @JoinColumn(name = "s_tariff_id"),
+            inverseJoinColumns = @JoinColumn(name = "e_rate_id"))
     private List<EnergyRates> rates;
 
     public String getId() {
@@ -41,11 +47,11 @@ public class EnergyPlanContractSingleTariffV2 {
     }
 
     /**
-     * Array of feed in rates
+     * Array of feed in rates.
      *
      * @return rates
      */
-    @ApiModelProperty(required = true, value = "Array of feed in rates")
+    @ApiModelProperty(required = true, value = "Array of feed in rates.")
     @Valid
     public List<EnergyRates> getRates() {
         return rates;

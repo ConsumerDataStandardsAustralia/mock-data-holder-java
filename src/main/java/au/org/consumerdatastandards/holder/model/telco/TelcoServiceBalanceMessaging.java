@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Summary of messaging. Required if messaging services is included in the product plan
+ * Summary of messaging. Required if messaging services is included in the product plan.
  */
-@ApiModel(description = "Summary of messaging. Required if messaging services is included in the product plan")
+@ApiModel(description = "Summary of messaging. Required if messaging services is included in the product plan.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalanceMessaging {

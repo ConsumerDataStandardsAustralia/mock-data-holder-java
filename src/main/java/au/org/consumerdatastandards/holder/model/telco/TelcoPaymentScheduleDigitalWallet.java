@@ -10,16 +10,16 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet
+ * Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.
  */
-@ApiModel(description = "Represents a regular payment from a digital wallet. Mandatory if paymentScheduleUType is set to digitalWallet")
+@ApiModel(description = "Represents a regular payment from a digital wallet. Mandatory if _paymentScheduleUType_ is set to `digitalWallet`.")
 public class TelcoPaymentScheduleDigitalWallet {
     private String name;
 
     private String identifier;
 
     /**
-     * The type of the digital wallet identifier
+     * The type of the digital wallet identifier.
      */
     public enum TypeEnum {
         EMAIL,
@@ -30,7 +30,7 @@ public class TelcoPaymentScheduleDigitalWallet {
     private TypeEnum type;
 
     /**
-     * The provider of the digital wallet
+     * The provider of the digital wallet.
      */
     public enum ProviderEnum {
         PAYPAL_AU,
@@ -42,7 +42,7 @@ public class TelcoPaymentScheduleDigitalWallet {
     private String paymentFrequency;
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      */
     public enum CalculationTypeEnum {
         STATIC,
@@ -58,12 +58,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The display name of the wallet as given by the customer, else a default value defined by the data holder
+     * The display name of the wallet as given by the customer, else a default value defined by the data holder.
      *
      * @return name
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the wallet as given by the customer, else a default value defined by the data holder")
+            value = "The display name of the wallet as given by the customer, else a default value defined by the data holder.")
     @NotNull
     public String getName() {
         return name;
@@ -79,12 +79,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The identifier of the digital wallet (dependent on type)
+     * The identifier of the digital wallet (dependent on type).
      *
      * @return identifier
      */
     @ApiModelProperty(required = true,
-            value = "The identifier of the digital wallet (dependent on type)")
+            value = "The identifier of the digital wallet (dependent on type).")
     @NotNull
     public String getIdentifier() {
         return identifier;
@@ -100,12 +100,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The type of the digital wallet identifier
+     * The type of the digital wallet identifier.
      *
      * @return type
      */
     @ApiModelProperty(required = true,
-            value = "The type of the digital wallet identifier")
+            value = "The type of the digital wallet identifier.")
     @NotNull
     public TypeEnum getType() {
         return type;
@@ -121,11 +121,11 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The provider of the digital wallet
+     * The provider of the digital wallet.
      *
      * @return provider
      */
-    @ApiModelProperty(required = true, value = "The provider of the digital wallet")
+    @ApiModelProperty(required = true, value = "The provider of the digital wallet.")
     @NotNull
     public ProviderEnum getProvider() {
         return provider;
@@ -141,12 +141,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+     * The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      *
      * @return paymentFrequency
      */
     @ApiModelProperty(required = true,
-            value = "The frequency that payments will occur.  Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)")
+            value = "The frequency that payments will occur. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).")
     @NotNull
     public String getPaymentFrequency() {
         return paymentFrequency;
@@ -162,12 +162,12 @@ public class TelcoPaymentScheduleDigitalWallet {
     }
 
     /**
-     * The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>
+     * The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>
      *
      * @return calculationType
      */
     @ApiModelProperty(required = true,
-            value = "The mechanism by which the payment amount is calculated.  Explanation of values are as follows:<br/><ul><li>**STATIC** - Indicates a consistent, static amount, per payment</li><li>**BALANCE** - Indicates that the outstanding balance for the account is paid per period</li><li>**CALCULATED** - Indicates that the payment amount is variable and calculated using a pre-defined algorithm</li></ul>")
+            value = "The mechanism by which the payment amount is calculated. Explanation of values are as follows:<br/><ul><li>`STATIC`: Indicates a consistent, static amount, per payment</li><li>`BALANCE`: Indicates that the outstanding balance for the account is paid per period</li><li>`CALCULATED`: Indicates that the payment amount is variable and calculated using a pre-defined algorithm.</li></ul>")
     @NotNull
     public CalculationTypeEnum getCalculationType() {
         return calculationType;

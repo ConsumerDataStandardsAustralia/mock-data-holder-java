@@ -29,28 +29,27 @@ public class BankingProductAdditionalInformationV1 implements BankingProductAddi
     private String additionalInformationId;
 
     /**
-     * General overview of the product
+     * General overview of the product.
      */
     private URI overviewUri;
 
     /**
-     * Terms and conditions for the product
+     * Terms and conditions for the product.
      */
     private URI termsUri;
 
     /**
-     * Eligibility rules and criteria for the product
+     * Eligibility rules and criteria for the product.
      */
     private URI eligibilityUri;
 
     /**
-     * Description of fees, pricing, discounts, exemptions and
-     * bonuses for the product
+     * Description of fees, pricing, discounts, exemptions and bonuses for the product.
      */
     private URI feesAndPricingUri;
 
     /**
-     * Description of a bundle that this product can be part of
+     * Description of a bundle that this product can be part of.
      */
     private URI bundleUri;
 

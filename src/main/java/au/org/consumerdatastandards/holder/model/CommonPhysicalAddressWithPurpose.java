@@ -8,7 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Objects;
 
-@ApiModel
+@ApiModel(description = "Enumeration of values indicating the purpose of the physical address.")
 @Entity
 public class CommonPhysicalAddressWithPurpose {
 
@@ -41,7 +41,7 @@ public class CommonPhysicalAddressWithPurpose {
         return this;
     }
 
-    @ApiModelProperty(required = true)
+    @ApiModelProperty(required = true, value = "The type of address object present.")
     public CommonPhysicalAddress.AddressUType getAddressUType() {
         return addressUType;
     }

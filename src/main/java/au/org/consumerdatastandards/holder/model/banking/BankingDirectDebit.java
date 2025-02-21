@@ -41,12 +41,12 @@ public class BankingDirectDebit {
     private BankingAuthorisedEntity authorisedEntity;
 
     /**
-     * The amount of the last debit executed under this authorisation
+     * The amount of the last debit executed under this authorisation.
      */
     private String lastDebitAmount;
 
     /**
-     * The date and time of the last debit executed under this authorisation
+     * The date and time of the last debit executed under this authorisation.
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -100,7 +100,7 @@ public class BankingDirectDebit {
         return this;
     }
 
-    @ApiModelProperty(value = "The amount of the last debit executed under this authorisation")
+    @ApiModelProperty(value = "The amount of the last debit executed under this authorisation.")
     public String getLastDebitAmount() {
         return lastDebitAmount;
     }
@@ -113,7 +113,7 @@ public class BankingDirectDebit {
         return this;
     }
 
-    @ApiModelProperty(value = "The date and time of the last debit executed under this authorisation")
+    @ApiModelProperty(value = "The date and time of the last debit executed under this authorisation.")
     public OffsetDateTime getLastDebitDateTime() {
         return lastDebitDateTime;
     }

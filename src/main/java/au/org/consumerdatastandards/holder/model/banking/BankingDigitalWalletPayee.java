@@ -32,12 +32,12 @@ public class BankingDigitalWalletPayee {
     }
 
     /**
-     * The display name of the wallet as given by the customer, else a default value defined by the data holder
+     * The display name of the wallet as given by the customer, else a default value defined by the data holder.
      *
      * @return name
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the wallet as given by the customer, else a default value defined by the data holder")
+            value = "The display name of the wallet as given by the customer, else a default value defined by the data holder.")
     @NotNull
     public String getName() {
         return name;
@@ -48,11 +48,11 @@ public class BankingDigitalWalletPayee {
     }
 
     /**
-     * The identifier of the digital wallet (dependent on type)
+     * The identifier of the digital wallet (dependent on type).
      *
      * @return identifier
      */
-    @ApiModelProperty(required = true, value = "The identifier of the digital wallet (dependent on type)")
+    @ApiModelProperty(required = true, value = "The identifier of the digital wallet (dependent on type).")
     @NotNull
     public String getIdentifier() {
         return identifier;
@@ -63,11 +63,11 @@ public class BankingDigitalWalletPayee {
     }
 
     /**
-     * The type of the digital wallet identifier
+     * The type of the digital wallet identifier.
      *
      * @return type
      */
-    @ApiModelProperty(required = true, value = "The type of the digital wallet identifier")
+    @ApiModelProperty(required = true, value = "The type of the digital wallet identifier.")
     @NotNull
     public Type getType() {
         return type;
@@ -78,11 +78,11 @@ public class BankingDigitalWalletPayee {
     }
 
     /**
-     * The provider of the digital wallet
+     * The provider of the digital wallet.
      *
      * @return provider
      */
-    @ApiModelProperty(required = true, value = "The provider of the digital wallet")
+    @ApiModelProperty(required = true, value = "The provider of the digital wallet.")
     @NotNull
     public Provider getProvider() {
         return provider;

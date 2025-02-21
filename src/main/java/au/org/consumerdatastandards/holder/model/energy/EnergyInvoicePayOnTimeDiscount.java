@@ -15,9 +15,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * A discount for on time payment
+ * A discount for on time payment.
  */
-@ApiModel(description = "A discount for on time payment")
+@ApiModel(description = "A discount for on time payment.")
 @Entity
 public class EnergyInvoicePayOnTimeDiscount {
     @Id
@@ -48,12 +48,12 @@ public class EnergyInvoicePayOnTimeDiscount {
     }
 
     /**
-     * The amount that will be discounted if the invoice is paid by the date specified
+     * The amount that will be discounted if the invoice is paid by the date specified.
      *
      * @return discountAmount
      */
     @ApiModelProperty(required = true,
-            value = "The amount that will be discounted if the invoice is paid by the date specified")
+            value = "The amount that will be discounted if the invoice is paid by the date specified.")
     @NotNull
     public String getDiscountAmount() {
         return discountAmount;
@@ -69,11 +69,11 @@ public class EnergyInvoicePayOnTimeDiscount {
     }
 
     /**
-     * The GST amount that will be discounted if the invoice is paid by the date specified.  If absent then zero is assumed
+     * The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.
      *
      * @return gstAmount
      */
-    @ApiModelProperty(value = "The GST amount that will be discounted if the invoice is paid by the date specified.  If absent then zero is assumed")
+    @ApiModelProperty(value = "The GST amount that will be discounted if the invoice is paid by the date specified. If absent then zero is assumed.")
     public String getGstAmount() {
         return gstAmount;
     }
@@ -88,12 +88,12 @@ public class EnergyInvoicePayOnTimeDiscount {
     }
 
     /**
-     * The date by which the invoice must be paid to receive the pay on time discount
+     * The date by which the invoice must be paid to receive the pay on time discount.
      *
      * @return date
      */
     @ApiModelProperty(required = true,
-            value = "The date by which the invoice must be paid to receive the pay on time discount")
+            value = "The date by which the invoice must be paid to receive the pay on time discount.")
     @NotNull
     public LocalDate getDate() {
         return date;

@@ -8,9 +8,9 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 /**
- * Telco balances for a service
+ * Telco balances for a service.
  */
-@ApiModel(description = "Telco balances for a service")
+@ApiModel(description = "Telco balances for a service.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoServiceBalance {
@@ -38,11 +38,11 @@ public class TelcoServiceBalance {
     }
 
     /**
-     * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements
+     * The _serviceId_ representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.s.
      *
      * @return serviceId
      */
-    @ApiModelProperty(value = "The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements")
+    @ApiModelProperty(value = "The _serviceId_ representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.s.")
 
 
     public String getServiceId() {
@@ -59,11 +59,11 @@ public class TelcoServiceBalance {
     }
 
     /**
-     * Optional description of the service used for display purposes
+     * Optional description of the service used for display purposes.
      *
      * @return displayName
      */
-    @ApiModelProperty(value = "Optional description of the service used for display purposes")
+    @ApiModelProperty(value = "Optional description of the service used for display purposes.")
 
 
     public String getDisplayName() {
@@ -80,11 +80,11 @@ public class TelcoServiceBalance {
     }
 
     /**
-     * Required if the service includes a phone number
+     * Required if the service includes a phone number.
      *
      * @return phoneNumber
      */
-    @ApiModelProperty(value = "Required if the service includes a phone number")
+    @ApiModelProperty(value = "Required if the service includes a phone number.")
 
 
     public String getPhoneNumber() {
@@ -101,11 +101,11 @@ public class TelcoServiceBalance {
     }
 
     /**
-     * Date when the balance period started
+     * Date when the balance period started.
      *
      * @return startDate
      */
-    @ApiModelProperty(value = "Date when the balance period started")
+    @ApiModelProperty(value = "Date when the balance period started.")
 
 
     public String getStartDate() {
@@ -122,11 +122,11 @@ public class TelcoServiceBalance {
     }
 
     /**
-     * Date when the balance period ends
+     * Date when the balance period ends.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Date when the balance period ends")
+    @ApiModelProperty(value = "Date when the balance period ends.")
 
 
     public String getEndDate() {

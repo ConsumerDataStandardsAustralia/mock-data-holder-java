@@ -30,12 +30,12 @@ public class TelcoPaymentScheduleResponseData {
     }
 
     /**
-     * Array may be empty if no payment schedule exist
+     * Array may be empty if no payment schedule exist.
      *
      * @return paymentSchedules
      */
     @ApiModelProperty(required = true,
-            value = "Array may be empty if no payment schedule exist")
+            value = "Array may be empty if no payment schedule exist.")
     @NotNull
 
     @Valid

@@ -89,7 +89,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyAccountDetailResponse> getAccount(String accountId, Integer xV, Integer xMinV, UUID xFapiInteractionId, Date xFapiAuthDate, String xFapiCustomerIpAddress, String xCdsClientHeaders) {
-        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 3);
+        int supportedVersion = validateHeaders(xCdsClientHeaders, xFapiCustomerIpAddress, xFapiInteractionId, xMinV, xV, 4);
         HttpHeaders headers = generateResponseHeaders(xFapiInteractionId, supportedVersion);
         EnergyAccountDetailResponse response = new EnergyAccountDetailResponse();
         EnergyAccountDetail energyAccountDetail = service.getAccountDetail(accountId, supportedVersion);
@@ -247,7 +247,7 @@ public class EnergyApiController extends ApiControllerBase implements EnergyApi 
 
     @Override
     public ResponseEntity<EnergyPlanResponse> getPlan(String planId, Integer xV, Integer xMinV) {
-        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 2);
+        int supportedVersion = validateSupportedVersion(xMinV, xV, WebUtil.NO_INTERACTION_ID, 3);
         HttpHeaders headers = generateResponseHeaders(null, supportedVersion);
         EnergyPlanDetail planDetail = service.getPlanDetail(planId, supportedVersion);
         if (planDetail == null) {

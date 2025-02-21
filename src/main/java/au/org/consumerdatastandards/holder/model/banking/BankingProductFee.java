@@ -32,80 +32,64 @@ public class BankingProductFee {
     private String feeId;
 
     /**
-     * Name of the fee
+     * Name of the fee.
      */
     private String name;
 
     /**
-     * The type of fee
+     * The type of fee. For further details, refer to [Product Fee Types](#tocSproductfeetypedoc).
      */
     private FeeType feeType;
 
     /**
-     * The amount charged for the fee.
-     * One of amount, balanceRate, transactionRate and accruedRate
-     * is mandatory unless the feeType VARIABLE is supplied
+     * The amount charged for the fee. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
      */
     private String amount;
 
     /**
-     * A fee rate calculated based on a proportion of the balance.
-     * One of amount, balanceRate, transactionRate and accruedRate
-     * is mandatory unless the feeType VARIABLE is supplied
+     * A fee rate calculated based on a proportion of the balance. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
      */
     private String balanceRate;
 
     /**
-     * A fee rate calculated based on a proportion of a transaction.
-     * One of amount, balanceRate, transactionRate and accruedRate
-     * is mandatory unless the feeType VARIABLE is supplied
+     * A fee rate calculated based on a proportion of a transaction. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
      */
     private String transactionRate;
 
     /**
-     * A fee rate calculated based on a proportion of the
-     * calculated interest accrued on the account.
-     * One of amount, balanceRate, transactionRate and accruedRate
-     * is mandatory unless the feeType VARIABLE is supplied
+     * A fee rate calculated based on a proportion of the calculated interest accrued on the account. One of _amount_, _balanceRate_, _transactionRate_ and _accruedRate_ is mandatory unless the _feeType_ `VARIABLE` is supplied.
      */
     private String accruedRate;
 
     /**
-     * The indicative frequency with which the fee is calculated on
-     * the account. Only applies if balanceRate or accruedRate is
-     * also present. Formatted according to
-     * <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 Durations</a>
+     * The indicative frequency with which the fee is calculated on the account. Only applies if _balanceRate_ or _accruedRate_ is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax).
      */
     private String accrualFrequency;
 
     /**
-     * The currency the fee will be charged in. Assumes AUD if
-     * absent
+     * The currency the fee will be charged in. Assumes `AUD` if absent.
      */
     private String currency;
 
     /**
-     * Generic field containing additional information relevant to
-     * the feeType specified. Whether mandatory or not is dependent
-     * on the value of feeType
+     * Generic field containing additional information relevant to the [_feeType_](#tocSproductfeetypedoc) specified. Whether mandatory or not is dependent on the value of [_feeType_](#tocSproductfeetypedoc).
      */
     @Column(length = 2048)
     private String additionalValue;
 
     /**
-     * Display text providing more information on the fee
+     * Display text providing more information on the fee.
      */
     @Column(length = 2048)
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on this fee
+     * Link to a web page with more information on this fee.
      */
     private URI additionalInfoUri;
 
     /**
-     * An optional list of discounts to this fee that may be
-     * available
+     * An optional list of discounts to this fee that may be available.
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

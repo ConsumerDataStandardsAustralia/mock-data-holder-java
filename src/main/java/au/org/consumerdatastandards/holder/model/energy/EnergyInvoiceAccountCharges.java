@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Object contains account level charges and credits related to electricity usage
+ * Object contains account level charges and credits related to electricity usage.
  */
-@ApiModel(description = "Object contains account level charges and credits related to electricity usage")
+@ApiModel(description = "Object contains account level charges and credits related to electricity usage.")
 @Entity
 public class EnergyInvoiceAccountCharges {
     @Id
@@ -43,12 +43,12 @@ public class EnergyInvoiceAccountCharges {
     }
 
     /**
-     * The aggregate total of account level charges for the period covered by the invoice
+     * The aggregate total of account level charges for the period covered by the invoice.
      *
      * @return totalCharges
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of account level charges for the period covered by the invoice")
+            value = "The aggregate total of account level charges for the period covered by the invoice.")
     @NotNull
     public String getTotalCharges() {
         return totalCharges;
@@ -64,12 +64,12 @@ public class EnergyInvoiceAccountCharges {
     }
 
     /**
-     * The aggregate total of account level discounts or credits for the period covered by the invoice
+     * The aggregate total of account level discounts or credits for the period covered by the invoice.
      *
      * @return totalDiscounts
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of account level discounts or credits for the period covered by the invoice")
+            value = "The aggregate total of account level discounts or credits for the period covered by the invoice.")
     @NotNull
     public String getTotalDiscounts() {
         return totalDiscounts;
@@ -85,11 +85,11 @@ public class EnergyInvoiceAccountCharges {
     }
 
     /**
-     * The total GST for all account level charges.  If absent then zero is assumed
+     * The total GST for all account level charges. If absent then zero is assumed.
      *
      * @return totalGst
      */
-    @ApiModelProperty(value = "The total GST for all account level charges.  If absent then zero is assumed")
+    @ApiModelProperty(value = "The total GST for all account level charges. If absent then zero is assumed.")
     public String getTotalGst() {
         return totalGst;
     }

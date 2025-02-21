@@ -34,12 +34,12 @@ public class TelcoProductDetailBundles {
     }
 
     /**
-     * The display name of the product bundle
+     * The display name of the product bundle.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the product bundle")
+            value = "The display name of the product bundle.")
     @NotNull
 
 
@@ -57,11 +57,11 @@ public class TelcoProductDetailBundles {
     }
 
     /**
-     * The description of the product bundle
+     * The description of the product bundle.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The description of the product bundle")
+    @ApiModelProperty(value = "The description of the product bundle.")
 
 
     public String getDescription() {
@@ -78,11 +78,11 @@ public class TelcoProductDetailBundles {
     }
 
     /**
-     * The URI of the product bundle
+     * The URI of the product bundle.
      *
      * @return bundleUri
      */
-    @ApiModelProperty(value = "The URI of the product bundle")
+    @ApiModelProperty(value = "The URI of the product bundle.")
 
 
     public String getBundleUri() {
@@ -107,11 +107,11 @@ public class TelcoProductDetailBundles {
     }
 
     /**
-     * Optional list of features of the bundle
+     * Optional list of features of the bundle.
      *
      * @return features
      */
-    @ApiModelProperty(value = "Optional list of features of the bundle")
+    @ApiModelProperty(value = "Optional list of features of the bundle.")
 
     @Valid
 

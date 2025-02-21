@@ -26,12 +26,12 @@ public class EnergyUsageListResponseData {
     }
 
     /**
-     * Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order
+     * Array of meter reads sorted by NMI in ascending order followed by _readStartDate_ in descending order.
      *
      * @return reads
      */
     @ApiModelProperty(required = true,
-            value = "Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order")
+            value = "Array of meter reads sorted by NMI in ascending order followed by _readStartDate_ in descending order.")
     @NotNull
     @Valid
     public List<EnergyUsageRead> getReads() {

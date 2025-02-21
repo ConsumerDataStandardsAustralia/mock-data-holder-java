@@ -41,12 +41,12 @@ public class EnergyServicePointDetailDistributionLossFactor {
     }
 
     /**
-     * A code used to identify data loss factor for the service point values.  Refer to AEMO distribution loss factor documents for each financial year to interpret
+     * A code used to identify data loss factor for the service point values. Refer to AEMO distribution loss factor documents for each financial year to interpret.
      *
      * @return code
      */
     @ApiModelProperty(required = true,
-            value = "A code used to identify data loss factor for the service point values.  Refer to AEMO distribution loss factor documents for each financial year to interpret")
+            value = "A code used to identify data loss factor for the service point values. Refer to AEMO distribution loss factor documents for each financial year to interpret.")
     @NotNull
     public String getCode() {
         return code;
@@ -62,11 +62,11 @@ public class EnergyServicePointDetailDistributionLossFactor {
     }
 
     /**
-     * Description of the data loss factor code and value
+     * Description of the data loss factor code and value.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "Description of the data loss factor code and value")
+    @ApiModelProperty(required = true, value = "Description of the data loss factor code and value.")
     @NotNull
     public String getDescription() {
         return description;
@@ -82,11 +82,11 @@ public class EnergyServicePointDetailDistributionLossFactor {
     }
 
     /**
-     * The value associated with the loss factor code
+     * The value associated with the loss factor code.
      *
      * @return lossValue
      */
-    @ApiModelProperty(required = true, value = "The value associated with the loss factor code")
+    @ApiModelProperty(required = true, value = "The value associated with the loss factor code.")
     @NotNull
     public String getLossValue() {
         return lossValue;

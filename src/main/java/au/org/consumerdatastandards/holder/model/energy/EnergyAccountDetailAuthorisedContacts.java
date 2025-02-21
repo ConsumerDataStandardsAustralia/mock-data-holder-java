@@ -54,11 +54,11 @@ public class EnergyAccountDetailAuthorisedContacts {
     }
 
     /**
-     * For people with single names this field need not be present. The single name should be in the lastName field
+     * For people with single names this field need not be present. The single name should be in the _lastName_ field.
      *
      * @return firstName
      */
-    @ApiModelProperty(value = "For people with single names this field need not be present. The single name should be in the lastName field")
+    @ApiModelProperty(value = "For people with single names this field need not be present. The single name should be in the _lastName_ field.")
     public String getFirstName() {
         return firstName;
     }
@@ -73,12 +73,12 @@ public class EnergyAccountDetailAuthorisedContacts {
     }
 
     /**
-     * For people with single names the single name should be in this field
+     * For people with single names, the single name should be in this field.
      *
      * @return lastName
      */
     @ApiModelProperty(required = true,
-            value = "For people with single names the single name should be in this field")
+            value = "For people with single names, the single name should be in this field.")
     @NotNull
     public String getLastName() {
         return lastName;
@@ -102,11 +102,11 @@ public class EnergyAccountDetailAuthorisedContacts {
     }
 
     /**
-     * Field is mandatory but array may be empty
+     * Field is mandatory but array may be empty.
      *
      * @return middleNames
      */
-    @ApiModelProperty(value = "Field is mandatory but array may be empty")
+    @ApiModelProperty(value = "Field is mandatory but array may be empty.")
     public List<String> getMiddleNames() {
         return middleNames;
     }
@@ -121,11 +121,11 @@ public class EnergyAccountDetailAuthorisedContacts {
     }
 
     /**
-     * Also known as title or salutation. The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
+     * Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc).
      *
      * @return prefix
      */
-    @ApiModelProperty(value = "Also known as title or salutation. The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)")
+    @ApiModelProperty(value = "Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc).")
     public String getPrefix() {
         return prefix;
     }
@@ -140,11 +140,11 @@ public class EnergyAccountDetailAuthorisedContacts {
     }
 
     /**
-     * Used for a trailing suffix to the name (e.g. Jr)
+     * Used for a trailing suffix to the name (e.g., Jr.)
      *
      * @return suffix
      */
-    @ApiModelProperty(value = "Used for a trailing suffix to the name (e.g. Jr)")
+    @ApiModelProperty(value = "Used for a trailing suffix to the name (e.g., Jr.)")
     public String getSuffix() {
         return suffix;
     }

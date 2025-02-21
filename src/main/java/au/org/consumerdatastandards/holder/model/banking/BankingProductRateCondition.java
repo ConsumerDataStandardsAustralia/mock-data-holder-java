@@ -18,7 +18,7 @@ import java.net.URI;
 import java.util.Objects;
 
 /**
- * Defines a condition for the applicability of a tiered rate
+ * Defines a condition for the applicability of a tiered rate.
  */
 @Entity
 public class BankingProductRateCondition {
@@ -30,13 +30,13 @@ public class BankingProductRateCondition {
     private String rateConditionId;
 
     /**
-     * // Display text providing more information on the condition
+     * // Display text providing more information on the condition.
      */
     @Column(length = 2048)
     private String additionalInfo;
 
     /**
-     * Link to a web page with more information on this condition
+     * Link to a web page with more information on this condition.
      */
     private URI additionalInfoUri;
 

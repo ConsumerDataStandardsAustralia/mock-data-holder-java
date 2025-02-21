@@ -9,9 +9,8 @@ import java.util.List;
 public class ResponseBankingAccountsBalanceListData  {
 
     /**
-     * The list of balances returned
+     * The list of balances returned.
      */
-    
     private List<BankingBalance> balances;
 
     public ResponseBankingAccountsBalanceListData balances(List<BankingBalance> balances) {
@@ -24,7 +23,7 @@ public class ResponseBankingAccountsBalanceListData  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "The list of balances returned")
+    @ApiModelProperty(required = true, value = "The list of balances returned.")
     public List<BankingBalance> getBalances() {
         return balances;
     }

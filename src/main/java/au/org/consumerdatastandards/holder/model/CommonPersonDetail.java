@@ -27,17 +27,17 @@ public class CommonPersonDetail {
     private String firstName;
 
     /**
-     * For people with single names the single name should be in this field
+     * For people with single names, the single name should be in this field.
      */
     private String lastName;
 
     /**
-     * The date and time that this record was last updated by the customer.  If no update has occurred then this date should reflect the initial creation date for the data
+     * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data.
      */
     private OffsetDateTime lastUpdateTime;
 
     /**
-     * Field is mandatory but array may be empty
+     * Field is mandatory but array may be empty.
      */
     @ElementCollection
     private List<String> middleNames;
@@ -48,17 +48,17 @@ public class CommonPersonDetail {
     private String occupationCode;
 
     /**
-     * Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
+     * Also known as title or salutation. The prefix to the name (e.g., Mr, Mrs, Ms, Miss, Sir, etc.)
      */
     private String prefix;
 
     /**
-     * Used for a trailing suffix to the name (e.g. Jr)
+     * Used for a trailing suffix to the name (e.g., Jr.)
      */
     private String suffix;
 
     /**
-     * May be empty
+     * May be empty.
      */
     @OneToMany
     @JoinTable(
@@ -68,7 +68,7 @@ public class CommonPersonDetail {
     private List<CommonEmailAddress> emailAddresses;
 
     /**
-     * Array is mandatory but may be empty if no phone numbers are held
+     * Array is mandatory but may be empty if no phone numbers are held.
      */
     @OneToMany
     @JoinTable(
@@ -78,7 +78,7 @@ public class CommonPersonDetail {
     private List<CommonPhoneNumber> phoneNumbers;
 
     /**
-     * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
+     * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of `REGISTERED`. Zero or one, and no more than one, record may have the purpose of `MAIL`. If zero then the `REGISTERED` address is to be used for mail.
      */
     @OneToMany
     @JoinTable(
@@ -201,7 +201,7 @@ public class CommonPersonDetail {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "May be empty")
+    @ApiModelProperty(required = true, value = "May be empty.")
     public List<CommonEmailAddress> getEmailAddresses() {
         return emailAddresses;
     }
@@ -219,7 +219,7 @@ public class CommonPersonDetail {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Array is mandatory but may be empty if no phone numbers are held")
+    @ApiModelProperty(required = true, value = "Array is mandatory but may be empty if no phone numbers are held.")
     public List<CommonPhoneNumber> getPhoneNumbers() {
         return phoneNumbers;
     }
@@ -237,7 +237,7 @@ public class CommonPersonDetail {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail")
+    @ApiModelProperty(required = true, value = "Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of `REGISTERED`. Zero or one, and no more than one, record may have the purpose of `MAIL`. If zero then the `REGISTERED` address is to be used for mail.")
     public List<CommonPhysicalAddressWithPurpose> getPhysicalAddresses() {
         return physicalAddresses;
     }

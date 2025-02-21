@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST)
+ * Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST).
  */
-@ApiModel(description = "Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST)")
+@ApiModel(description = "Optional array of charges that may be part of the invoice (for example services fees) (exclusive of GST).")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen",
         date = "2022-12-23T11:32:06.900+11:00[Australia/Sydney]")
 public class TelcoInvoiceAccountChargesOtherCharges {
@@ -23,7 +23,7 @@ public class TelcoInvoiceAccountChargesOtherCharges {
     private String description;
 
     /**
-     * A free text description of the charge
+     * Type of charge.
      */
     public enum TypeEnum {
         SERVICE("SERVICE"),
@@ -80,12 +80,12 @@ public class TelcoInvoiceAccountChargesOtherCharges {
     }
 
     /**
-     * The aggregate total of charges for this item (exclusive of GST)
+     * The aggregate total of charges for this item (exclusive of GST).
      *
      * @return amount
      */
     @ApiModelProperty(required = true,
-            value = "The aggregate total of charges for this item (exclusive of GST)")
+            value = "The aggregate total of charges for this item (exclusive of GST).")
     @NotNull
 
 
@@ -103,12 +103,12 @@ public class TelcoInvoiceAccountChargesOtherCharges {
     }
 
     /**
-     * A free text description of the charge
+     * A free text description of the charge.
      *
      * @return description
      */
     @ApiModelProperty(required = true,
-            value = "A free text description of the charge")
+            value = "A free text description of the charge.")
     @NotNull
 
 
@@ -126,11 +126,11 @@ public class TelcoInvoiceAccountChargesOtherCharges {
     }
 
     /**
-     * A free text description of the charge
+     * Type of charge.
      *
      * @return type
      */
-    @ApiModelProperty(value = "A free text description of the charge")
+    @ApiModelProperty(value = "Type of charge.")
 
 
     public TypeEnum getType() {

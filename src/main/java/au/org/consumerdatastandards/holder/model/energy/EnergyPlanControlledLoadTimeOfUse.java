@@ -68,11 +68,11 @@ public class EnergyPlanControlledLoadTimeOfUse {
     }
 
     /**
-     * The days that the rate applies to
+     * The days that the rate applies to.
      *
      * @return days
      */
-    @ApiModelProperty(required = true, value = "The days that the rate applies to")
+    @ApiModelProperty(required = true, value = "The days that the rate applies to.")
     public List<DaysEnum> getDays() {
         return days;
     }
@@ -87,11 +87,11 @@ public class EnergyPlanControlledLoadTimeOfUse {
     }
 
     /**
-     * The beginning of the time period per day for which the controlled load rate applies. Required if endTime provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
+     * The beginning of the time period per day for which the controlled load rate applies. Required if _endTime_ provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return startTime
      */
-    @ApiModelProperty(value = "The beginning of the time period per day for which the controlled load rate applies. Required if endTime provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
+    @ApiModelProperty(value = "The beginning of the time period per day for which the controlled load rate applies. Required if _endTime_ provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
     public String getStartTime() {
         return startTime;
     }
@@ -106,11 +106,11 @@ public class EnergyPlanControlledLoadTimeOfUse {
     }
 
     /**
-     * The end of the time period per day for which the controlled load rate applies. Required if startTime provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
+     * The end of the time period per day for which the controlled load rate applies. Required if _startTime_ provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
      *
      * @return endTime
      */
-    @ApiModelProperty(value = "The end of the time period per day for which the controlled load rate applies. Required if startTime provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
+    @ApiModelProperty(value = "The end of the time period per day for which the controlled load rate applies. Required if _startTime_ provided.\n\nFormatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.")
     public String getEndTime() {
         return endTime;
     }
@@ -120,11 +120,11 @@ public class EnergyPlanControlledLoadTimeOfUse {
     }
 
     /**
-     * Display text providing more information on the contrlled load, for e.g. controlled load availability if specific day/time is not known. Required if startTime and endTime absent or if additionalInfoUri provided
+     * Display text providing more information on the controlled load, for e.g., controlled load availability if specific day/time is not known. Required if _startTime_ and _endTime_ absent or if _additionalInfoUri_ provided.
      *
      * @return additionalInfo
      */
-    @ApiModelProperty(required = true, value = "Display text providing more information on the contrlled load, for e.g. controlled load availability if specific day/time is not known. Required if startTime and endTime absent or if additionalInfoUri provided")
+    @ApiModelProperty(required = true, value = "Display text providing more information on the controlled load, for e.g., controlled load availability if specific day/time is not known. Required if _startTime_ and _endTime_ absent or if _additionalInfoUri_ provided.")
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -134,11 +134,11 @@ public class EnergyPlanControlledLoadTimeOfUse {
     }
 
     /**
-     * Optional link to additional information regarding the controlled load
+     * Optional link to additional information regarding the controlled load.
      *
      * @return additionalInfoUri
      */
-    @ApiModelProperty(required = true, value = "Optional link to additional information regarding the controlled load")
+    @ApiModelProperty(required = true, value = "Optional link to additional information regarding the controlled load.")
     public URI getAdditionalInfoUri() {
         return additionalInfoUri;
     }

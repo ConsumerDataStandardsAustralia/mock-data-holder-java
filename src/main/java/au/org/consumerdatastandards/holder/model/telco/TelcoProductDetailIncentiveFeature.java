@@ -24,12 +24,12 @@ public class TelcoProductDetailIncentiveFeature {
     }
 
     /**
-     * The display name of the incentive feature
+     * The display name of the incentive feature.
      *
      * @return displayName
      */
     @ApiModelProperty(required = true,
-            value = "The display name of the incentive feature")
+            value = "The display name of the incentive feature.")
     @NotNull
 
 
@@ -47,11 +47,11 @@ public class TelcoProductDetailIncentiveFeature {
     }
 
     /**
-     * The description of the incentive feature
+     * The description of the incentive feature.
      *
      * @return description
      */
-    @ApiModelProperty(value = "The description of the incentive feature")
+    @ApiModelProperty(value = "The description of the incentive feature.")
 
 
     public String getDescription() {

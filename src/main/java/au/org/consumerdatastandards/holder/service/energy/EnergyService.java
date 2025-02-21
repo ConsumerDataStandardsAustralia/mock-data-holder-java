@@ -26,6 +26,7 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountBalanc
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV4Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionV2Repository;
@@ -34,6 +35,7 @@ import au.org.consumerdatastandards.holder.repository.energy.EnergyDerRecordRepo
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV1Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointRepository;
@@ -67,6 +69,7 @@ public class EnergyService {
     private final EnergyAccountDetailV1Repository energyAccountDetailV1Repository;
     private final EnergyAccountDetailV2Repository energyAccountDetailV2Repository;
     private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
+    private final EnergyAccountDetailV4Repository energyAccountDetailV4Repository;
     private final EnergyAccountBalanceRepository energyAccountBalanceRepository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
     private final EnergyBillingTransactionV2Repository energyBillingTransactionV2Repository;
@@ -74,6 +77,7 @@ public class EnergyService {
     private final EnergyPlanRepository energyPlanRepository;
     private final EnergyPlanDetailV1Repository energyPlanDetailV1Repository;
     private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
+    private final EnergyPlanDetailV3Repository energyPlanDetailV3Repository;
     private final EnergyServicePointRepository energyServicePointRepository;
     private final EnergyServicePointDetailRepository energyServicePointDetailRepository;
     private final EnergyDerRecordRepository energyDerRecordRepository;
@@ -86,6 +90,7 @@ public class EnergyService {
             EnergyAccountDetailV1Repository energyAccountDetailV1Repository,
             EnergyAccountDetailV2Repository energyAccountDetailV2Repository,
             EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
+            EnergyAccountDetailV4Repository energyAccountDetailV4Repository,
             EnergyAccountBalanceRepository energyAccountBalanceRepository,
             EnergyInvoiceRepository energyInvoiceRepository,
             EnergyBillingTransactionV2Repository energyBillingTransactionV2Repository,
@@ -96,13 +101,15 @@ public class EnergyService {
             EnergyUsageRepository energyUsageRepository,
             EnergyPlanRepository energyPlanRepository,
             EnergyPlanDetailV1Repository energyPlanDetailV1Repository,
-            EnergyPlanDetailV2Repository energyPlanDetailV2Repository) {
+            EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
+            EnergyPlanDetailV3Repository energyPlanDetailV3Repository) {
 
         this.energyAccountV1Repository = energyAccountV1Repository;
         this.energyAccountV2Repository = energyAccountV2Repository;
         this.energyAccountDetailV1Repository = energyAccountDetailV1Repository;
         this.energyAccountDetailV2Repository = energyAccountDetailV2Repository;
         this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
+        this.energyAccountDetailV4Repository = energyAccountDetailV4Repository;
         this.energyAccountBalanceRepository = energyAccountBalanceRepository;
         this.energyInvoiceRepository = energyInvoiceRepository;
         this.energyBillingTransactionV2Repository = energyBillingTransactionV2Repository;
@@ -114,6 +121,7 @@ public class EnergyService {
         this.energyPlanRepository = energyPlanRepository;
         this.energyPlanDetailV1Repository = energyPlanDetailV1Repository;
         this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
+        this.energyPlanDetailV3Repository = energyPlanDetailV3Repository;
     }
 
     public Page<EnergyPlanEntity> findPlans(ParamTypeEnum type, ParamFuelTypeEnum fuelType, ParamEffective effective, OffsetDateTime updatedSince, String brand, PageRequest pageable) {
@@ -154,8 +162,10 @@ public class EnergyService {
             case 1:
                 return energyPlanDetailV1Repository.findById(planId).orElse(null);
             case 2:
-            default:
                 return energyPlanDetailV2Repository.findById(planId).orElse(null);
+            case 3:
+            default:
+                return energyPlanDetailV3Repository.findById(planId).orElse(null);
         }
     }
 
@@ -189,8 +199,10 @@ public class EnergyService {
             case 2:
                 return energyAccountDetailV2Repository.findById(accountId).orElse(null);
             case 3:
-            default:
                 return energyAccountDetailV3Repository.findById(accountId).orElse(null);
+            case 4:
+            default:
+                return energyAccountDetailV4Repository.findById(accountId).orElse(null);
         }
     }
 

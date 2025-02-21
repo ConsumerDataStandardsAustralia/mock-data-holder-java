@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface EnergyPlanDetail extends EnergyPlan {
     /**
-     * Charges for metering included in the plan
+     * Charges for metering included in the plan.
      *
      * @return meteringCharges
      */
-    @ApiModelProperty(value = "Charges for metering included in the plan")
+    @ApiModelProperty(value = "Charges for metering included in the plan.")
     List<MeteringCharges> getMeteringCharges();
 
     void setMeteringCharges(List<MeteringCharges> meteringCharges);

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class BankingAccountV1 implements BankingAccount {
 
     /**
-     * A unique ID of the account adhering to the standards for ID permanence
+     * A unique ID of the account adhering to the standards for ID permanence.
      */
     @Id
     private String accountId;
@@ -28,39 +28,42 @@ public class BankingAccountV1 implements BankingAccount {
     private String userId;
 
     /**
-     * Date that the account was created (if known)
+     * Date that the account was created (if known).
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
     /**
-     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
+     * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the [MaskedAccountString](#common-field-types) common type.
      */
     private String displayName;
 
     /**
-     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
+     * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then `true` is assumed.
      */
     @Transient
     private Boolean isOwned;
 
     /**
-     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
+     * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number.
      */
     private String maskedNumber;
 
     /**
-     * A customer supplied nick name for the account
+     * A customer supplied nickname for the account.
      */
     private String nickname;
 
+    /**
+     * Open or closed status for the account. If not present then `OPEN` is assumed.
+     */
     private OpenStatus openStatus;
 
     private BankingProductCategory productCategory;
 
     /**
-     * The unique identifier of the account as defined by the account holder (akin to model number for the account)
+     * The unique identifier of the account as defined by the data holder (akin to model number for the account).
      */
     private String productName;
 
@@ -70,7 +73,7 @@ public class BankingAccountV1 implements BankingAccount {
     }
 
     @Override
-    @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence")
+    @ApiModelProperty(required = true, value = "A unique ID of the account adhering to the standards for ID permanence.")
     public String getAccountId() {
         return accountId;
     }
@@ -101,7 +104,7 @@ public class BankingAccountV1 implements BankingAccount {
     }
 
     @Override
-    @ApiModelProperty(value = "Date that the account was created (if known)")
+    @ApiModelProperty(value = "Date that the account was created (if known).")
     public LocalDate getCreationDate() {
         return creationDate;
     }
@@ -117,7 +120,7 @@ public class BankingAccountV1 implements BankingAccount {
     }
 
     @Override
-    @ApiModelProperty(required = true, value = "The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.")
+    @ApiModelProperty(required = true, value = "The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the [MaskedAccountString](#common-field-types) common type.")
     public String getDisplayName() {
         return displayName;
     }
@@ -133,7 +136,7 @@ public class BankingAccountV1 implements BankingAccount {
     }
 
     @Override
-    @ApiModelProperty(value = "Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed")
+    @ApiModelProperty(value = "Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then `true` is assumed.")
     public Boolean getIsOwned() {
         return isOwned;
     }
@@ -148,7 +151,7 @@ public class BankingAccountV1 implements BankingAccount {
     }
 
     @Override
-    @ApiModelProperty(required = true, value = "A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number")
+    @ApiModelProperty(required = true, value = "A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number.")
     public String getMaskedNumber() {
         return maskedNumber;
     }
@@ -163,7 +166,7 @@ public class BankingAccountV1 implements BankingAccount {
     }
 
     @Override
-    @ApiModelProperty(value = "A customer supplied nick name for the account")
+    @ApiModelProperty(value = "A customer supplied nickname for the account.")
     public String getNickname() {
         return nickname;
     }
@@ -172,13 +175,14 @@ public class BankingAccountV1 implements BankingAccount {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
     public BankingAccount openStatus(OpenStatus openStatus) {
         this.openStatus = openStatus;
         return this;
     }
 
     @Override
-    @ApiModelProperty
+    @ApiModelProperty(value = "Open or closed status for the account. If not present then `OPEN` is assumed.")
     public OpenStatus getOpenStatus() {
         return openStatus;
     }
@@ -187,6 +191,7 @@ public class BankingAccountV1 implements BankingAccount {
     public void setOpenStatus(OpenStatus openStatus) {
         this.openStatus = openStatus;
     }
+
     public BankingAccount productCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
         return this;
@@ -202,13 +207,14 @@ public class BankingAccountV1 implements BankingAccount {
     public void setProductCategory(BankingProductCategory productCategory) {
         this.productCategory = productCategory;
     }
+
     public BankingAccount productName(String productName) {
         this.productName = productName;
         return this;
     }
 
     @Override
-    @ApiModelProperty(required = true, value = "The unique identifier of the account as defined by the account holder (akin to model number for the account)")
+    @ApiModelProperty(required = true, value = "The unique identifier of the account as defined by the data holder (akin to model number for the account).")
     public String getProductName() {
         return productName;
     }

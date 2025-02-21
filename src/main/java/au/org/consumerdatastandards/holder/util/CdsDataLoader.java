@@ -14,8 +14,8 @@ import au.org.consumerdatastandards.holder.model.banking.BankingDirectDebit;
 import au.org.consumerdatastandards.holder.model.banking.BankingPayeeDetailV2;
 import au.org.consumerdatastandards.holder.model.banking.BankingProductDetailV4;
 import au.org.consumerdatastandards.holder.model.banking.BankingScheduledPaymentV2;
-import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetail;
-import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV3;
+import au.org.consumerdatastandards.holder.model.banking.BankingTransactionDetailV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyAccountDetailV4;
 import au.org.consumerdatastandards.holder.model.energy.EnergyAccountV2;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBalanceListResponseDataBalances;
 import au.org.consumerdatastandards.holder.model.energy.EnergyBillingTransactionV3;
@@ -23,7 +23,7 @@ import au.org.consumerdatastandards.holder.model.energy.EnergyConcession;
 import au.org.consumerdatastandards.holder.model.energy.EnergyDerRecord;
 import au.org.consumerdatastandards.holder.model.energy.EnergyInvoice;
 import au.org.consumerdatastandards.holder.model.energy.EnergyPaymentSchedule;
-import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV2;
+import au.org.consumerdatastandards.holder.model.energy.EnergyPlanDetailV3;
 import au.org.consumerdatastandards.holder.model.energy.EnergyServicePointDetail;
 import au.org.consumerdatastandards.holder.model.energy.EnergyUsageRead;
 import au.org.consumerdatastandards.holder.repository.CommonOrganisationRepository;
@@ -38,14 +38,14 @@ import au.org.consumerdatastandards.holder.repository.banking.BankingDirectDebit
 import au.org.consumerdatastandards.holder.repository.banking.BankingPayeeDetailRepositoryV2;
 import au.org.consumerdatastandards.holder.repository.banking.BankingProductDetailV4Repository;
 import au.org.consumerdatastandards.holder.repository.banking.BankingScheduledPaymentRepositoryV2;
-import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailRepository;
+import au.org.consumerdatastandards.holder.repository.banking.BankingTransactionDetailV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountBalanceRepository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV3Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountDetailV4Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyAccountV2Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyBillingTransactionV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyDerRecordRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyInvoiceRepository;
-import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV2Repository;
+import au.org.consumerdatastandards.holder.repository.energy.EnergyPlanDetailV3Repository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyServicePointDetailRepository;
 import au.org.consumerdatastandards.holder.repository.energy.EnergyUsageRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -83,7 +83,7 @@ public class CdsDataLoader implements ApplicationRunner {
     private final BankingAccountRepositoryV2 accountRepository;
     private final BankingBalanceRepository balanceRepository;
     private final CommonPersonDetailRepository commonPersonDetailRepository;
-    private final BankingTransactionDetailRepository transactionDetailRepository;
+    private final BankingTransactionDetailV2Repository transactionDetailRepository;
     private final BankingDirectDebitRepository directDebitRepository;
     private final BankingAuthorisedEntityRepository authorisedEntityRepository;
     private final BankingPayeeDetailRepositoryV2 payeeDetailRepository;
@@ -95,11 +95,11 @@ public class CdsDataLoader implements ApplicationRunner {
 
     // Energy repositories
     private final EnergyAccountV2Repository energyAccountV2Repository;
-    private final EnergyAccountDetailV3Repository energyAccountDetailV3Repository;
+    private final EnergyAccountDetailV4Repository energyAccountDetailRepository;
     private final EnergyAccountBalanceRepository energyAccountBalanceRepository;
     private final EnergyInvoiceRepository energyInvoiceRepository;
     private final EnergyBillingTransactionV3Repository energyBillingTransactionRepository;
-    private final EnergyPlanDetailV2Repository energyPlanDetailV2Repository;
+    private final EnergyPlanDetailV3Repository energyPlanDetailRepository;
     private final EnergyServicePointDetailRepository energyServicePointRepository;
     private final EnergyUsageRepository energyUsageRepository;
     private final EnergyDerRecordRepository energyDerRecordRepository;
@@ -114,17 +114,17 @@ public class CdsDataLoader implements ApplicationRunner {
                          BankingAccountRepositoryV2 accountRepository,
                          BankingBalanceRepository balanceRepository,
                          CommonPersonDetailRepository commonPersonDetailRepository,
-                         BankingTransactionDetailRepository transactionDetailRepository,
+                         BankingTransactionDetailV2Repository transactionDetailRepository,
                          BankingDirectDebitRepository directDebitRepository,
                          BankingAuthorisedEntityRepository authorisedEntityRepository,
                          BankingPayeeDetailRepositoryV2 payeeDetailRepository,
                          BankingScheduledPaymentRepositoryV2 scheduledPaymentRepository,
                          EnergyAccountV2Repository energyAccountV2Repository,
-                         EnergyAccountDetailV3Repository energyAccountDetailV3Repository,
+                         EnergyAccountDetailV4Repository energyAccountDetailRepository,
                          EnergyAccountBalanceRepository energyAccountBalanceRepository,
                          EnergyInvoiceRepository energyInvoiceRepository,
                          EnergyBillingTransactionV3Repository energyBillingTransactionRepository,
-                         EnergyPlanDetailV2Repository energyPlanDetailV2Repository,
+                         EnergyPlanDetailV3Repository energyPlanDetailRepository,
                          EnergyServicePointDetailRepository energyServicePointRepository,
                          EnergyUsageRepository energyUsageRepository,
                          EnergyDerRecordRepository energyDerRecordRepository,
@@ -142,11 +142,11 @@ public class CdsDataLoader implements ApplicationRunner {
         this.payeeDetailRepository = payeeDetailRepository;
         this.scheduledPaymentRepository = scheduledPaymentRepository;
         this.energyAccountV2Repository = energyAccountV2Repository;
-        this.energyAccountDetailV3Repository = energyAccountDetailV3Repository;
+        this.energyAccountDetailRepository = energyAccountDetailRepository;
         this.energyAccountBalanceRepository = energyAccountBalanceRepository;
         this.energyInvoiceRepository = energyInvoiceRepository;
         this.energyBillingTransactionRepository = energyBillingTransactionRepository;
-        this.energyPlanDetailV2Repository = energyPlanDetailV2Repository;
+        this.energyPlanDetailRepository = energyPlanDetailRepository;
         this.energyServicePointRepository = energyServicePointRepository;
         this.energyUsageRepository = energyUsageRepository;
         this.energyDerRecordRepository = energyDerRecordRepository;
@@ -166,10 +166,10 @@ public class CdsDataLoader implements ApplicationRunner {
             load("payloads/banking/balances", balanceRepository, BankingBalance.class);
             load("payloads/banking/persons", commonPersonDetailRepository, CommonPersonDetail.class);
             load("payloads/banking/products", productDetailRepository, BankingProductDetailV4.class);
-            load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetail.class);
+            load("payloads/banking/transactions", transactionDetailRepository, BankingTransactionDetailV2.class);
 
             // Energy
-            load("payloads/energy/plans", energyPlanDetailV2Repository, EnergyPlanDetailV2.class);
+            load("payloads/energy/plans", energyPlanDetailRepository, EnergyPlanDetailV3.class);
             load("payloads/energy/accounts", energyAccountV2Repository, EnergyAccountV2.class);
         } else {
             String url = testdata.get(0);
@@ -204,7 +204,7 @@ public class CdsDataLoader implements ApplicationRunner {
                 // Load transactions
                 LOGGER.info("Loading transaction of account: {}", account.getAccountId());
                 for (JsonNode invoiceEl : accountEl.path("transactions")) {
-                    BankingTransactionDetail transaction = objectMapper.treeToValue(invoiceEl, BankingTransactionDetail.class);
+                    BankingTransactionDetailV2 transaction = objectMapper.treeToValue(invoiceEl, BankingTransactionDetailV2.class);
                     transaction.setAccountId(account.getAccountId());
                     transactionDetailRepository.save(transaction);
                 }
@@ -258,9 +258,9 @@ public class CdsDataLoader implements ApplicationRunner {
 
         // Load plans
         for (JsonNode planJson : holder.at("/holder/unauthenticated/energy/plans")) {
-            EnergyPlanDetailV2 plan = objectMapper.treeToValue(planJson, EnergyPlanDetailV2.class);
+            EnergyPlanDetailV3 plan = objectMapper.treeToValue(planJson, EnergyPlanDetailV3.class);
             LOGGER.info("Loading plan: {}", plan.getPlanId());
-            energyPlanDetailV2Repository.save(plan);
+            energyPlanDetailRepository.save(plan);
         }
 
         for (JsonNode customer : holder.at("/holder/authenticated/customers")) {
@@ -268,7 +268,7 @@ public class CdsDataLoader implements ApplicationRunner {
 
             // Load accounts
             for (JsonNode accountEl : customer.at("/energy/accounts")) {
-                EnergyAccountDetailV3 account = objectMapper.treeToValue(accountEl.path("account"), EnergyAccountDetailV3.class);
+                EnergyAccountDetailV4 account = objectMapper.treeToValue(accountEl.path("account"), EnergyAccountDetailV4.class);
                 LOGGER.info("Loading account: {}", account.getAccountId());
 
                 // Load invoices
@@ -301,7 +301,7 @@ public class CdsDataLoader implements ApplicationRunner {
                     account.setPaymentSchedules(Arrays.asList(paymentSchedules));
                 }
 
-                energyAccountDetailV3Repository.save(account);
+                energyAccountDetailRepository.save(account);
 
                 // Load account balance
                 LOGGER.info("Loading balance of account: {}", account.getAccountId());

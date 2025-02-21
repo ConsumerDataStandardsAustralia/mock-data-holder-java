@@ -21,7 +21,7 @@ public class TelcoBillingOtherTransaction {
     private String endDate;
 
     /**
-     * Type of charge. Assumed to be OTHER if absent
+     * Type of charge. Assumed to be `OTHER` if absent.
      */
     public enum TypeEnum {
         SERVICE,
@@ -46,11 +46,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * The service identifier to which this transaction applies if any. E.g a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements
+     * The service identifier to which this transaction applies if any. E.g a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.
      *
      * @return serviceId
      */
-    @ApiModelProperty(value = "The service identifier to which this transaction applies if any. E.g a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements")
+    @ApiModelProperty(value = "The service identifier to which this transaction applies if any. E.g a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirements.")
     public String getServiceId() {
         return serviceId;
     }
@@ -65,11 +65,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * The number of the invoice in which this transaction is included if it has been issued
+     * The number of the invoice in which this transaction is included if it has been issued.
      *
      * @return invoiceNumber
      */
-    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued")
+    @ApiModelProperty(value = "The number of the invoice in which this transaction is included if it has been issued.")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -84,11 +84,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Optional start date for the application of the charge
+     * Optional start date for the application of the charge.
      *
      * @return startDate
      */
-    @ApiModelProperty(value = "Optional start date for the application of the charge")
+    @ApiModelProperty(value = "Optional start date for the application of the charge.")
     public String getStartDate() {
         return startDate;
     }
@@ -103,11 +103,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Optional end date for the application of the charge
+     * Optional end date for the application of the charge.
      *
      * @return endDate
      */
-    @ApiModelProperty(value = "Optional end date for the application of the charge")
+    @ApiModelProperty(value = "Optional end date for the application of the charge.")
     public String getEndDate() {
         return endDate;
     }
@@ -122,11 +122,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Type of charge. Assumed to be OTHER if absent
+     * Type of charge. Assumed to be `OTHER` if absent.
      *
      * @return type
      */
-    @ApiModelProperty(value = "Type of charge. Assumed to be OTHER if absent")
+    @ApiModelProperty(value = "Type of charge. Assumed to be `OTHER` if absent.")
     public TypeEnum getType() {
         return type;
     }
@@ -141,11 +141,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * The amount of the charge
+     * The amount of the charge.
      *
      * @return amount
      */
-    @ApiModelProperty(required = true, value = "The amount of the charge")
+    @ApiModelProperty(required = true, value = "The amount of the charge.")
     @NotNull
     public String getAmount() {
         return amount;
@@ -161,11 +161,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * A free text description of the item
+     * A free text description of the item.
      *
      * @return description
      */
-    @ApiModelProperty(required = true, value = "A free text description of the item")
+    @ApiModelProperty(required = true, value = "A free text description of the item.")
     @NotNull
     public String getDescription() {
         return description;
@@ -189,11 +189,11 @@ public class TelcoBillingOtherTransaction {
     }
 
     /**
-     * Optional array of adjustments arising for this transaction
+     * Optional array of adjustments arising for this transaction.
      *
      * @return adjustments
      */
-    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction")
+    @ApiModelProperty(value = "Optional array of adjustments arising for this transaction.")
     @Valid
     public List<TelcoBillingAccountTransactionAdjustments> getAdjustments() {
         return adjustments;

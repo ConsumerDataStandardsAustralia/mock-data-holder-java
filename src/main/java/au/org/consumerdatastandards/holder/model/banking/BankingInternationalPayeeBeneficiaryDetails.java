@@ -21,17 +21,17 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
     private String id;
 
     /**
-     * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+     * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code.
      */
     private String country;
 
     /**
-     * Response message for the payment
+     * Response message for the payment.
      */
     private String message;
 
     /**
-     * Name of the beneficiary
+     * Name of the beneficiary.
      */
     private String name;
 
@@ -48,7 +48,7 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
         return this;
     }
 
-    @ApiModelProperty(required = true, value = "Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code")
+    @ApiModelProperty(required = true, value = "Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code.")
     public String getCountry() {
         return country;
     }
@@ -61,7 +61,7 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "Response message for the payment")
+    @ApiModelProperty(value = "Response message for the payment.")
     public String getMessage() {
         return message;
     }
@@ -75,7 +75,7 @@ public class BankingInternationalPayeeBeneficiaryDetails  {
         return this;
     }
 
-    @ApiModelProperty(value = "Name of the beneficiary")
+    @ApiModelProperty(value = "Name of the beneficiary.")
     public String getName() {
         return name;
     }
