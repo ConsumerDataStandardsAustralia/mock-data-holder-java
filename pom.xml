@@ -255,7 +255,7 @@
 					<releaseProfiles>release</releaseProfiles>
 					<goals>deploy</goals>
 					<!--suppress UnresolvedMavenProperty -->
-					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+					<arguments>-Dgpg.passphrase=${pgp.passphrase}</arguments>
 				</configuration>
 			</plugin>
         </plugins>
